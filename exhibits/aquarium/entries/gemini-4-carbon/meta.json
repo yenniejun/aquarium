@@ -3,5 +3,17 @@
   "provider": "Google",
   "modelId": "gemini-4-carbon",
   "openWeights": false,
-  "status": "dummy"
+  "status": "final",
+  "title": "Pondering Prism-Puffer",
+  "statement": "Through a translucent geometric carapace, this inquisitive little puffer's crystalline heart spins and shifts hue with every passing thought—gold for drifting plankton, aqua for glowing geodes, and warm rose for curious visitors. When particularly delighted by a discovery, itcelebrates by puffing a shimmering, iridescent bubble ring toward the surface.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 3
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

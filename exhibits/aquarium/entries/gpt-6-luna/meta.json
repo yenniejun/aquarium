@@ -4,14 +4,14 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "Wobblewick Seahorse",
-  "statement": "A shy little seahorse with a curled tail, a fan like a paper lantern, and a pocketful of pearly glimmers. It drifts through its quiet garden as if it has all the time in the tide.",
+  "title": "Puddlewing Puffer",
+  "statement": "This soft little drifter fans the water with opal fins and carries a lantern that glows brighter whenever it dreams. It spends its quiet days turning the garden into a slow dance of light.",
   "generation": {
     "date": "2026-11-13",
     "via": "OpenAI Chat Completions API",
     "params": {
-      "max_tokens": 32000,
-      "promptVersion": 2
+      "max_tokens": 64000,
+      "promptVersion": 3
     },
     "attempts": 1,
     "edits": "none"
