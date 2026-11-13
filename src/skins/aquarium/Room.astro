@@ -1,6 +1,8 @@
 ---
 import type { Exhibit, PieceView } from '../../lib/exhibits';
 import Frame from './Frame.astro';
+import TypePicker from './TypePicker.astro';
+import './type-themes.css';
 
 interface Props {
   exhibit: Exhibit;
@@ -13,19 +15,26 @@ const { exhibit, pieces } = Astro.props;
 <div class="room">
   <div class="rays" aria-hidden="true"></div>
   <div class="motes" aria-hidden="true"></div>
-  <h1>{exhibit.title}</h1>
-  <div class="stage">
-    <ol class="pieces" data-pieces>
-      {
-        pieces.map((piece, i) => (
-          <li data-piece={piece.id} style={`--i: ${i}`}>
-            <Frame piece={piece} />
-          </li>
-        ))
-      }
-    </ol>
-  </div>
+  {/* The first screen: title, all the tanks, and one line of help. Everything else scrolls below. */}
+  <section class="screen">
+    <h1>{exhibit.title}</h1>
+    <div class="stage">
+      <ol class="pieces" data-pieces>
+        {
+          pieces.map((piece, i) => (
+            <li data-piece={piece.id} style={`--i: ${i}`}>
+              <Frame piece={piece} />
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+    <div class="below">
+      <slot />
+    </div>
+  </section>
 </div>
+{import.meta.env.DEV && <TypePicker />}
 
 <style>
   :global(body[data-skin='aquarium']) {
@@ -36,58 +45,45 @@ const { exhibit, pieces } = Astro.props;
     --rule: rgba(140, 200, 240, 0.25);
     background:
       radial-gradient(110% 60% at 50% -5%, #1c5d90 0%, #0c2d50 40%, transparent 80%),
-      linear-gradient(#071a2e, #03101e 60%);
+      linear-gradient(#071a2e 0, #03101e 100vh);
   }
 
-  /* Fit mode: header, room and footer share exactly one screen, and the tanks size
-     themselves from whatever space is left (see --tank below). */
-  :global(body[data-skin='aquarium']) {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    height: 100vh;
-    height: 100svh;
-  }
-
-  :global(body[data-skin='aquarium'] main) {
-    display: grid;
-    min-height: 0;
-  }
-
-  /* The site header floats over the room so the title can share its row. */
+  /* The site header floats over the first screen so the title can share its row. */
   :global(body[data-skin='aquarium'] .site-header) {
     position: absolute;
     inset: 0 0 auto;
   }
 
-  :global(body[data-skin='aquarium'] main) {
-    grid-row: 2;
-  }
-
-  :global(body[data-skin='aquarium'] .site-footer) {
-    grid-row: 3;
-  }
-
-  :global(body[data-skin='aquarium'] .site-footer) {
-    padding: 0.4rem 1rem 0.9rem;
-    font-size: 0.68rem;
+  :global(body[data-skin='aquarium'] .wordmark) {
+    font-family: var(--wordmark-font);
   }
 
   .room {
     position: relative;
     isolation: isolate;
-    overflow: hidden;
+    overflow-x: clip; /* the light rays are wider than the page */
+  }
+
+  .screen {
     display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    min-height: 0;
-    padding: 0 clamp(1rem, 3vw, 2rem) 0.75rem;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    height: 100vh;
+    height: 100svh;
+    padding: 0 clamp(1rem, 3vw, 2rem);
   }
 
   h1 {
-    margin: 0.6rem 0 clamp(0.8rem, 2.5vh, 1.4rem);
+    margin: 0.55rem 0 clamp(0.8rem, 2.5vh, 1.4rem);
     text-align: center;
-    font: 700 clamp(1.6rem, 3.2vw, 2.4rem) / 1 'Fraunces', serif;
-    letter-spacing: -0.02em;
-    text-shadow: 0 0 30px rgba(111, 214, 245, 0.35);
+    font-family: var(--title-font);
+    font-weight: var(--title-weight);
+    font-style: var(--title-style);
+    text-transform: var(--title-transform);
+    letter-spacing: var(--title-spacing);
+    font-size: calc(clamp(1.6rem, 3.2vw, 2.4rem) * var(--title-scale));
+    line-height: 1.1;
+    color: var(--title-color, var(--ink));
+    text-shadow: var(--title-glow);
   }
 
   .stage {
@@ -97,44 +93,62 @@ const { exhibit, pieces } = Astro.props;
     place-items: center;
   }
 
-  /* Each tank is a square of side --tank plus fixed chrome (hood, rim, cabinet) underneath.
-     Pick the largest --tank that fits --cols x --rows of them in the stage. */
+  /* Tanks are --ratio wide (4:3) and --tank-h tall, plus fixed --chrome underneath (hood, rim,
+     cabinet). Pick the largest --tank-h that fits --cols x --rows tanks in the stage. */
   .pieces {
     --cols: 3;
     --rows: 2;
-    --gap-x: clamp(1rem, 2.5vw, 2.5rem);
-    --gap-y: clamp(1.4rem, 3.5vh, 2.5rem);
-    --chrome: 82px;
-    --tank: min(
-      (100cqw - (var(--cols) - 1) * var(--gap-x)) / var(--cols),
+    --ratio: 1.3333;
+    --gap-x: clamp(1rem, 2.2vw, 2.25rem);
+    --gap-y: clamp(1.4rem, 3.5vh, 2.4rem);
+    --chrome: 66px;
+    --tank-h: min(
+      (100cqw - (var(--cols) - 1) * var(--gap-x)) / var(--cols) / var(--ratio),
       (100cqh - (var(--rows) - 1) * var(--gap-y)) / var(--rows) - var(--chrome),
-      440px
+      330px
     );
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(var(--cols), var(--tank));
+    grid-template-columns: repeat(var(--cols), calc(var(--tank-h) * var(--ratio)));
     gap: var(--gap-y) var(--gap-x);
   }
 
-  /* Tall screens fit more tank in 2 columns x 3 rows. */
-  @media (max-aspect-ratio: 2/3) {
+  /* Portrait screens fit more tank in 2 columns x 3 rows. */
+  @media (max-aspect-ratio: 9/10) {
     .pieces {
       --cols: 2;
       --rows: 3;
     }
   }
 
+  .below {
+    padding: 0.7rem 0 0.9rem;
+    text-align: center;
+    font: 400 0.7rem/1.5 'IBM Plex Mono', monospace;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .below :global(a) {
+    color: var(--ink);
+    text-underline-offset: 3px;
+    text-decoration-color: var(--rule);
+  }
+
+  .below :global(a:hover) {
+    text-decoration-color: var(--accent);
+  }
+
   /* Phones and short windows: stop fitting to the screen and just scroll. */
   @media (max-width: 699px), (max-height: 519px) {
-    :global(body[data-skin='aquarium']) {
-      display: flex;
-      height: auto;
-    }
-
     :global(body[data-skin='aquarium'] .site-header) {
       position: static;
+    }
+
+    .screen {
+      height: auto;
     }
 
     h1 {
@@ -147,21 +161,22 @@ const { exhibit, pieces } = Astro.props;
 
     .pieces {
       --cols: 2;
-      --tank: min((100cqw - var(--gap-x)) / 2, 440px);
+      --tank-h: calc((100cqw - var(--gap-x)) / 2 / var(--ratio));
     }
   }
 
   @media (max-width: 699px) and (orientation: landscape), (max-height: 519px) and (orientation: landscape) {
     .pieces {
       --cols: 3;
-      --tank: min((100cqw - 2 * var(--gap-x)) / 3, 440px);
+      --tank-h: calc((100cqw - 2 * var(--gap-x)) / 3 / var(--ratio));
     }
   }
 
   /* Light coming down through the water. */
   .rays {
     position: absolute;
-    inset: -10% -20% 35%;
+    inset: -10% -20% auto;
+    height: 70vh;
     z-index: -1;
     pointer-events: none;
     background: repeating-linear-gradient(

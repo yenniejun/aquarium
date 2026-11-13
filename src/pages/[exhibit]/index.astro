@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Methodology from '../../components/Methodology.astro';
 import { getExhibits, getPieces, toView, type Exhibit } from '../../lib/exhibits';
 import { href } from '../../lib/url';
 import { skins } from '../../skins';
@@ -21,18 +22,18 @@ const blind = exhibit.mode === 'blind';
     data-state={blind ? 'voting' : 'revealed'}
     data-reveal-url={blind ? href(`/reveal/${exhibit.slug}.json`) : undefined}
   >
-    <Room exhibit={exhibit} pieces={pieces} />
+    <Room exhibit={exhibit} pieces={pieces}>
+      {
+        blind && (
+          <span data-vote-hint data-done="Thanks for voting! Now you can see who made what.">
+            Click your favorite to find out who made what.
+          </span>
+        )
+      }{' '}
+      <a href="#methodology">How this works ↓</a>
+    </Room>
   </div>
-  <p slot="footer">
-    {exhibit.intro}{' '}
-    {
-      blind && (
-        <span data-vote-hint data-done="Thanks for voting! Now you can see who made what.">
-          Click your favorite to find out who made what.
-        </span>
-      )
-    }
-  </p>
+  <Methodology exhibit={exhibit} />
 </Base>
 
 <script>

@@ -69,7 +69,9 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 
 ## The aquarium page
 
-- **One screen.** Header, title, six tanks and a two-line footer share exactly one viewport. `--tank` (in `skins/aquarium/Room.astro`) is the largest square that fits 3×2 tanks plus their fixed chrome in the space left over, measured with container query units. Very tall screens switch to 2×3. Phones and short windows fall back to a scrolling 2-column grid.
+- **One screen.** The title, six tanks and a one-line hint fill exactly the first screen. Tanks are 4:3, and `--tank-h` (in `skins/aquarium/Room.astro`) is the largest height that fits 3×2 tanks plus their fixed chrome in the space left over, measured with container query units. Portrait screens switch to 2×3. Phones and short windows fall back to a scrolling 2-column grid.
+- **Methodology below the fold.** `src/components/Methodology.astro` (shared by all exhibits) shows the exhibit's intro and renders its `prompt.md`, with a Copy button that copies the exact text sent to the models.
+- **Type themes (temporary).** `skins/aquarium/type-themes.css` defines a few title/plaque font pairings, and a dev-only picker switches between them. Once one is chosen it becomes the default and the picker goes.
 - **Plaque = specimen name only.** Who made it and how ("Claude · SVG + JavaScript") appear only after voting.
 
 ## Blind voting (v0, client side)
@@ -94,7 +96,7 @@ Why not inline the code, or use `srcdoc`? Inlining lets pieces' CSS and globals 
 
 ## The piece contract
 
-`exhibits/aquarium/prompt.md` is the source of truth. In short: one self-contained HTML file, drawn entirely in code, optional libraries only from the three CDNs, no network, fills a square viewport from 280 to 1200px, loops forever, no self-identifying text, and respects `prefers-reduced-motion`. It also returns a placard JSON with `title` and `statement`.
+`exhibits/aquarium/prompt.md` is the source of truth. In short: one self-contained HTML file, drawn entirely in code, optional libraries only from the three CDNs, no network, fills a 4:3 tank (280–1000px wide) at any size, loops forever, doesn't depend on clicks (clicks vote), no self-identifying text, and respects `prefers-reduced-motion`. It also returns a JSON with a silly alliterative `title`, a short `medium` and a `statement`.
 
 The six dummy pieces deliberately cover the techniques models are likely to use (SVG+JS, Canvas 2D, d3 from a CDN, CSS only, pointer interaction, WebGL), and all six render through the sandbox and CSP.
 

@@ -1,0 +1,100 @@
+/* Type themes for the aquarium: the page title, the plaque names and the wordmark.
+   The default (no data-type) is the current look. Try the others with the picker
+   (dev only) or ?type=<id>. Once one is chosen, it becomes the default and the rest go. */
+
+:root {
+  --title-font: 'Fraunces', serif;
+  --title-weight: 700;
+  --title-style: normal;
+  --title-transform: none;
+  --title-spacing: -0.02em;
+  --title-scale: 1;
+  --title-glow: 0 0 30px rgba(111, 214, 245, 0.35);
+  --plaque-font: 'Fraunces', serif;
+  --plaque-weight: 600;
+  --plaque-transform: none;
+  --plaque-spacing: 0;
+  --plaque-scale: 1;
+  --wordmark-font: 'Fraunces', serif;
+}
+
+/* Engraved: classical capitals, like a carved museum plaque. */
+:root[data-type='engraved'] {
+  --title-font: 'Cinzel', serif;
+  --title-weight: 700;
+  --title-transform: uppercase;
+  --title-spacing: 0.08em;
+  --title-scale: 0.9;
+  --plaque-font: 'Cinzel', serif;
+  --plaque-weight: 700;
+  --plaque-transform: uppercase;
+  --plaque-spacing: 0.06em;
+  --plaque-scale: 0.88;
+  --wordmark-font: 'Cinzel', serif;
+}
+
+/* Bubbly: soft and rounded, to match the silly names. */
+:root[data-type='bubbly'] {
+  --title-font: 'Fredoka', sans-serif;
+  --title-weight: 600;
+  --title-spacing: 0;
+  --title-scale: 1.05;
+  --plaque-font: 'Fredoka', sans-serif;
+  --plaque-weight: 600;
+  --plaque-scale: 1.02;
+  --wordmark-font: 'Fredoka', sans-serif;
+}
+
+/* Deco: 1930s public-aquarium signage. */
+:root[data-type='deco'] {
+  --title-font: 'Limelight', serif;
+  --title-weight: 400;
+  --title-spacing: 0.02em;
+  --title-scale: 1;
+  --plaque-font: 'Josefin Sans', sans-serif;
+  --plaque-weight: 700;
+  --plaque-transform: uppercase;
+  --plaque-spacing: 0.1em;
+  --plaque-scale: 0.82;
+  --wordmark-font: 'Josefin Sans', sans-serif;
+}
+
+/* Specimen: an old naturalist's book, with typewritten specimen labels. */
+:root[data-type='specimen'] {
+  --title-font: 'IM Fell English', serif;
+  --title-weight: 400;
+  --title-style: italic;
+  --title-spacing: 0;
+  --title-scale: 1.1;
+  --plaque-font: 'Special Elite', monospace;
+  --plaque-weight: 400;
+  --plaque-scale: 0.9;
+  --wordmark-font: 'IM Fell English', serif;
+}
+
+/* Neon: a glowing tube sign over the tanks. */
+:root[data-type='neon'] {
+  --title-font: 'Monoton', sans-serif;
+  --title-weight: 400;
+  --title-spacing: 0.04em;
+  --title-scale: 0.95;
+  --title-color: #eaffff;
+  --title-glow: 0 0 4px #fff, 0 0 12px #63f2ff, 0 0 28px #1ad1ff, 0 0 52px #1ad1ff;
+  --plaque-font: 'Righteous', sans-serif;
+  --plaque-weight: 400;
+  --plaque-scale: 0.98;
+  --wordmark-font: 'Righteous', sans-serif;
+}
+
+/* Modern: a contemporary museum's clean grotesk. */
+:root[data-type='modern'] {
+  --title-font: 'Syne', sans-serif;
+  --title-weight: 800;
+  --title-spacing: -0.03em;
+  --title-scale: 1.05;
+  --plaque-font: 'Space Grotesk', sans-serif;
+  --plaque-weight: 600;
+  --plaque-spacing: -0.01em;
+  --plaque-scale: 0.95;
+  --wordmark-font: 'Syne', sans-serif;
+}

@@ -1,0 +1,159 @@
+---
+import type { Exhibit } from '../lib/exhibits';
+import { getPrompt } from '../lib/exhibits';
+
+interface Props {
+  exhibit: Exhibit;
+}
+
+const { exhibit } = Astro.props;
+const prompt = getPrompt(exhibit);
+---
+
+<section id="methodology" class="methodology">
+  <h2>Methodology</h2>
+  <div class="about">
+    {exhibit.intro && <p>{exhibit.intro}</p>}
+    <p>
+      Every model gets exactly the same prompt, shown below, and every piece is the code that model wrote, running live
+      in its own sandbox.
+      {exhibit.mode === 'blind' && ' Tanks are shuffled and unlabeled. Click your favorite to vote, and only then see who made what.'}
+    </p>
+  </div>
+
+  {
+    prompt && (
+      <figure class="prompt">
+        <figcaption>
+          <span>The prompt · v{exhibit.promptVersion}</span>
+          <button type="button" data-copy={prompt.text}>
+            Copy
+          </button>
+        </figcaption>
+        <div class="prompt-body">
+          <prompt.Content />
+        </div>
+      </figure>
+    )
+  }
+</section>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy!);
+        button.textContent = 'Copied';
+      } catch {
+        button.textContent = 'Copy failed';
+      }
+      setTimeout(() => (button.textContent = 'Copy'), 1600);
+    });
+  }
+</script>
+
+<style>
+  .methodology {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: clamp(3rem, 8vh, 5rem) 1.25rem 2rem;
+  }
+
+  h2 {
+    margin: 0 0 1rem;
+    font-family: var(--title-font, 'Fraunces', serif);
+    font-weight: var(--title-weight, 700);
+    font-style: var(--title-style, normal);
+    text-transform: var(--title-transform, none);
+    letter-spacing: var(--title-spacing, -0.01em);
+    font-size: calc(1.8rem * var(--title-scale, 1));
+    line-height: 1.1;
+  }
+
+  .about p {
+    margin: 0 0 0.8rem;
+    color: var(--muted);
+  }
+
+  .prompt {
+    margin: 2rem 0 0;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+
+  figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem 0.6rem 1.1rem;
+    border-bottom: 1px solid var(--rule);
+    font: 600 0.68rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  figcaption button {
+    appearance: none;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--rule);
+    border-radius: 99px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+  }
+
+  figcaption button:hover {
+    border-color: var(--accent);
+  }
+
+  .prompt-body {
+    padding: 0.4rem 1.4rem 1.2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .prompt-body :global(h2) {
+    margin: 1.4rem 0 0.5rem;
+    font: 600 0.72rem/1.2 'IBM Plex Mono', monospace;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .prompt-body :global(p),
+  .prompt-body :global(li) {
+    color: var(--ink);
+  }
+
+  .prompt-body :global(ul),
+  .prompt-body :global(ol) {
+    padding-left: 1.2rem;
+  }
+
+  .prompt-body :global(li) {
+    margin: 0.3rem 0;
+  }
+
+  .prompt-body :global(code) {
+    font: 0.85em 'IBM Plex Mono', monospace;
+  }
+
+  .prompt-body :global(:not(pre) > code) {
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .prompt-body :global(pre) {
+    padding: 0.9rem 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+</style>
