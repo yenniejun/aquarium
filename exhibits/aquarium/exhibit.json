@@ -8,6 +8,6 @@
   "pieceLabel": "Tank",
   "promptVersion": 3,
   "lineup": [
-    "claude-sonnet", "claude-fable", "gpt-6-1-sol", "gpt-6-luna", "gemini-4-hydrogen", "muse-wonder", "qwen", "glm", "deepseek", "kimi", "grok", "gemini-4-carbon"
+    "claude-sonnet", "claude-opus", "gpt-6-1-sol", "gpt-6-luna", "gemini-4-hydrogen", "muse-wonder", "qwen", "glm", "deepseek", "kimi", "grok", "gemini-4-carbon"
   ]
 }

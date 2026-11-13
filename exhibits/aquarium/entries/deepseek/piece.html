@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wobbling Wubpuff</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%; overflow: hidden;
+    background: #04141d;
+  }
+  canvas {
+    display: block; width: 100vw; height: 100vh; touch-action: pan-y;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(function () {
+  'use strict';
+
+  var canvas = document.getElementById('c');
+  var ctx = canvas.getContext('2d');
+
+  var W = 1, H = 1, DPR = 1;
+  var t = 0, last = performance.now();
+  var TAU = Math.PI * 2;
+
+  var plants = [], snow = [], bubbles = [], pebbles = [], plankton = [];
+  var bubbleTimer = 0.9;
+
+  var waterGrad = null, sandGrad = null, vignetteGrad = null;
+
+  // creature position (updated each frame, used by bubble spawner)
+  var crx = 0, cry = 0, crR = 60;
+
+  // pointer
+  var px = 0, py = 0, pActive = false, pLean = 0;
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function sandY(x) {
+    return H * 0.865
+      + Math.sin(x * 0.0090 + 1.2) * H * 0.020
+      + Math.sin(x * 0.0031 + 0.4) * H * 0.030;
+  }
+
+  /* ---------------------------------------------------------------- setup */
+
+  function build() {
+    waterGrad = ctx.createLinearGradient(0, 0, 0, H);
+    waterGrad.addColorStop(0.00, '#3396a6');
+    waterGrad.addColorStop(0.30, '#1a7083');
+    waterGrad.addColorStop(0.64, '#0d4256');
+    waterGrad.addColorStop(1.00, '#05202d');
+
+    sandGrad = ctx.createLinearGradient(0, H * 0.76, 0, H);
+    sandGrad.addColorStop(0, '#14414c');
+    sandGrad.addColorStop(1, '#071e29');
+
+    vignetteGrad = ctx.createRadialGradient(
+      W * 0.5, H * 0.47, Math.min(W, H) * 0.22,
+      W * 0.5, H * 0.47, Math.max(W, H) * 0.80
+    );
+    vignetteGrad.addColorStop(0, 'rgba(0,10,18,0)');
+    vignetteGrad.addColorStop(1, 'rgba(0,8,16,0.66)');
+
+    var unit = Math.min(H, W * 0.78);
+
+    plants = [];
+    var nPlants = 8;
+    for (var i = 0; i < nPlants; i++) {
+      var bx = W * (0.04 + 0.92 * (i / (nPlants - 1))) + rand(-W * 0.035, W * 0.035);
+      plants.push({
+        bx: bx,
+        base: sandY(bx) + 2,
+        h: unit * rand(0.20, 0.48),
+        phase: rand(0, TAU),
+        amp: rand(0.022, 0.055) * W,
+        curve: rand(-0.012, 0.012) * W,
+        wmax: Math.max(3, unit * rand(0.011, 0.030)),
+        seg: 14,
+        shade: Math.random()
+      });
+    }
+
+    pebbles = [];
+    for (var j = 0; j < 10; j++) {
+      var sx = rand(0, W);
+      pebbles.push({
+        x: sx,
+        y: sandY(sx) + rand(-H * 0.012, H * 0.030),
+        r: rand(0.010, 0.034) * unit,
+        a: rand(0, Math.PI),
+        shade: Math.random()
+      });
+    }
+
+    snow = [];
+    for (var k = 0; k < 72; k++) {
+      snow.push({
+        x: rand(0, W), y: rand(0, H),
+        r: rand(0.5, 2.2),
+        vy: rand(3, 13), vx: rand(-5, 5),
+        ph: rand(0, TAU), a: rand(0.12, 0.55)
+      });
+    }
+
+    plankton = [];
+    for (var m = 0; m < 30; m++) {
+      plankton.push({
+        x: rand(0, W), y: rand(H * 0.55, H * 0.99),
+        r: rand(0.7, 2.1), ph: rand(0, TAU), a: rand(0.25, 0.85)
+      });
+    }
+
+    bubbles.length = 0;
+  }
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, canvas.clientWidth);
+    H = Math.max(1, canvas.clientHeight);
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    build();
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+
+  /* --------------------------------------------------------------- scene */
+
+  function drawWater() {
+    ctx.fillStyle = waterGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // soft surface light
+    var g = ctx.createRadialGradient(W * 0.42, -H * 0.18, 0, W * 0.42, -H * 0.18, H * 1.15);
+    g.addColorStop(0, 'rgba(190,255,246,0.30)');
+    g.addColorStop(0.45, 'rgba(140,235,235,0.10)');
+    g.addColorStop(1, 'rgba(120,220,230,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawRays(tt) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (var i = 0; i < 5; i++) {
+      var baseX = W * (0.06 + i * 0.22) + Math.sin(tt * 0.15 + i * 1.1) * W * 0.035;
+      var sway = Math.sin(tt * 0.23 + i * 1.7) * W * 0.07;
+      var w = W * 0.075;
+      var g = ctx.createLinearGradient(baseX, 0, baseX + sway, H * 0.95);
+      g.addColorStop(0, 'rgba(160,245,240,0.085)');
+      g.addColorStop(0.45, 'rgba(130,225,230,0.038)');
+      g.addColorStop(1, 'rgba(90,180,210,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.moveTo(baseX - w * 0.30, 0);
+      ctx.lineTo(baseX + w * 0.30, 0);
+      ctx.lineTo(baseX + sway + w, H * 0.95);
+      ctx.lineTo(baseX + sway - w, H * 0.95);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawSand() {
+    ctx.beginPath();
+    ctx.moveTo(0, H);
+    for (var x = 0; x <= W + 8; x += 10) ctx.lineTo(x, sandY(x));
+    ctx.lineTo(W, H);
+    ctx.closePath();
+    ctx.fillStyle = sandGrad;
+    ctx.fill();
+
+    // rim light along the sand crest
+    ctx.beginPath();
+    for (var x2 = 0; x2 <= W + 8; x2 += 10) {
+      if (x2 === 0) ctx.moveTo(x2, sandY(x2));
+      else ctx.lineTo(x2, sandY(x2));
+    }
+    ctx.strokeStyle = 'rgba(140,235,225,0.13)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  function drawPebbles() {
+    for (var i = 0; i < pebbles.length; i++) {
+      var s = pebbles[i];
+      ctx.save();
+      ctx.translate(s.x, s.y);
+      ctx.rotate(s.a);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, s.r, s.r * 0.62, 0, 0, TAU);
+      var g = ctx.createRadialGradient(-s.r * 0.35, -s.r * 0.35, 0, 0, 0, s.r);
+      g.addColorStop(0, 'rgba(105,180,180,' + (0.28 + s.shade * 0.22) + ')');
+      g.addColorStop(1, 'rgba(10,44,58,0.80)');
+      ctx.fillStyle = g;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function drawPlants(tt) {
+    for (var p = 0; p < plants.length; p++) {
+      var pl = plants[p];
+      var N = pl.seg;
+      var xs = [], ys = [], ws = [];
+
+      for (var i = 0; i <= N; i++) {
+        var u = i / N;
+        var sway = Math.sin(tt * 0.75 + pl.phase + u * 2.4) * pl.amp * u * u
+                 + Math.sin(tt * 0.42 + pl.phase * 1.7 + u * 1.1) * pl.amp * 0.55 * u;
+        xs.push(pl.bx + sway + pl.curve * u * u);
+        ys.push(pl.base - u * pl.h);
+        ws.push(pl.wmax * Math.pow(1 - u, 0.72) * Math.min(1, u * 7 + 0.22) * 0.5);
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(xs[0] - ws[0], ys[0]);
+      for (var a = 1; a <= N; a++) ctx.lineTo(xs[a] - ws[a], ys[a]);
+      for (var b = N; b >= 0; b--) ctx.lineTo(xs[b] + ws[b], ys[b]);
+      ctx.closePath();
+
+      var g = ctx.createLinearGradient(0, pl.base, 0, pl.base - pl.h);
+      g.addColorStop(0, 'rgba(15,72,80,' + (0.80 + pl.shade * 0.18) + ')');
+      g.addColorStop(0.55, 'rgba(34,126,120,' + (0.62 + pl.shade * 0.22) + ')');
+      g.addColorStop(1, 'rgba(124,218,186,' + (0.26 + pl.shade * 0.26) + ')');
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+  }
+
+  function drawSnow(dt, tt) {
+    ctx.fillStyle = 'rgba(196,242,255,0.85)';
+    for (var i = 0; i < snow.length; i++) {
+      var s = snow[i];
+      s.y += s.vy * dt;
+      s.x += Math.sin(tt * 0.55 + s.ph) * 7 * dt + s.vx * dt;
+      if (s.y > H + 6) { s.y = -6; s.x = Math.random() * W; }
+      if (s.x < -6) s.x = W + 6;
+      else if (s.x > W + 6) s.x = -6;
+      ctx.globalAlpha = s.a;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, TAU);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawPlankton(tt) {
+    for (var i = 0; i < plankton.length; i++) {
+      var p = plankton[i];
+      var a = p.a * (0.40 + 0.60 * Math.sin(tt * 1.25 + p.ph));
+      if (a <= 0.03) continue;
+      var x = p.x + Math.sin(tt * 0.55 + p.ph * 2.1) * 5;
+      var y = p.y + Math.cos(tt * 0.42 + p.ph) * 4;
+      ctx.globalAlpha = a * 0.28;
+      ctx.fillStyle = '#8affd8';
+      ctx.beginPath(); ctx.arc(x, y, p.r * 3.0, 0, TAU); ctx.fill();
+      ctx.globalAlpha = a;
+      ctx.fillStyle = '#d6fff0';
+      ctx.beginPath(); ctx.arc(x, y, p.r, 0, TAU); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /* ------------------------------------------------------------- creature */
+
+  function bellPath(rw, rh) {
+    ctx.beginPath();
+    ctx.moveTo(-rw, 0);
+    ctx.bezierCurveTo(-rw * 1.02, -rh * 1.30, rw * 1.02, -rh * 1.30, rw, 0);
+    ctx.bezierCurveTo(rw * 0.62, rh * 0.46, -rw * 0.62, rh * 0.46, -rw, 0);
+    ctx.closePath();
+  }
+
+  function drawCreature(tt) {
+    var R = Math.min(W, H) * 0.152;
+    if (R < 18) R = Math.min(W, H) * 0.152;
+    crR = R;
+
+    var pulse = Math.sin(tt * 1.55);
+
+    var cx = W * 0.5 + Math.sin(tt * 0.37) * W * 0.075 + Math.sin(tt * 0.71 + 1.1) * W * 0.022;
+    var cy = H * 0.44 + Math.sin(tt * 0.53 + 0.7) * H * 0.065 - pulse * R * 0.05;
+
+    // gentle lean toward the pointer
+    pLean += ((pActive ? 0.12 : 0) - pLean) * 0.02;
+    if (pActive) {
+      cx += Math.max(-1, Math.min(1, (px - W * 0.5) / W)) * W * 0.09 * pLean * 8;
+      cy += Math.max(-1, Math.min(1, (py - H * 0.5) / H)) * H * 0.07 * pLean * 8;
+    }
+
+    crx = cx;
+    cry = cy;
+
+    // aura
+    var ag = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 3.6);
+    ag.addColorStop(0, 'rgba(255,178,146,0.22)');
+    ag.addColorStop(0.42, 'rgba(255,150,165,0.075)');
+    ag.addColorStop(1, 'rgba(255,140,175,0)');
+    ctx.fillStyle = ag;
+    ctx.beginPath(); ctx.arc(cx, cy, R * 3.6, 0, TAU); ctx.fill();
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(Math.sin(tt * 0.44) * 0.07);
+
+    var rw = R * (1 - pulse * 0.10);
+    var rh = R * (1 + pulse * 0.10) * 0.98;
+
+    // ---- tentacles (behind the bell) ----
+    var NT = 7;
+    ctx.lineCap = 'round';
+    for (var i = 0; i < NT; i++) {
+      var f = (i / (NT - 1)) * 2 - 1;
+      var bx = f * rw * 0.72;
+      var by = rh * 0.22 * (1 - 0.55 * f * f);
+      var len = R * (1.30 + 0.40 * Math.sin(i * 1.9 + 0.7));
+      var amp = R * 0.26 * (0.5 + 0.5 * Math.sin(i * 2.7));
+      var spd = 1.85 + i * 0.12;
+      var NSEG = 14;
+      var prevX = bx, prevY = by;
+
+      for (var k = 1; k <= NSEG; k++) {
+        var u = k / NSEG;
+        var nx = bx + Math.sin(u * 3.0 + tt * spd + i * 1.3) * amp * u * (0.35 + 0.65 * u);
+        var ny = by + u * len;
+        ctx.beginPath();
+        ctx.moveTo(prevX, prevY);
+        ctx.lineTo(nx, ny);
+        ctx.strokeStyle = 'rgba(255,200,188,' + (0.52 * (1 - 0.55 * u)).toFixed(3) + ')';
+        ctx.lineWidth = Math.max(0.35, (2.6 * (1 - u) + 0.45) * (R / 95));
+        ctx.stroke();
+        prevX = nx; prevY = ny;
+      }
+    }
+
+    // ---- bell ----
+    var bg = ctx.createRadialGradient(0, -rh * 0.45, rh * 0.05, 0, -rh * 0.20, rw * 1.10);
+    bg.addColorStop(0.00, 'rgba(255,250,236,0.93)');
+    bg.addColorStop(0.38, 'rgba(255,212,178,0.66)');
+    bg.addColorStop(0.74, 'rgba(255,166,180,0.34)');
+    bg.addColorStop(1.00, 'rgba(228,128,178,0.16)');
+
+    bellPath(rw, rh);
+    ctx.fillStyle = bg;
+    ctx.fill();
+
+    // inner membranes
+    ctx.strokeStyle = 'rgba(255,240,222,0.20)';
+    ctx.lineWidth = Math.max(0.6, R * 0.010);
+    bellPath(rw * 0.75, rh * 0.87);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,240,222,0.14)';
+    bellPath(rw * 0.49, rh * 0.70);
+    ctx.stroke();
+
+    // radial canals
+    ctx.strokeStyle = 'rgba(255,238,218,0.17)';
+    ctx.lineWidth = Math.max(0.5, R * 0.008);
+    var canals = [-1, -0.5, 0, 0.5, 1];
+    for (var c = 0; c < canals.length; c++) {
+      var q = canals[c];
+      ctx.beginPath();
+      ctx.moveTo(0, -rh * 0.86);
+      ctx.quadraticCurveTo(q * rw * 0.55, -rh * 0.42, q * rw * 0.96, -rh * 0.02);
+      ctx.stroke();
+    }
+
+    // rim
+    bellPath(rw, rh);
+    ctx.strokeStyle = 'rgba(255,246,228,0.62)';
+    ctx.lineWidth = Math.max(0.8, R * 0.014);
+    ctx.stroke();
+
+    // inner glow core
+    var coreY = -rh * 0.12;
+    var cg = ctx.createRadialGradient(0, coreY, 0, 0, coreY, rh * 0.72);
+    cg.addColorStop(0, 'rgba(255,255,244,' + (0.50 + 0.22 * Math.sin(tt * 2.2)).toFixed(3) + ')');
+    cg.addColorStop(0.34, 'rgba(255,224,175,0.32)');
+    cg.addColorStop(1, 'rgba(255,190,155,0)');
+    ctx.fillStyle = cg;
+    ctx.beginPath(); ctx.arc(0, coreY, rh * 0.72, 0, TAU); ctx.fill();
+
+    // orbiting freckles
+    for (var o = 0; o < 6; o++) {
+      var ang = tt * 0.42 + o * (TAU / 6);
+      var orad = rh * 0.52;
+      var ox = Math.cos(ang) * orad * 0.92;
+      var oy = -rh * 0.36 + Math.sin(ang) * orad * 0.34;
+      ctx.globalAlpha = 0.30 + 0.45 * (0.5 + 0.5 * Math.sin(tt * 2.0 + o));
+      ctx.fillStyle = 'rgba(255,252,235,0.95)';
+      ctx.beginPath(); ctx.arc(ox, oy, Math.max(0.7, R * 0.018), 0, TAU); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // ---- face ----
+    var blinkPh = (tt + 0.6) % 5.0;
+    var open = 1;
+    if (blinkPh > 4.72) open = Math.abs((blinkPh - 4.72) / 0.28 * 2 - 1);
+    if (open < 0.07) open = 0.07;
+
+    var eyeR = rh * 0.112;
+    for (var e = -1; e <= 1; e += 2) {
+      var ex = e * rh * 0.265;
+      var ey = -rh * 0.395;
+      ctx.beginPath();
+      ctx.ellipse(ex, ey, eyeR, eyeR * 1.05 * open, 0, 0, TAU);
+      ctx.fillStyle = 'rgba(48,33,60,0.88)';
+      ctx.fill();
+      if (open > 0.34) {
+        ctx.beginPath();
+        ctx.arc(ex - eyeR * 0.30, ey - eyeR * 0.32, eyeR * 0.36, 0, TAU);
+        ctx.fillStyle = 'rgba(255,255,255,' + (0.88 * open).toFixed(3) + ')';
+        ctx.fill();
+      }
+    }
+
+    // blush
+    for (var b2 = -1; b2 <= 1; b2 += 2) {
+      ctx.beginPath();
+      ctx.ellipse(b2 * rh * 0.47, -rh * 0.215, rh * 0.10, rh * 0.058, 0, 0, TAU);
+      ctx.fillStyle = 'rgba(255,132,152,0.26)';
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  /* -------------------------------------------------------------- bubbles */
+
+  function spawnBubbles(x, y, n) {
+    for (var i = 0; i < n; i++) {
+      bubbles.push({
+        x: x + rand(-1, 1) * Math.min(W, H) * 0.07,
+        y: y + rand(-1, 1) * Math.min(W, H) * 0.03,
+        r: rand(1.4, 4.6) * (Math.min(W, H) / 500 + 0.55),
+        vy: rand(16, 44),
+        ph: rand(0, TAU),
+        wob: rand(0.6, 1.8)
+      });
+    }
+  }
+
+  function updateBubbles(dt, tt) {
+    bubbleTimer -= dt;
+    if (bubbleTimer <= 0) {
+      bubbleTimer = rand(0.9, 2.4);
+      spawnBubbles(crx + rand(-0.35, 0.35) * crR, cry + crR * 0.30, Math.floor(rand(1, 4)));
+    }
+
+    for (var i = bubbles.length - 1; i >= 0; i--) {
+      var b = bubbles[i];
+      b.y -= b.vy * dt;
+      b.x += Math.cos(tt * 2.0 + b.ph) * b.wob * 22 * dt;
+      if (b.y < -12) { bubbles.splice(i, 1); continue; }
+
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, TAU);
+      ctx.fillStyle = 'rgba(195,244,255,0.10)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(215,250,255,0.45)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(b.x - b.r * 0.30, b.y - b.r * 0.30, b.r * 0.28, 0, TAU);
+      ctx.fillStyle = 'rgba(255,255,255,0.62)';
+      ctx.fill();
+    }
+  }
+
+  /* ----------------------------------------------------------------- loop */
+
+  function frame(now) {
+    var dt = (now - last) / 1000;
+    if (dt > 0.05) dt = 0.05;
+    if (dt < 0) dt = 0;
+    last = now;
+    t += dt;
+
+    ctx.clearRect(0, 0, W, H);
+
+    drawWater();
+    drawRays(t);
+    drawSand();
+    drawPebbles();
+    drawPlants(t);
+    drawSnow(dt, t);
+    drawCreature(t);
+    updateBubbles(dt, t);
+    drawPlankton(t);
+
+    ctx.fillStyle = vignetteGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    requestAnimationFrame(frame);
+  }
+
+  /* --------------------------------------------------------------- input */
+
+  function pointerMove(e) {
+    var rect = canvas.getBoundingClientRect();
+    px = e.clientX - rect.left;
+    py = e.clientY - rect.top;
+    pActive = true;
+  }
+  function pointerOut() { pActive = false; }
+
+  canvas.addEventListener('pointermove', pointerMove, { passive: true });
+  canvas.addEventListener('pointerleave', pointerOut, { passive: true });
+  canvas.addEventListener('pointercancel', pointerOut, { passive: true });
+
+  /* --------------------------------------------------------------- start */
+
+  resize();
+  requestAnimationFrame(function (now) {
+    last = now;
+    requestAnimationFrame(frame);
+  });
+})();
+</script>
+</body>
+</html>

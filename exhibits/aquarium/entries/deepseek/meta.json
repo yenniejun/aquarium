@@ -1,5 +1,23 @@
 {
-  "artist": "DeepSeek",
+  "artist": "DeepSeek V4.1 Flash",
   "provider": "DeepSeek",
-  "openWeights": true
+  "modelId": "deepseek/deepseek-v4.1-flash-1017",
+  "route": "OpenRouter",
+  "host": "deepseek",
+  "openWeights": true,
+  "status": "final",
+  "title": "Wobbling Wubpuff",
+  "statement": "A soft, blinking jellyfish that pulses through the water with a warm halo and a trail of curious bubbles. It leans toward visitors as if politely trying to remember their faces.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "OpenRouter (served by DeepSeek)",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 3,
+      "host": "deepseek",
+      "reasoning": "medium"
+    },
+    "attempts": 2,
+    "edits": "none"
+  }
 }

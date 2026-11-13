@@ -1,7 +1,7 @@
 // Sends an exhibit's prompt.md to the models behind the given entries and saves what comes back.
 //
 // Usage: npm run generate -- [--exhibit aquarium] [--max-tokens 64000] [--reasoning low] [--attempts 3] <entry> ...
-//   --reasoning (OpenRouter only): low, medium or high thinking effort instead of the model's default
+//   --reasoning (OpenRouter and Anthropic): low, medium or high thinking effort instead of the model's default
 //   --attempts: ask again (up to this many times) when a reply is missing its page or its name;
 //               the first complete reply is kept, and how many tries it took is recorded
 //   e.g. npm run generate -- claude-haiku claude-sonnet
@@ -156,20 +156,31 @@ async function askAnthropic(model, apiKey) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-    body: JSON.stringify({ model, max_tokens: MAX_TOKENS, stream: true, messages: [{ role: 'user', content: prompt }] }),
+    body: JSON.stringify({
+      model,
+      max_tokens: MAX_TOKENS,
+      stream: true,
+      ...(REASONING && { output_config: { effort: REASONING } }),
+      messages: [{ role: 'user', content: prompt }],
+    }),
   });
   if (!res.ok) throw new Error(`Anthropic API ${res.status}: ${await res.text()}`);
   let text = '';
   const usage = { in: 0, out: 0 };
   let stop;
-  for await (const event of sse(res)) {
-    if (event.type === 'message_start') usage.in = event.message.usage?.input_tokens ?? 0;
-    if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') text += event.delta.text;
-    if (event.type === 'message_delta') {
-      stop = event.delta.stop_reason;
-      usage.out = event.usage?.output_tokens ?? usage.out;
+  const progress = every30s(() => `${model}: ${text.length.toLocaleString()} chars of reply so far`);
+  try {
+    for await (const event of sse(res)) {
+      if (event.type === 'message_start') usage.in = event.message.usage?.input_tokens ?? 0;
+      if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') text += event.delta.text;
+      if (event.type === 'message_delta') {
+        stop = event.delta.stop_reason;
+        usage.out = event.usage?.output_tokens ?? usage.out;
+      }
+      if (event.type === 'error') throw new Error(`Anthropic API: ${event.error.message}`);
     }
-    if (event.type === 'error') throw new Error(`Anthropic API: ${event.error.message}`);
+  } finally {
+    clearInterval(progress);
   }
   return { text, usage, stop };
 }
@@ -190,11 +201,16 @@ async function askOpenAI(model, apiKey) {
   let text = '';
   const usage = { in: 0, out: 0 };
   let stop;
-  for await (const event of sse(res)) {
-    const choice = event.choices?.[0];
-    if (choice?.delta?.content) text += choice.delta.content;
-    if (choice?.finish_reason) stop = choice.finish_reason;
-    if (event.usage) [usage.in, usage.out] = [event.usage.prompt_tokens, event.usage.completion_tokens];
+  const progress = every30s(() => `${model}: ${text.length.toLocaleString()} chars of reply so far`);
+  try {
+    for await (const event of sse(res)) {
+      const choice = event.choices?.[0];
+      if (choice?.delta?.content) text += choice.delta.content;
+      if (choice?.finish_reason) stop = choice.finish_reason;
+      if (event.usage) [usage.in, usage.out] = [event.usage.prompt_tokens, event.usage.completion_tokens];
+    }
+  } finally {
+    clearInterval(progress);
   }
   return { text, usage, stop };
 }
@@ -213,11 +229,16 @@ async function askGemini(model, apiKey) {
   let text = '';
   const usage = { in: 0, out: 0 };
   let stop;
-  for await (const event of sse(res)) {
-    const candidate = event.candidates?.[0];
-    for (const part of candidate?.content?.parts ?? []) if (part.text && !part.thought) text += part.text;
-    if (candidate?.finishReason) stop = candidate.finishReason;
-    if (event.usageMetadata) [usage.in, usage.out] = [event.usageMetadata.promptTokenCount, event.usageMetadata.candidatesTokenCount];
+  const progress = every30s(() => `${model}: ${text.length.toLocaleString()} chars of reply so far`);
+  try {
+    for await (const event of sse(res)) {
+      const candidate = event.candidates?.[0];
+      for (const part of candidate?.content?.parts ?? []) if (part.text && !part.thought) text += part.text;
+      if (candidate?.finishReason) stop = candidate.finishReason;
+      if (event.usageMetadata) [usage.in, usage.out] = [event.usageMetadata.promptTokenCount, event.usageMetadata.candidatesTokenCount];
+    }
+  } finally {
+    clearInterval(progress);
   }
   return { text, usage, stop };
 }
@@ -242,11 +263,7 @@ async function askOpenRouter(model, apiKey, meta) {
   const usage = { in: 0, out: 0 };
   let stop, servedBy, cost;
   let thinking = 0;
-  // Reasoning models can think for minutes before writing; say how it's going every 30s.
-  const progress = setInterval(
-    () => console.log(`  … ${model}: ${thinking.toLocaleString()} chars of thinking, ${text.length.toLocaleString()} of reply`),
-    30_000,
-  );
+  const progress = every30s(() => `${model}: ${thinking.toLocaleString()} chars of thinking, ${text.length.toLocaleString()} of reply`);
   try {
     for await (const event of sse(res)) {
       if (event.error) throw new Error(`OpenRouter: ${event.error.message}`);
@@ -264,6 +281,11 @@ async function askOpenRouter(model, apiKey, meta) {
     clearInterval(progress);
   }
   return { text, usage, stop, servedBy, cost };
+}
+
+/** Logs a status line every 30s while a long reply streams in; clear it with clearInterval. */
+function every30s(status) {
+  return setInterval(() => console.log(`  … ${status()}`), 30_000);
 }
 
 /** Parsed JSON from each `data:` line of a server-sent event stream. */
