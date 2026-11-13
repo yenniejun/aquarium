@@ -7,6 +7,7 @@ import { join } from 'node:path';
 const NAMES = [
   'claude', 'anthropic', 'gpt', 'chatgpt', 'openai', 'gemini', 'deepmind', 'bard',
   'llama', 'meta ai', 'qwen', 'alibaba', 'deepseek', 'mistral', 'grok', 'xai', 'kimi', 'moonshot',
+  'sonnet', 'haiku', 'opus', 'gemma', 'glm', 'zhipu',
 ];
 const pattern = new RegExp(`\\b(${NAMES.join('|')})\\b`, 'gi');
 

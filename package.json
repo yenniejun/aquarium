@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check:blind": "node scripts/check-blind.mjs",
-    "check": "astro check"
+    "check": "astro check",
+    "generate": "node --env-file-if-exists=.env scripts/generate.mjs"
   },
   "dependencies": {
     "astro": "^7.4.11"

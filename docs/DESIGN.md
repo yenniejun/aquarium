@@ -72,11 +72,11 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 
 - **3×2 above the fold, 3×4 in all.** Twelve tanks in three columns. The title and the first two rows fill exactly the first screen; rows 3–4 are below it. Tanks are 4:3, and `--tank-h` (in `skins/aquarium/Room.astro`) is the largest height that fits three across and two rows (plus their fixed chrome) above the fold, from container query width units and `svh`. Any leftover height is split above row 1 and below row 2. Portrait screens and phones scroll in two columns.
 - **Empty slots.** A lineup entry with no `piece.html` shows `placeholder.html` (an empty tank) with an "Awaiting arrival" plaque. Its `<li>` gets `data-pending`, so voting keeps it at the end, unshuffled and unvotable. Right now the six newer slots (grok, mistral, kimi, glm, gemma, gpt-oss) are empty stand-ins.
-- **Welcome.** On a first visit, the "?" modal opens by itself (remembered per exhibit in `localStorage` as `museum:welcomed:<exhibit>`; `?reset` shows it again). Its About tab is the skin's Welcome, `src/skins/aquarium/Welcome.astro`: the title and two lines above a strip of water with a goldfish. Hover or tap the underlined words: "a tank" swells the waves, "one creature" makes the fish wiggle, "favorite tank" makes it leap out and flip. Fonts under consideration are compared at `/dev/fonts` (dev server only).
+- **Welcome.** On a first visit, the "?" modal opens by itself (remembered per exhibit in `localStorage` as `museum:welcomed:<exhibit>`; `?reset` shows it again). Its About tab is the skin's Welcome, `src/skins/aquarium/Welcome.astro`: the title and two lines above a strip of water with a goldfish. Hover or tap the underlined words: "a tank" swells the waves, "one creature" makes the fish wiggle, "favorite tank" makes it leap out and flip.
 - **Loading.** Each tank shows a few rising bubbles until its iframe loads, then fades the piece in. Tanks on the first screen load eagerly; empty slots load lazily. `public/_headers` lets browsers cache pieces for 5 minutes, then refresh them in the background.
 - **Menu.** `src/components/SideNav.astro`: a slim panel on the left edge (Galleries) on screens ≥1000px, and a "Menu" popover on narrower ones. Upcoming galleries come from `src/site.ts`.
 - **About ("?").** `src/components/About.astro` (shared by all exhibits): a "?" button in the top-right corner opens a fixed-size modal with two tabs: About (a skin's Welcome, or the plain title and intro) and Prompt (the exact `prompt.md` in an editor-style view with line numbers and a Copy button). The aquarium page itself is just the room: no section or footer below it.
-- **Type: Deco.** Limelight for titles, Josefin Sans caps for plaques, like 1930s public-aquarium signage.
+- **Type.** Gluten (soft and wobbly) for the title and the welcome, Josefin Sans caps on the brass plaques, IBM Plex Mono for small UI labels.
 - **Plaque = specimen name only.** Who made it and how ("Claude · SVG + JavaScript") appear only after voting.
 
 ## Blind voting (v0, client side)
@@ -117,7 +117,7 @@ The six dummy pieces deliberately cover the techniques models are likely to use 
 Static site: A(quar)I(um) with six dummy tanks and six empty ones, blind click-to-vote with a client-side reveal, and sandboxing. The lobby and the gilded-frame Modern Art Wing exist but are parked (modern-art is a draft).
 
 ### v1: real pieces
-- `scripts/generate`: send `prompt.md` to each model. OpenRouter covers the whole lineup with one API key. Save the raw response to `entries/<slug>/raw.md`, extract the HTML block to `piece.html` and the JSON to `meta.json`, and record `generation` (date, model id, params, attempts).
+- `scripts/generate.mjs` (`npm run generate -- <entry>…`, built): sends `prompt.md` to each entry's model through its provider's API (Anthropic and OpenAI so far; OpenRouter could cover the rest with one key). Saves the raw reply to `entries/<slug>/raw.md`, the HTML block to `piece.html`, and the JSON block plus a `generation` record (date, API, params) to `meta.json`.
 - Fairness rules, written down before running: default sampling settings, first response that renders wins, retry only if it fails to render (and log the attempts), no human edits except removing self-identification (logged in `generation.edits`).
 - Optional "view source" page per piece (showing the code is part of the point), plus stats like bytes, lines and libraries used.
 

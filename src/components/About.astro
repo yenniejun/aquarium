@@ -21,7 +21,7 @@ const key = `museum:welcomed:${exhibit.slug}`;
 ---
 
 <button class="about-toggle" type="button" aria-haspopup="dialog" aria-label="About this gallery">?</button>
-<dialog class="about" aria-labelledby="about-title" autofocus>
+<dialog class="about" aria-labelledby="about-title" tabindex="-1">
   <div class="bar">
     <div class="tabs" role="tablist">
       <button type="button" role="tab" id="about-tab-about" aria-controls="about-panel-about" aria-selected="true">
@@ -91,7 +91,9 @@ const key = `museum:welcomed:${exhibit.slug}`;
   try {
     if (new URLSearchParams(location.search).has('reset')) localStorage.removeItem(key);
     if (!localStorage.getItem(key)) {
-      document.currentScript.previousElementSibling.showModal();
+      const dialog = document.currentScript.previousElementSibling;
+      dialog.showModal();
+      dialog.focus(); // the modal itself, not its first tab, so no focus ring on open
       localStorage.setItem(key, '1');
     }
   } catch {}
@@ -113,6 +115,7 @@ const key = `museum:welcomed:${exhibit.slug}`;
   document.querySelector('.about-toggle')!.addEventListener('click', () => {
     select(tabs[0]);
     dialog.showModal();
+    dialog.focus();
   });
   dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
 
