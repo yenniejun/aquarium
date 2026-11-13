@@ -2,5 +2,19 @@
   "artist": "Claude Opus 5.5",
   "provider": "Anthropic",
   "modelId": "claude-opus-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Doodling Daydream Cuttlefish",
+  "statement": "A pocket-sized cuttlefish that thinks in color. Its moods ripple across its skin like passing clouds, and every so often it stops to draw glowing doodles in the water, then admires them as they fade. Wave hello and it will drift over, stripes flaring, to look you right in the eye.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 3,
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }
