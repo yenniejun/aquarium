@@ -1,0 +1,6 @@
+{
+  "artist": "Claude Fable 5.2",
+  "provider": "Anthropic",
+  "modelId": "claude-fable-5-2",
+  "openWeights": false
+}

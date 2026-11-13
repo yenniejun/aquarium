@@ -4,15 +4,14 @@
   "modelId": "gemini-4-hydrogen",
   "openWeights": false,
   "status": "final",
-  "title": "Blip-Bloop Dumbo",
-  "medium": "HTML5 Canvas + vanilla JS",
-  "statement": "A curious little dumbo octopus with a tiny swirling constellation inside its translucent dome, happiest when flapping through sunbeams and booping luminous plankton motes.",
+  "title": "Noodling Nautilus",
+  "statement": "A contemplative cephalopod that drifts through twilight kelp, blows luminous spiral bubbles, and sketches quiet curiosities into the current.",
   "generation": {
     "date": "2026-11-13",
     "via": "Gemini API",
     "params": {
-      "max_tokens": 32000,
-      "promptVersion": 1
+      "max_tokens": 64000,
+      "promptVersion": 3
     },
     "attempts": 1,
     "edits": "none"

@@ -6,8 +6,8 @@
   "host": "xai",
   "openWeights": false,
   "status": "final",
-  "title": "Blinkblink Blenny",
-  "statement": "A speckled blenny who treats the tank like a windowsill: perched, peering, then gone in a bright little dash before settling back to watch the light move.",
+  "title": "Swoop-Swoop Silkfin",
+  "statement": "Folded like a spare note and fringed in silk, the Swoop-Swoop Silkfin edits the water one unhurried lap at a time. Now and then it hovers, lantern lit, as if waiting for the right word.",
   "generation": {
     "date": "2026-11-13",
     "via": "OpenRouter (served by xAI)",
@@ -15,7 +15,7 @@
       "max_tokens": 64000,
       "promptVersion": 2,
       "host": "xai",
-      "reasoning": "low"
+      "reasoning": "medium"
     },
     "attempts": 1,
     "edits": "none"

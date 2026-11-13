@@ -1,7 +1,9 @@
 // Sends an exhibit's prompt.md to the models behind the given entries and saves what comes back.
 //
-// Usage: npm run generate -- [--exhibit aquarium] [--max-tokens 64000] [--reasoning low] <entry> ...
+// Usage: npm run generate -- [--exhibit aquarium] [--max-tokens 64000] [--reasoning low] [--attempts 3] <entry> ...
 //   --reasoning (OpenRouter only): low, medium or high thinking effort instead of the model's default
+//   --attempts: ask again (up to this many times) when a reply is missing its page or its name;
+//               the first complete reply is kept, and how many tries it took is recorded
 //   e.g. npm run generate -- claude-haiku claude-sonnet
 //
 // Each entry's meta.json says who to ask: "provider" (Anthropic, OpenAI or Google) and "modelId".
@@ -30,6 +32,7 @@ const exhibit = option('--exhibit') ?? 'aquarium';
 // Generous, since reasoning models spend part of this on thinking before they write the page.
 const MAX_TOKENS = Number(option('--max-tokens') ?? 32000);
 const REASONING = option('--reasoning');
+const ATTEMPTS = Number(option('--attempts') ?? 1);
 if (!args.length) {
   console.error('Usage: npm run generate -- [--exhibit aquarium] [--max-tokens 64000] [--reasoning low] <entry> ...');
   process.exit(1);
@@ -70,29 +73,29 @@ async function generate(slug) {
   const apiKey = process.env[provider.key];
   if (!apiKey) throw new Error(`${provider.key} isn't set (add it to .env)`);
 
-  console.log(`→ ${slug}: asking ${meta.modelId}…`);
-  const started = Date.now();
-  const { text, usage, stop, servedBy, cost } = await provider.ask(meta.modelId, apiKey, meta);
-  const seconds = Math.round((Date.now() - started) / 1000);
+  // A reply counts once it has both a page and a name for the creature.
+  let reply, html, card, seconds, attempt;
+  for (attempt = 1; ; attempt++) {
+    console.log(`→ ${slug}: asking ${meta.modelId}${ATTEMPTS > 1 ? ` (attempt ${attempt} of ${ATTEMPTS})` : ''}…`);
+    const started = Date.now();
+    reply = await provider.ask(meta.modelId, apiKey, meta);
+    seconds = Math.round((Date.now() - started) / 1000);
+    html = page(reply.text);
+    card = parseCard(block(reply.text, 'json'));
+    if (html && card.title) break;
 
-  const html = block(text, 'html');
-  const json = block(text, 'json');
-  if (!html) {
-    writeFileSync(join(entryDir, 'raw.failed.md'), text);
-    throw new Error(
-      `no html code block in the reply (stop reason: ${stop}, ${usage.out} tokens${cost != null ? `, $${cost.toFixed(4)}` : ''}); ` +
-        `see ${entryDir}/raw.failed.md`,
-    );
+    writeFileSync(join(entryDir, 'raw.failed.md'), reply.text);
+    const missing = html ? 'no name for its creature' : 'no html page';
+    const spent = `${reply.usage.out} tokens${reply.cost != null ? `, $${reply.cost.toFixed(4)}` : ''}`;
+    if (attempt >= ATTEMPTS) {
+      throw new Error(`${missing} in the reply (stop reason: ${reply.stop}, ${spent}); see ${entryDir}/raw.failed.md`);
+    }
+    console.log(`  ↻ ${slug}: ${missing} in the reply (${spent}); asking again`);
   }
+  const { text, usage, stop, servedBy, cost } = reply;
   writeFileSync(join(entryDir, 'raw.md'), text);
   writeFileSync(join(entryDir, 'piece.html'), html.trim() + '\n');
 
-  let card = {};
-  try {
-    card = json ? JSON.parse(json) : {};
-  } catch {
-    console.warn(`  ! couldn't parse the json block, so no title or statement this time`);
-  }
   const { title, medium, statement } = card;
   const updated = {
     artist: meta.artist,
@@ -114,19 +117,33 @@ async function generate(slug) {
         ...(meta.host && { host: meta.host }),
         ...(REASONING && { reasoning: REASONING }),
       },
-      attempts: 1,
+      attempts: attempt,
       edits: 'none',
     },
   };
   writeFileSync(metaFile, JSON.stringify(updated, null, 2) + '\n');
 
   console.log(
-    `✓ ${slug}: "${updated.title ?? 'untitled'}", ` +
+    `✓ ${slug}: "${updated.title}"${attempt > 1 ? ` (attempt ${attempt})` : ''}, ` +
       `${(html.length / 1024).toFixed(1)} KB of HTML, ${usage.in} in / ${usage.out} out tokens, ${seconds}s` +
       (servedBy ? `, served by ${servedBy}` : '') +
       (cost != null ? `, $${cost.toFixed(4)}` : '') +
       (stop && !['end_turn', 'stop', 'STOP'].includes(stop) ? `, stopped: ${stop}` : ''),
   );
+}
+
+/** The reply's json block as an object, or {} if it's missing or isn't valid JSON. */
+function parseCard(json) {
+  try {
+    return json ? JSON.parse(json) : {};
+  } catch {
+    return {};
+  }
+}
+
+/** The page in a reply: its ```html block or, if the model skipped the fence, a bare <html> document. */
+function page(text) {
+  return block(text, 'html') ?? text.match(/(?:<!doctype html[^>]*>\s*)?<html[\s\S]*<\/html>/i)?.[0];
 }
 
 /** The first ```lang fenced block in a reply. */

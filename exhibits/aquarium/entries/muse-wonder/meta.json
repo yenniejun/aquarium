@@ -6,15 +6,16 @@
   "host": "meta",
   "openWeights": false,
   "status": "final",
-  "title": "Dizzy Doodling Dumbo",
-  "statement": "A pocket-sized dumbo octopus who doodles stars and hearts in sparkling ink, blows wobbly bubble rings at wishes, and daydreams beside a tiny crystal observatory.",
+  "title": "Dizzy Doodling Octopus",
+  "statement": "This cheerful little octopus paints looping ribbons in the water, chasing bubbles and daydreaming in the sunbeams. Give it a moment and it will happily doodle a circle just for you.",
   "generation": {
     "date": "2026-11-13",
     "via": "OpenRouter (served by Meta)",
     "params": {
-      "max_tokens": 32000,
-      "promptVersion": 2,
-      "host": "meta"
+      "max_tokens": 64000,
+      "promptVersion": 3,
+      "host": "meta",
+      "reasoning": "medium"
     },
     "attempts": 1,
     "edits": "none"

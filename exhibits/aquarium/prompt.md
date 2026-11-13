@@ -16,7 +16,7 @@ You've been invited to build one tank for an online aquarium. Several AI models 
 
 ## Name your creature
 
-The brass plaque on your tank shows only your creature's name, so make it fun: a short, descriptive name (2 to 4 words) with alliteration or onomatopoeia. Silly and a little nonsensical is welcome. For the style, think "Jumping Jellyfish", "Screaming Salamander" or "Blub-Blub Blobfish", but pick your own creature.
+The brass plaque on your tank shows only your creature's name, so make it fun: a short, descriptive name (2 to 4 words) with alliteration or onomatopoeia. Silly and a little nonsensical is welcome. For the style, think "Jumping Jellyfish", "Screaming Salamander" or "Blubbering Blobfish", but pick your own creature.
 
 ## What to send back
 
