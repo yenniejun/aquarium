@@ -4,8 +4,8 @@
   "modelId": "gpt-6.1-sol",
   "openWeights": false,
   "status": "final",
-  "title": "Puttering Pearl Nautilus",
-  "statement": "A small connoisseur of slow currents, carrying a pearlescent spiral of tiny chambers. Below, a curl of polished pebbles quietly echoes its portable home.",
+  "title": "Pleated Puddlewing",
+  "statement": "This little sea angel wears its curiosity in translucent pleats and keeps a warm spiral of light beneath its ribs. It spends the quiet hours folding the water, then unfolding it again.",
   "generation": {
     "date": "2026-11-13",
     "via": "OpenAI Chat Completions API",
