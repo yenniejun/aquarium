@@ -1,10 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getExhibits } from '../lib/exhibits';
+import { getListedExhibits } from '../lib/exhibits';
 import { href } from '../lib/url';
 import { site } from '../site';
 
-const exhibits = getExhibits();
+const exhibits = getListedExhibits();
 const statusText = { live: 'Now open', preview: 'Preview', draft: 'Draft' } as const;
 ---
 

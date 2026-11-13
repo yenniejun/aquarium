@@ -6,49 +6,46 @@ interface Props {
 }
 
 const { piece } = Astro.props;
-const note = { pending: 'awaiting arrival', dummy: 'placeholder', final: null }[piece.status];
 ---
 
-<figure class="tank">
-  <div class="hood" aria-hidden="true"></div>
+<div class="tank" role="group" aria-label={piece.title}>
+  <div class="hood" aria-hidden="true">
+    <span class="badge">♥ your pick</span>
+  </div>
   <div class="glass">
     <iframe
       src={piece.src}
-      title={`${piece.label}: ${piece.title}`}
+      title={piece.title}
       sandbox="allow-scripts"
+      tabindex="-1"
       loading="lazy"
       referrerpolicy="no-referrer"></iframe>
-    <a class="open" href={piece.src} target="_blank" rel="noopener" aria-label={`Open ${piece.label} full size`}>⤢</a>
+    <a class="open" href={piece.src} target="_blank" rel="noopener" aria-label={`Open ${piece.title} full size`}>⤢</a>
   </div>
   <div class="rim" aria-hidden="true"></div>
-  <div class="cabinet">
-    <figcaption class="plaque">
-      <span class="label" data-label>{piece.label}</span>
-      <span class="title">{piece.title}</span>
-      <span class="artist">{piece.artist ?? '· · ·'}</span>
-    </figcaption>
-  </div>
-  {
-    (piece.medium || note) && (
-      <p class="meta">
-        {piece.medium}
-        {note && <span class="note">{note}</span>}
-      </p>
-    )
-  }
-</figure>
+  <button class="cabinet" type="button" data-vote aria-label={`Pick ${piece.title} as your favorite`}>
+    <span class="plaque">
+      <span class="name">{piece.title}</span>
+      <span class="who">
+        <span class="artist" data-artist>{piece.artist}</span>
+        <span class="medium" data-medium>{piece.medium}</span>
+      </span>
+      <span class="hint" aria-hidden="true">♥ pick this one</span>
+    </span>
+  </button>
+</div>
 
 <style>
   .tank {
-    margin: 0;
+    position: relative;
   }
 
   /* Black hood with the light strip glowing underneath it. */
   .hood {
     position: relative;
-    height: 16px;
-    margin: 0 -6px;
-    border-radius: 7px 7px 2px 2px;
+    height: 12px;
+    margin: 0 -5px;
+    border-radius: 6px 6px 2px 2px;
     background: linear-gradient(#3b414b, #15181d 70%, #0b0d10);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
   }
@@ -65,6 +62,29 @@ const note = { pending: 'awaiting arrival', dummy: 'placeholder', final: null }[
     box-shadow: 0 0 14px 4px rgba(190, 240, 255, 0.55);
   }
 
+  /* "Your pick" tag that pops up on the hood of the tank you voted for. */
+  .badge {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 4px;
+    padding: 3px 10px 4px;
+    border-radius: 99px;
+    white-space: nowrap;
+    font: 600 0.62rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #3a2709;
+    background: linear-gradient(160deg, #f6dc8c, #d9a93f);
+    box-shadow: 0 2px 10px rgba(255, 200, 90, 0.5);
+    transform: translateX(-50%) scale(0);
+    transition: transform 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+
+  :global([data-picked]) .badge {
+    transform: translateX(-50%) scale(1);
+  }
+
   .glass {
     position: relative;
     aspect-ratio: 1;
@@ -72,7 +92,15 @@ const note = { pending: 'awaiting arrival', dummy: 'placeholder', final: null }[
     background: #0a2a40;
     box-shadow:
       0 0 0 1px #05080b,
-      0 0 60px -10px rgba(90, 190, 255, 0.35);
+      0 0 50px -10px rgba(90, 190, 255, 0.35);
+    transition: box-shadow 0.4s;
+  }
+
+  :global([data-picked]) .glass {
+    box-shadow:
+      0 0 0 1px #05080b,
+      0 0 0 3px rgba(246, 220, 140, 0.8),
+      0 0 50px -6px rgba(255, 210, 110, 0.6);
   }
 
   .glass iframe {
@@ -118,13 +146,14 @@ const note = { pending: 'awaiting arrival', dummy: 'placeholder', final: null }[
   .open {
     position: absolute;
     z-index: 2;
-    top: 12px;
-    right: 12px;
+    top: 10px;
+    right: 10px;
     display: grid;
     place-items: center;
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
+    font-size: 0.85rem;
     background: rgba(3, 16, 30, 0.6);
     color: var(--ink);
     text-decoration: none;
@@ -138,20 +167,27 @@ const note = { pending: 'awaiting arrival', dummy: 'placeholder', final: null }[
   }
 
   .rim {
-    height: 11px;
-    margin: 0 -6px;
+    height: 8px;
+    margin: 0 -5px;
     border-radius: 2px 2px 3px 3px;
     background: linear-gradient(#22262c, #0b0d10);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
-  /* Wooden stand with a brass plaque. */
+  /* Wooden stand with a brass plaque. Fixed height: it's part of --chrome in Room.astro. */
   .cabinet {
+    appearance: none;
     display: grid;
     place-items: center;
-    margin: 0 3%;
-    padding: 12px 10px 16px;
+    width: 96%;
+    height: 62px;
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
     border-radius: 0 0 4px 4px;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
     background:
       linear-gradient(90deg, rgba(0, 0, 0, 0.4), transparent 9%, transparent 91%, rgba(0, 0, 0, 0.4)),
       repeating-linear-gradient(92deg, rgba(255, 220, 180, 0.025) 0 2px, transparent 2px 7px),
@@ -161,13 +197,24 @@ const note = { pending: 'awaiting arrival', dummy: 'placeholder', final: null }[
       0 24px 40px -18px rgba(0, 0, 0, 0.9);
   }
 
+  .cabinet:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  :global([data-state='revealed']) .cabinet {
+    cursor: default;
+  }
+
   .plaque {
     position: relative;
     display: grid;
+    align-content: center;
     justify-items: center;
-    gap: 3px;
-    min-width: 66%;
-    padding: 7px 22px 8px;
+    gap: 2px;
+    width: 92%;
+    height: 50px;
+    padding: 0 13px;
     border-radius: 3px;
     text-align: center;
     color: #3a2709;
@@ -177,6 +224,7 @@ const note = { pending: 'awaiting arrival', dummy: 'placeholder', final: null }[
       inset 0 1px 0 rgba(255, 255, 255, 0.55),
       inset 0 -1px 0 rgba(0, 0, 0, 0.3),
       0 2px 3px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.2s;
   }
 
   /* Screws */
@@ -185,51 +233,105 @@ const note = { pending: 'awaiting arrival', dummy: 'placeholder', final: null }[
     content: '';
     position: absolute;
     top: 50%;
-    width: 5px;
-    height: 5px;
-    margin-top: -2.5px;
+    width: 4px;
+    height: 4px;
+    margin-top: -2px;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 35%, #fff3c4, #7a5518 70%);
     box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.4);
   }
 
   .plaque::before {
-    left: 7px;
+    left: 6px;
   }
 
   .plaque::after {
-    right: 7px;
+    right: 6px;
   }
 
-  .label {
-    font: 600 0.6rem/1 'IBM Plex Mono', monospace;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    opacity: 0.75;
+  .artist,
+  .medium {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
-  .title {
-    font: 600 1rem/1.15 'Fraunces', serif;
+  /* Long names get a second line rather than an ellipsis. */
+  .name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    font: 600 clamp(0.68rem, var(--tank) * 0.05, 1rem) / 1.05 'Fraunces', serif;
+  }
+
+  /* Who made it: hidden until the visitor votes, then fades in tank by tank. */
+  .who {
+    display: none;
+    max-width: 100%;
+    justify-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.15;
+  }
+
+  :global([data-state='revealed']) .who {
+    display: grid;
+    animation: reveal 0.6s both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
   }
 
   .artist {
-    font: 500 0.68rem/1 'IBM Plex Mono', monospace;
-    letter-spacing: 0.06em;
-  }
-
-  .meta {
-    margin: 0.9rem 0 0;
-    text-align: center;
-    font: 400 0.7rem/1.4 'IBM Plex Mono', monospace;
+    font-size: 0.66rem;
+    font-weight: 600;
     letter-spacing: 0.04em;
-    color: var(--muted);
   }
 
-  .note {
-    margin-left: 0.6em;
-    padding: 1px 8px;
-    border: 1px solid var(--rule);
-    border-radius: 99px;
-    color: var(--accent);
+  .medium {
+    font-size: 0.55rem;
+    opacity: 0.75;
+  }
+
+  .hint {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 3px;
+    font: 500 0.52rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  :global([data-state='voting']) .tank:hover .plaque,
+  :global([data-state='voting']) .cabinet:focus-visible .plaque {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+      0 0 16px rgba(255, 215, 120, 0.55);
+  }
+
+  :global([data-state='voting']) .tank:hover .hint,
+  :global([data-state='voting']) .cabinet:focus-visible .hint {
+    opacity: 0.7;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .badge {
+      transition: none;
+    }
+
+    :global([data-state='revealed']) .who {
+      animation: none;
+    }
   }
 </style>

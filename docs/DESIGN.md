@@ -12,12 +12,12 @@ A museum where every exhibit gives several AI models the same brief, and every p
 | **Exhibit** | One themed page (a "wing") | The Aquarium, Modern Art Wing |
 | **Entry** | One model's slot in an exhibit | `exhibits/aquarium/entries/claude/` |
 | **Piece** | The HTML file the model produced | a jellyfish tank |
-| **Skin** | How an exhibit looks: its **Room** (page backdrop) and **Frame** (what each piece hangs in) | aquarium: glass tank on a cabinet; gallery: gilded frame + picture light |
+| **Skin** | How an exhibit looks. Its **Room** owns the page layout and hangs each piece in its **Frame** | aquarium: glass tanks on cabinets, fit to one screen; gallery: gilded frames on a wall |
 
 ## Principles
 
 1. **Everything is code.** Pieces, frames, rooms, plaques and the favicon are all HTML/CSS/SVG/JS. The site contains no image files.
-2. **Exhibits are data, skins are code.** A new exhibit is a folder of JSON + HTML. A new *look* is one Room + one Frame component. Pieces never know which skin they're in.
+2. **Exhibits are data, skins are code.** A new exhibit is a folder of JSON + HTML. A new *look* is a Room component, which usually comes with its own Frame. Pieces never know which skin they're in.
 3. **Pieces are untrusted.** Model output is never inlined into our pages; each piece runs in its own sandboxed iframe.
 4. **Same brief, recorded honestly.** The prompt lives in the repo, verbatim. Each entry records how it was generated, and any human edits.
 5. **Blind-ready from day one.** Piece URLs are opaque hashes and the page can render without artist names, so voting is a feature we add later, not a rewrite.
@@ -35,18 +35,20 @@ exhibits/                         ← all content; one folder per exhibit
         meta.json                 ← artist, provider, title, statement, medium, provenance
         piece.html                ← the model's output, untouched
       gpt/ gemini/ deepseek/ qwen/ llama/
-  modern-art/                     ← preview exhibit, gallery skin, no pieces yet
+  modern-art/                     ← draft (unlisted; still at /modern-art/ in dev), gallery skin, no pieces yet
 src/
   lib/exhibits.ts                 ← loads + validates exhibits/, assigns opaque piece ids
   lib/sandbox.ts                  ← CSP injected into every piece
+  scripts/voting.ts               ← client: shuffle, click-to-vote, reveal (skin-agnostic)
   skins/
-    names.ts, index.ts            ← skin registry
-    aquarium/{Room,Frame}.astro   ← glass tank, hood light, wooden cabinet, brass plaque
+    names.ts, index.ts            ← skin registry (name → Room)
+    aquarium/{Room,Frame}.astro   ← one-screen 3×2 grid; glass tank, hood light, cabinet, brass plaque
     gallery/{Room,Frame}.astro    ← wallpaper + wainscot, gilded frame, picture light, wall label
   pages/
     index.astro                   ← lobby with the museum directory
-    [exhibit]/index.astro         ← any exhibit: Room + grid of Frames
+    [exhibit]/index.astro         ← any exhibit: loads pieces, hands them to the skin's Room
     pieces/[exhibit]/[id].html.ts ← serves each piece (with CSP) at an opaque URL
+    reveal/[exhibit].json.ts      ← who made what; only fetched after a vote (v0 stand-in for the vote API)
   layouts/Base.astro, styles/global.css, site.ts
 scripts/check-blind.mjs           ← flags model names hiding in piece code
 ```
@@ -55,15 +57,29 @@ scripts/check-blind.mjs           ← flags model names hiding in piece code
 
 ```
 exhibits/aquarium/exhibit.json ─┐
-exhibits/aquarium/entries/*/    ├─► lib/exhibits.ts ──► PieceView[] ──► skins[exhibit.skin].Frame
-                                │    (zod-validated,      (label, title,     (tank / gilded frame)
-                                │     opaque ids)          artist|null)            │
+exhibits/aquarium/entries/*/    ├─► lib/exhibits.ts ──► PieceView[] ──► skins[exhibit.skin] (Room → Frame)
+                                │    (zod-validated,      (title; artist     (tank / gilded frame)
+                                │     opaque ids)          null if blind)          │
                                 │                                                  ▼
                                 └─► /pieces/aquarium/a22dcbcd5c.html ◄── <iframe sandbox="allow-scripts">
                                      (piece.html + injected CSP)
 ```
 
 Everything is static at build time (Astro, `output: static`), so the site can be hosted anywhere for v0.
+
+## The aquarium page
+
+- **One screen.** Header, title, six tanks and a two-line footer share exactly one viewport. `--tank` (in `skins/aquarium/Room.astro`) is the largest square that fits 3×2 tanks plus their fixed chrome in the space left over, measured with container query units. Very tall screens switch to 2×3. Phones and short windows fall back to a scrolling 2-column grid.
+- **Plaque = specimen name only.** Who made it and how ("Claude · SVG + JavaScript") appear only after voting.
+
+## Blind voting (v0, client side)
+
+1. In `mode: "blind"`, the page renders no artist names, and `scripts/voting.ts` shuffles the tanks (with CSS `order`, so iframes don't reload) to remove position bias.
+2. The visitor votes by clicking a tank: either the cabinet/plaque (a real `<button>`, keyboard accessible) or anywhere inside the glass. A click inside a sandboxed iframe never reaches the parent page, but it moves focus into the iframe, so the page listens for `window` blur and checks whether `document.activeElement` is a tank's iframe. Iframes are `tabindex="-1"` so tabbing can't trigger a vote, and pieces stay fully interactive.
+3. The page fetches `/reveal/<exhibit>.json` (id → artist, medium), fills in every plaque, and marks the pick with a "♥ your pick" badge.
+4. The vote is stored in `localStorage` (`museum:vote:<exhibit>`), so reloading shows the revealed state. Add `?reset` to the URL to vote again.
+
+This keeps names out of the page source, but the reveal file is public if you know where to look. v2 replaces steps 3–4 with the real API.
 
 ## Sandboxing a piece
 
@@ -86,12 +102,12 @@ The six dummy pieces deliberately cover the techniques models are likely to use 
 
 - **A piece:** drop the model's HTML into `entries/<slug>/piece.html` and fill in `meta.json` (`status: "final"`, title/statement from the placard JSON, `generation` provenance). Run `npm run check:blind`.
 - **An exhibit:** copy an exhibit folder, edit `exhibit.json` (`status: "draft"` hides it in production), write `prompt.md` and `placeholder.html`.
-- **A skin** (e.g. oval portrait frames): create `src/skins/<name>/Room.astro` and `Frame.astro` (both get typed props), add the name to `names.ts`, and register it in `index.ts`. The Room sets `--cols / --gap-x / --gap-y / --grid-max` and colors for its page.
+- **A skin** (e.g. oval portrait frames): create `src/skins/<name>/Room.astro` (props: `exhibit`, `pieces`) plus whatever Frame it uses, add the name to `names.ts`, and register it in `index.ts`. The Room owns layout and colors. For blind voting it must render the hooks listed in `src/scripts/voting.ts` (`[data-pieces]`, `[data-piece]`, `[data-vote]`, `[data-artist]`, `[data-medium]`).
 
 ## Roadmap
 
 ### v0 (now)
-Static site: lobby, The Aquarium with six dummy tanks, the Modern Art Wing preview with gilded frames, sandboxing, and the blind-mode rendering switch.
+Static site: The Aquarium with six dummy tanks on one screen, blind click-to-vote with a client-side reveal, and sandboxing. The lobby and the gilded-frame Modern Art Wing exist but are parked (modern-art is a draft).
 
 ### v1: real pieces
 - `scripts/generate`: send `prompt.md` to each model. OpenRouter covers all six with one API key. Save the raw response to `entries/<slug>/raw.md`, extract the HTML block to `piece.html` and the JSON to `meta.json`, and record `generation` (date, model id, params, attempts).
@@ -100,7 +116,7 @@ Static site: lobby, The Aquarium with six dummy tanks, the Modern Art Wing previ
 
 ### v2: blind voting
 - **Hosting:** move from static-only to something with functions. Cloudflare Pages + Workers + D1 + Turnstile is the recommendation: free tier, bot protection built in, and an official Astro adapter. (Vercel + Upstash/Supabase works too.)
-- **Flow:** set the exhibit to `mode: "blind"`. Visitors see shuffled tanks with no names and no scores. They pick one and `POST /api/vote {exhibit, pieceId, turnstileToken}`. The response carries tallies plus the id→artist reveal, and plaques flip to show names and vote bars.
+- **Flow:** the v0 client flow stays the same. Only `castVote()` changes: it calls `POST /api/vote {exhibit, pieceId, turnstileToken}` instead of fetching the static reveal file. The response carries the same id→artist map plus tallies, and the plaques gain a score.
 - **Data:** `votes(exhibit, piece_id, voter_hash, created_at)`, unique on `(exhibit, voter_hash)`. The reveal map lives server-side and is never in the blind page.
 - **Integrity, honestly:** blind mode hides names from the page, URLs and DOM. But if this repo is **public**, anyone can read `meta.json`. That's fine for a fun site. If it ever matters, keep the repo private (Cloudflare and Vercel deploy private repos) or move the artist mapping out of the repo.
 - Hide scores until after a visitor votes to avoid bandwagoning. Maybe add a head-to-head (Elo) mode later.

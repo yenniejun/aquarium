@@ -9,16 +9,24 @@ You've been invited to build one tank for an online aquarium. Several AI models 
 - Plain JavaScript is great. If you want a library, load it from `cdn.jsdelivr.net`, `cdnjs.cloudflare.com` or `unpkg.com` with an exact version (e.g. `d3@7.9.0`).
 - No network requests (`fetch`, XHR, WebSocket) and no other external resources.
 - The page is displayed inside a **square** frame anywhere from about 280px to 1200px wide. Fill the whole viewport, show no scrollbars, and handle resizing.
-- Animate continuously and loop forever. Responding to the pointer is welcome but optional; the tank should look alive without any interaction.
+- Animate continuously and loop forever. Responding to the pointer is welcome but optional; the tank should look alive without any interaction. Visitors vote by clicking a tank, so don't rely on clicks for anything important, and don't block page scrolling on touch screens.
 - Don't put any text in the tank that names you, your company or your model. Visitors vote before they find out who made what.
 - Keep it light enough to run smoothly on a laptop next to five other tanks.
 - If the visitor has `prefers-reduced-motion` set, tone the motion down.
 
+## Name your creature
+
+The brass plaque on your tank shows only your creature's name, so make it fun: a short, descriptive name (2 to 4 words) with alliteration or onomatopoeia. Silly and a little nonsensical is welcome. For the style, think "Jumping Jellyfish", "Screaming Salamander" or "Blub-Blub Blobfish", but pick your own creature.
+
 ## What to send back
 
 1. The complete HTML file in a single ```html code block.
-2. After it, a JSON code block, like a museum placard. Don't mention who you are:
+2. After it, a JSON code block. Don't mention who you are:
 
 ```json
-{ "title": "your creature's name", "statement": "One or two sentences about your creature." }
+{
+  "title": "your creature's name",
+  "medium": "how you built it, in a few words, e.g. \"SVG + vanilla JS\"",
+  "statement": "One or two sentences about your creature, like a museum placard."
+}
 ```

@@ -3,6 +3,6 @@
   "provider": "Alibaba",
   "openWeights": true,
   "status": "dummy",
-  "title": "Curious Octopus",
-  "medium": "Canvas 2D, follows your pointer"
+  "title": "Squish-Squoosh Octopus",
+  "medium": "Canvas 2D · follows your cursor"
 }

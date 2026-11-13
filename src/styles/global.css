@@ -79,3 +79,7 @@ main {
   letter-spacing: 0.04em;
   color: var(--muted);
 }
+
+.site-footer p {
+  margin: 0;
+}

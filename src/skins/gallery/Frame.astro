@@ -46,8 +46,8 @@ const corners = ['tl', 'tr', 'br', 'bl'];
   </div>
   <figcaption class="label">
     <span class="title">{piece.title}</span>
-    <span class="artist">{piece.artist ?? 'Artist withheld'}</span>
-    {piece.medium && <span class="medium">{piece.medium}</span>}
+    <span class="artist" data-artist>{piece.artist ?? 'Artist withheld'}</span>
+    <span class="medium" data-medium>{piece.medium}</span>
     <span class="number">
       <span data-label>{piece.label}</span>
       {note && <span class="note">{note}</span>}
@@ -208,6 +208,10 @@ const corners = ['tl', 'tr', 'br', 'bl'];
   .medium {
     font: 400 0.68rem/1.5 'IBM Plex Mono', monospace;
     color: #6a6252;
+  }
+
+  .medium:empty {
+    display: none;
   }
 
   .number {

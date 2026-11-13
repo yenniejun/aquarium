@@ -17,7 +17,8 @@ import { href } from './url';
 
 const ExhibitSchema = z.object({
   title: z.string(),
-  tagline: z.string(),
+  tagline: z.string().optional(),
+  /** Background info, shown small at the bottom of the page */
   intro: z.string().optional(),
   skin: z.enum(skinNames),
   /** live = in nav, preview = in nav with a badge, draft = only built in dev */
@@ -40,11 +41,11 @@ const EntrySchema = z.object({
   openWeights: z.boolean().default(false),
   /** dummy = hand-written stand-in, final = real model output. ("pending" = no piece.html) */
   status: z.enum(['dummy', 'final']).default('final'),
-  /** Name the model gave its piece/creature */
+  /** Name the model gave its piece/creature, e.g. "Glub-Glub Goldfish" */
   title: z.string().optional(),
   /** The model's own placard text */
   statement: z.string().optional(),
-  /** Museum-label style medium, e.g. "SVG and JavaScript" */
+  /** How it was made, in a few words, e.g. "SVG + JavaScript". Revealed with the artist. */
   medium: z.string().optional(),
   generation: z
     .object({
@@ -66,7 +67,7 @@ export interface PieceView {
   src: string;
   label: string;
   title: string;
-  /** null in blind mode */
+  /** artist and medium are null in blind mode until the visitor votes */
   artist: string | null;
   medium: string | null;
   statement: string | null;
@@ -107,6 +108,11 @@ export function getExhibits(): Exhibit[] {
   return exhibits;
 }
 
+/** Exhibits shown in the nav and lobby. Drafts are still built in dev, just not listed. */
+export function getListedExhibits(): Exhibit[] {
+  return exhibits.filter((ex) => ex.status !== 'draft');
+}
+
 export interface Piece {
   id: string;
   entry: Entry;
@@ -135,6 +141,26 @@ export function pieceSrc(exhibit: Exhibit, piece: Piece): string {
   return href(`/pieces/${exhibit.slug}/${piece.id}.html`);
 }
 
+/** Who made what. In blind mode this is served separately and only fetched after a vote. */
+export interface Reveal {
+  artist: string;
+  provider: string;
+  medium: string | null;
+}
+
+export function getReveal(exhibit: Exhibit): Record<string, Reveal> {
+  return Object.fromEntries(
+    getPieces(exhibit).map((piece) => [
+      piece.id,
+      {
+        artist: piece.entry.artist,
+        provider: piece.entry.provider,
+        medium: piece.pending ? null : (piece.entry.medium ?? null),
+      },
+    ]),
+  );
+}
+
 export function toView(exhibit: Exhibit, piece: Piece, index: number): PieceView {
   const { entry } = piece;
   const blind = exhibit.mode === 'blind';
@@ -144,7 +170,7 @@ export function toView(exhibit: Exhibit, piece: Piece, index: number): PieceView
     label: `${exhibit.pieceLabel} ${String(index + 1).padStart(2, '0')}`,
     title: piece.pending ? 'Awaiting arrival' : (entry.title ?? 'Untitled'),
     artist: blind ? null : entry.artist,
-    medium: piece.pending ? null : (entry.medium ?? null),
+    medium: blind || piece.pending ? null : (entry.medium ?? null),
     statement: piece.pending ? null : (entry.statement ?? null),
     status: piece.pending ? 'pending' : entry.status,
   };

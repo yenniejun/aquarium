@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { site } from '../site';
-import { getExhibits } from '../lib/exhibits';
+import { getListedExhibits } from '../lib/exhibits';
 import { href } from '../lib/url';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { skin, title, description = site.blurb } = Astro.props;
-const exhibits = getExhibits();
+const exhibits = getListedExhibits();
 const here = Astro.url.pathname;
 const favicon = `data:image/svg+xml,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0b2a4a"/><path d="M5 16c4-6 12-6 16 0-4 6-12 6-16 0zm16 0 6-5v10z" fill="#ffb347"/><circle cx="10" cy="15" r="1.5" fill="#0b2a4a"/></svg>`,
@@ -36,20 +36,26 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
   <body data-skin={skin}>
     <header class="site-header">
       <a class="wordmark" href={href('/')}>{site.name}</a>
-      <nav aria-label="Exhibits">
-        {
-          exhibits.map((ex) => (
-            <a href={href(`/${ex.slug}/`)} aria-current={here.startsWith(href(`/${ex.slug}`)) ? 'page' : undefined}>
-              {ex.title}
-              {ex.status !== 'live' && <small>{ex.status}</small>}
-            </a>
-          ))
-        }
-      </nav>
+      {/* Only worth a nav once there's more than one exhibit to move between. */}
+      {
+        exhibits.length > 1 && (
+          <nav aria-label="Exhibits">
+            {exhibits.map((ex) => (
+              <a href={href(`/${ex.slug}/`)} aria-current={here.startsWith(href(`/${ex.slug}`)) ? 'page' : undefined}>
+                {ex.title}
+                {ex.status !== 'live' && <small>{ex.status}</small>}
+              </a>
+            ))}
+          </nav>
+        )
+      }
     </header>
     <main>
       <slot />
     </main>
-    <footer class="site-footer">Every piece on this site is code written by an AI model. Nothing here is an image.</footer>
+    <footer class="site-footer">
+      <slot name="footer" />
+      <p>Every piece on this site is code written by an AI model.</p>
+    </footer>
   </body>
 </html>
