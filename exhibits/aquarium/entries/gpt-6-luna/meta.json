@@ -4,8 +4,8 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "Puddlewing Puffer",
-  "statement": "This soft little drifter fans the water with opal fins and carries a lantern that glows brighter whenever it dreams. It spends its quiet days turning the garden into a slow dance of light.",
+  "title": "Opal Octopus",
+  "statement": "A shy little drifter, the Opal Octopus tends its own pocket of moonlit water, trailing eight pearl-dotted arms through the garden. Its freckles glow whenever the current brings something new to wonder at.",
   "generation": {
     "date": "2026-11-13",
     "via": "OpenAI Chat Completions API",
