@@ -3,6 +3,7 @@
  * The aquarium's About tab (and first-visit welcome): the title and two lines above a strip of
  * water with a goldfish in it. A few words play with the water when you hover or tap them:
  * "a tank" swells the waves, "one creature" makes the fish wiggle, "favorite tank" makes it jump.
+ * A sandcastle on the seabed carries the credit.
  */
 import type { Exhibit } from '../../lib/exhibits';
 import ExhibitTitle from '../../components/ExhibitTitle.astro';
@@ -81,13 +82,29 @@ const drops = [
         </svg>
       </div>
     </div>
+    <div class="sand"></div>
   </div>
+
+  <a class="credit" href="https://artfish.ai" target="_blank" rel="noopener">
+    <svg class="castle" viewBox="0 -14 60 62" aria-hidden="true">
+      <path class="flag" d="M30 -12 41 -8 30 -4Z"></path>
+      <path class="pole" d="M30 6V-12"></path>
+      <path
+        class="walls"
+        d="M2 48V14h3v-4h3v4h3v-4h3v4h3v-4h3v12h4V6h3V2h3v4h2V2h3v4h3v18h4v-4h3v4h3v-4h3v4h3V10h3v4h3v34Z"
+      ></path>
+      <path class="shade" d="M25 48v-9a5 5 0 0 1 10 0v9ZM8 22h4v6H8ZM48 22h4v6h-4ZM28 14h4v6h-4Z"></path>
+    </svg>
+    <span>Created by <b>Art Fish Intelligence</b> <em>♥</em></span>
+  </a>
 </div>
 
 <style>
   .scene {
     --font: var(--title-font);
     --water-top: #d3eff7;
+    --sand: #ecd5a3;
+    position: relative;
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -415,7 +432,91 @@ const drops = [
     }
   }
 
+  /* The seabed, with a sandcastle and the credit on it. */
+  .sand {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 30px;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M0 6Q25 0 50 5T100 6T150 4T200 6V12H0Z' fill='%23ecd5a3'/%3E%3C/svg%3E")
+        0 0 / 200px 12px repeat-x,
+      linear-gradient(transparent 11px, var(--sand) 11px, #dfc28a);
+  }
+
+  .credit {
+    position: absolute;
+    z-index: 2;
+    left: clamp(1rem, 4vw, 2rem);
+    bottom: 8px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    color: #6b4f2a;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+
+  .credit b {
+    font-weight: 600;
+  }
+
+  .credit em {
+    font-style: normal;
+    color: #ff6b57;
+  }
+
+  .credit span {
+    padding-bottom: 3px;
+  }
+
+  .credit:hover span,
+  .credit:focus-visible span {
+    text-decoration: underline wavy #c98a4a;
+    text-underline-offset: 4px;
+  }
+
+  .credit:focus-visible {
+    outline: none;
+  }
+
+  .castle {
+    width: 54px;
+    overflow: visible;
+  }
+
+  .walls {
+    fill: #e4c58b;
+    stroke: #c9a463;
+    stroke-width: 1;
+    stroke-linejoin: round;
+  }
+
+  .shade {
+    fill: #b88f52;
+  }
+
+  .pole {
+    stroke: #8a6a3c;
+    stroke-width: 1.2;
+  }
+
+  .flag {
+    fill: #ff8a65;
+    transform-box: fill-box;
+    transform-origin: left center;
+    animation: flutter 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes flutter {
+    to {
+      transform: skewY(-10deg) scaleX(0.85);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .flag,
     mark,
     .water::before,
     .water::after,
