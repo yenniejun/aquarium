@@ -1,11 +1,13 @@
 {
   "title": "A(quar)I(um)",
-  "intro": "Each AI model got the same prompt: build a tank and one creature to live in it.",
+  "intro": "Each AI model is told to build a tank and one creature inside it.",
   "skin": "aquarium",
   "status": "live",
   "mode": "blind",
   "order": 1,
   "pieceLabel": "Tank",
   "promptVersion": 1,
-  "lineup": ["claude", "gpt", "gemini", "deepseek", "qwen", "llama"]
+  "lineup": [
+    "claude", "gpt", "gemini", "deepseek", "qwen", "llama", "grok", "mistral", "kimi", "glm", "gemma", "gpt-oss"
+  ]
 }

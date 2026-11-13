@@ -22,7 +22,7 @@ const { exhibit, pieces } = Astro.props;
       <ol class="pieces" data-pieces>
         {
           pieces.map((piece, i) => (
-            <li data-piece={piece.id} style={`--i: ${i}`}>
+            <li data-piece={piece.id} data-pending={piece.status === 'pending' ? '' : undefined} style={`--i: ${i}`}>
               <Frame piece={piece} />
             </li>
           ))
@@ -65,80 +65,81 @@ const { exhibit, pieces } = Astro.props;
     overflow-x: clip; /* the light rays are wider than the page */
   }
 
+  /* The title plus the first two rows of tanks fill the first screen; the rest are below the fold. */
   .screen {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    height: 100vh;
-    height: 100svh;
-    padding: 0 clamp(1rem, 3vw, 2rem) clamp(0.8rem, 2.5vh, 1.6rem);
+    --title-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    --title-top: 0.55rem;
+    --title-gap: clamp(0.8rem, 2.5vh, 1.4rem);
+    --foot: clamp(0.8rem, 2.5vh, 1.6rem);
+    padding: var(--title-top) clamp(1rem, 3vw, 2rem) var(--foot);
   }
 
   h1 {
-    margin: 0.55rem 0 clamp(0.8rem, 2.5vh, 1.4rem);
+    margin: 0 0 var(--title-gap);
     text-align: center;
-    font: 400 clamp(1.6rem, 3.2vw, 2.4rem) / 1.1 var(--title-font);
+    font: 400 var(--title-size) / 1.1 var(--title-font);
     letter-spacing: 0.02em;
     text-shadow: 0 0 30px rgba(111, 214, 245, 0.35);
   }
 
   .stage {
-    container-type: size;
-    min-height: 0;
+    container-type: inline-size;
     display: grid;
-    place-items: center;
+    justify-items: center;
   }
 
   /* Tanks are --ratio wide (4:3) and --tank-h tall, plus fixed --chrome underneath (hood, rim,
-     cabinet). Pick the largest --tank-h that fits --cols x --rows tanks in the stage. */
+     cabinet). Pick the largest --tank-h that fits --cols across and two rows above the fold.
+     If width is the limit, the leftover height (--slack) goes above row 1 and below row 2, so
+     the first two rows sit centered on the first screen and row 3 starts just past it. */
   .pieces {
     --cols: 3;
-    --rows: 2;
     --ratio: 1.3333;
     --gap-x: clamp(1rem, 2.2vw, 2.25rem);
     --gap-y: clamp(1.4rem, 3.5vh, 2.4rem);
     --chrome: 66px;
+    --fold: calc(100svh - var(--title-top) - var(--title-size) * 1.1 - var(--title-gap) - var(--foot));
     --tank-h: min(
       (100cqw - (var(--cols) - 1) * var(--gap-x)) / var(--cols) / var(--ratio),
-      (100cqh - (var(--rows) - 1) * var(--gap-y)) / var(--rows) - var(--chrome),
+      (var(--fold) - var(--gap-y)) / 2 - var(--chrome),
       330px
     );
+    --slack: max(0px, (var(--fold) - 2 * (var(--tank-h) + var(--chrome)) - var(--gap-y)) / 2);
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: var(--slack) 0 0;
     display: grid;
     grid-template-columns: repeat(var(--cols), calc(var(--tank-h) * var(--ratio)));
+    grid-template-rows: auto calc(var(--tank-h) + var(--chrome) + var(--slack));
+    align-items: start;
     gap: var(--gap-y) var(--gap-x);
   }
 
-  /* Portrait screens fit more tank in 2 columns x 3 rows. */
+  /* Portrait screens: two big columns, scrolling. */
   @media (max-aspect-ratio: 9/10) {
     .pieces {
       --cols: 2;
-      --rows: 3;
+      --tank-h: min((100cqw - var(--gap-x)) / 2 / var(--ratio), 330px);
+      --slack: 0px;
+      grid-template-rows: none;
     }
   }
 
-  /* Phones and short windows: stop fitting to the screen and just scroll. */
+  /* Phones and short windows: the header scrolls away too. */
   @media (max-width: 699px), (max-height: 519px) {
     :global(body[data-skin='aquarium'] .site-header) {
       position: static;
     }
 
     .screen {
-      height: auto;
-    }
-
-    h1 {
-      margin-top: 0;
-    }
-
-    .stage {
-      container-type: inline-size;
+      padding-top: 0;
     }
 
     .pieces {
       --cols: 2;
       --tank-h: calc((100cqw - var(--gap-x)) / 2 / var(--ratio));
+      --slack: 0px;
+      grid-template-rows: none;
     }
   }
 

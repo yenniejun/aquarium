@@ -4,6 +4,7 @@
  *   [data-exhibit]     root; data-state="voting" | "revealed", data-reveal-url
  *   [data-pieces]      the list (children get shuffled with CSS `order`, so iframes don't reload)
  *   [data-piece="id"]  one per piece; gets [data-picked] once the visitor votes
+ *   [data-pending]     an empty slot (no piece yet): not shuffled or votable, stays at the end
  *   [data-vote]        clicking it votes for its piece (clicks inside the piece's iframe count too)
  *   [data-artist], [data-medium]   filled in on reveal
  *   [data-vote-hint]   its text is swapped for its data-done text after voting
@@ -30,13 +31,15 @@ function init(root: HTMLElement) {
     return;
   }
 
-  // Shuffle per visit so position can't bias the vote.
-  const order = pieces.map((_, i) => i);
+  // Shuffle per visit so position can't bias the vote. Empty slots stay at the end.
+  const ready = pieces.filter((p) => !p.hasAttribute('data-pending'));
+  const order = ready.map((_, i) => i);
   for (let i = order.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [order[i], order[j]] = [order[j], order[i]];
   }
-  pieces.forEach((piece, i) => (piece.style.order = String(order[i])));
+  ready.forEach((piece, i) => (piece.style.order = String(order[i])));
+  for (const piece of pieces) if (!ready.includes(piece)) piece.style.order = String(ready.length);
 
   const castVote = (id: string) => {
     if (picked) return;
@@ -45,7 +48,7 @@ function init(root: HTMLElement) {
     reveal(root, pieces, id);
   };
 
-  for (const piece of pieces) {
+  for (const piece of ready) {
     for (const el of piece.querySelectorAll('[data-vote]')) {
       el.addEventListener('click', () => castVote(piece.dataset.piece!));
     }
@@ -57,7 +60,7 @@ function init(root: HTMLElement) {
     setTimeout(() => {
       const el = document.activeElement;
       const piece = el instanceof HTMLIFrameElement ? el.closest<HTMLElement>('[data-piece]') : null;
-      if (piece) castVote(piece.dataset.piece!);
+      if (piece && ready.includes(piece)) castVote(piece.dataset.piece!);
     }),
   );
 }

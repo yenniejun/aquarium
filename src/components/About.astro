@@ -1,12 +1,11 @@
 ---
 /**
- * The "?" button in the header and the modal it opens: what's going on here, in a few lines,
- * then the exact prompt every model got, in an editor-style view.
+ * The "?" button in the header and the modal it opens, styled like the side menu. Two tabs:
+ * a couple of lines on what's going on, and the exact prompt every model got.
  */
 import { Code } from 'astro:components';
 import type { Exhibit } from '../lib/exhibits';
 import { getPrompt } from '../lib/exhibits';
-import ExhibitTitle from './ExhibitTitle.astro';
 
 interface Props {
   exhibit: Exhibit;
@@ -18,27 +17,44 @@ const piece = exhibit.pieceLabel.toLowerCase();
 ---
 
 <button class="about-toggle" type="button" aria-haspopup="dialog" aria-label="About this gallery">?</button>
-<dialog class="about" aria-labelledby="about-title">
-  <form method="dialog">
-    <button class="close" aria-label="Close">×</button>
-  </form>
-  <p class="eyebrow">About</p>
-  <h2 id="about-title"><ExhibitTitle title={exhibit.title} /></h2>
-  <ul class="points">
-    {exhibit.intro && <li>{exhibit.intro}</li>}
+<dialog class="about" aria-label="About this gallery">
+  <div class="bar">
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="about-tab-about" aria-controls="about-panel-about" aria-selected="true">
+        About
+      </button>
+      {
+        prompt && (
+          <button
+            type="button"
+            role="tab"
+            id="about-tab-prompt"
+            aria-controls="about-panel-prompt"
+            aria-selected="false"
+            tabindex="-1"
+          >
+            Prompt
+          </button>
+        )
+      }
+    </div>
+    <form method="dialog">
+      <button class="close" aria-label="Close">×</button>
+    </form>
+  </div>
+
+  <div class="panel" role="tabpanel" id="about-panel-about" aria-labelledby="about-tab-about">
+    {exhibit.intro && <p>{exhibit.intro}</p>}
     {
       exhibit.mode === 'blind' && (
-        <li>
-          The {piece}s are shuffled and unlabeled. Select your favorite {piece} to find out which AI model made which!
-        </li>
+        <p>Select your favorite {piece} to find out which AI model made which!</p>
       )
     }
-  </ul>
+  </div>
 
   {
     prompt && (
-      <>
-        <h3>The prompt</h3>
+      <div class="panel" role="tabpanel" id="about-panel-prompt" aria-labelledby="about-tab-prompt" hidden>
         <figure class="editor">
           <div class="titlebar">
             <span class="dots" aria-hidden="true">
@@ -46,28 +62,48 @@ const piece = exhibit.pieceLabel.toLowerCase();
               <i />
               <i />
             </span>
-            <span class="tab">prompt.md</span>
+            <span class="file">prompt.md</span>
             <span class="version">v{exhibit.promptVersion}</span>
             <button type="button" data-copy={prompt}>
               Copy
             </button>
           </div>
-          <Code code={prompt} lang="md" theme="night-owl" wrap />
-          <figcaption class="statusbar">
-            <span>Markdown</span>
-            <span>{prompt.split('\n').length} lines</span>
-            <span class="note">Sent verbatim to every model</span>
-          </figcaption>
+          <Code code={prompt} lang="md" theme="github-light" wrap />
         </figure>
-      </>
+      </div>
     )
   }
 </dialog>
 
 <script>
   const dialog = document.querySelector<HTMLDialogElement>('dialog.about')!;
-  document.querySelector('.about-toggle')!.addEventListener('click', () => dialog.showModal());
+  const tabs = [...dialog.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+
+  const select = (tab: HTMLButtonElement) => {
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
+    }
+  };
+
+  document.querySelector('.about-toggle')!.addEventListener('click', () => {
+    select(tabs[0]);
+    dialog.showModal();
+  });
   dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
+
+  for (const [i, tab] of tabs.entries()) {
+    tab.addEventListener('click', () => select(tab));
+    tab.addEventListener('keydown', (e) => {
+      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      const next = tabs[(i + step + tabs.length) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  }
 
   for (const button of dialog.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
     button.addEventListener('click', async () => {
@@ -88,152 +124,150 @@ const piece = exhibit.pieceLabel.toLowerCase();
     place-items: center;
     width: 34px;
     height: 34px;
-    padding: 2px 0 0;
+    padding: 0;
     appearance: none;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     background: rgba(3, 12, 24, 0.85);
     color: #e6f5ff;
-    font: 700 1rem/1 'Josefin Sans', sans-serif;
+    font: 500 0.9rem/1 'IBM Plex Mono', monospace;
     cursor: pointer;
-    transition: border-color 0.2s;
   }
 
   .about-toggle:hover,
   .about-toggle:focus-visible {
-    border-color: var(--accent);
+    background: #e6f5ff;
+    color: #03101e;
     outline: none;
   }
 
-  /* The modal: a deco card like the entrance, scrolling inside if the prompt is long. */
+  /* Light panel with the side menu's mono labels and pill tabs. */
   .about {
-    width: min(46rem, 100vw - 1.5rem);
+    width: min(44rem, 100vw - 1.5rem);
     max-width: none;
-    max-height: min(88svh, 60rem);
-    padding: 1.6rem clamp(1rem, 4vw, 2.2rem) 2rem;
-    border: 1px solid #e2c46e;
-    outline: 1px solid rgba(226, 196, 110, 0.45);
-    outline-offset: 5px;
-    background: rgba(5, 16, 30, 0.97);
-    color: #e6f5ff;
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+    max-height: min(85svh, 52rem);
+    padding: 8px;
+    border: 0;
+    border-radius: 14px;
+    background: #f5f8fb;
+    color: #10202e;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
   }
 
   .about[open] {
-    animation: rise 0.25s ease-out;
+    display: flex;
+    flex-direction: column;
+    animation: rise 0.2s ease-out;
   }
 
   .about::backdrop {
-    background: rgba(2, 9, 18, 0.75);
+    background: rgba(2, 9, 18, 0.55);
     backdrop-filter: blur(3px);
   }
 
   @keyframes rise {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(6px);
     }
   }
 
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: none;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 2px;
+  }
+
+  .tabs button,
   .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    padding: 0 0 2px;
     appearance: none;
     border: 0;
-    border-radius: 50%;
     background: transparent;
-    color: #9ec3dc;
-    font: 400 1.4rem/1 system-ui, sans-serif;
+    color: #4a6378;
     cursor: pointer;
+  }
+
+  .tabs button {
+    padding: 7px 12px;
+    border-radius: 99px;
+    font: 500 0.68rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tabs button:hover {
+    background: rgba(3, 16, 30, 0.06);
+  }
+
+  .tabs button[aria-selected='true'] {
+    background: #03101e;
+    color: #f5f8fb;
+  }
+
+  .close {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font: 400 1.25rem/1 system-ui, sans-serif;
   }
 
   .close:hover,
   .close:focus-visible {
-    background: rgba(255, 255, 255, 0.08);
-    color: #e6f5ff;
+    background: rgba(3, 16, 30, 0.06);
+    color: #03101e;
     outline: none;
   }
 
-  .eyebrow {
-    margin: 0;
-    font: 600 0.7rem/1 'Josefin Sans', sans-serif;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: #e2c46e;
+  .panel {
+    min-height: 0;
+    overflow-y: auto;
+    padding: 14px 12px 10px;
   }
 
-  h2 {
-    margin: 0.5rem 0 1rem;
-    font: 400 clamp(1.7rem, 5vw, 2.2rem) / 1.1 var(--title-font, 'Fraunces', serif);
-    letter-spacing: 0.02em;
+  .panel p {
+    margin: 0 0 0.8rem;
+    line-height: 1.6;
+    color: #2b3f50;
   }
 
-  .points {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  .panel p:last-child {
+    margin-bottom: 0;
   }
 
-  .points li {
-    position: relative;
-    margin: 0 0 0.45rem;
-    padding-left: 1.3rem;
-    color: #c4d7e4;
-  }
-
-  /* Small gold diamonds for bullets. */
-  .points li::before {
-    content: '';
-    position: absolute;
-    left: 0.15rem;
-    top: 0.62em;
-    width: 6px;
-    height: 6px;
-    background: #e2c46e;
-    transform: rotate(45deg);
-  }
-
-  h3 {
-    margin: 1.6rem 0 0.7rem;
-    font: 600 0.7rem/1 'Josefin Sans', sans-serif;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: #e2c46e;
-  }
-
-  /* An editor window: title bar with a tab, line-numbered code, status bar. */
+  /* The prompt, in a small editor window. */
   .editor {
     margin: 0;
-    border: 1px solid #1d3b53;
+    border: 1px solid #dbe3ea;
     border-radius: 10px;
     overflow: hidden;
-    background: #011627;
+    background: #fff;
   }
 
   .titlebar {
     display: flex;
-    align-items: stretch;
+    align-items: center;
     gap: 0.75rem;
-    padding: 0 0.6rem 0 0.9rem;
-    background: #0b2942;
-    border-bottom: 1px solid #1d3b53;
+    padding: 0.5rem 0.6rem 0.5rem 0.9rem;
+    background: #eef3f7;
+    border-bottom: 1px solid #dbe3ea;
     font: 500 0.72rem/1 'IBM Plex Mono', monospace;
-    color: #8badc1;
+    color: #4a6378;
   }
 
   .dots {
     display: flex;
-    align-items: center;
     gap: 6px;
   }
 
   .dots i {
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #ff5f57;
   }
@@ -246,37 +280,29 @@ const piece = exhibit.pieceLabel.toLowerCase();
     background: #28c840;
   }
 
-  .tab {
-    display: flex;
-    align-items: center;
-    margin-left: 0.5rem;
-    padding: 0.7rem 1rem 0.6rem;
-    border-top: 2px solid #7fdbca;
-    background: #011627;
-    color: #d6deeb;
+  .file {
+    margin-left: 0.4rem;
+    color: #10202e;
   }
 
   .version {
-    display: flex;
-    align-items: center;
-    color: #5f7e97;
+    color: #8a9bab;
   }
 
   .titlebar button {
-    align-self: center;
     margin-left: auto;
     appearance: none;
     padding: 0.35rem 0.8rem;
-    border: 1px solid #1d3b53;
+    border: 1px solid #cfd9e2;
     border-radius: 6px;
-    background: #011627;
-    color: #d6deeb;
+    background: #fff;
+    color: #10202e;
     font: inherit;
     cursor: pointer;
   }
 
   .titlebar button:hover {
-    border-color: #7fdbca;
+    border-color: #03101e;
   }
 
   /* Line numbers via CSS counters; long lines soft-wrap with a hanging indent like an editor. */
@@ -304,27 +330,7 @@ const piece = exhibit.pieceLabel.toLowerCase();
     left: 0;
     width: 2.6em;
     text-align: right;
-    color: #4b6479;
-  }
-
-  .statusbar {
-    display: flex;
-    gap: 1.2rem;
-    padding: 0.4rem 0.9rem;
-    background: #0b2942;
-    border-top: 1px solid #1d3b53;
-    font: 400 0.66rem/1.4 'IBM Plex Mono', monospace;
-    color: #5f7e97;
-  }
-
-  .statusbar .note {
-    margin-left: auto;
-  }
-
-  @media (max-width: 600px) {
-    .statusbar .note {
-      display: none;
-    }
+    color: #a7b4c0;
   }
 
   @media (prefers-reduced-motion: reduce) {

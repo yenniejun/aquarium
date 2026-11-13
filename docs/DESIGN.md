@@ -2,7 +2,7 @@
 
 ## The idea
 
-A museum where every exhibit gives several AI models the same brief, and every piece is **pure code** the model wrote, with no images or assets. The first exhibit is **A(quar)I(um)**: six tanks, each holding one creature that expresses its model's personality. Later, visitors **vote blind** for a favorite before finding out who made what, then see the tallies. Then more exhibits follow (modern art, portraits, …), each with its own look.
+A museum where every exhibit gives several AI models the same brief, and every piece is **pure code** the model wrote, with no images or assets. The first exhibit is **A(quar)I(um)**: twelve tanks, each holding one creature that expresses its model's personality. Later, visitors **vote blind** for a favorite before finding out who made what, then see the tallies. Then more exhibits follow (modern art, portraits, …), each with its own look.
 
 ## Vocabulary
 
@@ -12,7 +12,7 @@ A museum where every exhibit gives several AI models the same brief, and every p
 | **Exhibit** | One themed page (a "wing") | A(quar)I(um), Modern Art Wing |
 | **Entry** | One model's slot in an exhibit | `exhibits/aquarium/entries/claude/` |
 | **Piece** | The HTML file the model produced | a jellyfish tank |
-| **Skin** | How an exhibit looks. Its **Room** owns the page layout and hangs each piece in its **Frame** | aquarium: glass tanks on cabinets, fit to one screen; gallery: gilded frames on a wall |
+| **Skin** | How an exhibit looks. Its **Room** owns the page layout and hangs each piece in its **Frame** | aquarium: glass tanks on cabinets, 3×2 on the first screen; gallery: gilded frames on a wall |
 
 ## Principles
 
@@ -43,7 +43,7 @@ src/
   components/                     ← Entrance (curtains), SideNav (menu), About ("?" modal with the prompt)
   skins/
     names.ts, index.ts            ← skin registry (name → Room)
-    aquarium/{Room,Frame}.astro   ← one-screen 3×2 grid; glass tank, hood light, cabinet, brass plaque
+    aquarium/{Room,Frame}.astro   ← 3-column grid, two rows above the fold; glass tank, hood light, cabinet, brass plaque
     gallery/{Room,Frame}.astro    ← wallpaper + wainscot, gilded frame, picture light, wall label
   pages/
     index.astro                   ← lobby with the museum directory
@@ -70,7 +70,8 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 
 ## The aquarium page
 
-- **One screen.** The title, six tanks and a one-line hint fill exactly the first screen. Tanks are 4:3, and `--tank-h` (in `skins/aquarium/Room.astro`) is the largest height that fits 3×2 tanks plus their fixed chrome in the space left over, measured with container query units. Portrait screens switch to 2×3. Phones and short windows fall back to a scrolling 2-column grid.
+- **3×2 above the fold, 3×4 in all.** Twelve tanks in three columns. The title and the first two rows fill exactly the first screen; rows 3–4 are below it. Tanks are 4:3, and `--tank-h` (in `skins/aquarium/Room.astro`) is the largest height that fits three across and two rows (plus their fixed chrome) above the fold, from container query width units and `svh`. Any leftover height is split above row 1 and below row 2. Portrait screens and phones scroll in two columns.
+- **Empty slots.** A lineup entry with no `piece.html` shows `placeholder.html` (an empty tank) with an "Awaiting arrival" plaque. Its `<li>` gets `data-pending`, so voting keeps it at the end, unshuffled and unvotable. Right now the six newer slots (grok, mistral, kimi, glm, gemma, gpt-oss) are empty stand-ins.
 - **Entrance.** On a visitor's first visit, `src/components/Entrance.astro` shows closed velvet curtains (pure CSS) and a welcome card explaining the exhibit and how to vote. "Enter" draws the curtains back. Remembered per exhibit in `localStorage` (`museum:entered:<exhibit>`); `?reset` shows it again.
 - **Menu.** `src/components/SideNav.astro`: a slim panel on the left edge (Galleries) on screens ≥1000px, and a "Menu" popover on narrower ones. Upcoming galleries come from `src/site.ts`.
 - **About ("?").** `src/components/About.astro` (shared by all exhibits): a "?" button in the top-right corner opens a modal with what's going on in a few lines and the exact `prompt.md` in an editor-style view (line numbers, markdown highlighting), with a Copy button. The aquarium page itself is just the room: no section or footer below it.
@@ -112,10 +113,10 @@ The six dummy pieces deliberately cover the techniques models are likely to use 
 ## Roadmap
 
 ### v0 (now)
-Static site: A(quar)I(um) with six dummy tanks on one screen, blind click-to-vote with a client-side reveal, and sandboxing. The lobby and the gilded-frame Modern Art Wing exist but are parked (modern-art is a draft).
+Static site: A(quar)I(um) with six dummy tanks and six empty ones, blind click-to-vote with a client-side reveal, and sandboxing. The lobby and the gilded-frame Modern Art Wing exist but are parked (modern-art is a draft).
 
 ### v1: real pieces
-- `scripts/generate`: send `prompt.md` to each model. OpenRouter covers all six with one API key. Save the raw response to `entries/<slug>/raw.md`, extract the HTML block to `piece.html` and the JSON to `meta.json`, and record `generation` (date, model id, params, attempts).
+- `scripts/generate`: send `prompt.md` to each model. OpenRouter covers the whole lineup with one API key. Save the raw response to `entries/<slug>/raw.md`, extract the HTML block to `piece.html` and the JSON to `meta.json`, and record `generation` (date, model id, params, attempts).
 - Fairness rules, written down before running: default sampling settings, first response that renders wins, retry only if it fails to render (and log the attempts), no human edits except removing self-identification (logged in `generation.edits`).
 - Optional "view source" page per piece (showing the code is part of the point), plus stats like bytes, lines and libraries used.
 

@@ -6,9 +6,10 @@ interface Props {
 }
 
 const { piece } = Astro.props;
+const empty = piece.status === 'pending';
 ---
 
-<div class="tank" role="group" aria-label={piece.title}>
+<div class:list={['tank', { empty }]} role="group" aria-label={piece.title}>
   <div class="hood" aria-hidden="true">
     <span class="badge">♥ your pick</span>
   </div>
@@ -23,14 +24,20 @@ const { piece } = Astro.props;
     <a class="open" href={piece.src} data-expand={piece.title} aria-label={`Look closer at ${piece.title}`}>⤢</a>
   </div>
   <div class="rim" aria-hidden="true"></div>
-  <button class="cabinet" type="button" data-vote aria-label={`Pick ${piece.title} as your favorite`}>
+  <button
+    class="cabinet"
+    type="button"
+    data-vote
+    disabled={empty}
+    aria-label={empty ? 'Empty tank, awaiting arrival' : `Pick ${piece.title} as your favorite`}
+  >
     <span class="plaque">
       <span class="name">{piece.title}</span>
       <span class="who">
         <span class="artist" data-artist>{piece.artist}</span>
         <span class="medium" data-medium>{piece.medium}</span>
       </span>
-      <span class="hint" aria-hidden="true">♥ pick this one</span>
+      {!empty && <span class="hint" aria-hidden="true">♥ pick this one</span>}
     </span>
   </button>
 </div>
@@ -202,7 +209,8 @@ const { piece } = Astro.props;
     outline-offset: 3px;
   }
 
-  :global([data-state='revealed']) .cabinet {
+  :global([data-state='revealed']) .cabinet,
+  .cabinet:disabled {
     cursor: default;
   }
 
@@ -312,7 +320,7 @@ const { piece } = Astro.props;
     transition: opacity 0.2s;
   }
 
-  :global([data-state='voting']) .tank:hover .plaque,
+  :global([data-state='voting']) .tank:not(.empty):hover .plaque,
   :global([data-state='voting']) .cabinet:focus-visible .plaque {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.55),
@@ -320,7 +328,7 @@ const { piece } = Astro.props;
       0 0 16px rgba(255, 215, 120, 0.55);
   }
 
-  :global([data-state='voting']) .tank:hover .name,
+  :global([data-state='voting']) .tank:not(.empty):hover .name,
   :global([data-state='voting']) .cabinet:focus-visible .name {
     transform: translateY(-4px);
   }

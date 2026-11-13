@@ -4,7 +4,7 @@
  * skin they're in.
  *
  * For blind voting to work, a Room must render the hooks documented in src/scripts/voting.ts
- * ([data-pieces], [data-piece], [data-vote], [data-artist], [data-medium]).
+ * ([data-pieces], [data-piece], [data-pending], [data-vote], [data-artist], [data-medium]).
  *
  * To add a skin: create src/skins/<name>/Room.astro (+ any parts it needs), add the name to
  * ./names.ts, and register it here.
