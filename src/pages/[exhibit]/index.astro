@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import About from '../../components/About.astro';
 import Entrance from '../../components/Entrance.astro';
-import Methodology from '../../components/Methodology.astro';
 import { getExhibits, getPieces, toView, type Exhibit } from '../../lib/exhibits';
 import { href } from '../../lib/url';
 import { skins } from '../../skins';
@@ -16,12 +16,8 @@ const Room = skins[exhibit.skin];
 const blind = exhibit.mode === 'blind';
 ---
 
-<Base
-  skin={exhibit.skin}
-  title={exhibit.title}
-  description={exhibit.intro ?? exhibit.tagline}
-  links={[{ label: 'Methodology', href: '#methodology' }]}
->
+<Base skin={exhibit.skin} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
+  <About exhibit={exhibit} slot="header" />
   <Entrance exhibit={exhibit} />
   <div
     class="exhibit"
@@ -31,7 +27,6 @@ const blind = exhibit.mode === 'blind';
   >
     <Room exhibit={exhibit} pieces={pieces} />
   </div>
-  <Methodology exhibit={exhibit} />
 </Base>
 
 <script>

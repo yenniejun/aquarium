@@ -8,11 +8,9 @@ interface Props {
   skin: string;
   title?: string;
   description?: string;
-  /** Links within this page for the menu, e.g. Methodology */
-  links?: { label: string; href: string }[];
 }
 
-const { skin, title, description = site.blurb, links } = Astro.props;
+const { skin, title, description = site.blurb } = Astro.props;
 const favicon = `data:image/svg+xml,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0b2a4a"/><path d="M5 16c4-6 12-6 16 0-4 6-12 6-16 0zm16 0 6-5v10z" fill="#ffb347"/><circle cx="10" cy="15" r="1.5" fill="#0b2a4a"/></svg>`,
 )}`;
@@ -45,7 +43,10 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
           </g>
         </svg>
       </a>
-      <SideNav links={links} />
+      <div class="header-tools">
+        <slot name="header" />
+        <SideNav />
+      </div>
     </header>
     <main>
       <slot />

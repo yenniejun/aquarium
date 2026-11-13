@@ -1,0 +1,329 @@
+---
+/**
+ * The "?" button in the header and the modal it opens: what's going on here, in a few lines,
+ * then the exact prompt every model got, in an editor-style view.
+ */
+import { Code } from 'astro:components';
+import type { Exhibit } from '../lib/exhibits';
+import { getPrompt } from '../lib/exhibits';
+import ExhibitTitle from './ExhibitTitle.astro';
+
+interface Props {
+  exhibit: Exhibit;
+}
+
+const { exhibit } = Astro.props;
+const prompt = getPrompt(exhibit);
+---
+
+<button class="about-toggle" type="button" aria-haspopup="dialog" aria-label="About this gallery">?</button>
+<dialog class="about" aria-labelledby="about-title">
+  <form method="dialog">
+    <button class="close" aria-label="Close">×</button>
+  </form>
+  <p class="eyebrow">About</p>
+  <h2 id="about-title"><ExhibitTitle title={exhibit.title} /></h2>
+  <ul class="points">
+    {exhibit.intro && <li>{exhibit.intro}</li>}
+    <li>Every {exhibit.pieceLabel.toLowerCase()} is code the model wrote, running live. No images.</li>
+    {exhibit.mode === 'blind' && <li>They're shuffled and unlabeled. Click your favorite to find out who made what.</li>}
+  </ul>
+
+  {
+    prompt && (
+      <>
+        <h3>The prompt</h3>
+        <figure class="editor">
+          <div class="titlebar">
+            <span class="dots" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span class="tab">prompt.md</span>
+            <span class="version">v{exhibit.promptVersion}</span>
+            <button type="button" data-copy={prompt}>
+              Copy
+            </button>
+          </div>
+          <Code code={prompt} lang="md" theme="night-owl" wrap />
+          <figcaption class="statusbar">
+            <span>Markdown</span>
+            <span>{prompt.split('\n').length} lines</span>
+            <span class="note">Sent verbatim to every model</span>
+          </figcaption>
+        </figure>
+      </>
+    )
+  }
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('dialog.about')!;
+  document.querySelector('.about-toggle')!.addEventListener('click', () => dialog.showModal());
+  dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
+
+  for (const button of dialog.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy!);
+        button.textContent = 'Copied';
+      } catch {
+        button.textContent = 'Copy failed';
+      }
+      setTimeout(() => (button.textContent = 'Copy'), 1600);
+    });
+  }
+</script>
+
+<style>
+  .about-toggle {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 2px 0 0;
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    background: rgba(3, 12, 24, 0.85);
+    color: #e6f5ff;
+    font: 700 1rem/1 'Josefin Sans', sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .about-toggle:hover,
+  .about-toggle:focus-visible {
+    border-color: var(--accent);
+    outline: none;
+  }
+
+  /* The modal: a deco card like the entrance, scrolling inside if the prompt is long. */
+  .about {
+    width: min(46rem, 100vw - 1.5rem);
+    max-width: none;
+    max-height: min(88svh, 60rem);
+    padding: 1.6rem clamp(1rem, 4vw, 2.2rem) 2rem;
+    border: 1px solid #e2c46e;
+    outline: 1px solid rgba(226, 196, 110, 0.45);
+    outline-offset: 5px;
+    background: rgba(5, 16, 30, 0.97);
+    color: #e6f5ff;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+  }
+
+  .about[open] {
+    animation: rise 0.25s ease-out;
+  }
+
+  .about::backdrop {
+    background: rgba(2, 9, 18, 0.75);
+    backdrop-filter: blur(3px);
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    padding: 0 0 2px;
+    appearance: none;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #9ec3dc;
+    font: 400 1.4rem/1 system-ui, sans-serif;
+    cursor: pointer;
+  }
+
+  .close:hover,
+  .close:focus-visible {
+    background: rgba(255, 255, 255, 0.08);
+    color: #e6f5ff;
+    outline: none;
+  }
+
+  .eyebrow {
+    margin: 0;
+    font: 600 0.7rem/1 'Josefin Sans', sans-serif;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #e2c46e;
+  }
+
+  h2 {
+    margin: 0.5rem 0 1rem;
+    font: 400 clamp(1.7rem, 5vw, 2.2rem) / 1.1 var(--title-font, 'Fraunces', serif);
+    letter-spacing: 0.02em;
+  }
+
+  .points {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .points li {
+    position: relative;
+    margin: 0 0 0.45rem;
+    padding-left: 1.3rem;
+    color: #c4d7e4;
+  }
+
+  /* Small gold diamonds for bullets. */
+  .points li::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.62em;
+    width: 6px;
+    height: 6px;
+    background: #e2c46e;
+    transform: rotate(45deg);
+  }
+
+  h3 {
+    margin: 1.6rem 0 0.7rem;
+    font: 600 0.7rem/1 'Josefin Sans', sans-serif;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #e2c46e;
+  }
+
+  /* An editor window: title bar with a tab, line-numbered code, status bar. */
+  .editor {
+    margin: 0;
+    border: 1px solid #1d3b53;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #011627;
+  }
+
+  .titlebar {
+    display: flex;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0 0.6rem 0 0.9rem;
+    background: #0b2942;
+    border-bottom: 1px solid #1d3b53;
+    font: 500 0.72rem/1 'IBM Plex Mono', monospace;
+    color: #8badc1;
+  }
+
+  .dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dots i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #ff5f57;
+  }
+
+  .dots i:nth-child(2) {
+    background: #febc2e;
+  }
+
+  .dots i:nth-child(3) {
+    background: #28c840;
+  }
+
+  .tab {
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+    padding: 0.7rem 1rem 0.6rem;
+    border-top: 2px solid #7fdbca;
+    background: #011627;
+    color: #d6deeb;
+  }
+
+  .version {
+    display: flex;
+    align-items: center;
+    color: #5f7e97;
+  }
+
+  .titlebar button {
+    align-self: center;
+    margin-left: auto;
+    appearance: none;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid #1d3b53;
+    border-radius: 6px;
+    background: #011627;
+    color: #d6deeb;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .titlebar button:hover {
+    border-color: #7fdbca;
+  }
+
+  /* Line numbers via CSS counters; long lines soft-wrap with a hanging indent like an editor. */
+  .editor :global(pre) {
+    margin: 0;
+    padding: 1rem 1.2rem 1.2rem 0;
+    border-radius: 0;
+    counter-reset: line;
+    font: 0.8rem/1.65 'IBM Plex Mono', monospace;
+  }
+
+  .editor :global(pre .line) {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    min-height: 1.65em; /* blank lines are empty spans; keep them a full line tall */
+    padding-left: 3.6em;
+    counter-increment: line;
+  }
+
+  .editor :global(pre .line::before) {
+    content: counter(line);
+    position: absolute;
+    left: 0;
+    width: 2.6em;
+    text-align: right;
+    color: #4b6479;
+  }
+
+  .statusbar {
+    display: flex;
+    gap: 1.2rem;
+    padding: 0.4rem 0.9rem;
+    background: #0b2942;
+    border-top: 1px solid #1d3b53;
+    font: 400 0.66rem/1.4 'IBM Plex Mono', monospace;
+    color: #5f7e97;
+  }
+
+  .statusbar .note {
+    margin-left: auto;
+  }
+
+  @media (max-width: 600px) {
+    .statusbar .note {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about[open] {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,16 @@
+---
+/** An exhibit title with its (parenthesized) parts in a softer tone, so "A(quar)I(um)" reads as AI. */
+interface Props {
+  title: string;
+}
+
+const parts = Astro.props.title.split(/(\([^)]*\))/).filter(Boolean);
+---
+
+{parts.map((part) => (part.startsWith('(') ? <span class="aside">{part}</span> : part))}
+
+<style>
+  .aside {
+    opacity: 0.5;
+  }
+</style>

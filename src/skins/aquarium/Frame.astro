@@ -20,7 +20,7 @@ const { piece } = Astro.props;
       tabindex="-1"
       loading="lazy"
       referrerpolicy="no-referrer"></iframe>
-    <a class="open" href={piece.src} target="_blank" rel="noopener" aria-label={`Open ${piece.title} full size`}>⤢</a>
+    <a class="open" href={piece.src} data-expand={piece.title} aria-label={`Look closer at ${piece.title}`}>⤢</a>
   </div>
   <div class="rim" aria-hidden="true"></div>
   <button class="cabinet" type="button" data-vote aria-label={`Pick ${piece.title} as your favorite`}>
@@ -347,6 +347,10 @@ const { piece } = Astro.props;
 
     .name {
       white-space: normal;
+    }
+
+    .hint {
+      display: none;
     }
   }
 

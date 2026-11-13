@@ -4,12 +4,6 @@ import { getListedExhibits } from '../lib/exhibits';
 import { href } from '../lib/url';
 import { site } from '../site';
 
-interface Props {
-  /** Links within the current page, e.g. Methodology */
-  links?: { label: string; href: string }[];
-}
-
-const { links = [] } = Astro.props;
 const here = Astro.url.pathname;
 const exhibits = getListedExhibits();
 ---
@@ -35,8 +29,6 @@ const exhibits = getListedExhibits();
       </span>
     ))
   }
-  {links.length > 0 && <span class="label">This gallery</span>}
-  {links.map((link) => <a href={link.href}>{link.label}</a>)}
 </nav>
 
 <script>

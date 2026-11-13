@@ -1,6 +1,8 @@
 ---
 import type { Exhibit, PieceView } from '../../lib/exhibits';
 import Frame from './Frame.astro';
+import Viewer from './Viewer.astro';
+import ExhibitTitle from '../../components/ExhibitTitle.astro';
 
 interface Props {
   exhibit: Exhibit;
@@ -15,7 +17,7 @@ const { exhibit, pieces } = Astro.props;
   <div class="motes" aria-hidden="true"></div>
   {/* The first screen: title and all the tanks. Everything else scrolls below. */}
   <section class="screen">
-    <h1>{exhibit.title}</h1>
+    <h1><ExhibitTitle title={exhibit.title} /></h1>
     <div class="stage">
       <ol class="pieces" data-pieces>
         {
@@ -28,6 +30,7 @@ const { exhibit, pieces } = Astro.props;
       </ol>
     </div>
   </section>
+  <Viewer />
 </div>
 
 <style>
@@ -37,7 +40,7 @@ const { exhibit, pieces } = Astro.props;
     --muted: #86aac4;
     --accent: #6fd6f5;
     --rule: rgba(140, 200, 240, 0.25);
-    /* Deco type: 1930s public-aquarium signage. Also used by Methodology and the Entrance. */
+    /* Deco type: 1930s public-aquarium signage. Also used by About and the Entrance. */
     --title-font: 'Limelight', serif;
     --plaque-font: 'Josefin Sans', sans-serif;
     background:
@@ -49,6 +52,11 @@ const { exhibit, pieces } = Astro.props;
   :global(body[data-skin='aquarium'] .site-header) {
     position: absolute;
     inset: 0 0 auto;
+  }
+
+  /* The page is just the room; what the footer would say lives in the "?" modal. */
+  :global(body[data-skin='aquarium'] .site-footer) {
+    display: none;
   }
 
   .room {

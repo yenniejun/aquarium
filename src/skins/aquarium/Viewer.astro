@@ -1,0 +1,168 @@
+---
+/**
+ * "Look closer": a tank's ⤢ button opens it larger in a modal on this page. The viewer sits
+ * outside every [data-piece], so clicking around inside it never counts as a vote.
+ */
+---
+
+<dialog class="viewer" aria-label="Tank, larger">
+  <form method="dialog">
+    <button class="close" aria-label="Close" autofocus>×</button>
+  </form>
+  <figure>
+    <div class="hood" aria-hidden="true"></div>
+    <div class="glass">
+      <iframe sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+    </div>
+    <figcaption class="plaque">
+      <span class="name"></span>
+      <span class="who"></span>
+    </figcaption>
+  </figure>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('dialog.viewer')!;
+  const iframe = dialog.querySelector('iframe')!;
+  const name = dialog.querySelector<HTMLElement>('.name')!;
+  const who = dialog.querySelector<HTMLElement>('.who')!;
+
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-expand]')) {
+    link.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return; // still lets people open it in a new tab
+      e.preventDefault();
+      const piece = link.closest('[data-piece]');
+      const revealed = link.closest<HTMLElement>('[data-exhibit]')?.dataset.state === 'revealed';
+      const artist = piece?.querySelector('[data-artist]')?.textContent;
+      const medium = piece?.querySelector('[data-medium]')?.textContent;
+      name.textContent = iframe.title = link.dataset.expand!;
+      who.textContent = revealed && artist ? [artist, medium].filter(Boolean).join(' · ') : '';
+      iframe.src = link.href;
+      dialog.showModal();
+    });
+  }
+
+  // Click outside the tank to close. Unload the tank so it stops animating.
+  dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
+  dialog.addEventListener('close', () => (iframe.src = 'about:blank'));
+</script>
+
+<style>
+  .viewer {
+    position: fixed;
+    width: min(680px, 100vw - 2.5rem, (100svh - 10rem) * 4 / 3);
+    max-width: none;
+    max-height: none;
+    padding: 0;
+    border: 0;
+    overflow: visible;
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .viewer[open] {
+    animation: rise 0.25s ease-out;
+  }
+
+  .viewer::backdrop {
+    background: rgba(2, 9, 18, 0.8);
+    backdrop-filter: blur(3px);
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+    }
+  }
+
+  figure {
+    margin: 0;
+    text-align: center;
+  }
+
+  .hood {
+    height: 14px;
+    margin: 0 -6px;
+    border-radius: 7px 7px 2px 2px;
+    background: linear-gradient(#3b414b, #15181d 70%, #0b0d10);
+    box-shadow: 0 6px 18px 2px rgba(190, 240, 255, 0.35);
+  }
+
+  .glass {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #0a2a40;
+    box-shadow:
+      0 0 0 1px #05080b,
+      inset 0 0 0 5px rgba(130, 210, 195, 0.32),
+      0 0 80px -10px rgba(90, 190, 255, 0.45);
+  }
+
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .close {
+    position: absolute;
+    z-index: 1;
+    top: 24px;
+    right: 10px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0 0 2px;
+    border: 0;
+    border-radius: 50%;
+    font: 400 1.3rem/1 system-ui, sans-serif;
+    background: rgba(3, 16, 30, 0.7);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .close:hover,
+  .close:focus-visible {
+    background: rgba(3, 16, 30, 0.95);
+    outline: 1px solid var(--accent);
+  }
+
+  .plaque {
+    display: inline-grid;
+    gap: 2px;
+    margin-top: 14px;
+    padding: 0.55rem 1.6rem 0.5rem;
+    border-radius: 3px;
+    color: #3a2709;
+    text-shadow: 0 1px 0 rgba(255, 240, 200, 0.55);
+    background: linear-gradient(160deg, #8c6424, #f1d27f 36%, #b78a36 52%, #e8c56c 72%, #8a6322);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      0 2px 6px rgba(0, 0, 0, 0.6);
+  }
+
+  .name {
+    font: 700 0.95rem/1.2 var(--plaque-font);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .who {
+    font: 500 0.66rem/1.2 'IBM Plex Mono', monospace;
+  }
+
+  .who:empty {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .viewer[open] {
+      animation: none;
+    }
+  }
+</style>

@@ -4,6 +4,7 @@
  * the curtains back. Shown once per exhibit per browser (?reset shows it again). Pure CSS art.
  */
 import type { Exhibit } from '../lib/exhibits';
+import ExhibitTitle from './ExhibitTitle.astro';
 
 interface Props {
   exhibit: Exhibit;
@@ -27,7 +28,7 @@ const key = `museum:entered:${exhibit.slug}`;
       <circle cx="60" cy="42" r="3" fill="currentColor"></circle>
     </svg>
     <p class="eyebrow">Welcome to</p>
-    <h2 id="entrance-title">{exhibit.title}</h2>
+    <h2 id="entrance-title"><ExhibitTitle title={exhibit.title} /></h2>
     {exhibit.intro && <p>{exhibit.intro}</p>}
     {exhibit.mode === 'blind' && <p>The tanks are unlabeled. Click your favorite to find out who made what.</p>}
     <button autofocus>Enter</button>

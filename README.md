@@ -1,6 +1,6 @@
 # The Model Museum
 
-Same brief, different minds. Each exhibit asks several AI models to make something from the same prompt, entirely in code. First exhibit: **The Aquarium**, six tanks with one creature each, showing off its model's personality.
+Same brief, different minds. Each exhibit asks several AI models to make something from the same prompt, entirely in code. First exhibit: **A(quar)I(um)**, six tanks with one creature each, showing off its model's personality.
 
 ```sh
 npm install
