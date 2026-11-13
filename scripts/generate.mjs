@@ -9,8 +9,9 @@
 // For each entry this writes:
 //   raw.md      the model's full reply, untouched
 //   piece.html  the html code block from the reply
-//   meta.json   title, medium and statement from the reply's json block, status "final",
-//               and a "generation" record (date, API, params)
+//   meta.json   who the model is (kept), plus whatever the reply's json block has (title,
+//               statement, …), status "final" and a "generation" record (date, API, params).
+//               Fields from an earlier run are replaced, not merged.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -74,11 +75,14 @@ async function generate(slug) {
   try {
     card = json ? JSON.parse(json) : {};
   } catch {
-    console.warn(`  ! couldn't parse the json block; title/medium/statement left as they were`);
+    console.warn(`  ! couldn't parse the json block, so no title or statement this time`);
   }
   const { title, medium, statement } = card;
   const updated = {
-    ...meta,
+    artist: meta.artist,
+    provider: meta.provider,
+    modelId: meta.modelId,
+    openWeights: meta.openWeights,
     status: 'final',
     ...(title && { title }),
     ...(medium && { medium }),
@@ -94,7 +98,7 @@ async function generate(slug) {
   writeFileSync(metaFile, JSON.stringify(updated, null, 2) + '\n');
 
   console.log(
-    `✓ ${slug}: "${updated.title ?? 'untitled'}" (${updated.medium ?? 'medium not given'}), ` +
+    `✓ ${slug}: "${updated.title ?? 'untitled'}", ` +
       `${(html.length / 1024).toFixed(1)} KB of HTML, ${usage.in} in / ${usage.out} out tokens, ${seconds}s` +
       (stop && !['end_turn', 'stop', 'STOP'].includes(stop) ? `, stopped: ${stop}` : ''),
   );

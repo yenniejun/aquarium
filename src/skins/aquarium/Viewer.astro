@@ -37,9 +37,8 @@
       const piece = link.closest('[data-piece]');
       const revealed = link.closest<HTMLElement>('[data-exhibit]')?.dataset.state === 'revealed';
       const artist = piece?.querySelector('[data-artist]')?.textContent;
-      const medium = piece?.querySelector('[data-medium]')?.textContent;
       name.textContent = iframe.title = link.dataset.expand!;
-      who.textContent = revealed && artist ? [artist, medium].filter(Boolean).join(' · ') : '';
+      who.textContent = revealed && artist ? artist : '';
       delete iframe.parentElement!.dataset.loaded;
       iframe.src = link.href;
       dialog.showModal();

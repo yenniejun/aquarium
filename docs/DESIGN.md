@@ -32,7 +32,7 @@ exhibits/                         ← all content; one folder per exhibit
     placeholder.html              ← shown for entries without a piece yet (empty tank)
     entries/
       claude/
-        meta.json                 ← artist, provider, title, statement, medium, provenance
+        meta.json                 ← artist, provider, model id, title, statement, provenance
         piece.html                ← the model's output, untouched
       gpt/ gemini/ deepseek/ qwen/ llama/
   modern-art/                     ← draft (unlisted; still at /modern-art/ in dev), gallery skin, no pieces yet
@@ -77,7 +77,7 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 - **Menu.** `src/components/SideNav.astro`: a slim panel on the left edge (Galleries) on screens ≥1000px, and a "Menu" popover on narrower ones. Upcoming galleries come from `src/site.ts`.
 - **About ("?").** `src/components/About.astro` (shared by all exhibits): a "?" button in the top-right corner opens a fixed-size modal with two tabs: About (a skin's Welcome, or the plain title and intro) and Prompt (the exact `prompt.md` in an editor-style view with line numbers and a Copy button). The aquarium page itself is just the room: no section or footer below it.
 - **Type.** Gluten (soft and wobbly) for the title and the welcome, Josefin Sans caps on the brass plaques, IBM Plex Mono for small UI labels.
-- **Plaque = specimen name only.** Who made it and how ("Claude · SVG + JavaScript") appear only after voting.
+- **Plaque = specimen name only.** Who made it ("Claude Sonnet 5.5") appears under the name only after voting. Long names shrink to fit the plaque (font size from the name's length and the plaque's width, via container query units).
 
 ## Blind voting (v0, client side)
 

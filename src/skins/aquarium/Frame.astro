@@ -33,12 +33,9 @@ const empty = piece.status === 'pending';
     disabled={empty}
     aria-label={empty ? 'Empty tank, awaiting arrival' : `Pick ${piece.title} as your favorite`}
   >
-    <span class="plaque">
+    <span class="plaque" style={`--len: ${piece.title.length}`}>
       <span class="name">{piece.title}</span>
-      <span class="who">
-        <span class="artist" data-artist>{piece.artist}</span>
-        <span class="medium" data-medium>{piece.medium}</span>
-      </span>
+      <span class="who" data-artist>{piece.artist}</span>
       {!empty && <span class="hint" aria-hidden="true">♥ pick this one</span>}
     </span>
   </button>
@@ -277,7 +274,8 @@ const empty = piece.status === 'pending';
     display: grid;
     align-content: center;
     justify-items: center;
-    width: 70%;
+    container-type: inline-size;
+    width: 84%;
     min-width: min(100%, 12rem);
     height: 34px;
     padding: 0 14px;
@@ -315,29 +313,32 @@ const empty = piece.status === 'pending';
     right: 5px;
   }
 
+  /* Long names shrink to fit the plaque: --len is the name's length in characters, and a capital
+     in this face plus its letter spacing is about 0.8em wide. */
   .name {
     max-width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font: 700 clamp(0.6rem, var(--tank-h) * 0.041, 0.86rem) / 1.15 var(--plaque-font);
+    font: 700 clamp(0.55rem, 100cqw / (var(--len, 16) * 0.8), 0.86rem) / 1.15 var(--plaque-font);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     transition: transform 0.2s;
   }
 
-  /* Who made it and how, on one small line: hidden until the visitor votes. */
+  /* Who made it, on one small line: hidden until the visitor votes. */
   .who {
     display: none;
     max-width: 100%;
-    font: 500 0.58rem/1.2 'IBM Plex Mono', monospace;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font: 600 0.58rem/1.2 'IBM Plex Mono', monospace;
     letter-spacing: 0.03em;
   }
 
   :global([data-state='revealed']) .who {
-    display: flex;
-    justify-content: center;
-    gap: 0.5em;
+    display: block;
     animation: reveal 0.6s both;
     animation-delay: calc(var(--i, 0) * 90ms);
   }
@@ -347,23 +348,6 @@ const empty = piece.status === 'pending';
       opacity: 0;
       transform: translateY(3px);
     }
-  }
-
-  .artist {
-    flex: none;
-    font-weight: 600;
-  }
-
-  .medium {
-    min-width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    opacity: 0.75;
-  }
-
-  .medium:not(:empty)::before {
-    content: '· ';
   }
 
   .hint {

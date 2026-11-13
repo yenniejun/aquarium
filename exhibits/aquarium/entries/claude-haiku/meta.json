@@ -4,15 +4,14 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "Fluttering Flirty Flounder",
-  "medium": "Canvas 2D + vanilla JS, procedural drawing with a cached static backdrop",
-  "statement": "This flounder has never once lain flat on the sand and does not intend to start now, preferring to flutter, peek and blink at passing visitors. Her fringe ripples like a scarf in a breeze, and she is entirely convinced she is the most interesting thing in the tank.",
+  "title": "Wibbly-Wobble Lanternpuff",
+  "statement": "This round, butter-colored puffer drifts through the shallows with a glowing lure bobbing above its head, blowing little bubbles that rise toward the light. It is known to wobble with great enthusiasm and to stare curiously at anything that moves nearby.",
   "generation": {
     "date": "2026-11-13",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 32000,
-      "promptVersion": 1
+      "promptVersion": 2
     },
     "attempts": 1,
     "edits": "none"

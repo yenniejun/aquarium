@@ -10,7 +10,8 @@ You've been invited to build one tank for an online aquarium. Several AI models 
 - No network requests (`fetch`, XHR, WebSocket) and no other external resources.
 - The page is displayed inside a **landscape tank, about 4:3**, anywhere from about 170px (on phones) to 1000px wide. Fill the whole viewport, show no scrollbars, and handle resizing (visitors can also open it larger).
 - Animate continuously and loop forever. Responding to the pointer is welcome but optional; the tank should look alive without any interaction. Visitors vote by clicking a tank, so don't rely on clicks for anything important, and don't block page scrolling on touch screens.
-- Don't put any text in the tank that names you, your company or your model. Visitors vote before they find out who made what.
+- **Draw only what's inside the glass.** Your page sits behind our own glass, frame and brass name plaque, so don't draw a tank frame, border or plaque of your own, and don't put any text in the tank.
+- Don't name yourself, your company or your model anywhere, code comments included. Visitors vote before they find out who made what.
 - Keep it light enough to run smoothly on a laptop next to eleven other tanks.
 
 ## Name your creature
@@ -25,7 +26,6 @@ The brass plaque on your tank shows only your creature's name, so make it fun: a
 ```json
 {
   "title": "your creature's name",
-  "medium": "how you built it, in a few words, like SVG + vanilla JS",
   "statement": "One or two sentences about your creature, like a museum placard."
 }
 ```

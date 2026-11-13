@@ -6,7 +6,7 @@
   "mode": "blind",
   "order": 1,
   "pieceLabel": "Tank",
-  "promptVersion": 1,
+  "promptVersion": 2,
   "lineup": [
     "claude-haiku", "claude-sonnet", "gpt-6-1-sol", "gpt-6-luna", "gemini-4-hydrogen", "gemini-4-carbon", "deepseek", "qwen", "llama", "grok", "mistral", "kimi"
   ]
