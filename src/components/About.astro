@@ -14,6 +14,7 @@ interface Props {
 
 const { exhibit } = Astro.props;
 const prompt = getPrompt(exhibit);
+const piece = exhibit.pieceLabel.toLowerCase();
 ---
 
 <button class="about-toggle" type="button" aria-haspopup="dialog" aria-label="About this gallery">?</button>
@@ -25,8 +26,13 @@ const prompt = getPrompt(exhibit);
   <h2 id="about-title"><ExhibitTitle title={exhibit.title} /></h2>
   <ul class="points">
     {exhibit.intro && <li>{exhibit.intro}</li>}
-    <li>Every {exhibit.pieceLabel.toLowerCase()} is code the model wrote, running live. No images.</li>
-    {exhibit.mode === 'blind' && <li>They're shuffled and unlabeled. Click your favorite to find out who made what.</li>}
+    {
+      exhibit.mode === 'blind' && (
+        <li>
+          The {piece}s are shuffled and unlabeled. Select your favorite {piece} to find out which AI model made which!
+        </li>
+      )
+    }
   </ul>
 
   {
