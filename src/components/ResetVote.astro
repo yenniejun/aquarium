@@ -1,0 +1,59 @@
+---
+/**
+ * Dev-only "Reset vote" button for blind exhibits: forgets this browser's vote and reloads, so
+ * the vote and reveal can be tested again. Not rendered in production builds (?reset still works).
+ */
+import type { Exhibit } from '../lib/exhibits';
+
+interface Props {
+  exhibit: Exhibit;
+}
+
+const { exhibit } = Astro.props;
+---
+
+{
+  import.meta.env.DEV && exhibit.mode === 'blind' && (
+    <>
+      <button
+        class="reset-vote"
+        type="button"
+        data-key={`museum:vote:${exhibit.slug}`}
+        title="Dev only: forget this browser's vote and shuffle again"
+      >
+        Reset vote
+      </button>
+      <script is:inline>
+        document.currentScript.previousElementSibling.addEventListener('click', (e) => {
+          try {
+            localStorage.removeItem(e.currentTarget.dataset.key);
+          } catch {}
+          location.reload();
+        });
+      </script>
+    </>
+  )
+}
+
+<style>
+  .reset-vote {
+    height: 34px;
+    padding: 0 14px;
+    appearance: none;
+    border: 1px dashed rgba(255, 255, 255, 0.35);
+    border-radius: 99px;
+    background: rgba(3, 12, 24, 0.85);
+    color: #e6f5ff;
+    font: 500 0.68rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .reset-vote:hover,
+  .reset-vote:focus-visible {
+    background: #e6f5ff;
+    color: #03101e;
+    outline: none;
+  }
+</style>

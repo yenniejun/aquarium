@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import About from '../../components/About.astro';
+import ResetVote from '../../components/ResetVote.astro';
 import { getExhibits, getPieces, toView, type Exhibit } from '../../lib/exhibits';
 import { href } from '../../lib/url';
 import { skins } from '../../skins';
@@ -16,15 +17,18 @@ const blind = exhibit.mode === 'blind';
 ---
 
 <Base skin={exhibit.skin} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
-  {
-    Welcome ? (
-      <About exhibit={exhibit} slot="header">
-        <Welcome exhibit={exhibit} />
-      </About>
-    ) : (
-      <About exhibit={exhibit} slot="header" />
-    )
-  }
+  <Fragment slot="header">
+    <ResetVote exhibit={exhibit} />
+    {
+      Welcome ? (
+        <About exhibit={exhibit}>
+          <Welcome exhibit={exhibit} />
+        </About>
+      ) : (
+        <About exhibit={exhibit} />
+      )
+    }
+  </Fragment>
   <div
     class="exhibit"
     data-exhibit={exhibit.slug}

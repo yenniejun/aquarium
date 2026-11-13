@@ -23,7 +23,13 @@ const empty = piece.status === 'pending';
       loading={empty ? 'lazy' : 'eager'}
       referrerpolicy="no-referrer"
       onload="this.parentElement.dataset.loaded = ''"></iframe>
-    <a class="open" href={piece.src} data-expand={piece.title} aria-label={`Look closer at ${piece.title}`}>⤢</a>
+    <a
+      class="open"
+      href={piece.src}
+      data-expand={piece.title}
+      data-statement={piece.statement}
+      aria-label={`Look closer at ${piece.title}`}>⤢</a
+    >
   </div>
   <div class="rim" aria-hidden="true"></div>
   <button
@@ -38,6 +44,7 @@ const empty = piece.status === 'pending';
       <span class="who" data-artist>{piece.artist}</span>
       {!empty && <span class="hint" aria-hidden="true">♥ pick this one</span>}
     </span>
+    {piece.statement && <span class="card" aria-hidden="true">{piece.statement}</span>}
   </button>
 </div>
 
@@ -238,6 +245,7 @@ const empty = piece.status === 'pending';
 
   /* Wooden stand with a brass plaque. Fixed height: it's part of --chrome in Room.astro. */
   .cabinet {
+    position: relative;
     appearance: none;
     display: grid;
     place-items: center;
@@ -378,6 +386,48 @@ const empty = piece.status === 'pending';
   :global([data-state='voting']) .tank:hover .hint,
   :global([data-state='voting']) .cabinet:focus-visible .hint {
     opacity: 0.7;
+  }
+
+  /* Hovering the plaque: the creature's own placard text on a little card above it. Hover-only;
+     on touch screens it's in the "look closer" view instead. */
+  .card {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    bottom: calc(100% + 12px);
+    width: min(94%, 22rem);
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    background: #f7fafc;
+    color: #10202e;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    font: 400 0.78rem/1.45 system-ui, sans-serif;
+    text-align: left;
+    text-shadow: none;
+    opacity: 0;
+    translate: -50% 6px;
+    transition:
+      opacity 0.2s,
+      translate 0.2s;
+    pointer-events: none;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border: 7px solid transparent;
+    border-top-color: #f7fafc;
+    translate: -50% 0;
+  }
+
+  @media (hover: hover) {
+    .cabinet:hover .card,
+    .cabinet:focus-visible .card {
+      opacity: 1;
+      translate: -50% 0;
+    }
   }
 
   /* When scrolling (phones), let plaques grow so long names can wrap. */

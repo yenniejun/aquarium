@@ -1,5 +1,8 @@
 {
-  "artist": "Grok",
+  "artist": "Grok 4.7",
   "provider": "xAI",
+  "modelId": "x-ai/grok-4.7",
+  "route": "OpenRouter",
+  "host": "xai",
   "openWeights": false
 }

@@ -1,5 +1,8 @@
 {
-  "artist": "Kimi",
+  "artist": "Kimi K3.1 Pro",
   "provider": "Moonshot AI",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "route": "OpenRouter",
+  "host": "moonshotai",
   "openWeights": true
 }

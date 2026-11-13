@@ -17,9 +17,12 @@
         referrerpolicy="no-referrer"
         onload="this.src !== 'about:blank' && (this.parentElement.dataset.loaded = '')"></iframe>
     </div>
-    <figcaption class="plaque">
-      <span class="name"></span>
-      <span class="who"></span>
+    <figcaption>
+      <span class="plaque">
+        <span class="name"></span>
+        <span class="who"></span>
+      </span>
+      <p class="label"></p>
     </figcaption>
   </figure>
 </dialog>
@@ -29,6 +32,7 @@
   const iframe = dialog.querySelector('iframe')!;
   const name = dialog.querySelector<HTMLElement>('.name')!;
   const who = dialog.querySelector<HTMLElement>('.who')!;
+  const label = dialog.querySelector<HTMLElement>('.label')!;
 
   for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-expand]')) {
     link.addEventListener('click', (e) => {
@@ -39,6 +43,7 @@
       const artist = piece?.querySelector('[data-artist]')?.textContent;
       name.textContent = iframe.title = link.dataset.expand!;
       who.textContent = revealed && artist ? artist : '';
+      label.textContent = link.dataset.statement ?? '';
       delete iframe.parentElement!.dataset.loaded;
       iframe.src = link.href;
       dialog.showModal();
@@ -53,7 +58,7 @@
 <style>
   .viewer {
     position: fixed;
-    width: min(680px, 100vw - 2.5rem, (100svh - 10rem) * 4 / 3);
+    width: min(680px, 100vw - 2.5rem, (100svh - 15rem) * 4 / 3);
     max-width: none;
     max-height: none;
     padding: 0;
@@ -166,6 +171,18 @@
   }
 
   .who:empty {
+    display: none;
+  }
+
+  /* The creature's own placard text, like a museum wall label. */
+  .label {
+    max-width: 34rem;
+    margin: 0.9rem auto 0;
+    color: #c4d7e4;
+    font: 400 0.95rem/1.55 system-ui, sans-serif;
+  }
+
+  .label:empty {
     display: none;
   }
 

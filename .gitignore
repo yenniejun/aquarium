@@ -7,3 +7,6 @@ dist/
 
 # Local design screenshots
 mockups/
+
+# Replies that came back without a page (see scripts/generate.mjs)
+raw.failed.md

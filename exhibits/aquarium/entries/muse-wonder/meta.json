@@ -1,0 +1,22 @@
+{
+  "artist": "Muse Wonder",
+  "provider": "Meta",
+  "modelId": "meta/muse-wonder",
+  "route": "OpenRouter",
+  "host": "meta",
+  "openWeights": false,
+  "status": "final",
+  "title": "Dizzy Doodling Dumbo",
+  "statement": "A pocket-sized dumbo octopus who doodles stars and hearts in sparkling ink, blows wobbly bubble rings at wishes, and daydreams beside a tiny crystal observatory.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "OpenRouter (served by Meta)",
+    "params": {
+      "max_tokens": 32000,
+      "promptVersion": 2,
+      "host": "meta"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

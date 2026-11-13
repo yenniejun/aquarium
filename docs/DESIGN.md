@@ -71,7 +71,7 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 ## The aquarium page
 
 - **3×2 above the fold, 3×4 in all.** Twelve tanks in three columns. The title and the first two rows fill exactly the first screen; rows 3–4 are below it. Tanks are 4:3, and `--tank-h` (in `skins/aquarium/Room.astro`) is the largest height that fits three across and two rows (plus their fixed chrome) above the fold, from container query width units and `svh`. Any leftover height is split above row 1 and below row 2. Portrait screens and phones scroll in two columns.
-- **Empty slots.** A lineup entry with no `piece.html` shows `placeholder.html` (an empty tank) with an "Awaiting arrival" plaque. Its `<li>` gets `data-pending`, so voting keeps it at the end, unshuffled and unvotable. Right now DeepSeek, Qwen, Llama, Grok, Mistral and Kimi are empty: the generate script only speaks to Anthropic, OpenAI and Google so far.
+- **Empty slots.** A lineup entry with no `piece.html` shows `placeholder.html` (an empty tank) with an "Awaiting arrival" plaque. Its `<li>` gets `data-pending`, so voting keeps it at the end, unshuffled and unvotable. Right now only Gemini 4 Carbon is empty (its key is on Google's free tier).
 - **Welcome.** On a first visit, the "?" modal opens by itself (remembered per exhibit in `localStorage` as `museum:welcomed:<exhibit>`; `?reset` shows it again). Its About tab is the skin's Welcome, `src/skins/aquarium/Welcome.astro`: the title and two lines above a strip of water with a goldfish. Hover or tap the underlined words: "a tank" swells the waves, "one creature" makes the fish wiggle, "favorite tank" makes it leap out and flip.
 - **Loading.** Each tank shows a few rising bubbles until its iframe loads, then fades the piece in. Tanks on the first screen load eagerly; empty slots load lazily. `public/_headers` lets browsers cache pieces for 5 minutes, then refresh them in the background.
 - **Menu.** `src/components/SideNav.astro`: a slim panel on the left edge (Galleries) on screens ≥1000px, and a "Menu" popover on narrower ones. Upcoming galleries come from `src/site.ts`.
@@ -113,10 +113,10 @@ Why not inline the code, or use `srcdoc`? Inlining lets pieces' CSS and globals 
 ## Roadmap
 
 ### v0 (now)
-Static site: A(quar)I(um) with six generated tanks (Claude Haiku 5.5 and Sonnet 5.5, GPT-6.1 Sol and GPT-6 Luna, Gemini 4 Hydrogen and Carbon) and six empty ones, blind click-to-vote with a client-side reveal, and sandboxing. The lobby and the gilded-frame Modern Art Wing exist but are parked (modern-art is a draft).
+Static site: A(quar)I(um) with eleven generated tanks (Claude Haiku 5.5 and Sonnet 5.5, GPT-6.1 Sol and GPT-6 Luna, Gemini 4 Hydrogen, Muse Wonder, Qwen3.8 Max Prime, GLM 5.3 Prime, DeepSeek V4.1 Flash, Kimi K3.1 Pro, Grok 4.7) and one empty slot (Gemini 4 Carbon), blind click-to-vote with a client-side reveal, and sandboxing. The lobby and the gilded-frame Modern Art Wing exist but are parked (modern-art is a draft).
 
 ### v1: real pieces
-- `scripts/generate.mjs` (`npm run generate -- <entry>…`, built): sends `prompt.md` to each entry's model through its provider's API (Anthropic and OpenAI so far; OpenRouter could cover the rest with one key). Saves the raw reply to `entries/<slug>/raw.md`, the HTML block to `piece.html`, and the JSON block plus a `generation` record (date, API, params) to `meta.json`.
+- `scripts/generate.mjs` (`npm run generate -- <entry>…`, built): sends `prompt.md` to each entry's model: Anthropic, OpenAI and Google directly, everyone else through OpenRouter pinned to one host (`route` and `host` in `meta.json`). Saves the raw reply to `entries/<slug>/raw.md`, the HTML block to `piece.html`, and the JSON block plus a `generation` record (date, API and serving host, params) to `meta.json`.
 - Fairness rules, written down before running: default sampling settings, first response that renders wins, retry only if it fails to render (and log the attempts), no human edits except removing self-identification (logged in `generation.edits`).
 - Optional "view source" page per piece (showing the code is part of the point), plus stats like bytes, lines and libraries used.
 

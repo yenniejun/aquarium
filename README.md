@@ -23,6 +23,8 @@ Put API keys in a `.env` file in the project root (git ignores it):
 ```
 ANTHROPIC_API_KEY=...
 OPENAI_API_KEY=...
+GEMINI_API_KEY=...
+OPENROUTER_API_KEY=...
 ```
 
 Then send the exhibit's `prompt.md` to the models behind one or more entries:
@@ -31,4 +33,4 @@ Then send the exhibit's `prompt.md` to the models behind one or more entries:
 npm run generate -- claude-haiku claude-sonnet
 ```
 
-Each entry's `meta.json` names its `provider` and `modelId`. The script saves the full reply to `raw.md`, the HTML to `piece.html`, and the title, medium, statement and a generation record to `meta.json`. An entry only shows on the page once it's in the exhibit's `lineup`. Run `npm run check:blind` afterwards to catch pieces that name their maker.
+Each entry's `meta.json` names its `provider` and `modelId`. Models from other makers (Meta, Qwen, GLM, DeepSeek, Kimi, Grok) go through OpenRouter: `"route": "OpenRouter"`, with `"host"` pinning the request to one host, normally the maker's own servers, with no fallbacks. The script saves the full reply to `raw.md`, the HTML to `piece.html`, and the title, medium, statement and a generation record to `meta.json`. An entry only shows on the page once it's in the exhibit's `lineup`. Run `npm run check:blind` afterwards to catch pieces that name their maker.

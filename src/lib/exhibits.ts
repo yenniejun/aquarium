@@ -36,8 +36,13 @@ const ExhibitSchema = z.object({
 const EntrySchema = z.object({
   /** Display name of the model, e.g. "Claude Opus 5.5" */
   artist: z.string(),
+  /** Who makes the model, e.g. "Anthropic" */
   provider: z.string(),
   modelId: z.string().optional(),
+  /** API the generate script calls through, when it isn't the provider's own, e.g. "OpenRouter" */
+  route: z.string().optional(),
+  /** On OpenRouter: the one host allowed to serve the request (no fallbacks), e.g. "deepseek" */
+  host: z.string().optional(),
   openWeights: z.boolean().default(false),
   /** dummy = hand-written stand-in, final = real model output. ("pending" = no piece.html) */
   status: z.enum(['dummy', 'final']).default('final'),
