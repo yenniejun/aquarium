@@ -1,0 +1,5 @@
+# Honored by Cloudflare Pages and Netlify. If a visitor opens a piece directly, outside its
+# sandboxed iframe, it is still sandboxed (opaque origin, can't touch site storage).
+/pieces/*
+  Content-Security-Policy: sandbox allow-scripts
+  X-Robots-Tag: noindex

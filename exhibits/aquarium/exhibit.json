@@ -1,0 +1,12 @@
+{
+  "title": "The Aquarium",
+  "tagline": "Six tanks. Six models. One creature each.",
+  "intro": "Each model was asked to build a tank holding a single creature that shows off its personality.",
+  "skin": "aquarium",
+  "status": "live",
+  "mode": "open",
+  "order": 1,
+  "pieceLabel": "Tank",
+  "promptVersion": 1,
+  "lineup": ["claude", "gpt", "gemini", "deepseek", "qwen", "llama"]
+}

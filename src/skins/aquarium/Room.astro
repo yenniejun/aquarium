@@ -1,0 +1,133 @@
+---
+import type { Exhibit } from '../../lib/exhibits';
+
+interface Props {
+  exhibit: Exhibit;
+}
+
+const { exhibit } = Astro.props;
+---
+
+<div class="room">
+  <div class="rays" aria-hidden="true"></div>
+  <div class="motes" aria-hidden="true"></div>
+  <header class="sign">
+    <p class="eyebrow">{exhibit.status === 'live' ? 'Now open' : 'Preview'}</p>
+    <h1>{exhibit.title}</h1>
+    <p class="tagline">{exhibit.tagline}</p>
+    {exhibit.intro && <p class="intro">{exhibit.intro}</p>}
+  </header>
+  <slot />
+</div>
+
+<style>
+  :global(body[data-skin='aquarium']) {
+    --bg: #03101e;
+    --ink: #e6f5ff;
+    --muted: #86aac4;
+    --accent: #6fd6f5;
+    --rule: rgba(140, 200, 240, 0.25);
+    background:
+      radial-gradient(110% 60% at 50% -5%, #1c5d90 0%, #0c2d50 40%, transparent 80%),
+      linear-gradient(#071a2e, #03101e 60%);
+  }
+
+  .room {
+    --cols: 3;
+    --gap-x: clamp(1.5rem, 3vw, 2.75rem);
+    --gap-y: 3.5rem;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(1.5rem, 5vw, 3.5rem) 1.25rem 5rem;
+  }
+
+  /* Light coming down through the water. */
+  .rays {
+    position: absolute;
+    inset: -10% -20% 35%;
+    z-index: -1;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      100deg,
+      transparent 0 70px,
+      rgba(160, 225, 255, 0.055) 70px 120px,
+      transparent 120px 210px,
+      rgba(160, 225, 255, 0.035) 210px 240px
+    );
+    mask-image: linear-gradient(to bottom, #000, transparent 90%);
+    transform-origin: 50% 0;
+    animation: sway 16s ease-in-out infinite alternate;
+  }
+
+  .motes {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle, rgba(200, 235, 255, 0.35) 0 1px, transparent 1.5px),
+      radial-gradient(circle, rgba(200, 235, 255, 0.2) 0 1px, transparent 1.5px);
+    background-size:
+      140px 160px,
+      90px 110px;
+    animation: drift 40s linear infinite;
+  }
+
+  @keyframes sway {
+    from {
+      transform: skewX(-7deg);
+    }
+    to {
+      transform: skewX(7deg);
+    }
+  }
+
+  @keyframes drift {
+    to {
+      background-position:
+        0 -800px,
+        40px -1100px;
+    }
+  }
+
+  .sign {
+    max-width: 40rem;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+  }
+
+  .eyebrow {
+    margin: 0;
+    font: 600 0.72rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  h1 {
+    margin: 0.35em 0 0.25em;
+    font: 700 clamp(2.6rem, 7vw, 4.6rem) / 1 'Fraunces', serif;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 40px rgba(111, 214, 245, 0.35);
+  }
+
+  .tagline {
+    margin: 0;
+    font: italic 400 1.25rem/1.4 'Fraunces', serif;
+    color: var(--muted);
+  }
+
+  .intro {
+    margin: 1rem auto 0;
+    max-width: 32rem;
+    color: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rays,
+    .motes {
+      animation: none;
+    }
+  }
+</style>

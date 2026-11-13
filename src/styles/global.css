@@ -1,0 +1,81 @@
+/* Site-wide basics. Each skin sets --bg / --ink / --muted / --accent / --rule (and the body background) for its pages. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  --bg: #f1ece2;
+  --ink: #1f1c18;
+  --muted: #6d665b;
+  --accent: #a3372b;
+  --rule: rgba(31, 28, 24, 0.15);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  flex: 1;
+}
+
+.site-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding: 1.1rem clamp(1rem, 4vw, 2.5rem);
+}
+
+.wordmark {
+  font: 700 1.1rem/1 'Fraunces', serif;
+  letter-spacing: -0.01em;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+}
+
+.site-header nav a {
+  font: 500 0.72rem/1.6 'IBM Plex Mono', monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.site-header nav a:hover,
+.site-header nav a[aria-current='page'] {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+.site-header nav small {
+  margin-left: 0.5em;
+  font-size: 0.85em;
+  color: var(--accent);
+}
+
+.site-footer {
+  padding: 2rem 1rem 2.5rem;
+  text-align: center;
+  font: 400 0.72rem/1.5 'IBM Plex Mono', monospace;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}

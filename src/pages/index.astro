@@ -1,0 +1,190 @@
+---
+import Base from '../layouts/Base.astro';
+import { getExhibits } from '../lib/exhibits';
+import { href } from '../lib/url';
+import { site } from '../site';
+
+const exhibits = getExhibits();
+const statusText = { live: 'Now open', preview: 'Preview', draft: 'Draft' } as const;
+---
+
+<Base skin="lobby">
+  <section class="hero">
+    <p class="eyebrow">Same brief · Different minds</p>
+    <h1>{site.name}</h1>
+    <p class="blurb">{site.blurb}</p>
+  </section>
+
+  <section class="directory" aria-labelledby="directory-title">
+    <h2 id="directory-title">Directory</h2>
+    <ol>
+      {
+        exhibits.map((ex, i) => (
+          <li>
+            <a href={href(`/${ex.slug}/`)}>
+              <span class="wing">{String.fromCharCode(65 + i)}</span>
+              <span class="name">{ex.title}</span>
+              <span class="leader" />
+              <span class="status">{statusText[ex.status]}</span>
+            </a>
+          </li>
+        ))
+      }
+      {
+        site.upcoming.map((u) => (
+          <li class="soon">
+            <span>
+              <span class="wing">·</span>
+              <span class="name">{u.title}</span>
+              <span class="leader" />
+              <span class="status">{u.note}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="how">
+    <div>
+      <h3>One brief</h3>
+      <p>Each exhibit sends every model the exact same prompt. We keep the output as it came back.</p>
+    </div>
+    <div>
+      <h3>Pure code</h3>
+      <p>No images or uploads. Every piece is HTML, CSS, SVG or JavaScript, running live in its own sandbox.</p>
+    </div>
+    <div>
+      <h3>Vote blind <small>soon</small></h3>
+      <p>Pick your favorite before you find out who made it, then see how everyone else voted.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: clamp(3rem, 9vw, 6rem) 1.25rem 2.5rem;
+    text-align: center;
+  }
+
+  .eyebrow {
+    margin: 0;
+    font: 500 0.75rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  h1 {
+    margin: 0.35em 0 0.3em;
+    font: 700 clamp(2.8rem, 8vw, 5.2rem) / 0.95 'Fraunces', serif;
+    letter-spacing: -0.03em;
+  }
+
+  .blurb {
+    margin: 0 auto;
+    max-width: 34rem;
+    font: italic 400 1.2rem/1.5 'Fraunces', serif;
+    color: var(--muted);
+  }
+
+  /* A felt letterboard, like the floor directory in a museum lobby. */
+  .directory {
+    max-width: 40rem;
+    margin: 1.5rem auto 0;
+    padding: 1.6rem clamp(1rem, 4vw, 2.2rem) 1.8rem;
+    border-radius: 6px;
+    color: #f4f1ea;
+    background:
+      repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 6px),
+      linear-gradient(#232323, #161616);
+    box-shadow:
+      0 0 0 10px #6b4a2f,
+      0 0 0 12px #4a321f,
+      0 24px 50px -10px rgba(40, 25, 10, 0.55);
+  }
+
+  .directory h2 {
+    margin: 0 0 1rem;
+    font: 600 0.78rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.4em;
+    text-align: center;
+    text-transform: uppercase;
+    color: #bdb6a8;
+  }
+
+  .directory ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .directory li > * {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    padding: 0.55rem 0.3rem;
+    color: inherit;
+    text-decoration: none;
+    font: 600 clamp(0.85rem, 2.6vw, 1.05rem) / 1.2 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .directory a:hover .name {
+    color: #ffd47a;
+  }
+
+  .directory .wing {
+    width: 1.6em;
+    color: #ffd47a;
+  }
+
+  .directory .leader {
+    flex: 1;
+    border-bottom: 2px dotted rgba(244, 241, 234, 0.35);
+    transform: translateY(-0.25em);
+  }
+
+  .directory .status {
+    font-size: 0.75em;
+    color: #9fdcae;
+  }
+
+  .directory .soon {
+    opacity: 0.45;
+  }
+
+  .directory .soon .status {
+    color: inherit;
+  }
+
+  .how {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1.5rem 2.5rem;
+    max-width: 58rem;
+    margin: 0 auto;
+    padding: clamp(3rem, 8vw, 5rem) 1.25rem 2rem;
+  }
+
+  .how h3 {
+    margin: 0 0 0.4rem;
+    font: 600 1.2rem/1.2 'Fraunces', serif;
+  }
+
+  .how small {
+    font: 500 0.62rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    vertical-align: middle;
+  }
+
+  .how p {
+    margin: 0;
+    color: var(--muted);
+  }
+</style>

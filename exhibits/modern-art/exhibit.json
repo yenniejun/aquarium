@@ -1,0 +1,11 @@
+{
+  "title": "Modern Art Wing",
+  "tagline": "Six canvases, still drying.",
+  "skin": "gallery",
+  "status": "preview",
+  "mode": "open",
+  "order": 2,
+  "pieceLabel": "No.",
+  "promptVersion": 1,
+  "lineup": ["claude", "gpt", "gemini", "deepseek", "qwen", "llama"]
+}

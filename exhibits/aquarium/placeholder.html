@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- Shown in any tank whose entry has no piece.html yet: water, gravel, bubbles, no resident. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Empty tank</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body {
+    position: relative;
+    background:
+      radial-gradient(ellipse 70% 35% at 50% 0%, rgba(255,255,255,.14), transparent 70%),
+      linear-gradient(#1f6f8f, #0b3550 75%);
+  }
+  .gravel {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 14vmin;
+    background:
+      radial-gradient(circle, #8a8f86 0 .9vmin, transparent 1vmin) 0 0 / 3vmin 2.4vmin,
+      radial-gradient(circle, #b9b29d 0 .8vmin, transparent .9vmin) 1.5vmin 1.2vmin / 3vmin 2.4vmin,
+      linear-gradient(#6f7368, #4a4d45);
+  }
+  .bubble {
+    position: absolute; bottom: 12vmin; left: 72%;
+    width: 2vmin; height: 2vmin; border-radius: 50%;
+    border: .3vmin solid rgba(255,255,255,.55);
+    animation: rise 5s linear infinite;
+  }
+  .bubble:nth-child(3) { left: 74%; width: 1.2vmin; height: 1.2vmin; animation-delay: -1.7s; }
+  .bubble:nth-child(4) { left: 71%; width: 1.6vmin; height: 1.6vmin; animation-delay: -3.4s; }
+  @keyframes rise {
+    from { transform: translate(0, 0); opacity: 1; }
+    50% { transform: translate(1vmin, -40vmin); }
+    to { transform: translate(-1vmin, -86vmin); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .bubble { animation: none; } }
+</style>
+</head>
+<body>
+  <div class="gravel"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getExhibits, getPieces, toView, type Exhibit } from '../../lib/exhibits';
+import { skins } from '../../skins';
+
+export function getStaticPaths() {
+  return getExhibits().map((exhibit) => ({ params: { exhibit: exhibit.slug }, props: { exhibit } }));
+}
+
+const { exhibit } = Astro.props as { exhibit: Exhibit };
+const pieces = getPieces(exhibit).map((piece, i) => toView(exhibit, piece, i));
+const { Room, Frame } = skins[exhibit.skin];
+---
+
+<Base skin={exhibit.skin} title={exhibit.title} description={exhibit.tagline}>
+  <Room exhibit={exhibit}>
+    <ol class="pieces" data-mode={exhibit.mode} data-label-prefix={exhibit.pieceLabel}>
+      {
+        pieces.map((piece) => (
+          <li data-piece={piece.id}>
+            <Frame piece={piece} />
+          </li>
+        ))
+      }
+    </ol>
+  </Room>
+</Base>
+
+<script>
+  // Blind mode: shuffle per visit so grid position can't bias votes, then renumber the plaques.
+  const list = document.querySelector<HTMLOListElement>('.pieces[data-mode="blind"]');
+  if (list) {
+    const items = [...list.children];
+    for (let i = items.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [items[i], items[j]] = [items[j], items[i]];
+    }
+    items.forEach((li, i) => {
+      list.append(li);
+      const label = li.querySelector('[data-label]');
+      if (label) label.textContent = `${list.dataset.labelPrefix} ${String(i + 1).padStart(2, '0')}`;
+    });
+  }
+</script>
+
+<style>
+  /* Skins tune the grid through --cols / --gap-x / --gap-y / --grid-max on their Room. */
+  .pieces {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+    gap: var(--gap-y, 4rem) var(--gap-x, 2.5rem);
+    max-width: var(--grid-max, 1180px);
+  }
+
+  @media (max-width: 960px) {
+    .pieces {
+      --cols: 2;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pieces {
+      --cols: 1;
+      max-width: 400px;
+    }
+  }
+</style>

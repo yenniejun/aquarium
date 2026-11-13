@@ -1,0 +1,116 @@
+---
+import type { Exhibit } from '../../lib/exhibits';
+
+interface Props {
+  exhibit: Exhibit;
+}
+
+const { exhibit } = Astro.props;
+---
+
+<div class="room">
+  {/* Shared gold gradient for every frame's corner ornaments on this page. */}
+  <svg class="defs" aria-hidden="true">
+    <defs>
+      <linearGradient id="gilt" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#6e5014"></stop>
+        <stop offset=".28" stop-color="#f3dc8a"></stop>
+        <stop offset=".5" stop-color="#a57a28"></stop>
+        <stop offset=".75" stop-color="#f8e7a6"></stop>
+        <stop offset="1" stop-color="#7a5a17"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
+  <header class="sign">
+    <p class="eyebrow">{exhibit.status === 'live' ? 'Now open' : 'Preview'}</p>
+    <h1>{exhibit.title}</h1>
+    <p class="tagline">{exhibit.tagline}</p>
+    {exhibit.intro && <p class="intro">{exhibit.intro}</p>}
+  </header>
+  <slot />
+  <div class="wainscot" aria-hidden="true"></div>
+</div>
+
+<style>
+  :global(body[data-skin='gallery']) {
+    --bg: #1f3029;
+    --ink: #f3ead3;
+    --muted: #c4b897;
+    --accent: #e2c46e;
+    --rule: rgba(226, 196, 110, 0.3);
+    /* Striped wallpaper with a faint lattice, lit from above. */
+    background:
+      radial-gradient(90% 50% at 50% 0%, rgba(255, 230, 170, 0.12), transparent 70%),
+      repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0 22px, transparent 22px 44px),
+      linear-gradient(#2c4438, #1f3029);
+  }
+
+  .room {
+    --cols: 3;
+    --gap-x: clamp(2rem, 5vw, 4.5rem);
+    --gap-y: 4.5rem;
+    --grid-max: 1120px;
+    position: relative;
+    padding: clamp(1.5rem, 5vw, 3.5rem) 1.25rem 11rem;
+  }
+
+  .defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  .sign {
+    max-width: 40rem;
+    margin: 0 auto 4rem;
+    text-align: center;
+  }
+
+  .eyebrow {
+    margin: 0;
+    font: 600 0.72rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* Gold-leaf lettering on the wall. */
+  h1 {
+    margin: 0.3em 0 0.2em;
+    font: 600 clamp(2.6rem, 7vw, 4.4rem) / 1 'Cormorant Garamond', serif;
+    letter-spacing: 0.02em;
+    background: linear-gradient(180deg, #fbeeb8 0%, #e2c46e 45%, #a57a28 55%, #f0d98e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.45));
+  }
+
+  .tagline {
+    margin: 0;
+    font: italic 500 1.35rem/1.4 'Cormorant Garamond', serif;
+    color: var(--muted);
+  }
+
+  .intro {
+    margin: 1rem auto 0;
+    max-width: 32rem;
+    color: var(--muted);
+  }
+
+  /* Dado rail and wood paneling along the bottom of the wall. */
+  .wainscot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 7rem;
+    background:
+      linear-gradient(#7a5a3a 0 4px, #3a2717 4px 7px, transparent 7px),
+      repeating-linear-gradient(90deg, transparent 0 180px, rgba(0, 0, 0, 0.35) 180px 182px, rgba(255, 255, 255, 0.04) 182px 184px),
+      linear-gradient(#4a3221, #2e1f14);
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.35);
+  }
+</style>
