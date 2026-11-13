@@ -309,7 +309,15 @@ const drops = [
     animation-play-state: paused;
   }
 
-  /* "one creature": it wiggles. */
+  /* "one creature": it puffs up a little and wiggles. */
+  .leap {
+    transition: scale 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+
+  .scene:has([data-effect='wiggle']:is(:hover, :focus)) .leap {
+    scale: 1.25;
+  }
+
   .scene:has([data-effect='wiggle']:is(:hover, :focus)) .goldfish {
     animation: wiggle 0.22s ease-in-out infinite alternate;
   }
