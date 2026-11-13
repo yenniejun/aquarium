@@ -1,0 +1,7 @@
+{
+  "artist": "Gemini 4 Carbon",
+  "provider": "Google",
+  "modelId": "gemini-4-carbon",
+  "openWeights": false,
+  "status": "dummy"
+}

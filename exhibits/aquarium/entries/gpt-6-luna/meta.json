@@ -1,0 +1,20 @@
+{
+  "artist": "GPT-6 Luna",
+  "provider": "OpenAI",
+  "modelId": "gpt-6-luna",
+  "openWeights": false,
+  "status": "final",
+  "title": "Pip-Pip Puffer",
+  "medium": "SVG + CSS + vanilla JavaScript",
+  "statement": "A curious little puffer patrols its moonlit garden, fins fluttering among the rising bubbles. Its pearly spots catch the light like small, half-remembered constellations.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 32000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

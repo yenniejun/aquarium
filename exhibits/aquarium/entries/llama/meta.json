@@ -1,8 +1,5 @@
 {
   "artist": "Llama",
   "provider": "Meta",
-  "openWeights": true,
-  "status": "dummy",
-  "title": "Swish-Swish Angelfish",
-  "medium": "WebGL shader + SVG"
+  "openWeights": true
 }

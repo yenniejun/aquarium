@@ -1,0 +1,352 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fluttering Flirty Flounder</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #03121a; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(function () {
+  const cv = document.getElementById('c');
+  const ctx = cv.getContext('2d');
+  const W = 800, H = 600;
+  let S = 1, OX = 0, OY = 0, DPR = 1, CW = 0, CH = 0;
+
+  // Seeded random so the scene is the same every visit
+  let seed = 4242;
+  function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+
+  // ---------- Static background layer (drawn once at 2x) ----------
+  const bgc = document.createElement('canvas');
+  bgc.width = W * 2; bgc.height = H * 2;
+  const bx = bgc.getContext('2d');
+  bx.scale(2, 2);
+
+  function rock(g, x, y, rx, ry, base) {
+    const grd = g.createRadialGradient(x - rx * 0.3, y - ry * 0.4, ry * 0.1, x, y, rx);
+    grd.addColorStop(0, base[0]);
+    grd.addColorStop(1, base[1]);
+    g.fillStyle = grd;
+    g.beginPath();
+    g.ellipse(x, y, rx, ry, 0, Math.PI, 0);
+    g.lineTo(x + rx, y + ry * 0.6);
+    g.ellipse(x, y + ry * 0.6, rx, ry * 0.4, 0, 0, Math.PI);
+    g.closePath();
+    g.fill();
+    g.fillStyle = 'rgba(255,255,255,0.10)';
+    g.beginPath();
+    g.ellipse(x - rx * 0.35, y - ry * 0.55, rx * 0.25, ry * 0.12, -0.3, 0, Math.PI * 2);
+    g.fill();
+  }
+
+  function drawStatic(g) {
+    // water
+    const wg = g.createLinearGradient(0, 0, 0, H);
+    wg.addColorStop(0, '#8fe8df');
+    wg.addColorStop(0.25, '#2fa9bb');
+    wg.addColorStop(0.6, '#15627c');
+    wg.addColorStop(1, '#082a40');
+    g.fillStyle = wg;
+    g.fillRect(0, 0, W, H);
+
+    // sand
+    const sg = g.createLinearGradient(0, 510, 0, H);
+    sg.addColorStop(0, '#e6c994');
+    sg.addColorStop(1, '#9d7748');
+    g.fillStyle = sg;
+    g.beginPath();
+    g.moveTo(0, 520);
+    for (let x = 0; x <= W; x += 10) {
+      g.lineTo(x, 520 + 10 * Math.sin(x * 0.02) + 6 * Math.sin(x * 0.07 + 1));
+    }
+    g.lineTo(W, H); g.lineTo(0, H); g.closePath();
+    g.fill();
+
+    // sand grains
+    for (let i = 0; i < 380; i++) {
+      const x = rnd() * W;
+      const y = 530 + rnd() * 70;
+      g.fillStyle = rnd() < 0.5 ? 'rgba(120,85,45,0.35)' : 'rgba(255,240,200,0.30)';
+      g.fillRect(x, y, 1.6, 1.2);
+    }
+
+    // rocks
+    rock(g, 110, 548, 78, 42, ['#7d8a8f', '#3c4a52']);
+    rock(g, 640, 552, 100, 50, ['#8c8176', '#463d37']);
+    rock(g, 520, 580, 55, 26, ['#6b6f73', '#2e3437']);
+    rock(g, 300, 590, 60, 24, ['#9a9089', '#4d4541']);
+    rock(g, 735, 585, 45, 30, ['#6f7c6a', '#2f3b2f']);
+  }
+  drawStatic(bx);
+
+  // ---------- Dynamic elements ----------
+  const kelp = [];
+  for (let i = 0; i < 8; i++) {
+    kelp.push({
+      x: 40 + i * 102 + (rnd() - 0.5) * 30,
+      h: 170 + rnd() * 120,
+      ph: rnd() * Math.PI * 2,
+      hue: 120 + rnd() * 40,
+      light: 24 + rnd() * 12
+    });
+  }
+
+  const bubbles = [];
+  for (let i = 0; i < 28; i++) {
+    bubbles.push({
+      x: rnd() * W, y: rnd() * H, r: 1.5 + rnd() * 4,
+      v: 14 + rnd() * 24, ph: rnd() * Math.PI * 2
+    });
+  }
+
+  // Flounder spots (local coordinates)
+  const spots = [];
+  while (spots.length < 52) {
+    const u = rnd() * 2 - 1, v = rnd() * 2 - 1;
+    if (u * u + v * v < 0.72) {
+      spots.push({
+        x: u * 100, y: v * 50,
+        r: 1.4 + rnd() * 2.6,
+        kind: rnd() < 0.3 ? 1 : 0
+      });
+    }
+  }
+
+  // Flounder outline in local space. Head at +x, eyes on the -y (top) side.
+  function fp(th, t) {
+    const c = Math.cos(th), s = Math.sin(th);
+    const u = (c + 1) / 2;                       // 0 at tail, 1 at head
+    const hw = 62 * (0.38 + 0.62 * Math.sqrt(u));
+    let x = 110 * c, y = hw * s;
+    const wave = 1 + 0.055 * Math.sin(th * 18 - t * 7) * (0.4 + 0.6 * (1 - u));
+    x *= wave; y *= wave;
+    y += 10 * Math.sin(t * 6 - x * 0.03) * Math.max(0, -x) / 110;
+    return [x, y];
+  }
+
+  // ---------- Drawing ----------
+  function drawCaustics(t) {
+    ctx.globalCompositeOperation = 'lighter';
+    // slanted light shafts from the surface
+    for (let i = 0; i < 5; i++) {
+      const x0 = 90 + i * 160 + 40 * Math.sin(t * 0.2 + i);
+      const g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, 'rgba(200,255,250,0.13)');
+      g.addColorStop(1, 'rgba(200,255,250,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.moveTo(x0, 0); ctx.lineTo(x0 + 46, 0);
+      ctx.lineTo(x0 + 170, H); ctx.lineTo(x0 + 110, H);
+      ctx.closePath();
+      ctx.fill();
+    }
+    // caustic ripples on the sand
+    ctx.strokeStyle = 'rgba(255,250,220,0.09)';
+    ctx.lineWidth = 3;
+    for (let k = 0; k < 7; k++) {
+      const y0 = 505 + k * 12;
+      ctx.beginPath();
+      for (let x = 0; x <= W; x += 16) {
+        const y = y0 + 6 * Math.sin(x * 0.04 + t * 1.4 + k) + 4 * Math.sin(x * 0.09 - t * 0.8);
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  function drawKelp(t) {
+    ctx.lineCap = 'round';
+    for (const k of kelp) {
+      const N = 12;
+      let px = k.x, py = 575;
+      for (let j = 1; j <= N; j++) {
+        const f = j / N;
+        const y = 575 - k.h * f;
+        const x = k.x + Math.sin(t * 0.9 + k.ph + f * 2.2) * f * f * 40;
+        ctx.strokeStyle = `hsl(${k.hue}, 50%, ${k.light}%)`;
+        ctx.lineWidth = 11 * (1 - f * 0.7);
+        ctx.beginPath();
+        ctx.moveTo(px, py); ctx.lineTo(x, y);
+        ctx.stroke();
+        px = x; py = y;
+      }
+    }
+  }
+
+  function drawBubbles(t, dt) {
+    for (const b of bubbles) {
+      b.y -= b.v * dt;
+      b.x += Math.sin(t * 1.3 + b.ph) * 0.25;
+      if (b.y < -10) { b.y = H + 10; b.x = rnd() * W; }
+      ctx.strokeStyle = 'rgba(230,255,255,0.45)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.beginPath();
+      ctx.arc(b.x - b.r * 0.35, b.y - b.r * 0.35, b.r * 0.22, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawFlounder(t, x, y, dir, tilt) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(tilt);
+    ctx.scale(dir, 1);
+
+    // body
+    ctx.beginPath();
+    for (let i = 0; i <= 120; i++) {
+      const p = fp((i / 120) * Math.PI * 2, t);
+      if (i === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]);
+    }
+    ctx.closePath();
+    const bodyG = ctx.createLinearGradient(0, -62, 0, 62);
+    bodyG.addColorStop(0, '#e9c48e');
+    bodyG.addColorStop(0.5, '#cf9c62');
+    bodyG.addColorStop(1, '#a8743f');
+    ctx.fillStyle = bodyG;
+    ctx.fill();
+
+    // fin rays
+    ctx.strokeStyle = 'rgba(110,62,28,0.22)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let k = 0; k < 22; k++) {
+      const p = fp((k / 22) * Math.PI * 2, t);
+      ctx.moveTo(p[0] * 0.25, p[1] * 0.25);
+      ctx.lineTo(p[0] * 0.93, p[1] * 0.93);
+    }
+    ctx.stroke();
+
+    // outline
+    ctx.strokeStyle = '#6e4324';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 0; i <= 120; i++) {
+      const p = fp((i / 120) * Math.PI * 2, t);
+      if (i === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]);
+    }
+    ctx.closePath();
+    ctx.stroke();
+
+    // spots
+    for (const s of spots) {
+      if (s.kind === 0) {
+        ctx.fillStyle = 'rgba(120,70,30,0.55)';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.strokeStyle = 'rgba(232,116,59,0.85)';
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r + 1, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(78,195,214,0.85)';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 0.45, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // eyes (both on top, near the head)
+    const blink = (t % 5.5) < 0.14 ? 0.15 : 1;
+    const look = Math.sin(t * 0.7) * 1.6;
+    for (const ex of [60, 80]) {
+      const ey = -30 - (ex - 60) * 0.1;
+      ctx.save();
+      ctx.translate(ex, ey);
+      ctx.scale(1, blink);
+      ctx.fillStyle = '#f6f2d4';
+      ctx.strokeStyle = '#4f3118';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(0, 0, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#e0a52a';
+      ctx.beginPath(); ctx.arc(look * 0.3, 0, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#111';
+      ctx.beginPath(); ctx.arc(look + 1.2, 0, 3.2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.beginPath(); ctx.arc(look - 0.5, -2, 1.1, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+
+    // a small contented mouth
+    ctx.strokeStyle = '#6b3f20';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(95, 12);
+    ctx.quadraticCurveTo(104, 16, 110, 6);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  // ---------- Main loop ----------
+  let t = 0, last = performance.now();
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+    t += dt;
+
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.fillStyle = '#03121a';
+    ctx.fillRect(0, 0, CW, CH);
+
+    ctx.setTransform(DPR * S, 0, 0, DPR * S, DPR * OX, DPR * OY);
+    ctx.drawImage(bgc, 0, 0, W, H);
+
+    drawCaustics(t);
+    drawKelp(t);
+
+    // Figure-eight path for the flounder
+    const px = 400 + 260 * Math.sin(t * 0.1);
+    const py = 300 + 100 * Math.sin(t * 0.2) + 6 * Math.sin(t * 2.3);
+    const vx = 26 * Math.cos(t * 0.1);
+    const vy = 20 * Math.cos(t * 0.2);
+    const dir = vx < 0 ? -1 : 1;
+    const tilt = dir * Math.atan2(vy, Math.abs(vx)) * 0.9 + 0.05 * Math.sin(t * 1.7);
+
+    drawBubbles(t, dt);
+    drawFlounder(t, px, py, dir, tilt);
+
+    requestAnimationFrame(frame);
+  }
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    CW = window.innerWidth;
+    CH = window.innerHeight;
+    cv.width = Math.round(CW * DPR);
+    cv.height = Math.round(CH * DPR);
+    S = Math.min(CW / W, CH / H);
+    OX = (CW - W * S) / 2;
+    OY = (CH - H * S) / 2;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Fluttering Flirty Flounder",
+  "medium": "Canvas 2D + vanilla JS, procedural drawing with a cached static backdrop",
+  "statement": "This flounder has never once lain flat on the sand and does not intend to start now, preferring to flutter, peek and blink at passing visitors. Her fringe ripples like a scarf in a breeze, and she is entirely convinced she is the most interesting thing in the tank."
+}
+```

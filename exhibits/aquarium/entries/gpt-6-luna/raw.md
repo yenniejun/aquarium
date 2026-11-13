@@ -1,0 +1,275 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pip-Pip Puffer</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+  body { background: #061a2c; }
+  svg { display: block; width: 100%; height: 100%; }
+  .water-glow { animation: glow 7s ease-in-out infinite alternate; }
+  .ray { animation: ray 9s ease-in-out infinite alternate; }
+  .plant { transform-box: fill-box; transform-origin: bottom center; animation: sway 5s ease-in-out infinite alternate; }
+  .plant.slow { animation-duration: 7s; animation-delay: -2s; }
+  .bubble { animation: rise 8s linear infinite; }
+  .bubble:nth-child(2n) { animation-duration: 11s; }
+  .bubble:nth-child(3n) { animation-duration: 13s; }
+  .tail { transform-box: fill-box; transform-origin: 100% 50%; animation: wag .8s ease-in-out infinite alternate; }
+  .fin { transform-box: fill-box; transform-origin: 0% 50%; animation: flutter .65s ease-in-out infinite alternate; }
+  .fin2 { animation-delay: -.3s; }
+  .sparkle { animation: twinkle 3s ease-in-out infinite alternate; }
+  @keyframes glow { to { opacity: .72; } }
+  @keyframes ray { to { opacity: .18; transform: translateX(24px); } }
+  @keyframes sway { to { transform: rotate(5deg); } }
+  @keyframes rise { from { transform: translateY(25px); opacity: 0; } 15% { opacity: .75; } 85% { opacity: .65; } to { transform: translateY(-110px); opacity: 0; } }
+  @keyframes wag { to { transform: rotate(13deg); } }
+  @keyframes flutter { to { transform: rotate(15deg) scaleX(.92); } }
+  @keyframes twinkle { to { opacity: .28; transform: scale(.72); } }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 1000 750" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A softly glowing aquarium with a little pufferfish">
+  <defs>
+    <linearGradient id="water" x2="0" y2="1">
+      <stop stop-color="#102f4c"/>
+      <stop offset=".48" stop-color="#0b2942"/>
+      <stop offset="1" stop-color="#071c2d"/>
+    </linearGradient>
+    <radialGradient id="waterlight" cx="50%" cy="23%" r="72%">
+      <stop stop-color="#56b2b0" stop-opacity=".31"/>
+      <stop offset=".55" stop-color="#23778a" stop-opacity=".10"/>
+      <stop offset="1" stop-color="#071c2d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="body" x1=".15" y1=".15" x2=".85" y2=".9">
+      <stop stop-color="#fff0b7"/>
+      <stop offset=".42" stop-color="#ffd276"/>
+      <stop offset=".78" stop-color="#f3a85f"/>
+      <stop offset="1" stop-color="#d87562"/>
+    </linearGradient>
+    <radialGradient id="belly" cx="45%" cy="20%" r="80%">
+      <stop stop-color="#fff8d8" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#ffe0a0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="finfill" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffdb8a" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#f08178" stop-opacity=".48"/>
+    </linearGradient>
+    <linearGradient id="brass" x2="0" y2="1">
+      <stop stop-color="#f5d891"/>
+      <stop offset=".48" stop-color="#ba8b4b"/>
+      <stop offset="1" stop-color="#77512d"/>
+    </linearGradient>
+    <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="smallGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <clipPath id="tankClip"><rect x="22" y="22" width="956" height="706" rx="28"/></clipPath>
+    <pattern id="grit" width="27" height="19" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="8" r="1.4" fill="#d5b987" opacity=".3"/>
+      <circle cx="17" cy="4" r=".9" fill="#d5b987" opacity=".24"/>
+      <circle cx="23" cy="15" r="1.1" fill="#e5c895" opacity=".22"/>
+    </pattern>
+  </defs>
+
+  <!-- Glass and water -->
+  <rect width="1000" height="750" fill="#061725"/>
+  <g clip-path="url(#tankClip)">
+    <rect x="22" y="22" width="956" height="706" fill="url(#water)"/>
+    <rect class="water-glow" x="22" y="22" width="956" height="706" fill="url(#waterlight)"/>
+
+    <!-- Quiet shafts of surface light -->
+    <path class="ray" d="M205 22h105L460 440h-90z" fill="#9ce0d0" opacity=".12"/>
+    <path class="ray" style="animation-delay:-4s" d="M490 22h62l90 350h-52z" fill="#b4e7cb" opacity=".12"/>
+    <path class="ray" style="animation-delay:-2s" d="M740 22h74L700 400h-55z" fill="#79c9c2" opacity=".09"/>
+    <ellipse cx="500" cy="320" rx="230" ry="190" fill="#65c6bd" opacity=".12" filter="url(#softGlow)"/>
+
+    <!-- Distant drifting flecks -->
+    <g fill="#b9e8d8" opacity=".36">
+      <circle cx="147" cy="205" r="1.8"/><circle cx="218" cy="294" r="1.2"/>
+      <circle cx="801" cy="177" r="1.5"/><circle cx="875" cy="316" r="1.2"/>
+      <circle cx="705" cy="245" r="1.1"/><circle cx="326" cy="158" r="1.3"/>
+      <circle cx="610" cy="134" r="1.2"/><circle cx="120" cy="391" r="1"/>
+      <circle cx="894" cy="445" r="1.5"/><circle cx="274" cy="444" r="1"/>
+    </g>
+
+    <!-- A small, patient moon-gate behind the swimmer -->
+    <g fill="none" stroke="#a7d9c4" opacity=".17">
+      <circle cx="500" cy="345" r="148" stroke-width="1.4"/>
+      <circle cx="500" cy="345" r="159" stroke-width=".7" stroke-dasharray="2 9"/>
+      <path d="M500 184v12M500 494v12M339 345h12M649 345h12"/>
+      <path d="M390 235l8 8M602 447l8 8M610 235l-8 8M398 447l-8 8"/>
+    </g>
+    <g fill="#d4e8b5" opacity=".55" class="sparkle">
+      <path d="M349 276l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
+      <path d="M652 390l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>
+      <circle cx="594" cy="209" r="2"/>
+    </g>
+
+    <!-- Fine bubbles, rising independently -->
+    <g fill="none" stroke="#b7e7db" stroke-width="1.6">
+      <g class="bubble" style="animation-delay:-2s"><circle cx="176" cy="605" r="5"/></g>
+      <g class="bubble" style="animation-delay:-8s"><circle cx="235" cy="556" r="3"/></g>
+      <g class="bubble" style="animation-delay:-5s"><circle cx="789" cy="603" r="4.5"/></g>
+      <g class="bubble" style="animation-delay:-10s"><circle cx="842" cy="533" r="2.7"/></g>
+      <g class="bubble" style="animation-delay:-1s"><circle cx="701" cy="490" r="3.2"/></g>
+      <g class="bubble" style="animation-delay:-7s"><circle cx="315" cy="498" r="2.4"/></g>
+    </g>
+
+    <!-- Back plants -->
+    <g fill="none" stroke-linecap="round">
+      <g class="plant" stroke="#398f78" stroke-width="5">
+        <path d="M105 678Q114 584 91 493M116 675Q145 576 151 529M99 673Q69 583 73 545"/>
+        <path d="M100 596q-31-7-36-29M106 620q29-17 38-42M95 566q-27-9-34-31M123 601q30-8 42-30"/>
+      </g>
+      <g class="plant slow" stroke="#428b73" stroke-width="4">
+        <path d="M873 681Q851 589 888 474M885 679Q915 600 923 553M864 670Q823 592 823 546"/>
+        <path d="M871 603q-30-5-41-30M876 574q28-17 36-42M888 624q29-7 43-32M850 614q-24-14-28-36"/>
+      </g>
+      <g class="plant slow" stroke="#327c6e" stroke-width="3">
+        <path d="M197 687Q185 620 204 579M798 688Q809 613 788 570"/>
+        <path d="M196 643q-23-9-27-28M198 626q22-12 25-29M800 643q21-9 26-29M797 622q-21-12-24-28"/>
+      </g>
+    </g>
+    <!-- Plant leaves -->
+    <g fill="#4caa83" opacity=".7">
+      <ellipse cx="64" cy="565" rx="20" ry="7" transform="rotate(25 64 565)"/>
+      <ellipse cx="143" cy="575" rx="22" ry="7" transform="rotate(-35 143 575)"/>
+      <ellipse cx="65" cy="535" rx="18" ry="6" transform="rotate(24 65 535)"/>
+      <ellipse cx="159" cy="561" rx="20" ry="6" transform="rotate(-32 159 561)"/>
+      <ellipse cx="831" cy="570" rx="22" ry="7" transform="rotate(35 831 570)"/>
+      <ellipse cx="908" cy="531" rx="20" ry="7" transform="rotate(-34 908 531)"/>
+      <ellipse cx="845" cy="585" rx="19" ry="6" transform="rotate(25 845 585)"/>
+      <ellipse cx="929" cy="538" rx="18" ry="6" transform="rotate(-28 929 538)"/>
+      <ellipse cx="172" cy="615" rx="17" ry="6" transform="rotate(28 172 615)"/>
+      <ellipse cx="819" cy="608" rx="17" ry="6" transform="rotate(-28 819 608)"/>
+    </g>
+
+    <!-- Soft coral fans -->
+    <g fill="none" stroke-linecap="round">
+      <g stroke="#d17c74" stroke-width="4" opacity=".8">
+        <path d="M285 683v-53m0 22-22-24m22 34 24-27m-24 2-4-32m4 42-10-16"/>
+        <path d="M710 685v-49m0 20-22-24m22 32 23-28m-23 2 5-29"/>
+      </g>
+      <g stroke="#dfaa71" stroke-width="2" opacity=".65">
+        <path d="M285 652l-1-25m-21 1-15-16m60 16 15-18m-26-8 2-18"/>
+        <path d="M710 656l-2-25m-20 1-15-17m59 15 15-17m-27-6 4-17"/>
+      </g>
+    </g>
+
+    <!-- One little puffer, gently patrolling -->
+    <g id="fish">
+      <g class="tail">
+        <path d="M-79 4Q-117-33-145-17Q-137 4-147 26Q-112 34-79 13Z" fill="url(#finfill)" stroke="#f5c87d" stroke-width="3"/>
+        <path d="M-119-13q14 17 1 42M-103-20q13 21 3 48" fill="none" stroke="#fff0bd" stroke-opacity=".55" stroke-width="2"/>
+      </g>
+      <!-- tiny dorsal and lower fins -->
+      <path d="M-26-76Q-8-108 13-88Q5-69-5-58Z" fill="url(#finfill)" stroke="#f1bd78" stroke-width="2"/>
+      <path d="M-29 72Q-13 100 10 83Q2 67-9 57Z" fill="url(#finfill)" stroke="#f1bd78" stroke-width="2"/>
+      <!-- soft little puffer nubs -->
+      <g fill="#f7d78e" stroke="#e9ae70" stroke-width="1.5">
+        <path d="M-72-35Q-91-52-79-61Q-68-58-60-43Z"/>
+        <path d="M-51-67Q-63-91-49-95Q-39-86-39-70Z"/>
+        <path d="M-19-82Q-23-108-9-108Q0-99-4-81Z"/>
+        <path d="M19-81Q27-105 40-99Q45-87 32-74Z"/>
+        <path d="M53-61Q70-81 80-70Q81-57 63-48Z"/>
+        <path d="M76-30Q101-40 105-27Q100-15 78-15Z"/>
+        <path d="M80 17Q103 26 97 39Q85 44 75 25Z"/>
+        <path d="M53 58Q68 80 55 87Q43 81 43 63Z"/>
+        <path d="M15 76Q19 101 5 104Q-5 94 0 76Z"/>
+        <path d="M-30 73Q-40 98-53 91Q-58 79-43 67Z"/>
+        <path d="M-63 48Q-84 61-91 49Q-88 37-69 34Z"/>
+      </g>
+      <!-- plump body -->
+      <path d="M-76-31Q-66-76-17-84Q36-94 75-58Q106-29 99 15Q94 61 50 79Q7 99-39 75Q-82 53-84 12Q-85-13-76-31Z"
+            fill="url(#body)" stroke="#ffe6a7" stroke-width="3"/>
+      <path d="M-65-15Q-48-62-6-68Q35-74 63-47Q79-27 70 8Q61 46 26 59Q-13 73-45 48Q-70 27-65-15Z"
+            fill="url(#belly)" opacity=".85"/>
+      <!-- pearly spots -->
+      <g fill="#fff4ce" opacity=".78">
+        <circle cx="-39" cy="-38" r="4"/><circle cx="-19" cy="-54" r="3"/>
+        <circle cx="6" cy="-63" r="3.5"/><circle cx="35" cy="-49" r="4"/>
+        <circle cx="61" cy="-30" r="3"/><circle cx="-55" cy="7" r="3"/>
+        <circle cx="-34" cy="31" r="4"/><circle cx="-5" cy="48" r="3"/>
+        <circle cx="39" cy="42" r="3.5"/>
+      </g>
+      <g fill="none" stroke="#e89169" stroke-width="2" opacity=".65">
+        <circle cx="-18" cy="-24" r="7"/><circle cx="24" cy="-24" r="6"/>
+        <circle cx="49" cy="13" r="7"/><circle cx="-28" cy="12" r="6"/>
+      </g>
+      <!-- fluttering side fin -->
+      <path class="fin" d="M10 16Q-8 25-17 47Q2 54 19 36Q26 25 10 16Z" fill="url(#finfill)" stroke="#eebc79" stroke-width="2"/>
+      <path class="fin fin2" d="M-3 23Q-20 31-24 49Q-7 53 8 40" fill="none" stroke="#fff0bd" stroke-width="1.5" opacity=".8"/>
+      <!-- curious face -->
+      <ellipse cx="58" cy="-25" rx="12" ry="15" fill="#fff9df"/>
+      <ellipse cx="62" cy="-24" rx="6.7" ry="9.5" fill="#183249"/>
+      <circle cx="64" cy="-28" r="2.6" fill="white"/>
+      <path d="M84 2q9 5 15 0" fill="none" stroke="#9d594f" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="74" cy="12" rx="7" ry="4" fill="#ed8b76" opacity=".45"/>
+      <!-- faint gill -->
+      <path d="M35-4q-8 12-1 24" fill="none" stroke="#cc8268" stroke-width="2" opacity=".7"/>
+      <path d="M-48-48Q-17-79 21-70" fill="none" stroke="#fff8d9" stroke-width="3" opacity=".55" stroke-linecap="round"/>
+    </g>
+
+    <!-- Pebbly bed -->
+    <path d="M22 665Q126 648 221 663T422 660T624 663T822 657T978 664V728H22Z" fill="#152d37"/>
+    <path d="M22 665Q126 648 221 663T422 660T624 663T822 657T978 664V728H22Z" fill="url(#grit)"/>
+    <g fill="#a17f59" opacity=".55">
+      <ellipse cx="165" cy="677" rx="22" ry="7"/><ellipse cx="238" cy="689" rx="13" ry="5"/>
+      <ellipse cx="354" cy="675" rx="17" ry="6"/><ellipse cx="655" cy="681" rx="20" ry="6"/>
+      <ellipse cx="770" cy="674" rx="14" ry="5"/><ellipse cx="854" cy="691" rx="22" ry="6"/>
+    </g>
+    <g fill="#607c72" opacity=".45">
+      <ellipse cx="130" cy="691" rx="9" ry="4"/><ellipse cx="319" cy="687" rx="8" ry="3"/>
+      <ellipse cx="588" cy="691" rx="11" ry="4"/><ellipse cx="736" cy="691" rx="8" ry="3"/>
+    </g>
+
+    <!-- Brass nameplate -->
+    <g>
+      <path d="M366 690h268l-13 37H379Z" fill="#061725" opacity=".55"/>
+      <path d="M372 681h256v39H372Z" fill="url(#brass)" stroke="#f1d795" stroke-width="1.5"/>
+      <path d="M380 687h240v27H380Z" fill="none" stroke="#77532f" stroke-width="1"/>
+      <circle cx="389" cy="700" r="2" fill="#f6dfaa"/>
+      <circle cx="611" cy="700" r="2" fill="#f6dfaa"/>
+      <text x="500" y="707" text-anchor="middle" fill="#34271b"
+            font-family="Georgia, serif" font-size="19" letter-spacing="2">Pip-Pip Puffer</text>
+    </g>
+  </g>
+
+  <!-- Glass rim and subtle reflected edges -->
+  <rect x="22" y="22" width="956" height="706" rx="28" fill="none" stroke="#8fc3bd" stroke-opacity=".38" stroke-width="2"/>
+  <path d="M40 56V668M960 58V651" stroke="#d4f1df" stroke-opacity=".13" stroke-width="3"/>
+  <path d="M51 35h190M759 35h190" stroke="#d9eee0" stroke-opacity=".24" stroke-width="3" stroke-linecap="round"/>
+  <path d="M34 39q0-12 13-12h32M966 39q0-12-13-12h-32" fill="none" stroke="#d3e8d9" stroke-opacity=".5" stroke-width="2"/>
+</svg>
+
+<script>
+(() => {
+  const fish = document.getElementById('fish');
+  let start = performance.now();
+  function swim(now) {
+    const t = (now - start) / 1000;
+    const x = 500 + 106 * Math.sin(t * 0.34);
+    const y = 346 + 24 * Math.sin(t * 0.72 + 0.5) + 8 * Math.sin(t * 1.3);
+    const tilt = 3.5 * Math.sin(t * 0.72 + 1.1);
+    fish.setAttribute('transform', `translate(${x} ${y}) rotate(${tilt})`);
+    requestAnimationFrame(swim);
+  }
+  requestAnimationFrame(swim);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Pip-Pip Puffer",
+  "medium": "SVG + CSS + vanilla JavaScript",
+  "statement": "A curious little puffer patrols its moonlit garden, fins fluttering among the rising bubbles. Its pearly spots catch the light like small, half-remembered constellations."
+}
+```

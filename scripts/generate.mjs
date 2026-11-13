@@ -3,8 +3,8 @@
 // Usage: npm run generate -- [--exhibit aquarium] <entry> [<entry> ...]
 //   e.g. npm run generate -- claude-haiku claude-sonnet
 //
-// Each entry's meta.json says who to ask: "provider" (Anthropic or OpenAI) and "modelId".
-// API keys come from .env (ANTHROPIC_API_KEY, OPENAI_API_KEY), which git ignores.
+// Each entry's meta.json says who to ask: "provider" (Anthropic, OpenAI or Google) and "modelId".
+// API keys come from .env (ANTHROPIC_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY), which git ignores.
 //
 // For each entry this writes:
 //   raw.md      the model's full reply, untouched
@@ -14,7 +14,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-const MAX_TOKENS = 16000;
+// Generous, since reasoning models spend part of this on thinking before they write the page.
+const MAX_TOKENS = 32000;
 
 const args = process.argv.slice(2);
 let exhibit = 'aquarium';
@@ -33,6 +34,7 @@ const { promptVersion } = JSON.parse(readFileSync(join(dir, 'exhibit.json'), 'ut
 const providers = {
   Anthropic: { key: 'ANTHROPIC_API_KEY', via: 'Anthropic Messages API', ask: askAnthropic },
   OpenAI: { key: 'OPENAI_API_KEY', via: 'OpenAI Chat Completions API', ask: askOpenAI },
+  Google: { key: 'GEMINI_API_KEY', via: 'Gemini API', ask: askGemini },
 };
 
 let failed = 0;
@@ -94,7 +96,7 @@ async function generate(slug) {
   console.log(
     `✓ ${slug}: "${updated.title ?? 'untitled'}" (${updated.medium ?? 'medium not given'}), ` +
       `${(html.length / 1024).toFixed(1)} KB of HTML, ${usage.in} in / ${usage.out} out tokens, ${seconds}s` +
-      (stop && !['end_turn', 'stop'].includes(stop) ? `, stopped: ${stop}` : ''),
+      (stop && !['end_turn', 'stop', 'STOP'].includes(stop) ? `, stopped: ${stop}` : ''),
   );
 }
 
@@ -147,6 +149,29 @@ async function askOpenAI(model, apiKey) {
     if (choice?.delta?.content) text += choice.delta.content;
     if (choice?.finish_reason) stop = choice.finish_reason;
     if (event.usage) [usage.in, usage.out] = [event.usage.prompt_tokens, event.usage.completion_tokens];
+  }
+  return { text, usage, stop };
+}
+
+async function askGemini(model, apiKey) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'x-goog-api-key': apiKey, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: { maxOutputTokens: MAX_TOKENS },
+    }),
+  });
+  if (!res.ok) throw new Error(`Gemini API ${res.status}: ${await res.text()}`);
+  let text = '';
+  const usage = { in: 0, out: 0 };
+  let stop;
+  for await (const event of sse(res)) {
+    const candidate = event.candidates?.[0];
+    for (const part of candidate?.content?.parts ?? []) if (part.text && !part.thought) text += part.text;
+    if (candidate?.finishReason) stop = candidate.finishReason;
+    if (event.usageMetadata) [usage.in, usage.out] = [event.usageMetadata.promptTokenCount, event.usageMetadata.candidatesTokenCount];
   }
   return { text, usage, stop };
 }

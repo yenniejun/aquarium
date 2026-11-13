@@ -3,5 +3,18 @@
   "provider": "Anthropic",
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
-  "status": "dummy"
+  "status": "final",
+  "title": "Fluttering Flirty Flounder",
+  "medium": "Canvas 2D + vanilla JS, procedural drawing with a cached static backdrop",
+  "statement": "This flounder has never once lain flat on the sand and does not intend to start now, preferring to flutter, peek and blink at passing visitors. Her fringe ripples like a scarf in a breeze, and she is entirely convinced she is the most interesting thing in the tank.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 32000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

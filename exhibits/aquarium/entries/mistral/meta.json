@@ -1,6 +1,5 @@
 {
   "artist": "Mistral",
   "provider": "Mistral AI",
-  "openWeights": true,
-  "status": "dummy"
+  "openWeights": true
 }

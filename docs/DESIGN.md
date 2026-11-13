@@ -71,7 +71,7 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 ## The aquarium page
 
 - **3×2 above the fold, 3×4 in all.** Twelve tanks in three columns. The title and the first two rows fill exactly the first screen; rows 3–4 are below it. Tanks are 4:3, and `--tank-h` (in `skins/aquarium/Room.astro`) is the largest height that fits three across and two rows (plus their fixed chrome) above the fold, from container query width units and `svh`. Any leftover height is split above row 1 and below row 2. Portrait screens and phones scroll in two columns.
-- **Empty slots.** A lineup entry with no `piece.html` shows `placeholder.html` (an empty tank) with an "Awaiting arrival" plaque. Its `<li>` gets `data-pending`, so voting keeps it at the end, unshuffled and unvotable. Right now the six newer slots (grok, mistral, kimi, glm, gemma, gpt-oss) are empty stand-ins.
+- **Empty slots.** A lineup entry with no `piece.html` shows `placeholder.html` (an empty tank) with an "Awaiting arrival" plaque. Its `<li>` gets `data-pending`, so voting keeps it at the end, unshuffled and unvotable. Right now DeepSeek, Qwen, Llama, Grok, Mistral and Kimi are empty: the generate script only speaks to Anthropic, OpenAI and Google so far.
 - **Welcome.** On a first visit, the "?" modal opens by itself (remembered per exhibit in `localStorage` as `museum:welcomed:<exhibit>`; `?reset` shows it again). Its About tab is the skin's Welcome, `src/skins/aquarium/Welcome.astro`: the title and two lines above a strip of water with a goldfish. Hover or tap the underlined words: "a tank" swells the waves, "one creature" makes the fish wiggle, "favorite tank" makes it leap out and flip.
 - **Loading.** Each tank shows a few rising bubbles until its iframe loads, then fades the piece in. Tanks on the first screen load eagerly; empty slots load lazily. `public/_headers` lets browsers cache pieces for 5 minutes, then refresh them in the background.
 - **Menu.** `src/components/SideNav.astro`: a slim panel on the left edge (Galleries) on screens ≥1000px, and a "Menu" popover on narrower ones. Upcoming galleries come from `src/site.ts`.
@@ -103,7 +103,6 @@ Why not inline the code, or use `srcdoc`? Inlining lets pieces' CSS and globals 
 
 `exhibits/aquarium/prompt.md` is the source of truth. In short: one self-contained HTML file, drawn entirely in code, optional libraries only from the three CDNs, no network, fills a 4:3 tank (280–1000px wide) at any size, loops forever, doesn't depend on clicks (clicks vote), no self-identifying text, and respects `prefers-reduced-motion`. It also returns a JSON with a silly alliterative `title`, a short `medium` and a `statement`.
 
-The six dummy pieces deliberately cover the techniques models are likely to use (SVG+JS, Canvas 2D, d3 from a CDN, CSS only, pointer interaction, WebGL), and all six render through the sandbox and CSP.
 
 ## Adding things
 
@@ -114,7 +113,7 @@ The six dummy pieces deliberately cover the techniques models are likely to use 
 ## Roadmap
 
 ### v0 (now)
-Static site: A(quar)I(um) with six dummy tanks and six empty ones, blind click-to-vote with a client-side reveal, and sandboxing. The lobby and the gilded-frame Modern Art Wing exist but are parked (modern-art is a draft).
+Static site: A(quar)I(um) with six generated tanks (Claude Haiku 5.5 and Sonnet 5.5, GPT-6.1 Sol and GPT-6 Luna, Gemini 4 Hydrogen and Carbon) and six empty ones, blind click-to-vote with a client-side reveal, and sandboxing. The lobby and the gilded-frame Modern Art Wing exist but are parked (modern-art is a draft).
 
 ### v1: real pieces
 - `scripts/generate.mjs` (`npm run generate -- <entry>…`, built): sends `prompt.md` to each entry's model through its provider's API (Anthropic and OpenAI so far; OpenRouter could cover the rest with one key). Saves the raw reply to `entries/<slug>/raw.md`, the HTML block to `piece.html`, and the JSON block plus a `generation` record (date, API, params) to `meta.json`.

@@ -1,6 +1,5 @@
 {
   "artist": "Grok",
   "provider": "xAI",
-  "openWeights": false,
-  "status": "dummy"
+  "openWeights": false
 }

@@ -1,8 +1,5 @@
 {
   "artist": "Qwen",
   "provider": "Alibaba",
-  "openWeights": true,
-  "status": "dummy",
-  "title": "Squish-Squoosh Octopus",
-  "medium": "Canvas 2D · follows your cursor"
+  "openWeights": true
 }

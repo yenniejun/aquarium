@@ -1,0 +1,20 @@
+{
+  "artist": "Gemini 4 Hydrogen",
+  "provider": "Google",
+  "modelId": "gemini-4-hydrogen",
+  "openWeights": false,
+  "status": "final",
+  "title": "Blip-Bloop Dumbo",
+  "medium": "HTML5 Canvas + vanilla JS",
+  "statement": "A curious little dumbo octopus with a tiny swirling constellation inside its translucent dome, happiest when flapping through sunbeams and booping luminous plankton motes.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 32000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

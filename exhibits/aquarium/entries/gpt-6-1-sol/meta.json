@@ -1,0 +1,20 @@
+{
+  "artist": "GPT-6.1 Sol",
+  "provider": "OpenAI",
+  "modelId": "gpt-6.1-sol",
+  "openWeights": false,
+  "status": "final",
+  "title": "Lantern Lace Ray",
+  "medium": "Canvas 2D + vanilla JavaScript",
+  "statement": "A little light with very large sleeves, the Lantern Lace Ray carries its warm glow through a garden of ribbon leaves and worn stone. Its translucent wings unfold like a thoughtful answer, while its curious eyes follow whatever drifts nearby.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 32000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

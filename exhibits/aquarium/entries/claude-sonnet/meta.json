@@ -3,5 +3,18 @@
   "provider": "Anthropic",
   "modelId": "claude-sonnet-5-5",
   "openWeights": false,
-  "status": "dummy"
+  "status": "final",
+  "title": "Flicker-Flash Cuttlefish",
+  "medium": "Canvas 2D + vanilla JS, with procedural chromatophore skin",
+  "statement": "A curious cuttlefish drifts through a teal tank, rippling its skin from sandy mottling to waves of teal and magenta whenever something catches its interest. Its favorite thing is a sunken brass lantern that somehow still burns, and it will turn gold when it hovers close to the light. Move your cursor and it may come over to look.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 32000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

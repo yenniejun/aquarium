@@ -1,8 +1,5 @@
 {
   "artist": "DeepSeek",
   "provider": "DeepSeek",
-  "openWeights": true,
-  "status": "dummy",
-  "title": "Clickety-Clack Crab",
-  "medium": "Pure CSS, no JavaScript"
+  "openWeights": true
 }
