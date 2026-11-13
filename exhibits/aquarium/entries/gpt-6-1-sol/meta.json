@@ -4,8 +4,8 @@
   "modelId": "gpt-6.1-sol",
   "openWeights": false,
   "status": "final",
-  "title": "Whispering Wobblefin",
-  "statement": "A gentle collector of small wonders, the Whispering Wobblefin cradles a sun-colored pebble while its pleated fins turn passing currents into quiet little dances. It has nowhere urgent to be.",
+  "title": "Puttering Pearl Nautilus",
+  "statement": "A small connoisseur of slow currents, carrying a pearlescent spiral of tiny chambers. Below, a curl of polished pebbles quietly echoes its portable home.",
   "generation": {
     "date": "2026-11-13",
     "via": "OpenAI Chat Completions API",
