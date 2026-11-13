@@ -1,8 +1,6 @@
 ---
 import type { Exhibit, PieceView } from '../../lib/exhibits';
 import Frame from './Frame.astro';
-import TypePicker from './TypePicker.astro';
-import './type-themes.css';
 
 interface Props {
   exhibit: Exhibit;
@@ -15,7 +13,7 @@ const { exhibit, pieces } = Astro.props;
 <div class="room">
   <div class="rays" aria-hidden="true"></div>
   <div class="motes" aria-hidden="true"></div>
-  {/* The first screen: title, all the tanks, and one line of help. Everything else scrolls below. */}
+  {/* The first screen: title and all the tanks. Everything else scrolls below. */}
   <section class="screen">
     <h1>{exhibit.title}</h1>
     <div class="stage">
@@ -29,12 +27,8 @@ const { exhibit, pieces } = Astro.props;
         }
       </ol>
     </div>
-    <div class="below">
-      <slot />
-    </div>
   </section>
 </div>
-{import.meta.env.DEV && <TypePicker />}
 
 <style>
   :global(body[data-skin='aquarium']) {
@@ -43,6 +37,9 @@ const { exhibit, pieces } = Astro.props;
     --muted: #86aac4;
     --accent: #6fd6f5;
     --rule: rgba(140, 200, 240, 0.25);
+    /* Deco type: 1930s public-aquarium signage. Also used by Methodology and the Entrance. */
+    --title-font: 'Limelight', serif;
+    --plaque-font: 'Josefin Sans', sans-serif;
     background:
       radial-gradient(110% 60% at 50% -5%, #1c5d90 0%, #0c2d50 40%, transparent 80%),
       linear-gradient(#071a2e 0, #03101e 100vh);
@@ -55,7 +52,7 @@ const { exhibit, pieces } = Astro.props;
   }
 
   :global(body[data-skin='aquarium'] .wordmark) {
-    font-family: var(--wordmark-font);
+    font-family: 'Josefin Sans', sans-serif;
   }
 
   .room {
@@ -66,24 +63,18 @@ const { exhibit, pieces } = Astro.props;
 
   .screen {
     display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr);
     height: 100vh;
     height: 100svh;
-    padding: 0 clamp(1rem, 3vw, 2rem);
+    padding: 0 clamp(1rem, 3vw, 2rem) clamp(0.8rem, 2.5vh, 1.6rem);
   }
 
   h1 {
     margin: 0.55rem 0 clamp(0.8rem, 2.5vh, 1.4rem);
     text-align: center;
-    font-family: var(--title-font);
-    font-weight: var(--title-weight);
-    font-style: var(--title-style);
-    text-transform: var(--title-transform);
-    letter-spacing: var(--title-spacing);
-    font-size: calc(clamp(1.6rem, 3.2vw, 2.4rem) * var(--title-scale));
-    line-height: 1.1;
-    color: var(--title-color, var(--ink));
-    text-shadow: var(--title-glow);
+    font: 400 clamp(1.6rem, 3.2vw, 2.4rem) / 1.1 var(--title-font);
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 30px rgba(111, 214, 245, 0.35);
   }
 
   .stage {
@@ -121,24 +112,6 @@ const { exhibit, pieces } = Astro.props;
       --cols: 2;
       --rows: 3;
     }
-  }
-
-  .below {
-    padding: 0.7rem 0 0.9rem;
-    text-align: center;
-    font: 400 0.7rem/1.5 'IBM Plex Mono', monospace;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-  }
-
-  .below :global(a) {
-    color: var(--ink);
-    text-underline-offset: 3px;
-    text-decoration-color: var(--rule);
-  }
-
-  .below :global(a:hover) {
-    text-decoration-color: var(--accent);
   }
 
   /* Phones and short windows: stop fitting to the screen and just scroll. */

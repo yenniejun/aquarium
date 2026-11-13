@@ -254,12 +254,9 @@ const { piece } = Astro.props;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-family: var(--plaque-font);
-    font-weight: var(--plaque-weight);
-    text-transform: var(--plaque-transform);
-    letter-spacing: var(--plaque-spacing);
-    font-size: calc(clamp(0.72rem, var(--tank-h) * 0.05, 1.05rem) * var(--plaque-scale));
-    line-height: 1.15;
+    font: 700 clamp(0.6rem, var(--tank-h) * 0.041, 0.86rem) / 1.15 var(--plaque-font);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     transition: transform 0.2s;
   }
 

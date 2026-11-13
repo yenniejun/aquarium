@@ -40,6 +40,7 @@ src/
   lib/exhibits.ts                 ← loads + validates exhibits/, assigns opaque piece ids
   lib/sandbox.ts                  ← CSP injected into every piece
   scripts/voting.ts               ← client: shuffle, click-to-vote, reveal (skin-agnostic)
+  components/                     ← Entrance (curtains), SideNav (menu), Methodology (prompt editor)
   skins/
     names.ts, index.ts            ← skin registry (name → Room)
     aquarium/{Room,Frame}.astro   ← one-screen 3×2 grid; glass tank, hood light, cabinet, brass plaque
@@ -70,8 +71,10 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 ## The aquarium page
 
 - **One screen.** The title, six tanks and a one-line hint fill exactly the first screen. Tanks are 4:3, and `--tank-h` (in `skins/aquarium/Room.astro`) is the largest height that fits 3×2 tanks plus their fixed chrome in the space left over, measured with container query units. Portrait screens switch to 2×3. Phones and short windows fall back to a scrolling 2-column grid.
-- **Methodology below the fold.** `src/components/Methodology.astro` (shared by all exhibits) shows the exhibit's intro and renders its `prompt.md`, with a Copy button that copies the exact text sent to the models.
-- **Type themes (temporary).** `skins/aquarium/type-themes.css` defines a few title/plaque font pairings, and a dev-only picker switches between them. Once one is chosen it becomes the default and the picker goes.
+- **Entrance.** On a visitor's first visit, `src/components/Entrance.astro` shows closed velvet curtains (pure CSS) and a welcome card explaining the exhibit and how to vote. "Enter" draws the curtains back. Remembered per exhibit in `localStorage` (`museum:entered:<exhibit>`); `?reset` shows it again.
+- **Menu.** `src/components/SideNav.astro`: a slim panel on the left edge (Galleries, plus links within the page like Methodology) on screens ≥1000px, and a "Menu" popover on narrower ones. Upcoming galleries come from `src/site.ts`.
+- **Methodology below the fold.** `src/components/Methodology.astro` (shared by all exhibits) shows the exhibit's intro and the exact `prompt.md` in an editor-style view (line numbers, markdown highlighting), with a Copy button.
+- **Type: Deco.** Limelight for titles, Josefin Sans caps for plaques, like 1930s public-aquarium signage.
 - **Plaque = specimen name only.** Who made it and how ("Claude · SVG + JavaScript") appear only after voting.
 
 ## Blind voting (v0, client side)
@@ -79,7 +82,7 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 1. In `mode: "blind"`, the page renders no artist names, and `scripts/voting.ts` shuffles the tanks (with CSS `order`, so iframes don't reload) to remove position bias.
 2. The visitor votes by clicking a tank: either the cabinet/plaque (a real `<button>`, keyboard accessible) or anywhere inside the glass. A click inside a sandboxed iframe never reaches the parent page, but it moves focus into the iframe, so the page listens for `window` blur and checks whether `document.activeElement` is a tank's iframe. Iframes are `tabindex="-1"` so tabbing can't trigger a vote, and pieces stay fully interactive.
 3. The page fetches `/reveal/<exhibit>.json` (id → artist, medium), fills in every plaque, and marks the pick with a "♥ your pick" badge.
-4. The vote is stored in `localStorage` (`museum:vote:<exhibit>`), so reloading shows the revealed state. Add `?reset` to the URL to vote again.
+4. The vote is stored in `localStorage` (`museum:vote:<exhibit>`), so reloading shows the revealed state. Add `?reset` to the URL to see the curtains and vote again.
 
 This keeps names out of the page source, but the reveal file is public if you know where to look. v2 replaces steps 3–4 with the real API.
 

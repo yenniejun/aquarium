@@ -3,5 +3,8 @@ export const site = {
   blurb:
     'Every exhibit gives several AI models the same brief. Every piece is pure code the model wrote: no images, no assets.',
   /** Shown in the lobby directory before they have an exhibit folder. */
-  upcoming: [{ title: 'Portrait Hall', note: 'Coming soon' }],
+  upcoming: [
+    { title: 'Modern Art', note: 'Coming soon' },
+    { title: 'Portraits', note: 'Coming soon' },
+  ],
 };

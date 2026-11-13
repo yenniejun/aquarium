@@ -1,0 +1,146 @@
+---
+// The museum menu: a slim panel on the left edge on wide screens, a "Menu" popover on narrow ones.
+import { getListedExhibits } from '../lib/exhibits';
+import { href } from '../lib/url';
+import { site } from '../site';
+
+interface Props {
+  /** Links within the current page, e.g. Methodology */
+  links?: { label: string; href: string }[];
+}
+
+const { links = [] } = Astro.props;
+const here = Astro.url.pathname;
+const exhibits = getListedExhibits();
+---
+
+<button class="menu-toggle" type="button" popovertarget="site-nav">Menu</button>
+<nav id="site-nav" class="side-nav" popover aria-label="Museum">
+  <span class="label">Galleries</span>
+  {
+    exhibits.map((ex) => {
+      const url = href(`/${ex.slug}/`);
+      return (
+        <a href={url} aria-current={here.startsWith(url) ? 'page' : undefined}>
+          {ex.title}
+        </a>
+      );
+    })
+  }
+  {
+    site.upcoming.map((u) => (
+      <span class="soon">
+        {u.title}
+        <small>soon</small>
+      </span>
+    ))
+  }
+  {links.length > 0 && <span class="label">This gallery</span>}
+  {links.map((link) => <a href={link.href}>{link.label}</a>)}
+</nav>
+
+<script>
+  // On narrow screens the menu is a popover; close it once a link is chosen.
+  const nav = document.getElementById('site-nav');
+  nav?.addEventListener('click', (e) => {
+    if ((e.target as Element).closest('a') && nav.matches(':popover-open')) nav.hidePopover();
+  });
+</script>
+
+<style>
+  .side-nav,
+  .menu-toggle {
+    font: 500 0.68rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.08em;
+  }
+
+  .side-nav {
+    flex-direction: column;
+    gap: 2px;
+    width: 156px;
+    margin: 0;
+    padding: 8px 6px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    background: rgba(3, 12, 24, 0.85);
+    backdrop-filter: blur(8px);
+    color: #9ec3dc;
+  }
+
+  .label {
+    margin: 4px 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .label:not(:first-child) {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  a,
+  .soon {
+    padding: 6px 10px;
+    border-radius: 99px;
+    color: #e6f5ff;
+    text-decoration: none;
+  }
+
+  a:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  a[aria-current='page'] {
+    background: #e6f5ff;
+    color: #03101e;
+  }
+
+  .soon {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    color: rgba(230, 245, 255, 0.45);
+  }
+
+  .soon small {
+    font-size: 0.85em;
+    color: rgba(158, 195, 220, 0.6);
+  }
+
+  .menu-toggle {
+    appearance: none;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 99px;
+    background: rgba(3, 12, 24, 0.85);
+    color: #e6f5ff;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  /* Wide screens: always visible on the left edge, vertically centered. Author `display`
+     overrides the popover's default hidden state, so no JS is needed. */
+  @media (min-width: 1000px) {
+    .menu-toggle {
+      display: none;
+    }
+
+    .side-nav {
+      display: flex;
+      position: fixed;
+      z-index: 10;
+      inset: 50% auto auto 12px;
+      transform: translateY(-50%);
+    }
+  }
+
+  /* Narrow screens: a dropdown under the Menu button. */
+  @media (max-width: 999px) {
+    .side-nav:popover-open {
+      display: flex;
+      position: fixed;
+      inset: 56px 12px auto auto;
+    }
+  }
+</style>

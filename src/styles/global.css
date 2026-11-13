@@ -6,6 +6,16 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   --bg: #f1ece2;
   --ink: #1f1c18;
@@ -27,12 +37,19 @@ main {
   flex: 1;
 }
 
+/* Leave room for the fixed menu on the left edge (see SideNav.astro). */
+@media (min-width: 1000px) {
+  main {
+    padding-left: 180px;
+  }
+}
+
 .site-header {
   position: relative;
   z-index: 2;
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 0.5rem 1.5rem;
   padding: 1.1rem clamp(1rem, 4vw, 2.5rem);
@@ -43,33 +60,6 @@ main {
   letter-spacing: -0.01em;
   color: inherit;
   text-decoration: none;
-}
-
-.site-header nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.4rem;
-}
-
-.site-header nav a {
-  font: 500 0.72rem/1.6 'IBM Plex Mono', monospace;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-}
-
-.site-header nav a:hover,
-.site-header nav a[aria-current='page'] {
-  color: var(--ink);
-  border-bottom-color: var(--accent);
-}
-
-.site-header nav small {
-  margin-left: 0.5em;
-  font-size: 0.85em;
-  color: var(--accent);
 }
 
 .site-footer {

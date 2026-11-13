@@ -11,7 +11,6 @@
  * never reach the client unless a page deliberately renders them.
  */
 import { createHash } from 'node:crypto';
-import type { MarkdownInstance } from 'astro';
 import { z } from 'astro/zod';
 import { skinNames } from '../skins/names';
 import { href } from './url';
@@ -87,7 +86,7 @@ const placeholderFiles = import.meta.glob<string>('/exhibits/*/placeholder.html'
   query: '?raw',
   import: 'default',
 });
-const promptFiles = import.meta.glob<MarkdownInstance<{}>>('/exhibits/*/prompt.md', { eager: true });
+const promptFiles = import.meta.glob<string>('/exhibits/*/prompt.md', { eager: true, query: '?raw', import: 'default' });
 
 // Piece URLs are opaque so neither the URL nor the DOM gives the artist away.
 // Set PIECE_ID_SALT in the deploy environment once voting matters.
@@ -115,11 +114,10 @@ export function getListedExhibits(): Exhibit[] {
   return exhibits.filter((ex) => ex.status !== 'draft');
 }
 
-/** The brief, rendered for the page and as the exact text sent to the models. */
-export function getPrompt(exhibit: Exhibit) {
-  const md = promptFiles[`/exhibits/${exhibit.slug}/prompt.md`];
-  if (!md) return null;
-  return { Content: md.Content, text: md.rawContent().replace(/<!--[\s\S]*?-->\s*/g, '').trim() };
+/** The brief, exactly as sent to the models (minus any <!-- notes to ourselves -->). */
+export function getPrompt(exhibit: Exhibit): string | null {
+  const text = promptFiles[`/exhibits/${exhibit.slug}/prompt.md`];
+  return text ? text.replace(/<!--[\s\S]*?-->\s*/g, '').trim() : null;
 }
 
 export interface Piece {
