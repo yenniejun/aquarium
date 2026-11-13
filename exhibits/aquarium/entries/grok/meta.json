@@ -4,5 +4,20 @@
   "modelId": "x-ai/grok-4.7",
   "route": "OpenRouter",
   "host": "xai",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Blinkblink Blenny",
+  "statement": "A speckled blenny who treats the tank like a windowsill: perched, peering, then gone in a bright little dash before settling back to watch the light move.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "OpenRouter (served by xAI)",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2,
+      "host": "xai",
+      "reasoning": "low"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

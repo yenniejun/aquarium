@@ -1,6 +1,7 @@
 // Sends an exhibit's prompt.md to the models behind the given entries and saves what comes back.
 //
-// Usage: npm run generate -- [--exhibit aquarium] [--max-tokens 64000] <entry> [<entry> ...]
+// Usage: npm run generate -- [--exhibit aquarium] [--max-tokens 64000] [--reasoning low] <entry> ...
+//   --reasoning (OpenRouter only): low, medium or high thinking effort instead of the model's default
 //   e.g. npm run generate -- claude-haiku claude-sonnet
 //
 // Each entry's meta.json says who to ask: "provider" (Anthropic, OpenAI or Google) and "modelId".
@@ -28,8 +29,9 @@ const option = (name) => {
 const exhibit = option('--exhibit') ?? 'aquarium';
 // Generous, since reasoning models spend part of this on thinking before they write the page.
 const MAX_TOKENS = Number(option('--max-tokens') ?? 32000);
+const REASONING = option('--reasoning');
 if (!args.length) {
-  console.error('Usage: npm run generate -- [--exhibit aquarium] [--max-tokens 64000] <entry> [<entry> ...]');
+  console.error('Usage: npm run generate -- [--exhibit aquarium] [--max-tokens 64000] [--reasoning low] <entry> ...');
   process.exit(1);
 }
 
@@ -106,7 +108,12 @@ async function generate(slug) {
     generation: {
       date: new Date().toISOString().slice(0, 10),
       via: servedBy ? `${provider.via} (served by ${servedBy})` : provider.via,
-      params: { max_tokens: MAX_TOKENS, promptVersion, ...(meta.host && { host: meta.host }) },
+      params: {
+        max_tokens: MAX_TOKENS,
+        promptVersion,
+        ...(meta.host && { host: meta.host }),
+        ...(REASONING && { reasoning: REASONING }),
+      },
       attempts: 1,
       edits: 'none',
     },
@@ -208,6 +215,7 @@ async function askOpenRouter(model, apiKey, meta) {
       max_tokens: MAX_TOKENS,
       stream: true,
       usage: { include: true },
+      ...(REASONING && { reasoning: { effort: REASONING } }),
       ...(meta.host && { provider: { only: [meta.host], allow_fallbacks: false } }),
       messages: [{ role: 'user', content: prompt }],
     }),
