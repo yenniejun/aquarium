@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import About from '../../components/About.astro';
-import Entrance from '../../components/Entrance.astro';
 import { getExhibits, getPieces, toView, type Exhibit } from '../../lib/exhibits';
 import { href } from '../../lib/url';
 import { skins } from '../../skins';
@@ -12,13 +11,20 @@ export function getStaticPaths() {
 
 const { exhibit } = Astro.props as { exhibit: Exhibit };
 const pieces = getPieces(exhibit).map((piece, i) => toView(exhibit, piece, i));
-const Room = skins[exhibit.skin];
+const { Room, Welcome } = skins[exhibit.skin];
 const blind = exhibit.mode === 'blind';
 ---
 
 <Base skin={exhibit.skin} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
-  <About exhibit={exhibit} slot="header" />
-  <Entrance exhibit={exhibit} />
+  {
+    Welcome ? (
+      <About exhibit={exhibit} slot="header">
+        <Welcome exhibit={exhibit} />
+      </About>
+    ) : (
+      <About exhibit={exhibit} slot="header" />
+    )
+  }
   <div
     class="exhibit"
     data-exhibit={exhibit.slug}

@@ -12,7 +12,10 @@
   <figure>
     <div class="hood" aria-hidden="true"></div>
     <div class="glass">
-      <iframe sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+      <iframe
+        sandbox="allow-scripts"
+        referrerpolicy="no-referrer"
+        onload="this.src !== 'about:blank' && (this.parentElement.dataset.loaded = '')"></iframe>
     </div>
     <figcaption class="plaque">
       <span class="name"></span>
@@ -37,6 +40,7 @@
       const medium = piece?.querySelector('[data-medium]')?.textContent;
       name.textContent = iframe.title = link.dataset.expand!;
       who.textContent = revealed && artist ? [artist, medium].filter(Boolean).join(' · ') : '';
+      delete iframe.parentElement!.dataset.loaded;
       iframe.src = link.href;
       dialog.showModal();
     });
@@ -93,7 +97,7 @@
     position: relative;
     aspect-ratio: 4 / 3;
     overflow: hidden;
-    background: #0a2a40;
+    background: linear-gradient(#12405e, #0a2a40 70%);
     box-shadow:
       0 0 0 1px #05080b,
       inset 0 0 0 5px rgba(130, 210, 195, 0.32),
@@ -106,6 +110,12 @@
     width: 100%;
     height: 100%;
     border: 0;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .glass[data-loaded] iframe {
+    opacity: 1;
   }
 
   .close {

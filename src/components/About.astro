@@ -1,11 +1,14 @@
 ---
 /**
- * The "?" button in the header and the modal it opens, styled like the side menu. Two tabs:
- * a couple of lines on what's going on, and the exact prompt every model got.
+ * The "?" button in the header and the modal it opens. It's also the welcome: on a first visit
+ * it opens by itself (?reset shows it again). Two tabs at a fixed size: About, and the exact
+ * prompt every model got. A skin can fill the About tab with its own Welcome (passed as the
+ * default slot); otherwise it shows the title and intro.
  */
 import { Code } from 'astro:components';
 import type { Exhibit } from '../lib/exhibits';
 import { getPrompt } from '../lib/exhibits';
+import ExhibitTitle from './ExhibitTitle.astro';
 
 interface Props {
   exhibit: Exhibit;
@@ -14,10 +17,11 @@ interface Props {
 const { exhibit } = Astro.props;
 const prompt = getPrompt(exhibit);
 const piece = exhibit.pieceLabel.toLowerCase();
+const key = `museum:welcomed:${exhibit.slug}`;
 ---
 
 <button class="about-toggle" type="button" aria-haspopup="dialog" aria-label="About this gallery">?</button>
-<dialog class="about" aria-label="About this gallery">
+<dialog class="about" aria-labelledby="about-title" autofocus>
   <div class="bar">
     <div class="tabs" role="tablist">
       <button type="button" role="tab" id="about-tab-about" aria-controls="about-panel-about" aria-selected="true">
@@ -43,11 +47,18 @@ const piece = exhibit.pieceLabel.toLowerCase();
     </form>
   </div>
 
-  <div class="panel" role="tabpanel" id="about-panel-about" aria-labelledby="about-tab-about">
-    {exhibit.intro && <p>{exhibit.intro}</p>}
+  <div class="panel welcome" role="tabpanel" id="about-panel-about" aria-labelledby="about-tab-about">
     {
-      exhibit.mode === 'blind' && (
-        <p>Select your favorite {piece} to find out which AI model made which!</p>
+      Astro.slots.has('default') ? (
+        <slot />
+      ) : (
+        <div class="copy">
+          <h2 id="about-title">
+            <ExhibitTitle title={exhibit.title} />
+          </h2>
+          {exhibit.intro && <p>{exhibit.intro}</p>}
+          {exhibit.mode === 'blind' && <p>Select your favorite {piece} to find out which AI model made which!</p>}
+        </div>
       )
     }
   </div>
@@ -74,6 +85,17 @@ const piece = exhibit.pieceLabel.toLowerCase();
     )
   }
 </dialog>
+
+{/* Inline so a first-time visitor sees the welcome straight away, not the page and then a popup. */}
+<script is:inline define:vars={{ key }}>
+  try {
+    if (new URLSearchParams(location.search).has('reset')) localStorage.removeItem(key);
+    if (!localStorage.getItem(key)) {
+      document.currentScript.previousElementSibling.showModal();
+      localStorage.setItem(key, '1');
+    }
+  } catch {}
+</script>
 
 <script>
   const dialog = document.querySelector<HTMLDialogElement>('dialog.about')!;
@@ -141,42 +163,49 @@ const piece = exhibit.pieceLabel.toLowerCase();
     outline: none;
   }
 
-  /* Light panel with the side menu's mono labels and pill tabs. */
+  /* One fixed size for both tabs; the prompt scrolls inside. */
   .about {
     width: min(44rem, 100vw - 1.5rem);
+    height: min(34rem, 100svh - 2rem);
     max-width: none;
-    max-height: min(85svh, 52rem);
-    padding: 8px;
+    max-height: none;
+    padding: 0;
     border: 0;
-    border-radius: 14px;
-    background: #f5f8fb;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #f7fafc;
     color: #10202e;
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  .about:focus {
+    outline: none;
   }
 
   .about[open] {
     display: flex;
     flex-direction: column;
-    animation: rise 0.2s ease-out;
+    animation: rise 0.25s ease-out;
   }
 
   .about::backdrop {
     background: rgba(2, 9, 18, 0.55);
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(4px);
   }
 
   @keyframes rise {
     from {
       opacity: 0;
-      transform: translateY(6px);
+      transform: translateY(8px);
     }
   }
 
   .bar {
     display: flex;
+    flex: none;
     align-items: center;
     justify-content: space-between;
-    flex: none;
+    padding: 10px 10px 0 12px;
   }
 
   .tabs {
@@ -207,7 +236,7 @@ const piece = exhibit.pieceLabel.toLowerCase();
 
   .tabs button[aria-selected='true'] {
     background: #03101e;
-    color: #f5f8fb;
+    color: #f7fafc;
   }
 
   .close {
@@ -225,19 +254,37 @@ const piece = exhibit.pieceLabel.toLowerCase();
   }
 
   .panel {
+    flex: 1;
     min-height: 0;
     overflow-y: auto;
-    padding: 14px 12px 10px;
+    padding: 12px;
   }
 
-  .panel p {
-    margin: 0 0 0.8rem;
-    line-height: 1.6;
-    color: #2b3f50;
+  .panel[hidden] {
+    display: none;
   }
 
-  .panel p:last-child {
-    margin-bottom: 0;
+  /* About: a skin's Welcome fills the whole panel. */
+  .welcome {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .copy {
+    padding: clamp(1.4rem, 5vh, 2.4rem) clamp(1.25rem, 5vw, 2.6rem);
+  }
+
+  .copy h2 {
+    margin: 0 0 1rem;
+    font: 600 clamp(2rem, 7vw, 2.8rem) / 1.05 system-ui, sans-serif;
+  }
+
+  .copy p {
+    max-width: 32rem;
+    margin: 0 0 0.7rem;
+    font-size: 1.15rem;
+    line-height: 1.5;
   }
 
   /* The prompt, in a small editor window. */

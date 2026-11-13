@@ -3,3 +3,4 @@
 /pieces/*
   Content-Security-Policy: sandbox allow-scripts
   X-Robots-Tag: noindex
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400

@@ -40,7 +40,7 @@ src/
   lib/exhibits.ts                 ← loads + validates exhibits/, assigns opaque piece ids
   lib/sandbox.ts                  ← CSP injected into every piece
   scripts/voting.ts               ← client: shuffle, click-to-vote, reveal (skin-agnostic)
-  components/                     ← Entrance (curtains), SideNav (menu), About ("?" modal with the prompt)
+  components/                     ← SideNav (menu), About (welcome + "?" modal with the prompt)
   skins/
     names.ts, index.ts            ← skin registry (name → Room)
     aquarium/{Room,Frame}.astro   ← 3-column grid, two rows above the fold; glass tank, hood light, cabinet, brass plaque
@@ -72,9 +72,10 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 
 - **3×2 above the fold, 3×4 in all.** Twelve tanks in three columns. The title and the first two rows fill exactly the first screen; rows 3–4 are below it. Tanks are 4:3, and `--tank-h` (in `skins/aquarium/Room.astro`) is the largest height that fits three across and two rows (plus their fixed chrome) above the fold, from container query width units and `svh`. Any leftover height is split above row 1 and below row 2. Portrait screens and phones scroll in two columns.
 - **Empty slots.** A lineup entry with no `piece.html` shows `placeholder.html` (an empty tank) with an "Awaiting arrival" plaque. Its `<li>` gets `data-pending`, so voting keeps it at the end, unshuffled and unvotable. Right now the six newer slots (grok, mistral, kimi, glm, gemma, gpt-oss) are empty stand-ins.
-- **Entrance.** On a visitor's first visit, `src/components/Entrance.astro` shows closed velvet curtains (pure CSS) and a welcome card explaining the exhibit and how to vote. "Enter" draws the curtains back. Remembered per exhibit in `localStorage` (`museum:entered:<exhibit>`); `?reset` shows it again.
+- **Welcome.** On a first visit, the "?" modal opens by itself (remembered per exhibit in `localStorage` as `museum:welcomed:<exhibit>`; `?reset` shows it again). Its About tab is the skin's Welcome, `src/skins/aquarium/Welcome.astro`: the title and two lines above a strip of water with a goldfish. Hover or tap the underlined words: "a tank" swells the waves, "one creature" makes the fish wiggle, "favorite tank" makes it leap out and flip. Fonts under consideration are compared at `/dev/fonts` (dev server only).
+- **Loading.** Each tank shows a few rising bubbles until its iframe loads, then fades the piece in. Tanks on the first screen load eagerly; empty slots load lazily. `public/_headers` lets browsers cache pieces for 5 minutes, then refresh them in the background.
 - **Menu.** `src/components/SideNav.astro`: a slim panel on the left edge (Galleries) on screens ≥1000px, and a "Menu" popover on narrower ones. Upcoming galleries come from `src/site.ts`.
-- **About ("?").** `src/components/About.astro` (shared by all exhibits): a "?" button in the top-right corner opens a modal with what's going on in a few lines and the exact `prompt.md` in an editor-style view (line numbers, markdown highlighting), with a Copy button. The aquarium page itself is just the room: no section or footer below it.
+- **About ("?").** `src/components/About.astro` (shared by all exhibits): a "?" button in the top-right corner opens a fixed-size modal with two tabs: About (a skin's Welcome, or the plain title and intro) and Prompt (the exact `prompt.md` in an editor-style view with line numbers and a Copy button). The aquarium page itself is just the room: no section or footer below it.
 - **Type: Deco.** Limelight for titles, Josefin Sans caps for plaques, like 1930s public-aquarium signage.
 - **Plaque = specimen name only.** Who made it and how ("Claude · SVG + JavaScript") appear only after voting.
 
@@ -83,7 +84,7 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 1. In `mode: "blind"`, the page renders no artist names, and `scripts/voting.ts` shuffles the tanks (with CSS `order`, so iframes don't reload) to remove position bias.
 2. The visitor votes by clicking a tank: either the cabinet/plaque (a real `<button>`, keyboard accessible) or anywhere inside the glass. A click inside a sandboxed iframe never reaches the parent page, but it moves focus into the iframe, so the page listens for `window` blur and checks whether `document.activeElement` is a tank's iframe. Iframes are `tabindex="-1"` so tabbing can't trigger a vote, and pieces stay fully interactive.
 3. The page fetches `/reveal/<exhibit>.json` (id → artist, medium), fills in every plaque, and marks the pick with a "♥ your pick" badge.
-4. The vote is stored in `localStorage` (`museum:vote:<exhibit>`), so reloading shows the revealed state. Add `?reset` to the URL to see the curtains and vote again.
+4. The vote is stored in `localStorage` (`museum:vote:<exhibit>`), so reloading shows the revealed state. Add `?reset` to the URL to see the welcome and vote again.
 
 This keeps names out of the page source, but the reveal file is public if you know where to look. v2 replaces steps 3–4 with the real API.
 

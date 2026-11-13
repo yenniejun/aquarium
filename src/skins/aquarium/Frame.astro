@@ -14,13 +14,15 @@ const empty = piece.status === 'pending';
     <span class="badge">♥ your pick</span>
   </div>
   <div class="glass">
+    <span class="loading" aria-hidden="true"><i></i><i></i><i></i></span>
     <iframe
       src={piece.src}
       title={piece.title}
       sandbox="allow-scripts"
       tabindex="-1"
-      loading="lazy"
-      referrerpolicy="no-referrer"></iframe>
+      loading={empty ? 'lazy' : 'eager'}
+      referrerpolicy="no-referrer"
+      onload="this.parentElement.dataset.loaded = ''"></iframe>
     <a class="open" href={piece.src} data-expand={piece.title} aria-label={`Look closer at ${piece.title}`}>⤢</a>
   </div>
   <div class="rim" aria-hidden="true"></div>
@@ -96,7 +98,7 @@ const empty = piece.status === 'pending';
     position: relative;
     aspect-ratio: var(--ratio, 4 / 3);
     overflow: hidden;
-    background: #0a2a40;
+    background: linear-gradient(#12405e, #0a2a40 70%);
     box-shadow:
       0 0 0 1px #05080b,
       0 0 50px -10px rgba(90, 190, 255, 0.35);
@@ -117,6 +119,62 @@ const empty = piece.status === 'pending';
     height: 100%;
     border: 0;
     display: block;
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+
+  .glass[data-loaded] iframe {
+    opacity: 1;
+  }
+
+  /* While a tank loads: a few bubbles rising in the empty water. */
+  .loading {
+    position: absolute;
+    left: 50%;
+    bottom: 22%;
+    transition: opacity 0.4s;
+  }
+
+  .glass[data-loaded] .loading {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loading i {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border: 1.5px solid rgba(190, 240, 255, 0.7);
+    border-radius: 50%;
+    animation: loading-bubble 1.8s ease-in infinite;
+  }
+
+  .loading i:nth-child(2) {
+    left: -14px;
+    width: 6px;
+    height: 6px;
+    animation-delay: 0.6s;
+  }
+
+  .loading i:nth-child(3) {
+    left: 10px;
+    width: 5px;
+    height: 5px;
+    animation-delay: 1.2s;
+  }
+
+  @keyframes loading-bubble {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-60px);
+      opacity: 0;
+    }
   }
 
   /* Light from the hood, glare on the glass, and the green tint of thick glass edges.
@@ -365,6 +423,11 @@ const empty = piece.status === 'pending';
   @media (prefers-reduced-motion: reduce) {
     .badge {
       transition: none;
+    }
+
+    .loading i {
+      animation: none;
+      opacity: 0.7;
     }
 
     :global([data-state='revealed']) .who {

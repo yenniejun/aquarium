@@ -1,0 +1,426 @@
+---
+/**
+ * The aquarium's About tab (and first-visit welcome): the title and two lines above a strip of
+ * water with a goldfish in it. A few words play with the water when you hover or tap them:
+ * "a tank" swells the waves, "one creature" makes the fish wiggle, "favorite tank" makes it jump.
+ */
+import type { Exhibit } from '../../lib/exhibits';
+import ExhibitTitle from '../../components/ExhibitTitle.astro';
+
+interface Props {
+  exhibit: Exhibit;
+}
+
+const { exhibit } = Astro.props;
+
+type Effect = 'wave' | 'wiggle' | 'jump';
+
+/** Splits text around the given phrases so each can be wrapped; missing phrases just stay plain. */
+function play(text: string, effects: Record<string, Effect>) {
+  return text
+    .split(new RegExp(`(${Object.keys(effects).join('|')})`))
+    .filter(Boolean)
+    .map((part) => ({ text: part, effect: effects[part] }));
+}
+
+const lines = [
+  exhibit.intro && play(exhibit.intro, { 'a tank': 'wave', 'one creature': 'wiggle' }),
+  exhibit.mode === 'blind' &&
+    play('Select your favorite tank to find out which AI model made which!', { 'favorite tank': 'jump' }),
+].filter((line) => !!line);
+
+const bubbles = [
+  { x: '8%', s: '6px', d: '7s', delay: '-1s' },
+  { x: '23%', s: '4px', d: '9s', delay: '-6s' },
+  { x: '47%', s: '7px', d: '8s', delay: '-3s' },
+  { x: '84%', s: '8px', d: '7.5s', delay: '-4.5s' },
+  { x: '93%', s: '4px', d: '9.5s', delay: '-2s' },
+];
+const drops = [
+  { dx: '-18px', dy: '-22px' },
+  { dx: '-6px', dy: '-30px' },
+  { dx: '8px', dy: '-28px' },
+  { dx: '20px', dy: '-18px' },
+];
+---
+
+<div class="scene">
+  <div class="copy">
+    <h2 id="about-title"><ExhibitTitle title={exhibit.title} /></h2>
+    {
+      lines.map((line) => (
+        <p>
+          {line.map((part) =>
+            part.effect ? (
+              <mark data-effect={part.effect} tabindex="0">
+                {part.text}
+              </mark>
+            ) : (
+              part.text
+            ),
+          )}
+        </p>
+      ))
+    }
+  </div>
+
+  <div class="water" aria-hidden="true">
+    {bubbles.map((b) => <i class="bubble" style={`--x: ${b.x}; --s: ${b.s}; --d: ${b.d}; --delay: ${b.delay}`} />)}
+    <svg class="far-fish" viewBox="0 0 40 20">
+      <path d="M1 3 13 10 1 17 4 10Z M12 10Q24 0 39 10 24 20 12 10Z"></path>
+    </svg>
+    <div class="pet">
+      <span class="splash">{drops.map((d) => <i style={`--dx: ${d.dx}; --dy: ${d.dy}`} />)}</span>
+      <div class="leap">
+        <svg class="goldfish" viewBox="0 0 48 28">
+          <path class="tail" d="M4 4 16 14 4 24 8 14Z"></path>
+          <path class="fin" d="M24 6q6-6 12 1Z"></path>
+          <path class="body" d="M14 14Q26 0 44 14 26 28 14 14Z"></path>
+          <circle cx="36.5" cy="12" r="2.6" fill="#fff"></circle>
+          <circle cx="37.2" cy="12" r="1.3" fill="#10202e"></circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .scene {
+    --font: 'Fredoka', system-ui, sans-serif;
+    --water-top: #d3eff7;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    font-family: var(--font);
+  }
+
+  .copy {
+    flex: none;
+    padding: clamp(1.4rem, 5vh, 2.4rem) clamp(1.25rem, 5vw, 2.6rem) 0.4rem;
+  }
+
+  h2 {
+    margin: 0 0 1rem;
+    font-size: clamp(2.3rem, 8vw, 3.3rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    max-width: 32rem;
+    margin: 0 0 0.7rem;
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+
+  /* Wiggly underlines that keep drifting; they speed up while you're on them. */
+  mark {
+    padding-bottom: 5px;
+    border-radius: 2px;
+    color: inherit;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6'%3E%3Cpath d='M0 3Q5 0 10 3T20 3' fill='none' stroke='%233cb6d3' stroke-width='2'/%3E%3C/svg%3E")
+      0 100% / 20px 6px repeat-x;
+    outline: none;
+    cursor: default;
+    animation: underline 1.2s linear infinite;
+  }
+
+  mark[data-effect='jump'] {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6'%3E%3Cpath d='M0 3Q5 0 10 3T20 3' fill='none' stroke='%23ff8a65' stroke-width='2'/%3E%3C/svg%3E");
+  }
+
+  mark:is(:hover, :focus) {
+    animation-duration: 0.4s;
+  }
+
+  mark:focus-visible {
+    background-color: rgba(60, 182, 211, 0.12);
+  }
+
+  @keyframes underline {
+    to {
+      background-position-x: 20px;
+    }
+  }
+
+  .water {
+    position: relative;
+    flex: 1;
+    min-height: 5rem;
+    margin-top: 26px;
+    background: linear-gradient(var(--water-top), #9fd8e8 55%, #6dbcd6);
+    transition: margin-top 0.7s cubic-bezier(0.3, 1.5, 0.5, 1);
+  }
+
+  /* Two layers of wave along the surface, drifting opposite ways. */
+  .water::before,
+  .water::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100% - 1px);
+    height: 18px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 24' preserveAspectRatio='none'%3E%3Cpath d='M0 12Q30 0 60 12T120 12T180 12T240 12V24H0Z' fill='%23d3eff7'/%3E%3C/svg%3E")
+      0 0 / 240px 100% repeat-x;
+    animation: drift 12s linear infinite;
+    transition: height 0.6s ease;
+  }
+
+  .water::before {
+    height: 22px;
+    opacity: 0.5;
+    background-size: 330px 100%;
+    animation: drift-wide 17s linear infinite reverse;
+  }
+
+  @keyframes drift {
+    to {
+      background-position-x: 240px;
+    }
+  }
+
+  @keyframes drift-wide {
+    to {
+      background-position-x: 330px;
+    }
+  }
+
+  /* "a tank": the water swells up into big waves. */
+  .scene:has([data-effect='wave']:is(:hover, :focus)) .water {
+    margin-top: 6px;
+  }
+
+  .scene:has([data-effect='wave']:is(:hover, :focus)) .water::after {
+    height: 34px;
+  }
+
+  .scene:has([data-effect='wave']:is(:hover, :focus)) .water::before {
+    height: 44px;
+  }
+
+  .bubble {
+    position: absolute;
+    left: var(--x);
+    bottom: -10px;
+    width: var(--s);
+    height: var(--s);
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    animation: bubble var(--d) linear var(--delay) infinite;
+  }
+
+  @keyframes bubble {
+    0% {
+      bottom: -10px;
+      opacity: 0;
+    }
+    15%,
+    80% {
+      opacity: 0.9;
+    }
+    100% {
+      bottom: 100%;
+      opacity: 0;
+      translate: 6px;
+    }
+  }
+
+  /* A faint fish passing by in the distance. */
+  .far-fish {
+    position: absolute;
+    top: 60%;
+    left: -10%;
+    width: 24px;
+    fill: #1f6f88;
+    opacity: 0.35;
+    animation: pass 30s linear -12s infinite;
+  }
+
+  @keyframes pass {
+    to {
+      left: 105%;
+    }
+  }
+
+  /* The goldfish: patrols back and forth just under the surface. */
+  .pet {
+    position: absolute;
+    z-index: 1;
+    top: 26px;
+    left: 58%;
+    width: 46px;
+    animation: patrol 16s ease-in-out infinite;
+  }
+
+  @keyframes patrol {
+    0% {
+      left: 56%;
+      transform: scaleX(1);
+    }
+    46% {
+      left: 76%;
+      transform: scaleX(1);
+    }
+    50% {
+      left: 76%;
+      transform: scaleX(-1);
+    }
+    96% {
+      left: 56%;
+      transform: scaleX(-1);
+    }
+    100% {
+      left: 56%;
+      transform: scaleX(1);
+    }
+  }
+
+  .goldfish {
+    display: block;
+    overflow: visible;
+    animation: bob 2.2s ease-in-out infinite alternate;
+  }
+
+  .goldfish .tail,
+  .goldfish .fin {
+    fill: #ffb25e;
+  }
+
+  .goldfish .body {
+    fill: #ff8c42;
+  }
+
+  .goldfish .tail {
+    transform-box: view-box;
+    transform-origin: 16px 14px;
+  }
+
+  @keyframes bob {
+    to {
+      transform: translateY(4px) rotate(-3deg);
+    }
+  }
+
+  /* Any word in play: the goldfish stops to watch. */
+  .scene:has(mark:is(:hover, :focus)) .pet {
+    animation-play-state: paused;
+  }
+
+  /* "one creature": it wiggles. */
+  .scene:has([data-effect='wiggle']:is(:hover, :focus)) .goldfish {
+    animation: wiggle 0.22s ease-in-out infinite alternate;
+  }
+
+  .scene:has([data-effect='wiggle']:is(:hover, :focus)) .tail {
+    animation: wag 0.11s ease-in-out infinite alternate;
+  }
+
+  @keyframes wiggle {
+    from {
+      transform: rotate(-9deg) translateX(-2px);
+    }
+    to {
+      transform: rotate(9deg) translateX(2px);
+    }
+  }
+
+  @keyframes wag {
+    from {
+      transform: rotate(-22deg);
+    }
+    to {
+      transform: rotate(22deg);
+    }
+  }
+
+  /* "favorite tank": it leaps out of the water and does a flip, splashing out and back in. */
+  .scene:has([data-effect='jump']:is(:hover, :focus)) .leap {
+    animation: leap 1.5s infinite;
+  }
+
+  .scene:has([data-effect='jump']:is(:hover, :focus)) .splash i {
+    animation: splash 1.5s infinite;
+  }
+
+  @keyframes leap {
+    0% {
+      transform: translateY(0) rotate(0);
+      animation-timing-function: ease-in;
+    }
+    12% {
+      transform: translateY(8px) rotate(0);
+      animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1);
+    }
+    45% {
+      transform: translateY(-112px) rotate(-180deg);
+      animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4);
+    }
+    78%,
+    100% {
+      transform: translateY(0) rotate(-360deg);
+    }
+  }
+
+  /* Droplets at the surface as it breaks out (~18%) and dives back in (~72%). */
+  .splash {
+    position: absolute;
+    left: 50%;
+    top: -24px;
+  }
+
+  .splash i {
+    position: absolute;
+    width: 6px;
+    height: 9px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: #5cc6dd;
+    opacity: 0;
+  }
+
+  @keyframes splash {
+    0%,
+    16% {
+      opacity: 0;
+      transform: translate(0, 0) scale(0.5);
+    }
+    18% {
+      opacity: 1;
+    }
+    32% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy)) scale(1);
+    }
+    70% {
+      opacity: 0;
+      transform: translate(0, 0) scale(0.5);
+    }
+    72% {
+      opacity: 1;
+    }
+    88%,
+    100% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy)) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    mark,
+    .water::before,
+    .water::after,
+    .bubble,
+    .far-fish,
+    .pet,
+    .goldfish,
+    .scene:has(mark:is(:hover, :focus)) :is(.goldfish, .tail, .leap, .splash i) {
+      animation: none;
+    }
+
+    .bubble {
+      display: none;
+    }
+  }
+</style>
