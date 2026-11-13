@@ -4,5 +4,20 @@
   "modelId": "z-ai/glm-5.3-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Murmuring Moonfin",
+  "statement": "A shy sliver of moonlight with silk ribbon fins, the Moonfin glides its darkening tank in slow arcs, humming small silver bubbles toward the rippling surface. Hold still and it drifts over to circle you; move too quickly and it flares bright and bolts for the kelp.",
+  "generation": {
+    "date": "2026-11-13",
+    "via": "OpenRouter (served by Alibaba)",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2,
+      "host": "alibaba",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }
