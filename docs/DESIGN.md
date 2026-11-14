@@ -2,14 +2,14 @@
 
 ## The idea
 
-A museum where every exhibit gives several AI models the same brief, and every piece is **pure code** the model wrote, with no images or assets. The first exhibit is **A(quar)I(um)**: twelve tanks, each holding one creature that expresses its model's personality. Later, visitors **vote blind** for a favorite before finding out who made what, then see the tallies. Then more exhibits follow (modern art, portraits, …), each with its own look.
+A museum where every exhibit gives several AI models the same brief, and every piece is **pure code** the model wrote, with no images or assets. The first exhibit is **AquarIum**: twelve tanks, each holding one creature that expresses its model's personality. Later, visitors **vote blind** for a favorite before finding out who made what, then see the tallies. Then more exhibits follow (modern art, portraits, …), each with its own look.
 
 ## Vocabulary
 
 | Term | Meaning | Example |
 | --- | --- | --- |
 | **Museum** | The whole site | The Model Museum |
-| **Exhibit** | One themed page (a "wing") | A(quar)I(um), Modern Art Wing |
+| **Exhibit** | One themed page (a "wing") | AquarIum, Modern Art Wing |
 | **Entry** | One model's slot in an exhibit | `exhibits/aquarium/entries/claude/` |
 | **Piece** | The HTML file the model produced | a jellyfish tank |
 | **Skin** | How an exhibit looks. Its **Room** owns the page layout and hangs each piece in its **Frame** | aquarium: glass tanks on cabinets, 3×2 on the first screen; gallery: gilded frames on a wall |

@@ -1,4 +1,4 @@
-# A(quar)I(um) and friends
+# AquarIum and friends
 
 AI models, one brief per gallery, everything drawn in code. In each gallery several models make one piece from the same prompt; visitors pick a favorite before finding out who made what. Live at https://aquarium.artfish.ai (the aquarium).
 
@@ -16,7 +16,7 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 
 | Gallery | Folder | Display | Status |
 |---|---|---|---|
-| A(quar)I(um) | `aquarium` | fish tanks (aquarium skin) | live, home page |
+| AquarIum | `aquarium` | fish tanks (aquarium skin) | live, home page |
 | cArnIvora | `carnivora` | bell jars | preview |
 | cArnIval | `carnival` | circus stages | draft (hidden) |
 | BonsAI | `bonsai` | frameless, on a wooden stand | preview |
@@ -30,7 +30,7 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 | DreAm CIty | `dream-city` | windows | draft (hidden) |
 
 - **Status:** `live` and `preview` appear in the menu; `draft` only builds on the dev server and stays out of the menu.
-- **Titles:** the capital A and I that spell AI are highlighted in the gallery's accent color, as in `cArnIvora` or `BonsAI`. The aquarium keeps its parentheses: `A(quar)I(um)`.
+- **Titles:** the capital A and I that spell AI are highlighted in the gallery's accent color, as in `AquarIum`, `cArnIvora` or `BonsAI`.
 - **Blind mode:** pieces are shuffled and unlabeled until you vote. `?reset` in the URL forgets your vote (and shows the aquarium's welcome again); on the dev server there's also a "Reset vote" button.
 - **"?" and "Prompt":** hovering (or tapping) "?" shows a small bubble with what the models were told; "Prompt" opens the exact prompt. The aquarium also greets first-time visitors with its goldfish welcome.
 - **Fonts:** each page loads only the Google Fonts it uses (`src/lib/fonts.ts`); add a family there when a gallery starts using one.

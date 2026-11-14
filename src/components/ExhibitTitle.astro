@@ -1,23 +1,16 @@
 ---
 /**
  * An exhibit title that plays with "AI": the capital A and I that spell it are highlighted, as in
- * "cArnIvora" or "BonsAI". In a title with parentheses (the aquarium's "A(quar)I(um)") it's the
- * letters outside them.
+ * "AquarIum", "cArnIvora" or "BonsAI".
  */
 interface Props {
   title: string;
 }
 
-const { title } = Astro.props;
-const parens = title.includes('(');
-const parts = title.split(parens ? /(\([^)]*\))/ : /([AI]+)/).filter(Boolean);
+const parts = Astro.props.title.split(/([AI]+)/).filter(Boolean);
 ---
 
-{
-  parts.map((part) =>
-    (parens ? !part.startsWith('(') : /^[AI]+$/.test(part)) ? <span class="ai">{part}</span> : part,
-  )
-}
+{parts.map((part) => (/^[AI]+$/.test(part) ? <span class="ai">{part}</span> : part))}
 
 <style>
   .ai {
