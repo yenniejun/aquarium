@@ -1,6 +1,6 @@
 # AquarIum and friends
 
-AI models, one brief per gallery, everything drawn in code. In each gallery several models make one piece from the same prompt; visitors pick a favorite before finding out who made what. Live at https://galleries.artfish.ai (aquarium.artfish.ai, its first address, redirects there).
+AI models, one brief per gallery, everything drawn in code. In each gallery several models make one piece from the same prompt; visitors pick a favorite before finding out who made what. Live at https://galleries.artfish.ai.
 
 ```sh
 npm install
@@ -32,7 +32,7 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 - **Status:** `live` and `preview` appear in the menu; `draft` only builds on the dev server and stays out of the menu.
 - **Titles:** all lowercase except the A and I that spell AI, which are highlighted in the gallery's accent color, as in `AquarIum`, `fungArIum` or `bonsAI`.
 - **Blind mode:** pieces are shuffled and unlabeled until you vote. `?reset` in the URL forgets your vote (and shows the aquarium's welcome again); on the dev server there's also a "Reset vote" button.
-- **"Info" and "?":** hovering (or tapping) "?" shows a small bubble with what the models were told. "Info" opens two tabs: **Models** (open-weight and closed, each linking to its maker's page, from `src/lib/modelLinks.ts`) and **Prompt** (the exact prompt). The aquarium also greets first-time visitors with its goldfish welcome.
+- **"Info" and "?":** hovering (or tapping) "?" shows a small bubble with what the models were told. "Info" opens two tabs: **Models** (open-weight and closed, each linking to its maker's page, from `src/lib/modelLinks.ts`) and **Prompt** (the exact prompt).
 - **Fonts:** each page loads only the Google Fonts it uses (`src/lib/fonts.ts`); add a family there when a gallery starts using one.
 
 ### Adding a gallery
@@ -66,7 +66,7 @@ npm run generate -- --exhibit nightmare --reasoning medium --max-tokens 64000 --
 
 ## Deploying and counting
 
-- Cloudflare Pages builds `main` to https://galleries.artfish.ai on every push (DNS: CNAMEs at GoDaddy). Every gallery lives at `/<folder>/`; `/` forwards to the aquarium, and a visitor on the old aquarium.artfish.ai is sent to the same page on the new address (`site.url` and `site.oldHosts` in `src/site.ts`).
+- Cloudflare Pages builds `main` to https://galleries.artfish.ai on every push (DNS: CNAMEs at GoDaddy). Every gallery lives at `/<folder>/`; `/` forwards to the aquarium, and any other address gets the 404 page.
 - Picks are counted anonymously with Umami (no cookies), in production only: each vote sends a `pick · <maker>` event. The site ID is in `src/site.ts`.
 
 See [docs/DESIGN.md](docs/DESIGN.md) for the architecture, the piece contract and the sandboxing.

@@ -1,0 +1,62 @@
+---
+/** Any address that isn't a gallery: say so, and point the way back. */
+import Base from '../layouts/Base.astro';
+import { exhibitPath, getHomeExhibit } from '../lib/exhibits';
+import { href } from '../lib/url';
+
+const home = getHomeExhibit();
+---
+
+<Base skin="page" title="Not found">
+  <section class="lost">
+    <p class="code">404</p>
+    <h1>Nothing on display here (yet).</h1>
+    <p>This gallery doesn't exist, or it's still being hung.</p>
+    <a href={href(exhibitPath(home))}>Back to the galleries →</a>
+  </section>
+</Base>
+
+<style>
+  /* A plain page on the site's paper background, with a dark credit to match. */
+  :global(body[data-skin='page']) {
+    --footer-ink: rgba(30, 24, 16, 0.72);
+    --footer-ai: #0a78a8;
+  }
+
+  .lost {
+    display: grid;
+    place-items: center;
+    gap: 0.6rem;
+    min-height: 60vh;
+    padding: 4rem 1.5rem;
+    text-align: center;
+    font: 400 0.95rem/1.6 'IBM Plex Mono', monospace;
+  }
+
+  .code {
+    margin: 0;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: #8a8070;
+  }
+
+  h1 {
+    margin: 0;
+    font: italic 500 clamp(1.8rem, 5vw, 2.6rem) / 1.2 'Cormorant Garamond', serif;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    margin-top: 0.8rem;
+    color: #0a78a8;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus-visible {
+    text-decoration: underline;
+  }
+</style>

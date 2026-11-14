@@ -13,7 +13,7 @@ interface Props {
 
 const { exhibit } = Astro.props;
 const pieces = getPieces(exhibit).map((piece, i) => toView(exhibit, piece, i));
-const { Room, Welcome } = skins[exhibit.skin];
+const { Room } = skins[exhibit.skin];
 const blind = exhibit.mode === 'blind';
 ---
 
@@ -21,16 +21,9 @@ const blind = exhibit.mode === 'blind';
 <Base skin={exhibit.skin} variant={exhibit.variant} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
   <Fragment slot="header">
     <ResetVote exhibit={exhibit} />
-    {/* Every exhibit gets "Prompt" and "?"; a skin with a Welcome (the aquarium) also greets first-time visitors with it. */}
-    {
-      Welcome ? (
-        <About exhibit={exhibit} autoOpen>
-          <Welcome exhibit={exhibit} />
-        </About>
-      ) : (
-        <About exhibit={exhibit} />
-      )
-    }
+    {/* Every exhibit gets "Info" and "?". (A skin's Welcome, like the aquarium's goldfish, could greet
+        first-time visitors by passing it in with autoOpen; for now nobody gets a popup.) */}
+    <About exhibit={exhibit} />
   </Fragment>
   <div
     class="exhibit"

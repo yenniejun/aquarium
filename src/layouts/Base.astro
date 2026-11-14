@@ -23,10 +23,6 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {/* A visitor on one of the site's old addresses goes to the same page at the new one. */}
-    <script is:inline define:vars={{ url: site.url, oldHosts: site.oldHosts }}>
-      if (oldHosts.includes(location.hostname)) location.replace(url + location.pathname + location.search + location.hash);
-    </script>
     <title>{title ?? site.name}</title>
     <link rel="canonical" href={new URL(Astro.url.pathname, site.url).href} />
     <meta name="description" content={description} />
