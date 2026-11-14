@@ -1,0 +1,297 @@
+**The Loitering Comma**
+
+An ink-wash bonsai whose leaves are little commas — most hang in quiet thought, a few in vermillion seal-red, and every so often one loses its place and flutters down onto the moss.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title></title>
+<style>
+  html,body{margin:0;padding:0;height:100%;overflow:hidden;background:transparent}
+  #c{position:fixed;bottom:0;left:50%;transform:translateX(-50%);display:block}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(function(){
+"use strict";
+var cv=document.getElementById('c'),ctx=cv.getContext('2d');
+var off=document.createElement('canvas'),g=off.getContext('2d');
+var S=0,u=0,dpr=1,t=0,last=performance.now();
+var leavesByCluster=[],clusters=[],FL=[],spawnT=2,breeze=0,target=0;
+
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var x=Math.imul(a^a>>>15,1|a);x=x+Math.imul(x^x>>>7,61|x)^x;return((x^x>>>14)>>>0)/4294967296}}
+
+var leafPath=new Path2D();
+leafPath.moveTo(0,0);
+leafPath.bezierCurveTo(-0.30,-0.28,-0.36,-0.72,-0.02,-1.0);
+leafPath.bezierCurveTo(0.34,-0.80,0.40,-0.36,0.10,-0.10);
+leafPath.closePath();
+
+var INKS=['hsla(212,14%,13%,0.92)','hsla(206,11%,22%,0.9)','hsla(216,13%,30%,0.88)','hsla(200,9%,38%,0.84)'];
+var CINNABAR='hsla(9,64%,46%,0.93)';
+var TRUNK_INK='hsla(212,14%,12%,0.95)',TRUNK_LIGHT='hsla(208,10%,46%,0.14)';
+
+var CL=[
+  {x:29,y:50,r:9},
+  {x:62,y:56,r:10},
+  {x:37,y:63,r:8},
+  {x:57,y:68,r:9},
+  {x:45,y:79,r:10}
+];
+var BR=[
+  {t:0.66,cx:29,cy:50,qx:39,qy:54,w0:2.4},
+  {t:0.76,cx:62,cy:56,qx:56,qy:59.5,w0:2.2},
+  {t:0.88,cx:37,cy:63,qx:41.5,qy:66.5,w0:1.9},
+  {t:0.97,cx:57,cy:68,qx:51,qy:71.5,w0:1.7}
+];
+
+function px(x){return x*u}
+function py(y){return (100-y)*u}
+function sp(tt){return [47+7*Math.sin(tt*Math.PI*0.9)-5*tt, 12+58*tt]}
+function sw(tt){var w=6.8*(1-tt)+1.2; if(tt<0.08)w*=1+(0.08-tt)*9; return w}
+
+function build(){
+  var R=mulberry32(20240311);
+  u=S/100;
+  leavesByCluster=CL.map(function(){return[]});
+  clusters=CL.map(function(c){return{x:c.x,y:c.y,r:c.r}});
+  CL.forEach(function(c,ci){
+    var n=Math.round(c.r*1.9);
+    for(var i=0;i<n;i++){
+      var a=R()*Math.PI*2, rr=c.r*Math.sqrt(R())*0.96;
+      var ox=Math.cos(a)*rr, oy=Math.sin(a)*rr*0.82;
+      var col=R()<0.09?CINNABAR:INKS[(R()*INKS.length)|0];
+      leavesByCluster[ci].push({
+        x:c.x+ox, y:c.y+oy,
+        a:Math.atan2(oy,ox)+Math.PI/2+(R()-0.5)*1.2,
+        s:2.6+R()*2.0,
+        flex:0.5+R()*0.8,
+        spd:1.2+R()*2.0,
+        ph:R()*6.28,
+        col:col
+      });
+    }
+  });
+}
+
+function brushSeg(g2,x0,y0,x1,y1,w){
+  var dx=x1-x0,dy=y1-y0,L=Math.sqrt(dx*dx+dy*dy)||1;
+  var nx=-dy/L,ny=dx/L;
+  g2.strokeStyle=TRUNK_INK;g2.lineCap='round';
+  g2.lineWidth=Math.max(0.7,w*u);
+  g2.beginPath();g2.moveTo(x0,y0);g2.lineTo(x1,y1);g2.stroke();
+  g2.strokeStyle=TRUNK_LIGHT;
+  g2.lineWidth=Math.max(0.4,w*0.28*u);
+  for(var k=-1;k<=1;k+=2){
+    var o=w*0.34*u*k;
+    g2.beginPath();g2.moveTo(x0+nx*o,y0+ny*o);g2.lineTo(x1+nx*o,y1+ny*o);g2.stroke();
+  }
+}
+
+function drawTrunk(g2,R){
+  var N=64,i,p0,p1,w0;
+  for(i=0;i<N;i++){
+    var t0=i/N,t1=(i+1)/N;
+    p0=sp(t0);p1=sp(t1);w0=sw(t0);
+    w0*=0.92+R()*0.16;
+    brushSeg(g2,px(p0[0]),py(p0[1]),px(p1[0]),py(p1[1]),w0);
+  }
+  // apex twig
+  var a=sp(1);
+  twig(g2,a[0],a[1],44.2,74,45,78,1.2,0.7);
+}
+
+function twig(g2,x0,y0,qx,qy,x1,y1,w0,w1){
+  var M=16,i;
+  for(i=0;i<M;i++){
+    var a=i/M,b=(i+1)/M;
+    var ax=(1-a)*(1-a)*x0+2*(1-a)*a*qx+a*a*x1;
+    var ay=(1-a)*(1-a)*y0+2*(1-a)*a*qy+a*a*y1;
+    var bx=(1-b)*(1-b)*x0+2*(1-b)*b*qx+b*b*x1;
+    var by=(1-b)*(1-b)*y0+2*(1-b)*b*qy+b*b*y1;
+    brushSeg(g2,px(ax),py(ay),px(bx),py(by),w0+(w1-w0)*a);
+  }
+}
+
+function drawBranches(g2,R){
+  BR.forEach(function(b){
+    var s0=sp(b.t);
+    twig(g2,s0[0],s0[1],b.qx,b.qy,b.cx,b.cy,b.w0,0.7);
+  });
+}
+
+function renderStatic(){
+  var R=mulberry32(99);
+  g.setTransform(dpr,0,0,dpr,0,0);
+  g.clearRect(0,0,S,S);
+
+  // pot body
+  var grad=g.createLinearGradient(0,py(11),0,py(0));
+  grad.addColorStop(0,'hsl(214,15%,27%)');
+  grad.addColorStop(1,'hsl(216,18%,15%)');
+  g.fillStyle=grad;
+  g.beginPath();
+  g.moveTo(px(19),py(11));
+  g.quadraticCurveTo(px(18.2),py(6),px(22.5),py(0));
+  g.lineTo(px(73.5),py(0));
+  g.quadraticCurveTo(px(77.8),py(6),px(77),py(11));
+  g.closePath();g.fill();
+
+  // crackle glaze
+  g.strokeStyle='rgba(185,205,220,0.10)';g.lineWidth=0.35*u;
+  for(var i=0;i<10;i++){
+    var cx=25+R()*46, cy=2+R()*7.5;
+    g.beginPath();g.moveTo(px(cx),py(cy));
+    for(var k=0;k<3;k++){
+      cx+=(R()-0.5)*5; cy+=(R()-0.4)*2.5;
+      g.lineTo(px(cx),py(cy));
+    }
+    g.stroke();
+  }
+
+  // rim
+  g.fillStyle='hsl(214,14%,30%)';
+  g.beginPath();
+  g.moveTo(px(16.8),py(13.6));
+  g.lineTo(px(79.2),py(13.6));
+  g.lineTo(px(79.2),py(10.9));
+  g.lineTo(px(16.8),py(10.9));
+  g.closePath();g.fill();
+  g.strokeStyle='rgba(220,232,242,0.18)';g.lineWidth=0.6*u;
+  g.beginPath();g.moveTo(px(17.5),py(13.1));g.lineTo(px(78.5),py(13.1));g.stroke();
+
+  // soil
+  g.fillStyle='hsl(24,22%,13%)';
+  g.beginPath();g.ellipse(px(48),py(12.2),29*u,2.4*u,0,0,Math.PI*2);g.fill();
+
+  // stones
+  var stones=[[34,12.4,2.3,1.5],[62,12.6,1.7,1.1]];
+  stones.forEach(function(s){
+    g.fillStyle='hsl(210,7%,40%)';
+    g.beginPath();g.ellipse(px(s[0]),py(s[1]),s[2]*u,s[3]*u,0,0,Math.PI*2);g.fill();
+    g.strokeStyle='rgba(255,255,255,0.12)';g.lineWidth=0.5*u;
+    g.beginPath();g.ellipse(px(s[0]-s[2]*0.2),py(s[1]+s[3]*0.25),s[2]*0.55*u,s[3]*0.4*u,0,Math.PI,Math.PI*2);g.stroke();
+  });
+
+  // moss tufts
+  var MOSS=['hsla(96,16%,40%,0.7)','hsla(88,14%,32%,0.75)','hsla(100,10%,46%,0.6)'];
+  for(i=0;i<30;i++){
+    var mx=22+R()*52, my=12.2+(R()-0.5)*2.6;
+    g.strokeStyle=MOSS[(R()*3)|0];
+    g.lineWidth=(0.35+R()*0.35)*u;g.lineCap='round';
+    for(k=0;k<3;k++){
+      var aa=-Math.PI*0.2-R()*Math.PI*0.6;
+      var ll=(0.8+R()*1.2);
+      g.beginPath();
+      g.moveTo(px(mx),py(my));
+      g.quadraticCurveTo(px(mx+Math.cos(aa)*ll*0.5),py(my+Math.sin(aa)*ll*0.5+0.3),
+                         px(mx+Math.cos(aa)*ll),py(my+Math.sin(aa)*ll));
+      g.stroke();
+    }
+  }
+
+  drawTrunk(g,R);
+  drawBranches(g,R);
+}
+
+function drawLeaf(x,y,rot,s,col,alpha){
+  ctx.save();
+  ctx.translate(px(x),py(y));
+  ctx.rotate(rot);
+  ctx.scale(s*u,s*u);
+  ctx.globalAlpha=alpha;
+  ctx.fillStyle=col;
+  ctx.fill(leafPath);
+  ctx.restore();
+}
+
+function spawnFalling(){
+  var ci=(Math.random()*CL.length)|0, c=CL[ci];
+  var a=Math.random()*Math.PI*2, rr=c.r*Math.sqrt(Math.random())*0.8;
+  FL.push({
+    x:c.x+Math.cos(a)*rr, y:c.y+Math.sin(a)*rr*0.8,
+    vy:3.2+Math.random()*2.2,
+    ph:Math.random()*6.28,
+    s:2.6+Math.random()*1.8,
+    col:Math.random()<0.12?CINNABAR:INKS[(Math.random()*INKS.length)|0]
+  });
+}
+
+function frame(now){
+  var dt=Math.min(0.05,(now-last)/1000);
+  last=now;t=now/1000;
+
+  target*=0.985;
+  breeze+=(target-breeze)*0.03;
+  var wind=0.55*Math.sin(t*0.5)+0.3*Math.sin(t*0.23+2.1)+breeze;
+
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.drawImage(off,0,0);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+
+  // canopy
+  for(var ci=0;ci<clusters.length;ci++){
+    var c=clusters[ci];
+    var dx=wind*0.5*(c.y/80)*u;
+    var dy=Math.sin(t*0.5+c.x)*0.18*u;
+    var ls=leavesByCluster[ci];
+    for(var i=0;i<ls.length;i++){
+      var L=ls[i];
+      var rot=L.a+wind*0.3*L.flex+Math.sin(t*L.spd+L.ph)*0.14;
+      drawLeaf(L.x+dx/u,L.y,rot,L.s,L.col,1);
+    }
+    ctx.translate(0,dy*0); // no-op keeps layers tidy
+  }
+
+  // falling leaves
+  spawnT-=dt;
+  if(spawnT<=0&&FL.length<5){spawnFalling();spawnT=2+Math.random()*2.6;}
+  for(i=FL.length-1;i>=0;i--){
+    var f=FL[i];
+    f.y-=f.vy*dt;
+    f.x+=(wind*0.9+Math.sin(t*2.6+f.ph)*1.7)*dt;
+    if(f.y<13){FL.splice(i,1);continue;}
+    var alpha=Math.min(1,(f.y-13)/8)*0.95;
+    var rot=f.ph+Math.sin(t*2.4+f.ph)*0.9;
+    drawLeaf(f.x,f.y,rot,f.s,f.col,alpha);
+  }
+
+  requestAnimationFrame(frame);
+}
+
+function resize(){
+  S=Math.max(120,Math.min(window.innerWidth,window.innerHeight));
+  dpr=Math.min(2,window.devicePixelRatio||1);
+  cv.width=off.width=Math.round(S*dpr);
+  cv.height=off.height=Math.round(S*dpr);
+  cv.style.width=cv.style.height=S+'px';
+  build();
+  renderStatic();
+}
+
+window.addEventListener('resize',resize);
+window.addEventListener('orientationchange',resize);
+window.addEventListener('pointermove',function(e){
+  target=(e.clientX/window.innerWidth-0.5)*2.0;
+},{passive:true});
+
+resize();
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "The Loitering Comma",
+  "statement": "An ink-drawn tree whose leaves are small commas, a few of them struck in vermillion like a seal. It keeps pausing mid-sentence, letting one drift down to the moss before it gathers itself and goes on."
+}
+```

@@ -2,5 +2,18 @@
   "artist": "Gemini 4 Carbon",
   "provider": "Google",
   "modelId": "gemini-4-carbon",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Kintsugi Fan Ginkgo",
+  "statement": "Rooted over a weathered scholar's stone in a gold-mended celadon pot, this ancient ginkgo carries a matching kintsugi seam up its wind-carved trunk. Waves of jade and amber fan leaves flutter in a quiet breeze as golden warmth travels from mended clay to crown.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 6
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

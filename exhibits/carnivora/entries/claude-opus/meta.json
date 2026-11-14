@@ -2,5 +2,19 @@
   "artist": "Claude Opus 5.5",
   "provider": "Anthropic",
   "modelId": "claude-opus-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Lamplighter Sundew",
+  "statement": "A patient, attentive sundew that keeps a tiny dew-lamp lit on every tentacle and waits for wandering lightmoths to come close. Each one it catches travels down the leaf as a spark and unfurls its flower stalk a little further, one quiet bloom at a time.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 4,
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

@@ -1,0 +1,374 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curious Kintsugi Maple</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    touch-action: pan-y;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(function () {
+  var canvas = document.getElementById('c');
+  var ctx = canvas.getContext('2d');
+  var W = 0, H = 0, S = 0, DPR = 1;
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    S = Math.min(W, H);
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function X(x) { return W / 2 + x * S / 100; }
+  function Y(y) { return H - y * S / 100; }
+  function U(v) { return v * S / 100; }
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  var rng = mulberry32(20240607);
+
+  var pads = [
+    { x: -19, y: 57, rx: 12.5, ry: 7.5, hue: 0 },
+    { x: 17,  y: 64, rx: 14.5, ry: 8.5, hue: 1 },
+    { x: -11, y: 73, rx: 14,   ry: 8,   hue: 2 },
+    { x: 13,  y: 80, rx: 13,   ry: 7.5, hue: 1 },
+    { x: -3,  y: 87, rx: 12,   ry: 7,   hue: 0 },
+    { x: -24, y: 44, rx: 8,    ry: 5,   hue: 2 }
+  ];
+
+  var greens = ['#1f6b4a', '#2e8a5c', '#43a86e', '#63bd7f', '#8fd0a0', '#2f7d5b'];
+  var warm = ['#e9a13b', '#e07f3e', '#d94f30', '#f2c14e'];
+
+  pads.forEach(function (p) {
+    p.leaves = [];
+    var n = 62;
+    for (var i = 0; i < n; i++) {
+      var a = rng() * Math.PI * 2;
+      var r = Math.sqrt(rng());
+      var warmLeaf = rng() < 0.16;
+      p.leaves.push({
+        dx: Math.cos(a) * r * p.rx * 0.92,
+        dy: Math.sin(a) * r * p.ry * 0.92,
+        s: 1.05 + rng() * 1.25,
+        ang: rng() * Math.PI * 2,
+        ph: rng() * Math.PI * 2,
+        col: warmLeaf ? warm[(rng() * warm.length) | 0] : greens[(rng() * greens.length) | 0],
+        depth: r
+      });
+    }
+    p.leaves.sort(function (a, b) { return a.depth - b.depth; });
+  });
+
+  var branches = [
+    { fx: -1, fy: 48, cx: -10, cy: 52, pad: 5, w: 1.7 },
+    { fx: 0,  fy: 55, cx: -10, cy: 58, pad: 0, w: 2.1 },
+    { fx: 1,  fy: 60, cx: 9,   cy: 61, pad: 1, w: 2.2 },
+    { fx: 2,  fy: 67, cx: -5,  cy: 71, pad: 2, w: 1.9 },
+    { fx: 3,  fy: 74, cx: 9,   cy: 78, pad: 3, w: 1.7 },
+    { fx: 3,  fy: 79, cx: -1,  cy: 84, pad: 4, w: 1.4 }
+  ];
+
+  var trunkPts = [
+    { x: 0, y: 18.5 }, { x: -2.2, y: 29 }, { x: 1.8, y: 40 },
+    { x: -1.2, y: 52 }, { x: 2.4, y: 64 }, { x: 1.2, y: 74 },
+    { x: 3.2, y: 81 }
+  ];
+
+  var sparkles = [];
+  for (var si = 0; si < 16; si++) {
+    sparkles.push({
+      pad: (rng() * pads.length) | 0,
+      a: rng() * Math.PI * 2,
+      rad: 0.65 + rng() * 0.55,
+      sp: 0.25 + rng() * 0.5,
+      ph: rng() * Math.PI * 2,
+      s: 0.55 + rng() * 0.8
+    });
+  }
+
+  var fallers = [];
+  for (var fi = 0; fi < 9; fi++) {
+    fallers.push({
+      off: fi / 9 + rng() * 0.06,
+      pad: (rng() * pads.length) | 0,
+      ox: (rng() - 0.5) * 8,
+      col: rng() < 0.45 ? warm[(rng() * warm.length) | 0] : greens[(rng() * greens.length) | 0],
+      s: 1 + rng() * 0.9,
+      ph: rng() * Math.PI * 2,
+      dur: 7 + rng() * 4
+    });
+  }
+
+  var speckles = [];
+  for (var pi = 0; pi < 55; pi++) {
+    speckles.push({ x: -16 + rng() * 32, y: 1.5 + rng() * 14.5, r: 0.12 + rng() * 0.3, a: 0.08 + rng() * 0.22 });
+  }
+  var moss = [];
+  for (var mi = 0; mi < 26; mi++) {
+    moss.push({ x: -13 + rng() * 26, y: (rng() - 0.5) * 1.1, r: 0.9 + rng() * 1.7, col: greens[(rng() * greens.length) | 0] });
+  }
+
+  var pointerWind = 0, pointerTarget = 0;
+  window.addEventListener('pointermove', function (e) {
+    pointerTarget = ((e.clientX / Math.max(1, W)) - 0.5) * 2.2;
+  }, { passive: true });
+  window.addEventListener('pointerleave', function () { pointerTarget = 0; });
+
+  function leafShape(x, y, size, ang, col, alpha) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(ang);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = col;
+    var s = U(size);
+    ctx.beginPath();
+    ctx.moveTo(0, -s);
+    ctx.quadraticCurveTo(s * 0.72, -s * 0.25, s * 0.42, s * 0.45);
+    ctx.quadraticCurveTo(s * 0.18, s * 0.25, 0, s * 0.95);
+    ctx.quadraticCurveTo(-s * 0.18, s * 0.25, -s * 0.42, s * 0.45);
+    ctx.quadraticCurveTo(-s * 0.72, -s * 0.25, 0, -s);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(20,60,35,0.25)';
+    ctx.lineWidth = Math.max(0.5, U(0.08));
+    ctx.beginPath();
+    ctx.moveTo(0, -s * 0.8);
+    ctx.lineTo(0, s * 0.8);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function swayFor(y, t) {
+    var f = Math.max(0, (y - 18)) / 75;
+    return (Math.sin(t * 0.8) * 0.9 + Math.sin(t * 0.53 + 1.3) * 0.55 + pointerWind * 1.6) * f * f * 2.1;
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H);
+    pointerWind += (pointerTarget - pointerWind) * 0.03;
+
+    var padPos = pads.map(function (p, i) {
+      return {
+        x: p.x + swayFor(p.y, t) + Math.sin(t * 1.1 + i * 1.7) * 0.35,
+        y: p.y + Math.sin(t * 0.9 + i * 2.1) * 0.45
+      };
+    });
+
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    branches.forEach(function (b) {
+      var to = padPos[b.pad];
+      var fx = b.fx + swayFor(b.fy, t), fy = b.fy;
+      var cxp = b.cx + swayFor(b.cy, t) * 0.8, cyp = b.cy;
+      ctx.strokeStyle = '#4a3220';
+      ctx.lineWidth = U(b.w);
+      ctx.beginPath();
+      ctx.moveTo(X(fx), Y(fy));
+      ctx.quadraticCurveTo(X(cxp), Y(cyp), X(to.x), Y(to.y));
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(122,84,50,0.65)';
+      ctx.lineWidth = U(b.w * 0.38);
+      ctx.beginPath();
+      ctx.moveTo(X(fx - 0.25), Y(fy));
+      ctx.quadraticCurveTo(X(cxp - 0.25), Y(cyp), X(to.x - 0.2), Y(to.y));
+      ctx.stroke();
+    });
+
+    for (var i = 0; i < trunkPts.length - 1; i++) {
+      var p0 = trunkPts[i], p1 = trunkPts[i + 1];
+      var wdt = 5.4 * (1 - i / (trunkPts.length - 1)) + 1.1;
+      ctx.strokeStyle = '#54382a';
+      ctx.lineWidth = U(wdt);
+      ctx.beginPath();
+      ctx.moveTo(X(p0.x + swayFor(p0.y, t)), Y(p0.y));
+      ctx.lineTo(X(p1.x + swayFor(p1.y, t)), Y(p1.y));
+      ctx.stroke();
+      ctx.strokeStyle = '#7a5540';
+      ctx.lineWidth = U(wdt * 0.38);
+      ctx.beginPath();
+      ctx.moveTo(X(p0.x - 0.7 + swayFor(p0.y, t)), Y(p0.y));
+      ctx.lineTo(X(p1.x - 0.6 + swayFor(p1.y, t)), Y(p1.y));
+      ctx.stroke();
+    }
+    ctx.strokeStyle = 'rgba(35,22,16,0.5)';
+    ctx.lineWidth = U(0.28);
+    for (var k = 0; k < 4; k++) {
+      var yy = 26 + k * 13;
+      ctx.beginPath();
+      ctx.moveTo(X(-1.5 + swayFor(yy, t)), Y(yy));
+      ctx.quadraticCurveTo(X(0.5 + swayFor(yy, t)), Y(yy + 2), X(-0.5 + swayFor(yy, t)), Y(yy + 4.5));
+      ctx.stroke();
+    }
+
+    pads.forEach(function (p, idx) {
+      var c = padPos[idx];
+      ctx.save();
+      ctx.fillStyle = 'rgba(22,78,52,0.88)';
+      ctx.beginPath();
+      ctx.ellipse(X(c.x), Y(c.y), U(p.rx), U(p.ry), -0.08, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      p.leaves.forEach(function (lf) {
+        var lx = c.x + lf.dx + Math.sin(t * 1.6 + lf.ph) * 0.22;
+        var ly = c.y - lf.dy * 0.35 + lf.dy * 0.65 + Math.cos(t * 1.3 + lf.ph) * 0.18;
+        var flutter = 1 + Math.sin(t * 2.2 + lf.ph) * 0.12;
+        leafShape(X(lx), Y(ly), lf.s * flutter, lf.ang + Math.sin(t * 1.8 + lf.ph) * 0.35, lf.col, 0.96);
+      });
+    });
+
+    sparkles.forEach(function (sp) {
+      var c = padPos[sp.pad];
+      var p = pads[sp.pad];
+      var a = sp.a + t * sp.sp;
+      var sx = c.x + Math.cos(a) * p.rx * sp.rad;
+      var sy = c.y + Math.sin(a) * p.ry * sp.rad + Math.sin(t + sp.ph) * 0.5;
+      var tw = 0.25 + 0.75 * Math.max(0, Math.sin(t * 2 + sp.ph));
+      var s = U(sp.s * tw);
+      ctx.save();
+      ctx.globalAlpha = tw * 0.9;
+      ctx.fillStyle = '#f6c453';
+      ctx.beginPath();
+      ctx.moveTo(X(sx), Y(sy) - s);
+      ctx.quadraticCurveTo(X(sx), Y(sy), X(sx) + s, Y(sy));
+      ctx.quadraticCurveTo(X(sx), Y(sy), X(sx), Y(sy) + s);
+      ctx.quadraticCurveTo(X(sx), Y(sy), X(sx) - s, Y(sy));
+      ctx.quadraticCurveTo(X(sx), Y(sy), X(sx), Y(sy) - s);
+      ctx.fill();
+      ctx.restore();
+    });
+
+    var potGrad = ctx.createLinearGradient(0, Y(19), 0, Y(0));
+    potGrad.addColorStop(0, '#2b7f73');
+    potGrad.addColorStop(0.45, '#1d5f5e');
+    potGrad.addColorStop(1, '#123f42');
+    ctx.fillStyle = potGrad;
+    ctx.beginPath();
+    ctx.moveTo(X(-18), Y(17.8));
+    ctx.lineTo(X(18), Y(17.8));
+    ctx.lineTo(X(13.2), Y(0));
+    ctx.lineTo(X(-13.2), Y(0));
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(X(-18), Y(17.8));
+    ctx.lineTo(X(18), Y(17.8));
+    ctx.lineTo(X(13.2), Y(0));
+    ctx.lineTo(X(-13.2), Y(0));
+    ctx.closePath();
+    ctx.clip();
+    speckles.forEach(function (sp) {
+      ctx.globalAlpha = sp.a;
+      ctx.fillStyle = '#d9f0df';
+      ctx.beginPath();
+      ctx.arc(X(sp.x), Y(sp.y), U(sp.r), 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 0.85 + Math.sin(t * 1.4) * 0.15;
+    ctx.strokeStyle = '#f0bd4a';
+    ctx.lineWidth = U(0.32);
+    ctx.beginPath();
+    ctx.moveTo(X(-9), Y(17.5)); ctx.lineTo(X(-5), Y(12)); ctx.lineTo(X(-7), Y(7)); ctx.lineTo(X(-3.5), Y(2));
+    ctx.stroke();
+    ctx.lineWidth = U(0.22);
+    ctx.beginPath();
+    ctx.moveTo(X(-5), Y(12)); ctx.lineTo(X(1), Y(9.5)); ctx.lineTo(X(5), Y(11));
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(X(8), Y(17.2)); ctx.lineTo(X(6), Y(11)); ctx.lineTo(X(9), Y(5));
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    var sheen = ctx.createLinearGradient(X(-18), 0, X(18), 0);
+    sheen.addColorStop(0, 'rgba(255,255,255,0)');
+    sheen.addColorStop(0.28, 'rgba(255,255,255,0.20)');
+    sheen.addColorStop(0.45, 'rgba(255,255,255,0)');
+    ctx.fillStyle = sheen;
+    ctx.fillRect(X(-18), Y(18), U(36), U(18));
+    ctx.restore();
+
+    ctx.fillStyle = '#173f3f';
+    ctx.beginPath();
+    ctx.moveTo(X(-19.5), Y(20.6));
+    ctx.lineTo(X(19.5), Y(20.6));
+    ctx.lineTo(X(19.5), Y(17.4));
+    ctx.lineTo(X(-19.5), Y(17.4));
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#c96f3b';
+    ctx.fillRect(X(-19.5), Y(20.6), U(39), U(0.55));
+
+    ctx.fillStyle = '#3a2a1e';
+    ctx.beginPath();
+    ctx.ellipse(X(0), Y(19.7), U(17.2), U(1.55), 0, 0, Math.PI * 2);
+    ctx.fill();
+    moss.forEach(function (m) {
+      ctx.fillStyle = m.col;
+      ctx.globalAlpha = 0.95;
+      ctx.beginPath();
+      ctx.ellipse(X(m.x), Y(19.85 + m.y), U(m.r), U(m.r * 0.45), 0, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#8b8d89';
+    ctx.beginPath(); ctx.ellipse(X(-9), Y(20), U(2.1), U(1.05), -0.2, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#a9aaa4';
+    ctx.beginPath(); ctx.ellipse(X(10.5), Y(19.9), U(1.5), U(0.8), 0.3, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'rgba(0,0,0,0.28)';
+    ctx.fillRect(X(-13.2), Y(0.75), U(26.4), U(0.75));
+
+    fallers.forEach(function (f) {
+      var prog = ((t / f.dur + f.off) % 1);
+      var c = padPos[f.pad];
+      var startY = c.y - 2;
+      var fy = startY - prog * (startY - 21);
+      var fx = c.x + f.ox + Math.sin(prog * 9 + f.ph) * (1.5 + prog * 3) + prog * prog * 7;
+      var alpha = prog < 0.08 ? prog / 0.08 : (prog > 0.82 ? (1 - prog) / 0.18 : 1);
+      leafShape(X(fx), Y(fy), f.s, f.ph + t * 2.4, f.col, Math.max(0, alpha) * 0.95);
+    });
+
+    requestAnimationFrame(function (ms) { draw(ms / 1000); });
+  }
+  requestAnimationFrame(function (ms) { draw(ms / 1000); });
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Curious Kintsugi Maple",
+  "statement": "A maple that leans in to listen, scattering a few bright ideas as leaves, rooted in a mended teal pot whose golden cracks are worn proudly."
+}
+```

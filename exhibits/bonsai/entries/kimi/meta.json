@@ -4,5 +4,20 @@
   "modelId": "moonshotai/kimi-k3.1-pro",
   "route": "OpenRouter",
   "host": "moonshotai",
-  "openWeights": true
+  "openWeights": true,
+  "status": "final",
+  "title": "Tidemend Juniper",
+  "statement": "An old juniper leans into a patient breeze, rooted in a sea-glazed pot held together by one golden mend. Its drifting amber scales keep time by weather rather than season.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Moonshot AI)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 6,
+      "host": "moonshotai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

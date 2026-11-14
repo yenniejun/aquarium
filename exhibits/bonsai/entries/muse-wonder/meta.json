@@ -4,5 +4,20 @@
   "modelId": "meta/muse-wonder",
   "route": "OpenRouter",
   "host": "meta",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Curious Kintsugi Maple",
+  "statement": "A maple that leans in to listen, scattering a few bright ideas as leaves, rooted in a mended teal pot whose golden cracks are worn proudly.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Meta)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 6,
+      "host": "meta",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

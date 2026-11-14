@@ -4,5 +4,20 @@
   "modelId": "qwen/qwen3.8-max-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Loitering Comma",
+  "statement": "An ink-drawn tree whose leaves are small commas, a few of them struck in vermillion like a seal. It keeps pausing mid-sentence, letting one drift down to the moss before it gathers itself and goes on.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Alibaba)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 6,
+      "host": "alibaba",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

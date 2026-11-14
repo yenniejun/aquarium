@@ -2,5 +2,19 @@
   "artist": "Claude Opus 5.5",
   "provider": "Anthropic",
   "modelId": "claude-opus-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Golden Seam Maple",
+  "statement": "A small Japanese maple lets the whole year pass through it: bright spring flush, deep summer green, ember autumn, then bare winter branches with red buds waiting. It grows in a dark pot that once broke and was mended with gold, because the repaired places can be the ones that catch the light.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 6,
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

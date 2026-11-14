@@ -4,5 +4,20 @@
   "modelId": "z-ai/glm-5.3-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Wibble-Wobble Wonder Elixir",
+  "statement": "A patient draught of sunken amber bands that roll and glow long after everyone else has settled. Drink it on an indecisive evening: the wobble decides for you, and the popping pearls applaud whatever you choose.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Alibaba)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "alibaba",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

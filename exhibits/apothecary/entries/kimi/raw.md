@@ -1,0 +1,548 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moonmilk Murmuration</title>
+<style>
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #080d18;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y;
+  }
+</style>
+</head>
+<body>
+<canvas id="potion"></canvas>
+<script>
+(() => {
+  const canvas = document.getElementById("potion");
+  const ctx = canvas.getContext("2d", { alpha: false });
+
+  let W = 0, H = 0, S = 1, CX = 0, CY = 0;
+  let seed = 481516;
+  const random = () => {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+
+  const ambient = Array.from({ length: 18 }, () => ({
+    x: random(), y: random(), r: 0.4 + random() * 1.25,
+    p: random() * Math.PI * 2, v: 0.25 + random() * 0.55
+  }));
+
+  const stars = Array.from({ length: 22 }, () => ({
+    x: (random() - 0.5) * 188,
+    y: -30 + random() * 174,
+    r: 0.65 + random() * 1.55,
+    p: random() * Math.PI * 2,
+    v: 0.3 + random() * 0.8
+  }));
+
+  const bubbles = Array.from({ length: 20 }, () => ({
+    x: (random() - 0.5) * 176,
+    p: random(),
+    r: 1.1 + random() * 3.4,
+    v: 0.025 + random() * 0.055,
+    w: random() * Math.PI * 2
+  }));
+
+  const pointer = { x: 0, y: 0, power: 0, target: 0 };
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    CX = W * 0.5;
+    CY = H * 0.515;
+    S = Math.min(W / 310, H / 500);
+  }
+
+  function bottlePath() {
+    ctx.beginPath();
+    ctx.moveTo(-31, -182);
+    ctx.lineTo(-31, -145);
+    ctx.bezierCurveTo(-31, -133, -45, -124, -67, -115);
+    ctx.bezierCurveTo(-100, -102, -116, -76, -119, -42);
+    ctx.bezierCurveTo(-122, -8, -126, 65, -124, 108);
+    ctx.bezierCurveTo(-123, 143, -108, 160, -79, 166);
+    ctx.bezierCurveTo(-42, 174, 42, 174, 79, 166);
+    ctx.bezierCurveTo(108, 160, 123, 143, 124, 108);
+    ctx.bezierCurveTo(126, 65, 122, -8, 119, -42);
+    ctx.bezierCurveTo(116, -76, 100, -102, 67, -115);
+    ctx.bezierCurveTo(45, -124, 31, -133, 31, -145);
+    ctx.lineTo(31, -182);
+    ctx.closePath();
+  }
+
+  function sparkle(x, y, r, a) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.globalAlpha = a;
+    ctx.fillStyle = "#effff4";
+    ctx.beginPath();
+    ctx.moveTo(0, -r * 3.2);
+    ctx.quadraticCurveTo(r * 0.45, -r * 0.45, r * 2.1, 0);
+    ctx.quadraticCurveTo(r * 0.45, r * 0.45, 0, r * 3.2);
+    ctx.quadraticCurveTo(-r * 0.45, r * 0.45, -r * 2.1, 0);
+    ctx.quadraticCurveTo(-r * 0.45, -r * 0.45, 0, -r * 3.2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawStopper(t) {
+    ctx.save();
+
+    const aura = ctx.createRadialGradient(0, -207, 2, 0, -207, 72);
+    aura.addColorStop(0, "rgba(143,255,228,0.18)");
+    aura.addColorStop(1, "rgba(80,170,190,0)");
+    ctx.fillStyle = aura;
+    ctx.fillRect(-80, -275, 160, 140);
+
+    const gem = ctx.createLinearGradient(-42, -230, 42, -180);
+    gem.addColorStop(0, "#a9d9d4");
+    gem.addColorStop(0.18, "#426b80");
+    gem.addColorStop(0.48, "#192c48");
+    gem.addColorStop(0.74, "#527f8d");
+    gem.addColorStop(1, "#b1d8ca");
+
+    ctx.beginPath();
+    ctx.moveTo(-38, -224);
+    ctx.lineTo(-23, -235);
+    ctx.lineTo(23, -235);
+    ctx.lineTo(38, -224);
+    ctx.lineTo(45, -204);
+    ctx.lineTo(34, -181);
+    ctx.lineTo(-34, -181);
+    ctx.lineTo(-45, -204);
+    ctx.closePath();
+    ctx.fillStyle = gem;
+    ctx.fill();
+    ctx.strokeStyle = "rgba(203,244,231,0.65)";
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    ctx.fillStyle = "rgba(179,238,225,0.09)";
+    ctx.beginPath();
+    ctx.moveTo(-38, -224);
+    ctx.lineTo(0, -207);
+    ctx.lineTo(-34, -181);
+    ctx.lineTo(-45, -204);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "rgba(4,17,35,0.28)";
+    ctx.beginPath();
+    ctx.moveTo(38, -224);
+    ctx.lineTo(0, -207);
+    ctx.lineTo(34, -181);
+    ctx.lineTo(45, -204);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.strokeStyle = "rgba(200,246,236,0.19)";
+    ctx.beginPath();
+    ctx.moveTo(-23, -235);
+    ctx.lineTo(0, -207);
+    ctx.lineTo(23, -235);
+    ctx.moveTo(0, -207);
+    ctx.lineTo(0, -182);
+    ctx.stroke();
+
+    const glint = 0.45 + 0.35 * Math.sin(t * 1.1);
+    sparkle(-19, -218, 1.5, glint);
+
+    ctx.fillStyle = "rgba(228,255,242,0.34)";
+    ctx.beginPath();
+    ctx.ellipse(-12, -229, 12, 2.1, -0.1, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function draw(t) {
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, "#080d1a");
+    bg.addColorStop(0.55, "#0c1c25");
+    bg.addColorStop(1, "#071319");
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    const halo = ctx.createRadialGradient(CX, CY, 0, CX, CY, Math.max(W, H) * 0.58);
+    halo.addColorStop(0, "rgba(46,112,112,0.22)");
+    halo.addColorStop(0.42, "rgba(48,55,101,0.10)");
+    halo.addColorStop(1, "rgba(3,7,15,0)");
+    ctx.fillStyle = halo;
+    ctx.fillRect(0, 0, W, H);
+
+    for (const m of ambient) {
+      const x = m.x * W + Math.sin(t * m.v + m.p) * 4;
+      const y = m.y * H + Math.cos(t * m.v * 0.7 + m.p) * 5;
+      const a = 0.08 + 0.16 * (0.5 + 0.5 * Math.sin(t * m.v + m.p));
+      ctx.fillStyle = `rgba(169,225,213,${a})`;
+      ctx.beginPath();
+      ctx.arc(x, y, m.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.save();
+    ctx.translate(CX, CY);
+    ctx.scale(S, S);
+
+    const floorGlow = ctx.createRadialGradient(0, 182, 3, 0, 182, 150);
+    floorGlow.addColorStop(0, "rgba(92,225,197,0.18)");
+    floorGlow.addColorStop(0.45, "rgba(58,115,125,0.07)");
+    floorGlow.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = floorGlow;
+    ctx.fillRect(-160, 135, 320, 95);
+
+    ctx.save();
+    ctx.translate(0, 184);
+    ctx.scale(1, 0.18);
+    const shadow = ctx.createRadialGradient(0, 0, 8, 0, 0, 135);
+    shadow.addColorStop(0, "rgba(0,3,10,0.65)");
+    shadow.addColorStop(1, "rgba(0,3,10,0)");
+    ctx.fillStyle = shadow;
+    ctx.beginPath();
+    ctx.arc(0, 0, 135, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    const backGlow = ctx.createRadialGradient(0, 35, 15, 0, 35, 180);
+    backGlow.addColorStop(0, "rgba(66,223,196,0.15)");
+    backGlow.addColorStop(0.55, "rgba(91,97,197,0.08)");
+    backGlow.addColorStop(1, "rgba(32,50,74,0)");
+    ctx.fillStyle = backGlow;
+    ctx.fillRect(-190, -160, 380, 380);
+
+    drawStopper(t);
+
+    bottlePath();
+    ctx.fillStyle = "rgba(115,180,184,0.045)";
+    ctx.fill();
+
+    ctx.save();
+    bottlePath();
+    ctx.clip();
+
+    const level = -48;
+    const liquid = ctx.createLinearGradient(0, level, 0, 175);
+    liquid.addColorStop(0, "#333765");
+    liquid.addColorStop(0.23, "#285478");
+    liquid.addColorStop(0.58, "#197b87");
+    liquid.addColorStop(0.86, "#329d93");
+    liquid.addColorStop(1, "#123f54");
+
+    ctx.beginPath();
+    ctx.moveTo(-140, level);
+    for (let x = -140; x <= 140; x += 4) {
+      const y = level + Math.sin(x * 0.042 + t * 1.15) * 2.4
+        + Math.sin(x * 0.018 - t * 0.72) * 1.6;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(140, 200);
+    ctx.lineTo(-140, 200);
+    ctx.closePath();
+    ctx.fillStyle = liquid;
+    ctx.fill();
+
+    const innerLight = ctx.createRadialGradient(
+      Math.sin(t * 0.24) * 24, 67, 5,
+      0, 65, 145
+    );
+    innerLight.addColorStop(0, "rgba(181,255,218,0.34)");
+    innerLight.addColorStop(0.38, "rgba(93,222,197,0.12)");
+    innerLight.addColorStop(1, "rgba(27,32,78,0)");
+    ctx.fillStyle = innerLight;
+    ctx.fillRect(-140, -60, 280, 250);
+
+    ctx.globalCompositeOperation = "screen";
+
+    for (let i = 0; i < 7; i++) {
+      const phase = t * (0.28 + i * 0.025) + i * 0.92;
+      const grad = ctx.createLinearGradient(-130, 0, 130, 0);
+      grad.addColorStop(0, "rgba(107,107,218,0)");
+      grad.addColorStop(0.25, i % 2 ? "rgba(136,199,232,0.24)" : "rgba(193,143,224,0.22)");
+      grad.addColorStop(0.57, "rgba(174,255,222,0.28)");
+      grad.addColorStop(1, "rgba(92,204,207,0)");
+
+      ctx.beginPath();
+      for (let j = 0; j <= 60; j++) {
+        const u = j / 60;
+        const x = -150 + u * 300 + Math.sin(u * 7 + phase) * 5;
+        const y = level + 25 + i * 27
+          + Math.sin(u * Math.PI * 2 + phase) * (10 + i * 0.9)
+          + Math.sin(u * 11 - phase * 0.7) * 4;
+        if (j === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 8 + (i % 3) * 3;
+      ctx.globalAlpha = 0.42;
+      ctx.stroke();
+      ctx.lineWidth = 1.1;
+      ctx.globalAlpha = 0.5;
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    const pearlX = Math.sin(t * 0.34) * 20;
+    const pearlY = 55 + Math.cos(t * 0.29) * 12;
+
+    for (let k = 0; k < 3; k++) {
+      ctx.beginPath();
+      for (let j = 0; j <= 70; j++) {
+        const u = j / 70;
+        const a = u * Math.PI * 2.1 + t * (0.23 + k * 0.035) + k * 2.1;
+        const r = 25 + u * 87;
+        const x = pearlX + Math.cos(a) * r;
+        const y = pearlY + Math.sin(a) * r * 0.42 + (u - 0.5) * 42;
+        if (j === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = k === 1
+        ? "rgba(213,174,244,0.13)"
+        : "rgba(175,255,226,0.14)";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+    }
+
+    const pearlGlow = ctx.createRadialGradient(pearlX, pearlY, 0, pearlX, pearlY, 54);
+    pearlGlow.addColorStop(0, "rgba(246,255,218,0.58)");
+    pearlGlow.addColorStop(0.25, "rgba(177,255,221,0.25)");
+    pearlGlow.addColorStop(1, "rgba(123,231,212,0)");
+    ctx.fillStyle = pearlGlow;
+    ctx.fillRect(pearlX - 58, pearlY - 58, 116, 116);
+
+    const pearl = ctx.createRadialGradient(
+      pearlX - 6, pearlY - 7, 1, pearlX, pearlY, 20
+    );
+    pearl.addColorStop(0, "#ffffe9");
+    pearl.addColorStop(0.38, "#d9f7d9");
+    pearl.addColorStop(0.76, "#91d9c5");
+    pearl.addColorStop(1, "rgba(71,158,157,0.3)");
+    ctx.fillStyle = pearl;
+    ctx.beginPath();
+    ctx.arc(pearlX, pearlY, 18, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "rgba(255,255,239,0.64)";
+    ctx.beginPath();
+    ctx.ellipse(pearlX - 5, pearlY - 7, 5, 3, -0.55, 0, Math.PI * 2);
+    ctx.fill();
+
+    const positions = stars.map((s, i) => {
+      let x = s.x + Math.sin(t * s.v + s.p) * 7;
+      let y = s.y + Math.cos(t * s.v * 0.73 + s.p) * 5;
+      if (pointer.power > 0.001) {
+        const dx = x - pointer.x;
+        const dy = y - pointer.y;
+        const d = Math.sqrt(dx * dx + dy * dy) + 1;
+        const force = Math.max(0, 1 - d / 125) * pointer.power;
+        x += (-dy / d) * force * 17;
+        y += (dx / d) * force * 17;
+      }
+      return { x, y, s, i };
+    });
+
+    ctx.lineWidth = 0.65;
+    for (let i = 0; i < positions.length; i++) {
+      for (let j = i + 1; j < positions.length; j++) {
+        const a = positions[i], b = positions[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < 1500) {
+          ctx.strokeStyle = `rgba(195,241,224,${0.09 * (1 - d2 / 1500)})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (const p of positions) {
+      const pulse = 0.45 + 0.45 * Math.sin(t * (1.1 + p.s.v) + p.s.p);
+      if (p.s.r > 1.45) sparkle(p.x, p.y, p.s.r, 0.35 + pulse * 0.45);
+      else {
+        ctx.fillStyle = `rgba(225,255,229,${0.35 + pulse * 0.45})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.s.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    ctx.globalCompositeOperation = "source-over";
+    for (const b of bubbles) {
+      const progress = (b.p + t * b.v) % 1;
+      const y = 159 - progress * 207;
+      const narrowing = 1 - Math.max(0, (-y - 5) / 90) * 0.22;
+      const x = b.x * narrowing + Math.sin(t * 1.1 + b.w + progress * 8) * 5;
+      const fade = Math.min(1, progress * 8, (1 - progress) * 10);
+      ctx.strokeStyle = `rgba(208,255,236,${0.28 * fade})`;
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.arc(x, y, b.r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = `rgba(244,255,241,${0.45 * fade})`;
+      ctx.beginPath();
+      ctx.arc(x - b.r * 0.32, y - b.r * 0.35, Math.max(0.45, b.r * 0.18), 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    const surface = ctx.createLinearGradient(-120, 0, 120, 0);
+    surface.addColorStop(0, "rgba(148,188,221,0.08)");
+    surface.addColorStop(0.5, "rgba(215,236,234,0.52)");
+    surface.addColorStop(1, "rgba(124,206,207,0.08)");
+    ctx.strokeStyle = surface;
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    for (let x = -119; x <= 119; x += 3) {
+      const y = level + Math.sin(x * 0.042 + t * 1.15) * 2.4
+        + Math.sin(x * 0.018 - t * 0.72) * 1.6;
+      if (x === -119) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    bottlePath();
+    const glass = ctx.createLinearGradient(-125, 0, 125, 0);
+    glass.addColorStop(0, "rgba(211,255,243,0.16)");
+    glass.addColorStop(0.08, "rgba(197,244,239,0.055)");
+    glass.addColorStop(0.26, "rgba(255,255,255,0)");
+    glass.addColorStop(0.72, "rgba(116,189,197,0.025)");
+    glass.addColorStop(0.94, "rgba(190,241,232,0.08)");
+    glass.addColorStop(1, "rgba(218,255,244,0.17)");
+    ctx.fillStyle = glass;
+    ctx.fill();
+
+    ctx.strokeStyle = "rgba(2,15,26,0.56)";
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(171,224,216,0.52)";
+    ctx.lineWidth = 1.25;
+    ctx.stroke();
+
+    const leftShine = ctx.createLinearGradient(0, -150, 0, 145);
+    leftShine.addColorStop(0, "rgba(237,255,247,0.68)");
+    leftShine.addColorStop(0.4, "rgba(218,255,245,0.38)");
+    leftShine.addColorStop(0.82, "rgba(195,244,235,0.11)");
+    leftShine.addColorStop(1, "rgba(195,244,235,0)");
+    ctx.strokeStyle = leftShine;
+    ctx.lineCap = "round";
+    ctx.lineWidth = 4.2;
+    ctx.beginPath();
+    ctx.moveTo(-25, -163);
+    ctx.bezierCurveTo(-27, -137, -48, -127, -75, -112);
+    ctx.bezierCurveTo(-99, -98, -106, -72, -108, -41);
+    ctx.bezierCurveTo(-111, 3, -113, 60, -111, 94);
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(244,255,249,0.46)";
+    ctx.lineWidth = 1.1;
+    ctx.beginPath();
+    ctx.moveTo(-94, -90);
+    ctx.bezierCurveTo(-106, -65, -106, -25, -108, 15);
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(200,244,237,0.25)";
+    ctx.lineWidth = 2.3;
+    ctx.beginPath();
+    ctx.moveTo(91, -91);
+    ctx.bezierCurveTo(108, -64, 111, -27, 112, 8);
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(224,255,242,0.26)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.bezierCurveTo(-82, 157, -45, 163, 0, 163);
+    ctx.bezierCurveTo(45, 163, 82, 157, 94, 148);
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(213,247,239,0.2)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(-20, -176);
+    ctx.lineTo(-20, -143);
+    ctx.moveTo(20, -176);
+    ctx.lineTo(20, -143);
+    ctx.stroke();
+
+    const lip = ctx.createLinearGradient(0, -190, 0, -173);
+    lip.addColorStop(0, "rgba(211,245,234,0.45)");
+    lip.addColorStop(0.45, "rgba(63,103,119,0.36)");
+    lip.addColorStop(1, "rgba(185,231,221,0.28)");
+    ctx.fillStyle = lip;
+    ctx.beginPath();
+    ctx.moveTo(-39, -187);
+    ctx.quadraticCurveTo(0, -193, 39, -187);
+    ctx.lineTo(37, -176);
+    ctx.quadraticCurveTo(0, -170, -37, -176);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = "rgba(211,247,236,0.48)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(237,255,248,0.48)";
+    ctx.beginPath();
+    ctx.moveTo(-34, -186);
+    ctx.quadraticCurveTo(0, -190, 32, -186);
+    ctx.stroke();
+
+    const twinkle = Math.pow(Math.max(0, Math.sin(t * 0.72)), 12);
+    sparkle(-105, -72, 2.1, 0.18 + twinkle * 0.75);
+    sparkle(103, 92, 1.25, 0.12 + (1 - twinkle) * 0.24);
+
+    ctx.restore();
+
+    pointer.power += (pointer.target - pointer.power) * 0.045;
+  }
+
+  function frame(now) {
+    draw(now * 0.001);
+    requestAnimationFrame(frame);
+  }
+
+  canvas.addEventListener("pointermove", event => {
+    const rect = canvas.getBoundingClientRect();
+    pointer.x = (event.clientX - rect.left - CX) / S;
+    pointer.y = (event.clientY - rect.top - CY) / S;
+    pointer.target = 1;
+  }, { passive: true });
+
+  canvas.addEventListener("pointerleave", () => {
+    pointer.target = 0;
+  }, { passive: true });
+
+  canvas.addEventListener("pointercancel", () => {
+    pointer.target = 0;
+  }, { passive: true });
+
+  window.addEventListener("resize", resize, { passive: true });
+  resize();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Moonmilk Murmuration",
+  "statement": "A pearlescent draught of patient curiosity, bottled at moonrise. Its tiny stars gather into constellations, scatter on a whim, and swirl closer when a passing hand stirs the glass."
+}
+```

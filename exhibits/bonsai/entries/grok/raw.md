@@ -1,0 +1,948 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+    background-color: transparent;
+  }
+  canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: transparent;
+    touch-action: auto;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(function () {
+  const canvas = document.getElementById("c");
+  const ctx = canvas.getContext("2d", { alpha: true });
+
+  const YEAR = 40;
+  const PHASE0 = 0.4;
+  const FALL_LEN = 0.11;
+
+  const TRUNK = [
+    [512, 894],
+    [507, 846],
+    [516, 798],
+    [498, 724],
+    [518, 648],
+    [490, 568],
+    [512, 488],
+    [484, 412],
+    [502, 342],
+    [478, 286]
+  ];
+
+  const BRANCHES = [
+    {
+      pts: [[516, 798], [448, 776], [372, 724], [304, 656], [256, 592], [238, 536]],
+      w0: 8.2, w1: 1.15,
+      leaves: [
+        { t: 0.55, n: 2, spread: 16, sc: 0.72 },
+        { t: 0.78, n: 3, spread: 22, sc: 0.92 },
+        { t: 1, n: 4, spread: 24, sc: 1.02 }
+      ]
+    },
+    {
+      pts: [[498, 724], [572, 704], [642, 662], [700, 628], [736, 600]],
+      w0: 5.6, w1: 1.05,
+      leaves: [
+        { t: 0.7, n: 2, spread: 15, sc: 0.76 },
+        { t: 1, n: 3, spread: 20, sc: 0.94 }
+      ]
+    },
+    {
+      pts: [[518, 648], [444, 608], [376, 542], [326, 478], [298, 422]],
+      w0: 5.1, w1: 1,
+      leaves: [
+        { t: 0.74, n: 2, spread: 15, sc: 0.78 },
+        { t: 1, n: 3, spread: 20, sc: 0.96 }
+      ]
+    },
+    {
+      pts: [[490, 568], [562, 532], [630, 478], [686, 432], [724, 396]],
+      w0: 4.4, w1: 0.95,
+      leaves: [
+        { t: 0.72, n: 2, spread: 14, sc: 0.76 },
+        { t: 1, n: 3, spread: 19, sc: 0.93 }
+      ]
+    },
+    {
+      pts: [[512, 488], [446, 436], [388, 372], [348, 312], [328, 262]],
+      w0: 3.8, w1: 0.85,
+      leaves: [
+        { t: 0.76, n: 2, spread: 13, sc: 0.72 },
+        { t: 1, n: 3, spread: 18, sc: 0.9 }
+      ]
+    },
+    {
+      pts: [[484, 412], [546, 362], [604, 308], [652, 262], [684, 226]],
+      w0: 3.3, w1: 0.8,
+      leaves: [
+        { t: 0.78, n: 2, spread: 13, sc: 0.7 },
+        { t: 1, n: 3, spread: 17, sc: 0.86 }
+      ]
+    },
+    {
+      pts: [[478, 286], [452, 232], [434, 188], [424, 156]],
+      w0: 2.7, w1: 0.7,
+      leaves: [
+        { t: 0.7, n: 2, spread: 11, sc: 0.66 },
+        { t: 1, n: 3, spread: 16, sc: 0.84 }
+      ]
+    },
+    {
+      pts: [[502, 342], [556, 318], [598, 302]],
+      w0: 2.1, w1: 0.6,
+      leaves: [{ t: 1, n: 2, spread: 12, sc: 0.64 }]
+    }
+  ];
+
+  const JIN = [[498, 724], [458, 698], [432, 708], [414, 692]];
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0;
+      a = (a + 0x6d2b79f5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  const rand = mulberry32(20260327);
+  const leaves = [];
+  BRANCHES.forEach(function (br, bi) {
+    br.leaves.forEach(function (cl) {
+      for (let i = 0; i < cl.n; i++) {
+        const ang = rand() * Math.PI * 2;
+        const dist = 4 + rand() * cl.spread;
+        const sportRoll = rand();
+        leaves.push({
+          bi: bi,
+          t: Math.max(0.08, Math.min(0.98, cl.t + (rand() - 0.5) * 0.05)),
+          ox: Math.cos(ang) * dist,
+          oy: Math.sin(ang) * dist * 0.62,
+          len: (40 + rand() * 10) * cl.sc,
+          rot: (rand() - 0.5) * 1.35,
+          phase: rand() * Math.PI * 2,
+          fallAt: 0.615 + rand() * 0.145,
+          delay: rand() * 0.04,
+          sport: sportRoll < 0.15 ? "red" : sportRoll < 0.24 ? "gold" : "",
+          drift: -18 - rand() * 54,
+          spin: (rand() < 0.5 ? -1 : 1) * (3.5 + rand() * 5),
+          z: rand(),
+          seed: rand() * 80
+        });
+      }
+    });
+  });
+
+  const spots = [];
+  const spotRng = mulberry32(11);
+  for (let i = 0; i < 36; i++) {
+    const x = 360 + spotRng() * 280;
+    const y = 888 + spotRng() * 72;
+    const nx = (x - 500) / 160;
+    const ny = (y - 930) / 50;
+    if (nx * nx + ny * ny > 1.05) continue;
+    spots.push({ x: x, y: y, r: 0.7 + spotRng() * 1.7, a: 0.12 + spotRng() * 0.28 });
+  }
+
+  const gravel = [];
+  const gRng = mulberry32(19);
+  for (let i = 0; i < 18; i++) {
+    gravel.push({
+      x: 392 + gRng() * 216,
+      y: 878 + gRng() * 16,
+      r: 1 + gRng() * 1.6,
+      c: gRng() > 0.5 ? [92, 78, 66] : [140, 124, 104]
+    });
+  }
+
+  let viewScale = 1, viewOx = 0, viewOy = 0;
+  let aim = 0, lean = 0, lastMove = -10;
+
+  function resize() {
+    const w = canvas.clientWidth || window.innerWidth;
+    const h = canvas.clientHeight || window.innerHeight;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = Math.max(1, Math.round(w * dpr));
+    canvas.height = Math.max(1, Math.round(h * dpr));
+    const scale = Math.min(w / 1000, h / 1000);
+    viewScale = scale * dpr;
+    viewOx = ((w - 1000 * scale) / 2) * dpr;
+    viewOy = (h - 1000 * scale) * dpr;
+  }
+
+  window.addEventListener("resize", resize);
+  if (window.ResizeObserver) {
+    new ResizeObserver(resize).observe(document.documentElement);
+  }
+  window.addEventListener("pointermove", function (e) {
+    const r = canvas.getBoundingClientRect();
+    if (r.width < 1) return;
+    aim = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - 0.5) * 2));
+    lastMove = performance.now() / 1000;
+  }, { passive: true });
+  window.addEventListener("pointerout", function () { aim = 0; }, { passive: true });
+  resize();
+
+  function mix(a, b, t) {
+    return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+  }
+  function rgb(c, a) {
+    const r = c[0] | 0, g = c[1] | 0, b = c[2] | 0;
+    if (a == null) return "rgb(" + r + "," + g + "," + b + ")";
+    return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+  }
+  function sample(stops, u) {
+    u = Math.max(0, Math.min(0.9999, u));
+    for (let i = 0; i < stops.length - 1; i++) {
+      if (u >= stops[i][0] && u <= stops[i + 1][0]) {
+        const t = (u - stops[i][0]) / (stops[i + 1][0] - stops[i][0]);
+        const s = t * t * (3 - 2 * t);
+        return mix(stops[i][1], stops[i + 1][1], s);
+      }
+    }
+    return stops[stops.length - 1][1];
+  }
+
+  const COLOR_STOPS = [
+    [0.00, [176, 64, 72]],
+    [0.07, [198, 86, 70]],
+    [0.14, [206, 132, 64]],
+    [0.22, [168, 186, 72]],
+    [0.34, [46, 118, 60]],
+    [0.50, [36, 100, 54]],
+    [0.60, [186, 146, 42]],
+    [0.70, [208, 86, 34]],
+    [0.80, [148, 34, 40]],
+    [0.90, [118, 28, 36]],
+    [1.00, [176, 64, 72]]
+  ];
+
+  function growAmt(season, delay) {
+    const s = season - delay;
+    if (s < 0.03) return 0;
+    if (s > 0.185) return 1;
+    const t = (s - 0.03) / 0.155;
+    return t * t * (3 - 2 * t);
+  }
+
+  function budAmt(season) {
+    if (season > 0.82 && season < 0.96) return (season - 0.82) / 0.14;
+    if (season >= 0.96) return 1;
+    if (season < 0.075) return 1 - season / 0.075;
+    return 0;
+  }
+
+  function gustOf(time) {
+    const base = Math.sin(time * 0.62) * 0.55 + Math.sin(time * 1.41 + 0.7) * 0.28;
+    const gust = Math.pow(Math.max(0, Math.sin(time * 0.29)), 12) * 0.9;
+    return base + gust;
+  }
+
+  function deform(x, y, time, leanAmt) {
+    const lift = Math.max(0, (900 - y) / 720);
+    const g = gustOf(time);
+    const dx = (g * 24 + leanAmt * 14) * lift * lift + Math.sin(time * 2.05 + y * 0.02) * 2.4 * lift;
+    const dy = Math.cos(time * 0.86 + x * 0.01) * 2.6 * lift;
+    return [x + dx, y + dy];
+  }
+
+  function deformPts(pts, time, leanAmt) {
+    const out = new Array(pts.length);
+    for (let i = 0; i < pts.length; i++) out[i] = deform(pts[i][0], pts[i][1], time, leanAmt);
+    return out;
+  }
+
+  function polyAt(pts, t) {
+    let total = 0;
+    const seg = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+      const l = Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]);
+      seg.push(l);
+      total += l;
+    }
+    let d = Math.max(0, Math.min(1, t)) * total;
+    for (let i = 0; i < seg.length; i++) {
+      if (d <= seg[i] || i === seg.length - 1) {
+        const u = seg[i] === 0 ? 0 : Math.max(0, Math.min(1, d / seg[i]));
+        const x = pts[i][0] + (pts[i + 1][0] - pts[i][0]) * u;
+        const y = pts[i][1] + (pts[i + 1][1] - pts[i][1]) * u;
+        const dx = pts[i + 1][0] - pts[i][0];
+        const dy = pts[i + 1][1] - pts[i][1];
+        const L = Math.hypot(dx, dy) || 1;
+        return { x: x, y: y, dx: dx / L, dy: dy / L };
+      }
+      d -= seg[i];
+    }
+    return { x: pts[0][0], y: pts[0][1], dx: 0, dy: -1 };
+  }
+
+  function traceRibbon(pts, w0, w1) {
+    const n = pts.length;
+    ctx.beginPath();
+    const left = new Array(n);
+    const right = new Array(n);
+    for (let i = 0; i < n; i++) {
+      const a = pts[Math.max(0, i - 1)];
+      const b = pts[Math.min(n - 1, i + 1)];
+      let dx = b[0] - a[0];
+      let dy = b[1] - a[1];
+      const len = Math.hypot(dx, dy) || 1;
+      dx /= len;
+      dy /= len;
+      const nx = -dy, ny = dx;
+      const w = w0 + (w1 - w0) * (i / (n - 1));
+      left[i] = [pts[i][0] + nx * w, pts[i][1] + ny * w];
+      right[i] = [pts[i][0] - nx * w, pts[i][1] - ny * w];
+    }
+    ctx.moveTo(left[0][0], left[0][1]);
+    for (let i = 1; i < n; i++) ctx.lineTo(left[i][0], left[i][1]);
+    for (let i = n - 1; i >= 0; i--) ctx.lineTo(right[i][0], right[i][1]);
+    ctx.closePath();
+  }
+
+  function wavyLobe(len, wid) {
+    const steps = 6;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    for (let i = 1; i <= steps; i++) {
+      const t = i / steps;
+      const pinch = Math.sin(t * Math.PI);
+      const serr = 1 + Math.sin(t * Math.PI * 5) * 0.11;
+      ctx.lineTo(wid * pinch * serr, -len * t);
+    }
+    for (let i = steps - 1; i >= 1; i--) {
+      const t = i / steps;
+      const pinch = Math.sin(t * Math.PI);
+      const serr = 1 + Math.sin(t * Math.PI * 5) * 0.11;
+      ctx.lineTo(-wid * pinch * serr, -len * t);
+    }
+    ctx.closePath();
+  }
+
+  function drawMaple(len, col, alpha, lit) {
+    const lobes = [
+      { a: 1.2, l: 0.58, w: 0.22, s: 0.86 },
+      { a: -1.18, l: 0.56, w: 0.21, s: 0.84 },
+      { a: 0.6, l: 0.82, w: 0.27, s: 0.94 },
+      { a: -0.58, l: 0.8, w: 0.26, s: 0.92 },
+      { a: 0, l: 1, w: 0.32, s: 1.02 }
+    ];
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    for (let i = 0; i < lobes.length; i++) {
+      const lobe = lobes[i];
+      ctx.save();
+      ctx.rotate(lobe.a);
+      const f = (0.7 + lit * 0.42) * lobe.s;
+      const c = [
+        Math.min(255, col[0] * f),
+        Math.min(255, col[1] * f),
+        Math.min(255, col[2] * f * 0.96)
+      ];
+      ctx.fillStyle = rgb(c);
+      wavyLobe(len * lobe.l, len * lobe.w);
+      ctx.fill();
+      ctx.lineWidth = Math.max(0.35, len * 0.016);
+      ctx.strokeStyle = rgb([c[0] * 0.42, c[1] * 0.36, c[2] * 0.32], 0.38);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, -len * 0.04);
+      ctx.lineTo(0, -len * lobe.l * 0.82);
+      ctx.strokeStyle = rgb([c[0] * 0.38, c[1] * 0.32, c[2] * 0.28], 0.34);
+      ctx.lineWidth = Math.max(0.3, len * 0.011);
+      ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  function leafColor(season, sport) {
+    let c = sample(COLOR_STOPS, season);
+    if (season > 0.2 && season < 0.58) {
+      if (sport === "red") c = mix(c, [124, 34, 48], 0.84);
+      else if (sport === "gold") c = mix(c, [178, 162, 52], 0.72);
+    }
+    return c;
+  }
+
+  function drawPot(time) {
+    const body = ctx.createLinearGradient(360, 850, 660, 990);
+    body.addColorStop(0, "#5a4338");
+    body.addColorStop(0.28, "#2c211c");
+    body.addColorStop(0.62, "#1a1311");
+    body.addColorStop(1, "#100c0b");
+    ctx.beginPath();
+    ctx.moveTo(338, 876);
+    ctx.bezierCurveTo(316, 908, 346, 952, 432, 970);
+    ctx.lineTo(570, 970);
+    ctx.bezierCurveTo(658, 952, 690, 906, 666, 872);
+    ctx.closePath();
+    ctx.fillStyle = body;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(448, 962);
+    ctx.lineTo(552, 962);
+    ctx.lineTo(532, 1000);
+    ctx.lineTo(468, 1000);
+    ctx.closePath();
+    const foot = ctx.createLinearGradient(448, 962, 552, 1000);
+    foot.addColorStop(0, "#3a2a22");
+    foot.addColorStop(0.5, "#241814");
+    foot.addColorStop(1, "#1a100e");
+    ctx.fillStyle = foot;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(528, 966);
+    ctx.lineTo(532, 1000);
+    ctx.strokeStyle = "rgba(176, 116, 74, 0.35)";
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+
+    for (let i = 0; i < spots.length; i++) {
+      const s = spots[i];
+      ctx.fillStyle = "rgba(150, 92, 58, " + s.a + ")";
+      ctx.beginPath();
+      ctx.ellipse(s.x, s.y, s.r, s.r * 0.72, 0.4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(390, 900);
+    ctx.quadraticCurveTo(372, 930, 400, 956);
+    ctx.quadraticCurveTo(414, 934, 404, 906);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(92, 64, 52, 0.28)";
+    ctx.fill();
+
+    const sheenX = 430 + Math.sin(time * 0.33) * 16;
+    const sheen = ctx.createRadialGradient(sheenX, 900, 4, sheenX, 910, 70);
+    sheen.addColorStop(0, "rgba(210, 180, 160, 0.16)");
+    sheen.addColorStop(1, "rgba(210, 180, 160, 0)");
+    ctx.fillStyle = sheen;
+    ctx.beginPath();
+    ctx.ellipse(500, 925, 150, 48, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    const lip = ctx.createLinearGradient(320, 850, 690, 900);
+    lip.addColorStop(0, "#6e4324");
+    lip.addColorStop(0.35, "#c48848");
+    lip.addColorStop(0.62, "#e2b56e");
+    lip.addColorStop(1, "#7a4c28");
+    ctx.beginPath();
+    const steps = 72;
+    for (let i = 0; i <= steps; i++) {
+      const a = (i / steps) * Math.PI * 2;
+      const w = 1 + Math.sin(a * 3 + 0.5) * 0.012 + Math.sin(a * 5) * 0.006;
+      const x = 500 + Math.cos(a) * 184 * w;
+      const y = 868 + Math.sin(a) * 30 * (1 + Math.sin(a * 2) * 0.02);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.lineWidth = 11;
+    ctx.strokeStyle = lip;
+    ctx.stroke();
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = "rgba(70, 36, 22, 0.55)";
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.ellipse(500, 874, 160, 22, -0.02, 0, Math.PI * 2);
+    ctx.fillStyle = "#0e0b0a";
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(470, 868, 70, 12, 0, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0, 0, 0, 0.28)";
+    ctx.fill();
+
+    drawGold(time);
+  }
+
+  function drawGold(time) {
+    const shimmer = 0.62 + 0.38 * (0.5 + 0.5 * Math.sin(time * 0.7));
+    function seam() {
+      ctx.beginPath();
+      ctx.moveTo(632, 856);
+      ctx.quadraticCurveTo(658, 892, 648, 928);
+      ctx.quadraticCurveTo(636, 956, 602, 974);
+    }
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgba(255, 214, 130, " + (0.16 * shimmer) + ")";
+    ctx.lineWidth = 5;
+    seam();
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(214, 164, 68, 0.92)";
+    ctx.lineWidth = 1.35;
+    seam();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(648, 928);
+    ctx.quadraticCurveTo(672, 944, 676, 966);
+    ctx.stroke();
+
+    const u = 0.5 + 0.5 * Math.sin(time * 0.45);
+    const gx = 632 + (602 - 632) * u + Math.sin(u * 3.1) * 18;
+    const gy = 856 + (974 - 856) * u;
+    const glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, 8);
+    glow.addColorStop(0, "rgba(255, 228, 160, " + (0.55 * shimmer) + ")");
+    glow.addColorStop(1, "rgba(255, 228, 160, 0)");
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(gx, gy, 8, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawSoil(season) {
+    ctx.beginPath();
+    ctx.ellipse(500, 888, 148, 18, 0, 0, Math.PI * 2);
+    const soil = ctx.createLinearGradient(360, 870, 640, 910);
+    soil.addColorStop(0, "#2a211c");
+    soil.addColorStop(0.5, "#3a2c24");
+    soil.addColorStop(1, "#241c18");
+    ctx.fillStyle = soil;
+    ctx.fill();
+
+    const winter = season > 0.84 || season < 0.05 ? 1 : 0;
+    drawMossPatch(452, 884, 46, 12, 21, winter);
+    drawMossPatch(545, 886, 38, 10, 8, winter);
+    drawMossPatch(500, 880, 28, 8, 4, winter);
+
+    for (let i = 0; i < gravel.length; i++) {
+      const g = gravel[i];
+      ctx.fillStyle = rgb(g.c, 0.85);
+      ctx.beginPath();
+      ctx.ellipse(g.x, g.y, g.r, g.r * 0.7, 0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    drawPebble(448, 890, 12, 8, [118, 122, 128], [70, 74, 80]);
+    drawPebble(582, 886, 8, 5.5, [168, 148, 128], [110, 90, 72]);
+  }
+
+  function drawPebble(x, y, rx, ry, light, dark) {
+    const g = ctx.createRadialGradient(x - rx * 0.3, y - ry * 0.4, 1, x, y, rx);
+    g.addColorStop(0, rgb(light));
+    g.addColorStop(1, rgb(dark));
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.ellipse(x, y, rx, ry, -0.3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "rgba(40, 32, 28, 0.35)";
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+  }
+
+  function drawMossPatch(x, y, rx, ry, seed, winter) {
+    const rng = mulberry32(seed);
+    const n = 12;
+    for (let i = 0; i < n; i++) {
+      const px = x + (rng() - 0.5) * rx * 2;
+      const py = y + (rng() - 0.5) * ry * 2;
+      const k = 0.72 + rng() * 0.4;
+      const summer = [42 * k, 96 * k, 58 * k];
+      const win = [86 * k, 90 * k, 54 * k];
+      const c = mix(summer, win, winter);
+      ctx.fillStyle = rgb(c, 0.92);
+      ctx.beginPath();
+      ctx.ellipse(px, py, rx * 0.22, ry * 0.45, rng() * 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawFrontLip() {
+    ctx.beginPath();
+    ctx.ellipse(500, 868, 184, 30, 0, 0.18, Math.PI - 0.18);
+    ctx.strokeStyle = "#3a2418";
+    ctx.lineWidth = 8;
+    ctx.lineCap = "round";
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.ellipse(500, 869, 182, 28, 0, 0.28, Math.PI - 0.28);
+    ctx.strokeStyle = "rgba(226, 178, 104, 0.8)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  function drawMossSpill(season) {
+    const winter = season > 0.84 || season < 0.05 ? 1 : 0;
+    drawMossPatch(418, 892, 22, 9, 33, winter);
+    drawMossPatch(548, 896, 16, 7, 44, winter);
+  }
+
+  function drawTrunk(pts) {
+    traceRibbon(pts, 16, 3.2);
+    const g = ctx.createLinearGradient(pts[0][0] - 20, pts[0][1], pts[0][0] + 24, pts[pts.length - 1][1]);
+    g.addColorStop(0, "#4a342c");
+    g.addColorStop(0.45, "#6a4c3c");
+    g.addColorStop(1, "#5a4034");
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    ctx.save();
+    traceRibbon(pts, 16, 3.2);
+    ctx.clip();
+    ctx.strokeStyle = "rgba(214, 186, 156, 0.28)";
+    ctx.lineWidth = 2.2;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[Math.max(0, i - 1)];
+      const b = pts[Math.min(pts.length - 1, i + 1)];
+      let dx = b[0] - a[0], dy = b[1] - a[1];
+      const len = Math.hypot(dx, dy) || 1;
+      const nx = -dy / len, ny = dx / len;
+      const x = pts[i][0] + nx * 5;
+      const y = pts[i][1] + ny * 5;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.strokeStyle = "rgba(90, 58, 44, 0.45)";
+    ctx.lineWidth = 0.7;
+    for (let i = 1; i < pts.length - 1; i++) {
+      const p = pts[i];
+      for (let k = 0; k < 3; k++) {
+        const yy = p[1] + (k - 1) * 7;
+        ctx.beginPath();
+        ctx.moveTo(p[0] - 6, yy);
+        ctx.lineTo(p[0] + 5, yy + 1.2);
+        ctx.stroke();
+      }
+    }
+
+    const knot = pts[3];
+    ctx.fillStyle = "#1a1210";
+    ctx.beginPath();
+    ctx.ellipse(knot[0] + 4, knot[1] + 6, 5.5, 7.5, 0.4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "rgba(120, 90, 70, 0.45)";
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+  }
+
+  function drawBranch(pts, w0, w1) {
+    traceRibbon(pts, w0, w1);
+    ctx.fillStyle = "#5c4034";
+    ctx.fill();
+    ctx.strokeStyle = "rgba(92, 64, 48, 0.9)";
+    ctx.lineWidth = Math.max(0.6, w1);
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.stroke();
+  }
+
+  function drawTwigs(pts) {
+    const tip = pts[pts.length - 1];
+    const prev = pts[pts.length - 2];
+    const ang = Math.atan2(tip[1] - prev[1], tip[0] - prev[0]);
+    ctx.strokeStyle = "#5a4034";
+    ctx.lineCap = "round";
+    for (let i = 0; i < 3; i++) {
+      const a = ang + (i - 1) * 0.48;
+      const L = 14 + i * 6;
+      ctx.lineWidth = 0.7;
+      ctx.beginPath();
+      ctx.moveTo(tip[0], tip[1]);
+      ctx.lineTo(tip[0] + Math.cos(a) * L, tip[1] + Math.sin(a) * L);
+      ctx.stroke();
+    }
+  }
+
+  function drawJin(time, leanAmt) {
+    const pts = deformPts(JIN, time, leanAmt * 0.3);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#4e463e";
+    ctx.lineWidth = 4.2;
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.stroke();
+    ctx.strokeStyle = "#c8bfb2";
+    ctx.lineWidth = 2.3;
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(90, 80, 70, 0.7)";
+    ctx.lineWidth = 0.7;
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0] + 0.5, pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0] + 0.4, pts[i][1]);
+    ctx.stroke();
+  }
+
+  function drawMossSleeve(trunkPts, season) {
+    const winter = season > 0.84 || season < 0.05 ? 1 : 0;
+    for (let i = 0; i < 4; i++) {
+      const p = trunkPts[i + 1];
+      const a = trunkPts[i];
+      const b = trunkPts[Math.min(trunkPts.length - 1, i + 2)];
+      let dx = b[0] - a[0], dy = b[1] - a[1];
+      const len = Math.hypot(dx, dy) || 1;
+      const nx = -dy / len, ny = dx / len;
+      drawMossPatch(p[0] + nx * 10, p[1] + ny * 10, 10, 14, 60 + i, winter);
+    }
+  }
+
+  function litAt(x, time) {
+    const lightX = 340 + (0.5 + 0.5 * Math.sin(time * 0.32)) * 360;
+    const d = (x - lightX) / 150;
+    return Math.exp(-d * d);
+  }
+
+  function drawOneLeaf(attach, leaf, time, season, mode, ft, g, alphaMul) {
+    const posx = attach.x + leaf.ox;
+    const posy = attach.y + leaf.oy;
+    const flutter = Math.sin(time * 2.5 + leaf.phase) * (0.1 + Math.pow(Math.max(0, gustOf(time)), 2) * 0.35);
+    const dx = posx - attach.x;
+    const dy = posy - attach.y;
+    const dist = Math.hypot(dx, dy);
+    let x = posx, y = posy, rot = Math.atan2(dx, -dy) + leaf.rot + flutter;
+    let alpha = alphaMul;
+    let len = leaf.len;
+
+    if (mode === "grow") {
+      const open = 0.18 + 0.82 * Math.pow(g, 1.15);
+      len *= 0.25 + 0.75 * g;
+      rot += (1 - g) * 0.8;
+      ctx.save();
+      ctx.translate(attach.x, attach.y);
+      ctx.rotate(Math.atan2(dx, -dy));
+      ctx.strokeStyle = "rgba(74, 48, 32, 0.75)";
+      ctx.lineWidth = 0.8;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, -dist * g);
+      ctx.stroke();
+      ctx.translate(0, -dist * g);
+      ctx.rotate(leaf.rot + flutter);
+      ctx.scale(open, 1);
+      const col = leafColor(Math.max(0, season - leaf.delay * 0.4), leaf.sport);
+      drawMaple(len, col, alpha, litAt(posx, time));
+      ctx.restore();
+      return;
+    }
+
+    if (mode === "fall") {
+      const ease = 1 - Math.pow(1 - ft, 2);
+      x = posx + leaf.drift * ease + Math.sin(leaf.seed + ft * 8) * 22 * ft;
+      y = posy + ease * (860 - posy) * 0.92;
+      rot = leaf.rot + leaf.spin * ft;
+      alpha *= ft < 0.62 ? 1 : 1 - (ft - 0.62) / 0.38;
+      if (x < 80 || x > 920 || y > 970) alpha *= 0.2;
+      len *= 0.92;
+      const col = leafColor(leaf.fallAt, leaf.sport);
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rot);
+      drawMaple(len, col, Math.max(0, alpha), litAt(x, time));
+      ctx.restore();
+      return;
+    }
+  }
+
+  function drawBud(x, y, amt) {
+    if (amt <= 0) return;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.fillStyle = rgb([120, 52, 62], 0.9 * amt);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 2.1 * amt + 1.1, 3.1 * amt + 1.3, 0.2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = rgb([186, 110, 112], 0.8 * amt);
+    ctx.beginPath();
+    ctx.ellipse(-0.4, -1.1, 1.1, 1.4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawRoots(time, leanAmt) {
+    const base = deform(512, 892, time, leanAmt);
+    const roots = [
+      [[512, 892], [468, 902], [436, 894]],
+      [[512, 892], [558, 900], [592, 890]],
+      [[512, 892], [530, 908], [548, 902]]
+    ];
+    ctx.lineCap = "round";
+    for (let i = 0; i < roots.length; i++) {
+      const pts = roots[i].map(function (p, idx) {
+        if (idx === 0) return base;
+        return deform(p[0], p[1], time, leanAmt * 0.2);
+      });
+      ctx.strokeStyle = "#4a342c";
+      ctx.lineWidth = 7 - i;
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      ctx.quadraticCurveTo(pts[1][0], pts[1][1], pts[2][0], pts[2][1]);
+      ctx.stroke();
+    }
+  }
+
+  function drawSamaras(time, season) {
+    if (season < 0.48 || season > 0.9) return;
+    const windowA = season < 0.54 ? (season - 0.48) / 0.06 : season > 0.84 ? (0.9 - season) / 0.06 : 1;
+    for (let i = 0; i < 7; i++) {
+      const life = (time * (0.045 + i * 0.004) + i * 0.17) % 1;
+      const x = 280 + ((i * 73) % 430) + Math.sin(time * 0.8 + i) * 24 - life * 30;
+      const y = 180 + life * 640;
+      const fade = Math.sin(life * Math.PI) * windowA;
+      if (fade < 0.02) continue;
+      if (x < 90 || x > 910) continue;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(time * (2.2 + i * 0.35) + i);
+      ctx.globalAlpha = fade * 0.75;
+      ctx.fillStyle = season > 0.68 ? "#c46838" : "#c6a24a";
+      ctx.beginPath();
+      ctx.ellipse(7, 0, 9, 2.1, 0.35, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(-6, 1, 7, 1.7, -0.45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "rgba(70, 42, 24, 0.85)";
+      ctx.beginPath();
+      ctx.arc(0, 0, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function drawMotes(time) {
+    for (let i = 0; i < 14; i++) {
+      const speed = 0.045 + (i % 5) * 0.01;
+      const u = (time * speed + i * 0.13) % 1;
+      const x = 270 + (i * 41) % 460 + Math.sin(time * 0.7 + i) * 14 - u * 18;
+      const y = 640 - u * 470;
+      const a = Math.sin(u * Math.PI) * 0.32;
+      if (a < 0.02 || x < 160 || x > 840 || y < 130) continue;
+      ctx.fillStyle = "rgba(240, 214, 160, " + a + ")";
+      ctx.beginPath();
+      ctx.arc(x, y, i % 4 === 0 ? 1.7 : 1.1, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function frame(ts) {
+    const time = ts / 1000;
+    if (time - lastMove > 0.45) aim += (0 - aim) * 0.04;
+    lean += (aim - lean) * 0.045;
+    const season = ((time / YEAR) + PHASE0) % 1;
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(viewScale, 0, 0, viewScale, viewOx, viewOy);
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+
+    const trunkPts = deformPts(TRUNK, time, lean);
+    const branchPts = BRANCHES.map(function (br) {
+      return deformPts(br.pts, time, lean);
+    });
+
+    drawPot(time);
+    drawSoil(season);
+    drawRoots(time, lean);
+
+    const back = [];
+    const front = [];
+    const falling = [];
+    for (let i = 0; i < leaves.length; i++) {
+      const leaf = leaves[i];
+      const attach = polyAt(branchPts[leaf.bi], leaf.t);
+      const stFall = season >= leaf.fallAt && season < leaf.fallAt + FALL_LEN;
+      if (stFall) {
+        falling.push({ leaf: leaf, attach: attach, ft: (season - leaf.fallAt) / FALL_LEN });
+        continue;
+      }
+      const g = season < leaf.fallAt ? growAmt(season, leaf.delay) : 0;
+      if (g > 0.02) {
+        const item = { leaf: leaf, attach: attach, g: g, y: attach.y + leaf.oy };
+        if (leaf.z < 0.38) back.push(item);
+        else front.push(item);
+      } else if (budAmt(season) > 0 && leaf.z > 0.45) {
+        front.push({ leaf: leaf, attach: attach, bud: true, y: attach.y });
+      }
+    }
+    back.sort(function (a, b) { return a.y - b.y; });
+    front.sort(function (a, b) { return a.y - b.y; });
+
+    for (let i = 0; i < back.length; i++) {
+      const item = back[i];
+      drawOneLeaf(item.attach, item.leaf, time, season, "grow", 0, item.g, 0.78);
+    }
+
+    drawJin(time, lean);
+    drawTrunk(trunkPts);
+    drawMossSleeve(trunkPts, season);
+
+    for (let i = 0; i < branchPts.length; i++) {
+      drawBranch(branchPts[i], BRANCHES[i].w0, BRANCHES[i].w1);
+      drawTwigs(branchPts[i]);
+    }
+
+    const buds = budAmt(season);
+    for (let i = 0; i < front.length; i++) {
+      const item = front[i];
+      if (item.bud) {
+        drawBud(item.attach.x + item.leaf.ox * 0.3, item.attach.y + item.leaf.oy * 0.3, buds);
+      } else {
+        drawOneLeaf(item.attach, item.leaf, time, season, "grow", 0, item.g, 1);
+        if (buds > 0.4 && item.g < 0.35) {
+          drawBud(item.attach.x, item.attach.y, buds * (1 - item.g));
+        }
+      }
+    }
+
+    drawFrontLip();
+    drawMossSpill(season);
+
+    for (let i = 0; i < falling.length; i++) {
+      const item = falling[i];
+      drawOneLeaf(item.attach, item.leaf, time, season, "fall", item.ft, 1, 1);
+    }
+
+    drawSamaras(time, season);
+    drawMotes(time);
+
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Kintsugi Teabowl Maple",
+  "statement": "A small maple rehearses the whole year in a dark tea bowl — coral tips, a green quiet, then copper and letting go — while a thin gold seam keeps the mended clay."
+}
+```

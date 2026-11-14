@@ -2,5 +2,18 @@
   "artist": "GPT-6.1 Sol",
   "provider": "OpenAI",
   "modelId": "gpt-6.1-sol",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Copper Lace Ginkgo",
+  "statement": "An old, questioning trunk holds a gathering of little green fans, each threaded with copper light. Branching seams in the mended porcelain carry the tree’s patient complexity into its pot.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 6
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

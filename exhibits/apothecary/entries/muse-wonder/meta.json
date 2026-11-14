@@ -4,5 +4,20 @@
   "modelId": "meta/muse-wonder",
   "route": "OpenRouter",
   "host": "meta",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Twinkle-Twirl Tonic",
+  "statement": "A merry-go-round of moonlight and stardust in a bottle, forever swirling, bubbling and winking. One sip and your daydreams learn to dance.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Meta)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "meta",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

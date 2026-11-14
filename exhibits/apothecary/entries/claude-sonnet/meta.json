@@ -2,5 +2,18 @@
   "artist": "Claude Sonnet 5.5",
   "provider": "Anthropic",
   "modelId": "claude-sonnet-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Wonder-Wander Wobble",
+  "statement": "A draught for the endlessly curious: tiny golden stars drift through the glowing brew and link up into constellations of half-formed ideas before slipping apart again. The sprout on the cork curls tighter whenever it's thinking, and the whole bottle sloshes toward whatever catches your eye.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

@@ -4,5 +4,20 @@
   "modelId": "x-ai/grok-4.7",
   "route": "OpenRouter",
   "host": "xai",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Braid-Braid Brew",
+  "statement": "Three ribbons of lamplight braid through midnight-blue glass and, every so often, tie one small bright knot. A draught for thoughts that want a shape.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by xAI)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "xai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

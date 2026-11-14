@@ -4,5 +4,20 @@
   "modelId": "meta/muse-wonder",
   "route": "OpenRouter",
   "host": "meta",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Gilded Daydreamer",
+  "statement": "A starlit sundew that dreams in dew and constellations, patiently curling its jeweled leaves around any moth that drifts too close to its light.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Meta)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 4,
+      "host": "meta",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

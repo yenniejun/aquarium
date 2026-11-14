@@ -1,0 +1,313 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Murmur-Murmur Moonmilk</title>
+<style>
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden}
+body{background:#151b24}
+.scene{position:relative;width:100%;height:100%;overflow:hidden;background:radial-gradient(ellipse at 49% 49%,#28323b 0%,#1a222c 43%,#111720 100%)}
+svg,canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+canvas{z-index:2}
+.front{z-index:3}
+</style>
+</head>
+<body>
+<div class="scene" role="img" aria-label="A luminous opal potion in a hand-blown glass bottle. Golden threads quietly braid themselves into a floating knot, while little bubbles rise toward a pearl-shaped stopper.">
+<svg viewBox="0 0 480 760" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+<defs>
+  <radialGradient id="aura">
+    <stop stop-color="#80c9be" stop-opacity=".13"/>
+    <stop offset="1" stop-color="#80c9be" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="shadow">
+    <stop stop-color="#03080d" stop-opacity=".9"/>
+    <stop offset="1" stop-color="#03080d" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="glass" x1="0" y1=".2" x2="1" y2=".7">
+    <stop stop-color="#a7dbd0" stop-opacity=".16"/>
+    <stop offset=".16" stop-color="#678f9c" stop-opacity=".07"/>
+    <stop offset=".45" stop-color="#a7cbd2" stop-opacity=".015"/>
+    <stop offset=".8" stop-color="#67c2c3" stop-opacity=".08"/>
+    <stop offset="1" stop-color="#d2e8ca" stop-opacity=".23"/>
+  </linearGradient>
+  <linearGradient id="milk" x1=".12" y1="0" x2=".8" y2="1">
+    <stop stop-color="#254e62"/>
+    <stop offset=".35" stop-color="#39767e"/>
+    <stop offset=".68" stop-color="#76b2ad"/>
+    <stop offset="1" stop-color="#ced7ac"/>
+  </linearGradient>
+  <radialGradient id="heart">
+    <stop stop-color="#c4fff0" stop-opacity=".38"/>
+    <stop offset=".5" stop-color="#73dfdc" stop-opacity=".13"/>
+    <stop offset="1" stop-color="#8aece5" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="edge">
+    <stop stop-color="#d5e1c9" stop-opacity=".56"/>
+    <stop offset=".3" stop-color="#83b8bb" stop-opacity=".18"/>
+    <stop offset=".7" stop-color="#b1d8d0" stop-opacity=".33"/>
+    <stop offset="1" stop-color="#e8dca8" stop-opacity=".65"/>
+  </linearGradient>
+  <linearGradient id="gold" x1="0" x2="1" y1="0" y2=".3">
+    <stop stop-color="#4c463a"/>
+    <stop offset=".18" stop-color="#ac8750"/>
+    <stop offset=".35" stop-color="#e6d4a1"/>
+    <stop offset=".51" stop-color="#9e7843"/>
+    <stop offset=".8" stop-color="#5f543e"/>
+    <stop offset="1" stop-color="#c2a166"/>
+  </linearGradient>
+  <linearGradient id="pearl" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#f3e6ba" stop-opacity=".8"/>
+    <stop offset=".28" stop-color="#b6e4d7" stop-opacity=".5"/>
+    <stop offset=".6" stop-color="#668c9b" stop-opacity=".15"/>
+    <stop offset="1" stop-color="#d3d8b0" stop-opacity=".6"/>
+  </linearGradient>
+  <radialGradient id="seed">
+    <stop stop-color="#fffbe0"/>
+    <stop offset=".3" stop-color="#f6e7a6"/>
+    <stop offset=".65" stop-color="#d5b976" stop-opacity=".65"/>
+    <stop offset="1" stop-color="#d9b66b" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="blur"><feGaussianBlur stdDeviation="8"/></filter>
+  <path id="bottle" d="M213 167 C212 199 216 224 201 249 C184 276 139 283 112 325 C77 379 77 456 87 529 C96 604 119 660 158 678 C188 691 288 691 320 679 C365 659 389 598 394 526 C401 439 386 367 350 321 C326 289 286 275 272 249 C259 225 266 198 266 167 Z"/>
+  <clipPath id="inside"><use href="#bottle"/></clipPath>
+</defs>
+
+<ellipse cx="242" cy="455" rx="220" ry="295" fill="url(#aura)"/>
+<ellipse cx="242" cy="697" rx="174" ry="25" fill="url(#shadow)"/>
+<ellipse cx="244" cy="694" rx="100" ry="9" fill="#a3cfb3" opacity=".075" filter="url(#blur)"/>
+
+<use href="#bottle" fill="url(#glass)" stroke="#6f9d9e" stroke-opacity=".23" stroke-width="2"/>
+<g clip-path="url(#inside)">
+  <path id="milkBody" d="M70 355 Q155 345 240 355 T410 355 L420 705H60Z" fill="url(#milk)" opacity=".88"/>
+  <ellipse cx="243" cy="518" rx="170" ry="183" fill="url(#heart)"/>
+  <ellipse cx="246" cy="652" rx="124" ry="19" fill="#d6e8b6" opacity=".14" filter="url(#blur)"/>
+  <path d="M97 508 C119 572 136 630 180 653 C224 674 298 667 337 632" fill="none" stroke="#d9ead1" stroke-width="9" opacity=".045"/>
+</g>
+</svg>
+
+<canvas aria-hidden="true"></canvas>
+
+<svg class="front" viewBox="0 0 480 760" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+<defs>
+  <linearGradient id="shine" x1="0" x2="1">
+    <stop stop-color="#e4eee3" stop-opacity=".58"/>
+    <stop offset="1" stop-color="#e4eee3" stop-opacity="0"/>
+  </linearGradient>
+</defs>
+<use href="#bottle" fill="none" stroke="url(#edge)" stroke-width="1.6"/>
+<path d="M204 255 C183 282 142 295 119 337 C95 379 94 425 99 463"
+ fill="none" stroke="url(#shine)" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+<path d="M112 374 Q104 404 106 433" fill="none" stroke="#f2f2d7" stroke-opacity=".58" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M276 263 C299 291 332 297 354 337 C386 393 387 468 380 529"
+ fill="none" stroke="#b1e8dd" stroke-width="2" opacity=".25"/>
+<path d="M379 553 C372 606 353 649 324 665" fill="none" stroke="#e4edca" stroke-width="3" stroke-linecap="round" opacity=".29"/>
+<path d="M143 662 C173 685 291 690 333 664" fill="none" stroke="#e6e7c1" stroke-width="2.5" opacity=".45"/>
+<path d="M166 676 C204 686 278 685 310 678" fill="none" stroke="#547e7c" stroke-width="4" opacity=".7"/>
+
+<path d="M221 184 C220 211 225 230 212 252" fill="none" stroke="#def0db" stroke-width="3.3" stroke-linecap="round" opacity=".27"/>
+<path d="M256 184 C254 214 256 229 266 247" fill="none" stroke="#96d4c6" stroke-width="1.4" opacity=".4"/>
+
+<path d="M208 145 Q239 137 271 145 L270 178 Q239 187 209 178Z" fill="url(#gold)" stroke="#b79a63" stroke-width=".8"/>
+<ellipse cx="240" cy="145" rx="32" ry="7" fill="#c1ad7a" stroke="#f1dfad" stroke-opacity=".5"/>
+<ellipse cx="240" cy="146" rx="23" ry="4" fill="#444b46"/>
+<path d="M209 155 Q239 165 271 155 M209 169 Q239 179 270 169" fill="none" stroke="#302f29" stroke-opacity=".6" stroke-width="1.3"/>
+<path d="M211 157 Q239 167 269 157 M211 171 Q239 181 269 171" fill="none" stroke="#dfc28a" stroke-opacity=".5" stroke-width=".8"/>
+<g fill="none" stroke="#e4d4a2" stroke-opacity=".55" stroke-width=".8">
+  <path d="M228 161l5 6-5 6-5-6z"/>
+  <path d="M241 163l5 6-5 6-5-6z"/>
+  <path d="M254 161l5 6-5 6-5-6z"/>
+</g>
+
+<path d="M225 145 L225 126 C204 115 202 93 215 77 C225 65 237 61 241 45 C245 61 260 69 267 82 C277 101 267 117 254 126 L254 145 Q240 151 225 145Z"
+ fill="url(#pearl)" stroke="#c4d9c1" stroke-opacity=".6" stroke-width="1.2"/>
+<path d="M222 113 C212 97 225 81 234 72" fill="none" stroke="#f6f0cf" stroke-width="2.5" stroke-linecap="round" opacity=".65"/>
+<path d="M251 65 C247 86 266 93 252 115" fill="none" stroke="#b4d7c8" stroke-width="1" opacity=".5"/>
+<circle cx="241" cy="100" r="21" fill="url(#seed)"/>
+<circle cx="241" cy="100" r="5" fill="#fff1be"/>
+<path d="M233 129 Q240 132 247 129" fill="none" stroke="#d6c28e" stroke-width="1.5"/>
+
+<g fill="#d2e4cf" opacity=".27">
+  <ellipse cx="127" cy="481" rx="1.5" ry="2.8"/>
+  <ellipse cx="361" cy="415" rx="1" ry="2"/>
+  <circle cx="344" cy="594" r="1.8"/>
+  <circle cx="151" cy="607" r="1"/>
+  <ellipse cx="275" cy="284" rx="1.1" ry="2.2" transform="rotate(-30 275 284)"/>
+</g>
+</svg>
+</div>
+
+<script>
+(()=>{
+const canvas=document.querySelector('canvas');
+const ctx=canvas.getContext('2d',{alpha:true});
+const scene=document.querySelector('.scene');
+const milk=document.getElementById('milkBody');
+const bottle=new Path2D('M213 167 C212 199 216 224 201 249 C184 276 139 283 112 325 C77 379 77 456 87 529 C96 604 119 660 158 678 C188 691 288 691 320 679 C365 659 389 598 394 526 C401 439 386 367 350 321 C326 289 286 275 272 249 C259 225 266 198 266 167 Z');
+let w=0,h=0,scale=1,ox=0,oy=0,dpr=1;
+let targetX=0,targetY=0,px=0,py=0;
+const slow=matchMedia('(prefers-reduced-motion: reduce)').matches?.4:1;
+
+function resize(){
+ w=scene.clientWidth;h=scene.clientHeight;
+ dpr=Math.min(devicePixelRatio||1,1.65);
+ canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+ scale=Math.min(w/480,h/760);
+ ox=(w-480*scale)/2;oy=(h-760*scale)/2;
+}
+new ResizeObserver(resize).observe(scene);
+scene.addEventListener('pointermove',e=>{
+ const r=scene.getBoundingClientRect();
+ targetX=((e.clientX-r.left)/w-.5)*11;
+ targetY=((e.clientY-r.top)/h-.5)*7;
+},{passive:true});
+scene.addEventListener('pointerleave',()=>{targetX=targetY=0},{passive:true});
+
+let seed=7621;
+function random(){seed=(seed*16807)%2147483647;return(seed-1)/2147483646}
+const bubbles=Array.from({length:31},()=>({
+ x:112+random()*254,phase:random(),speed:.025+random()*.028,
+ r:.8+random()*2.3,wobble:random()*6.28
+}));
+const specks=Array.from({length:39},()=>({
+ x:110+random()*265,y:378+random()*276,r:.35+random()*.8,p:random()*6.28
+}));
+
+function knot(a,t,offset){
+ const u=a+offset;
+ let x=(Math.sin(u)+2*Math.sin(2*u))*29;
+ let y=(Math.cos(u)-2*Math.cos(2*u))*25;
+ let z=-Math.sin(3*u)*33;
+ const rot=t*.12;
+ const xx=x*Math.cos(rot)+z*Math.sin(rot);
+ const zz=-x*Math.sin(rot)+z*Math.cos(rot);
+ const tilt=.22*Math.sin(t*.17);
+ return {
+ x:242+px+xx*Math.cos(tilt)-y*Math.sin(tilt),
+ y:494+py+y*Math.cos(tilt)+xx*Math.sin(tilt)+Math.sin(t*.55)*7,
+ z:zz
+ };
+}
+function star(x,y,r,alpha){
+ ctx.strokeStyle=`rgba(255,235,173,${alpha})`;
+ ctx.lineWidth=.8;
+ ctx.beginPath();ctx.moveTo(x-r,y);ctx.lineTo(x+r,y);
+ ctx.moveTo(x,y-r);ctx.lineTo(x,y+r);ctx.stroke();
+}
+let last=0;
+function frame(now){
+ requestAnimationFrame(frame);
+ if(now-last<32)return;
+ last=now;
+ const t=now*.001*slow;
+ px+=(targetX-px)*.035;py+=(targetY-py)*.035;
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.clearRect(0,0,w,h);
+ ctx.translate(ox,oy);ctx.scale(scale,scale);
+ ctx.save();ctx.clip(bottle);
+
+ const wave=Math.sin(t*.67)*3;
+ const surface=355+wave;
+ const liquid=new Path2D();
+ liquid.moveTo(70,surface);
+ liquid.bezierCurveTo(155,surface-7+Math.sin(t)*3,240,surface+8,410,surface-2);
+ liquid.lineTo(420,705);liquid.lineTo(60,705);liquid.closePath();
+ milk.setAttribute('d',`M70 ${surface} C155 ${surface-7+Math.sin(t)*3} 240 ${surface+8} 410 ${surface-2} L420 705H60Z`);
+
+ ctx.save();ctx.clip(liquid);
+ const glow=ctx.createRadialGradient(242+px,492+py,3,242,492,153);
+ glow.addColorStop(0,'rgba(166,255,226,.18)');
+ glow.addColorStop(1,'rgba(130,240,220,0)');
+ ctx.fillStyle=glow;ctx.fillRect(80,345,320,345);
+
+ for(let j=0;j<5;j++){
+  ctx.beginPath();
+  for(let i=0;i<=85;i++){
+   const a=i/85*Math.PI*2;
+   const radius=57+j*17;
+   const x=242+Math.cos(a)*radius;
+   const y=620+Math.sin(a)*radius*.19+Math.sin(a*3+t*.8+j)*3;
+   i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  }
+  ctx.strokeStyle=`rgba(223,238,186,${.045+j*.012})`;
+  ctx.lineWidth=1;ctx.stroke();
+ }
+
+ for(const s of specks){
+  const x=s.x+Math.sin(t*.18+s.p)*7;
+  const y=s.y+Math.cos(t*.23+s.p)*5;
+  ctx.fillStyle=`rgba(220,255,225,${.13+.12*Math.sin(t*.6+s.p)})`;
+  ctx.beginPath();ctx.arc(x,y,s.r,0,Math.PI*2);ctx.fill();
+ }
+
+ for(let strand=0;strand<2;strand++){
+  const phase=strand*.105;
+  const points=[];
+  for(let i=0;i<=180;i++)points.push(knot(i/180*Math.PI*2,t,phase));
+  ctx.beginPath();
+  points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+  ctx.strokeStyle=strand?'rgba(255,225,152,.055)':'rgba(174,255,237,.08)';
+  ctx.lineWidth=9;ctx.stroke();
+  for(let i=1;i<points.length;i++){
+   const p=points[i],q=points[i-1];
+   const depth=(p.z+86)/172;
+   ctx.beginPath();ctx.moveTo(q.x,q.y);ctx.lineTo(p.x,p.y);
+   ctx.strokeStyle=strand?`rgba(255,223,153,${.32+depth*.54})`:`rgba(190,255,239,${.19+depth*.62})`;
+   ctx.lineWidth=(strand?1.05:1.35)+depth*.7;ctx.stroke();
+  }
+ }
+ for(let j=0;j<7;j++){
+  const p=knot(t*.32+j*Math.PI*2/7,t,0);
+  const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,9);
+  g.addColorStop(0,'rgba(255,246,195,.55)');g.addColorStop(1,'rgba(255,225,150,0)');
+  ctx.fillStyle=g;ctx.fillRect(p.x-9,p.y-9,18,18);
+  ctx.fillStyle='#fff4cb';ctx.beginPath();ctx.arc(p.x,p.y,1.45,0,Math.PI*2);ctx.fill();
+ }
+
+ for(const b of bubbles){
+  const cycle=(b.phase+t*b.speed)%1;
+  const y=673-cycle*340;
+  const x=b.x+Math.sin(cycle*9+b.wobble+t*.3)*8;
+  const fade=Math.min(1,cycle*8);
+  ctx.beginPath();ctx.arc(x,y,b.r,0,Math.PI*2);
+  ctx.strokeStyle=`rgba(219,250,218,${fade*.31})`;
+  ctx.lineWidth=.7;ctx.stroke();
+  ctx.beginPath();ctx.arc(x-b.r*.27,y-b.r*.35,.55,0,Math.PI*2);
+  ctx.fillStyle=`rgba(249,255,224,${fade*.6})`;ctx.fill();
+ }
+ ctx.restore();
+
+ ctx.beginPath();ctx.ellipse(240,surface+1,144,7,0,0,Math.PI*2);
+ ctx.strokeStyle='rgba(194,236,208,.27)';ctx.lineWidth=1;ctx.stroke();
+ ctx.beginPath();ctx.ellipse(240,surface,141,4,0,Math.PI*.1,Math.PI*.86);
+ ctx.strokeStyle='rgba(228,242,209,.35)';ctx.lineWidth=.8;ctx.stroke();
+
+ for(let j=0;j<8;j++){
+  const phase=(t*.055+j*.137)%1;
+  const y=344-phase*116;
+  const x=240+Math.sin(j*4.3+phase*4)*((1-phase)*48+4);
+  const alpha=Math.sin(phase*Math.PI)*.6;
+  if(j%3===0)star(x,y,2.6,alpha);
+  else{
+   ctx.fillStyle=`rgba(243,229,177,${alpha})`;
+   ctx.beginPath();ctx.arc(x,y,1,0,Math.PI*2);ctx.fill();
+  }
+ }
+ ctx.restore();
+}
+resize();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Murmur-Murmur Moonmilk",
+  "statement": "For thoughts that refuse to untangle. This softly murmuring moonmilk braids them into a luminous little knot, then lets the answers rise like bubbles."
+}
+```

@@ -4,5 +4,20 @@
   "modelId": "z-ai/glm-5.3-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Storm-Swept Salt Juniper",
+  "statement": "A tree shaped entirely by a wind it has never once obeyed: every branch combed downwind, one bleached jin marking a limb lost to some old gale. It lives in a plain unglazed pot because the story is all in the bend, and it sheds the occasional needle just to prove it's still growing.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Alibaba)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 6,
+      "host": "alibaba",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

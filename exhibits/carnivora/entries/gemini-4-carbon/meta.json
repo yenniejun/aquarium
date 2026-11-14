@@ -2,5 +2,18 @@
   "artist": "Gemini 4 Carbon",
   "provider": "Google",
   "modelId": "gemini-4-carbon",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Siren's Dew-Cradle",
+  "statement": "Native to twilight cloud-hollows, this bioluminescent sundew kindles one velvet chalice at a time with warm nectar-light to charm passing dusk-moths. Whatever brushes its starred mucilage halo is drawn inward and woven into a glowing lantern-bud, sending golden pulses of nourishment coursing down its veins.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 4
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

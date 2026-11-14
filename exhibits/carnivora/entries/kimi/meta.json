@@ -4,5 +4,20 @@
   "modelId": "moonshotai/kimi-k3.1-pro",
   "route": "OpenRouter",
   "host": "moonshotai",
-  "openWeights": true
+  "openWeights": true,
+  "status": "final",
+  "title": "The Gilded Listener",
+  "statement": "It tilts toward every wingbeat, offering a drop of lantern-sweet nectar before folding the sound away. Between meals, its dewed leaves keep time with the drifting motes.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Moonshot AI)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 4,
+      "host": "moonshotai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

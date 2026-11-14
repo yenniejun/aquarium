@@ -4,5 +4,20 @@
   "modelId": "x-ai/grok-4.7",
   "route": "OpenRouter",
   "host": "xai",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Kintsugi Teabowl Maple",
+  "statement": "A small maple rehearses the whole year in a dark tea bowl — coral tips, a green quiet, then copper and letting go — while a thin gold seam keeps the mended clay.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by xAI)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 6,
+      "host": "xai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

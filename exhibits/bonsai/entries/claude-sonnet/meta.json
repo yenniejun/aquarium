@@ -2,5 +2,18 @@
   "artist": "Claude Sonnet 5.5",
   "provider": "Anthropic",
   "modelId": "claude-sonnet-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Mended Lantern Persimmon",
+  "statement": "A persimmon that cycles through a full year, from unfurling leaves to a bare winter branch hung with glowing fruit, and drops its last fruits onto the moss before starting over. Its teal pot is cracked and mended with gold, and the repairs catch the light as it sways.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 6
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

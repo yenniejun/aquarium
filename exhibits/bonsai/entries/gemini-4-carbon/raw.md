@@ -1,0 +1,1110 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BonsAI</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    touch-action: auto;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(() => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d', { alpha: true });
+
+  // Deterministic PRNG for consistent organic craft
+  function makeRng(seed) {
+    let s = seed >>> 0;
+    return () => {
+      s += 0x6D2B79F5;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  const rng = makeRng(847291);
+  const rand = (a, b) => a + (b - a) * rng();
+
+  // Viewport & pointer state (virtual canvas is 1000x1000, anchored at bottom-center 500,1000)
+  let vw = 0, vh = 0, dpr = 1, scale = 1;
+  const pointer = { x: 500, y: 500, tx: 500, ty: 500, vx: 0, vy: 0, active: 0 };
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    vw = window.innerWidth;
+    vh = window.innerHeight;
+    canvas.width = Math.max(1, Math.round(vw * dpr));
+    canvas.height = Math.max(1, Math.round(vh * dpr));
+    scale = Math.min(vw, vh) / 1000;
+  }
+  window.addEventListener('resize', resize, { passive: true });
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(resize).observe(document.body);
+  }
+  resize();
+
+  window.addEventListener('pointermove', (e) => {
+    const nx = 500 + (e.clientX - vw * 0.5) / scale;
+    const ny = 1000 + (e.clientY - vh) / scale;
+    pointer.vx = Math.max(-25, Math.min(25, (nx - pointer.tx) * 0.35));
+    pointer.vy = Math.max(-25, Math.min(25, (ny - pointer.ty) * 0.35));
+    pointer.tx = nx;
+    pointer.ty = ny;
+    pointer.active = 1;
+  }, { passive: true });
+
+  window.addEventListener('pointerleave', () => {
+    pointer.active = 0;
+  }, { passive: true });
+
+  // Cubic Bezier evaluation & tangent
+  function bezierPt(p0, p1, p2, p3, t) {
+    const mt = 1 - t;
+    const mt2 = mt * mt, t2 = t * t;
+    return {
+      x: mt2 * mt * p0.x + 3 * mt2 * t * p1.x + 3 * mt * t2 * p2.x + t2 * t * p3.x,
+      y: mt2 * mt * p0.y + 3 * mt2 * t * p1.y + 3 * mt * t2 * p2.y + t2 * t * p3.y
+    };
+  }
+  function bezierTan(p0, p1, p2, p3, t) {
+    const mt = 1 - t;
+    return {
+      x: 3 * mt * mt * (p1.x - p0.x) + 6 * mt * t * (p2.x - p1.x) + 3 * t * t * (p3.x - p2.x),
+      y: 3 * mt * mt * (p1.y - p0.y) + 6 * mt * t * (p2.y - p1.y) + 3 * t * t * (p3.y - p2.y)
+    };
+  }
+
+  // Color utilities
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function lerpRGB(c1, c2, t) {
+    return [
+      Math.round(lerp(c1[0], c2[0], t)),
+      Math.round(lerp(c1[1], c2[1], t)),
+      Math.round(lerp(c1[2], c2[2], t))
+    ];
+  }
+  function rgbStr(c, a = 1) {
+    return a < 0.999 ? `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(3)})` : `rgb(${c[0]},${c[1]},${c[2]})`;
+  }
+
+  // -------------------------------------------------------------------------
+  // TREE ARCHITECTURE: Windswept Moyogi Ginkgo over a Scholar's Stone
+  // -------------------------------------------------------------------------
+  const limbs = [
+    // Main trunk (lower sweep from root crown up-left, then curving right)
+    {
+      id: 'trunkLow', layer: 1, flex: 0.04, steps: 26, r0: 37, r1: 21,
+      p0: { x: 488, y: 818 }, p1: { x: 432, y: 742 }, p2: { x: 372, y: 635 }, p3: { x: 425, y: 525 }
+    },
+    // Main trunk (upper S-curve to apex)
+    {
+      id: 'trunkMid', layer: 1, flex: 0.14, steps: 24, r0: 21.5, r1: 10.5,
+      p0: { x: 425, y: 525 }, p1: { x: 468, y: 438 }, p2: { x: 516, y: 365 }, p3: { x: 476, y: 265 }
+    },
+    // Apex leader
+    {
+      id: 'trunkTop', layer: 1, flex: 0.30, steps: 16, r0: 10.5, r1: 3.2,
+      p0: { x: 476, y: 265 }, p1: { x: 454, y: 226 }, p2: { x: 466, y: 198 }, p3: { x: 482, y: 175 }
+    },
+
+    // Nebari surface roots (anchoring into moss left & gripping scholar's stone right)
+    {
+      id: 'rootL1', layer: 1, flex: 0, steps: 14, r0: 21, r1: 3.5,
+      p0: { x: 474, y: 814 }, p1: { x: 434, y: 822 }, p2: { x: 392, y: 828 }, p3: { x: 356, y: 838 }
+    },
+    {
+      id: 'rootL2', layer: 1, flex: 0, steps: 12, r0: 14, r1: 2.8,
+      p0: { x: 482, y: 818 }, p1: { x: 456, y: 830 }, p2: { x: 435, y: 836 }, p3: { x: 414, y: 844 }
+    },
+    {
+      id: 'rootCenter', layer: 1, flex: 0, steps: 12, r0: 16, r1: 3.2,
+      p0: { x: 494, y: 816 }, p1: { x: 496, y: 828 }, p2: { x: 484, y: 838 }, p3: { x: 472, y: 846 }
+    },
+    // Root clasping over the scholar's rock
+    {
+      id: 'rootRockTop', layer: 1, flex: 0, steps: 18, r0: 20, r1: 3.5,
+      p0: { x: 498, y: 804 }, p1: { x: 536, y: 762 }, p2: { x: 572, y: 786 }, p3: { x: 582, y: 842 }
+    },
+    {
+      id: 'rootRockCrevice', layer: 1, flex: 0, steps: 15, r0: 13, r1: 3.0,
+      p0: { x: 502, y: 810 }, p1: { x: 528, y: 805 }, p2: { x: 544, y: 824 }, p3: { x: 552, y: 846 }
+    },
+
+    // Primary Branch 1: Dramatic sweeping left Sashi-eda (Pad 1)
+    {
+      id: 'brL1', layer: 1, flex: 0.35, steps: 20, r0: 14.5, r1: 3.5,
+      p0: { x: 405, y: 586 }, p1: { x: 342, y: 565 }, p2: { x: 278, y: 548 }, p3: { x: 202, y: 530 }
+    },
+    {
+      id: 'brL1SubA', layer: 2, flex: 0.50, steps: 12, r0: 6.5, r1: 2.2,
+      p0: { x: 306, y: 556 }, p1: { x: 274, y: 524 }, p2: { x: 252, y: 508 }, p3: { x: 222, y: 498 }
+    },
+    {
+      id: 'brL1SubB', layer: 0, flex: 0.48, steps: 12, r0: 5.8, r1: 2.0,
+      p0: { x: 340, y: 566 }, p1: { x: 312, y: 542 }, p2: { x: 295, y: 525 }, p3: { x: 276, y: 512 }
+    },
+
+    // Primary Branch 2: Counter-balancing sweep right over the stone (Pad 2)
+    {
+      id: 'brR1', layer: 1, flex: 0.38, steps: 22, r0: 13.5, r1: 3.2,
+      p0: { x: 434, y: 508 }, p1: { x: 528, y: 496 }, p2: { x: 642, y: 488 }, p3: { x: 758, y: 472 }
+    },
+    {
+      id: 'brR1SubA', layer: 2, flex: 0.52, steps: 12, r0: 6.2, r1: 2.2,
+      p0: { x: 618, y: 489 }, p1: { x: 656, y: 462 }, p2: { x: 688, y: 452 }, p3: { x: 724, y: 444 }
+    },
+    {
+      id: 'brR1SubB', layer: 0, flex: 0.46, steps: 12, r0: 6.0, r1: 2.0,
+      p0: { x: 562, y: 493 }, p1: { x: 604, y: 472 }, p2: { x: 636, y: 462 }, p3: { x: 668, y: 454 }
+    },
+
+    // Back Depth Branch (Pad 3 - Ura-eda)
+    {
+      id: 'brBack', layer: 0, flex: 0.36, steps: 16, r0: 10.2, r1: 2.8,
+      p0: { x: 472, y: 442 }, p1: { x: 442, y: 422 }, p2: { x: 416, y: 414 }, p3: { x: 382, y: 404 }
+    },
+    {
+      id: 'brBackR', layer: 0, flex: 0.38, steps: 14, r0: 8.5, r1: 2.5,
+      p0: { x: 482, y: 426 }, p1: { x: 518, y: 412 }, p2: { x: 548, y: 405 }, p3: { x: 576, y: 396 }
+    },
+
+    // Upper Left Branch (Pad 4)
+    {
+      id: 'brL2', layer: 1, flex: 0.44, steps: 18, r0: 9.8, r1: 2.6,
+      p0: { x: 492, y: 376 }, p1: { x: 426, y: 362 }, p2: { x: 354, y: 350 }, p3: { x: 278, y: 336 }
+    },
+    {
+      id: 'brL2Sub', layer: 2, flex: 0.56, steps: 10, r0: 5.0, r1: 2.0,
+      p0: { x: 376, y: 354 }, p1: { x: 348, y: 332 }, p2: { x: 326, y: 320 }, p3: { x: 304, y: 312 }
+    },
+
+    // Upper Right Branch (Pad 5)
+    {
+      id: 'brR2', layer: 1, flex: 0.46, steps: 18, r0: 9.2, r1: 2.6,
+      p0: { x: 494, y: 328 }, p1: { x: 554, y: 316 }, p2: { x: 616, y: 308 }, p3: { x: 678, y: 294 }
+    },
+    {
+      id: 'brR2Sub', layer: 2, flex: 0.58, steps: 10, r0: 4.8, r1: 1.9,
+      p0: { x: 590, y: 312 }, p1: { x: 616, y: 292 }, p2: { x: 638, y: 280 }, p3: { x: 658, y: 272 }
+    },
+
+    // Apex Crown Twigs (Pad 6)
+    {
+      id: 'apexL', layer: 2, flex: 0.55, steps: 12, r0: 5.8, r1: 2.0,
+      p0: { x: 468, y: 236 }, p1: { x: 434, y: 218 }, p2: { x: 406, y: 208 }, p3: { x: 382, y: 198 }
+    },
+    {
+      id: 'apexR', layer: 2, flex: 0.55, steps: 12, r0: 5.6, r1: 2.0,
+      p0: { x: 470, y: 224 }, p1: { x: 508, y: 208 }, p2: { x: 540, y: 198 }, p3: { x: 568, y: 190 }
+    }
+  ];
+
+  // Precompute bark ridges along each limb
+  for (const limb of limbs) {
+    limb.ridges = [];
+    const ridgeCount = Math.floor(limb.steps * (limb.r0 > 12 ? 1.5 : 0.7));
+    for (let i = 0; i < ridgeCount; i++) {
+      const t0 = rand(0.04, 0.82);
+      const t1 = Math.min(0.98, t0 + rand(0.08, 0.22));
+      const offset = rand(-0.78, 0.78);
+      const light = offset < -0.15;
+      limb.ridges.push({ t0, t1, offset, light, w: rand(0.8, 2.1) });
+    }
+  }
+
+  // Golden Kintsugi Sap Vein running from the mended pot rim up the trunk shari hollow
+  const kintsugiTrunkPaths = [
+    {
+      flex: 0.04,
+      p0: { x: 552, y: 846 }, p1: { x: 538, y: 814 }, p2: { x: 502, y: 808 }, p3: { x: 484, y: 785 }
+    },
+    {
+      flex: 0.06,
+      p0: { x: 484, y: 785 }, p1: { x: 432, y: 728 }, p2: { x: 382, y: 632 }, p3: { x: 428, y: 525 }
+    },
+    {
+      flex: 0.16,
+      p0: { x: 428, y: 525 }, p1: { x: 470, y: 440 }, p2: { x: 512, y: 366 }, p3: { x: 476, y: 262 }
+    },
+    // Side vein toward left pad
+    {
+      flex: 0.30,
+      p0: { x: 405, y: 586 }, p1: { x: 356, y: 568 }, p2: { x: 312, y: 556 }, p3: { x: 274, y: 542 }
+    },
+    // Side vein toward right pad
+    {
+      flex: 0.32,
+      p0: { x: 440, y: 508 }, p1: { x: 518, y: 498 }, p2: { x: 588, y: 492 }, p3: { x: 648, y: 482 }
+    }
+  ];
+
+  // -------------------------------------------------------------------------
+  // FOLIAGE PADS & GINKGO FAN LEAVES
+  // -------------------------------------------------------------------------
+  const pads = [
+    { id: 0, cx: 248, cy: 508, rx: 108, ry: 42, flex: 0.52, depthBias: 0.1 }, // Lower Left
+    { id: 1, cx: 682, cy: 452, rx: 112, ry: 42, flex: 0.54, depthBias: 0.1 }, // Mid Right
+    { id: 2, cx: 482, cy: 396, rx: 118, ry: 38, flex: 0.38, depthBias: -0.6 }, // Back Ura-eda
+    { id: 3, cx: 326, cy: 318, rx: 94,  ry: 38, flex: 0.56, depthBias: 0.15 }, // Upper Left
+    { id: 4, cx: 636, cy: 278, rx: 92,  ry: 36, flex: 0.58, depthBias: 0.15 }, // Upper Right
+    { id: 5, cx: 478, cy: 184, rx: 118, ry: 48, flex: 0.62, depthBias: 0.25 }  // Apex Crown
+  ];
+
+  const leaves = [];
+  const leavesPerPad = [58, 60, 46, 46, 44, 68];
+
+  pads.forEach((pad, pIdx) => {
+    const count = leavesPerPad[pIdx];
+    for (let i = 0; i < count; i++) {
+      // Distribute naturally in a domed bonsai cloud pad (flatter underside, billowy top)
+      const u = rng();
+      const angle = rand(0, Math.PI * 2);
+      const rad = Math.pow(u, 0.58);
+      let dx = Math.cos(angle) * rad * pad.rx;
+      let dy = Math.sin(angle) * rad * pad.ry;
+      if (dy > 0) dy *= 0.52; // Crisp trimmed bonsai pad bottom
+      else dy *= 1.12;        // Billowy crown top
+
+      // Slight arched dome silhouette across pad width
+      dy += Math.pow(dx / pad.rx, 2) * (pad.ry * 0.36);
+
+      const x = pad.cx + dx;
+      const y = pad.cy + dy;
+
+      // Depth layer: 0 = behind trunk/branches, 1 = mid, 2 = sunlit crown surface
+      const zScore = pad.depthBias + (-dy / pad.ry) * 0.45 + rand(-0.45, 0.45);
+      const layer = zScore < -0.18 ? 0 : (zScore < 0.28 ? 1 : 2);
+
+      // Fan leaves radiate outward and upward from short shoots
+      const outward = (dx / pad.rx) * 0.85;
+      const baseAngle = -Math.PI * 0.5 + outward + rand(-0.42, 0.42);
+
+      leaves.push({
+        padIdx: pIdx,
+        x, y,
+        layer,
+        size: rand(21, 34) * (layer === 0 ? 0.92 : 1.0),
+        baseAngle,
+        flex: pad.flex * rand(0.85, 1.2),
+        phase: rand(0, Math.PI * 2),
+        flutterSpeed: rand(1.4, 2.5),
+        notchDepth: rand(0.16, 0.32),
+        spread: rand(0.88, 1.18),
+        colorSeed: rng(),     // Determines where on the jade-to-gold gradient it sits
+        sunExposure: Math.max(0, Math.min(1, 0.55 - (dy / pad.ry) * 0.38 - (dx / pad.rx) * 0.18 + rand(-0.15, 0.15)))
+      });
+    }
+  });
+
+  // Sort leaves back-to-front within each layer (higher y / lower sunExposure first)
+  leaves.sort((a, b) => (a.layer - b.layer) || (b.y - a.y));
+
+  // -------------------------------------------------------------------------
+  // MOSS MOUND, SCHOLAR'S STONE & CELADON KINTSUGI POT DATA
+  // -------------------------------------------------------------------------
+  const mossTufts = [];
+  for (let i = 0; i < 115; i++) {
+    const t = i / 114;
+    const mx = lerp(304, 696, t) + rand(-8, 8);
+    // Parabolic soil crown peaking near trunk & rock
+    const norm = (mx - 500) / 205;
+    const crownY = 819 + norm * norm * 27 + rand(-5, 6);
+    const inFront = rng() > 0.42;
+    mossTufts.push({
+      x: mx,
+      y: crownY,
+      rx: rand(11, 24),
+      ry: rand(6, 13),
+      tone: rng(),
+      front: inFront,
+      spore: rng() < 0.11 ? { h: rand(10, 18), lean: rand(-4, 4), phase: rand(0, 6.28) } : null
+    });
+  }
+
+  // Crackle glaze network on pot face
+  const crackles = [];
+  for (let i = 0; i < 28; i++) {
+    const cx = rand(315, 685);
+    const cy = rand(872, 968);
+    const ang = rand(0, Math.PI * 2);
+    const len = rand(14, 34);
+    crackles.push({
+      x1: cx - Math.cos(ang) * len * 0.5,
+      y1: cy - Math.sin(ang) * len * 0.35,
+      x2: cx + Math.cos(ang) * len * 0.5,
+      y2: cy + Math.sin(ang) * len * 0.35
+    });
+  }
+
+  // Drifting fallen ginkgo leaves (detach from canopy -> flutter down -> rest on moss -> dissolve)
+  const drifters = [];
+  const MAX_DRIFTERS = 4;
+  let nextSpawnTime = 1.2;
+
+  function spawnDrifter(time, seasonGold) {
+    // Pick a sunlit outer leaf as origin
+    const candidates = leaves.filter(l => l.layer === 2 && l.y < 540);
+    const src = candidates[Math.floor(rng() * candidates.length)];
+    // Target landing spot on the moss bed inside the pot rim
+    const targetX = rand(338, 662);
+    const norm = (targetX - 500) / 205;
+    const targetY = 829 + norm * norm * 16 + rand(-2, 4);
+
+    drifters.push({
+      x: src.x,
+      y: src.y,
+      startX: src.x,
+      startY: src.y,
+      targetX,
+      targetY,
+      born: time,
+      fallDur: rand(4.8, 6.8),
+      restDur: rand(5.5, 8.5),
+      size: src.size * 0.92,
+      notchDepth: src.notchDepth,
+      spread: src.spread,
+      swayAmp: rand(26, 52),
+      swayFreq: rand(1.6, 2.4),
+      phase: rand(0, Math.PI * 2),
+      goldBias: Math.max(0.65, seasonGold + rand(0.1, 0.35)),
+      landAngle: rand(-0.45, 0.45)
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // WIND & SAP PULSE SIMULATION
+  // -------------------------------------------------------------------------
+  function windAt(x, y, time, flex) {
+    if (flex <= 0.001) return { dx: 0, dy: 0, rot: 0 };
+    // Layered gentle breeze waves moving left-to-right
+    const w1 = Math.sin(time * 0.85 - x * 0.0045 + y * 0.002);
+    const w2 = Math.sin(time * 1.95 - x * 0.009 + 1.3) * 0.42;
+    const w3 = Math.cos(time * 0.42 + y * 0.003) * 0.35;
+    const gust = 0.55 + 0.45 * Math.sin(time * 0.31 - x * 0.002);
+    let breeze = (w1 + w2 + w3) * gust + 0.22; // Slight natural prevailing lean right
+
+    let dx = breeze * 14 * flex;
+    let dy = Math.abs(breeze) * 2.6 * flex;
+    let rot = breeze * 0.14 * flex;
+
+    // Gentle pointer air-current interaction
+    if (pointer.active > 0.01) {
+      const pdx = x - pointer.x;
+      const pdy = y - pointer.y;
+      const dist2 = pdx * pdx + pdy * pdy;
+      const radius = 165;
+      if (dist2 < radius * radius) {
+        const dist = Math.sqrt(dist2) || 1;
+        const falloff = Math.pow(1 - dist / radius, 2) * pointer.active;
+        dx += ((pdx / dist) * 16 + pointer.vx * 0.9) * falloff * flex;
+        dy += ((pdy / dist) * 10 + pointer.vy * 0.6) * falloff * flex;
+        rot += ((pdx / dist) * 0.22 + pointer.vx * 0.012) * falloff * flex;
+      }
+    }
+    return { dx, dy, rot };
+  }
+
+  // Palette definitions: continuous harmony shifting between Spring Jade, Summer Celadon, and Autumn Gold
+  const PAL_JADE_SHADOW = [42, 86, 74];
+  const PAL_JADE_MID    = [78, 138, 96];
+  const PAL_JADE_LIGHT  = [146, 192, 106];
+
+  const PAL_GOLD_SHADOW = [166, 108, 28];
+  const PAL_GOLD_MID    = [224, 168, 42];
+  const PAL_GOLD_LIGHT  = [250, 216, 92];
+
+  function getLeafColors(leaf, seasonGold, sapGlow) {
+    // Each leaf transitions along the wave according to canopy position & individual seed
+    const localGold = Math.max(0, Math.min(1,
+      seasonGold * 1.35 - 0.18 + (leaf.colorSeed - 0.5) * 0.42 + (leaf.sunExposure - 0.5) * 0.25 + sapGlow * 0.22
+    ));
+    // Smoothstep
+    const g = localGold * localGold * (3 - 2 * localGold);
+
+    let base, tip;
+    if (leaf.layer === 0) {
+      base = lerpRGB(PAL_JADE_SHADOW, PAL_GOLD_SHADOW, g);
+      tip  = lerpRGB(PAL_JADE_MID, PAL_GOLD_MID, g * 0.92);
+      // Aerial depth cool tint for back branches
+      base = lerpRGB(base, [48, 72, 78], 0.28);
+      tip  = lerpRGB(tip,  [64, 96, 96], 0.20);
+    } else if (leaf.layer === 1) {
+      base = lerpRGB(PAL_JADE_SHADOW, PAL_GOLD_SHADOW, g * 0.9);
+      tip  = lerpRGB(PAL_JADE_MID, PAL_GOLD_MID, g);
+      tip  = lerpRGB(tip, lerpRGB(PAL_JADE_LIGHT, PAL_GOLD_LIGHT, g), leaf.sunExposure * 0.55);
+    } else {
+      base = lerpRGB(PAL_JADE_MID, PAL_GOLD_MID, g);
+      tip  = lerpRGB(PAL_JADE_LIGHT, PAL_GOLD_LIGHT, g);
+      if (sapGlow > 0.05) {
+        tip = lerpRGB(tip, [255, 238, 152], sapGlow * 0.45);
+      }
+    }
+    return { base, tip, gold: g };
+  }
+
+  // -------------------------------------------------------------------------
+  // DRAWING HELPERS
+  // -------------------------------------------------------------------------
+  function drawGinkgoFan(x, y, size, angle, spread, notchDepth, flutterTwist, baseCol, tipCol, alpha = 1, drawVeins = true) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    // 3D flutter foreshortening across the blade width
+    ctx.scale(flutterTwist, 1);
+
+    if (alpha < 0.999) ctx.globalAlpha = alpha;
+
+    const petioleLen = size * 0.30;
+    const bladeLen = size;
+    const w = size * 0.64 * spread;
+
+    // Slender stem (petiole)
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(size * 0.03, -petioleLen * 0.5, 0, -petioleLen);
+    ctx.strokeStyle = rgbStr(lerpRGB(baseCol, [95, 82, 52], 0.45), alpha);
+    ctx.lineWidth = Math.max(1.1, size * 0.048);
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Iconic bilobed ginkgo fan blade
+    const grad = ctx.createLinearGradient(0, -petioleLen, 0, -bladeLen);
+    grad.addColorStop(0, rgbStr(baseCol, 1));
+    grad.addColorStop(1, rgbStr(tipCol, 1));
+
+    const notchY = -bladeLen * (1 - notchDepth * 0.65);
+
+    ctx.beginPath();
+    ctx.moveTo(0, -petioleLen * 0.92);
+    // Left straight-curved wedge margin
+    ctx.quadraticCurveTo(-w * 0.52, -bladeLen * 0.52, -w, -bladeLen * 0.80);
+    // Left rounded lobe crown
+    ctx.bezierCurveTo(-w * 1.04, -bladeLen * 1.02, -w * 0.34, -bladeLen * 1.06, -w * 0.07, -bladeLen * 0.95);
+    // Central bilobed cleft notch
+    ctx.quadraticCurveTo(0, notchY, w * 0.07, -bladeLen * 0.95);
+    // Right rounded lobe crown
+    ctx.bezierCurveTo(w * 0.34, -bladeLen * 1.06, w * 1.04, -bladeLen * 1.02, w, -bladeLen * 0.80);
+    // Right wedge margin back to petiole
+    ctx.quadraticCurveTo(w * 0.52, -bladeLen * 0.52, 0, -petioleLen * 0.92);
+    ctx.closePath();
+
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Subtle sunlit rim & dichotomous fan venation
+    ctx.strokeStyle = rgbStr(lerpRGB(tipCol, [255, 250, 215], 0.32), 0.55);
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+
+    if (drawVeins && Math.abs(flutterTwist) > 0.38) {
+      ctx.beginPath();
+      const veinCols = [-0.66, -0.34, 0.34, 0.66];
+      for (let i = 0; i < veinCols.length; i++) {
+        const vx = veinCols[i] * w;
+        ctx.moveTo(0, -petioleLen * 0.98);
+        ctx.quadraticCurveTo(vx * 0.45, -bladeLen * 0.62, vx, -bladeLen * 0.90);
+      }
+      ctx.strokeStyle = rgbStr(lerpRGB(baseCol, tipCol, 0.25), 0.35);
+      ctx.lineWidth = 0.65;
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+
+  function drawLimb(limb, time) {
+    const steps = limb.steps;
+    const leftPts = [];
+    const rightPts = [];
+    const centerPts = [];
+
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const base = bezierPt(limb.p0, limb.p1, limb.p2, limb.p3, t);
+      const tan = bezierTan(limb.p0, limb.p1, limb.p2, limb.p3, t);
+      const w = windAt(base.x, base.y, time, limb.flex * Math.pow(t, 1.25));
+
+      const px = base.x + w.dx;
+      const py = base.y + w.dy;
+      const len = Math.hypot(tan.x, tan.y) || 1;
+      const nx = -tan.y / len;
+      const ny = tan.x / len;
+
+      // Natural organic taper with slight gnarl swell at base
+      const r = lerp(limb.r0, limb.r1, Math.pow(t, 0.82));
+      centerPts.push({ x: px, y: py, nx, ny, r });
+      leftPts.push({ x: px + nx * r, y: py + ny * r });
+      rightPts.push({ x: px - nx * r, y: py - ny * r });
+    }
+
+    // Main wood silhouette
+    ctx.beginPath();
+    ctx.moveTo(leftPts[0].x, leftPts[0].y);
+    for (let i = 1; i <= steps; i++) ctx.lineTo(leftPts[i].x, leftPts[i].y);
+    const tip = centerPts[steps];
+    ctx.arc(tip.x, tip.y, tip.r, Math.atan2(leftPts[steps].y - tip.y, leftPts[steps].x - tip.x),
+            Math.atan2(rightPts[steps].y - tip.y, rightPts[steps].x - tip.x), false);
+    for (let i = steps; i >= 0; i--) ctx.lineTo(rightPts[i].x, rightPts[i].y);
+    ctx.closePath();
+
+    // Warm silver-ash bark shading (lit from upper-left)
+    const mid = centerPts[Math.floor(steps * 0.5)];
+    const g = ctx.createLinearGradient(
+      mid.x - limb.r0 * 1.2, mid.y - limb.r0 * 0.8,
+      mid.x + limb.r0 * 1.2, mid.y + limb.r0 * 0.8
+    );
+    if (limb.layer === 0) {
+      g.addColorStop(0, '#5a534c');
+      g.addColorStop(0.55, '#46403a');
+      g.addColorStop(1, '#332e2a');
+    } else {
+      g.addColorStop(0, '#857b6f');
+      g.addColorStop(0.45, '#63594f');
+      g.addColorStop(1, '#3b342e');
+    }
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    // Bark fissures & sunlit ridges
+    for (const ridge of limb.ridges) {
+      const i0 = Math.floor(ridge.t0 * steps);
+      const i1 = Math.min(steps, Math.ceil(ridge.t1 * steps));
+      if (i1 <= i0) continue;
+      ctx.beginPath();
+      for (let i = i0; i <= i1; i++) {
+        const c = centerPts[i];
+        const rx = c.x + c.nx * c.r * ridge.offset;
+        const ry = c.y + c.ny * c.r * ridge.offset;
+        if (i === i0) ctx.moveTo(rx, ry);
+        else ctx.lineTo(rx, ry);
+      }
+      ctx.strokeStyle = ridge.light ? 'rgba(176,166,150,0.34)' : 'rgba(34,28,24,0.42)';
+      ctx.lineWidth = ridge.w;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+  }
+
+  function drawScholarStone() {
+    ctx.save();
+    // Craggy dark slate Suiseki stone nestled on right side of moss bed
+    ctx.beginPath();
+    ctx.moveTo(494, 838);
+    ctx.lineTo(504, 786);
+    ctx.lineTo(526, 744);
+    ctx.lineTo(552, 730);
+    ctx.lineTo(576, 748);
+    ctx.lineTo(598, 774);
+    ctx.lineTo(614, 812);
+    ctx.lineTo(620, 842);
+    ctx.closePath();
+
+    const rockGrad = ctx.createLinearGradient(504, 730, 616, 842);
+    rockGrad.addColorStop(0, '#5a666d');
+    rockGrad.addColorStop(0.45, '#3d474d');
+    rockGrad.addColorStop(1, '#242b30');
+    ctx.fillStyle = rockGrad;
+    ctx.fill();
+
+    // Chiseled geological facets
+    ctx.beginPath();
+    ctx.moveTo(552, 730);
+    ctx.lineTo(544, 772);
+    ctx.lineTo(564, 806);
+    ctx.lineTo(552, 840);
+    ctx.lineTo(494, 838);
+    ctx.lineTo(504, 786);
+    ctx.lineTo(526, 744);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(128,146,154,0.22)';
+    ctx.fill();
+
+    // Deep crevice shadow where the root grips the stone
+    ctx.beginPath();
+    ctx.moveTo(532, 766);
+    ctx.quadraticCurveTo(566, 782, 580, 838);
+    ctx.strokeStyle = 'rgba(18,22,26,0.58)';
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Crisp mineral quartz vein in stone
+    ctx.beginPath();
+    ctx.moveTo(522, 756);
+    ctx.lineTo(545, 774);
+    ctx.lineTo(538, 796);
+    ctx.strokeStyle = 'rgba(195,208,214,0.32)';
+    ctx.lineWidth = 1.3;
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawMossLayer(frontOnly, time) {
+    for (const m of mossTufts) {
+      if (m.front !== frontOnly) continue;
+      const c1 = lerpRGB([44, 84, 46], [72, 122, 54], m.tone);
+      const c2 = lerpRGB([96, 148, 62], [142, 182, 74], m.tone);
+
+      const g = ctx.createRadialGradient(
+        m.x - m.rx * 0.25, m.y - m.ry * 0.45, m.ry * 0.1,
+        m.x, m.y, m.rx
+      );
+      g.addColorStop(0, rgbStr(c2, 0.96));
+      g.addColorStop(0.7, rgbStr(c1, 0.96));
+      g.addColorStop(1, 'rgba(30,54,32,0.9)');
+
+      ctx.beginPath();
+      ctx.ellipse(m.x, m.y, m.rx, m.ry, 0, Math.PI, Math.PI * 2);
+      ctx.quadraticCurveTo(m.x, m.y + m.ry * 0.45, m.x - m.rx, m.y);
+      ctx.fillStyle = g;
+      ctx.fill();
+
+      // Delicate moss sporophyte stalks swaying subtly
+      if (m.spore) {
+        const sw = Math.sin(time * 1.8 + m.spore.phase) * 1.8;
+        const tx = m.x + m.spore.lean + sw;
+        const ty = m.y - m.ry * 0.7 - m.spore.h;
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y - m.ry * 0.5);
+        ctx.quadraticCurveTo(m.x + sw * 0.4, m.y - m.ry * 0.5 - m.spore.h * 0.5, tx, ty);
+        ctx.strokeStyle = 'rgba(154,178,92,0.55)';
+        ctx.lineWidth = 0.9;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(tx, ty, 1.6, 0, Math.PI * 2);
+        ctx.fillStyle = '#d8be64';
+        ctx.fill();
+      }
+    }
+  }
+
+  function drawPotBackRim() {
+    // Inner dark soil bed & back ceramic rim so tree/moss sits genuinely inside the pot
+    ctx.beginPath();
+    ctx.ellipse(500, 846, 206, 14, 0, 0, Math.PI * 2);
+    ctx.fillStyle = '#261f1a';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(282, 846);
+    ctx.quadraticCurveTo(500, 834, 718, 846);
+    ctx.lineTo(706, 852);
+    ctx.quadraticCurveTo(500, 841, 294, 852);
+    ctx.closePath();
+    ctx.fillStyle = '#3a5c63';
+    ctx.fill();
+  }
+
+  function drawPotFront(time, sapPulsePhase) {
+    ctx.save();
+
+    // 1. Two sturdy glazed ceramic feet resting FLUSH on y = 1000
+    // Left foot (y: 980 -> 1000)
+    const footGradL = ctx.createLinearGradient(340, 980, 412, 1000);
+    footGradL.addColorStop(0, '#3a5d66');
+    footGradL.addColorStop(0.6, '#28434a');
+    footGradL.addColorStop(1, '#1d3238');
+    ctx.beginPath();
+    ctx.moveTo(338, 978);
+    ctx.lineTo(416, 978);
+    ctx.lineTo(408, 996);
+    ctx.quadraticCurveTo(406, 1000, 400, 1000);
+    ctx.lineTo(350, 1000);
+    ctx.quadraticCurveTo(344, 1000, 342, 996);
+    ctx.closePath();
+    ctx.fillStyle = footGradL;
+    ctx.fill();
+
+    // Right foot (y: 980 -> 1000)
+    const footGradR = ctx.createLinearGradient(584, 980, 660, 1000);
+    footGradR.addColorStop(0, '#2c4950');
+    footGradR.addColorStop(0.6, '#21383e');
+    footGradR.addColorStop(1, '#18292e');
+    ctx.beginPath();
+    ctx.moveTo(584, 978);
+    ctx.lineTo(662, 978);
+    ctx.lineTo(658, 996);
+    ctx.quadraticCurveTo(656, 1000, 650, 1000);
+    ctx.lineTo(600, 1000);
+    ctx.quadraticCurveTo(594, 1000, 592, 996);
+    ctx.closePath();
+    ctx.fillStyle = footGradR;
+    ctx.fill();
+
+    // Subtle recessed base Apron between feet (cloud-arch cutout)
+    ctx.beginPath();
+    ctx.moveTo(395, 978);
+    ctx.lineTo(605, 978);
+    ctx.lineTo(596, 989);
+    ctx.quadraticCurveTo(580, 983, 500, 983);
+    ctx.quadraticCurveTo(420, 983, 404, 989);
+    ctx.closePath();
+    ctx.fillStyle = '#1b2e33';
+    ctx.fill();
+
+    // 2. Main Chamfered Celadon Pot Body (y: 850 -> 981)
+    ctx.beginPath();
+    ctx.moveTo(292, 852);
+    ctx.lineTo(708, 852);
+    ctx.lineTo(682, 966);
+    ctx.quadraticCurveTo(676, 981, 658, 981);
+    ctx.lineTo(342, 981);
+    ctx.quadraticCurveTo(324, 981, 318, 966);
+    ctx.closePath();
+
+    const bodyGrad = ctx.createLinearGradient(292, 852, 708, 975);
+    bodyGrad.addColorStop(0, '#5c858c');
+    bodyGrad.addColorStop(0.22, '#476e75');
+    bodyGrad.addColorStop(0.68, '#33535a');
+    bodyGrad.addColorStop(1, '#233b41');
+    ctx.fillStyle = bodyGrad;
+    ctx.fill();
+
+    // Left sunlit bevel facet (octagonal chamfered corner)
+    ctx.beginPath();
+    ctx.moveTo(292, 852);
+    ctx.lineTo(352, 855);
+    ctx.lineTo(366, 981);
+    ctx.lineTo(342, 981);
+    ctx.quadraticCurveTo(324, 981, 318, 966);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(146,188,192,0.22)';
+    ctx.fill();
+
+    // Right shaded bevel facet
+    ctx.beginPath();
+    ctx.moveTo(648, 855);
+    ctx.lineTo(708, 852);
+    ctx.lineTo(682, 966);
+    ctx.quadraticCurveTo(676, 981, 658, 981);
+    ctx.lineTo(634, 981);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(14,26,30,0.28)';
+    ctx.fill();
+
+    // Recessed decorative front frame window
+    ctx.beginPath();
+    ctx.roundRect(378, 878, 244, 78, 6);
+    ctx.fillStyle = 'rgba(26,46,52,0.28)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(138,180,184,0.28)';
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+
+    // Fine celadon crackle glaze lines
+    ctx.beginPath();
+    for (const c of crackles) {
+      ctx.moveTo(c.x1, c.y1);
+      ctx.lineTo(c.x2, c.y2);
+    }
+    ctx.strokeStyle = 'rgba(190,220,222,0.13)';
+    ctx.lineWidth = 0.85;
+    ctx.stroke();
+
+    // 3. Flared Upper Lip Rim (overlapping bottom edge of moss cleanly)
+    ctx.beginPath();
+    ctx.moveTo(278, 845);
+    ctx.quadraticCurveTo(500, 853, 722, 845);
+    ctx.lineTo(718, 858);
+    ctx.quadraticCurveTo(500, 866, 282, 858);
+    ctx.closePath();
+
+    const rimGrad = ctx.createLinearGradient(278, 845, 722, 858);
+    rimGrad.addColorStop(0, '#82aaae');
+    rimGrad.addColorStop(0.35, '#5f898f');
+    rimGrad.addColorStop(0.8, '#3f6369');
+    rimGrad.addColorStop(1, '#2d4a50');
+    ctx.fillStyle = rimGrad;
+    ctx.fill();
+
+    // Specular glaze highlight along upper lip edge
+    ctx.beginPath();
+    ctx.moveTo(282, 846.5);
+    ctx.quadraticCurveTo(500, 854.5, 718, 846.5);
+    ctx.strokeStyle = 'rgba(216,238,238,0.55)';
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+
+    // Under-lip shadow crease
+    ctx.beginPath();
+    ctx.moveTo(292, 858.5);
+    ctx.quadraticCurveTo(500, 866.5, 708, 858.5);
+    ctx.strokeStyle = 'rgba(12,24,28,0.45)';
+    ctx.lineWidth = 2.2;
+    ctx.stroke();
+
+    // 4. Kintsugi Gold-Lacquer Repair Seam on the Pot (connecting into root at x=552, y=846)
+    const potGlow = 0.5 + 0.5 * Math.sin(sapPulsePhase);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    // Subtle warm gold halo
+    ctx.beginPath();
+    ctx.moveTo(552, 846);
+    ctx.lineTo(558, 862);
+    ctx.lineTo(548, 892);
+    ctx.lineTo(568, 926);
+    ctx.lineTo(562, 956);
+    ctx.lineTo(578, 980);
+    ctx.moveTo(548, 892);
+    ctx.lineTo(518, 914);
+    ctx.lineTo(498, 922);
+    ctx.strokeStyle = `rgba(255,214,102,${(0.18 + potGlow * 0.25).toFixed(3)})`;
+    ctx.lineWidth = 5.5;
+    ctx.stroke();
+
+    // Crisp metallic gold lacquer seam
+    const goldGrad = ctx.createLinearGradient(500, 846, 580, 980);
+    goldGrad.addColorStop(0, '#ffe898');
+    goldGrad.addColorStop(0.5, '#e2b246');
+    goldGrad.addColorStop(1, '#f7d674');
+
+    ctx.beginPath();
+    ctx.moveTo(552, 846);
+    ctx.lineTo(558, 862);
+    ctx.lineTo(548, 892);
+    ctx.lineTo(568, 926);
+    ctx.lineTo(562, 956);
+    ctx.lineTo(578, 980);
+    ctx.moveTo(548, 892);
+    ctx.lineTo(518, 914);
+    ctx.lineTo(498, 922);
+    ctx.strokeStyle = goldGrad;
+    ctx.lineWidth = 2.1;
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawKintsugiTrunkSeam(time, sapPulsePos) {
+    ctx.save();
+    ctx.lineCap = 'round';
+
+    kintsugiTrunkPaths.forEach((seg, idx) => {
+      const steps = 18;
+      // Dark recessed shari groove first
+      ctx.beginPath();
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const p = bezierPt(seg.p0, seg.p1, seg.p2, seg.p3, t);
+        const w = windAt(p.x, p.y, time, seg.flex * Math.pow(t, 1.1));
+        if (i === 0) ctx.moveTo(p.x + w.dx, p.y + w.dy);
+        else ctx.lineTo(p.x + w.dx, p.y + w.dy);
+      }
+      ctx.strokeStyle = 'rgba(34,26,20,0.68)';
+      ctx.lineWidth = idx < 3 ? 4.2 - idx * 0.7 : 2.6;
+      ctx.stroke();
+
+      // Gold kintsugi inlay with traveling luminous sap wave
+      for (let i = 0; i < steps; i++) {
+        const t0 = i / steps;
+        const t1 = (i + 1) / steps;
+        const pA = bezierPt(seg.p0, seg.p1, seg.p2, seg.p3, t0);
+        const pB = bezierPt(seg.p0, seg.p1, seg.p2, seg.p3, t1);
+        const wA = windAt(pA.x, pA.y, time, seg.flex * Math.pow(t0, 1.1));
+        const wB = windAt(pB.x, pB.y, time, seg.flex * Math.pow(t1, 1.1));
+
+        const yNorm = (850 - pA.y) / 620; // 0 at pot rim -> 1 near crown
+        const dist = Math.abs(((sapPulsePos - yNorm + 1.5) % 1.0) - 0.5) * 2;
+        const glow = Math.pow(Math.max(0, 1 - dist * 2.4), 2);
+
+        ctx.beginPath();
+        ctx.moveTo(pA.x + wA.dx, pA.y + wA.dy);
+        ctx.lineTo(pB.x + wB.dx, pB.y + wB.dy);
+
+        const lw = (idx < 3 ? 2.1 - idx * 0.35 : 1.3) + glow * 1.1;
+        ctx.strokeStyle = glow > 0.15
+          ? rgbStr(lerpRGB([218, 172, 68], [255, 244, 178], glow), 0.92)
+          : 'rgba(218,172,68,0.82)';
+        ctx.lineWidth = lw;
+        ctx.stroke();
+      }
+    });
+
+    ctx.restore();
+  }
+
+  function drawLeavesLayer(targetLayer, time, seasonGold, sapPulsePos) {
+    for (let i = 0; i < leaves.length; i++) {
+      const leaf = leaves[i];
+      if (leaf.layer !== targetLayer) continue;
+
+      const w = windAt(leaf.x, leaf.y, time, leaf.flex);
+      const flutter = Math.sin(time * leaf.flutterSpeed + leaf.phase + w.dx * 0.08);
+      const angle = leaf.baseAngle + w.rot + flutter * 0.14;
+      // Subtle 3D fan rotation without ever vanishing razor-thin
+      const twist = 0.72 + 0.28 * Math.cos(time * (leaf.flutterSpeed * 0.85) + leaf.phase);
+
+      const yNorm = (850 - leaf.y) / 680;
+      const dist = Math.abs(((sapPulsePos - yNorm + 1.5) % 1.0) - 0.5) * 2;
+      const sapGlow = Math.pow(Math.max(0, 1 - dist * 2.8), 2);
+
+      const cols = getLeafColors(leaf, seasonGold, sapGlow);
+      drawGinkgoFan(
+        leaf.x + w.dx,
+        leaf.y + w.dy,
+        leaf.size,
+        angle,
+        leaf.spread,
+        leaf.notchDepth,
+        twist,
+        cols.base,
+        cols.tip,
+        1,
+        targetLayer === 2
+      );
+    }
+  }
+
+  function updateAndDrawDrifters(time, phase, seasonGold) {
+    if (time >= nextSpawnTime && drifters.length < MAX_DRIFTERS) {
+      spawnDrifter(time, seasonGold);
+      nextSpawnTime = time + rand(3.6, 6.2);
+    }
+
+    for (let i = drifters.length - 1; i >= 0; i--) {
+      const d = drifters[i];
+      const age = time - d.born;
+      const total = d.fallDur + d.restDur;
+      if (age >= total) {
+        drifters.splice(i, 1);
+        continue;
+      }
+
+      const baseCol = lerpRGB(PAL_JADE_MID, PAL_GOLD_MID, d.goldBias);
+      const tipCol  = lerpRGB(PAL_JADE_LIGHT, PAL_GOLD_LIGHT, d.goldBias);
+
+      if (phase === 'resting' && age >= d.fallDur) {
+        // Resting peacefully on the moss bed before fading away
+        const restT = (age - d.fallDur) / d.restDur;
+        const alpha = restT > 0.72 ? 1 - (restT - 0.72) / 0.28 : 1;
+        ctx.save();
+        ctx.translate(d.targetX, d.targetY);
+        ctx.scale(1, 0.42); // Perspective foreshortening flat on the moss mound
+        drawGinkgoFan(0, 0, d.size * 0.86, Math.PI * 0.5 + d.landAngle, d.spread, d.notchDepth, 1, baseCol, tipCol, alpha, false);
+        ctx.restore();
+      } else if (phase === 'falling' && age < d.fallDur) {
+        // Aerodynamic pendulum glide down toward the pot moss
+        const p = age / d.fallDur;
+        const easeY = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+        const env = Math.sin(p * Math.PI); // Smooth zero sway at release & touch-down
+        const sway = Math.sin(age * d.swayFreq + d.phase) * d.swayAmp * env;
+
+        let cx = lerp(d.startX, d.targetX, p) + sway;
+        let cy = lerp(d.startY, d.targetY, easeY) - Math.abs(Math.cos(age * d.swayFreq + d.phase)) * 8 * env;
+
+        // Keep strictly within safe square margin
+        cx = Math.max(95, Math.min(905, cx));
+
+        const swingAngle = Math.PI * 0.5 + Math.cos(age * d.swayFreq + d.phase) * 0.65 * env + d.landAngle * p;
+        const twist = 0.45 + 0.55 * Math.sin(age * 2.8 + d.phase);
+        const yScale = lerp(1, 0.42, Math.pow(p, 3));
+
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(1, yScale);
+        drawGinkgoFan(0, 0, d.size * lerp(1, 0.86, p), swingAngle, d.spread, d.notchDepth, twist, baseCol, tipCol, 1, true);
+        ctx.restore();
+      }
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // MAIN ANIMATION LOOP
+  // -------------------------------------------------------------------------
+  const startTime = performance.now();
+
+  function frame(now) {
+    const time = (now - startTime) * 0.001;
+
+    // Smooth pointer tracking & gentle decay
+    pointer.x += (pointer.tx - pointer.x) * 0.09;
+    pointer.y += (pointer.ty - pointer.y) * 0.09;
+    pointer.vx *= 0.90;
+    pointer.vy *= 0.90;
+
+    // Continuous seasonal tide (~38s cycle; starts in radiant Jade-to-Gold mosaic)
+    const seasonGold = 0.52 + 0.44 * Math.sin(time * ((Math.PI * 2) / 38) + 0.35);
+
+    // Subtle golden sap pulse traveling from the kintsugi pot up through the trunk (~11s loop)
+    const sapPulsePos = (time * 0.09) % 1.0;
+    const sapPulsePhase = time * 1.4;
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Anchor virtual (500, 1000) to exact bottom-center of viewport
+    const s = scale * dpr;
+    ctx.setTransform(s, 0, 0, s, canvas.width * 0.5 - 500 * s, canvas.height - 1000 * s);
+
+    // 1. Back-layer branches & deep canopy foliage
+    for (const limb of limbs) {
+      if (limb.layer === 0) drawLimb(limb, time);
+    }
+    drawLeavesLayer(0, time, seasonGold, sapPulsePos);
+
+    // 2. Pot back rim, back moss tufts & scholar's stone
+    drawPotBackRim();
+    drawMossLayer(false, time);
+    drawScholarStone();
+
+    // 3. Main trunk, surface roots gripping stone/moss, and golden kintsugi trunk seam
+    for (const limb of limbs) {
+      if (limb.layer === 1) drawLimb(limb, time);
+    }
+    drawKintsugiTrunkSeam(time, sapPulsePos);
+
+    // 4. Foreground moss tufts overlapping root tips + fallen golden leaves resting on moss
+    drawMossLayer(true, time);
+    updateAndDrawDrifters(time, 'resting', seasonGold);
+
+    // 5. Glazed celadon pot front, rim lip & kintsugi ceramic seam (sits flush at y = 1000)
+    drawPotFront(time, sapPulsePhase);
+
+    // 6. Mid-canopy leaves & foreground twigs
+    drawLeavesLayer(1, time, seasonGold, sapPulsePos);
+    for (const limb of limbs) {
+      if (limb.layer === 2) drawLimb(limb, time);
+    }
+
+    // 7. Sunlit outer fan leaves & fluttering mid-air leaves
+    drawLeavesLayer(2, time, seasonGold, sapPulsePos);
+    updateAndDrawDrifters(time, 'falling', seasonGold);
+
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Kintsugi Fan Ginkgo",
+  "statement": "Rooted over a weathered scholar's stone in a gold-mended celadon pot, this ancient ginkgo carries a matching kintsugi seam up its wind-carved trunk. Waves of jade and amber fan leaves flutter in a quiet breeze as golden warmth travels from mended clay to crown."
+}
+```

@@ -2,5 +2,19 @@
   "artist": "Claude Opus 5.5",
   "provider": "Anthropic",
   "modelId": "claude-opus-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Tangle-Untangle Tincture",
+  "statement": "A round flask of indigo thought where glowing threads knot themselves into a muddle, then slowly comb out into a calm golden rosette, and each little bubble of clarity pops into a spark. Take one swirl whenever a problem feels snarled; stirring is encouraged.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1,
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

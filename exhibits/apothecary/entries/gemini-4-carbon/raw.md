@@ -1,0 +1,914 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ApothecarI</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0b0812;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(() => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d', { alpha: false });
+
+  // Virtual coordinate space (2:3 portrait)
+  const VW = 400;
+  const VH = 600;
+  const CX = 200;
+
+  let width = 0, height = 0, dpr = 1, scale = 1, offsetX = 0, offsetY = 0;
+
+  // Pointer state in virtual coordinates
+  const pointer = { x: CX, y: 390, vx: 0, vy: 0, active: false, lastX: CX, lastY: 390 };
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    scale = Math.min(width / VW, height / VH);
+    offsetX = (width - VW * scale) * 0.5;
+    offsetY = (height - VH * scale) * 0.5;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function updatePointer(clientX, clientY) {
+    const nx = (clientX - offsetX) / scale;
+    const ny = (clientY - offsetY) / scale;
+    if (pointer.active) {
+      pointer.vx = (nx - pointer.lastX) * 0.35;
+      pointer.vy = (ny - pointer.lastY) * 0.35;
+    }
+    pointer.x = nx;
+    pointer.y = ny;
+    pointer.lastX = nx;
+    pointer.lastY = ny;
+    pointer.active = true;
+  }
+
+  window.addEventListener('pointermove', (e) => updatePointer(e.clientX, e.clientY), { passive: true });
+  window.addEventListener('pointerleave', () => { pointer.active = false; }, { passive: true });
+
+  // Bottle profile defined with Hermite spline segments: [y, radius, slope dr/dy]
+  const Y_TOP = 156;
+  const Y_BOT = 512;
+  const profileNodes = [
+    [156, 31,  0.8],   // flared lip top
+    [163, 35,  0.0],   // lip outer rim
+    [172, 21, -0.3],   // under lip
+    [192, 19,  0.1],   // upper neck
+    [226, 38,  0.0],   // secondary alchemical neck bulb
+    [262, 21,  0.0],   // cinched waist (gimbal collar)
+    [312, 68,  1.25],  // shoulder sweep
+    [404, 118, 0.0],   // full lantern belly
+    [478, 98, -0.75],  // lower taper
+    [505, 69, -0.8],   // sturdy glass foot
+    [512, 62, -1.2]    // base contact
+  ];
+
+  const outerR = new Float32Array(Y_BOT + 2);
+  const innerR = new Float32Array(Y_BOT + 2);
+
+  function evalHermite(y) {
+    if (y <= profileNodes[0][0]) return profileNodes[0][1];
+    if (y >= profileNodes[profileNodes.length - 1][0]) return profileNodes[profileNodes.length - 1][1];
+    for (let i = 0; i < profileNodes.length - 1; i++) {
+      const [y0, r0, m0] = profileNodes[i];
+      const [y1, r1, m1] = profileNodes[i + 1];
+      if (y >= y0 && y <= y1) {
+        const h = y1 - y0;
+        const t = (y - y0) / h;
+        const t2 = t * t;
+        const t3 = t2 * t;
+        const h00 = 2 * t3 - 3 * t2 + 1;
+        const h10 = t3 - 2 * t2 + t;
+        const h01 = -2 * t3 + 3 * t2;
+        const h11 = t3 - t2;
+        return h00 * r0 + h10 * h * m0 + h01 * r1 + h11 * h * m1;
+      }
+    }
+    return 50;
+  }
+
+  for (let y = Y_TOP; y <= Y_BOT; y++) {
+    const r = evalHermite(y);
+    outerR[y] = r;
+    // Variable glass wall thickness (thicker at heavy base and rim)
+    const baseThick = y > 485 ? 5.5 + ((y - 485) / 27) * 6.5 : 5.5;
+    const neckThin = y < 270 ? 4.2 : baseThick;
+    innerR[y] = Math.max(8, r - neckThin);
+  }
+
+  function getInnerR(y) {
+    const yi = Math.max(Y_TOP + 4, Math.min(Y_BOT - 10, y));
+    const y0 = yi | 0;
+    const f = yi - y0;
+    return innerR[y0] * (1 - f) + innerR[y0 + 1] * f;
+  }
+
+  function traceBottlePath(ctx, radiusTable, yStart, yEnd, bottomArch) {
+    ctx.beginPath();
+    ctx.moveTo(CX - radiusTable[yStart], yStart);
+    for (let y = yStart + 2; y <= yEnd; y += 2) {
+      ctx.lineTo(CX - radiusTable[y], y);
+    }
+    ctx.lineTo(CX - radiusTable[yEnd], yEnd);
+    // Curved bottom with subtle apothecary punt
+    const rb = radiusTable[yEnd];
+    ctx.bezierCurveTo(
+      CX - rb * 0.55, yEnd + bottomArch,
+      CX + rb * 0.55, yEnd + bottomArch,
+      CX + rb, yEnd
+    );
+    for (let y = yEnd; y >= yStart; y -= 2) {
+      ctx.lineTo(CX + radiusTable[y], y);
+    }
+    ctx.closePath();
+  }
+
+  // Liquid surface state
+  const LIQUID_Y = 304;
+  let waveTilt = 0;
+  let waveVel = 0;
+
+  // Constellation motes ("Twinkle-Tangle" nodes)
+  const NUM_MOTES = 44;
+  const motes = [];
+  const palette = [
+    { r: 255, g: 224, b: 125 }, // warm starlight gold
+    { r: 105, g: 245, b: 225 }, // electric seafoam-cyan
+    { r: 255, g: 135, b: 185 }, // luminous rose
+    { r: 175, g: 150, b: 255 }  // soft astral violet
+  ];
+
+  for (let i = 0; i < NUM_MOTES; i++) {
+    const y = LIQUID_Y + 20 + Math.random() * (Y_BOT - 26 - LIQUID_Y - 20);
+    const maxR = getInnerR(y) - 8;
+    const x = CX + (Math.random() * 2 - 1) * maxR * 0.85;
+    const col = palette[i % palette.length];
+    motes.push({
+      x, y,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      baseSize: 1.8 + Math.random() * 2.1,
+      phase: Math.random() * Math.PI * 2,
+      col,
+      spark: 0
+    });
+  }
+
+  // Effervescent rising micro-bubbles & neck vapor sparks
+  const bubbles = [];
+  const vapors = [];
+
+  function spawnBubble(x, y, col) {
+    if (bubbles.length > 35) return;
+    bubbles.push({
+      x, y,
+      r: 1.0 + Math.random() * 2.0,
+      vy: -(0.55 + Math.random() * 0.75),
+      wobble: Math.random() * Math.PI * 2,
+      col: col || palette[0]
+    });
+  }
+
+  function spawnVapor(x, col) {
+    if (vapors.length > 22) return;
+    vapors.push({
+      x,
+      y: LIQUID_Y - 2,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: -(0.35 + Math.random() * 0.45),
+      life: 1.0,
+      decay: 0.0045 + Math.random() * 0.004,
+      size: 6 + Math.random() * 10,
+      col
+    });
+  }
+
+  // Fallen glowing glass beads resting beside the bottle on the shelf floor
+  const floorDrops = [
+    { x: 76,  y: 517, r: 5.5, col: palette[1], phase: 0.4 },
+    { x: 93,  y: 525, r: 3.6, col: palette[0], phase: 2.1 },
+    { x: 326, y: 520, r: 4.8, col: palette[2], phase: 4.0 }
+  ];
+
+  let sparkTimer = 0;
+  let crystalPulse = 0;
+
+  function drawStarFlare(x, y, radius, rot, colorStr, alpha) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.fillStyle = colorStr;
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    for (let i = 0; i < 4; i++) {
+      ctx.rotate(Math.PI * 0.5);
+      ctx.moveTo(0, -radius);
+      ctx.quadraticCurveTo(radius * 0.12, -radius * 0.12, radius, 0);
+      ctx.quadraticCurveTo(radius * 0.12, radius * 0.12, 0, radius);
+    }
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function getMeniscusY(x, t) {
+    const dx = (x - CX) / 80;
+    return LIQUID_Y
+      + dx * waveTilt * 14
+      + Math.sin(dx * 3.5 + t * 2.6) * 2.4
+      + Math.cos(dx * 5.2 - t * 1.9) * 1.4;
+  }
+
+  function drawGimbalRings(t, frontHalf) {
+    const cy = 262;
+    const rx1 = 30, ry1 = 8.5;
+    const tilt1 = Math.sin(t * 0.7) * 0.22 + 0.12;
+    const rx2 = 36, ry2 = 10.5;
+    const tilt2 = -Math.cos(t * 0.55) * 0.26 - 0.15;
+
+    const rings = [
+      { rx: rx2, ry: ry2, tilt: tilt2, w: 2.2, bright: '#f5d076', dark: '#7a5318' },
+      { rx: rx1, ry: ry1, tilt: tilt1, w: 2.8, bright: '#ffe699', dark: '#8f6320' }
+    ];
+
+    for (let i = 0; i < rings.length; i++) {
+      const rg = rings[i];
+      ctx.save();
+      ctx.translate(CX, cy);
+      ctx.rotate(rg.tilt);
+      ctx.beginPath();
+      if (frontHalf) {
+        ctx.ellipse(0, 0, rg.rx, rg.ry, 0, 0, Math.PI, false);
+      } else {
+        ctx.ellipse(0, 0, rg.rx, rg.ry, 0, Math.PI, Math.PI * 2, false);
+      }
+      const grad = ctx.createLinearGradient(-rg.rx, 0, rg.rx, 0);
+      grad.addColorStop(0, rg.dark);
+      grad.addColorStop(0.35, rg.bright);
+      grad.addColorStop(0.7, '#d49b38');
+      grad.addColorStop(1, rg.dark);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = rg.w;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Tiny astrolabe bead on outer ring
+      if (i === 0) {
+        const angle = (t * 0.9) % (Math.PI * 2);
+        const inFront = Math.sin(angle) >= 0;
+        if (inFront === frontHalf) {
+          const bx = Math.cos(angle) * rg.rx;
+          const by = Math.sin(angle) * rg.ry;
+          ctx.fillStyle = '#fff2be';
+          ctx.beginPath();
+          ctx.arc(bx, by, 3.0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+    }
+  }
+
+  function drawCrystalStopper(t) {
+    const baseY = 160;
+    const topY = 82 + Math.sin(t * 1.6) * 1.2;
+    const pulse = 0.35 + crystalPulse * 0.65 + Math.sin(t * 2.2) * 0.08;
+
+    ctx.save();
+
+    // Soft outer crystal aura
+    const aura = ctx.createRadialGradient(CX, 122, 4, CX, 122, 52);
+    aura.addColorStop(0, `rgba(185, 135, 255, ${0.28 * pulse})`);
+    aura.addColorStop(0.5, `rgba(105, 245, 225, ${0.12 * pulse})`);
+    aura.addColorStop(1, 'rgba(105, 245, 225, 0)');
+    ctx.fillStyle = aura;
+    ctx.beginPath();
+    ctx.arc(CX, 122, 52, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cork/brass seated collar inside neck
+    const plugGrad = ctx.createLinearGradient(CX - 18, 155, CX + 18, 155);
+    plugGrad.addColorStop(0, '#5c3c16');
+    plugGrad.addColorStop(0.4, '#e5b95c');
+    plugGrad.addColorStop(1, '#4a2e0f');
+    ctx.fillStyle = plugGrad;
+    ctx.beginPath();
+    ctx.moveTo(CX - 19, 154);
+    ctx.lineTo(CX + 19, 154);
+    ctx.lineTo(CX + 15, 174);
+    ctx.lineTo(CX - 15, 174);
+    ctx.closePath();
+    ctx.fill();
+
+    // Main faceted quartz crystal body
+    const pTop = { x: CX, y: topY };
+    const pUL  = { x: CX - 22, y: 116 };
+    const pML  = { x: CX - 3.5, y: 112 };
+    const pMR  = { x: CX + 7.5, y: 118 };
+    const pUR  = { x: CX + 21, y: 114 };
+    const pBL  = { x: CX - 16, y: baseY - 4 };
+    const pBM  = { x: CX + 2,  y: baseY - 2 };
+    const pBR  = { x: CX + 16, y: baseY - 4 };
+
+    // Left facet
+    const gLeft = ctx.createLinearGradient(CX - 22, topY, CX, baseY);
+    gLeft.addColorStop(0, '#9be8ff');
+    gLeft.addColorStop(0.5, '#7c5ce6');
+    gLeft.addColorStop(1, '#361c66');
+    ctx.fillStyle = gLeft;
+    ctx.beginPath();
+    ctx.moveTo(pTop.x, pTop.y);
+    ctx.lineTo(pUL.x, pUL.y);
+    ctx.lineTo(pBL.x, pBL.y);
+    ctx.lineTo(pBM.x, pBM.y);
+    ctx.lineTo(pML.x, pML.y);
+    ctx.closePath();
+    ctx.fill();
+
+    // Center bright facet
+    const gMid = ctx.createLinearGradient(CX, topY, CX, baseY);
+    gMid.addColorStop(0, '#ffffff');
+    gMid.addColorStop(0.35, `rgba(175, 245, 240, ${0.78 + crystalPulse * 0.22})`);
+    gMid.addColorStop(1, '#6f42c1');
+    ctx.fillStyle = gMid;
+    ctx.beginPath();
+    ctx.moveTo(pTop.x, pTop.y);
+    ctx.lineTo(pML.x, pML.y);
+    ctx.lineTo(pBM.x, pBM.y);
+    ctx.lineTo(pMR.x, pMR.y);
+    ctx.closePath();
+    ctx.fill();
+
+    // Right deep facet
+    const gRight = ctx.createLinearGradient(CX, topY, CX + 22, baseY);
+    gRight.addColorStop(0, '#d8b4ff');
+    gRight.addColorStop(0.55, '#542994');
+    gRight.addColorStop(1, '#261047');
+    ctx.fillStyle = gRight;
+    ctx.beginPath();
+    ctx.moveTo(pTop.x, pTop.y);
+    ctx.lineTo(pMR.x, pMR.y);
+    ctx.lineTo(pBM.x, pBM.y);
+    ctx.lineTo(pBR.x, pBR.y);
+    ctx.lineTo(pUR.x, pUR.y);
+    ctx.closePath();
+    ctx.fill();
+
+    // Crisp facet highlight edges
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+    ctx.lineWidth = 1.1;
+    ctx.beginPath();
+    ctx.moveTo(pTop.x, pTop.y); ctx.lineTo(pML.x, pML.y); ctx.lineTo(pBM.x, pBM.y);
+    ctx.moveTo(pTop.x, pTop.y); ctx.lineTo(pUL.x, pUL.y);
+    ctx.moveTo(pML.x, pML.y);  ctx.lineTo(pUL.x, pUL.y);
+    ctx.moveTo(pML.x, pML.y);  ctx.lineTo(pMR.x, pMR.y); ctx.lineTo(pUR.x, pUR.y);
+    ctx.stroke();
+
+    // Delicate gold filigree wire wrapping the crystal
+    ctx.strokeStyle = '#f3cb70';
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.moveTo(CX - 16, baseY - 4);
+    ctx.bezierCurveTo(CX - 22, 138, CX + 22, 132, CX + 19, 117);
+    ctx.moveTo(CX + 16, baseY - 4);
+    ctx.bezierCurveTo(CX + 14, 144, CX - 20, 138, CX - 21, 118);
+    ctx.stroke();
+
+    // Apex twinkle
+    drawStarFlare(pTop.x, pTop.y, 7 + crystalPulse * 8, t * 0.5, '#fff8dc', 0.55 + crystalPulse * 0.45);
+    ctx.restore();
+  }
+
+  let lastTime = performance.now();
+
+  function frame(now) {
+    const dt = Math.min((now - lastTime) / 16.667, 2.5);
+    lastTime = now;
+    const t = now * 0.001;
+
+    // Update wave physics
+    const targetTilt = pointer.active
+      ? Math.max(-0.8, Math.min(0.8, (pointer.x - CX) * -0.0025 + pointer.vx * 0.04))
+      : Math.sin(t * 0.9) * 0.12;
+    waveVel += (targetTilt - waveTilt) * 0.05 * dt;
+    waveVel *= Math.pow(0.9, dt);
+    waveTilt += waveVel * dt;
+
+    pointer.vx *= 0.9;
+    pointer.vy *= 0.9;
+    crystalPulse *= Math.pow(0.95, dt);
+
+    // Periodic constellation spark
+    sparkTimer -= dt;
+    if (sparkTimer <= 0) {
+      sparkTimer = 42 + Math.random() * 48;
+      const idx = (Math.random() * motes.length) | 0;
+      motes[idx].spark = 1.0;
+      spawnBubble(motes[idx].x, motes[idx].y, motes[idx].col);
+    }
+
+    // Update motes
+    for (let i = 0; i < motes.length; i++) {
+      const m = motes[i];
+      // Gentle swirling harmonic convection inside the flask
+      const nx = (m.x - CX) / 110;
+      const ny = (m.y - 410) / 100;
+      const flowX = Math.sin(ny * 2.6 + t * 0.75) * 0.018 - ny * 0.008;
+      const flowY = Math.cos(nx * 2.6 + t * 0.65) * 0.018 + nx * 0.008;
+
+      m.vx += flowX * dt;
+      m.vy += flowY * dt;
+
+      // Subtle pointer attraction & stir
+      if (pointer.active) {
+        const dx = pointer.x - m.x;
+        const dy = pointer.y - m.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < 14000 && d2 > 4) {
+          const dist = Math.sqrt(d2);
+          const pull = (1 - dist / 118) * 0.032 * dt;
+          m.vx += (dx / dist) * pull + pointer.vx * 0.015 * dt;
+          m.vy += (dy / dist) * pull + pointer.vy * 0.015 * dt;
+          if (dist < 28 && Math.random() < 0.04) m.spark = Math.max(m.spark, 0.85);
+        }
+      }
+
+      // Soft damping & speed cap
+      m.vx *= Math.pow(0.985, dt);
+      m.vy *= Math.pow(0.985, dt);
+      const spd = Math.hypot(m.vx, m.vy);
+      if (spd > 1.35) {
+        m.vx = (m.vx / spd) * 1.35;
+        m.vy = (m.vy / spd) * 1.35;
+      }
+
+      m.x += m.vx * dt;
+      m.y += m.vy * dt;
+
+      // Contain inside liquid bounds
+      const surfY = getMeniscusY(m.x, t) + 9;
+      if (m.y < surfY) {
+        m.y = surfY;
+        m.vy = Math.abs(m.vy) * 0.6 + 0.08;
+      }
+      if (m.y > Y_BOT - 14) {
+        m.y = Y_BOT - 14;
+        m.vy = -Math.abs(m.vy) * 0.6 - 0.08;
+      }
+      const rLim = getInnerR(m.y) - 8;
+      const offX = m.x - CX;
+      if (Math.abs(offX) > rLim) {
+        m.x = CX + Math.sign(offX) * rLim;
+        m.vx = -m.vx * 0.65;
+      }
+
+      if (m.spark > 0) {
+        m.spark = Math.max(0, m.spark - 0.018 * dt);
+      }
+    }
+
+    // Update rising micro-bubbles
+    if (Math.random() < 0.16 * dt) {
+      const by = Y_BOT - 16 - Math.random() * 45;
+      const br = getInnerR(by) - 10;
+      spawnBubble(CX + (Math.random() * 2 - 1) * br * 0.75, by, palette[(Math.random() * 4) | 0]);
+    }
+
+    for (let i = bubbles.length - 1; i >= 0; i--) {
+      const b = bubbles[i];
+      b.y += b.vy * dt;
+      b.x += Math.sin(t * 5 + b.wobble) * 0.35 * dt;
+      const rLim = getInnerR(b.y) - 5;
+      if (Math.abs(b.x - CX) > rLim) {
+        b.x = CX + Math.sign(b.x - CX) * rLim;
+      }
+      if (b.y <= getMeniscusY(b.x, t) + 2) {
+        spawnVapor(b.x, b.col);
+        crystalPulse = Math.min(1, crystalPulse + 0.16);
+        bubbles.splice(i, 1);
+      }
+    }
+
+    // Update luminous vapors in neck & upper bulb
+    for (let i = vapors.length - 1; i >= 0; i--) {
+      const v = vapors[i];
+      v.y += v.vy * dt;
+      v.x += (v.vx + (CX - v.x) * 0.015) * dt;
+      v.life -= v.decay * dt;
+      const rLim = getInnerR(Math.max(175, v.y)) - 6;
+      if (Math.abs(v.x - CX) > rLim) {
+        v.x = CX + Math.sign(v.x - CX) * rLim;
+      }
+      if (v.life <= 0 || v.y < 174) {
+        vapors.splice(i, 1);
+      }
+    }
+
+    // ================= RENDER =================
+    ctx.save();
+    ctx.scale(dpr, dpr);
+
+    // Deep cubby ambient interior fill (covers full viewport seamlessly)
+    const bgGrad = ctx.createRadialGradient(
+      width * 0.5, offsetY + 385 * scale, 20 * scale,
+      width * 0.5, offsetY + 340 * scale, Math.max(width, height) * 0.78
+    );
+    bgGrad.addColorStop(0, '#26173e');
+    bgGrad.addColorStop(0.42, '#140c24');
+    bgGrad.addColorStop(1, '#08050e');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.translate(offsetX, offsetY);
+    ctx.scale(scale, scale);
+
+    // Subtle cubby floor shadow & refractive caustic glow beneath bottle
+    const floorGlow = ctx.createRadialGradient(CX, 520, 8, CX, 520, 155);
+    floorGlow.addColorStop(0, 'rgba(90, 225, 220, 0.24)');
+    floorGlow.addColorStop(0.38, 'rgba(155, 75, 215, 0.16)');
+    floorGlow.addColorStop(0.75, 'rgba(20, 10, 35, 0.35)');
+    floorGlow.addColorStop(1, 'rgba(8, 5, 14, 0)');
+    ctx.save();
+    ctx.translate(CX, 520);
+    ctx.scale(1, 0.26);
+    ctx.fillStyle = floorGlow;
+    ctx.beginPath();
+    ctx.arc(0, 0, 155, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Contact shadow right under the glass base
+    ctx.save();
+    ctx.translate(CX, 517);
+    ctx.scale(1, 0.22);
+    const contactShad = ctx.createRadialGradient(0, 0, 15, 0, 0, 76);
+    contactShad.addColorStop(0, 'rgba(4, 2, 10, 0.85)');
+    contactShad.addColorStop(0.55, 'rgba(30, 180, 195, 0.32)');
+    contactShad.addColorStop(1, 'rgba(4, 2, 10, 0)');
+    ctx.fillStyle = contactShad;
+    ctx.beginPath();
+    ctx.arc(0, 0, 76, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Animated caustic light arcs on the ground plane
+    ctx.save();
+    ctx.translate(CX, 518);
+    ctx.scale(1, 0.22);
+    ctx.strokeStyle = `rgba(135, 245, 235, ${0.16 + Math.sin(t * 2.1) * 0.05})`;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(Math.sin(t * 1.1) * 8, 4, 62, 0.2, Math.PI - 0.2);
+    ctx.stroke();
+    ctx.restore();
+
+    // Back half of brass gimbal rings
+    drawGimbalRings(t, false);
+
+    // Crystal stopper (sits into neck)
+    drawCrystalStopper(t);
+
+    // Outer glass body silhouette & back-wall refraction
+    traceBottlePath(ctx, outerR, Y_TOP, Y_BOT, 12);
+    const glassBack = ctx.createLinearGradient(CX - 118, 250, CX + 118, 480);
+    glassBack.addColorStop(0, 'rgba(150, 210, 255, 0.14)');
+    glassBack.addColorStop(0.5, 'rgba(65, 40, 110, 0.10)');
+    glassBack.addColorStop(1, 'rgba(210, 150, 255, 0.16)');
+    ctx.fillStyle = glassBack;
+    ctx.fill();
+
+    // Clip to inner chamber for vapor, liquid, constellations & bubbles
+    ctx.save();
+    traceBottlePath(ctx, innerR, Y_TOP + 4, Y_BOT - 8, 9);
+    ctx.clip();
+
+    // Ambient aurora glow in the neck's secondary chamber
+    const bulbGlow = ctx.createRadialGradient(
+      CX + Math.sin(t * 1.4) * 5, 228, 3,
+      CX, 228, 44
+    );
+    bulbGlow.addColorStop(0, `rgba(145, 250, 235, ${0.22 + crystalPulse * 0.22})`);
+    bulbGlow.addColorStop(0.55, 'rgba(170, 95, 245, 0.12)');
+    bulbGlow.addColorStop(1, 'rgba(40, 20, 80, 0)');
+    ctx.fillStyle = bulbGlow;
+    ctx.fillRect(CX - 48, 170, 96, 130);
+
+    // Rising luminescent vapors above meniscus
+    for (let i = 0; i < vapors.length; i++) {
+      const v = vapors[i];
+      const vg = ctx.createRadialGradient(v.x, v.y, 0, v.x, v.y, v.size);
+      vg.addColorStop(0, `rgba(${v.col.r}, ${v.col.g}, ${v.col.b}, ${v.life * 0.36})`);
+      vg.addColorStop(1, `rgba(${v.col.r}, ${v.col.g}, ${v.col.b}, 0)`);
+      ctx.fillStyle = vg;
+      ctx.beginPath();
+      ctx.arc(v.x, v.y, v.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Back rim of elliptical 3D liquid meniscus
+    ctx.beginPath();
+    for (let x = CX - 85; x <= CX + 85; x += 4) {
+      const my = getMeniscusY(x, t) - Math.sqrt(Math.max(0, 1 - ((x - CX) / 76) ** 2)) * 6.5;
+      if (x === CX - 85) ctx.moveTo(x, my);
+      else ctx.lineTo(x, my);
+    }
+    ctx.lineTo(CX + 130, Y_BOT + 20);
+    ctx.lineTo(CX - 130, Y_BOT + 20);
+    ctx.closePath();
+
+    // Rich bioluminescent potion body gradient
+    const liqGrad = ctx.createLinearGradient(CX, LIQUID_Y - 8, CX, Y_BOT);
+    liqGrad.addColorStop(0, '#1e8c9e');
+    liqGrad.addColorStop(0.22, '#342678');
+    liqGrad.addColorStop(0.62, '#23104f');
+    liqGrad.addColorStop(1, '#0f0728');
+    ctx.fillStyle = liqGrad;
+    ctx.fill();
+
+    // Internal swirling nebula currents inside the potion
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const swirl1X = CX + Math.sin(t * 0.8) * 36;
+    const swirl1Y = 395 + Math.cos(t * 0.65) * 24;
+    const sGrad1 = ctx.createRadialGradient(swirl1X, swirl1Y, 5, swirl1X, swirl1Y, 92);
+    sGrad1.addColorStop(0, 'rgba(65, 210, 215, 0.32)');
+    sGrad1.addColorStop(0.5, 'rgba(130, 55, 200, 0.18)');
+    sGrad1.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = sGrad1;
+    ctx.fillRect(CX - 125, LIQUID_Y - 15, 250, 230);
+
+    const swirl2X = CX - Math.cos(t * 0.7) * 38;
+    const swirl2Y = 435 + Math.sin(t * 0.9) * 20;
+    const sGrad2 = ctx.createRadialGradient(swirl2X, swirl2Y, 5, swirl2X, swirl2Y, 85);
+    sGrad2.addColorStop(0, 'rgba(235, 85, 165, 0.26)');
+    sGrad2.addColorStop(0.6, 'rgba(85, 50, 190, 0.14)');
+    sGrad2.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = sGrad2;
+    ctx.fillRect(CX - 125, LIQUID_Y - 15, 250, 230);
+
+    // Twinkle-Tangle Constellation Web (geometric alchemy!)
+    const LINK_DIST = 56;
+    const LINK_D2 = LINK_DIST * LINK_DIST;
+
+    for (let i = 0; i < motes.length; i++) {
+      const a = motes[i];
+      for (let j = i + 1; j < motes.length; j++) {
+        const b = motes[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < LINK_D2) {
+          const dist = Math.sqrt(d2);
+          const strength = 1 - dist / LINK_DIST;
+
+          // Propagate sparks gently across tangled threads
+          if (a.spark > 0.65 && b.spark < 0.2) b.spark = 0.55;
+          else if (b.spark > 0.65 && a.spark < 0.2) a.spark = 0.55;
+
+          const boost = Math.max(a.spark, b.spark);
+          const alpha = strength * (0.38 + boost * 0.55);
+
+          ctx.strokeStyle = boost > 0.25
+            ? `rgba(255, 240, 185, ${alpha})`
+            : `rgba(135, 235, 245, ${alpha})`;
+          ctx.lineWidth = 0.8 + strength * 1.1 + boost * 0.9;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+
+          // Shimmering prism facets when 3 motes form a small triangle
+          for (let k = j + 1; k < motes.length; k++) {
+            const c = motes[k];
+            const d2ac = (a.x - c.x) ** 2 + (a.y - c.y) ** 2;
+            const d2bc = (b.x - c.x) ** 2 + (b.y - c.y) ** 2;
+            if (d2ac < LINK_D2 && d2bc < LINK_D2) {
+              const triAlpha = Math.min(
+                strength,
+                1 - Math.sqrt(d2ac) / LINK_DIST,
+                1 - Math.sqrt(d2bc) / LINK_DIST
+              ) * (0.14 + boost * 0.16);
+              ctx.fillStyle = `rgba(175, 230, 255, ${triAlpha})`;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.lineTo(c.x, c.y);
+              ctx.closePath();
+              ctx.fill();
+            }
+          }
+        }
+      }
+    }
+
+    // Draw glowing motes & star twinkles
+    for (let i = 0; i < motes.length; i++) {
+      const m = motes[i];
+      const tw = 0.75 + Math.sin(t * 3.8 + m.phase) * 0.25;
+      const r = m.baseSize * tw + m.spark * 2.2;
+
+      const mg = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, r * 3.6);
+      mg.addColorStop(0, `rgba(255, 255, 255, ${0.85 + m.spark * 0.15})`);
+      mg.addColorStop(0.32, `rgba(${m.col.r}, ${m.col.g}, ${m.col.b}, ${0.75 + m.spark * 0.25})`);
+      mg.addColorStop(1, `rgba(${m.col.r}, ${m.col.g}, ${m.col.b}, 0)`);
+      ctx.fillStyle = mg;
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, r * 3.6, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (m.spark > 0.15 || tw > 0.94) {
+        const flareSize = 5 + m.spark * 9;
+        drawStarFlare(m.x, m.y, flareSize, t * 1.2 + m.phase, '#fff9e6', 0.35 + m.spark * 0.65);
+      }
+    }
+
+    // Rising effervescent micro-bubbles
+    for (let i = 0; i < bubbles.length; i++) {
+      const b = bubbles[i];
+      ctx.strokeStyle = `rgba(${b.col.r}, ${b.col.g}, ${b.col.b}, 0.65)`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.beginPath();
+      ctx.arc(b.x - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.32, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore(); // end screen blend
+
+    // Luminous front meniscus ellipse rim
+    ctx.beginPath();
+    for (let x = CX - 80; x <= CX + 80; x += 3) {
+      const arch = Math.sqrt(Math.max(0, 1 - ((x - CX) / 72) ** 2)) * 6.5;
+      const my = getMeniscusY(x, t) - arch;
+      if (x === CX - 80) ctx.moveTo(x, my);
+      else ctx.lineTo(x, my);
+    }
+    for (let x = CX + 80; x >= CX - 80; x -= 3) {
+      const arch = Math.sqrt(Math.max(0, 1 - ((x - CX) / 72) ** 2)) * 6.5;
+      const my = getMeniscusY(x, t) + arch;
+      ctx.lineTo(x, my);
+    }
+    ctx.closePath();
+    const menGrad = ctx.createLinearGradient(CX - 72, LIQUID_Y, CX + 72, LIQUID_Y);
+    menGrad.addColorStop(0, 'rgba(90, 235, 235, 0.35)');
+    menGrad.addColorStop(0.5, 'rgba(205, 255, 250, 0.58)');
+    menGrad.addColorStop(1, 'rgba(195, 130, 255, 0.38)');
+    ctx.fillStyle = menGrad;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(220, 255, 252, 0.72)';
+    ctx.lineWidth = 1.3;
+    ctx.stroke();
+
+    ctx.restore(); // end inner chamber clip
+
+    // Thick glass base internal refraction cushion (between inner bottom and outer foot)
+    ctx.save();
+    traceBottlePath(ctx, outerR, Y_TOP, Y_BOT, 12);
+    ctx.clip();
+
+    const baseGlass = ctx.createLinearGradient(CX - 70, Y_BOT - 16, CX + 70, Y_BOT + 10);
+    baseGlass.addColorStop(0, 'rgba(130, 235, 245, 0.35)');
+    baseGlass.addColorStop(0.5, 'rgba(255, 255, 255, 0.18)');
+    baseGlass.addColorStop(1, 'rgba(215, 145, 255, 0.38)');
+    ctx.fillStyle = baseGlass;
+    ctx.beginPath();
+    ctx.ellipse(CX, Y_BOT - 3, 66, 9, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Crisp left & right glass specular reflection ribbons
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.48)';
+    ctx.lineWidth = 4.2;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    for (let y = 278; y <= 468; y += 4) {
+      const x = CX - outerR[y] + 12;
+      if (y === 278) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Secondary thin inner specular line on left
+    ctx.strokeStyle = 'rgba(185, 245, 255, 0.25)';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    for (let y = 295; y <= 450; y += 4) {
+      const x = CX - outerR[y] + 21;
+      if (y === 295) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Neck bulb highlight arc
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.52)';
+    ctx.lineWidth = 3.0;
+    ctx.beginPath();
+    for (let y = 205; y <= 246; y += 3) {
+      const x = CX - outerR[y] + 7.5;
+      if (y === 205) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Warm rim-light reflection along right contour
+    ctx.strokeStyle = 'rgba(255, 195, 235, 0.32)';
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    for (let y = 305; y <= 482; y += 4) {
+      const x = CX + outerR[y] - 9.5;
+      if (y === 305) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // Outer glass contour stroke & flared lip highlight
+    traceBottlePath(ctx, outerR, Y_TOP, Y_BOT, 12);
+    const rimStroke = ctx.createLinearGradient(CX - 120, Y_TOP, CX + 120, Y_BOT);
+    rimStroke.addColorStop(0, 'rgba(225, 245, 255, 0.62)');
+    rimStroke.addColorStop(0.5, 'rgba(165, 210, 255, 0.28)');
+    rimStroke.addColorStop(1, 'rgba(235, 185, 255, 0.52)');
+    ctx.strokeStyle = rimStroke;
+    ctx.lineWidth = 1.7;
+    ctx.stroke();
+
+    // Glass lip elliptical opening highlight
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.ellipse(CX, Y_TOP + 1, outerR[Y_TOP], 4.2, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Front half of brass gimbal rings around the cinched waist
+    drawGimbalRings(t, true);
+
+    // Tiny spilled luminous crystal beads resting beside the bottle
+    for (let i = 0; i < floorDrops.length; i++) {
+      const d = floorDrops[i];
+      const glow = 0.65 + Math.sin(t * 2.5 + d.phase) * 0.35;
+
+      // Floor reflection pool under bead
+      const dg = ctx.createRadialGradient(d.x, d.y + 1, 0, d.x, d.y + 1, d.r * 3.4);
+      dg.addColorStop(0, `rgba(${d.col.r}, ${d.col.g}, ${d.col.b}, ${0.42 * glow})`);
+      dg.addColorStop(1, `rgba(${d.col.r}, ${d.col.g}, ${d.col.b}, 0)`);
+      ctx.fillStyle = dg;
+      ctx.beginPath();
+      ctx.ellipse(d.x, d.y + 1.5, d.r * 3.4, d.r * 1.4, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Bead sphere
+      const bg = ctx.createRadialGradient(
+        d.x - d.r * 0.3, d.y - d.r * 0.35, d.r * 0.1,
+        d.x, d.y, d.r
+      );
+      bg.addColorStop(0, '#ffffff');
+      bg.addColorStop(0.45, `rgb(${d.col.r}, ${d.col.g}, ${d.col.b})`);
+      bg.addColorStop(1, '#1d1036');
+      ctx.fillStyle = bg;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.restore();
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Twinkle-Tangle Tonic",
+  "statement": "Distilled from midnight curiosity and stray sparks of intuition, its drifting starlight motes weave fleeting constellations whenever two half-formed notions float close enough to connect. Unstopper for sudden clarity, serendipitous tangents, and the quiet thrill of pattern-finding."
+}
+```

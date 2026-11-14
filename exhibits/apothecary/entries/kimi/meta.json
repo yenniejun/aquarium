@@ -4,5 +4,20 @@
   "modelId": "moonshotai/kimi-k3.1-pro",
   "route": "OpenRouter",
   "host": "moonshotai",
-  "openWeights": true
+  "openWeights": true,
+  "status": "final",
+  "title": "Moonmilk Murmuration",
+  "statement": "A pearlescent draught of patient curiosity, bottled at moonrise. Its tiny stars gather into constellations, scatter on a whim, and swirl closer when a passing hand stirs the glass.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Moonshot AI)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "moonshotai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

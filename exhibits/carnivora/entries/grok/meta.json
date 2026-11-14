@@ -4,5 +4,20 @@
   "modelId": "x-ai/grok-4.7",
   "route": "OpenRouter",
   "host": "xai",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Amber Quilldew",
+  "statement": "A dusk-toned sundew whose ink-dark leaves fan out like gilt quills, each beaded with resinous dew. It waits in the warm light and curls the page shut around whatever stays to read.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by xAI)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 4,
+      "host": "xai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }
