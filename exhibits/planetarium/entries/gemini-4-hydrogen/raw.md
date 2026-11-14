@@ -3,25 +3,24 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Lantern Moth</title>
 <style>
   *, *::before, *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
   }
   html, body {
+    margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #040712;
+    background: #040611;
   }
   canvas {
     display: block;
     width: 100%;
     height: 100%;
-    touch-action: pan-y;
   }
 </style>
 </head>
@@ -29,12 +28,10 @@
 <canvas id="sky"></canvas>
 <script>
 (() => {
-  'use strict';
-
   const canvas = document.getElementById('sky');
   const ctx = canvas.getContext('2d', { alpha: false });
 
-  // Deterministic PRNG for consistent starfields across resizes
+  // Deterministic PRNG for a consistent, finely balanced night sky
   function mulberry32(seed) {
     let a = seed >>> 0;
     return function () {
@@ -46,677 +43,620 @@
     };
   }
 
-  function clamp(v, lo, hi) {
-    return v < lo ? lo : v > hi ? hi : v;
-  }
+  const rand = mulberry32(4192837);
 
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  function smoothstep(edge0, edge1, x) {
-    const t = clamp((x - edge0) / (edge1 - edge0), 0, 1);
-    return t * t * (3 - 2 * t);
-  }
-
-  // Pre-rendered radial glow sprites for fast additive star bloom
-  function makeGlowSprite(innerHex, midRgb, outerRgb) {
-    const s = 64;
-    const c = document.createElement('canvas');
-    c.width = s;
-    c.height = s;
-    const g = c.getContext('2d');
-    const r = s / 2;
-    const grad = g.createRadialGradient(r, r, 0, r, r, r);
-    grad.addColorStop(0, innerHex);
-    grad.addColorStop(0.14, `rgba(${midRgb}, 0.85)`);
-    grad.addColorStop(0.38, `rgba(${outerRgb}, 0.24)`);
-    grad.addColorStop(0.7, `rgba(${outerRgb}, 0.05)`);
-    grad.addColorStop(1, `rgba(${outerRgb}, 0)`);
-    g.fillStyle = grad;
-    g.fillRect(0, 0, s, s);
-    return c;
-  }
-
-  const sprites = {
-    ivory: makeGlowSprite('#ffffff', '224, 234, 255', '128, 166, 255'),
-    blue:  makeGlowSprite('#f0f7ff', '165, 206, 255', '76, 132, 245'),
-    gold:  makeGlowSprite('#fffbe8', '255, 212, 128', '245, 148, 52'),
-    rose:  makeGlowSprite('#fff4f7', '245, 190, 212', '196, 110, 162'),
-    teal:  makeGlowSprite('#effffc', '150, 238, 226', '68, 182, 194')
-  };
-
-  // Constellation definition in local moth space (head points toward -Y)
-  // 0: head, 1: thorax, 2: abdomen, 3: tail
-  // 4-5: antennae tips
-  // 6-8: left forewing, 9-11: right forewing
-  // 12-13: left hindwing, 14-15: right hindwing
-  const MOTH_STARS = [
-    { x:  0.00, y: -0.20, mag: 0.92, tint: 'ivory', wing: 0 }, // 0 head
-    { x:  0.00, y: -0.06, mag: 1.05, tint: 'gold',  wing: 0 }, // 1 thorax (heart star)
-    { x:  0.00, y:  0.09, mag: 0.84, tint: 'ivory', wing: 0 }, // 2 abdomen
-    { x:  0.00, y:  0.24, mag: 0.78, tint: 'blue',  wing: 0 }, // 3 tail
-
-    { x: -0.11, y: -0.36, mag: 0.72, tint: 'gold',  wing: 0 }, // 4 left antenna
-    { x:  0.11, y: -0.36, mag: 0.72, tint: 'gold',  wing: 0 }, // 5 right antenna
-
-    { x: -0.47, y: -0.22, mag: 1.08, tint: 'blue',  wing: -1 }, // 6 left forewing apex
-    { x: -0.42, y:  0.02, mag: 0.86, tint: 'ivory', wing: -1 }, // 7 left forewing outer
-    { x: -0.18, y:  0.03, mag: 0.80, tint: 'teal',  wing: -1 }, // 8 left forewing inner
-
-    { x:  0.47, y: -0.22, mag: 1.08, tint: 'blue',  wing: 1 }, // 9 right forewing apex
-    { x:  0.42, y:  0.02, mag: 0.86, tint: 'ivory', wing: 1 }, // 10 right forewing outer
-    { x:  0.18, y:  0.03, mag: 0.80, tint: 'teal',  wing: 1 }, // 11 right forewing inner
-
-    { x: -0.31, y:  0.19, mag: 0.90, tint: 'rose',  wing: -1 }, // 12 left hindwing outer
-    { x: -0.12, y:  0.27, mag: 0.76, tint: 'ivory', wing: -1 }, // 13 left hindwing inner
-
-    { x:  0.31, y:  0.19, mag: 0.90, tint: 'rose',  wing: 1 }, // 14 right hindwing outer
-    { x:  0.12, y:  0.27, mag: 0.76, tint: 'ivory', wing: 1 }  // 15 right hindwing inner
+  // Spectral palette for stars
+  const STAR_TINTS = [
+    [255, 244, 224], // warm ivory
+    [214, 232, 255], // sapphire white
+    [255, 219, 166], // amber gold
+    [194, 240, 255], // icy cyan
+    [245, 214, 255]  // soft orchid
   ];
 
-  // Ordered groups for sequential constellation tracing
-  const TRACE_SEGMENTS = [
-    // Group 0: central spine & antennae
-    { a: 1, b: 0, start: 0.00, end: 0.22 },
-    { a: 1, b: 2, start: 0.04, end: 0.24 },
-    { a: 2, b: 3, start: 0.16, end: 0.34 },
-    { a: 0, b: 4, start: 0.18, end: 0.40 },
-    { a: 0, b: 5, start: 0.18, end: 0.40 },
-    // Group 1: forewings
-    { a: 1, b: 6, start: 0.22, end: 0.50 },
-    { a: 1, b: 9, start: 0.22, end: 0.50 },
-    { a: 6, b: 7, start: 0.44, end: 0.68 },
-    { a: 9, b: 10, start: 0.44, end: 0.68 },
-    { a: 7, b: 8, start: 0.62, end: 0.80 },
-    { a: 10, b: 11, start: 0.62, end: 0.80 },
-    { a: 8, b: 1, start: 0.72, end: 0.88 },
-    { a: 11, b: 1, start: 0.72, end: 0.88 },
-    // Group 2: hindwings
-    { a: 2, b: 12, start: 0.52, end: 0.76 },
-    { a: 2, b: 14, start: 0.52, end: 0.76 },
-    { a: 12, b: 13, start: 0.72, end: 0.92 },
-    { a: 14, b: 15, start: 0.72, end: 0.92 },
-    { a: 13, b: 3, start: 0.84, end: 1.00 },
-    { a: 15, b: 3, start: 0.84, end: 1.00 }
-  ];
-
-  // Lantern star in local moth space (ahead along the flight axis)
-  const LANTERN = { x: 0.0, y: -0.76 };
-
-  // Placement of the moth system in normalized porthole coordinates (R = 1)
-  const MOTH_CENTER = { x: -0.13, y: 0.13 };
-  const MOTH_SCALE = 0.88;
-  const MOTH_TILT = 0.66; // radians clockwise toward upper-right
-
-  // Foreground twinkling field stars
-  const FIELD_STARS = [];
-  (function initFieldStars() {
-    const rand = mulberry32(419283);
-    const tints = ['ivory', 'ivory', 'blue', 'blue', 'gold', 'rose'];
-    for (let i = 0; i < 105; i++) {
-      // Uniform inside disk up to r = 1.05
-      const r = Math.sqrt(rand()) * 1.04;
-      const a = rand() * Math.PI * 2;
-      FIELD_STARS.push({
-        x: Math.cos(a) * r,
-        y: Math.sin(a) * r,
-        size: 0.35 + Math.pow(rand(), 2.2) * 0.95,
-        baseAlpha: 0.25 + rand() * 0.65,
-        speed: 0.8 + rand() * 2.4,
-        phase: rand() * Math.PI * 2,
-        tint: tints[Math.floor(rand() * tints.length)],
-        depth: 0.35 + rand() * 0.65
-      });
-    }
-  })();
-
-  // Golden dust motes drifting from moth wings toward the Lantern Star
-  const MAX_MOTES = 46;
-  const motes = [];
-  const moteRand = mulberry32(98231);
-  for (let i = 0; i < MAX_MOTES; i++) {
-    motes.push({
-      active: false,
-      x: 0,
-      y: 0,
-      vx: 0,
-      vy: 0,
-      age: 0,
-      life: 1,
-      size: 1,
-      phase: 0
+  // Background starfield (in normalized polar/cartesian space within radius 1.45 so rotation never clips)
+  const bgStars = [];
+  const BG_COUNT = 175;
+  for (let i = 0; i < BG_COUNT; i++) {
+    const r = Math.sqrt(rand()) * 1.42;
+    const angle = rand() * Math.PI * 2;
+    const tint = STAR_TINTS[Math.floor(rand() * STAR_TINTS.length)];
+    const depth = 0.25 + rand() * 0.75;
+    bgStars.push({
+      x: Math.cos(angle) * r,
+      y: Math.sin(angle) * r,
+      size: 0.45 + Math.pow(rand(), 2.6) * 2.1,
+      alpha: 0.28 + rand() * 0.65,
+      twinkleSpeed: 0.7 + rand() * 2.3,
+      twinklePhase: rand() * Math.PI * 2,
+      tint,
+      depth,
+      hasCross: rand() > 0.92
     });
   }
 
-  function spawnMote(mx, my, boost) {
-    for (let i = 0; i < MAX_MOTES; i++) {
-      const m = motes[i];
-      if (!m.active) {
-        m.active = true;
-        m.x = mx + (moteRand() - 0.5) * 0.06;
-        m.y = my + (moteRand() - 0.5) * 0.06;
-        m.vx = (moteRand() - 0.5) * 0.04;
-        m.vy = -(0.08 + moteRand() * 0.11) * (boost ? 1.25 : 0.9);
-        m.age = 0;
-        m.life = 2.6 + moteRand() * 2.6;
-        m.size = 0.55 + moteRand() * 0.95;
-        m.phase = moteRand() * Math.PI * 2;
-        return;
-      }
-    }
+  // Milky Way dust band points
+  const dustBand = [];
+  for (let i = 0; i < 110; i++) {
+    const along = (rand() - 0.5) * 2.6;
+    const across = (rand() + rand() - 1) * 0.34;
+    const bandAngle = -0.62;
+    const ca = Math.cos(bandAngle);
+    const sa = Math.sin(bandAngle);
+    dustBand.push({
+      x: along * ca - across * sa,
+      y: along * sa + across * ca,
+      size: 0.35 + rand() * 1.0,
+      alpha: 0.12 + rand() * 0.32,
+      twinkleSpeed: 0.5 + rand() * 1.4,
+      twinklePhase: rand() * Math.PI * 2,
+      tint: rand() > 0.45 ? [208, 226, 255] : [255, 228, 196]
+    });
   }
 
-  // Offscreen static deep sky (nebula + distant dust stars), rotated gently
-  const skyOffscreen = document.createElement('canvas');
-  let skySize = 0;
+  // Constellation: The Lantern Moth
+  // Local coordinates inside ~[-1, 1]
+  const mothStars = {
+    head:         { x:  0.00, y: -0.30, mag: 0.78, tint: [255, 242, 210] },
+    antL1:        { x: -0.13, y: -0.53, mag: 0.52, tint: [216, 238, 255] },
+    antL2:        { x: -0.30, y: -0.74, mag: 0.72, tint: [255, 218, 154] },
+    antR1:        { x:  0.13, y: -0.53, mag: 0.52, tint: [216, 238, 255] },
+    antR2:        { x:  0.30, y: -0.74, mag: 0.72, tint: [255, 218, 154] },
+    heart:        { x:  0.00, y: -0.07, mag: 1.00, tint: [255, 232, 174] },
+    abdomen1:     { x:  0.00, y:  0.20, mag: 0.64, tint: [236, 242, 255] },
+    abdomen2:     { x:  0.00, y:  0.48, mag: 0.60, tint: [204, 232, 255] },
 
+    fwL_shoulder: { x: -0.16, y: -0.17, mag: 0.58, tint: [224, 238, 255] },
+    fwL_apex:     { x: -0.92, y: -0.35, mag: 0.90, tint: [190, 240, 255] },
+    fwL_outer:    { x: -0.80, y:  0.09, mag: 0.66, tint: [220, 234, 255] },
+    fwL_inner:    { x: -0.35, y:  0.14, mag: 0.56, tint: [232, 224, 255] },
+    eyeL:         { x: -0.52, y: -0.14, mag: 0.88, tint: [255, 212, 138] },
+
+    fwR_shoulder: { x:  0.16, y: -0.17, mag: 0.58, tint: [224, 238, 255] },
+    fwR_apex:     { x:  0.92, y: -0.35, mag: 0.90, tint: [190, 240, 255] },
+    fwR_outer:    { x:  0.80, y:  0.09, mag: 0.66, tint: [220, 234, 255] },
+    fwR_inner:    { x:  0.35, y:  0.14, mag: 0.56, tint: [232, 224, 255] },
+    eyeR:         { x:  0.52, y: -0.14, mag: 0.88, tint: [255, 212, 138] },
+
+    hwL_outer:    { x: -0.61, y:  0.35, mag: 0.68, tint: [212, 232, 255] },
+    hwL_tail:     { x: -0.41, y:  0.80, mag: 0.82, tint: [255, 226, 178] },
+    hwL_inner:    { x: -0.16, y:  0.52, mag: 0.54, tint: [228, 224, 255] },
+
+    hwR_outer:    { x:  0.61, y:  0.35, mag: 0.68, tint: [212, 232, 255] },
+    hwR_tail:     { x:  0.41, y:  0.80, mag: 0.82, tint: [255, 226, 178] },
+    hwR_inner:    { x:  0.16, y:  0.52, mag: 0.54, tint: [228, 224, 255] }
+  };
+
+  // Tracing segments ordered in outward waves from the heart
+  const constellationEdges = [
+    // Wave 1: Spine & shoulders
+    { from: 'heart', to: 'head', w0: 0.00, w1: 0.25 },
+    { from: 'heart', to: 'abdomen1', w0: 0.00, w1: 0.25 },
+    { from: 'heart', to: 'fwL_shoulder', w0: 0.04, w1: 0.28 },
+    { from: 'heart', to: 'fwR_shoulder', w0: 0.04, w1: 0.28 },
+
+    // Wave 2: Antennae, abdomen & forewing leading edges
+    { from: 'head', to: 'antL1', w0: 0.22, w1: 0.46 },
+    { from: 'head', to: 'antR1', w0: 0.22, w1: 0.46 },
+    { from: 'abdomen1', to: 'abdomen2', w0: 0.24, w1: 0.48 },
+    { from: 'fwL_shoulder', to: 'fwL_apex', w0: 0.25, w1: 0.62 },
+    { from: 'fwR_shoulder', to: 'fwR_apex', w0: 0.25, w1: 0.62 },
+    { from: 'fwL_shoulder', to: 'eyeL', w0: 0.28, w1: 0.54 },
+    { from: 'fwR_shoulder', to: 'eyeR', w0: 0.28, w1: 0.54 },
+
+    // Wave 3: Wing contours & eyespot links
+    { from: 'antL1', to: 'antL2', w0: 0.44, w1: 0.72 },
+    { from: 'antR1', to: 'antR2', w0: 0.44, w1: 0.72 },
+    { from: 'fwL_apex', to: 'fwL_outer', w0: 0.58, w1: 0.80 },
+    { from: 'fwR_apex', to: 'fwR_outer', w0: 0.58, w1: 0.80 },
+    { from: 'fwL_outer', to: 'fwL_inner', w0: 0.72, w1: 0.90 },
+    { from: 'fwR_outer', to: 'fwR_inner', w0: 0.72, w1: 0.90 },
+    { from: 'fwL_inner', to: 'heart', w0: 0.80, w1: 0.95 },
+    { from: 'fwR_inner', to: 'heart', w0: 0.80, w1: 0.95 },
+    { from: 'eyeL', to: 'fwL_apex', w0: 0.52, w1: 0.78 },
+    { from: 'eyeR', to: 'fwR_apex', w0: 0.52, w1: 0.78 },
+
+    // Wave 4: Hindwings & swallowtails
+    { from: 'fwL_inner', to: 'hwL_outer', w0: 0.52, w1: 0.76 },
+    { from: 'fwR_inner', to: 'hwR_outer', w0: 0.52, w1: 0.76 },
+    { from: 'hwL_outer', to: 'hwL_tail', w0: 0.70, w1: 0.96 },
+    { from: 'hwR_outer', to: 'hwR_tail', w0: 0.70, w1: 0.96 },
+    { from: 'hwL_tail', to: 'hwL_inner', w0: 0.82, w1: 0.99 },
+    { from: 'hwR_tail', to: 'hwR_inner', w0: 0.82, w1: 0.99 },
+    { from: 'hwL_inner', to: 'abdomen2', w0: 0.85, w1: 1.00 },
+    { from: 'hwR_inner', to: 'abdomen2', w0: 0.85, w1: 1.00 }
+  ];
+
+  // Drifting lantern-pollen particles shed while the moth is awakened
+  const motes = [];
+  const MAX_MOTES = 36;
+
+  // Offscreen cached backdrop (deep gradient + soft nebula clouds)
+  const backdropCanvas = document.createElement('canvas');
+  const backdropCtx = backdropCanvas.getContext('2d');
+
+  // Pre-rendered radial glow sprites for fast star rendering
+  function createGlowSprite(r, g, b) {
+    const c = document.createElement('canvas');
+    c.width = 64;
+    c.height = 64;
+    const gctx = c.getContext('2d');
+    const grad = gctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0.0, `rgba(255,255,255,1)`);
+    grad.addColorStop(0.16, `rgba(${r},${g},${b},0.82)`);
+    grad.addColorStop(0.45, `rgba(${r},${g},${b},0.20)`);
+    grad.addColorStop(1.0, `rgba(${r},${g},${b},0)`);
+    gctx.fillStyle = grad;
+    gctx.fillRect(0, 0, 64, 64);
+    return c;
+  }
+
+  const glowSprites = STAR_TINTS.map(([r, g, b]) => createGlowSprite(r, g, b));
+
+  function getNearestSprite(tint) {
+    for (let i = 0; i < STAR_TINTS.length; i++) {
+      if (STAR_TINTS[i][0] === tint[0] && STAR_TINTS[i][1] === tint[1]) {
+        return glowSprites[i];
+      }
+    }
+    return glowSprites[0];
+  }
+
+  // Viewport & sizing
   let width = 0;
   let height = 0;
   let dpr = 1;
   let cx = 0;
   let cy = 0;
-  let R = 100;
+  let radius = 100;
 
-  // Gentle pointer parallax (never blocks touch scrolling)
-  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-
-  window.addEventListener('pointermove', (e) => {
-    if (!width || !height) return;
-    const nx = (e.clientX - cx) / R;
-    const ny = (e.clientY - cy) / R;
-    pointer.tx = clamp(nx, -1, 1);
-    pointer.ty = clamp(ny, -1, 1);
-  }, { passive: true });
-
-  window.addEventListener('pointerleave', () => {
-    pointer.tx = 0;
-    pointer.ty = 0;
-  }, { passive: true });
-
-  function buildDeepSky() {
-    const dim = Math.max(256, Math.ceil(Math.min(width, height) * dpr * 1.48));
-    skySize = dim;
-    skyOffscreen.width = dim;
-    skyOffscreen.height = dim;
-    const g = skyOffscreen.getContext('2d');
+  function buildBackdrop() {
+    const dim = Math.ceil(radius * 2 * 1.48 * dpr);
+    backdropCanvas.width = dim;
+    backdropCanvas.height = dim;
+    const bctx = backdropCtx;
     const half = dim / 2;
+    const br = half;
 
-    // Midnight twilight gradient
-    const bg = g.createRadialGradient(half * 0.9, half * 0.85, dim * 0.04, half, half, half);
-    bg.addColorStop(0, '#0d1936');
-    bg.addColorStop(0.45, '#081128');
-    bg.addColorStop(0.82, '#050a1a');
-    bg.addColorStop(1, '#030610');
-    g.fillStyle = bg;
-    g.fillRect(0, 0, dim, dim);
+    bctx.clearRect(0, 0, dim, dim);
 
-    const rand = mulberry32(77123);
+    // Deep celestial vault
+    const skyGrad = bctx.createRadialGradient(half, half, 0, half, half, br);
+    skyGrad.addColorStop(0.0, '#0c1330');
+    skyGrad.addColorStop(0.55, '#070b1f');
+    skyGrad.addColorStop(1.0, '#040611');
+    bctx.fillStyle = skyGrad;
+    bctx.fillRect(0, 0, dim, dim);
 
-    // Subtle Milky Way nebula clouds along a gentle diagonal
-    g.save();
-    g.globalCompositeOperation = 'lighter';
-    for (let i = 0; i < 24; i++) {
-      const along = (rand() - 0.5) * 0.92;
-      const across = (rand() - 0.5) * 0.34;
-      const angle = -0.58;
-      const px = half + (along * Math.cos(angle) - across * Math.sin(angle)) * dim * 0.52;
-      const py = half + (along * Math.sin(angle) + across * Math.cos(angle)) * dim * 0.52;
-      const rad = dim * (0.10 + rand() * 0.16);
-      const neb = g.createRadialGradient(px, py, 0, px, py, rad);
-      const huePick = rand();
-      if (huePick < 0.45) {
-        neb.addColorStop(0, 'rgba(46, 86, 156, 0.065)');
-        neb.addColorStop(0.5, 'rgba(32, 58, 120, 0.025)');
-      } else if (huePick < 0.8) {
-        neb.addColorStop(0, 'rgba(72, 58, 138, 0.055)');
-        neb.addColorStop(0.5, 'rgba(42, 34, 96, 0.02)');
-      } else {
-        neb.addColorStop(0, 'rgba(44, 118, 134, 0.05)');
-        neb.addColorStop(0.5, 'rgba(24, 72, 94, 0.02)');
-      }
-      neb.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      g.fillStyle = neb;
-      g.beginPath();
-      g.arc(px, py, rad, 0, Math.PI * 2);
-      g.fill();
+    // Subtle diagonal Milky Way river
+    bctx.save();
+    bctx.translate(half, half);
+    bctx.rotate(-0.62);
+    const mwGrad = bctx.createLinearGradient(0, -br * 0.42, 0, br * 0.42);
+    mwGrad.addColorStop(0.0, 'rgba(30, 52, 108, 0)');
+    mwGrad.addColorStop(0.32, 'rgba(38, 66, 128, 0.11)');
+    mwGrad.addColorStop(0.50, 'rgba(66, 98, 168, 0.16)');
+    mwGrad.addColorStop(0.68, 'rgba(42, 54, 118, 0.10)');
+    mwGrad.addColorStop(1.0, 'rgba(20, 32, 74, 0)');
+    bctx.fillStyle = mwGrad;
+    bctx.fillRect(-br, -br * 0.45, br * 2, br * 0.9);
+    bctx.restore();
+
+    // Soft nebula clouds
+    const clouds = [
+      { x: -0.28, y: -0.18, r: 0.56, col: 'rgba(68, 44, 128, 0.15)' },
+      { x:  0.30, y:  0.16, r: 0.52, col: 'rgba(26, 92, 132, 0.14)' },
+      { x: -0.05, y:  0.34, r: 0.44, col: 'rgba(112, 68, 126, 0.09)' },
+      { x:  0.14, y: -0.32, r: 0.42, col: 'rgba(42, 112, 146, 0.10)' }
+    ];
+    for (const c of clouds) {
+      const gx = half + c.x * br * 0.65;
+      const gy = half + c.y * br * 0.65;
+      const gr = c.r * br * 0.72;
+      const g = bctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
+      g.addColorStop(0, c.col);
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      bctx.fillStyle = g;
+      bctx.beginPath();
+      bctx.arc(gx, gy, gr, 0, Math.PI * 2);
+      bctx.fill();
     }
-
-    // Distant micro-star dust baked into the deep sky
-    for (let i = 0; i < 320; i++) {
-      const r = Math.sqrt(rand()) * half * 0.96;
-      const a = rand() * Math.PI * 2;
-      const sx = half + Math.cos(a) * r;
-      const sy = half + Math.sin(a) * r;
-      const sr = (0.45 + rand() * 0.95) * (dim / 700);
-      const alpha = 0.12 + rand() * 0.38;
-      g.fillStyle = rand() > 0.25
-        ? `rgba(210, 226, 255, ${alpha})`
-        : `rgba(255, 228, 185, ${alpha * 0.9})`;
-      g.beginPath();
-      g.arc(sx, sy, Math.max(0.5, sr), 0, Math.PI * 2);
-      g.fill();
-    }
-    g.restore();
   }
 
   function resize() {
-    width = window.innerWidth || 300;
-    height = window.innerHeight || 300;
+    width = window.innerWidth;
+    height = window.innerHeight;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
+    canvas.width = Math.max(1, Math.floor(width * dpr));
+    canvas.height = Math.max(1, Math.floor(height * dpr));
     cx = width * 0.5;
     cy = height * 0.5;
-    R = Math.min(width, height) * 0.5;
-    buildDeepSky();
+    radius = Math.min(width, height) * 0.5;
+    buildBackdrop();
   }
 
-  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('resize', resize);
   resize();
 
-  // Transform a local moth coordinate into canvas pixel coordinates
-  function mothToScreen(lx, ly, skyRot, parallaxX, parallaxY) {
-    const sx = lx * MOTH_SCALE;
-    const sy = ly * MOTH_SCALE;
-    const ct = Math.cos(MOTH_TILT);
-    const st = Math.sin(MOTH_TILT);
-    const nx = MOTH_CENTER.x + (sx * ct - sy * st);
-    const ny = MOTH_CENTER.y + (sx * st + sy * ct);
+  // Gentle passive pointer parallax
+  let targetPx = 0;
+  let targetPy = 0;
+  let px = 0;
+  let py = 0;
+  window.addEventListener('pointermove', (e) => {
+    const nx = (e.clientX / Math.max(1, width)) * 2 - 1;
+    const ny = (e.clientY / Math.max(1, height)) * 2 - 1;
+    targetPx = Math.max(-1, Math.min(1, nx));
+    targetPy = Math.max(-1, Math.min(1, ny));
+  }, { passive: true });
 
-    const cs = Math.cos(skyRot);
-    const ss = Math.sin(skyRot);
-    const rx = nx * cs - ny * ss;
-    const ry = nx * ss + ny * cs;
-
-    return {
-      x: cx + (rx + parallaxX) * R,
-      y: cy + (ry + parallaxY) * R
-    };
+  // Easing helpers
+  function smoothstep(a, b, x) {
+    const t = Math.max(0, Math.min(1, (x - a) / (b - a)));
+    return t * t * (3 - 2 * t);
   }
 
-  // Draw a glowing star with sprite bloom and optional 4-point diffraction spikes
-  function drawStar(x, y, radiusPx, alpha, tint, spikes) {
+  function drawStar(x, y, size, alpha, sprite, crossFactor) {
     if (alpha <= 0.01) return;
-    const sprite = sprites[tint] || sprites.ivory;
-    const bloom = radiusPx * 7.5;
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.globalAlpha = clamp(alpha, 0, 1);
-    ctx.drawImage(sprite, x - bloom, y - bloom, bloom * 2, bloom * 2);
+    const glowSize = size * 6.4;
+    ctx.globalAlpha = Math.min(1, alpha);
+    ctx.drawImage(sprite, x - glowSize, y - glowSize, glowSize * 2, glowSize * 2);
 
-    if (spikes > 0) {
-      const len = radiusPx * spikes;
-      ctx.strokeStyle = tint === 'gold'
-        ? `rgba(255, 234, 178, ${alpha * 0.58})`
-        : `rgba(220, 236, 255, ${alpha * 0.48})`;
-      ctx.lineWidth = Math.max(0.6, radiusPx * 0.35);
+    if (crossFactor > 0.02) {
+      const len = size * (2.6 + crossFactor * 2.4);
+      ctx.save();
+      ctx.globalAlpha = Math.min(1, alpha * 0.72 * crossFactor);
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = Math.max(0.6, size * 0.38);
       ctx.beginPath();
       ctx.moveTo(x - len, y);
       ctx.lineTo(x + len, y);
       ctx.moveTo(x, y - len);
       ctx.lineTo(x, y + len);
       ctx.stroke();
+      ctx.restore();
     }
-    ctx.restore();
+    ctx.globalAlpha = 1;
   }
 
-  // Compute wing-flapping deformation for a star during the Living Myth phase
-  function deformedStar(star, flap) {
-    if (star.wing === 0 || flap === 0) {
-      return { x: star.x, y: star.y };
-    }
-    const dist = Math.abs(star.x);
-    const xPull = 1 - 0.17 * flap * (0.45 + dist);
-    const yLift = -0.045 * flap * (0.3 + dist * 1.4);
-    return {
-      x: star.x * xPull,
-      y: star.y + yLift
-    };
-  }
-
-  // Draw translucent gossamer moth wings and filigree when aura > 0
-  function drawGossamerMoth(aura, flap, skyRot, px, py, time) {
-    if (aura <= 0.005) return;
-
-    const pt = (lx, ly, wingSide) => {
-      const d = deformedStar({ x: lx, y: ly, wing: wingSide }, flap);
-      return mothToScreen(d.x, d.y, skyRot, px, py);
-    };
+  // Draw the translucent stained-glass moth form inside the star framework
+  function drawMothFigure(scale, figureAlpha, flapScale, time) {
+    if (figureAlpha <= 0.005) return;
 
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
 
+    // Gentle breathing flutter on the wing aura only
     for (const side of [-1, 1]) {
-      const pThorax = pt(0, -0.06, 0);
-      const pAbdom = pt(0, 0.09, 0);
-      const pTail = pt(0, 0.23, 0);
+      ctx.save();
+      ctx.scale(side * flapScale, 1);
 
-      const pApex = pt(side * 0.47, -0.22, side);
-      const pOuter = pt(side * 0.42, 0.02, side);
-      const pInner = pt(side * 0.18, 0.03, side);
-      const pHindOuter = pt(side * 0.31, 0.19, side);
-      const pHindInner = pt(side * 0.12, 0.27, side);
-
-      // Forewing gossamer membrane
-      const fwGrad = ctx.createLinearGradient(pThorax.x, pThorax.y, pApex.x, pApex.y);
-      fwGrad.addColorStop(0, `rgba(74, 178, 198, ${0.22 * aura})`);
-      fwGrad.addColorStop(0.55, `rgba(116, 128, 224, ${0.18 * aura})`);
-      fwGrad.addColorStop(1, `rgba(255, 206, 126, ${0.26 * aura})`);
-
-      ctx.fillStyle = fwGrad;
+      // Forewing silhouette
       ctx.beginPath();
-      ctx.moveTo(pThorax.x, pThorax.y);
-      const cLead = pt(side * 0.25, -0.21, side);
-      ctx.quadraticCurveTo(cLead.x, cLead.y, pApex.x, pApex.y);
-      const cMargin = pt(side * 0.48, -0.09, side);
-      ctx.quadraticCurveTo(cMargin.x, cMargin.y, pOuter.x, pOuter.y);
-      const cBottom = pt(side * 0.30, 0.05, side);
-      ctx.quadraticCurveTo(cBottom.x, cBottom.y, pInner.x, pInner.y);
-      ctx.closePath();
-      ctx.fill();
-
-      // Warm golden rim-light on leading edge facing the Lantern Star
-      ctx.strokeStyle = `rgba(255, 214, 138, ${0.38 * aura})`;
-      ctx.lineWidth = Math.max(0.8, R * 0.0045);
-      ctx.beginPath();
-      ctx.moveTo(pThorax.x, pThorax.y);
-      ctx.quadraticCurveTo(cLead.x, cLead.y, pApex.x, pApex.y);
-      ctx.stroke();
-
-      // Delicate internal wing veins
-      ctx.strokeStyle = `rgba(168, 224, 245, ${0.19 * aura})`;
-      ctx.lineWidth = Math.max(0.5, R * 0.0022);
-      const veins = [
-        [0.37, -0.14],
-        [0.38, -0.05],
-        [0.29, 0.00]
-      ];
-      for (const [vx, vy] of veins) {
-        const pv = pt(side * vx, vy, side);
-        const pm = pt(side * vx * 0.52, lerp(-0.06, vy, 0.45) - 0.02, side);
-        ctx.beginPath();
-        ctx.moveTo(pThorax.x, pThorax.y);
-        ctx.quadraticCurveTo(pm.x, pm.y, pv.x, pv.y);
-        ctx.stroke();
-      }
-
-      // Hindwing gossamer membrane
-      const hwGrad = ctx.createRadialGradient(
-        pAbdom.x, pAbdom.y, R * 0.02,
-        pHindOuter.x, pHindOuter.y, R * 0.28
+      ctx.moveTo(-0.12 * scale, -0.16 * scale);
+      ctx.bezierCurveTo(
+        -0.42 * scale, -0.44 * scale,
+        -0.78 * scale, -0.44 * scale,
+        -0.92 * scale, -0.35 * scale
       );
-      hwGrad.addColorStop(0, `rgba(98, 126, 218, ${0.20 * aura})`);
-      hwGrad.addColorStop(0.65, `rgba(182, 128, 206, ${0.16 * aura})`);
-      hwGrad.addColorStop(1, `rgba(255, 194, 146, ${0.20 * aura})`);
-
-      ctx.fillStyle = hwGrad;
-      ctx.beginPath();
-      ctx.moveTo(pAbdom.x, pAbdom.y);
-      const cHindTop = pt(side * 0.20, 0.08, side);
-      ctx.quadraticCurveTo(cHindTop.x, cHindTop.y, pHindOuter.x, pHindOuter.y);
-      const cHindEdge = pt(side * 0.24, 0.26, side);
-      ctx.quadraticCurveTo(cHindEdge.x, cHindEdge.y, pHindInner.x, pHindInner.y);
-      ctx.lineTo(pTail.x, pTail.y);
+      ctx.bezierCurveTo(
+        -0.95 * scale, -0.18 * scale,
+        -0.88 * scale, -0.02 * scale,
+        -0.80 * scale,  0.09 * scale
+      );
+      ctx.bezierCurveTo(
+        -0.66 * scale,  0.18 * scale,
+        -0.49 * scale,  0.17 * scale,
+        -0.35 * scale,  0.14 * scale
+      );
+      ctx.quadraticCurveTo(-0.20 * scale, 0.11 * scale, -0.09 * scale, 0.05 * scale);
       ctx.closePath();
+
+      const fwGrad = ctx.createLinearGradient(-0.10 * scale, -0.15 * scale, -0.92 * scale, -0.30 * scale);
+      fwGrad.addColorStop(0.0, `rgba(116, 88, 212, ${0.18 * figureAlpha})`);
+      fwGrad.addColorStop(0.5, `rgba(74, 178, 218, ${0.21 * figureAlpha})`);
+      fwGrad.addColorStop(0.85, `rgba(154, 228, 255, ${0.18 * figureAlpha})`);
+      fwGrad.addColorStop(1.0, `rgba(255, 216, 152, ${0.24 * figureAlpha})`);
+      ctx.fillStyle = fwGrad;
       ctx.fill();
 
-      // Luminous crescent eyespots (ocelli) on wings
-      const eyePulse = 0.78 + 0.22 * Math.sin(time * 2.4 + side);
-      const foreEye = pt(side * 0.28, -0.08, side);
-      const hindEye = pt(side * 0.17, 0.16, side);
-      drawStar(foreEye.x, foreEye.y, Math.max(1.2, R * 0.0085), 0.55 * aura * eyePulse, 'gold', 0);
-      drawStar(hindEye.x, hindEye.y, Math.max(1.0, R * 0.0072), 0.45 * aura * eyePulse, 'teal', 0);
-
-      // Curved feathery antennae glow
-      const pHead = pt(0, -0.20, 0);
-      const pAnt = pt(side * 0.11, -0.36, 0);
-      const pAntCtrl = pt(side * 0.03, -0.31, 0);
-      ctx.strokeStyle = `rgba(255, 224, 165, ${0.42 * aura})`;
-      ctx.lineWidth = Math.max(0.7, R * 0.003);
-      ctx.beginPath();
-      ctx.moveTo(pHead.x, pHead.y);
-      ctx.quadraticCurveTo(pAntCtrl.x, pAntCtrl.y, pAnt.x, pAnt.y);
+      // Forewing delicate outer rim
+      ctx.strokeStyle = `rgba(196, 232, 255, ${0.34 * figureAlpha})`;
+      ctx.lineWidth = Math.max(0.75, scale * 0.008);
       ctx.stroke();
+
+      // Delicate filigree wing veins
+      ctx.strokeStyle = `rgba(255, 226, 176, ${0.26 * figureAlpha})`;
+      ctx.lineWidth = Math.max(0.6, scale * 0.0055);
+      ctx.beginPath();
+      ctx.moveTo(-0.16 * scale, -0.14 * scale);
+      ctx.quadraticCurveTo(-0.48 * scale, -0.26 * scale, -0.84 * scale, -0.26 * scale);
+      ctx.moveTo(-0.16 * scale, -0.08 * scale);
+      ctx.quadraticCurveTo(-0.48 * scale, -0.08 * scale, -0.78 * scale, 0.00 * scale);
+      ctx.moveTo(-0.15 * scale, -0.02 * scale);
+      ctx.quadraticCurveTo(-0.38 * scale,  0.07 * scale, -0.58 * scale, 0.13 * scale);
+      ctx.stroke();
+
+      // Eyespot halo & crescent on forewing
+      const ex = -0.52 * scale;
+      const ey = -0.14 * scale;
+      const er = 0.115 * scale;
+      const eyeGrad = ctx.createRadialGradient(ex, ey, 0, ex, ey, er);
+      eyeGrad.addColorStop(0.0, `rgba(255, 224, 150, ${0.38 * figureAlpha})`);
+      eyeGrad.addColorStop(0.55, `rgba(110, 198, 255, ${0.20 * figureAlpha})`);
+      eyeGrad.addColorStop(1.0, 'rgba(110, 198, 255, 0)');
+      ctx.fillStyle = eyeGrad;
+      ctx.beginPath();
+      ctx.arc(ex, ey, er, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = `rgba(255, 224, 168, ${0.42 * figureAlpha})`;
+      ctx.lineWidth = Math.max(0.65, scale * 0.006);
+      ctx.beginPath();
+      ctx.arc(ex, ey, er * 0.72, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Hindwing silhouette with graceful swallowtail
+      ctx.beginPath();
+      ctx.moveTo(-0.14 * scale, 0.08 * scale);
+      ctx.quadraticCurveTo(-0.48 * scale, 0.14 * scale, -0.61 * scale, 0.35 * scale);
+      ctx.bezierCurveTo(
+        -0.63 * scale, 0.52 * scale,
+        -0.52 * scale, 0.66 * scale,
+        -0.41 * scale, 0.80 * scale
+      );
+      ctx.bezierCurveTo(
+        -0.36 * scale, 0.66 * scale,
+        -0.25 * scale, 0.58 * scale,
+        -0.16 * scale, 0.52 * scale
+      );
+      ctx.quadraticCurveTo(-0.08 * scale, 0.40 * scale, -0.06 * scale, 0.24 * scale);
+      ctx.closePath();
+
+      const hwGrad = ctx.createLinearGradient(-0.10 * scale, 0.12 * scale, -0.50 * scale, 0.76 * scale);
+      hwGrad.addColorStop(0.0, `rgba(92, 108, 212, ${0.17 * figureAlpha})`);
+      hwGrad.addColorStop(0.55, `rgba(74, 174, 214, ${0.19 * figureAlpha})`);
+      hwGrad.addColorStop(1.0, `rgba(255, 214, 158, ${0.24 * figureAlpha})`);
+      ctx.fillStyle = hwGrad;
+      ctx.fill();
+
+      ctx.strokeStyle = `rgba(196, 232, 255, ${0.30 * figureAlpha})`;
+      ctx.lineWidth = Math.max(0.7, scale * 0.007);
+      ctx.stroke();
+
+      // Tiny lunar crescent on hindwing
+      const lx = -0.37 * scale;
+      const ly =  0.41 * scale;
+      const lr =  0.055 * scale;
+      ctx.strokeStyle = `rgba(255, 234, 190, ${0.46 * figureAlpha})`;
+      ctx.lineWidth = Math.max(0.6, scale * 0.0055);
+      ctx.beginPath();
+      ctx.arc(lx, ly, lr, -0.7, Math.PI + 0.7);
+      ctx.stroke();
+
+      // Feathered antenna arc
+      ctx.strokeStyle = `rgba(255, 224, 168, ${0.38 * figureAlpha})`;
+      ctx.lineWidth = Math.max(0.65, scale * 0.006);
+      ctx.beginPath();
+      ctx.moveTo(-0.02 * scale, -0.30 * scale);
+      ctx.quadraticCurveTo(-0.16 * scale, -0.52 * scale, -0.30 * scale, -0.74 * scale);
+      ctx.stroke();
+
+      ctx.restore();
     }
 
-    // Soft velvet body glow along spine
-    const pHead = pt(0, -0.20, 0);
-    const pTail = pt(0, 0.24, 0);
-    const bodyGrad = ctx.createLinearGradient(pHead.x, pHead.y, pTail.x, pTail.y);
-    bodyGrad.addColorStop(0, `rgba(255, 232, 185, ${0.42 * aura})`);
-    bodyGrad.addColorStop(0.5, `rgba(190, 225, 255, ${0.30 * aura})`);
-    bodyGrad.addColorStop(1, `rgba(130, 170, 240, ${0.15 * aura})`);
-    ctx.strokeStyle = bodyGrad;
-    ctx.lineWidth = Math.max(2.0, R * 0.015);
-    ctx.lineCap = 'round';
+    // Luminous body / lantern thorax
+    const pulse = 0.88 + 0.12 * Math.sin(time * 3.1);
+    const bodyGrad = ctx.createRadialGradient(0, -0.06 * scale, 0, 0, -0.06 * scale, 0.19 * scale);
+    bodyGrad.addColorStop(0.0, `rgba(255, 238, 192, ${0.46 * figureAlpha * pulse})`);
+    bodyGrad.addColorStop(0.55, `rgba(255, 198, 118, ${0.16 * figureAlpha})`);
+    bodyGrad.addColorStop(1.0, 'rgba(255, 198, 118, 0)');
+    ctx.fillStyle = bodyGrad;
     ctx.beginPath();
-    ctx.moveTo(pHead.x, pHead.y);
-    ctx.lineTo(pTail.x, pTail.y);
-    ctx.stroke();
+    ctx.ellipse(0, 0.08 * scale, 0.08 * scale, 0.34 * scale, 0, 0, Math.PI * 2);
+    ctx.fill();
 
     ctx.restore();
   }
 
   let lastTime = performance.now();
   let lastMoteSpawn = 0;
-  const CYCLE = 20.0; // seconds per full myth cycle
 
   function render(now) {
-    requestAnimationFrame(render);
-    const dt = Math.min(0.05, (now - lastTime) * 0.001);
+    const dt = Math.min(0.05, (now - lastTime) / 1000);
     lastTime = now;
-    const elapsed = now * 0.001;
+    const t = now / 1000;
 
-    // Smooth pointer parallax
-    pointer.x += (pointer.tx - pointer.x) * Math.min(1, dt * 4.5);
-    pointer.y += (pointer.ty - pointer.y) * Math.min(1, dt * 4.5);
+    // Smooth parallax easing
+    px += (targetPx - px) * Math.min(1, dt * 4);
+    py += (targetPy - py) * Math.min(1, dt * 4);
 
-    // Very calm, continuous celestial rotation around the porthole center
-    const skyRot = elapsed * 0.016;
-
-    // Cycle phases (start slightly into the cycle so first glance is engaging)
-    const t = (elapsed + 1.8) % CYCLE;
-
-    // Line trace: unfurls 2.0s..6.2s, holds until 14.8s, gently retracts 14.8s..18.2s
-    let trace = 0;
-    let retract = 0;
-    if (t >= 2.0 && t < 6.2) {
-      trace = smoothstep(2.0, 6.2, t);
-    } else if (t >= 6.2 && t < 14.8) {
-      trace = 1;
-    } else if (t >= 14.8 && t < 18.2) {
-      trace = 1;
-      retract = smoothstep(14.8, 18.2, t);
-    }
-
-    // Gossamer living aura: blooms 6.0s..15.2s
-    let aura = 0;
-    if (t >= 6.0 && t <= 15.2) {
-      const fadeIn = smoothstep(6.0, 8.2, t);
-      const fadeOut = 1 - smoothstep(12.8, 15.2, t);
-      aura = fadeIn * fadeOut;
-    }
-
-    // Two slow, dreamy wingbeats while awake
-    let flap = 0;
-    if (aura > 0.01) {
-      const wingPhase = (t - 6.0) / 9.2;
-      flap = Math.sin(wingPhase * Math.PI * 4) * 0.5 + 0.5;
-      flap *= aura;
-    }
-
-    // Constellation star wake-up brightness
-    const wake = Math.max(trace * (1 - retract) * 0.6, aura);
-
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    // 1. Draw slowly rotating pre-rendered deep sky & nebula
     ctx.save();
-    ctx.translate(cx - pointer.x * R * 0.012, cy - pointer.y * R * 0.012);
+    ctx.scale(dpr, dpr);
+
+    // Clear with deep space
+    ctx.fillStyle = '#040611';
+    ctx.fillRect(0, 0, width, height);
+
+    // Slow celestial rotation (~1 revolution per 8.5 minutes)
+    const skyRot = -0.32 + t * 0.012;
+
+    // 1. Rotating sky backdrop + nebula
+    ctx.save();
+    ctx.translate(cx - px * radius * 0.018, cy - py * radius * 0.018);
     ctx.rotate(skyRot * 0.85);
-    const drawDim = skySize / dpr;
-    ctx.drawImage(skyOffscreen, -drawDim / 2, -drawDim / 2, drawDim, drawDim);
+    const bSize = radius * 2 * 1.48;
+    ctx.drawImage(backdropCanvas, -bSize * 0.5, -bSize * 0.5, bSize, bSize);
     ctx.restore();
 
-    // 2. Twinkling field stars
-    const pxFg = -pointer.x * 0.022;
-    const pyFg = -pointer.y * 0.022;
-    const cs = Math.cos(skyRot);
-    const ss = Math.sin(skyRot);
-    for (let i = 0; i < FIELD_STARS.length; i++) {
-      const s = FIELD_STARS[i];
-      const rx = s.x * cs - s.y * ss;
-      const ry = s.x * ss + s.y * cs;
-      const sx = cx + (rx + pxFg * s.depth) * R;
-      const sy = cy + (ry + pyFg * s.depth) * R;
-      const tw = 0.62 + 0.38 * Math.sin(elapsed * s.speed + s.phase);
-      const rPx = Math.max(0.75, R * 0.0042 * s.size);
-      drawStar(sx, sy, rPx, s.baseAlpha * tw, s.tint, s.size > 1.15 ? 4.2 : 0);
-    }
-
-    // 3. Lantern Star (warm beacon ahead of the moth)
-    const lanternPos = mothToScreen(LANTERN.x, LANTERN.y, skyRot, pxFg, pyFg);
-    const lanternPulse = 0.86 + 0.14 * Math.sin(elapsed * 2.1) + 0.25 * aura;
-    const lanternRadius = Math.max(2.0, R * 0.0115);
-
-    // Soft warm atmospheric halo around the Lantern Star
+    // 2. Milky Way fine dust stars
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    const coronaR = R * (0.16 + 0.04 * aura);
-    const corona = ctx.createRadialGradient(
-      lanternPos.x, lanternPos.y, 0,
-      lanternPos.x, lanternPos.y, coronaR
-    );
-    corona.addColorStop(0, `rgba(255, 220, 140, ${0.26 * lanternPulse})`);
-    corona.addColorStop(0.35, `rgba(255, 165, 68, ${0.10 * lanternPulse})`);
-    corona.addColorStop(1, 'rgba(255, 130, 40, 0)');
-    ctx.fillStyle = corona;
-    ctx.beginPath();
-    ctx.arc(lanternPos.x, lanternPos.y, coronaR, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.translate(cx - px * radius * 0.024, cy - py * radius * 0.024);
+    ctx.rotate(skyRot * 0.9);
+    for (let i = 0; i < dustBand.length; i++) {
+      const s = dustBand[i];
+      const tw = 0.65 + 0.35 * Math.sin(t * s.twinkleSpeed + s.twinklePhase);
+      const x = s.x * radius;
+      const y = s.y * radius;
+      const [r, g, b] = s.tint;
+      ctx.fillStyle = `rgba(${r},${g},${b},${s.alpha * tw})`;
+      const sz = Math.max(0.6, s.size * (radius / 260));
+      ctx.fillRect(x - sz * 0.5, y - sz * 0.5, sz, sz);
+    }
     ctx.restore();
 
-    drawStar(lanternPos.x, lanternPos.y, lanternRadius, 0.95 * lanternPulse, 'gold', 6.5 + aura * 2.5);
+    // 3. Background twinkling stars
+    const spriteScaleBase = Math.max(0.55, radius / 230);
+    for (let i = 0; i < bgStars.length; i++) {
+      const s = bgStars[i];
+      const parallax = 0.012 + s.depth * 0.028;
+      const cosR = Math.cos(skyRot);
+      const sinR = Math.sin(skyRot);
+      const sx = cx + (s.x * cosR - s.y * sinR) * radius - px * radius * parallax;
+      const sy = cy + (s.x * sinR + s.y * cosR) * radius - py * radius * parallax;
+      if (sx < -20 || sx > width + 20 || sy < -20 || sy > height + 20) continue;
 
-    // 4. Spawn & update golden star-motes drifting from wings toward the Lantern Star
-    const spawnInterval = aura > 0.15 ? 0.11 : 0.55;
-    if (elapsed - lastMoteSpawn > spawnInterval) {
-      lastMoteSpawn = elapsed;
-      const pick = MOTH_STARS[Math.floor(moteRand() * MOTH_STARS.length)];
-      const dPick = deformedStar(pick, flap);
-      spawnMote(dPick.x, dPick.y, aura > 0.2);
+      const tw = 0.58 + 0.42 * Math.sin(t * s.twinkleSpeed + s.twinklePhase);
+      const sprite = getNearestSprite(s.tint);
+      drawStar(sx, sy, s.size * spriteScaleBase, s.alpha * tw, sprite, s.hasCross ? tw * 0.55 : 0);
     }
 
+    // 4. Constellation Cycle (16-second loop)
+    const cycleDuration = 16.0;
+    const phase = ((t + 2.0) % cycleDuration) / cycleDuration;
+
+    // Trace progress (0..1)
+    let traceAmount = 0;
+    if (phase >= 0.10 && phase < 0.36) {
+      traceAmount = smoothstep(0.10, 0.35, phase);
+    } else if (phase >= 0.36 && phase < 0.86) {
+      traceAmount = 1;
+    }
+
+    // Line opacity
+    let lineAlpha = 1;
+    if (phase < 0.10) {
+      lineAlpha = 0;
+    } else if (phase < 0.16) {
+      lineAlpha = smoothstep(0.10, 0.16, phase);
+    } else if (phase >= 0.74 && phase < 0.88) {
+      lineAlpha = 1 - smoothstep(0.74, 0.88, phase);
+    } else if (phase >= 0.88) {
+      lineAlpha = 0;
+    }
+
+    // Mythic wing illumination (blooms at 0.34 -> 0.76)
+    let figureAlpha = 0;
+    if (phase >= 0.32 && phase < 0.46) {
+      figureAlpha = smoothstep(0.32, 0.46, phase);
+    } else if (phase >= 0.46 && phase < 0.68) {
+      figureAlpha = 1;
+    } else if (phase >= 0.68 && phase < 0.82) {
+      figureAlpha = 1 - smoothstep(0.68, 0.82, phase);
+    }
+
+    // Gentle wing-breath oscillation during awakening
+    const flapPhase = Math.max(0, (phase - 0.34) / 0.46);
+    const flapScale = 1 - 0.13 * figureAlpha * (0.5 - 0.5 * Math.cos(flapPhase * Math.PI * 4));
+
+    const mothScale = radius * 0.66;
+    const mothCx = cx - px * radius * 0.04;
+    const mothCy = cy - py * radius * 0.04;
+
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    for (let i = 0; i < MAX_MOTES; i++) {
+    ctx.translate(mothCx, mothCy);
+    ctx.rotate(skyRot);
+
+    // Draw stained-glass moth spirit form
+    drawMothFigure(mothScale, figureAlpha, flapScale, t);
+
+    // Spawn golden pollen motes from wingtips & eyespots while awakened
+    if (figureAlpha > 0.35 && t - lastMoteSpawn > 0.16 && motes.length < MAX_MOTES) {
+      lastMoteSpawn = t;
+      const emitters = ['fwL_apex', 'fwR_apex', 'hwL_tail', 'hwR_tail', 'eyeL', 'eyeR'];
+      const pick = mothStars[emitters[Math.floor(Math.random() * emitters.length)]];
+      const ang = Math.random() * Math.PI * 2;
+      const spd = (0.04 + Math.random() * 0.09);
+      motes.push({
+        x: pick.x * mothScale * (Math.abs(pick.x) > 0.2 ? flapScale : 1),
+        y: pick.y * mothScale,
+        vx: Math.cos(ang) * spd * mothScale,
+        vy: Math.sin(ang) * spd * mothScale - 0.05 * mothScale,
+        life: 0,
+        maxLife: 1.6 + Math.random() * 1.4,
+        size: Math.max(0.8, radius * (0.004 + Math.random() * 0.005))
+      });
+    }
+
+    // Update and draw drifting motes
+    for (let i = motes.length - 1; i >= 0; i--) {
       const m = motes[i];
-      if (!m.active) continue;
-      m.age += dt;
-      if (m.age >= m.life) {
-        m.active = false;
+      m.life += dt;
+      if (m.life >= m.maxLife) {
+        motes.splice(i, 1);
         continue;
       }
-      const p = m.age / m.life;
-      // Gentle pull toward Lantern Star in local moth space
-      const toLanternX = LANTERN.x - m.x;
-      const toLanternY = LANTERN.y - m.y;
-      m.vx += toLanternX * dt * 0.10 + Math.sin(elapsed * 2.5 + m.phase) * dt * 0.03;
-      m.vy += toLanternY * dt * 0.10;
       m.x += m.vx * dt;
       m.y += m.vy * dt;
-
-      const fade = Math.sin(p * Math.PI);
-      const mp = mothToScreen(m.x, m.y, skyRot, pxFg, pyFg);
-      const mr = Math.max(0.7, R * 0.0038 * m.size);
-      const alpha = fade * (0.45 + 0.45 * aura);
-      const bloom = mr * 5.2;
-      ctx.globalAlpha = clamp(alpha, 0, 1);
-      ctx.drawImage(sprites.gold, mp.x - bloom, mp.y - bloom, bloom * 2, bloom * 2);
-    }
-    ctx.restore();
-
-    // 5. Compute current constellation star screen positions (with subtle wingbeat)
-    const starPts = new Array(MOTH_STARS.length);
-    for (let i = 0; i < MOTH_STARS.length; i++) {
-      const st = MOTH_STARS[i];
-      const def = deformedStar(st, flap);
-      starPts[i] = mothToScreen(def.x, def.y, skyRot, pxFg, pyFg);
+      const p = m.life / m.maxLife;
+      const ma = Math.sin(p * Math.PI) * 0.85;
+      const sprite = glowSprites[2]; // amber gold
+      drawStar(m.x, m.y, m.size, ma, sprite, 0);
     }
 
-    // 6. Gossamer wings & myth manifestation
-    drawGossamerMoth(aura, flap, skyRot, pxFg, pyFg, elapsed);
-
-    // 7. Constellation lines & flight-path whisper toward the Lantern
-    if (trace > 0 && retract < 1) {
+    // Draw tracing constellation lines
+    if (lineAlpha > 0.005 && traceAmount > 0.001) {
       ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
       ctx.lineCap = 'round';
-      const lineAlpha = (1 - retract) * (0.58 + 0.28 * aura);
-      ctx.lineWidth = Math.max(0.85, R * 0.0036);
+      for (let i = 0; i < constellationEdges.length; i++) {
+        const e = constellationEdges[i];
+        const segP = smoothstep(e.w0, e.w1, traceAmount);
+        if (segP <= 0) continue;
 
-      for (let i = 0; i < TRACE_SEGMENTS.length; i++) {
-        const seg = TRACE_SEGMENTS[i];
-        const segProg = clamp((trace - seg.start) / (seg.end - seg.start), 0, 1);
-        if (segProg <= 0) continue;
+        const a = mothStars[e.from];
+        const b = mothStars[e.to];
+        const x1 = a.x * mothScale;
+        const y1 = a.y * mothScale;
+        const x2 = x1 + (b.x * mothScale - x1) * segP;
+        const y2 = y1 + (b.y * mothScale - y1) * segP;
 
-        const pA = starPts[seg.a];
-        const pB = starPts[seg.b];
-        const curX = lerp(pA.x, pB.x, segProg);
-        const curY = lerp(pA.y, pB.y, segProg);
-
-        // Retract softly from the outer tip inward
-        const startFrac = retract * 0.9;
-        const sx = lerp(pA.x, curX, startFrac);
-        const sy = lerp(pA.y, curY, startFrac);
-
-        const lineGrad = ctx.createLinearGradient(sx, sy, curX, curY);
-        lineGrad.addColorStop(0, `rgba(176, 214, 255, ${lineAlpha * 0.72})`);
-        lineGrad.addColorStop(1, `rgba(255, 224, 166, ${lineAlpha})`);
-        ctx.strokeStyle = lineGrad;
-
+        // Soft outer glow stroke
+        ctx.strokeStyle = `rgba(150, 214, 255, ${0.22 * lineAlpha})`;
+        ctx.lineWidth = Math.max(2.2, radius * 0.013);
         ctx.beginPath();
-        ctx.moveTo(sx, sy);
-        ctx.lineTo(curX, curY);
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
         ctx.stroke();
 
-        // Spark at the tracing comet-tip while drawing
-        if (segProg > 0.02 && segProg < 0.98 && retract === 0) {
-          drawStar(curX, curY, Math.max(1.0, R * 0.0055), 0.85, 'gold', 0);
-        }
-      }
-
-      // Faint dotted golden flight-arc reaching from head toward Lantern Star
-      const arcProg = clamp((trace - 0.55) / 0.45, 0, 1) * (1 - retract);
-      if (arcProg > 0.02) {
-        const pHead = starPts[0];
-        const pMid = mothToScreen(0.05, -0.44, skyRot, pxFg, pyFg);
-        const pStop = mothToScreen(0.0, -0.63, skyRot, pxFg, pyFg);
-        ctx.strokeStyle = `rgba(255, 214, 138, ${0.28 * arcProg * (0.6 + 0.4 * aura)})`;
-        ctx.lineWidth = Math.max(0.7, R * 0.0026);
-        ctx.setLineDash([Math.max(2, R * 0.012), Math.max(3, R * 0.022)]);
-        ctx.lineDashOffset = -elapsed * R * 0.04;
+        // Crisp inner golden-silver filament
+        ctx.strokeStyle = `rgba(255, 236, 198, ${0.72 * lineAlpha})`;
+        ctx.lineWidth = Math.max(0.85, radius * 0.0045);
         ctx.beginPath();
-        ctx.moveTo(pHead.x, pHead.y);
-        ctx.quadraticCurveTo(pMid.x, pMid.y, pStop.x, pStop.y);
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
         ctx.stroke();
-        ctx.setLineDash([]);
       }
-
       ctx.restore();
     }
 
-    // 8. Constellation anchor stars (always visible, brightening during reveal)
-    for (let i = 0; i < MOTH_STARS.length; i++) {
-      const st = MOTH_STARS[i];
-      const p = starPts[i];
-      const tw = 0.84 + 0.16 * Math.sin(elapsed * 1.9 + i * 1.3);
-      const radiusPx = Math.max(1.3, R * 0.0068 * st.mag * (1 + 0.25 * wake));
-      const alpha = (0.72 + 0.28 * wake) * tw;
-      const spikes = st.mag >= 1.0 ? 4.8 + wake * 2.2 : (wake > 0.35 ? 3.2 * wake : 0);
-      drawStar(p.x, p.y, radiusPx, alpha, st.tint, spikes);
+    // Draw the constellation's own stars on top
+    const keys = Object.keys(mothStars);
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i];
+      const s = mothStars[k];
+      const sx = s.x * mothScale;
+      const sy = s.y * mothScale;
+      const tw = 0.84 + 0.16 * Math.sin(t * 2.1 + i * 1.7);
+      const boost = 1 + figureAlpha * 0.34;
+      const baseSize = (1.35 + s.mag * 1.85) * spriteScaleBase * boost;
+      const sprite = getNearestSprite(s.tint);
+      const cross = s.mag > 0.7 ? (0.45 + figureAlpha * 0.55) * tw : figureAlpha * 0.35;
+      drawStar(sx, sy, baseSize, Math.min(1, (0.85 + figureAlpha * 0.15) * tw), sprite, cross);
     }
+
+    ctx.restore();
+    ctx.restore();
+
+    requestAnimationFrame(render);
   }
 
   requestAnimationFrame(render);
@@ -729,6 +669,6 @@
 ```json
 {
   "title": "The Lantern Moth",
-  "statement": "Born from a stray spark of the first hearthfire, she climbs the midnight sky toward an unreachable golden star. Whenever she nears its warmth, her gossamer wings catch the glow and scatter new constellations into the dark."
+  "statement": "Said to gather unlit wishes and stray sighs from the dark, The Lantern Moth traces its stained-glass wings across the midnight vault before dissolving once more into quiet stars."
 }
 ```

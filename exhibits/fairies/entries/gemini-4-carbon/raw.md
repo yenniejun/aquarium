@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>fAIries</title>
+<title>The Fairy of Loose Ends</title>
 <style>
   *, *::before, *::after {
     box-sizing: border-box;
@@ -15,13 +15,15 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #070a16;
+    background: #070d19;
+    touch-action: auto;
+    user-select: none;
+    -webkit-user-select: none;
   }
   canvas {
     display: block;
     width: 100%;
     height: 100%;
-    touch-action: pan-y;
   }
 </style>
 </head>
@@ -32,1339 +34,1304 @@
   const canvas = document.getElementById('scene');
   const ctx = canvas.getContext('2d', { alpha: false });
 
-  // Virtual tarot artwork canvas (2:3 portrait)
+  // Virtual composition space (2:3 tarot proportion)
   const VW = 600;
   const VH = 900;
 
   let width = 0;
   let height = 0;
   let dpr = 1;
-  let viewScale = 1;
+  let scale = 1;
   let offsetX = 0;
   let offsetY = 0;
 
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = Math.max(1, Math.floor(width * dpr));
-    canvas.height = Math.max(1, Math.floor(height * dpr));
-
-    viewScale = Math.max(width / VW, height / VH);
-    offsetX = (width - VW * viewScale) * 0.5;
-    offsetY = (height - VH * viewScale) * 0.5;
-  }
-  window.addEventListener('resize', resize, { passive: true });
-  resize();
-
-  // Subtle, optional pointer tracking
-  const pointer = { x: 0, y: 0, tx: 0, ty: 0, active: false };
+  // Subtle pointer influence (optional, never required)
+  const pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5, active: false };
   window.addEventListener('pointermove', (e) => {
-    const nx = (e.clientX / Math.max(1, width)) * 2 - 1;
-    const ny = (e.clientY / Math.max(1, height)) * 2 - 1;
-    pointer.tx = Math.max(-1, Math.min(1, nx));
-    pointer.ty = Math.max(-1, Math.min(1, ny));
+    if (!width || !height) return;
+    pointer.tx = Math.max(0, Math.min(1, e.clientX / width));
+    pointer.ty = Math.max(0, Math.min(1, e.clientY / height));
     pointer.active = true;
   }, { passive: true });
+
   window.addEventListener('pointerleave', () => {
-    pointer.tx = 0;
-    pointer.ty = 0;
-    pointer.active = false;
+    pointer.tx = 0.5;
+    pointer.ty = 0.5;
   }, { passive: true });
 
-  // Deterministic PRNG for consistent organic composition
-  let seed = 49187;
+  // Deterministic pseudo-random helper for repeatable organic details
+  let seed = 42197;
   function rand() {
     seed = (seed * 1664525 + 1013904223) >>> 0;
     return seed / 4294967296;
   }
 
-  // Pre-rendered soft glow sprites for crisp, lightweight particle rendering
-  function makeGlowSprite(inner, mid, outer) {
-    const c = document.createElement('canvas');
-    c.width = 64;
-    c.height = 64;
-    const gctx = c.getContext('2d');
-    const g = gctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, inner);
-    g.addColorStop(0.28, mid);
-    g.addColorStop(1, outer);
-    gctx.fillStyle = g;
-    gctx.fillRect(0, 0, 64, 64);
-    return c;
+  // Subtle illustration grain pattern (cached once)
+  const grainCanvas = document.createElement('canvas');
+  grainCanvas.width = 128;
+  grainCanvas.height = 128;
+  const gCtx = grainCanvas.getContext('2d');
+  const gData = gCtx.createImageData(128, 128);
+  for (let i = 0; i < gData.data.length; i += 4) {
+    const v = (rand() * 255) | 0;
+    gData.data[i] = v;
+    gData.data[i + 1] = v;
+    gData.data[i + 2] = v + 12 > 255 ? 255 : v + 12;
+    gData.data[i + 3] = 11;
   }
+  gCtx.putImageData(gData, 0, 0);
+  let grainPattern = null;
 
-  const goldSprite = makeGlowSprite(
-    'rgba(255, 250, 220, 1)',
-    'rgba(247, 186, 82, 0.55)',
-    'rgba(247, 186, 82, 0)'
-  );
-  const cyanSprite = makeGlowSprite(
-    'rgba(225, 255, 250, 0.95)',
-    'rgba(110, 225, 220, 0.45)',
-    'rgba(80, 190, 210, 0)'
-  );
-  const violetSprite = makeGlowSprite(
-    'rgba(235, 210, 255, 0.85)',
-    'rgba(148, 110, 220, 0.35)',
-    'rgba(90, 60, 160, 0)'
-  );
+  // Cached background layer redrawn only on resize
+  const bgCanvas = document.createElement('canvas');
+  const bgCtx = bgCanvas.getContext('2d', { alpha: false });
 
-  // Sky stars
-  const stars = Array.from({ length: 95 }, () => ({
-    x: rand() * VW,
-    y: rand() * 680,
-    r: 0.45 + rand() * 1.35,
+  // Pre-generated scene elements
+  const stars = Array.from({ length: 85 }, () => ({
+    u: rand() * 1.4 - 0.2,
+    v: rand() * 0.78,
+    r: 0.4 + rand() * 1.35,
     phase: rand() * Math.PI * 2,
     speed: 0.6 + rand() * 1.6,
-    tint: rand() > 0.3 ? '#dceeff' : '#ffe6b8'
+    warm: rand() > 0.72
   }));
 
-  // Weeping night-willow strands hanging from upper canopy
   const willowStrands = Array.from({ length: 18 }, (_, i) => {
-    const leftSide = i < 10;
-    const baseX = leftSide ? -15 + (i / 10) * 230 : 390 + ((i - 10) / 8) * 225;
+    const side = i < 9 ? -1 : 1;
+    const idx = i % 9;
+    const baseX = side < 0 ? -30 + idx * 28 + rand() * 14 : VW + 30 - idx * 28 - rand() * 14;
+    const len = 150 + (8 - idx) * 26 + rand() * 75;
+    const leaves = Math.floor(len / 20);
     return {
-      x: baseX + (rand() - 0.5) * 24,
-      len: 140 + rand() * 250 * (leftSide ? (1 - i / 13) : ((i - 9) / 9)),
-      swayAmp: 6 + rand() * 10,
+      x: baseX,
+      len,
+      swayAmp: 6 + rand() * 9,
       phase: rand() * Math.PI * 2,
-      leaves: Math.floor(6 + rand() * 8),
-      alpha: 0.3 + rand() * 0.45
+      speed: 0.45 + rand() * 0.35,
+      side,
+      leaves,
+      depth: idx < 4 ? 1 : 0
     };
   });
 
-  // Rising golden time-motes drifting along S-curve from watch (198,722) toward fairy's hand (285,395)
-  const timeMotes = Array.from({ length: 52 }, () => ({
-    progress: rand(),
-    speed: 0.025 + rand() * 0.045,
-    spread: (rand() - 0.5) * 2,
-    wobblePhase: rand() * Math.PI * 2,
-    wobbleSpeed: 0.8 + rand() * 1.4,
-    size: 4 + rand() * 14,
-    isRing: rand() < 0.16,
-    pauseFactor: rand() * Math.PI * 2
-  }));
-
-  // Ambient woodland spores
-  const spores = Array.from({ length: 34 }, () => ({
+  const motes = Array.from({ length: 48 }, () => ({
     x: rand() * VW,
-    y: 120 + rand() * 760,
+    y: rand() * VH,
+    r: 0.8 + rand() * 2.4,
     vx: (rand() - 0.5) * 8,
-    vy: -4 - rand() * 8,
-    size: 5 + rand() * 11,
+    vy: -6 - rand() * 14,
     phase: rand() * Math.PI * 2,
-    kind: rand() > 0.4 ? cyanSprite : violetSprite
+    hue: rand() > 0.35 ? 'gold' : 'teal',
+    depth: rand()
   }));
 
-  // Foreground & midground ferns around moss bed
+  const threadSparks = Array.from({ length: 24 }, (_, i) => ({
+    strand: i % 4,
+    progress: rand(),
+    speed: 0.08 + rand() * 0.12,
+    driftX: (rand() - 0.5) * 34,
+    driftY: -22 - rand() * 45,
+    size: 0.9 + rand() * 1.7,
+    phase: rand() * Math.PI * 2
+  }));
+
   const ferns = [
-    { x: 42, y: 885, angle: -0.95, len: 175, scale: 1.05, dark: false },
-    { x: 95, y: 895, angle: -1.18, len: 140, scale: 0.85, dark: false },
-    { x: 325, y: 890, angle: -1.78, len: 130, scale: 0.82, dark: false },
-    { x: 495, y: 895, angle: -2.05, len: 185, scale: 1.05, dark: false },
-    { x: 565, y: 885, angle: -2.28, len: 210, scale: 1.15, dark: true },
-    { x: 18, y: 905, angle: -0.72, len: 195, scale: 1.18, dark: true }
+    { x: 35, y: 885, angle: -0.95, len: 145, scale: 1.0, phase: 0.2 },
+    { x: 85, y: 905, angle: -1.18, len: 120, scale: 0.85, phase: 1.4 },
+    { x: 575, y: 865, angle: -2.25, len: 135, scale: 0.95, phase: 2.3 },
+    { x: 520, y: 905, angle: -2.05, len: 110, scale: 0.8, phase: 0.8 },
+    { x: 325, y: 910, angle: -1.65, len: 95, scale: 0.72, phase: 3.1 }
   ];
 
-  // Bioluminescent dew-cups nestled in moss (away from fairy)
-  const dewCups = [
-    { x: 86, y: 782, h: 36, tilt: -0.22, r: 7 },
-    { x: 102, y: 794, h: 25, tilt: 0.14, r: 5 },
-    { x: 312, y: 786, h: 32, tilt: 0.25, r: 6.5 },
-    { x: 330, y: 798, h: 22, tilt: 0.42, r: 4.5 },
-    { x: 446, y: 822, h: 40, tilt: -0.18, r: 7.5 },
-    { x: 465, y: 834, h: 26, tilt: 0.12, r: 5 }
+  // Loose silk threads rising from the spool (anchor near x:428, y:688)
+  const looseStrands = [
+    {
+      ox: -6, oy: -18,
+      pts: [
+        { x: 405, y: 632 },
+        { x: 372, y: 562 },
+        { x: 344, y: 492 },
+        { x: 318, y: 432 }
+      ],
+      width: 2.3,
+      colorA: '#ffd98e',
+      colorB: '#ff9d6c',
+      freq: 0.95,
+      phase: 0.0
+    },
+    {
+      ox: 8, oy: -20,
+      pts: [
+        { x: 446, y: 620 },
+        { x: 432, y: 540 },
+        { x: 396, y: 468 },
+        { x: 376, y: 392 }
+      ],
+      width: 1.9,
+      colorA: '#ffeab3',
+      colorB: '#f4b56a',
+      freq: 1.12,
+      phase: 1.7
+    },
+    {
+      ox: 16, oy: -12,
+      pts: [
+        { x: 472, y: 642 },
+        { x: 486, y: 575 },
+        { x: 466, y: 505 },
+        { x: 450, y: 448 }
+      ],
+      width: 1.5,
+      colorA: '#ffd089',
+      colorB: '#9ef3e6',
+      freq: 0.82,
+      phase: 3.2
+    },
+    {
+      ox: -15, oy: -8,
+      pts: [
+        { x: 386, y: 662 },
+        { x: 350, y: 618 },
+        { x: 322, y: 564 },
+        { x: 294, y: 522 }
+      ],
+      width: 1.6,
+      colorA: '#ffca80',
+      colorB: '#e88388',
+      freq: 1.25,
+      phase: 4.5
+    },
+    // One relaxed tail draped down across the mossy stone
+    {
+      ox: -22, oy: 18,
+      draped: true,
+      pts: [
+        { x: 385, y: 724 },
+        { x: 356, y: 748 },
+        { x: 334, y: 772 },
+        { x: 314, y: 786 }
+      ],
+      width: 1.8,
+      colorA: '#e8b36b',
+      colorB: '#c97c5d',
+      freq: 0.5,
+      phase: 2.1
+    }
   ];
 
-  function drawSkyAndMoon(t) {
-    // Rich nocturnal sky gradient
-    const sky = ctx.createLinearGradient(0, 0, 0, VH);
-    sky.addColorStop(0, '#070b19');
-    sky.addColorStop(0.35, '#0e1730');
-    sky.addColorStop(0.68, '#14233b');
-    sky.addColorStop(0.88, '#131d2e');
-    sky.addColorStop(1, '#080e17');
-    ctx.fillStyle = sky;
-    ctx.fillRect(0, 0, VW, VH);
+  function paintStaticBackground() {
+    bgCanvas.width = canvas.width;
+    bgCanvas.height = canvas.height;
+    bgCtx.save();
+    bgCtx.scale(dpr, dpr);
 
-    // Subtle twilight plum nebula wash
-    const neb = ctx.createRadialGradient(390, 340, 20, 370, 360, 380);
-    neb.addColorStop(0, 'rgba(64, 48, 108, 0.36)');
-    neb.addColorStop(0.5, 'rgba(28, 56, 86, 0.22)');
-    neb.addColorStop(1, 'rgba(10, 15, 30, 0)');
-    ctx.fillStyle = neb;
-    ctx.fillRect(0, 0, VW, VH);
+    // Rich nocturnal twilight wash across full viewport
+    const skyGrad = bgCtx.createLinearGradient(0, 0, 0, height);
+    skyGrad.addColorStop(0.0, '#060c18');
+    skyGrad.addColorStop(0.32, '#0c1a2e');
+    skyGrad.addColorStop(0.66, '#13273b');
+    skyGrad.addColorStop(0.86, '#141e2e');
+    skyGrad.addColorStop(1.0, '#070b14');
+    bgCtx.fillStyle = skyGrad;
+    bgCtx.fillRect(0, 0, width, height);
 
-    // Faint celestial astrolabe arcs in upper sky (atmospheric geometry)
+    bgCtx.translate(offsetX, offsetY);
+    bgCtx.scale(scale, scale);
+
+    // Soft diffused lunar glow in upper-center twilight
+    const moonGlow = bgCtx.createRadialGradient(255, 295, 18, 265, 320, 390);
+    moonGlow.addColorStop(0.0, 'rgba(168, 214, 229, 0.24)');
+    moonGlow.addColorStop(0.32, 'rgba(89, 146, 176, 0.14)');
+    moonGlow.addColorStop(0.68, 'rgba(35, 64, 94, 0.06)');
+    moonGlow.addColorStop(1.0, 'rgba(10, 20, 36, 0)');
+    bgCtx.fillStyle = moonGlow;
+    bgCtx.fillRect(-300, -200, VW + 600, VH + 400);
+
+    // Warm secondary glow from the spool region in lower right
+    const warmAmbience = bgCtx.createRadialGradient(430, 690, 10, 420, 660, 310);
+    warmAmbience.addColorStop(0.0, 'rgba(255, 188, 104, 0.20)');
+    warmAmbience.addColorStop(0.45, 'rgba(214, 118, 75, 0.08)');
+    warmAmbience.addColorStop(1.0, 'rgba(20, 18, 34, 0)');
+    bgCtx.fillStyle = warmAmbience;
+    bgCtx.fillRect(-200, 200, VW + 400, VH);
+
+    // Distant misty woodland silhouettes
+    bgCtx.fillStyle = 'rgba(9, 19, 33, 0.55)';
+    bgCtx.beginPath();
+    bgCtx.moveTo(-250, VH + 100);
+    bgCtx.lineTo(-250, 635);
+    for (let x = -250; x <= VW + 250; x += 45) {
+      const h = Math.sin(x * 0.014) * 32 + Math.cos(x * 0.037) * 18;
+      bgCtx.lineTo(x, 645 + h);
+    }
+    bgCtx.lineTo(VW + 250, VH + 100);
+    bgCtx.closePath();
+    bgCtx.fill();
+
+    // Soft dark vignette around outer atmosphere (organic lighting, never a frame)
+    const vig = bgCtx.createRadialGradient(VW * 0.48, VH * 0.46, 170, VW * 0.5, VH * 0.5, 620);
+    vig.addColorStop(0.0, 'rgba(0, 0, 0, 0)');
+    vig.addColorStop(0.72, 'rgba(4, 8, 16, 0.18)');
+    vig.addColorStop(1.0, 'rgba(3, 6, 13, 0.58)');
+    bgCtx.fillStyle = vig;
+    bgCtx.fillRect(-300, -300, VW + 600, VH + 600);
+
+    bgCtx.restore();
+  }
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.floor(width * dpr));
+    canvas.height = Math.max(1, Math.floor(height * dpr));
+
+    // Fit 2:3 composition comfortably while background extends edge-to-edge
+    const sx = width / VW;
+    const sy = height / VH;
+    // Blend gently toward cover when aspect ratio is very close to 2:3, contain when extreme
+    const ratioDiff = Math.abs((width / height) - (VW / VH));
+    scale = ratioDiff < 0.14 ? Math.max(sx, sy) : Math.min(sx, sy) * 1.02;
+    offsetX = (width - VW * scale) * 0.5;
+    offsetY = (height - VH * scale) * 0.5;
+
+    grainPattern = ctx.createPattern(grainCanvas, 'repeat');
+    paintStaticBackground();
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Draw celestial air-current rings subtly turning behind the fairy
+  function drawCelestialCurrents(t, px, py) {
     ctx.save();
-    ctx.translate(132, 148);
-    ctx.strokeStyle = 'rgba(165, 215, 235, 0.055)';
+    ctx.translate(238 + px * -10, 315 + py * -8);
+
+    // Pale crescent moon nestled in twilight mist
+    ctx.save();
+    ctx.translate(-78, -145);
+    ctx.rotate(-0.38);
+    const moonGrad = ctx.createRadialGradient(0, 0, 4, 0, 0, 42);
+    moonGrad.addColorStop(0, 'rgba(232, 245, 250, 0.92)');
+    moonGrad.addColorStop(0.65, 'rgba(182, 218, 232, 0.45)');
+    moonGrad.addColorStop(1, 'rgba(140, 190, 215, 0)');
+    ctx.fillStyle = moonGrad;
+    ctx.beginPath();
+    ctx.arc(0, 0, 42, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(238, 247, 252, 0.86)';
+    ctx.beginPath();
+    ctx.arc(0, 0, 23, 0, Math.PI * 2);
+    ctx.arc(9, -4, 20.5, 0, Math.PI * 2, true);
+    ctx.fill();
+    ctx.restore();
+
+    // Whisper-faint astrolabe air-rings
+    ctx.strokeStyle = 'rgba(186, 222, 235, 0.08)';
     ctx.lineWidth = 1;
-    for (const rad of [92, 148, 225]) {
-      ctx.beginPath();
-      ctx.arc(0, 0, rad, -0.3, Math.PI * 1.15);
-      ctx.stroke();
-    }
-    ctx.restore();
-
-    // Twinkling stars
-    for (const s of stars) {
-      const tw = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
-      ctx.globalAlpha = tw * 0.85;
-      ctx.fillStyle = s.tint;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-
-    // Crescent Moon in upper left
-    const mx = 132 + pointer.x * -6;
-    const my = 148 + pointer.y * -4;
-    const moonHalo = ctx.createRadialGradient(mx, my, 12, mx, my, 145);
-    moonHalo.addColorStop(0, 'rgba(200, 240, 245, 0.28)');
-    moonHalo.addColorStop(0.4, 'rgba(130, 195, 220, 0.10)');
-    moonHalo.addColorStop(1, 'rgba(130, 195, 220, 0)');
-    ctx.fillStyle = moonHalo;
-    ctx.beginPath();
-    ctx.arc(mx, my, 145, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.save();
-    ctx.translate(mx, my);
-    ctx.rotate(-0.45);
-    ctx.fillStyle = '#e8f9f7';
-    ctx.shadowColor = 'rgba(180, 245, 240, 0.6)';
-    ctx.shadowBlur = 18;
-    ctx.beginPath();
-    ctx.arc(0, 0, 34, 0, Math.PI * 2);
-    ctx.arc(13, -6, 30, 0, Math.PI * 2, true);
-    ctx.fill();
-    ctx.restore();
-  }
-
-  function drawWillowCanopy(t) {
-    ctx.save();
-    for (const st of willowStrands) {
-      const sway = Math.sin(t * 0.75 + st.phase) * st.swayAmp + pointer.x * 5;
-      const endX = st.x + sway;
-      const endY = st.len;
-      const cpX = st.x + sway * 0.45;
-      const cpY = st.len * 0.55;
-
-      ctx.strokeStyle = `rgba(18, 38, 54, ${st.alpha})`;
-      ctx.lineWidth = 1.3;
-      ctx.beginPath();
-      ctx.moveTo(st.x, -10);
-      ctx.quadraticCurveTo(cpX, cpY, endX, endY);
-      ctx.stroke();
-
-      for (let k = 1; k <= st.leaves; k++) {
-        const u = k / (st.leaves + 1);
-        const lx = (1 - u) * (1 - u) * st.x + 2 * (1 - u) * u * cpX + u * u * endX;
-        const ly = (1 - u) * (1 - u) * (-10) + 2 * (1 - u) * u * cpY + u * u * endY;
-        const side = k % 2 === 0 ? 1 : -1;
-        ctx.save();
-        ctx.translate(lx, ly);
-        ctx.rotate(side * 0.48 + sway * 0.012);
-        ctx.fillStyle = `rgba(24, 52, 68, ${st.alpha * 0.95})`;
-        ctx.beginPath();
-        ctx.ellipse(side * 7, 4, 8, 2.3, side * 0.3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-    ctx.restore();
-  }
-
-  function drawMossAndWatchGlow(t) {
-    // Distant mist layers
     for (let i = 0; i < 3; i++) {
-      const drift = Math.sin(t * 0.28 + i * 2.1) * 28;
-      const y = 600 + i * 68;
-      const g = ctx.createRadialGradient(300 + drift, y, 10, 300 + drift, y, 320);
-      g.addColorStop(0, `rgba(42, 82, 98, ${0.14 - i * 0.02})`);
-      g.addColorStop(1, 'rgba(15, 28, 42, 0)');
-      ctx.fillStyle = g;
-      ctx.fillRect(0, y - 130, VW, 260);
-    }
-
-    // Warm golden volumetric aura rising from the stopped pocket watch
-    const pulse = 0.92 + 0.08 * Math.sin(t * 1.4);
-    ctx.save();
-    ctx.globalCompositeOperation = 'screen';
-    const cone = ctx.createRadialGradient(202, 718, 8, 255, 555, 310);
-    cone.addColorStop(0, `rgba(255, 208, 118, ${0.42 * pulse})`);
-    cone.addColorStop(0.35, `rgba(232, 150, 62, ${0.18 * pulse})`);
-    cone.addColorStop(0.75, 'rgba(160, 95, 70, 0.05)');
-    cone.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = cone;
-    ctx.fillRect(0, 220, VW, 650);
-    ctx.restore();
-
-    // Rolling dark velvet moss mounds at the bottom
-    const backMoss = ctx.createLinearGradient(0, 665, 0, VH);
-    backMoss.addColorStop(0, '#10242c');
-    backMoss.addColorStop(0.45, '#0b1922');
-    backMoss.addColorStop(1, '#050a11');
-    ctx.fillStyle = backMoss;
-    ctx.beginPath();
-    ctx.moveTo(-10, VH);
-    ctx.lineTo(-10, 725);
-    ctx.bezierCurveTo(95, 675, 225, 680, 345, 730);
-    ctx.bezierCurveTo(445, 772, 530, 742, VW + 10, 760);
-    ctx.lineTo(VW + 10, VH);
-    ctx.closePath();
-    ctx.fill();
-
-    // Warm rim highlight on moss cushion around the watch
-    const mossRim = ctx.createRadialGradient(198, 738, 22, 198, 755, 165);
-    mossRim.addColorStop(0, 'rgba(218, 152, 68, 0.28)');
-    mossRim.addColorStop(0.55, 'rgba(46, 90, 82, 0.22)');
-    mossRim.addColorStop(1, 'rgba(10, 22, 28, 0)');
-    ctx.fillStyle = mossRim;
-    ctx.beginPath();
-    ctx.ellipse(202, 755, 165, 68, -0.05, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  function drawGear(cx, cy, r, teeth, rot, color, holeR) {
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(rot);
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    const step = (Math.PI * 2) / teeth;
-    for (let i = 0; i < teeth; i++) {
-      const a0 = i * step;
-      const a1 = a0 + step * 0.28;
-      const a2 = a0 + step * 0.52;
-      const a3 = a0 + step * 0.78;
-      ctx.lineTo(Math.cos(a0) * (r - 2.4), Math.sin(a0) * (r - 2.4));
-      ctx.lineTo(Math.cos(a1) * (r + 1.6), Math.sin(a1) * (r + 1.6));
-      ctx.lineTo(Math.cos(a2) * (r + 1.6), Math.sin(a2) * (r + 1.6));
-      ctx.lineTo(Math.cos(a3) * (r - 2.4), Math.sin(a3) * (r - 2.4));
-    }
-    ctx.closePath();
-    ctx.fill();
-
-    // Cutout spokes
-    ctx.fillStyle = '#18141c';
-    ctx.beginPath();
-    ctx.arc(0, 0, holeR, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 1.6;
-    for (let s = 0; s < 4; s++) {
-      const sa = (s * Math.PI) / 2;
+      const r = 122 + i * 44;
+      const a0 = t * (0.04 - i * 0.025) + i * 1.9;
       ctx.beginPath();
-      ctx.moveTo(Math.cos(sa) * 2, Math.sin(sa) * 2);
-      ctx.lineTo(Math.cos(sa) * holeR, Math.sin(sa) * holeR);
+      ctx.arc(0, 0, r, a0, a0 + Math.PI * (1.15 - i * 0.2));
       ctx.stroke();
-    }
-    ctx.fillStyle = '#ffe19c';
-    ctx.beginPath();
-    ctx.arc(0, 0, 2.3, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
 
-  function drawStoppedPocketWatch(t) {
-    const wx = 198;
-    const wy = 732;
-
-    ctx.save();
-    ctx.translate(wx, wy);
-
-    // Deep nest shadow in moss
-    ctx.fillStyle = 'rgba(3, 6, 12, 0.78)';
-    ctx.beginPath();
-    ctx.ellipse(4, 16, 86, 48, -0.14, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Open hinged gold lid tilted up behind-left of the watch
-    ctx.save();
-    ctx.translate(-56, -42);
-    ctx.rotate(-0.68);
-    // Outer lid edge
-    const lidOuter = ctx.createLinearGradient(-48, -55, 48, 55);
-    lidOuter.addColorStop(0, '#8f5e24');
-    lidOuter.addColorStop(0.5, '#e8b45a');
-    lidOuter.addColorStop(1, '#5e3b14');
-    ctx.fillStyle = lidOuter;
-    ctx.beginPath();
-    ctx.ellipse(-4, -2, 54, 62, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Inner burnished gold concave surface catching warm watch-glow & cyan moonlight
-    const lidInner = ctx.createRadialGradient(8, 10, 4, 0, 0, 52);
-    lidInner.addColorStop(0, '#ffebb3');
-    lidInner.addColorStop(0.45, '#d6973c');
-    lidInner.addColorStop(0.82, '#7d5222');
-    lidInner.addColorStop(1, '#4d3114');
-    ctx.fillStyle = lidInner;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 48, 56, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Delicate engine-turned guilloche rings inside lid
-    ctx.strokeStyle = 'rgba(255, 240, 195, 0.22)';
-    ctx.lineWidth = 0.9;
-    for (const r of [16, 28, 39]) {
       ctx.beginPath();
-      ctx.ellipse(0, 0, r * 0.85, r, 0, 0, Math.PI * 2);
+      ctx.arc(0, 0, r, a0 + Math.PI, a0 + Math.PI * (1.7 - i * 0.18));
       ctx.stroke();
     }
     ctx.restore();
+  }
 
-    // Brass hinge barrel
-    ctx.save();
-    ctx.translate(-35, -18);
-    ctx.rotate(-0.65);
-    ctx.fillStyle = '#c88c38';
-    ctx.beginPath();
-    ctx.roundRect(-6, -12, 12, 24, 4);
-    ctx.fill();
-    ctx.restore();
+  function drawStarsAndMist(t, px, py) {
+    // Twinkling stars
+    for (let i = 0; i < stars.length; i++) {
+      const s = stars[i];
+      const twinkle = 0.35 + 0.65 * Math.pow(0.5 + 0.5 * Math.sin(t * s.speed + s.phase), 2);
+      const sx = s.u * VW + px * -6;
+      const sy = s.v * VH + py * -5;
+      ctx.fillStyle = s.warm
+        ? `rgba(255, 230, 186, ${twinkle * 0.8})`
+        : `rgba(202, 234, 248, ${twinkle * 0.75})`;
+      ctx.beginPath();
+      ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
+      ctx.fill();
 
-    // Winding stem, crown & bow ring resting toward bottom-right-front / lower-left
-    ctx.save();
-    ctx.rotate(-0.14);
-    // Bow ring
-    ctx.strokeStyle = '#d99e46';
-    ctx.lineWidth = 4.2;
-    ctx.beginPath();
-    ctx.ellipse(-92, 14, 18, 12, -0.25, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.strokeStyle = 'rgba(255, 238, 185, 0.55)';
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.ellipse(-92, 13, 17, 11, -0.25, -1.2, 1.4);
-    ctx.stroke();
-
-    // Crown knob
-    const crownGrad = ctx.createLinearGradient(-82, 0, -72, 18);
-    crownGrad.addColorStop(0, '#ffe096');
-    crownGrad.addColorStop(0.5, '#b87a28');
-    crownGrad.addColorStop(1, '#5e3910');
-    ctx.fillStyle = crownGrad;
-    ctx.beginPath();
-    ctx.ellipse(-77, 9, 8, 10, -0.2, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Watch perspective plane (foreshortened ellipse)
-    ctx.scale(1, 0.62);
-
-    // Case lower body thickness
-    const bodySide = ctx.createLinearGradient(-76, 0, 76, 24);
-    bodySide.addColorStop(0, '#4d3011');
-    bodySide.addColorStop(0.32, '#b87d2e');
-    bodySide.addColorStop(0.62, '#f0be67');
-    bodySide.addColorStop(0.88, '#8c591d');
-    bodySide.addColorStop(1, '#3b240c');
-    ctx.fillStyle = bodySide;
-    ctx.beginPath();
-    ctx.arc(0, 14, 76, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Outer gold bezel
-    const bezel = ctx.createLinearGradient(-74, -60, 74, 60);
-    bezel.addColorStop(0, '#f7cf7c');
-    bezel.addColorStop(0.35, '#c28533');
-    bezel.addColorStop(0.7, '#754b19');
-    bezel.addColorStop(1, '#e8b258');
-    ctx.fillStyle = bezel;
-    ctx.beginPath();
-    ctx.arc(0, 0, 75, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Inner recessed gold rim
-    ctx.fillStyle = '#523310';
-    ctx.beginPath();
-    ctx.arc(0, 0, 65, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Antique warm enamel dial
-    const dial = ctx.createRadialGradient(-8, -8, 6, 0, 0, 63);
-    dial.addColorStop(0, '#fff3d1');
-    dial.addColorStop(0.65, '#ebd09a');
-    dial.addColorStop(0.92, '#b89258');
-    dial.addColorStop(1, '#78572c');
-    ctx.fillStyle = dial;
-    ctx.beginPath();
-    ctx.arc(0, 0, 62, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Minute railroad track & 12 geometric diamond hour pips (no numerals or text)
-    ctx.strokeStyle = 'rgba(72, 46, 20, 0.65)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.arc(0, 0, 56, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(0, 0, 51, 0, Math.PI * 2);
-    ctx.stroke();
-
-    for (let m = 0; m < 60; m++) {
-      const a = (m / 60) * Math.PI * 2;
-      const isHour = m % 5 === 0;
-      if (isHour) {
-        ctx.save();
-        ctx.rotate(a);
-        ctx.fillStyle = '#5c3814';
+      if (s.r > 1.4 && twinkle > 0.72) {
+        ctx.strokeStyle = s.warm
+          ? `rgba(255, 228, 180, ${twinkle * 0.35})`
+          : `rgba(195, 232, 250, ${twinkle * 0.32})`;
+        ctx.lineWidth = 0.7;
+        const arm = s.r * 3.6;
         ctx.beginPath();
-        ctx.moveTo(0, -55);
-        ctx.lineTo(3.1, -48.5);
-        ctx.lineTo(0, -42);
-        ctx.lineTo(-3.1, -48.5);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-      } else {
-        ctx.beginPath();
-        ctx.moveTo(Math.cos(a) * 51.5, Math.sin(a) * 51.5);
-        ctx.lineTo(Math.cos(a) * 55.5, Math.sin(a) * 55.5);
+        ctx.moveTo(sx - arm, sy);
+        ctx.lineTo(sx + arm, sy);
+        ctx.moveTo(sx, sy - arm);
+        ctx.lineTo(sx, sy + arm);
         ctx.stroke();
       }
     }
 
-    // Recessed central skeleton aperture exposing stationary brass clockwork
-    ctx.fillStyle = '#17131d';
+    // Drifting twilight mist bands over lower water
+    for (let i = 0; i < 3; i++) {
+      const my = 710 + i * 52;
+      const drift = Math.sin(t * 0.22 + i * 2.1) * 45;
+      const mGrad = ctx.createLinearGradient(0, my - 38, 0, my + 42);
+      mGrad.addColorStop(0, 'rgba(92, 145, 168, 0)');
+      mGrad.addColorStop(0.5, `rgba(104, 158, 180, ${0.065 - i * 0.012})`);
+      mGrad.addColorStop(1, 'rgba(20, 38, 56, 0)');
+      ctx.fillStyle = mGrad;
+      ctx.beginPath();
+      ctx.ellipse(VW * 0.48 + drift, my, 420, 38, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawWaterAndStone(t, px, py) {
+    ctx.save();
+    ctx.translate(px * 6, py * 4);
+
+    // Still nocturnal mirror pool at very bottom
+    const poolGrad = ctx.createLinearGradient(0, 760, 0, VH + 80);
+    poolGrad.addColorStop(0, 'rgba(13, 28, 43, 0.85)');
+    poolGrad.addColorStop(0.45, 'rgba(9, 18, 31, 0.96)');
+    poolGrad.addColorStop(1, '#050912');
+    ctx.fillStyle = poolGrad;
+    ctx.fillRect(-200, 765, VW + 400, 240);
+
+    // Shimmering water ripples catching moonlight (left) & spool amber light (right)
+    for (let i = 0; i < 14; i++) {
+      const ry = 780 + i * 8.5;
+      const wave = Math.sin(t * 1.1 + i * 0.9) * 14;
+      const alpha = 0.08 + 0.07 * Math.sin(t * 1.6 + i);
+      // Moonlight reflection
+      ctx.strokeStyle = `rgba(164, 216, 232, ${alpha})`;
+      ctx.lineWidth = 1.1;
+      ctx.beginPath();
+      ctx.moveTo(115 + wave - i * 4, ry);
+      ctx.lineTo(235 + wave + i * 3, ry);
+      ctx.stroke();
+
+      // Warm golden spool reflection
+      ctx.strokeStyle = `rgba(255, 192, 112, ${alpha * 1.25})`;
+      ctx.beginPath();
+      ctx.moveTo(355 - wave * 0.7, ry + 3);
+      ctx.lineTo(485 - wave * 0.7, ry + 3);
+      ctx.stroke();
+    }
+
+    // Moss-draped twilight boulder on the lower right (pedestal of the spool)
+    const rockGrad = ctx.createLinearGradient(310, 695, 520, 880);
+    rockGrad.addColorStop(0, '#1d313a');
+    rockGrad.addColorStop(0.35, '#13222b');
+    rockGrad.addColorStop(0.8, '#0b131d');
+    rockGrad.addColorStop(1, '#060a12');
+    ctx.fillStyle = rockGrad;
     ctx.beginPath();
-    ctx.arc(0, 2, 32, 0, Math.PI * 2);
+    ctx.moveTo(272, 855);
+    ctx.bezierCurveTo(288, 792, 326, 742, 372, 724);
+    ctx.bezierCurveTo(414, 708, 476, 706, 522, 728);
+    ctx.bezierCurveTo(568, 750, 610, 795, 635, 865);
+    ctx.lineTo(635, 940);
+    ctx.lineTo(260, 940);
+    ctx.closePath();
     ctx.fill();
-    ctx.strokeStyle = '#9c6828';
+
+    // Velvet cushion moss catching warm amber light from the spool above
+    const mossGrad = ctx.createRadialGradient(428, 712, 8, 430, 735, 145);
+    mossGrad.addColorStop(0, '#557258');
+    mossGrad.addColorStop(0.35, '#2b4a43');
+    mossGrad.addColorStop(0.75, '#172d31');
+    mossGrad.addColorStop(1, 'rgba(15, 28, 34, 0)');
+    ctx.fillStyle = mossGrad;
+    ctx.beginPath();
+    ctx.moveTo(322, 768);
+    ctx.bezierCurveTo(348, 730, 392, 710, 442, 712);
+    ctx.bezierCurveTo(492, 714, 535, 730, 562, 766);
+    ctx.bezierCurveTo(518, 782, 468, 774, 422, 782);
+    ctx.bezierCurveTo(378, 789, 344, 782, 322, 768);
+    ctx.closePath();
+    ctx.fill();
+
+    // Tiny bioluminescent moss-spores / cup fungi on rock edge
+    const mushrooms = [
+      { x: 344, y: 760, s: 1.0, tilt: -0.25 },
+      { x: 356, y: 766, s: 0.72, tilt: 0.12 },
+      { x: 516, y: 748, s: 0.9, tilt: 0.28 },
+      { x: 529, y: 756, s: 0.65, tilt: 0.42 }
+    ];
+    for (const m of mushrooms) {
+      ctx.save();
+      ctx.translate(m.x, m.y);
+      ctx.rotate(m.tilt + Math.sin(t * 1.2 + m.x) * 0.03);
+      ctx.scale(m.s, m.s);
+      ctx.strokeStyle = '#689c94';
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(-2, -9, 0, -16);
+      ctx.stroke();
+
+      const capGlow = ctx.createRadialGradient(0, -17, 1, 0, -17, 11);
+      capGlow.addColorStop(0, 'rgba(170, 248, 232, 0.85)');
+      capGlow.addColorStop(0.5, 'rgba(84, 196, 184, 0.35)');
+      capGlow.addColorStop(1, 'rgba(40, 120, 120, 0)');
+      ctx.fillStyle = capGlow;
+      ctx.beginPath();
+      ctx.arc(0, -17, 11, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#aef7e6';
+      ctx.beginPath();
+      ctx.ellipse(0, -16, 6.2, 3.6, 0, Math.PI, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    ctx.restore();
+  }
+
+  // Draw the Wooden & Brass Weaver's Spool and its Rising Loose Ends
+  function getStrandPoints(strand, t) {
+    const base = { x: 428 + strand.ox, y: 688 + strand.oy };
+    const result = [base];
+    for (let i = 0; i < strand.pts.length; i++) {
+      const p = strand.pts[i];
+      const weight = (i + 1) / strand.pts.length;
+      const swayX = strand.draped
+        ? Math.sin(t * strand.freq + strand.phase + i) * 1.5 * weight
+        : Math.sin(t * strand.freq + strand.phase + i * 0.85) * 15 * weight +
+          (pointer.x - 0.5) * -14 * weight;
+      const swayY = strand.draped
+        ? Math.cos(t * strand.freq + strand.phase) * 0.8 * weight
+        : Math.cos(t * strand.freq * 0.8 + strand.phase + i) * 7 * weight;
+      result.push({ x: p.x + swayX, y: p.y + swayY });
+    }
+    return result;
+  }
+
+  function samplePolyline(pts, u) {
+    const total = pts.length - 1;
+    const scaled = Math.max(0, Math.min(0.9999, u)) * total;
+    const idx = Math.floor(scaled);
+    const f = scaled - idx;
+    const a = pts[idx];
+    const b = pts[idx + 1];
+    return {
+      x: a.x + (b.x - a.x) * f,
+      y: a.y + (b.y - a.y) * f
+    };
+  }
+
+  function drawSpoolAndLooseEnds(t, px, py) {
+    ctx.save();
+    ctx.translate(px * 6, py * 4);
+
+    // Contact shadow on moss under spool
+    ctx.fillStyle = 'rgba(5, 11, 16, 0.68)';
+    ctx.beginPath();
+    ctx.ellipse(432, 725, 58, 15, 0.08, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Warm golden aura around the wound silk skein
+    const pulse = 0.88 + 0.12 * Math.sin(t * 1.9);
+    const skeinAura = ctx.createRadialGradient(430, 688, 8, 430, 688, 92 * pulse);
+    skeinAura.addColorStop(0, 'rgba(255, 214, 132, 0.42)');
+    skeinAura.addColorStop(0.45, 'rgba(242, 146, 78, 0.16)');
+    skeinAura.addColorStop(1, 'rgba(242, 146, 78, 0)');
+    ctx.fillStyle = skeinAura;
+    ctx.beginPath();
+    ctx.arc(430, 688, 95, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Draw tilted antique wooden & brass weaver's spool
+    ctx.save();
+    ctx.translate(430, 690);
+    ctx.rotate(0.24); // resting at a graceful tilt on the mossy rock
+
+    // Back wooden flange (upper/right in tilted space)
+    const woodDark = ctx.createLinearGradient(-42, -46, 42, -26);
+    woodDark.addColorStop(0, '#2c1814');
+    woodDark.addColorStop(0.5, '#593326');
+    woodDark.addColorStop(1, '#261411');
+    ctx.fillStyle = woodDark;
+    ctx.beginPath();
+    ctx.ellipse(0, -34, 41, 13, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Tarnished brass rim on upper flange
+    ctx.strokeStyle = '#d4a359';
     ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.ellipse(0, -35, 41, 12.5, 0, 0, Math.PI * 2);
     ctx.stroke();
 
-    // Warm inner ember glow inside the stopped mechanism
-    const gearGlow = ctx.createRadialGradient(0, 0, 2, 0, 0, 30);
-    gearGlow.addColorStop(0, `rgba(255, 205, 105, ${0.42 + 0.1 * Math.sin(t * 2)})`);
-    gearGlow.addColorStop(1, 'rgba(255, 160, 60, 0)');
-    ctx.fillStyle = gearGlow;
+    // Dark hollow spindle hole at top center
+    ctx.fillStyle = '#140b0a';
     ctx.beginPath();
-    ctx.arc(0, 2, 30, 0, Math.PI * 2);
+    ctx.ellipse(0, -35, 11, 3.8, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Three interlocking gears — completely frozen in time
-    drawGear(-11, -5, 14, 12, 0.35, '#d69b43', 9);
-    drawGear(12, 6, 12, 10, 0.18, '#e8b65f', 7.5);
-    drawGear(-5, 15, 9.5, 9, 0.62, '#b57b2e', 5.5);
+    // Wound glowing golden-amber silk core
+    const silkGrad = ctx.createLinearGradient(-32, 0, 34, 0);
+    silkGrad.addColorStop(0.0, '#8c452b');
+    silkGrad.addColorStop(0.25, '#e08b46');
+    silkGrad.addColorStop(0.52, '#ffe39e');
+    silkGrad.addColorStop(0.78, '#dfa053');
+    silkGrad.addColorStop(1.0, '#6e3422');
+    ctx.fillStyle = silkGrad;
+    ctx.beginPath();
+    ctx.moveTo(-31, -29);
+    ctx.bezierCurveTo(-35, -8, -35, 12, -31, 31);
+    ctx.ellipse(0, 31, 31, 10, 0, Math.PI, 0, true);
+    ctx.bezierCurveTo(35, 12, 35, -8, 31, -29);
+    ctx.ellipse(0, -29, 31, 9.5, 0, 0, Math.PI, false);
+    ctx.closePath();
+    ctx.fill();
 
-    // Uncoiled hairspring trembling faintly with suspended energy
-    const tremor = Math.sin(t * 3.4) * 0.04;
+    // Fine individual wrapped silk thread ridges along the bobbin core
+    for (let y = -24; y <= 28; y += 3.6) {
+      const bulge = 31 + Math.cos((y / 28) * 1.2) * 2.5;
+      const shimmer = 0.35 + 0.3 * Math.sin(y * 0.9 + t * 2.2);
+      ctx.strokeStyle = `rgba(255, 242, 198, ${shimmer})`;
+      ctx.lineWidth = 1.05;
+      ctx.beginPath();
+      ctx.ellipse(0, y, bulge, 8.8, 0, 0.12, Math.PI - 0.12);
+      ctx.stroke();
+    }
+
+    // Lower wooden flange (front/base)
+    const flangeSide = ctx.createLinearGradient(-44, 28, 44, 44);
+    flangeSide.addColorStop(0, '#241210');
+    flangeSide.addColorStop(0.42, '#693c2c');
+    flangeSide.addColorStop(0.7, '#875138');
+    flangeSide.addColorStop(1, '#241210');
+    ctx.fillStyle = flangeSide;
+    ctx.beginPath();
+    ctx.ellipse(0, 37, 43, 14, 0, 0, Math.PI);
+    ctx.lineTo(-43, 30);
+    ctx.ellipse(0, 30, 43, 13.5, 0, Math.PI, 0, true);
+    ctx.closePath();
+    ctx.fill();
+
+    // Brass decorative ring on lower flange
+    ctx.strokeStyle = '#e5b869';
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.ellipse(0, 32, 42.5, 13, 0, 0.05, Math.PI - 0.05);
+    ctx.stroke();
+
+    ctx.restore(); // end tilted spool local space
+
+    // Draw the Loose Ends rising weightlessly into the twilight air
+    const computedStrands = [];
     ctx.save();
-    ctx.rotate(tremor);
-    ctx.strokeStyle = '#ffeaad';
-    ctx.lineWidth = 1.1;
-    ctx.beginPath();
-    for (let th = 0; th < Math.PI * 3.6; th += 0.2) {
-      const sr = 2 + th * 1.65;
-      const sx = 8 + Math.cos(th) * sr;
-      const sy = -10 + Math.sin(th) * sr;
-      if (th === 0) ctx.moveTo(sx, sy);
-      else ctx.lineTo(sx, sy);
-    }
-    ctx.stroke();
-    ctx.restore();
-
-    // Frozen ornate watch hands (stopped forever at a quiet twilight angle)
-    const handAngles = [-2.35, 0.58];
-    const handLengths = [38, 50];
-    for (let h = 0; h < 2; h++) {
-      const ha = handAngles[h];
-      const hl = handLengths[h];
-      // Soft shadow on dial
-      ctx.save();
-      ctx.translate(2, 3.5);
-      ctx.rotate(ha);
-      ctx.strokeStyle = 'rgba(20, 12, 8, 0.45)';
-      ctx.lineWidth = h === 0 ? 3.2 : 2.2;
-      ctx.beginPath();
-      ctx.moveTo(-8, 0);
-      ctx.lineTo(hl, 0);
-      ctx.stroke();
-      ctx.restore();
-
-      // Blued-gold filigree hand
-      ctx.save();
-      ctx.rotate(ha);
-      ctx.strokeStyle = '#291c14';
-      ctx.fillStyle = '#291c14';
-      ctx.lineWidth = h === 0 ? 2.8 : 1.9;
-      ctx.beginPath();
-      ctx.moveTo(-9, 0);
-      ctx.lineTo(hl, 0);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(hl * 0.62, 0, h === 0 ? 4.2 : 3.1, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#f2c166';
-      ctx.beginPath();
-      ctx.arc(hl * 0.62, 0, 1.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-
-    // Center cap jewel
-    ctx.fillStyle = '#ffe39e';
-    ctx.beginPath();
-    ctx.arc(0, 0, 4.2, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Cracked domed crystal glass catching cool moonlight & warm fractures
-    const glassSheen = ctx.createLinearGradient(-55, -55, 45, 45);
-    glassSheen.addColorStop(0, 'rgba(200, 245, 255, 0.24)');
-    glassSheen.addColorStop(0.42, 'rgba(255, 255, 255, 0.03)');
-    glassSheen.addColorStop(1, 'rgba(255, 215, 145, 0.14)');
-    ctx.fillStyle = glassSheen;
-    ctx.beginPath();
-    ctx.arc(0, 0, 62, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Specular highlight arc on crystal dome
-    ctx.strokeStyle = 'rgba(225, 250, 255, 0.48)';
-    ctx.lineWidth = 2.6;
     ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.arc(0, 0, 54, -2.55, -1.55);
-    ctx.stroke();
+    ctx.lineJoin = 'round';
 
-    // Fracture lines radiating from (-4, -8) where golden dust escapes
-    ctx.strokeStyle = 'rgba(235, 252, 255, 0.65)';
-    ctx.lineWidth = 1.15;
-    const cracks = [
-      [[-4, -8], [-22, -32], [-42, -46]],
-      [[-4, -8], [16, -28], [38, -44]],
-      [[-4, -8], [26, -4], [54, 8]],
-      [[-4, -8], [-28, 12], [-52, 22]],
-      [[-4, -8], [4, 24], [12, 52]]
-    ];
-    for (const segs of cracks) {
-      ctx.beginPath();
-      ctx.moveTo(segs[0][0], segs[0][1]);
-      for (let i = 1; i < segs.length; i++) ctx.lineTo(segs[i][0], segs[i][1]);
+    for (let s = 0; s < looseStrands.length; s++) {
+      const strand = looseStrands[s];
+      const pts = getStrandPoints(strand, t);
+      computedStrands.push(pts);
+
+      const first = pts[0];
+      const last = pts[pts.length - 1];
+
+      // Soft outer luminescence along each silk filament
+      const glowGrad = ctx.createLinearGradient(first.x, first.y, last.x, last.y);
+      glowGrad.addColorStop(0, 'rgba(255, 196, 108, 0.35)');
+      glowGrad.addColorStop(0.7, 'rgba(255, 220, 150, 0.22)');
+      glowGrad.addColorStop(1, 'rgba(180, 240, 235, 0)');
+      ctx.strokeStyle = glowGrad;
+      ctx.lineWidth = strand.width * 4.2;
+      drawSmoothCurve(pts);
       ctx.stroke();
-    }
 
-    ctx.restore(); // end perspective scale & rotation
+      // Crisp luminous silk core
+      const coreGrad = ctx.createLinearGradient(first.x, first.y, last.x, last.y);
+      coreGrad.addColorStop(0, strand.colorA);
+      coreGrad.addColorStop(0.65, strand.colorB);
+      coreGrad.addColorStop(1, 'rgba(255, 246, 220, 0.15)');
+      ctx.strokeStyle = coreGrad;
+      ctx.lineWidth = strand.width;
+      drawSmoothCurve(pts);
+      ctx.stroke();
 
-    // Tiny moss tufts overlapping the lower rim of the watch so it sits nestled in the earth
-    ctx.fillStyle = '#0c1d24';
-    for (const [mx, my, mr] of [[-52, 42, 16], [-24, 49, 19], [12, 50, 17], [46, 43, 15], [68, 32, 12]]) {
-      ctx.beginPath();
-      ctx.arc(mx, my, mr, Math.PI, Math.PI * 2);
-      ctx.fill();
-    }
-
-    ctx.restore();
-  }
-
-  function drawTimeStream(t, handWorldX, handWorldY) {
-    // Stream rises from watch fracture (195, 718) in a graceful S-curve toward near the fairy's outstretched hand
-    const p0x = 195, p0y = 716;
-    const p1x = 152 + pointer.x * 16, p1y = 575;
-    const p2x = 228 + pointer.x * 18, p2y = 468;
-    const p3x = handWorldX - 16, p3y = handWorldY + 8;
-
-    // Gossamer golden thread of suspended time
-    ctx.save();
-    ctx.globalCompositeOperation = 'screen';
-    const grad = ctx.createLinearGradient(p0x, p0y, p3x, p3y);
-    grad.addColorStop(0, 'rgba(255, 212, 125, 0.42)');
-    grad.addColorStop(0.5, 'rgba(245, 185, 95, 0.22)');
-    grad.addColorStop(1, 'rgba(185, 242, 235, 0.35)');
-    ctx.strokeStyle = grad;
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    ctx.moveTo(p0x, p0y);
-    ctx.bezierCurveTo(p1x, p1y, p2x, p2y, p3x, p3y);
-    ctx.stroke();
-
-    for (const m of timeMotes) {
-      // Slow breathing pause: time almost halts, then drifts gently onward
-      const breath = 0.55 + 0.45 * Math.sin(t * 0.9 + m.pauseFactor);
-      const u = (m.progress + t * m.speed * (0.45 + 0.55 * breath)) % 1;
-      const iu = 1 - u;
-
-      const bx = iu * iu * iu * p0x + 3 * iu * iu * u * p1x + 3 * iu * u * u * p2x + u * u * u * p3x;
-      const by = iu * iu * iu * p0y + 3 * iu * iu * u * p1y + 3 * iu * u * u * p2y + u * u * u * p3y;
-
-      const env = Math.sin(u * Math.PI);
-      const wx = bx + Math.sin(t * m.wobbleSpeed + m.wobblePhase) * (18 * m.spread * (0.3 + env));
-      const wy = by + Math.cos(t * m.wobbleSpeed * 0.8 + m.wobblePhase) * 8 * env;
-
-      const alpha = Math.min(1, env * 1.35);
-      if (m.isRing) {
-        // Faint golden echo of a vanished second
-        ctx.strokeStyle = `rgba(255, 224, 150, ${alpha * 0.48})`;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.ellipse(wx, wy, m.size * 0.65, m.size * 0.38, t * 0.3 + m.wobblePhase, 0, Math.PI * 2);
-        ctx.stroke();
-      } else {
-        ctx.globalAlpha = alpha * 0.9;
-        const s = m.size * (0.75 + 0.25 * Math.sin(t * 2.4 + m.wobblePhase));
-        ctx.drawImage(goldSprite, wx - s, wy - s, s * 2, s * 2);
+      // Delicate frayed triple micro-wisps at the floating tip of rising threads
+      if (!strand.draped) {
+        const prev = pts[pts.length - 2];
+        const dx = last.x - prev.x;
+        const dy = last.y - prev.y;
+        const baseAng = Math.atan2(dy, dx);
+        for (let f = -1; f <= 1; f++) {
+          const wispAng = baseAng + f * 0.36 + Math.sin(t * 2.3 + s + f) * 0.14;
+          const wispLen = 14 + (1 - Math.abs(f)) * 7;
+          ctx.strokeStyle = 'rgba(255, 238, 196, 0.52)';
+          ctx.lineWidth = 0.75;
+          ctx.beginPath();
+          ctx.moveTo(last.x, last.y);
+          ctx.quadraticCurveTo(
+            last.x + Math.cos(wispAng) * wispLen * 0.55,
+            last.y + Math.sin(wispAng) * wispLen * 0.55,
+            last.x + Math.cos(wispAng + f * 0.2) * wispLen,
+            last.y + Math.sin(wispAng + f * 0.2) * wispLen
+          );
+          ctx.stroke();
+        }
       }
     }
-    ctx.globalAlpha = 1;
     ctx.restore();
-  }
 
-  function drawSingleForewing(isFar, flap, t) {
-    ctx.save();
-    const scaleX = isFar ? -0.58 * flap : 0.96 * flap;
-    const rot = isFar ? -0.22 - (1 - flap) * 0.14 : -0.14 + (1 - flap) * 0.18;
-    ctx.rotate(rot);
-    ctx.scale(scaleX, 1);
+    // Sparks detaching from the frayed loose ends and drifting upward
+    for (let i = 0; i < threadSparks.length; i++) {
+      const sp = threadSparks[i];
+      const u = (sp.progress + t * sp.speed) % 1;
+      const pts = computedStrands[sp.strand];
+      if (!pts) continue;
+      let x, y, alpha;
+      if (u < 0.68) {
+        // Travelling up along the silk filament
+        const pos = samplePolyline(pts, u / 0.68);
+        x = pos.x + Math.sin(t * 3 + sp.phase) * 2.5;
+        y = pos.y;
+        alpha = Math.sin((u / 0.68) * Math.PI) * 0.85;
+      } else {
+        // Floating free from the frayed tip into open air
+        const free = (u - 0.68) / 0.32;
+        const tip = pts[pts.length - 1];
+        x = tip.x + sp.driftX * free + Math.sin(t * 2.1 + sp.phase) * 6 * free;
+        y = tip.y + sp.driftY * free;
+        alpha = (1 - free) * 0.9;
+      }
 
-    // Grand sweeping luna/stained-glass forewing
-    const wg = ctx.createRadialGradient(25, -35, 10, 95, -75, 210);
-    if (isFar) {
-      wg.addColorStop(0, 'rgba(65, 138, 158, 0.52)');
-      wg.addColorStop(0.55, 'rgba(82, 175, 182, 0.42)');
-      wg.addColorStop(0.88, 'rgba(198, 142, 88, 0.38)');
-      wg.addColorStop(1, 'rgba(235, 195, 130, 0.55)');
-    } else {
-      wg.addColorStop(0, 'rgba(92, 178, 195, 0.68)');
-      wg.addColorStop(0.48, 'rgba(138, 228, 220, 0.56)');
-      wg.addColorStop(0.82, 'rgba(182, 148, 212, 0.50)');
-      wg.addColorStop(1, 'rgba(250, 204, 128, 0.75)');
-    }
-
-    ctx.fillStyle = wg;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.bezierCurveTo(42, -78, 128, -148, 196, -134); // arched costal margin
-    ctx.bezierCurveTo(212, -130, 206, -106, 186, -86); // falcate wingtip
-    ctx.bezierCurveTo(164, -62, 168, -16, 136, 12);    // scalloped outer margin
-    ctx.bezierCurveTo(96, 36, 40, 20, 0, 4);           // inner margin
-    ctx.closePath();
-    ctx.fill();
-
-    // Warm dark-plum leading costal edge (classic luna moth detail)
-    ctx.strokeStyle = isFar ? 'rgba(95, 62, 92, 0.65)' : 'rgba(135, 82, 112, 0.85)';
-    ctx.lineWidth = 3.2;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.bezierCurveTo(42, -78, 128, -148, 196, -134);
-    ctx.stroke();
-
-    // Luminous stained-glass veins
-    ctx.strokeStyle = isFar ? 'rgba(200, 242, 240, 0.35)' : 'rgba(238, 252, 242, 0.58)';
-    ctx.lineWidth = 1.15;
-    const veins = [
-      [[0, 0], [65, -55], [178, -112]],
-      [[0, 0], [72, -38], [168, -74]],
-      [[38, -28], [108, -42], [156, -36]],
-      [[48, -22], [98, -12], [138, 4]],
-      [[0, 2], [58, 8], [104, 18]]
-    ];
-    for (const v of veins) {
+      ctx.fillStyle = `rgba(255, 232, 175, ${alpha})`;
       ctx.beginPath();
-      ctx.moveTo(v[0][0], v[0][1]);
-      ctx.quadraticCurveTo(v[1][0], v[1][1], v[2][0], v[2][1]);
-      ctx.stroke();
+      ctx.arc(x, y, sp.size, 0, Math.PI * 2);
+      ctx.fill();
     }
 
-    // Moon-eye ocellus marking on forewing
-    ctx.save();
-    ctx.translate(106, -58);
-    ctx.rotate(-0.25);
-    ctx.fillStyle = 'rgba(24, 22, 46, 0.72)';
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 15, 11, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.strokeStyle = '#ffe29a';
-    ctx.lineWidth = 1.6;
-    ctx.stroke();
-    ctx.fillStyle = '#d4fff9';
-    ctx.beginPath();
-    ctx.arc(-3, -1, 6.5, 0.5, Math.PI * 1.65);
-    ctx.fill();
     ctx.restore();
+  }
 
-    // Shimmering gold-opal edge trim
-    ctx.strokeStyle = `rgba(255, 232, 175, ${0.45 + 0.2 * Math.sin(t * 2.2)})`;
-    ctx.lineWidth = 1.3;
+  function drawSmoothCurve(pts) {
     ctx.beginPath();
-    ctx.moveTo(196, -134);
-    ctx.bezierCurveTo(212, -130, 206, -106, 186, -86);
-    ctx.bezierCurveTo(164, -62, 168, -16, 136, 12);
-    ctx.stroke();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length - 1; i++) {
+      const xc = (pts[i].x + pts[i + 1].x) * 0.5;
+      const yc = (pts[i].y + pts[i + 1].y) * 0.5;
+      ctx.quadraticCurveTo(pts[i].x, pts[i].y, xc, yc);
+    }
+    const n = pts.length - 1;
+    ctx.lineTo(pts[n].x, pts[n].y);
+  }
+
+  // Draw one translucent stained-glass / luna-moth wing
+  function drawWing(isUpper, side, flapScale, tintBoost, t) {
+    ctx.save();
+    ctx.scale(side * flapScale, 1);
+
+    if (isUpper) {
+      // Sweeping forewing
+      ctx.rotate(-0.26 + Math.sin(t * 1.8) * 0.04);
+      const wg = ctx.createLinearGradient(0, 0, -175, -135);
+      wg.addColorStop(0.0, `rgba(92, 186, 198, ${0.58 + tintBoost})`);
+      wg.addColorStop(0.45, `rgba(164, 225, 224, ${0.46 + tintBoost})`);
+      wg.addColorStop(0.78, `rgba(244, 194, 168, ${0.50 + tintBoost})`);
+      wg.addColorStop(1.0, `rgba(255, 232, 182, ${0.68 + tintBoost})`);
+
+      ctx.fillStyle = wg;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(-38, -56, -112, -128, -172, -132);
+      ctx.bezierCurveTo(-194, -132, -196, -98, -178, -68);
+      ctx.bezierCurveTo(-158, -34, -148, 8, -112, 26);
+      ctx.bezierCurveTo(-72, 44, -26, 24, 0, 6);
+      ctx.closePath();
+      ctx.fill();
+
+      // Iridescent wing rim
+      ctx.strokeStyle = 'rgba(255, 234, 188, 0.72)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Leading costal edge dark-velvet & gold accent
+      ctx.strokeStyle = 'rgba(54, 42, 76, 0.65)';
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      ctx.moveTo(0, -1);
+      ctx.bezierCurveTo(-38, -56, -112, -128, -174, -131);
+      ctx.stroke();
+
+      // Delicate golden wing venation
+      ctx.strokeStyle = 'rgba(255, 238, 198, 0.42)';
+      ctx.lineWidth = 0.95;
+      const veins = [
+        [[-22, -18], [-88, -74], [-168, -108]],
+        [[-26, -12], [-96, -50], [-166, -68]],
+        [[-24, -4], [-86, -18], [-146, -24]],
+        [[-20, 4], [-68, 12], [-116, 18]]
+      ];
+      for (const v of veins) {
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(v[0][0], v[0][1], v[1][0], v[1][1], v[2][0], v[2][1]);
+        ctx.stroke();
+      }
+
+      // Opalescent crescent eye-spot (lunule)
+      ctx.save();
+      ctx.translate(-108, -56);
+      ctx.rotate(-0.35);
+      ctx.fillStyle = 'rgba(28, 44, 68, 0.55)';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 13, 9.5, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 224, 166, 0.85)';
+      ctx.lineWidth = 1.3;
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(198, 248, 242, 0.82)';
+      ctx.beginPath();
+      ctx.arc(-2, -1, 5.5, 0.4, Math.PI * 1.55);
+      ctx.fill();
+      ctx.restore();
+    } else {
+      // Elongated swallowtail / luna hindwing
+      ctx.rotate(0.18 + Math.cos(t * 1.8) * 0.05);
+      const hg = ctx.createLinearGradient(0, 0, -115, 168);
+      hg.addColorStop(0.0, `rgba(82, 164, 188, ${0.52 + tintBoost})`);
+      hg.addColorStop(0.5, `rgba(148, 212, 214, ${0.44 + tintBoost})`);
+      hg.addColorStop(0.82, `rgba(238, 182, 158, ${0.46 + tintBoost})`);
+      hg.addColorStop(1.0, `rgba(255, 226, 168, ${0.66 + tintBoost})`);
+
+      ctx.fillStyle = hg;
+      ctx.beginPath();
+      ctx.moveTo(0, 6);
+      ctx.bezierCurveTo(-48, 12, -112, 34, -122, 78);
+      ctx.bezierCurveTo(-130, 114, -96, 132, -98, 174);
+      ctx.bezierCurveTo(-99, 198, -82, 208, -74, 188);
+      ctx.bezierCurveTo(-64, 160, -68, 126, -44, 98);
+      ctx.bezierCurveTo(-24, 74, -8, 38, 0, 12);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(255, 232, 186, 0.66)';
+      ctx.lineWidth = 1.3;
+      ctx.stroke();
+
+      // Hindwing veins flowing down into the swallowtail ribbon
+      ctx.strokeStyle = 'rgba(255, 238, 198, 0.38)';
+      ctx.lineWidth = 0.9;
+      ctx.beginPath();
+      ctx.moveTo(0, 8);
+      ctx.bezierCurveTo(-42, 32, -88, 62, -112, 86);
+      ctx.moveTo(0, 10);
+      ctx.bezierCurveTo(-38, 48, -78, 106, -86, 186);
+      ctx.moveTo(0, 11);
+      ctx.bezierCurveTo(-24, 46, -46, 78, -56, 112);
+      ctx.stroke();
+
+      // Hindwing pearl lunule
+      ctx.fillStyle = 'rgba(255, 234, 188, 0.72)';
+      ctx.beginPath();
+      ctx.arc(-68, 68, 6.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(42, 68, 92, 0.65)';
+      ctx.beginPath();
+      ctx.arc(-67, 69, 3.6, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
     ctx.restore();
   }
 
-  function drawSingleHindwing(isFar, flap, t) {
-    ctx.save();
-    const scaleX = isFar ? -0.54 * flap : 0.94 * flap;
-    const rot = isFar ? 0.12 + (1 - flap) * 0.1 : 0.08 + (1 - flap) * 0.14;
-    ctx.rotate(rot);
-    ctx.scale(scaleX, 1);
-
-    const tailWave = Math.sin(t * 1.8 - 0.8) * 12;
-
-    const hg = ctx.createLinearGradient(0, 0, 135, 195);
-    hg.addColorStop(0, isFar ? 'rgba(65, 145, 165, 0.48)' : 'rgba(104, 198, 208, 0.64)');
-    hg.addColorStop(0.55, isFar ? 'rgba(85, 165, 168, 0.40)' : 'rgba(142, 226, 212, 0.52)');
-    hg.addColorStop(1, 'rgba(246, 194, 116, 0.72)');
-
-    ctx.fillStyle = hg;
-    ctx.beginPath();
-    ctx.moveTo(0, 4);
-    ctx.bezierCurveTo(54, 2, 118, 24, 128, 66);
-    ctx.bezierCurveTo(136, 98, 108, 122, 98, 148);
-    // Long ribbon-like swallowtail
-    ctx.bezierCurveTo(92, 176, 108 + tailWave, 208, 96 + tailWave * 1.3, 236);
-    ctx.bezierCurveTo(86 + tailWave * 1.2, 242, 74 + tailWave, 218, 76, 182);
-    ctx.bezierCurveTo(78, 144, 48, 126, 24, 96);
-    ctx.bezierCurveTo(8, 72, 2, 34, 0, 4);
-    ctx.closePath();
-    ctx.fill();
-
-    // Hindwing veins
-    ctx.strokeStyle = isFar ? 'rgba(200, 242, 240, 0.32)' : 'rgba(238, 252, 242, 0.52)';
-    ctx.lineWidth = 1.05;
-    ctx.beginPath();
-    ctx.moveTo(0, 4);
-    ctx.bezierCurveTo(45, 42, 82, 106, 88 + tailWave * 0.6, 204);
-    ctx.moveTo(22, 22);
-    ctx.quadraticCurveTo(78, 42, 120, 68);
-    ctx.moveTo(32, 42);
-    ctx.quadraticCurveTo(72, 80, 104, 112);
-    ctx.stroke();
-
-    // Hindwing moon ocellus
-    ctx.save();
-    ctx.translate(68, 66);
-    ctx.fillStyle = 'rgba(24, 22, 46, 0.68)';
-    ctx.beginPath();
-    ctx.arc(0, 0, 10, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.strokeStyle = '#ffe29a';
-    ctx.lineWidth = 1.4;
-    ctx.stroke();
-    ctx.fillStyle = '#d4fff9';
-    ctx.beginPath();
-    ctx.arc(-2, -1, 4.5, 0.4, Math.PI * 1.6);
-    ctx.fill();
-    ctx.restore();
-
-    ctx.restore();
-  }
-
-  function drawFairy(t) {
-    // Hovering serenely in upper-right / center-right, completely detached from the watch below
-    const hoverX = 378 + Math.sin(t * 0.85) * 7 + pointer.x * 10;
-    const hoverY = 362 + Math.sin(t * 1.45) * 9 + pointer.y * 6;
-
-    // Outstretched hand world position (for aligning the rising golden time-stream)
-    const reachOffsetY = Math.sin(t * 1.45 - 0.6) * 4;
-    const handWorldX = hoverX - 96;
-    const handWorldY = hoverY + 46 + reachOffsetY;
-
-    // Draw the rising golden time stream behind/into her hand space
-    drawTimeStream(t, handWorldX, handWorldY);
+  // Draw the Fairy hovering in the upper-left / center-left twilight space
+  // Nearby the spool & rising threads, never sitting on or attached to them
+  function drawFairy(t, px, py) {
+    const hoverX = 216 + Math.sin(t * 0.85) * 7 + px * -12;
+    const hoverY = 338 + Math.sin(t * 1.45) * 11 + py * -9;
 
     ctx.save();
     ctx.translate(hoverX, hoverY);
 
-    // Ethereal lunar-amber aura behind the fairy
-    const aura = ctx.createRadialGradient(8, -12, 12, 12, 10, 185);
-    aura.addColorStop(0, 'rgba(162, 235, 232, 0.24)');
-    aura.addColorStop(0.5, 'rgba(98, 145, 195, 0.10)');
-    aura.addColorStop(1, 'rgba(30, 45, 85, 0)');
-    ctx.fillStyle = aura;
+    // Ethereal soft halo around the fairy
+    const fairyGlow = ctx.createRadialGradient(8, 15, 10, 8, 15, 185);
+    fairyGlow.addColorStop(0, 'rgba(182, 236, 240, 0.22)');
+    fairyGlow.addColorStop(0.5, 'rgba(112, 178, 202, 0.08)');
+    fairyGlow.addColorStop(1, 'rgba(30, 60, 90, 0)');
+    ctx.fillStyle = fairyGlow;
     ctx.beginPath();
-    ctx.arc(10, 0, 185, 0, Math.PI * 2);
+    ctx.arc(8, 15, 185, 0, Math.PI * 2);
     ctx.fill();
 
-    // Subtle pendulum-halo of suspended golden dots behind her head
+    // Wing beat kinematics (smooth 3D foreshortening)
+    const beatMain = Math.sin(t * 2.05);
+    const beatSub = Math.sin(t * 2.05 - 0.55);
+    const leftFlapU = 0.76 + 0.24 * beatMain;
+    const leftFlapL = 0.74 + 0.24 * beatSub;
+    const rightFlapU = 0.44 + 0.20 * Math.sin(t * 2.05 + 0.25);
+    const rightFlapL = 0.42 + 0.20 * Math.sin(t * 2.05 - 0.3);
+
+    // Far (right-side) wings behind body
     ctx.save();
-    ctx.translate(-12, -68);
-    ctx.strokeStyle = 'rgba(255, 224, 156, 0.26)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.arc(0, 0, 44, -Math.PI * 0.85, Math.PI * 0.35);
-    ctx.stroke();
-    for (let i = 0; i < 7; i++) {
-      const a = -Math.PI * 0.8 + (i / 6) * Math.PI * 1.1;
-      const hx = Math.cos(a) * 44;
-      const hy = Math.sin(a) * 44;
-      ctx.fillStyle = i === 3 ? '#fff3c4' : 'rgba(255, 222, 152, 0.75)';
-      ctx.beginPath();
-      ctx.arc(hx, hy, i === 3 ? 2.6 : 1.6, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    ctx.translate(10, -16);
+    drawWing(false, -1, rightFlapL, -0.1, t);
+    drawWing(true, -1, rightFlapU, -0.08, t);
     ctx.restore();
 
-    // Wing breath cycle
-    const flapFore = 0.76 + 0.24 * Math.sin(t * 1.45);
-    const flapHind = 0.78 + 0.22 * Math.sin(t * 1.45 - 0.35);
-
-    // 1. Far wings (peeking past her far shoulder)
+    // Near (left-side) wings behind shoulder
     ctx.save();
-    ctx.translate(-6, -20);
-    drawSingleHindwing(true, flapHind, t);
-    drawSingleForewing(true, flapFore, t);
+    ctx.translate(-4, -14);
+    drawWing(false, 1, leftFlapL, 0.04, t);
+    drawWing(true, 1, leftFlapU, 0.06, t);
     ctx.restore();
 
-    // 2. Flowing midnight-indigo back hair studded with tiny starlight specks
-    const hairWave = Math.sin(t * 1.2) * 8;
-    ctx.fillStyle = '#0d132b';
+    // Back layer of flowing midnight hair drifting in weightless twilight
+    const hairWave = Math.sin(t * 1.35) * 9;
+    ctx.fillStyle = '#0f1b33';
     ctx.beginPath();
-    ctx.moveTo(-24, -78);
-    ctx.bezierCurveTo(16, -92, 46, -42, 58 + hairWave, 14);
-    ctx.bezierCurveTo(68 + hairWave * 1.3, 62, 42 + hairWave, 108, 22 + hairWave * 0.8, 124);
-    ctx.bezierCurveTo(6, 94, -4, 42, -18, -32);
+    ctx.moveTo(-8, -56);
+    ctx.bezierCurveTo(-48, -42, -78 + hairWave, -4, -92 + hairWave * 1.3, 38);
+    ctx.bezierCurveTo(-62 + hairWave, 26, -38, 6, -12, -22);
     ctx.closePath();
     ctx.fill();
 
-    // 3. Near wings (sweeping grandly to the right)
-    ctx.save();
-    ctx.translate(16, -18);
-    drawSingleHindwing(false, flapHind, t);
-    drawSingleForewing(false, flapFore, t);
-    ctx.restore();
+    // Far leg (gently bent at knee, suspended in air)
+    ctx.fillStyle = '#9bbbc9';
+    ctx.beginPath();
+    ctx.moveTo(6, 76);
+    ctx.quadraticCurveTo(28, 118, 16, 154);
+    ctx.quadraticCurveTo(10, 174, 20, 188);
+    ctx.quadraticCurveTo(9, 182, 7, 164);
+    ctx.quadraticCurveTo(13, 124, -4, 82);
+    ctx.closePath();
+    ctx.fill();
 
-    // 4. Bare opalescent legs & pointed feet suspended weightlessly in midair
-    const legSway = Math.sin(t * 1.1 - 0.5) * 5;
-    // Back leg
-    ctx.strokeStyle = '#9dbbd1';
+    // Near leg (gracefully extended downward with pointed fae foot)
+    const legSway = Math.sin(t * 1.15 + 0.6) * 4;
+    const legGrad = ctx.createLinearGradient(-12, 75, -6, 212);
+    legGrad.addColorStop(0, '#bedae4');
+    legGrad.addColorStop(0.65, '#d8ecf2');
+    legGrad.addColorStop(1, '#ffe5be'); // warm light on toes from spool below
+    ctx.fillStyle = legGrad;
+    ctx.beginPath();
+    ctx.moveTo(-12, 76);
+    ctx.bezierCurveTo(-18, 122, -16 + legSway, 162, -8 + legSway, 198);
+    ctx.quadraticCurveTo(-3 + legSway, 214, 4 + legSway, 220);
+    ctx.quadraticCurveTo(-1 + legSway, 202, -1 + legSway, 188);
+    ctx.bezierCurveTo(-4 + legSway, 152, 2, 116, 6, 76);
+    ctx.closePath();
+    ctx.fill();
+
+    // Flowing layered petal-mantle / twilight tunic
+    const dressSway = Math.sin(t * 1.3) * 8;
+    // Deep under-skirt layer
+    const skirtBack = ctx.createLinearGradient(0, 10, 10, 138);
+    skirtBack.addColorStop(0, '#13213c');
+    skirtBack.addColorStop(0.7, '#1d3854');
+    skirtBack.addColorStop(1, '#3c6278');
+    ctx.fillStyle = skirtBack;
+    ctx.beginPath();
+    ctx.moveTo(-14, 24);
+    ctx.bezierCurveTo(-42, 68, -56 + dressSway, 108, -42 + dressSway * 1.2, 146);
+    ctx.quadraticCurveTo(-12 + dressSway, 126, 8 + dressSway * 0.8, 148);
+    ctx.quadraticCurveTo(28 + dressSway * 0.6, 122, 42 + dressSway * 0.9, 132);
+    ctx.bezierCurveTo(36, 88, 24, 52, 12, 24);
+    ctx.closePath();
+    ctx.fill();
+
+    // Overlapping botanical leaf-petal panels on gown catching warm rim light
+    const dressFront = ctx.createLinearGradient(-18, -18, 28, 118);
+    dressFront.addColorStop(0.0, '#1c3150');
+    dressFront.addColorStop(0.55, '#294c69');
+    dressFront.addColorStop(0.88, '#4e7c8c');
+    dressFront.addColorStop(1.0, '#d8b48a');
+    ctx.fillStyle = dressFront;
+    ctx.beginPath();
+    ctx.moveTo(-13, -18);
+    ctx.quadraticCurveTo(2, -24, 14, -14);
+    ctx.bezierCurveTo(18, 8, 14, 24, 13, 34);
+    ctx.bezierCurveTo(28, 64, 34 + dressSway * 0.6, 94, 24 + dressSway * 0.8, 120);
+    ctx.quadraticCurveTo(2 + dressSway * 0.5, 98, -8 + dressSway * 0.7, 124);
+    ctx.bezierCurveTo(-28 + dressSway * 0.8, 96, -28, 62, -13, 32);
+    ctx.closePath();
+    ctx.fill();
+
+    // Fine golden-silk trim along petal hems
+    ctx.strokeStyle = 'rgba(255, 222, 162, 0.58)';
+    ctx.lineWidth = 1.15;
+    ctx.beginPath();
+    ctx.moveTo(-24 + dressSway * 0.6, 102);
+    ctx.quadraticCurveTo(-8 + dressSway * 0.7, 124, 6 + dressSway * 0.6, 106);
+    ctx.quadraticCurveTo(18 + dressSway * 0.7, 118, 28 + dressSway * 0.7, 108);
+    ctx.stroke();
+
+    // Gossamer collar / shoulder mantle
+    ctx.fillStyle = 'rgba(154, 214, 222, 0.45)';
+    ctx.beginPath();
+    ctx.moveTo(-15, -18);
+    ctx.quadraticCurveTo(-30, -4, -24, 14);
+    ctx.quadraticCurveTo(-6, 4, 2, 16);
+    ctx.quadraticCurveTo(16, 4, 20, -10);
+    ctx.quadraticCurveTo(4, -22, -15, -18);
+    ctx.fill();
+
+    // Right (far) arm extended gracefully toward the open twilight space
+    // Poised in quiet curiosity toward the floating loose ends, never touching them
+    const armReach = Math.sin(t * 1.4) * 3.5;
+    const farArmGrad = ctx.createLinearGradient(12, -12, 78, 34);
+    farArmGrad.addColorStop(0, '#b8d6e2');
+    farArmGrad.addColorStop(1, '#ffe5be');
+    ctx.strokeStyle = farArmGrad;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
-    ctx.lineWidth = 10;
+    ctx.lineWidth = 6.2;
     ctx.beginPath();
-    ctx.moveTo(12, 74);
-    ctx.quadraticCurveTo(22 + legSway * 0.5, 145, 34 + legSway, 212);
-    ctx.stroke();
-    // Back foot
-    ctx.lineWidth = 6;
-    ctx.beginPath();
-    ctx.moveTo(34 + legSway, 212);
-    ctx.quadraticCurveTo(38 + legSway, 228, 30 + legSway, 238);
+    ctx.moveTo(12, -12);
+    ctx.quadraticCurveTo(38, 12, 66, 22 + armReach);
     ctx.stroke();
 
-    // Front leg (gently bent at knee, catching warm watch glow underneath)
-    const legGrad = ctx.createLinearGradient(-14, 70, 8, 205);
-    legGrad.addColorStop(0, '#c2dced');
-    legGrad.addColorStop(0.65, '#dcebf2');
-    legGrad.addColorStop(1, '#f5d9a8');
-    ctx.strokeStyle = legGrad;
-    ctx.lineWidth = 11;
+    // Delicate open hand & fingers poised near a floating spark
+    const hx = 68;
+    const hy = 22 + armReach;
+    ctx.fillStyle = '#ffe5be';
     ctx.beginPath();
-    ctx.moveTo(2, 72);
-    ctx.quadraticCurveTo(-18 + legSway * 0.4, 134, 2 + legSway * 0.8, 192);
-    ctx.stroke();
-    // Pointed front foot
-    ctx.lineWidth = 6.5;
+    ctx.ellipse(hx + 4, hy + 1, 5.5, 3.4, 0.25, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#ffe8c4';
+    ctx.lineWidth = 1.6;
     ctx.beginPath();
-    ctx.moveTo(2 + legSway * 0.8, 192);
-    ctx.quadraticCurveTo(5 + legSway * 0.8, 208, -2 + legSway * 0.8, 220);
+    ctx.moveTo(hx + 7, hy);
+    ctx.quadraticCurveTo(hx + 15, hy + 1, hx + 20, hy + 5);
+    ctx.moveTo(hx + 7, hy + 2);
+    ctx.quadraticCurveTo(hx + 14, hy + 5, hx + 18, hy + 10);
+    ctx.moveTo(hx + 5, hy - 2);
+    ctx.quadraticCurveTo(hx + 11, hy - 5, hx + 15, hy - 4);
     ctx.stroke();
 
-    // Delicate golden anklet bead
-    ctx.fillStyle = '#ffe29c';
+    // Tiny unattached spark hovering in the air beyond the fingertips
+    const orbPulse = 0.65 + 0.35 * Math.sin(t * 3.1);
+    const orbX = hx + 33 + Math.sin(t * 1.9) * 4;
+    const orbY = hy + 12 + Math.cos(t * 2.3) * 4;
+    const orbGrad = ctx.createRadialGradient(orbX, orbY, 0.5, orbX, orbY, 13);
+    orbGrad.addColorStop(0, `rgba(255, 245, 205, ${orbPulse})`);
+    orbGrad.addColorStop(0.45, `rgba(255, 202, 122, ${orbPulse * 0.45})`);
+    orbGrad.addColorStop(1, 'rgba(255, 180, 100, 0)');
+    ctx.fillStyle = orbGrad;
     ctx.beginPath();
-    ctx.arc(2 + legSway * 0.8, 189, 2.5, 0, Math.PI * 2);
+    ctx.arc(orbX, orbY, 13, 0, Math.PI * 2);
     ctx.fill();
 
-    // 5. Layered gossamer moth-silk dress billowing softly in the warm updraft
-    const skirtWave1 = Math.sin(t * 1.35) * 10;
-    const skirtWave2 = Math.cos(t * 1.15) * 12;
-
-    // Back translucent trailing ribbon-skirt
-    const backDress = ctx.createLinearGradient(0, 28, 25, 255);
-    backDress.addColorStop(0, 'rgba(34, 48, 92, 0.92)');
-    backDress.addColorStop(0.6, 'rgba(46, 98, 126, 0.58)');
-    backDress.addColorStop(1, 'rgba(242, 188, 108, 0.22)');
-    ctx.fillStyle = backDress;
+    // Slender neck & head (with gentle contemplative head-turn / tilt)
+    const headTilt = 0.16 + Math.sin(t * 0.92) * 0.065 + (pointer.y - 0.5) * 0.08;
+    ctx.fillStyle = '#cbe3ec';
     ctx.beginPath();
-    ctx.moveTo(-10, 32);
-    ctx.bezierCurveTo(-36, 98, -46 + skirtWave1, 178, -24 + skirtWave1 * 1.3, 244);
-    ctx.bezierCurveTo(6 + skirtWave2, 220, 22, 268, 56 + skirtWave2, 252);
-    ctx.bezierCurveTo(48, 176, 36, 96, 18, 34);
+    ctx.moveTo(-4, -18);
+    ctx.lineTo(5, -17);
+    ctx.lineTo(6, -32);
+    ctx.lineTo(-3, -32);
     ctx.closePath();
     ctx.fill();
 
-    // Front petal-silk overskirt catching warm golden rim light on its scalloped hem
-    const frontDress = ctx.createLinearGradient(-15, 24, 10, 188);
-    frontDress.addColorStop(0, 'rgba(68, 96, 148, 0.94)');
-    frontDress.addColorStop(0.55, 'rgba(84, 156, 176, 0.72)');
-    frontDress.addColorStop(1, 'rgba(248, 204, 128, 0.55)');
-    ctx.fillStyle = frontDress;
-    ctx.beginPath();
-    ctx.moveTo(-11, 30);
-    ctx.bezierCurveTo(-32, 76, -38 + skirtWave1 * 0.7, 134, -18 + skirtWave1, 176);
-    ctx.bezierCurveTo(-2, 158, 12, 162, 28 + skirtWave2 * 0.7, 184);
-    ctx.bezierCurveTo(36 + skirtWave2 * 0.5, 128, 28, 72, 16, 32);
-    ctx.closePath();
-    ctx.fill();
-
-    // Golden-opal gossamer hem highlight
-    ctx.strokeStyle = 'rgba(255, 226, 162, 0.62)';
-    ctx.lineWidth = 1.3;
-    ctx.beginPath();
-    ctx.moveTo(-18 + skirtWave1, 176);
-    ctx.bezierCurveTo(-2, 158, 12, 162, 28 + skirtWave2 * 0.7, 184);
-    ctx.stroke();
-
-    // 6. Far arm (left arm reaching gracefully toward the rising stream of golden time-motes)
     ctx.save();
-    const skinArm = ctx.createLinearGradient(-20, -18, -96, 48);
-    skinArm.addColorStop(0, '#cadfed');
-    skinArm.addColorStop(0.65, '#e5eef2');
-    skinArm.addColorStop(1, '#ffe2ad');
-    ctx.strokeStyle = skinArm;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.lineWidth = 7.2;
-    ctx.beginPath();
-    ctx.moveTo(-18, -18);
-    ctx.quadraticCurveTo(-48, 18 + reachOffsetY * 0.5, -86, 40 + reachOffsetY);
-    ctx.stroke();
-
-    // Delicate open hand & slender fingers poised above the rising spark
-    ctx.translate(-86, 40 + reachOffsetY);
-    ctx.fillStyle = '#ffe5b8';
-    ctx.beginPath();
-    ctx.ellipse(-5, 3, 6.5, 4, -0.35, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.strokeStyle = '#ffe5b8';
-    ctx.lineWidth = 2.1;
-    for (const [fx, fy] of [[-14, 2], [-16, 6], [-14, 10], [-9, -3]]) {
-      ctx.beginPath();
-      ctx.moveTo(-4, 2);
-      ctx.quadraticCurveTo(fx * 0.6, fy * 0.5, fx, fy);
-      ctx.stroke();
-    }
-    ctx.restore();
-
-    // A bright suspended golden spark hovering untouched just beyond her fingertips
-    const heroSparkX = -112;
-    const heroSparkY = 48 + reachOffsetY + Math.sin(t * 2.6) * 3;
-    const spSize = 22 + Math.sin(t * 3.1) * 4;
-    ctx.drawImage(goldSprite, heroSparkX - spSize, heroSparkY - spSize, spSize * 2, spSize * 2);
-
-    // 7. Torso & Bodice
-    // Slender neck & upper chest
-    const chestGrad = ctx.createLinearGradient(-12, -48, 10, -8);
-    chestGrad.addColorStop(0, '#c8dfee');
-    chestGrad.addColorStop(1, '#ebd9c8');
-    ctx.fillStyle = chestGrad;
-    ctx.beginPath();
-    ctx.moveTo(-9, -48);
-    ctx.lineTo(4, -46);
-    ctx.lineTo(18, -18);
-    ctx.lineTo(-20, -20);
-    ctx.closePath();
-    ctx.fill();
-
-    // Sculpted twilight-silk bodice with silver-gold filigree waist
-    const bodiceGrad = ctx.createLinearGradient(-20, -20, 18, 34);
-    bodiceGrad.addColorStop(0, '#365486');
-    bodiceGrad.addColorStop(0.55, '#243864');
-    bodiceGrad.addColorStop(1, '#4c7a94');
-    ctx.fillStyle = bodiceGrad;
-    ctx.beginPath();
-    ctx.moveTo(-20, -18);
-    ctx.quadraticCurveTo(-2, -8, 19, -16);
-    ctx.quadraticCurveTo(16, 12, 16, 33);
-    ctx.quadraticCurveTo(2, 40, -11, 31);
-    ctx.quadraticCurveTo(-12, 10, -20, -18);
-    ctx.closePath();
-    ctx.fill();
-
-    // Bodice sweetheart trim & waist jewel
-    ctx.strokeStyle = 'rgba(255, 224, 158, 0.72)';
-    ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    ctx.moveTo(-19, -17);
-    ctx.quadraticCurveTo(-3, -6, 18, -15);
-    ctx.moveTo(-11, 31);
-    ctx.quadraticCurveTo(2, 39, 16, 33);
-    ctx.stroke();
-
-    // 8. Near arm (right arm curved gently toward her heart)
-    ctx.strokeStyle = '#dfecf2';
-    ctx.lineWidth = 7.4;
-    ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.moveTo(17, -15);
-    ctx.quadraticCurveTo(34, 18, 2, 14);
-    ctx.stroke();
-    // Sheer gossamer sleeve drape on near arm
-    ctx.fillStyle = 'rgba(130, 210, 220, 0.28)';
-    ctx.beginPath();
-    ctx.moveTo(17, -14);
-    ctx.quadraticCurveTo(38, 22, 24, 48 + skirtWave1 * 0.4);
-    ctx.quadraticCurveTo(8, 36, 4, 15);
-    ctx.closePath();
-    ctx.fill();
-    // Delicate near hand near chest
-    ctx.fillStyle = '#f2e2cb';
-    ctx.beginPath();
-    ctx.ellipse(-3, 13, 6, 3.8, 0.2, 0, Math.PI * 2);
-    ctx.fill();
-
-    // 9. Head & 3/4 Face (tilted serenely down-left toward the stopped pocket watch)
-    ctx.save();
-    const headTilt = -0.18 + Math.sin(t * 0.9) * 0.035 + pointer.x * 0.05 + pointer.y * 0.03;
-    ctx.translate(-9, -66);
+    ctx.translate(2, -44);
     ctx.rotate(headTilt);
 
-    // Back cranium hair volume
-    ctx.fillStyle = '#101836';
+    // Moonlit porcelain face with warm amber rim-glow on lower-right cheek
+    const skinGrad = ctx.createLinearGradient(-12, -16, 16, 16);
+    skinGrad.addColorStop(0.0, '#d2e9f2');
+    skinGrad.addColorStop(0.62, '#e6f3f6');
+    skinGrad.addColorStop(1.0, '#ffe0b8');
+    ctx.fillStyle = skinGrad;
     ctx.beginPath();
-    ctx.arc(4, -4, 24, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Face silhouette (3/4 turn facing left)
-    const faceGrad = ctx.createLinearGradient(-16, -20, 12, 22);
-    faceGrad.addColorStop(0, '#d8eef7');   // cool moonlight on forehead
-    faceGrad.addColorStop(0.6, '#e6edf2'); // porcelain opal cheek
-    faceGrad.addColorStop(1, '#fae0b6');   // warm golden watch bounce-light on chin
-    ctx.fillStyle = faceGrad;
-    ctx.beginPath();
-    ctx.moveTo(-14, -16);
-    ctx.quadraticCurveTo(-20, -4, -18, 6);   // brow to nose bridge
-    ctx.quadraticCurveTo(-17, 16, -9, 22);   // soft chin
-    ctx.quadraticCurveTo(4, 21, 12, 8);      // jawline
-    ctx.quadraticCurveTo(16, -8, 4, -18);    // temple
+    ctx.moveTo(-11, -12);
+    ctx.bezierCurveTo(-13, 4, -6, 15, 5, 17);
+    ctx.bezierCurveTo(13, 17, 17, 8, 17, -2);
+    ctx.bezierCurveTo(17, -14, 6, -20, -6, -18);
     ctx.closePath();
     ctx.fill();
 
-    // Pointed fae ear sweeping back-right through dark hair
-    ctx.fillStyle = '#dfeaf0';
+    // Pointed fae ear peeking through indigo locks
+    ctx.fillStyle = '#cbe4ed';
     ctx.beginPath();
-    ctx.moveTo(9, -1);
-    ctx.quadraticCurveTo(26, -11, 32, -16);
-    ctx.quadraticCurveTo(25, 2, 10, 7);
+    ctx.moveTo(-8, -2);
+    ctx.quadraticCurveTo(-24, -10, -29, -16);
+    ctx.quadraticCurveTo(-22, -1, -9, 5);
     ctx.closePath();
     ctx.fill();
-    ctx.strokeStyle = 'rgba(130, 150, 180, 0.5)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(12, 1);
-    ctx.quadraticCurveTo(22, -6, 26, -11);
+    ctx.strokeStyle = 'rgba(130, 172, 194, 0.6)';
+    ctx.lineWidth = 0.9;
     ctx.stroke();
 
-    // Delicate nose & serene lips
-    ctx.strokeStyle = 'rgba(90, 105, 135, 0.55)';
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.moveTo(-16, -2);
-    ctx.quadraticCurveTo(-21, 5, -17, 7.5);
-    ctx.stroke();
-
-    ctx.strokeStyle = 'rgba(168, 118, 128, 0.72)';
-    ctx.lineWidth = 1.3;
-    ctx.beginPath();
-    ctx.moveTo(-15, 13.5);
-    ctx.quadraticCurveTo(-11, 14.5, -7.5, 13.2);
-    ctx.stroke();
-
-    // Periodic gentle blink
-    const blinkCycle = (t * 0.22) % 1;
-    const isBlinking = blinkCycle > 0.94;
-
-    // Eyes (3/4 perspective: far eye on left, near eye centered)
+    // Serene expression (natural blink cycle every ~5.2 seconds)
+    const blinkCycle = t % 5.2;
+    const isBlinking = blinkCycle > 4.98 && blinkCycle < 5.14;
+    ctx.strokeStyle = '#18263d';
+    ctx.lineWidth = 1.35;
     if (isBlinking) {
-      ctx.strokeStyle = '#1b2242';
-      ctx.lineWidth = 1.6;
       ctx.beginPath();
-      ctx.arc(-15, 1, 3.2, 0.15, Math.PI - 0.15);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(-4, 1, 4.8, 0.15, Math.PI - 0.15);
+      ctx.moveTo(3, 0);
+      ctx.quadraticCurveTo(7.5, 2.4, 12, 0.2);
       ctx.stroke();
     } else {
-      // Near eye
-      ctx.fillStyle = '#19203d';
+      // Soft almond eye gazing down-right toward the rising threads
+      ctx.fillStyle = '#142238';
       ctx.beginPath();
-      ctx.ellipse(-4.5, 0.5, 4.6, 3.1, 0.08, 0, Math.PI * 2);
+      ctx.ellipse(8, 0, 3.2, 2.2, 0.12, 0, Math.PI * 2);
       ctx.fill();
-      // Luminous warm amber-opal iris reflecting the watch
-      ctx.fillStyle = '#ffcf75';
+      // Tiny golden-amber catchlight in iris
+      ctx.fillStyle = '#ffe8b8';
       ctx.beginPath();
-      ctx.arc(-5.2 + pointer.x * 0.7, 0.8 + pointer.y * 0.5, 2.3, 0, Math.PI * 2);
+      ctx.arc(9.1, -0.5, 0.95, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = '#ffffff';
+      // Upper lash line
       ctx.beginPath();
-      ctx.arc(-6, -0.3, 0.95, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Far eye
-      ctx.fillStyle = '#19203d';
-      ctx.beginPath();
-      ctx.ellipse(-15.2, 0.4, 2.6, 2.5, -0.05, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#ffcf75';
-      ctx.beginPath();
-      ctx.arc(-15.5, 0.7, 1.5, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.moveTo(3.2, -0.6);
+      ctx.quadraticCurveTo(8, -3.2, 12.6, -0.4);
+      ctx.stroke();
     }
 
-    // Soft arched eyebrows
-    ctx.strokeStyle = '#1b2448';
-    ctx.lineWidth = 1.3;
+    // Delicate brow & subtle wistful smile
+    ctx.strokeStyle = 'rgba(28, 46, 74, 0.65)';
+    ctx.lineWidth = 1.0;
     ctx.beginPath();
-    ctx.moveTo(-9.5, -5);
-    ctx.quadraticCurveTo(-4, -7.2, 1.5, -5.2);
-    ctx.moveTo(-18, -4.8);
-    ctx.quadraticCurveTo(-15.5, -6.5, -13, -5.2);
+    ctx.moveTo(3, -5.2);
+    ctx.quadraticCurveTo(8.5, -7.2, 13, -5.4);
     ctx.stroke();
 
-    // Sweeping front indigo locks framing her temple and neck
-    ctx.fillStyle = '#141e42';
+    ctx.strokeStyle = 'rgba(148, 102, 108, 0.72)';
+    ctx.lineWidth = 1.1;
     ctx.beginPath();
-    ctx.moveTo(-16, -15);
-    ctx.quadraticCurveTo(-4, -27, 16, -20);
-    ctx.quadraticCurveTo(28, -10, 24, 14);
-    ctx.quadraticCurveTo(18, 34, 28 + hairWave * 0.4, 54);
-    ctx.quadraticCurveTo(10, 30, 10, 4);
-    ctx.quadraticCurveTo(6, -11, -14, -13);
+    ctx.moveTo(6.5, 9.8);
+    ctx.quadraticCurveTo(9.5, 11.2, 12.2, 9.6);
+    ctx.stroke();
+
+    // Sweeping dark-indigo crown hair & floating tendrils
+    const crownGrad = ctx.createLinearGradient(-16, -24, 14, 12);
+    crownGrad.addColorStop(0, '#182e4d');
+    crownGrad.addColorStop(0.55, '#101d36');
+    crownGrad.addColorStop(1, '#243e5e');
+    ctx.fillStyle = crownGrad;
+    ctx.beginPath();
+    ctx.moveTo(16, -6);
+    ctx.bezierCurveTo(18, -18, 6, -25, -8, -22);
+    ctx.bezierCurveTo(-20, -19, -22, -6, -15, 6);
+    ctx.bezierCurveTo(-28 + hairWave * 0.4, 22, -42 + hairWave * 0.7, 36, -54 + hairWave * 0.9, 50);
+    ctx.bezierCurveTo(-32 + hairWave * 0.5, 34, -18, 18, -9, -2);
+    ctx.bezierCurveTo(-4, -11, 6, -13, 16, -6);
     ctx.closePath();
     ctx.fill();
 
-    // Delicate silver-moon diadem with a tiny suspended teardrop gem on her brow
-    ctx.strokeStyle = 'rgba(218, 245, 250, 0.82)';
-    ctx.lineWidth = 1.2;
+    // Two slender golden moth-antennae curving gently from brow
+    ctx.strokeStyle = '#f7d48e';
+    ctx.lineWidth = 1.25;
+    const antSway = Math.sin(t * 2.1) * 2.5;
     ctx.beginPath();
-    ctx.moveTo(-16, -12);
-    ctx.quadraticCurveTo(-4, -8, 12, -12);
+    ctx.moveTo(7, -17);
+    ctx.bezierCurveTo(14, -36, 4 + antSway, -54, -8 + antSway, -60);
+    ctx.moveTo(11, -15);
+    ctx.bezierCurveTo(24, -32, 24 + antSway, -48, 16 + antSway, -56);
     ctx.stroke();
-    ctx.fillStyle = '#fff1b8';
+
+    ctx.fillStyle = '#fff0c2';
     ctx.beginPath();
-    ctx.arc(-11, -9.5, 2.1, 0, Math.PI * 2);
+    ctx.arc(-8 + antSway, -60, 2.0, 0, Math.PI * 2);
+    ctx.arc(16 + antSway, -56, 1.8, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.restore(); // end head
+    ctx.restore(); // end head space
 
-    // Tiny starlight pinpoints nestled in her dark hair
-    ctx.fillStyle = '#e6faff';
-    for (const [sx, sy, ph] of [[4, -80, 0], [18, -62, 1.4], [26, -34, 2.7], [38 + hairWave * 0.6, 8, 4.1], [32 + hairWave * 0.8, 52, 5.2]]) {
-      ctx.globalAlpha = 0.4 + 0.55 * (0.5 + 0.5 * Math.sin(t * 2.1 + ph));
-      ctx.beginPath();
-      ctx.arc(sx, sy, 1.35, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
+    // Left (near) arm folded gracefully toward chest in quiet contemplation
+    const nearArmGrad = ctx.createLinearGradient(-12, -12, 24, 18);
+    nearArmGrad.addColorStop(0, '#c2dfe9');
+    nearArmGrad.addColorStop(1, '#ffe6c2');
+    ctx.strokeStyle = nearArmGrad;
+    ctx.lineWidth = 6.0;
+    ctx.beginPath();
+    ctx.moveTo(-11, -11);
+    ctx.quadraticCurveTo(-24, 14, 2, 22);
+    ctx.quadraticCurveTo(16, 20, 24, 10 - armReach * 0.5);
+    ctx.stroke();
 
-    ctx.restore(); // end fairy
+    ctx.fillStyle = '#ffe6c2';
+    ctx.beginPath();
+    ctx.ellipse(26, 9 - armReach * 0.5, 4.8, 3.0, -0.3, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
   }
 
-  function drawBotanicalForeground(t) {
-    // Bioluminescent ghost-dew cups in the moss
-    for (const dc of dewCups) {
-      const sway = Math.sin(t * 1.1 + dc.x * 0.05) * 3;
-      const tipX = dc.x + dc.tilt * dc.h + sway;
-      const tipY = dc.y - dc.h;
+  // Swaying weeping-willow boughs at upper canopy & lush ferns at base
+  function drawBotanicals(t, px, py, foregroundPass) {
+    // Upper weeping willow boughs
+    for (let i = 0; i < willowStrands.length; i++) {
+      const w = willowStrands[i];
+      if ((w.depth === 1) !== foregroundPass) continue;
 
-      ctx.strokeStyle = 'rgba(92, 178, 185, 0.55)';
-      ctx.lineWidth = 1.6;
+      const sway = Math.sin(t * w.speed + w.phase) * w.swayAmp + px * (foregroundPass ? 12 : 5);
+      const x0 = w.x;
+      const y0 = -20;
+      const xMid = x0 + sway * 0.45 - w.side * 12;
+      const yMid = w.len * 0.52;
+      const xTip = x0 + sway - w.side * 18;
+      const yTip = w.len;
+
+      ctx.strokeStyle = foregroundPass ? '#060c18' : 'rgba(13, 27, 44, 0.78)';
+      ctx.lineWidth = foregroundPass ? 1.5 : 1.1;
       ctx.beginPath();
-      ctx.moveTo(dc.x, dc.y + 8);
-      ctx.quadraticCurveTo(dc.x + sway * 0.3, dc.y - dc.h * 0.5, tipX, tipY);
+      ctx.moveTo(x0, y0);
+      ctx.quadraticCurveTo(xMid, yMid, xTip, yTip);
       ctx.stroke();
 
-      // Soft cyan glow around bell cap
-      const g = dc.r * 3.2;
-      ctx.globalAlpha = 0.55 + 0.2 * Math.sin(t * 1.9 + dc.x);
-      ctx.drawImage(cyanSprite, tipX - g, tipY - g, g * 2, g * 2);
-      ctx.globalAlpha = 1;
+      ctx.fillStyle = foregroundPass ? '#07101f' : 'rgba(14, 30, 48, 0.78)';
+      for (let k = 1; k <= w.leaves; k++) {
+        const u = k / (w.leaves + 1);
+        const iu = 1 - u;
+        const lx = iu * iu * x0 + 2 * iu * u * xMid + u * u * xTip;
+        const ly = iu * iu * y0 + 2 * iu * u * yMid + u * u * yTip;
+        const sideFlip = k % 2 === 0 ? 1 : -1;
+        const leafAng = Math.PI * 0.5 + sideFlip * 0.52 + (sway * 0.012);
+        const leafLen = (1 - u * 0.35) * (foregroundPass ? 19 : 14);
 
-      ctx.fillStyle = '#cefaf6';
-      ctx.beginPath();
-      ctx.ellipse(tipX, tipY, dc.r, dc.r * 0.65, dc.tilt * 0.6, Math.PI, Math.PI * 2);
-      ctx.fill();
+        ctx.save();
+        ctx.translate(lx, ly);
+        ctx.rotate(leafAng);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(leafLen * 0.5, -3.2, leafLen, 0);
+        ctx.quadraticCurveTo(leafLen * 0.5, 3.2, 0, 0);
+        ctx.fill();
+        ctx.restore();
+      }
     }
 
-    // Lush fern fronds at bottom edges
-    for (const f of ferns) {
-      const sway = Math.sin(t * 0.85 + f.x * 0.03) * 0.045;
-      ctx.save();
-      ctx.translate(f.x, f.y);
-      ctx.rotate(f.angle + sway);
-      ctx.scale(f.scale, f.scale);
+    if (!foregroundPass) return;
 
-      const stemColor = f.dark ? '#050b12' : '#122c36';
-      const leafColor = f.dark ? '#060d16' : '#163842';
-      ctx.strokeStyle = stemColor;
+    // Foreground nocturnal ferns around the water's edge
+    for (let f = 0; f < ferns.length; f++) {
+      const fn = ferns[f];
+      const sway = Math.sin(t * 0.8 + fn.phase) * 0.055;
+      ctx.save();
+      ctx.translate(fn.x + px * 11, fn.y + py * 6);
+      ctx.rotate(fn.angle + sway);
+      ctx.scale(fn.scale, fn.scale);
+
+      ctx.strokeStyle = '#07111e';
       ctx.lineWidth = 2.2;
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(f.len * 0.5, -14, f.len, 6);
+      ctx.quadraticCurveTo(fn.len * 0.5, -14, fn.len, -6);
       ctx.stroke();
 
-      const pairs = 13;
-      for (let i = 1; i < pairs; i++) {
-        const u = i / pairs;
-        const px = u * f.len;
-        const py = 2 * (1 - u) * u * (-14) + u * u * 6;
-        const leafLen = Math.sin(u * Math.PI) * 26 * (1 - u * 0.35);
-
-        ctx.fillStyle = leafColor;
-        for (const side of [-1, 1]) {
+      ctx.fillStyle = '#081322';
+      const pairs = 11;
+      for (let p = 1; p <= pairs; p++) {
+        const u = p / (pairs + 1);
+        const bx = fn.len * u;
+        const by = -14 * 2 * u * (1 - u) - 6 * u * u;
+        const pLen = Math.sin(u * Math.PI) * 26 + 5;
+        for (let s = -1; s <= 1; s += 2) {
+          ctx.save();
+          ctx.translate(bx, by);
+          ctx.rotate(s * 0.88 - u * 0.25);
           ctx.beginPath();
-          ctx.ellipse(px + 4, py + side * leafLen * 0.52, leafLen * 0.58, 3.2, side * 0.95, 0, Math.PI * 2);
+          ctx.moveTo(0, 0);
+          ctx.quadraticCurveTo(pLen * 0.5, -3.5, pLen, 0);
+          ctx.quadraticCurveTo(pLen * 0.5, 3.5, 0, 0);
           ctx.fill();
+          ctx.restore();
         }
       }
       ctx.restore();
     }
+  }
 
-    // Drifting ambient woodland spores
-    ctx.save();
-    ctx.globalCompositeOperation = 'screen';
-    for (const sp of spores) {
-      const px = (sp.x + t * sp.vx + Math.sin(t * 0.7 + sp.phase) * 18 + VW * 10) % VW;
-      const py = 90 + ((sp.y + t * sp.vy + 820 * 10) % 810);
-      const pulse = 0.3 + 0.55 * (0.5 + 0.5 * Math.sin(t * 1.5 + sp.phase));
-      ctx.globalAlpha = pulse;
-      ctx.drawImage(sp.kind, px - sp.size, py - sp.size, sp.size * 2, sp.size * 2);
+  function drawAmbientMotes(dt, t, foregroundPass) {
+    for (let i = 0; i < motes.length; i++) {
+      const m = motes[i];
+      const isFg = m.depth > 0.65;
+      if (isFg !== foregroundPass) continue;
+
+      if (!foregroundPass) {
+        // Update position once per frame during background pass
+        m.x += (m.vx + Math.sin(t * 0.7 + m.phase) * 9) * dt;
+        m.y += m.vy * dt;
+        if (m.y < -30) {
+          m.y = VH + 30;
+          m.x = (m.x + 137) % VW;
+        }
+        if (m.x < -40) m.x += VW + 80;
+        if (m.x > VW + 40) m.x -= VW + 80;
+      } else {
+        m.x += (m.vx + Math.sin(t * 0.7 + m.phase) * 9) * dt;
+        m.y += m.vy * dt;
+        if (m.y < -30) m.y = VH + 30;
+        if (m.x < -40) m.x += VW + 80;
+        if (m.x > VW + 40) m.x -= VW + 80;
+      }
+
+      const glow = 0.35 + 0.65 * Math.pow(0.5 + 0.5 * Math.sin(t * 1.8 + m.phase), 2);
+      const r = m.r * (isFg ? 1.55 : 0.9);
+      const colInner = m.hue === 'gold'
+        ? `rgba(255, 230, 170, ${glow * (isFg ? 0.65 : 0.78)})`
+        : `rgba(165, 242, 236, ${glow * (isFg ? 0.55 : 0.72)})`;
+      const colOuter = m.hue === 'gold'
+        ? 'rgba(255, 195, 110, 0)'
+        : 'rgba(100, 210, 215, 0)';
+
+      const mg = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, r * 3.4);
+      mg.addColorStop(0, colInner);
+      mg.addColorStop(1, colOuter);
+      ctx.fillStyle = mg;
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, r * 3.4, 0, Math.PI * 2);
+      ctx.fill();
     }
-    ctx.restore();
-    ctx.globalAlpha = 1;
-
-    // Soft atmospheric vignette to focus light inward (organic lighting, not a frame)
-    const vig = ctx.createRadialGradient(VW * 0.5, VH * 0.48, 210, VW * 0.5, VH * 0.5, 540);
-    vig.addColorStop(0, 'rgba(0, 0, 0, 0)');
-    vig.addColorStop(0.75, 'rgba(4, 7, 16, 0.18)');
-    vig.addColorStop(1, 'rgba(3, 5, 12, 0.58)');
-    ctx.fillStyle = vig;
-    ctx.fillRect(0, 0, VW, VH);
   }
 
   let lastTime = performance.now();
   let elapsed = 0;
 
   function render(now) {
-    const dt = Math.min(0.05, Math.max(0, (now - lastTime) * 0.001));
+    const dt = Math.min(0.05, Math.max(0.001, (now - lastTime) * 0.001));
     lastTime = now;
     elapsed += dt;
 
     // Smooth pointer easing
-    pointer.x += (pointer.tx - pointer.x) * Math.min(1, dt * 3.5);
-    pointer.y += (pointer.ty - pointer.y) * Math.min(1, dt * 3.5);
+    pointer.x += (pointer.tx - pointer.x) * Math.min(1, dt * 3.2);
+    pointer.y += (pointer.ty - pointer.y) * Math.min(1, dt * 3.2);
+    const px = pointer.x - 0.5;
+    const py = pointer.y - 0.5;
 
     ctx.save();
+    // Blit cached twilight sky & woodland atmosphere
+    ctx.drawImage(bgCanvas, 0, 0);
+
     ctx.scale(dpr, dpr);
     ctx.translate(offsetX, offsetY);
-    ctx.scale(viewScale, viewScale);
+    ctx.scale(scale, scale);
 
-    drawSkyAndMoon(elapsed);
-    drawWillowCanopy(elapsed);
-    drawMossAndWatchGlow(elapsed);
-    drawStoppedPocketWatch(elapsed);
-    drawFairy(elapsed);
-    drawBotanicalForeground(elapsed);
+    drawStarsAndMist(elapsed, px, py);
+    drawCelestialCurrents(elapsed, px, py);
+    drawBotanicals(elapsed, px, py, false);
+    drawAmbientMotes(dt, elapsed, false);
+    drawWaterAndStone(elapsed, px, py);
+    drawSpoolAndLooseEnds(elapsed, px, py);
+    drawFairy(elapsed, px, py);
+    drawAmbientMotes(dt, elapsed, true);
+    drawBotanicals(elapsed, px, py, true);
 
     ctx.restore();
+
+    // Subtle painterly tooth overlay
+    if (grainPattern) {
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.fillStyle = grainPattern;
+      ctx.fillRect(0, 0, width, height);
+      ctx.restore();
+    }
+
     requestAnimationFrame(render);
   }
 
@@ -1377,7 +1344,7 @@
 
 ```json
 {
-  "title": "The Fairy of Stopped Clocks",
-  "statement": "A quiet sanctuary outside time; rest, release, and unhurried grace."
+  "title": "The Fairy of Loose Ends",
+  "statement": "Unfinished stories still shimmer; trust the grace of what remains unresolved."
 }
 ```

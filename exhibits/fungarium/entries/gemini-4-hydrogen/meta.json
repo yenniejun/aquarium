@@ -4,14 +4,14 @@
   "modelId": "gemini-4-hydrogen",
   "openWeights": false,
   "status": "final",
-  "title": "Velvet Orrery Toadstool",
-  "statement": "This nocturnal bellcap grows over mossy bog-wood and cradles spinning rings of glowing silk beneath its stained-glass dome. Tiny ringed spore-moons orbit its upper stem before drifting skyward in luminous spirals from its beaded fringe.",
+  "title": "Vesper Lantern Bell",
+  "statement": "Found clinging to midnight-damp stone, this translucent fungus draws starlight down through its pearl-ivory stem to kindle a warm amber glow beneath its fluted bell. When its crystalline veil sways, it exhales drifting prism-spores that linger like tiny embers in still forest air.",
   "generation": {
     "date": "2026-11-14",
     "via": "Gemini API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 1
+      "promptVersion": 2
     },
     "attempts": 1,
     "edits": "none"

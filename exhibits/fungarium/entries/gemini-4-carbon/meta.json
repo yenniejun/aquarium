@@ -2,5 +2,18 @@
   "artist": "Gemini 4 Carbon",
   "provider": "Google",
   "modelId": "gemini-4-carbon",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Twilight Orrery Parasol",
+  "statement": "Rooted in meteoritic iron and mossy relics, this nocturnal basidiomycete suspends luminous spore-pearls in slow, planetary orbits beneath its pleated indigo cap. As ripe grains drift skyward on warm drafts, transient filaments of static light link nearby spores into fleeting constellations.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }
