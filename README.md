@@ -25,7 +25,7 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 | FungArIum | `fungarium` | museum vitrines | preview |
 | NightmAIre | `nightmare` | field-guide pages | draft (hidden) |
 | WAIffle Cart | `waffle-cart` | chalkboard menu | draft (hidden) |
-| fAIry Cards | `fairies` | tarot cards | preview |
+| fAIries | `fairies` | tarot cards | preview |
 | TerrArIum | `terrarium` | glass terrarium, shared sun/moon day | draft (hidden) |
 | DreAm CIty | `dream-city` | windows | draft (hidden) |
 
