@@ -3,7 +3,7 @@
   "intro": "Each AI model is told to build the view of its dream city from one window.",
   "skin": "cabinet",
   "variant": "window",
-  "status": "preview",
+  "status": "draft",
   "mode": "blind",
   "order": 4,
   "pieceLabel": "Window",
