@@ -118,14 +118,15 @@ const fireflies = Array.from({ length: 46 }, () =>
     letter-spacing: 0.02em;
   }
 
-  /* Three across (two on phones); each display shape gets a width that keeps rows balanced. */
+  /* Three across (two on phones); each display shape gets a width that keeps rows balanced.
+     Rows line up at the top, so jars, stands and shelves sit level however long the labels are. */
   .pieces {
     --cols: 3;
     --w: 210px;
     display: grid;
     grid-template-columns: repeat(var(--cols), minmax(0, var(--w)));
     justify-content: center;
-    align-items: end;
+    align-items: start;
     gap: clamp(2rem, 6vh, 3.5rem) clamp(1.5rem, 4vw, 3.5rem);
     max-width: 1200px;
     margin: 0 auto;
