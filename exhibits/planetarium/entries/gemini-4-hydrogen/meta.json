@@ -4,14 +4,14 @@
   "modelId": "gemini-4-hydrogen",
   "openWeights": false,
   "status": "final",
-  "title": "The Jingle-Jangle Jellyfish",
-  "statement": "Adrift in the quiet currents between galaxies, this luminous bell-creature trails strings of chiming star-bells that ring silently whenever the midnight tide turns. Stargazers claim you can tell how close dawn is by the rhythm of its glow.",
+  "title": "The Lantern Moth",
+  "statement": "Born from an ember that drifted past an evening hearth, she gathers stray starlight inside the twin lanterns of her wings and beats them gently through the dark so the quietest corners of the sky never grow cold.",
   "generation": {
     "date": "2026-11-14",
     "via": "Gemini API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 1
+      "promptVersion": 2
     },
     "attempts": 1,
     "edits": "none"

@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Night Sky</title>
+<title>The Lantern Moth</title>
 <style>
   *, *::before, *::after {
     box-sizing: border-box;
@@ -15,7 +15,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #030612;
+    background: #030611;
   }
   canvas {
     display: block;
@@ -31,20 +31,17 @@
   const canvas = document.getElementById('sky');
   const ctx = canvas.getContext('2d', { alpha: false });
 
-  let width = 0;
-  let height = 0;
+  let W = 0;
+  let H = 0;
+  let R = 0;
   let dpr = 1;
-  let radius = 100;
-  let cx = 50;
-  let cy = 50;
+  let skyBuffer = null;
+  let skyBufSize = 0;
 
-  let nebulaCanvas = null;
-  let glowSprite = null;
-
-  // Deterministic pseudo-random generator for reproducible starfield aesthetics
+  // Deterministic PRNG for consistent starfields across resizes
   function mulberry32(seed) {
     let a = seed >>> 0;
-    return function () {
+    return () => {
       a |= 0;
       a = (a + 0x6D2B79F5) | 0;
       let t = Math.imul(a ^ (a >>> 15), 1 | a);
@@ -53,617 +50,755 @@
     };
   }
 
-  const rand = mulberry32(42019);
-
-  // Create reusable radial glow sprite once
-  function createGlowSprite() {
-    const size = 64;
-    const c = document.createElement('canvas');
-    c.width = size;
-    c.height = size;
-    const gctx = c.getContext('2d');
-    const half = size / 2;
-    const grad = gctx.createRadialGradient(half, half, 0, half, half, half);
-    grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    grad.addColorStop(0.18, 'rgba(255, 255, 255, 0.55)');
-    grad.addColorStop(0.5, 'rgba(255, 255, 255, 0.12)');
-    grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-    gctx.fillStyle = grad;
-    gctx.fillRect(0, 0, size, size);
-    return c;
+  function clamp(v, lo, hi) {
+    return v < lo ? lo : v > hi ? hi : v;
   }
 
-  // Pre-render deep night sky and subtle Milky Way nebula clouds
-  function buildNebulaLayer() {
-    const c = document.createElement('canvas');
-    const s = Math.max(256, Math.round(Math.max(width, height) * 0.75));
-    c.width = s;
-    c.height = s;
-    const nctx = c.getContext('2d');
-    const mid = s / 2;
-
-    // Deep cosmic backdrop
-    const skyGrad = nctx.createRadialGradient(mid, mid * 0.9, s * 0.04, mid, mid, s * 0.65);
-    skyGrad.addColorStop(0, '#0d183b');
-    skyGrad.addColorStop(0.45, '#070d24');
-    skyGrad.addColorStop(1, '#02040d');
-    nctx.fillStyle = skyGrad;
-    nctx.fillRect(0, 0, s, s);
-
-    // Soft diagonal nebula wisps
-    const clouds = [
-      { x: 0.28, y: 0.32, r: 0.44, color: 'rgba(42, 62, 138, 0.16)' },
-      { x: 0.66, y: 0.64, r: 0.42, color: 'rgba(64, 38, 118, 0.14)' },
-      { x: 0.48, y: 0.48, r: 0.36, color: 'rgba(24, 92, 128, 0.12)' },
-      { x: 0.35, y: 0.62, r: 0.28, color: 'rgba(98, 44, 102, 0.08)' },
-      { x: 0.68, y: 0.30, r: 0.30, color: 'rgba(34, 78, 120, 0.09)' }
-    ];
-
-    for (const cl of clouds) {
-      const gx = cl.x * s;
-      const gy = cl.y * s;
-      const gr = cl.r * s;
-      const g = nctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
-      g.addColorStop(0, cl.color);
-      g.addColorStop(0.55, cl.color.replace(/[\d.]+\)$/, '0.04)'));
-      g.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      nctx.fillStyle = g;
-      nctx.fillRect(0, 0, s, s);
-    }
-
-    return c;
-  }
-
-  // Background starfield
-  const starPalette = [
-    '#ffffff',
-    '#d6e8ff',
-    '#fff3d6',
-    '#ffdcc7',
-    '#e4d8ff',
-    '#c4f3ff'
-  ];
-
-  const bgStars = [];
-  const BG_STAR_COUNT = 165;
-  for (let i = 0; i < BG_STAR_COUNT; i++) {
-    // Distribute across a slightly oversized disc so rotation never reveals empty corners
-    const angle = rand() * Math.PI * 2;
-    const dist = Math.sqrt(rand()) * 1.15;
-    const layer = rand();
-    bgStars.push({
-      x: Math.cos(angle) * dist,
-      y: Math.sin(angle) * dist,
-      size: 0.55 + Math.pow(rand(), 2.4) * 1.9,
-      alpha: 0.28 + rand() * 0.65,
-      twinkleSpeed: 0.7 + rand() * 2.2,
-      twinklePhase: rand() * Math.PI * 2,
-      color: starPalette[Math.floor(rand() * starPalette.length)],
-      depth: 0.3 + layer * 0.7
-    });
-  }
-
-  // Constellation definition: The Jingle-Jangle Jellyfish
-  // Normalized coordinates safely inside [-0.45, 0.45]
-  const cStars = [
-    // Bell dome (0..9)
-    { x:  0.00, y: -0.45, size: 1.45, color: '#fff4d2', role: 'bell', part: 'crown' }, // 0: Crown apex
-    { x: -0.18, y: -0.40, size: 1.05, color: '#d9ecff', role: 'bell', part: 'dome'  }, // 1: Upper left
-    { x:  0.18, y: -0.40, size: 1.05, color: '#d9ecff', role: 'bell', part: 'dome'  }, // 2: Upper right
-    { x: -0.33, y: -0.26, size: 1.12, color: '#cce6ff', role: 'bell', part: 'dome'  }, // 3: Mid left
-    { x:  0.33, y: -0.26, size: 1.12, color: '#cce6ff', role: 'bell', part: 'dome'  }, // 4: Mid right
-    { x: -0.37, y: -0.10, size: 1.10, color: '#a8f0ff', role: 'hem',  tIdx: 0       }, // 5: Left rim tip
-    { x: -0.18, y: -0.06, size: 1.15, color: '#bdeeff', role: 'hem',  tIdx: 1       }, // 6: Inner left rim
-    { x:  0.00, y: -0.08, size: 1.25, color: '#fff2d8', role: 'hem',  tIdx: 2       }, // 7: Center rim
-    { x:  0.18, y: -0.06, size: 1.15, color: '#bdeeff', role: 'hem',  tIdx: 3       }, // 8: Inner right rim
-    { x:  0.37, y: -0.10, size: 1.10, color: '#a8f0ff', role: 'hem',  tIdx: 4       }, // 9: Right rim tip
-
-    // Inner glowing heart / ribs (10..11)
-    { x: -0.11, y: -0.23, size: 1.00, color: '#ffd6ee', role: 'inner' }, // 10
-    { x:  0.11, y: -0.23, size: 1.00, color: '#d0e6ff', role: 'inner' }, // 11
-
-    // Tentacle 0: Outer Left (from 5)
-    { x: -0.41, y:  0.07, size: 0.85, color: '#b6e6ff', role: 'tentacle', tIdx: 0, chain: 1 }, // 12
-    { x: -0.34, y:  0.23, size: 1.20, color: '#ffd3e8', role: 'chime',    tIdx: 0, chain: 2, chimeColor: '255, 195, 226', chimeOffset: 0.1 }, // 13
-
-    // Tentacle 1: Inner Left (from 6)
-    { x: -0.22, y:  0.11, size: 0.90, color: '#cceeff', role: 'tentacle', tIdx: 1, chain: 1 }, // 14
-    { x: -0.13, y:  0.28, size: 0.95, color: '#e2d8ff', role: 'tentacle', tIdx: 1, chain: 2 }, // 15
-    { x: -0.19, y:  0.45, size: 1.35, color: '#9ef6ff', role: 'chime',    tIdx: 1, chain: 3, chimeColor: '148, 244, 255', chimeOffset: 0.35 }, // 16
-
-    // Tentacle 2: Center (from 7)
-    { x:  0.04, y:  0.10, size: 0.95, color: '#fff3da', role: 'tentacle', tIdx: 2, chain: 1 }, // 17
-    { x: -0.04, y:  0.29, size: 0.95, color: '#ffe5f4', role: 'tentacle', tIdx: 2, chain: 2 }, // 18
-    { x:  0.03, y:  0.48, size: 1.45, color: '#ffe399', role: 'chime',    tIdx: 2, chain: 3, chimeColor: '255, 224, 138', chimeOffset: 0.6 }, // 19
-
-    // Tentacle 3: Inner Right (from 8)
-    { x:  0.23, y:  0.11, size: 0.90, color: '#cceeff', role: 'tentacle', tIdx: 3, chain: 1 }, // 20
-    { x:  0.15, y:  0.28, size: 0.95, color: '#d8e4ff', role: 'tentacle', tIdx: 3, chain: 2 }, // 21
-    { x:  0.22, y:  0.44, size: 1.35, color: '#d9c4ff', role: 'chime',    tIdx: 3, chain: 3, chimeColor: '212, 186, 255', chimeOffset: 0.82 }, // 22
-
-    // Tentacle 4: Outer Right (from 9)
-    { x:  0.41, y:  0.06, size: 0.85, color: '#b6e6ff', role: 'tentacle', tIdx: 4, chain: 1 }, // 23
-    { x:  0.35, y:  0.22, size: 1.20, color: '#b4ffe9', role: 'chime',    tIdx: 4, chain: 2, chimeColor: '164, 255, 228', chimeOffset: 0.48 }  // 24
-  ];
-
-  // Ordered groups for sequential line tracing
-  // Each segment: [starA, starB, traceStart (0..1), traceEnd (0..1)]
-  const cEdges = [
-    // Dome arches trace from crown outward
-    [0, 1, 0.00, 0.16],
-    [0, 2, 0.00, 0.16],
-    [1, 3, 0.14, 0.30],
-    [2, 4, 0.14, 0.30],
-    [3, 5, 0.28, 0.44],
-    [4, 9, 0.28, 0.44],
-
-    // Scalloped hem closes from outer corners inward
-    [5, 6, 0.40, 0.54],
-    [9, 8, 0.40, 0.54],
-    [6, 7, 0.52, 0.64],
-    [8, 7, 0.52, 0.64],
-
-    // Inner lantern ribs
-    [0, 10, 0.18, 0.38],
-    [0, 11, 0.18, 0.38],
-    [10, 6, 0.36, 0.56],
-    [11, 8, 0.36, 0.56],
-
-    // Tentacles cascade down
-    [5, 12, 0.54, 0.72],
-    [12, 13, 0.70, 0.90],
-
-    [6, 14, 0.58, 0.73],
-    [14, 15, 0.71, 0.86],
-    [15, 16, 0.84, 1.00],
-
-    [7, 17, 0.62, 0.76],
-    [17, 18, 0.74, 0.88],
-    [18, 19, 0.86, 1.00],
-
-    [8, 20, 0.58, 0.73],
-    [20, 21, 0.71, 0.86],
-    [21, 22, 0.84, 1.00],
-
-    [9, 23, 0.54, 0.72],
-    [23, 24, 0.70, 0.90]
-  ];
-
-  // Rising star-spores released during alive phase
-  const spores = [];
-  for (let i = 0; i < 18; i++) {
-    spores.push({
-      x: (rand() - 0.5) * 0.65,
-      y: -0.05 + rand() * 0.55,
-      speed: 0.045 + rand() * 0.055,
-      wobble: rand() * Math.PI * 2,
-      size: 0.6 + rand() * 1.1,
-      color: starPalette[Math.floor(rand() * starPalette.length)],
-      offset: rand()
-    });
-  }
-
-  // Occasional shooting star state
-  let shootingStar = null;
-  let nextShootingTime = 3.5;
-
-  // Pointer parallax state (optional ambient response)
-  let targetPx = 0;
-  let targetPy = 0;
-  let px = 0;
-  let py = 0;
-
-  window.addEventListener('pointermove', (e) => {
-    if (!width || !height) return;
-    targetPx = ((e.clientX - cx) / radius);
-    targetPy = ((e.clientY - cy) / radius);
-    const len = Math.hypot(targetPx, targetPy);
-    if (len > 1) {
-      targetPx /= len;
-      targetPy /= len;
-    }
-  }, { passive: true });
-
-  window.addEventListener('pointerleave', () => {
-    targetPx = 0;
-    targetPy = 0;
-  }, { passive: true });
-
-  function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    canvas.width = Math.max(1, Math.round(width * dpr));
-    canvas.height = Math.max(1, Math.round(height * dpr));
-
-    cx = width / 2;
-    cy = height / 2;
-    radius = Math.min(width, height) / 2;
-
-    if (!glowSprite) glowSprite = createGlowSprite();
-    nebulaCanvas = buildNebulaLayer();
-  }
-
-  window.addEventListener('resize', resize, { passive: true });
-  resize();
-
-  function clamp01(v) {
-    return v < 0 ? 0 : v > 1 ? 1 : v;
-  }
-
-  function smoothstep(edge0, edge1, x) {
-    const t = clamp01((x - edge0) / (edge1 - edge0));
+  function smoothstep(t) {
+    t = clamp(t, 0, 1);
     return t * t * (3 - 2 * t);
   }
 
-  function drawStar(x, y, r, color, alpha, spikeAlpha) {
-    if (alpha <= 0.01) return;
-
-    // Soft halo via pre-rendered sprite
-    const haloSize = r * 8.5;
-    ctx.save();
-    ctx.globalAlpha = alpha * 0.55;
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.drawImage(glowSprite, x - haloSize / 2, y - haloSize / 2, haloSize, haloSize);
-
-    // Optional delicate 4-point star sparkle
-    if (spikeAlpha > 0.05) {
-      const spLen = r * (3.2 + spikeAlpha * 2.6);
-      ctx.globalAlpha = alpha * spikeAlpha * 0.7;
-      ctx.strokeStyle = color;
-      ctx.lineWidth = Math.max(0.7, r * 0.42);
-      ctx.beginPath();
-      ctx.moveTo(x - spLen, y);
-      ctx.lineTo(x + spLen, y);
-      ctx.moveTo(x, y - spLen);
-      ctx.lineTo(x, y + spLen);
-      ctx.stroke();
-    }
-
-    // Crisp luminous core
-    ctx.globalAlpha = alpha;
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Hot white center
-    ctx.globalAlpha = alpha * 0.85;
-    ctx.fillStyle = '#ffffff';
-    ctx.beginPath();
-    ctx.arc(x, y, r * 0.48, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
   }
 
-  const CYCLE = 16.0;
-  let startTime = null;
+  // Pre-rendered glow sprites for fast additive blending
+  function makeGlowSprite(size, stops) {
+    const c = document.createElement('canvas');
+    c.width = size;
+    c.height = size;
+    const g = c.getContext('2d');
+    const half = size * 0.5;
+    const grad = g.createRadialGradient(half, half, 0, half, half, half);
+    for (const [offset, color] of stops) {
+      grad.addColorStop(offset, color);
+    }
+    g.fillStyle = grad;
+    g.fillRect(0, 0, size, size);
+    return c;
+  }
 
-  function render(now) {
-    requestAnimationFrame(render);
-    if (startTime === null) startTime = now;
-    const elapsed = (now - startTime) * 0.001;
+  function makeFlareSprite(size) {
+    const c = document.createElement('canvas');
+    c.width = size;
+    c.height = size;
+    const g = c.getContext('2d');
+    const half = size * 0.5;
 
-    // Smooth pointer parallax easing
-    px += (targetPx - px) * 0.05;
-    py += (targetPy - py) * 0.05;
+    for (let axis = 0; axis < 2; axis++) {
+      g.save();
+      g.translate(half, half);
+      g.rotate(axis * Math.PI * 0.5);
+      g.scale(1, 0.08);
+      const grad = g.createRadialGradient(0, 0, 0, 0, 0, half);
+      grad.addColorStop(0, 'rgba(255, 250, 240, 0.95)');
+      grad.addColorStop(0.25, 'rgba(220, 235, 255, 0.35)');
+      grad.addColorStop(1, 'rgba(180, 210, 255, 0)');
+      g.fillStyle = grad;
+      g.beginPath();
+      g.arc(0, 0, half, 0, Math.PI * 2);
+      g.fill();
+      g.restore();
+    }
+    return c;
+  }
 
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const sprites = {
+    coolGlow: makeGlowSprite(96, [
+      [0, 'rgba(255, 255, 255, 1)'],
+      [0.14, 'rgba(210, 232, 255, 0.75)'],
+      [0.4, 'rgba(120, 175, 255, 0.22)'],
+      [1, 'rgba(60, 110, 220, 0)']
+    ]),
+    warmGlow: makeGlowSprite(128, [
+      [0, 'rgba(255, 252, 240, 1)'],
+      [0.14, 'rgba(255, 222, 145, 0.85)'],
+      [0.38, 'rgba(255, 165, 75, 0.28)'],
+      [0.7, 'rgba(210, 100, 45, 0.06)'],
+      [1, 'rgba(160, 70, 30, 0)']
+    ]),
+    flare: makeFlareSprite(96)
+  };
 
-    // Draw pre-rendered nebula backdrop with very slow drift rotation
-    const skyAngle = elapsed * 0.012;
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(skyAngle * 0.45);
-    const bgSize = Math.max(width, height) * 1.45;
-    ctx.drawImage(nebulaCanvas, -bgSize / 2, -bgSize / 2, bgSize, bgSize);
-    ctx.restore();
+  // Ambient twinkling field stars (positions in normalized circle space)
+  const fieldStars = (() => {
+    const rand = mulberry32(481516);
+    const palette = [
+      [245, 248, 255],
+      [210, 228, 255],
+      [255, 240, 212],
+      [255, 220, 175],
+      [230, 220, 255]
+    ];
+    const list = [];
+    for (let i = 0; i < 125; i++) {
+      const ang = rand() * Math.PI * 2;
+      const dist = Math.sqrt(rand()) * 1.18;
+      const col = palette[Math.floor(rand() * palette.length)];
+      const mag = rand();
+      list.push({
+        x: Math.cos(ang) * dist,
+        y: Math.sin(ang) * dist,
+        r: 0.55 + Math.pow(mag, 2.2) * 1.85,
+        alpha: 0.28 + rand() * 0.62,
+        speed: 0.8 + rand() * 2.4,
+        phase: rand() * Math.PI * 2,
+        depth: 0.35 + rand() * 0.65,
+        color: col,
+        bright: mag > 0.88
+      });
+    }
+    return list;
+  })();
 
-    // Subtle faint celestial astrolabe ring in deep space
-    ctx.save();
-    ctx.translate(cx - px * radius * 0.01, cy - py * radius * 0.01);
-    ctx.strokeStyle = 'rgba(130, 170, 255, 0.055)';
-    ctx.lineWidth = Math.max(0.75, radius * 0.003);
-    ctx.beginPath();
-    ctx.arc(0, 0, radius * 0.78, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.setLineDash([radius * 0.015, radius * 0.03]);
-    ctx.arc(0, 0, radius * 0.62, skyAngle, skyAngle + Math.PI * 2);
-    ctx.stroke();
-    ctx.restore();
+  // Constellation definition: The Lantern Moth
+  // Local coordinates comfortably fit inside radius 0.66
+  const STARS = [
+    // Spine (0..3)
+    { x:  0.00, y: -0.16, role: 'spine',   mag: 0.72, warm: 0.25, wake: 0.14 }, // 0: Head
+    { x:  0.00, y: -0.04, role: 'heart',   mag: 1.00, warm: 1.00, wake: 0.10 }, // 1: Heart / Hearth-Ember
+    { x:  0.00, y:  0.15, role: 'spine',   mag: 0.65, warm: 0.20, wake: 0.18 }, // 2: Abdomen
+    { x:  0.00, y:  0.29, role: 'spine',   mag: 0.50, warm: 0.10, wake: 0.22 }, // 3: Tail tip
 
-    // Background stars slowly turning around the center
-    const starScale = radius;
-    const cosSky = Math.cos(skyAngle);
-    const sinSky = Math.sin(skyAngle);
+    // Antennae (4..5)
+    { x: -0.12, y: -0.34, role: 'antenna', side: -1, mag: 0.55, warm: 0.15, wake: 0.21 }, // 4: Left antenna
+    { x:  0.12, y: -0.34, role: 'antenna', side:  1, mag: 0.55, warm: 0.15, wake: 0.21 }, // 5: Right antenna
 
-    for (let i = 0; i < bgStars.length; i++) {
-      const s = bgStars[i];
-      const rx = s.x * cosSky - s.y * sinSky;
-      const ry = s.x * sinSky + s.y * cosSky;
+    // Left Forewing (6..10)
+    { x: -0.23, y: -0.20, role: 'wing', side: -1, mag: 0.68, warm: 0.10, wake: 0.20 }, // 6: L Upper Shoulder
+    { x: -0.54, y: -0.23, role: 'wing', side: -1, mag: 0.94, warm: 0.18, wake: 0.26 }, // 7: L Forewing Apex
+    { x: -0.47, y:  0.02, role: 'wing', side: -1, mag: 0.72, warm: 0.10, wake: 0.31 }, // 8: L Outer Margin
+    { x: -0.19, y:  0.05, role: 'wing', side: -1, mag: 0.62, warm: 0.15, wake: 0.35 }, // 9: L Inner Wing
+    { x: -0.31, y: -0.09, role: 'lantern', side: -1, mag: 0.92, warm: 0.98, wake: 0.30 }, // 10: L Lantern Eye
 
-      const sx = cx + rx * starScale - px * radius * 0.018 * s.depth;
-      const sy = cy + ry * starScale - py * radius * 0.018 * s.depth;
+    // Right Forewing (11..15)
+    { x:  0.23, y: -0.19, role: 'wing', side:  1, mag: 0.68, warm: 0.10, wake: 0.20 }, // 11: R Upper Shoulder
+    { x:  0.55, y: -0.22, role: 'wing', side:  1, mag: 0.94, warm: 0.18, wake: 0.26 }, // 12: R Forewing Apex
+    { x:  0.46, y:  0.03, role: 'wing', side:  1, mag: 0.72, warm: 0.10, wake: 0.31 }, // 13: R Outer Margin
+    { x:  0.19, y:  0.05, role: 'wing', side:  1, mag: 0.62, warm: 0.15, wake: 0.35 }, // 14: R Inner Wing
+    { x:  0.31, y: -0.08, role: 'lantern', side:  1, mag: 0.92, warm: 0.98, wake: 0.30 }, // 15: R Lantern Eye
 
-      // Skip stars outside visible square
-      if (sx < -20 || sx > width + 20 || sy < -20 || sy > height + 20) continue;
+    // Left Hindwing (16..17)
+    { x: -0.32, y:  0.20, role: 'wing', side: -1, mag: 0.66, warm: 0.12, wake: 0.36 }, // 16: L Hind Outer
+    { x: -0.18, y:  0.33, role: 'wing', side: -1, mag: 0.60, warm: 0.15, wake: 0.40 }, // 17: L Hind Tip
 
-      const twinkle = 0.68 + 0.32 * Math.sin(elapsed * s.twinkleSpeed + s.twinklePhase);
-      const r = Math.max(0.55, s.size * (radius / 260));
-      const a = s.alpha * twinkle;
+    // Right Hindwing (18..19)
+    { x:  0.32, y:  0.21, role: 'wing', side:  1, mag: 0.66, warm: 0.12, wake: 0.36 }, // 18: R Hind Outer
+    { x:  0.18, y:  0.33, role: 'wing', side:  1, mag: 0.60, warm: 0.15, wake: 0.40 }  // 19: R Hind Tip
+  ];
 
-      // Subtle pointer glow interaction
-      const distP = Math.hypot((sx - cx) / radius - px, (sy - cy) / radius - py);
-      const hoverBoost = distP < 0.25 ? (1 - distP / 0.25) * 0.35 : 0;
+  // Constellation segments with start/end trace window in [0..1] cycle
+  const EDGES = [
+    // Spine
+    { a: 1, b: 0, s: 0.11, e: 0.16, w: 1.15 },
+    { a: 1, b: 2, s: 0.12, e: 0.19, w: 1.15 },
+    { a: 2, b: 3, s: 0.19, e: 0.24, w: 0.95 },
 
-      ctx.globalAlpha = Math.min(1, a + hoverBoost);
-      ctx.fillStyle = s.color;
-      ctx.beginPath();
-      ctx.arc(sx, sy, r, 0, Math.PI * 2);
-      ctx.fill();
+    // Curved antennae
+    { a: 0, b: 4, s: 0.16, e: 0.23, curve: -0.045, w: 0.85 },
+    { a: 0, b: 5, s: 0.16, e: 0.23, curve:  0.045, w: 0.85 },
 
-      if (s.size > 1.75) {
-        const hSize = r * 7;
-        ctx.globalAlpha = (a + hoverBoost) * 0.35;
-        ctx.drawImage(glowSprite, sx - hSize / 2, sy - hSize / 2, hSize, hSize);
+    // Left forewing outline
+    { a: 1, b: 6, s: 0.15, e: 0.21, w: 1.05 },
+    { a: 6, b: 7, s: 0.21, e: 0.27, w: 1.10 },
+    { a: 7, b: 8, s: 0.27, e: 0.32, w: 1.05 },
+    { a: 8, b: 9, s: 0.32, e: 0.36, w: 0.95 },
+    { a: 9, b: 1, s: 0.36, e: 0.40, w: 0.90 },
+
+    // Right forewing outline
+    { a: 1, b: 11, s: 0.15, e: 0.21, w: 1.05 },
+    { a: 11, b: 12, s: 0.21, e: 0.27, w: 1.10 },
+    { a: 12, b: 13, s: 0.27, e: 0.32, w: 1.05 },
+    { a: 13, b: 14, s: 0.32, e: 0.36, w: 0.95 },
+    { a: 14, b: 1, s: 0.36, e: 0.40, w: 0.90 },
+
+    // Lantern filaments
+    { a: 1, b: 10, s: 0.24, e: 0.31, w: 0.78, warm: true },
+    { a: 1, b: 15, s: 0.24, e: 0.31, w: 0.78, warm: true },
+
+    // Left hindwing
+    { a: 9, b: 16, s: 0.33, e: 0.38, w: 0.95 },
+    { a: 16, b: 17, s: 0.38, e: 0.41, w: 0.95 },
+    { a: 17, b: 2, s: 0.40, e: 0.43, w: 0.90 },
+
+    // Right hindwing
+    { a: 14, b: 18, s: 0.33, e: 0.38, w: 0.95 },
+    { a: 18, b: 19, s: 0.38, e: 0.41, w: 0.95 },
+    { a: 19, b: 2, s: 0.40, e: 0.43, w: 0.90 }
+  ];
+
+  // Stardust mote pool
+  const MAX_MOTES = 40;
+  const motes = Array.from({ length: MAX_MOTES }, () => ({
+    active: false,
+    x: 0,
+    y: 0,
+    vx: 0,
+    vy: 0,
+    life: 0,
+    maxLife: 1,
+    size: 1,
+    warm: 1,
+    seed: 0
+  }));
+
+  function spawnMote(x, y, vx, vy, warm) {
+    for (let i = 0; i < MAX_MOTES; i++) {
+      const m = motes[i];
+      if (!m.active) {
+        m.active = true;
+        m.x = x;
+        m.y = y;
+        m.vx = vx;
+        m.vy = vy;
+        m.life = 0;
+        m.maxLife = 1.6 + Math.random() * 1.4;
+        m.size = 0.8 + Math.random() * 1.4;
+        m.warm = warm;
+        m.seed = Math.random() * 10;
+        return;
       }
     }
-    ctx.globalAlpha = 1;
+  }
 
-    // Occasional background shooting star
-    if (!shootingStar && elapsed >= nextShootingTime) {
-      const ang = (0.35 + (Math.sin(elapsed * 13.7) * 0.5 + 0.5) * 0.4) * Math.PI;
-      const startDist = 0.72;
-      const entryAngle = (Math.cos(elapsed * 7.3) * 0.5 + 0.5) * Math.PI * 2;
-      shootingStar = {
-        x0: Math.cos(entryAngle) * startDist,
-        y0: Math.sin(entryAngle) * startDist,
-        vx: -Math.cos(entryAngle + (ang - Math.PI * 0.5)) * 1.4,
-        vy: -Math.sin(entryAngle + (ang - Math.PI * 0.5)) * 1.4,
-        born: elapsed,
-        life: 0.85
-      };
-      nextShootingTime = elapsed + 7.5 + (Math.sin(elapsed * 3.1) * 0.5 + 0.5) * 5.0;
+  // Occasional quiet meteor
+  const meteor = {
+    active: false,
+    x: 0,
+    y: 0,
+    vx: 0,
+    vy: 0,
+    life: 0,
+    maxLife: 0.85,
+    cooldown: 6.5
+  };
+
+  // Pointer state (optional gentle parallax)
+  const pointer = { tx: 0, ty: 0, x: 0, y: 0, active: false };
+  window.addEventListener('pointermove', (e) => {
+    if (W <= 0 || H <= 0) return;
+    pointer.tx = clamp((e.clientX - W * 0.5) / (R || 1), -1, 1);
+    pointer.ty = clamp((e.clientY - H * 0.5) / (R || 1), -1, 1);
+    pointer.active = true;
+  }, { passive: true });
+  window.addEventListener('pointerleave', () => {
+    pointer.tx = 0;
+    pointer.ty = 0;
+    pointer.active = false;
+  }, { passive: true });
+
+  // Build rotating deep-sky & Milky Way offscreen buffer
+  function buildSkyBuffer() {
+    const diag = Math.ceil(Math.hypot(W, H) * dpr) + 8;
+    skyBufSize = diag;
+    skyBuffer = document.createElement('canvas');
+    skyBuffer.width = diag;
+    skyBuffer.height = diag;
+    const g = skyBuffer.getContext('2d');
+    const c = diag * 0.5;
+
+    // Deep midnight base
+    const baseGrad = g.createRadialGradient(c, c, 0, c, c, diag * 0.55);
+    baseGrad.addColorStop(0, '#0c142c');
+    baseGrad.addColorStop(0.55, '#070c1e');
+    baseGrad.addColorStop(1, '#030611');
+    g.fillStyle = baseGrad;
+    g.fillRect(0, 0, diag, diag);
+
+    // Milky Way diagonal nebula clouds
+    const rand = mulberry32(99173);
+    g.save();
+    g.translate(c, c);
+    g.rotate(-0.55);
+
+    const cloudPalette = [
+      'rgba(36, 58, 118, 0.14)',
+      'rgba(48, 42, 102, 0.12)',
+      'rgba(28, 72, 115, 0.10)',
+      'rgba(74, 52, 92, 0.08)'
+    ];
+    for (let i = 0; i < 28; i++) {
+      const along = (rand() - 0.5) * diag * 0.92;
+      const across = (rand() - 0.5) * diag * 0.24;
+      const rad = diag * (0.12 + rand() * 0.16);
+      const col = cloudPalette[i % cloudPalette.length];
+      const cg = g.createRadialGradient(along, across, 0, along, across, rad);
+      cg.addColorStop(0, col);
+      cg.addColorStop(0.55, col.replace(/[\d.]+\)$/, '0.03)'));
+      cg.addColorStop(1, 'rgba(10, 15, 35, 0)');
+      g.fillStyle = cg;
+      g.beginPath();
+      g.arc(along, across, rad, 0, Math.PI * 2);
+      g.fill();
     }
 
-    if (shootingStar) {
-      const age = (elapsed - shootingStar.born) / shootingStar.life;
-      if (age >= 1) {
-        shootingStar = null;
-      } else {
-        const headX = cx + (shootingStar.x0 + shootingStar.vx * age) * radius;
-        const headY = cy + (shootingStar.y0 + shootingStar.vy * age) * radius;
-        const tailFrac = Math.max(0, age - 0.18);
-        const tailX = cx + (shootingStar.x0 + shootingStar.vx * tailFrac) * radius;
-        const tailY = cy + (shootingStar.y0 + shootingStar.vy * tailFrac) * radius;
-        const fade = Math.sin(age * Math.PI);
-
-        const grad = ctx.createLinearGradient(tailX, tailY, headX, headY);
-        grad.addColorStop(0, 'rgba(200, 230, 255, 0)');
-        grad.addColorStop(1, `rgba(255, 250, 235, ${0.85 * fade})`);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = Math.max(1.1, radius * 0.007);
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(tailX, tailY);
-        ctx.lineTo(headX, headY);
-        ctx.stroke();
-      }
+    // Distant micro-stars concentrated along the Milky Way
+    for (let i = 0; i < 340; i++) {
+      const along = (rand() - 0.5) * diag * 0.98;
+      const bandBias = (rand() + rand() - 1) * 0.5;
+      const across = (rand() < 0.72)
+        ? bandBias * diag * 0.34
+        : (rand() - 0.5) * diag * 0.96;
+      const size = (0.35 + rand() * 0.85) * dpr;
+      const alpha = 0.12 + rand() * 0.42;
+      const tint = rand();
+      g.fillStyle = tint < 0.25
+        ? `rgba(255, 232, 195, ${alpha})`
+        : tint < 0.6
+          ? `rgba(205, 224, 255, ${alpha})`
+          : `rgba(240, 244, 255, ${alpha})`;
+      g.beginPath();
+      g.arc(along, across, size, 0, Math.PI * 2);
+      g.fill();
     }
+    g.restore();
+  }
 
-    // Constellation cycle phases
-    const t = elapsed % CYCLE;
-    const traceProgress = smoothstep(2.0, 5.6, t);
-    const aliveIn = smoothstep(4.8, 6.8, t);
-    const aliveOut = 1 - smoothstep(11.2, 13.6, t);
-    const aliveAmount = Math.min(aliveIn, aliveOut);
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.floor(W * dpr));
+    canvas.height = Math.max(1, Math.floor(H * dpr));
+    R = Math.min(W, H) * 0.5;
+    buildSkyBuffer();
+  }
+  window.addEventListener('resize', resize);
+  resize();
 
-    const lineAlpha = t < 12.0 ? 1 : 1 - smoothstep(12.0, 14.5, t);
+  const CYCLE_DURATION = 16.5;
+  let cycleTime = 3.1;
+  let elapsed = 0;
+  let lastNow = performance.now();
+  let moteAccum = 0;
 
-    // Gentle celestial rock + slow rotation with sky
-    const constAngle = Math.sin(elapsed * 0.22) * 0.14 + skyAngle * 0.25;
-    const scale = radius * 1.16;
+  // Transform a moth-space point into screen coordinates
+  function getConstellationPoints(wingFold, tiltAngle, offsetX, offsetY) {
+    const cosA = Math.cos(tiltAngle);
+    const sinA = Math.sin(tiltAngle);
+    const pts = new Array(STARS.length);
 
-    // Swim pulse when alive
-    const swimPhase = elapsed * 2.15;
-    const bellPulse = Math.sin(swimPhase) * aliveAmount;
-    const swimLift = Math.cos(swimPhase - 0.6) * 0.024 * aliveAmount;
-
-    // Compute dynamic star coordinates
-    const pts = new Array(cStars.length);
-    const cosC = Math.cos(constAngle);
-    const sinC = Math.sin(constAngle);
-
-    for (let i = 0; i < cStars.length; i++) {
-      const s = cStars[i];
+    for (let i = 0; i < STARS.length; i++) {
+      const s = STARS[i];
       let lx = s.x;
       let ly = s.y;
 
-      // Bell breathing deformation
-      if (s.role === 'bell' || s.role === 'inner' || s.role === 'hem') {
-        const horizCompress = 1 - bellPulse * 0.075;
-        const vertStretch = 1 + bellPulse * 0.05;
-        lx *= horizCompress;
-        ly = (ly + 0.24) * vertStretch - 0.24 - swimLift;
-      } else if (s.role === 'tentacle' || s.role === 'chime') {
-        // Anchor gently follows hem pulse + travelling wave along chain
-        const horizCompress = 1 - bellPulse * 0.06;
-        lx *= horizCompress;
-        const wave = Math.sin(elapsed * 2.7 - s.chain * 0.95 + s.tIdx * 1.25);
-        const amp = (0.015 + s.chain * 0.017) * aliveAmount;
-        lx += wave * amp;
-        ly -= swimLift * (1 - s.chain * 0.22);
+      if (s.role === 'wing' || s.role === 'lantern') {
+        lx = s.x * (1 - 0.22 * wingFold);
+        ly = s.y - 0.048 * Math.abs(s.x) * wingFold;
+      } else if (s.role === 'antenna') {
+        lx = s.x * (1 - 0.06 * wingFold);
+        ly = s.y + 0.012 * wingFold;
       }
 
-      // Rotate & apply slight foreground parallax
-      const rx = lx * cosC - ly * sinC;
-      const ry = lx * sinC + ly * cosC;
-
+      const rx = lx * cosA - ly * sinA;
+      const ry = lx * sinA + ly * cosA;
       pts[i] = {
-        x: cx + rx * scale + px * radius * 0.028,
-        y: cy + ry * scale + py * radius * 0.028
+        x: offsetX + rx * R,
+        y: offsetY + ry * R
       };
     }
+    return pts;
+  }
 
-    // 1. Draw bioluminescent jellyfish bell veil & curved inner filaments when alive
-    if (aliveAmount > 0.01) {
-      ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
+  function drawWingMembranes(pts, memAlpha, uiScale) {
+    if (memAlpha <= 0.004) return;
 
-      // Bell polygon points: 5 -> 3 -> 1 -> 0 -> 2 -> 4 -> 9 -> 8 -> 7 -> 6 -> 5
-      const domeGrad = ctx.createRadialGradient(
-        pts[0].x * 0.45 + pts[7].x * 0.55,
-        pts[0].y * 0.45 + pts[7].y * 0.55,
-        radius * 0.02,
-        pts[7].x,
-        pts[7].y,
-        scale * 0.42
-      );
-      domeGrad.addColorStop(0, `rgba(140, 238, 255, ${0.24 * aliveAmount})`);
-      domeGrad.addColorStop(0.45, `rgba(175, 130, 255, ${0.15 * aliveAmount})`);
-      domeGrad.addColorStop(0.85, `rgba(255, 165, 225, ${0.08 * aliveAmount})`);
-      domeGrad.addColorStop(1, 'rgba(90, 140, 255, 0)');
+    const wings = [
+      // Left forewing
+      { indices: [1, 6, 7, 8, 9], lantern: 10 },
+      // Right forewing
+      { indices: [1, 11, 12, 13, 14], lantern: 15 },
+      // Left hindwing
+      { indices: [9, 16, 17, 2], lantern: 9 },
+      // Right hindwing
+      { indices: [14, 18, 19, 2], lantern: 14 }
+    ];
 
-      ctx.fillStyle = domeGrad;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+
+    for (let w = 0; w < wings.length; w++) {
+      const wing = wings[w];
+      const lp = pts[wing.lantern];
+      const isFore = w < 2;
+      const rad = (isFore ? 0.34 : 0.22) * R;
+      const grad = ctx.createRadialGradient(lp.x, lp.y, 0, lp.x, lp.y, rad);
+
+      if (isFore) {
+        grad.addColorStop(0, `rgba(255, 205, 115, ${0.20 * memAlpha})`);
+        grad.addColorStop(0.42, `rgba(145, 195, 245, ${0.11 * memAlpha})`);
+        grad.addColorStop(1, `rgba(75, 130, 220, ${0.02 * memAlpha})`);
+      } else {
+        grad.addColorStop(0, `rgba(175, 205, 250, ${0.12 * memAlpha})`);
+        grad.addColorStop(1, `rgba(80, 120, 210, ${0.02 * memAlpha})`);
+      }
+
+      ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.moveTo(pts[5].x, pts[5].y);
-      ctx.quadraticCurveTo(pts[3].x, pts[3].y, pts[1].x, pts[1].y);
-      ctx.quadraticCurveTo(pts[0].x, pts[0].y - scale * 0.03, pts[2].x, pts[2].y);
-      ctx.quadraticCurveTo(pts[4].x, pts[4].y, pts[9].x, pts[9].y);
-      ctx.quadraticCurveTo(pts[8].x, pts[8].y + scale * 0.03, pts[7].x, pts[7].y);
-      ctx.quadraticCurveTo(pts[6].x, pts[6].y + scale * 0.03, pts[5].x, pts[5].y);
+      for (let k = 0; k < wing.indices.length; k++) {
+        const p = pts[wing.indices[k]];
+        if (k === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      }
       ctx.closePath();
       ctx.fill();
 
-      // Soft curved meridian glow arcs inside the bell
-      ctx.strokeStyle = `rgba(175, 240, 255, ${0.18 * aliveAmount})`;
-      ctx.lineWidth = Math.max(0.8, radius * 0.005);
-      const meridians = [
-        [0, 10, 6],
-        [0, 11, 8],
-        [0, 7, 7]
-      ];
-      for (const m of meridians) {
+      // Delicate gossamer wing veins on forewings
+      if (isFore) {
+        const heart = pts[1];
+        const apex = pts[wing.indices[2]];
+        const outer = pts[wing.indices[3]];
+        ctx.strokeStyle = `rgba(255, 228, 170, ${0.16 * memAlpha})`;
+        ctx.lineWidth = Math.max(0.6, 0.75 * uiScale);
         ctx.beginPath();
-        ctx.moveTo(pts[m[0]].x, pts[m[0]].y);
-        ctx.quadraticCurveTo(pts[m[1]].x, pts[m[1]].y, pts[m[2]].x, pts[m[2]].y);
+        ctx.moveTo(lp.x, lp.y);
+        ctx.lineTo(lerp(lp.x, apex.x, 0.78), lerp(lp.y, apex.y, 0.78));
+        ctx.moveTo(lp.x, lp.y);
+        ctx.lineTo(lerp(lp.x, outer.x, 0.75), lerp(lp.y, outer.y, 0.75));
+        ctx.moveTo(heart.x, heart.y);
+        ctx.lineTo(lerp(heart.x, outer.x, 0.65), lerp(heart.y, outer.y, 0.65));
         ctx.stroke();
       }
-
-      // Rising luminous star-spores drifting upward around the jellyfish
-      for (let i = 0; i < spores.length; i++) {
-        const sp = spores[i];
-        const cyclePos = (elapsed * sp.speed + sp.offset) % 1;
-        const syNorm = 0.35 - cyclePos * 0.72;
-        const sxNorm = sp.x + Math.sin(elapsed * 1.5 + sp.wobble) * 0.035;
-        const srx = sxNorm * cosC - syNorm * sinC;
-        const sry = sxNorm * sinC + syNorm * cosC;
-        const spx = cx + srx * scale + px * radius * 0.025;
-        const spy = cy + sry * scale + py * radius * 0.025;
-        const fade = Math.sin(cyclePos * Math.PI) * aliveAmount;
-
-        ctx.globalAlpha = fade * 0.75;
-        ctx.fillStyle = sp.color;
-        ctx.beginPath();
-        ctx.arc(spx, spy, Math.max(0.6, sp.size * (radius / 260)), 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.restore();
     }
 
-    // 2. Draw constellation tracing lines
-    if (traceProgress > 0.005 && lineAlpha > 0.01) {
-      ctx.save();
-      ctx.lineCap = 'round';
-      for (let i = 0; i < cEdges.length; i++) {
-        const [aIdx, bIdx, tStart, tEnd] = cEdges[i];
-        const segProg = clamp01((traceProgress - tStart) / (tEnd - tStart));
-        if (segProg <= 0) continue;
-
-        const pA = pts[aIdx];
-        const pB = pts[bIdx];
-        const ex = pA.x + (pB.x - pA.x) * segProg;
-        const ey = pA.y + (pB.y - pA.y) * segProg;
-
-        // Soft outer glow line
-        ctx.strokeStyle = `rgba(145, 215, 255, ${(0.22 + 0.16 * aliveAmount) * lineAlpha})`;
-        ctx.lineWidth = Math.max(2.2, radius * 0.016);
-        ctx.beginPath();
-        ctx.moveTo(pA.x, pA.y);
-        ctx.lineTo(ex, ey);
-        ctx.stroke();
-
-        // Crisp inner star-chart line
-        ctx.strokeStyle = `rgba(226, 244, 255, ${(0.62 + 0.25 * aliveAmount) * lineAlpha})`;
-        ctx.lineWidth = Math.max(0.85, radius * 0.0052);
-        ctx.beginPath();
-        ctx.moveTo(pA.x, pA.y);
-        ctx.lineTo(ex, ey);
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
-
-    // 3. Expanding silent bell-chime ripples at tentacle tips during alive phase
-    if (aliveAmount > 0.02) {
-      ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
-      for (let i = 0; i < cStars.length; i++) {
-        const s = cStars[i];
-        if (s.role !== 'chime') continue;
-
-        // Staggered chime rhythm per tentacle
-        const beat = ((elapsed * 0.65 + s.chimeOffset) % 1);
-        const rippleRadius = radius * (0.015 + beat * 0.125);
-        const rippleAlpha = (1 - beat) * (1 - beat) * 0.55 * aliveAmount;
-
-        ctx.strokeStyle = `rgba(${s.chimeColor}, ${rippleAlpha})`;
-        ctx.lineWidth = Math.max(0.8, radius * 0.005 * (1 - beat * 0.5));
-        ctx.beginPath();
-        ctx.arc(pts[i].x, pts[i].y, rippleRadius, 0, Math.PI * 2);
-        ctx.stroke();
-
-        // Subtle second harmonic ring
-        const beat2 = ((elapsed * 0.65 + s.chimeOffset + 0.18) % 1);
-        if (beat2 < 0.85) {
-          const r2 = radius * (0.012 + beat2 * 0.09);
-          const a2 = (1 - beat2 / 0.85) * 0.28 * aliveAmount;
-          ctx.strokeStyle = `rgba(${s.chimeColor}, ${a2})`;
-          ctx.lineWidth = Math.max(0.6, radius * 0.0032);
-          ctx.beginPath();
-          ctx.arc(pts[i].x, pts[i].y, r2, 0, Math.PI * 2);
-          ctx.stroke();
-        }
-      }
-      ctx.restore();
-    }
-
-    // 4. Draw constellation stars on top
-    const baseStarUnit = Math.max(1.2, radius / 145);
-    for (let i = 0; i < cStars.length; i++) {
-      const s = cStars[i];
-      const p = pts[i];
-      const twinkle = 0.85 + 0.15 * Math.sin(elapsed * 2.2 + i * 1.7);
-
-      // Stars brighten subtly during reveal and pulse gently when chiming
-      let revealBoost = 0.18 * Math.max(traceProgress * lineAlpha, aliveAmount);
-      if (s.role === 'chime' && aliveAmount > 0.05) {
-        const beat = (elapsed * 0.65 + s.chimeOffset) % 1;
-        revealBoost += (1 - Math.min(1, beat * 2.5)) * 0.35 * aliveAmount;
-      }
-
-      const r = s.size * baseStarUnit * (1 + revealBoost * 0.45) * twinkle;
-      const spike = (s.role === 'chime' || s.part === 'crown' || s.tIdx === 2)
-        ? 0.35 + revealBoost * 0.85
-        : revealBoost * 0.55;
-
-      drawStar(p.x, p.y, r, s.color, Math.min(1, 0.88 + revealBoost), spike);
-    }
+    ctx.restore();
   }
 
-  requestAnimationFrame(render);
+  function frame(now) {
+    const dt = Math.min(0.05, Math.max(0, (now - lastNow) * 0.001));
+    lastNow = now;
+    elapsed += dt;
+    cycleTime = (cycleTime + dt) % CYCLE_DURATION;
+
+    const p = cycleTime / CYCLE_DURATION;
+
+    // Smooth pointer parallax
+    pointer.x += (pointer.tx - pointer.x) * Math.min(1, dt * 4.5);
+    pointer.y += (pointer.ty - pointer.y) * Math.min(1, dt * 4.5);
+
+    const px = pointer.x * R * 0.018;
+    const py = pointer.y * R * 0.018;
+    const uiScale = Math.pow(Math.max(0.2, R / 250), 0.65);
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // 1. Rotating Milky Way & deep-sky buffer
+    ctx.save();
+    ctx.translate(W * 0.5 + px * 0.2, H * 0.5 + py * 0.2);
+    ctx.rotate(elapsed * 0.006);
+    const drawSize = skyBufSize / dpr;
+    ctx.drawImage(skyBuffer, -drawSize * 0.5, -drawSize * 0.5, drawSize, drawSize);
+    ctx.restore();
+
+    // 2. Ambient field stars with subtle sky rotation & twinkling
+    const skyAngle = elapsed * 0.011;
+    const cosSky = Math.cos(skyAngle);
+    const sinSky = Math.sin(skyAngle);
+
+    for (let i = 0; i < fieldStars.length; i++) {
+      const s = fieldStars[i];
+      const rx = s.x * cosSky - s.y * sinSky;
+      const ry = s.x * sinSky + s.y * cosSky;
+      const sx = W * 0.5 + rx * R + px * s.depth * 0.5;
+      const sy = H * 0.5 + ry * R + py * s.depth * 0.5;
+
+      const twinkle = 0.62 + 0.38 * Math.sin(elapsed * s.speed + s.phase);
+      const a = s.alpha * twinkle;
+      const rad = s.r * uiScale;
+
+      if (s.bright) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.globalAlpha = a * 0.55;
+        const gSize = rad * 11;
+        ctx.drawImage(sprites.coolGlow, sx - gSize * 0.5, sy - gSize * 0.5, gSize, gSize);
+        ctx.restore();
+      }
+
+      ctx.fillStyle = `rgba(${s.color[0]}, ${s.color[1]}, ${s.color[2]}, ${a})`;
+      ctx.beginPath();
+      ctx.arc(sx, sy, rad, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // 3. Occasional distant meteor
+    if (!meteor.active) {
+      meteor.cooldown -= dt;
+      if (meteor.cooldown <= 0) {
+        const ang = 0.4 + Math.random() * 0.8;
+        const startAng = Math.random() * Math.PI * 2;
+        meteor.active = true;
+        meteor.life = 0;
+        meteor.maxLife = 0.65 + Math.random() * 0.35;
+        meteor.x = Math.cos(startAng) * 0.72;
+        meteor.y = Math.sin(startAng) * 0.72;
+        const dir = startAng + Math.PI * (0.65 + Math.random() * 0.4);
+        const spd = 0.75 + Math.random() * 0.35;
+        meteor.vx = Math.cos(dir) * spd;
+        meteor.vy = Math.sin(dir) * spd;
+        meteor.cooldown = 9 + Math.random() * 8;
+        void ang;
+      }
+    } else {
+      meteor.life += dt;
+      if (meteor.life >= meteor.maxLife) {
+        meteor.active = false;
+      } else {
+        const u = meteor.life / meteor.maxLife;
+        const alpha = Math.sin(u * Math.PI) * 0.7;
+        const hx = W * 0.5 + (meteor.x + meteor.vx * meteor.life) * R;
+        const hy = H * 0.5 + (meteor.y + meteor.vy * meteor.life) * R;
+        const tx = hx - meteor.vx * R * 0.14;
+        const ty = hy - meteor.vy * R * 0.14;
+        const grad = ctx.createLinearGradient(tx, ty, hx, hy);
+        grad.addColorStop(0, 'rgba(180, 215, 255, 0)');
+        grad.addColorStop(1, `rgba(245, 250, 255, ${alpha})`);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = Math.max(1, 1.4 * uiScale);
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(tx, ty);
+        ctx.lineTo(hx, hy);
+        ctx.stroke();
+      }
+    }
+
+    // 4. Constellation animation phase
+    // Global fade-out at end of cycle (0.78..0.94)
+    const fadeOut = 1 - smoothstep((p - 0.78) / 0.16);
+
+    // Wing awakening envelope (0.40..0.78)
+    const wingEnv = smoothstep((p - 0.40) / 0.09) * (1 - smoothstep((p - 0.70) / 0.08));
+    const beatU = clamp((p - 0.42) / 0.30, 0, 1);
+    const wingFold = wingEnv * (0.5 - 0.5 * Math.cos(beatU * Math.PI * 4));
+
+    // Gentle celestial tilt oscillation so the moth always reads clearly
+    const tiltAngle = -0.24 + Math.sin(elapsed * 0.12) * 0.065;
+    const hoverX = Math.sin(elapsed * 0.25) * R * 0.008;
+    const hoverY = Math.cos(elapsed * 0.33) * R * 0.008 - wingFold * R * 0.016;
+    const cx = W * 0.5 + px + hoverX;
+    const cy = H * 0.5 + py + hoverY;
+
+    const pts = getConstellationPoints(wingFold, tiltAngle, cx, cy);
+
+    // 5. Gossamer wing membranes during awakened flutter
+    drawWingMembranes(pts, wingEnv, uiScale);
+
+    // 6. Constellation lines
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    for (let i = 0; i < EDGES.length; i++) {
+      const edge = EDGES[i];
+      const trace = smoothstep((p - edge.s) / (edge.e - edge.s));
+      const alpha = trace * fadeOut;
+      if (alpha <= 0.005) continue;
+
+      const A = pts[edge.a];
+      const B = pts[edge.b];
+
+      // Optional subtle quadratic curve for antennae
+      let ctrlX = (A.x + B.x) * 0.5;
+      let ctrlY = (A.y + B.y) * 0.5;
+      if (edge.curve) {
+        const dx = B.x - A.x;
+        const dy = B.y - A.y;
+        ctrlX += -dy * edge.curve * 4.5;
+        ctrlY +=  dx * edge.curve * 4.5;
+      }
+
+      // Compute current endpoint if line is mid-trace
+      let endX = B.x;
+      let endY = B.y;
+      if (trace < 0.999) {
+        if (edge.curve) {
+          const t = trace;
+          const mt = 1 - t;
+          endX = mt * mt * A.x + 2 * mt * t * ctrlX + t * t * B.x;
+          endY = mt * mt * A.y + 2 * mt * t * ctrlY + t * t * B.y;
+        } else {
+          endX = lerp(A.x, B.x, trace);
+          endY = lerp(A.y, B.y, trace);
+        }
+      }
+
+      const drawPath = () => {
+        ctx.beginPath();
+        ctx.moveTo(A.x, A.y);
+        if (edge.curve) {
+          if (trace >= 0.999) {
+            ctx.quadraticCurveTo(ctrlX, ctrlY, B.x, B.y);
+          } else {
+            // De Casteljau split for smooth partial quadratic trace
+            const t = trace;
+            const qx = lerp(A.x, ctrlX, t);
+            const qy = lerp(A.y, ctrlY, t);
+            ctx.quadraticCurveTo(qx, qy, endX, endY);
+          }
+        } else {
+          ctx.lineTo(endX, endY);
+        }
+      };
+
+      // Outer luminous filament glow
+      ctx.strokeStyle = edge.warm
+        ? `rgba(255, 200, 110, ${0.20 * alpha})`
+        : `rgba(145, 195, 255, ${0.18 * alpha})`;
+      ctx.lineWidth = Math.max(2.2, 3.6 * edge.w * uiScale);
+      drawPath();
+      ctx.stroke();
+
+      // Inner crisp star-chart thread
+      ctx.strokeStyle = edge.warm
+        ? `rgba(255, 234, 185, ${0.72 * alpha})`
+        : `rgba(228, 240, 255, ${0.68 * alpha})`;
+      ctx.lineWidth = Math.max(0.85, 1.15 * edge.w * uiScale);
+      drawPath();
+      ctx.stroke();
+
+      // Leading spark while actively tracing
+      if (trace > 0.02 && trace < 0.98 && fadeOut > 0.5) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        const sparkSize = 14 * uiScale;
+        ctx.globalAlpha = 0.85;
+        ctx.drawImage(
+          edge.warm ? sprites.warmGlow : sprites.coolGlow,
+          endX - sparkSize * 0.5,
+          endY - sparkSize * 0.5,
+          sparkSize,
+          sparkSize
+        );
+        ctx.restore();
+      }
+    }
+    ctx.restore();
+
+    // 7. Spawn golden stardust motes from lanterns & wingtips during awakening
+    if (wingEnv > 0.2) {
+      moteAccum += dt * wingEnv * 14;
+      while (moteAccum >= 1) {
+        moteAccum -= 1;
+        const sourceIds = [10, 15, 7, 12, 17, 19];
+        const sid = sourceIds[Math.floor(Math.random() * sourceIds.length)];
+        const sp = pts[sid];
+        const isLantern = sid === 10 || sid === 15;
+        spawnMote(
+          sp.x + (Math.random() - 0.5) * 4 * uiScale,
+          sp.y + (Math.random() - 0.5) * 4 * uiScale,
+          (Math.random() - 0.5) * 10 * uiScale,
+          (4 + Math.random() * 10) * uiScale,
+          isLantern ? 1 : 0.35
+        );
+      }
+    } else {
+      moteAccum = 0;
+    }
+
+    // Update & render stardust motes
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < MAX_MOTES; i++) {
+      const m = motes[i];
+      if (!m.active) continue;
+      m.life += dt;
+      if (m.life >= m.maxLife) {
+        m.active = false;
+        continue;
+      }
+      const u = m.life / m.maxLife;
+      m.x += (m.vx + Math.sin(elapsed * 2.5 + m.seed) * 4 * uiScale) * dt;
+      m.y += m.vy * dt;
+      const ma = Math.sin(u * Math.PI) * 0.72;
+      const mSize = m.size * uiScale * (1 - u * 0.35);
+
+      const glowR = mSize * 8;
+      ctx.globalAlpha = ma * 0.6;
+      ctx.drawImage(
+        m.warm > 0.6 ? sprites.warmGlow : sprites.coolGlow,
+        m.x - glowR * 0.5,
+        m.y - glowR * 0.5,
+        glowR,
+        glowR
+      );
+
+      ctx.globalAlpha = ma;
+      ctx.fillStyle = m.warm > 0.6 ? '#fff0c8' : '#dcecff';
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, mSize, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // 8. Constellation stars (always visible, blooming when awakened)
+    ctx.save();
+    for (let i = 0; i < STARS.length; i++) {
+      const s = STARS[i];
+      const pt = pts[i];
+
+      const wake = smoothstep((p - s.wake) / 0.06) * fadeOut;
+      const pulse = 0.88 + 0.12 * Math.sin(elapsed * (s.role === 'lantern' ? 2.4 : 1.7) + i * 1.3);
+      const heartEmber = s.role === 'heart'
+        ? 0.5 + 0.5 * Math.sin(p * Math.PI * 2)
+        : 0;
+
+      // Subtle proximity lift if pointer is near
+      let prox = 0;
+      if (pointer.active) {
+        const dx = pt.x - (W * 0.5 + pointer.x * R);
+        const dy = pt.y - (H * 0.5 + pointer.y * R);
+        const d = Math.hypot(dx, dy) / (R * 0.32);
+        if (d < 1) prox = (1 - d) * 0.35;
+      }
+
+      const bloom = wake * (0.85 + 0.3 * wingEnv) + heartEmber * 0.25 + prox;
+      const baseR = (1.35 + s.mag * 1.55) * uiScale * (1 + bloom * 0.22);
+
+      // Additive halo
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      const haloSize = baseR * (9 + bloom * 7.5);
+      ctx.globalAlpha = clamp((0.36 + bloom * 0.58) * pulse, 0, 1);
+      ctx.drawImage(
+        s.warm > 0.5 ? sprites.warmGlow : sprites.coolGlow,
+        pt.x - haloSize * 0.5,
+        pt.y - haloSize * 0.5,
+        haloSize,
+        haloSize
+      );
+
+      // Cross-diffraction flare on primary stars (heart, lanterns, wingtips)
+      if (s.mag > 0.88) {
+        const flareSize = baseR * (10 + bloom * 6);
+        ctx.globalAlpha = clamp((0.25 + bloom * 0.55) * pulse, 0, 0.9);
+        ctx.drawImage(
+          sprites.flare,
+          pt.x - flareSize * 0.5,
+          pt.y - flareSize * 0.5,
+          flareSize,
+          flareSize
+        );
+      }
+      ctx.restore();
+
+      // Crisp stellar core
+      const rCol = Math.round(lerp(225, 255, s.warm));
+      const gCol = Math.round(lerp(236, 234, s.warm));
+      const bCol = Math.round(lerp(255, 195, s.warm));
+      ctx.fillStyle = `rgba(${rCol}, ${gCol}, ${bCol}, ${clamp(0.75 + bloom * 0.25, 0, 1)})`;
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, baseR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
 })();
 </script>
 </body>
@@ -672,7 +807,7 @@
 
 ```json
 {
-  "title": "The Jingle-Jangle Jellyfish",
-  "statement": "Adrift in the quiet currents between galaxies, this luminous bell-creature trails strings of chiming star-bells that ring silently whenever the midnight tide turns. Stargazers claim you can tell how close dawn is by the rhythm of its glow."
+  "title": "The Lantern Moth",
+  "statement": "Born from an ember that drifted past an evening hearth, she gathers stray starlight inside the twin lanterns of her wings and beats them gently through the dark so the quietest corners of the sky never grow cold."
 }
 ```
