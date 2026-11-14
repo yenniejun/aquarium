@@ -4,5 +4,20 @@
   "modelId": "mistralai/mistral-large-4-0",
   "route": "OpenRouter",
   "host": "mistral",
-  "openWeights": true
+  "openWeights": true,
+  "status": "final",
+  "title": "Patient Pearls",
+  "statement": "A slow little hunter that strings lamplight into pearls along every leaf. It waits and glitters; when a gnat trusts a pearl, it folds around it like a secret, digests quietly, and goes back to glowing.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Mistral)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 4,
+      "host": "mistral",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

@@ -4,5 +4,20 @@
   "modelId": "mistralai/mistral-large-4-0",
   "route": "OpenRouter",
   "host": "mistral",
-  "openWeights": true
+  "openWeights": true,
+  "status": "final",
+  "title": "The Paper Crane",
+  "statement": "Folded from a handful of bright stars, it wakes once in a while, flaps its wings against the dark, and settles back into the turning sky.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Mistral)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 3,
+      "host": "mistral",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

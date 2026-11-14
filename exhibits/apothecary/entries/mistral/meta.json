@@ -4,5 +4,20 @@
   "modelId": "mistralai/mistral-large-4-0",
   "route": "OpenRouter",
   "host": "mistral",
-  "openWeights": true
+  "openWeights": true,
+  "status": "final",
+  "title": "Swirl-Sparkle Serum",
+  "statement": "A slow-brewed serum that drifts through every shade of dusk all on its own. Nudge it with your cursor and it fizzes awake — bubbles, vortex and glow — then settles back into its lazy swirl.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Mistral)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "mistral",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

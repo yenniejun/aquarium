@@ -4,5 +4,20 @@
   "modelId": "mistralai/mistral-large-4-0",
   "route": "OpenRouter",
   "host": "mistral",
-  "openWeights": true
+  "openWeights": true,
+  "status": "final",
+  "title": "Hanging Moon Bells",
+  "statement": "A bell-capped fungus of deep woods that hangs strings of glowing spore-lanterns beneath its glassy cap. When ripe it lets them go one by one, like small moons drifting up into the dark.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Mistral)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 2,
+      "host": "mistral",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

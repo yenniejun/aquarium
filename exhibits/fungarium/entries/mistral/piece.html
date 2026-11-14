@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title></title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #070a14;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(() => {
+  'use strict';
+
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const TAU = Math.PI * 2;
+
+  let W = 0, H = 0, u = 1;
+  let bgGrad = null, vigGrad = null, soilGrad = null;
+  let scene = null;
+
+  const clamp = (v, a, b) => v < a ? a : (v > b ? b : v);
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      let t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  const pointer = { x: -1e4, y: -1e4, sx: -1e4, sy: -1e4, active: false };
+  window.addEventListener('pointermove', e => {
+    pointer.x = e.clientX; pointer.y = e.clientY; pointer.active = true;
+  }, { passive: true });
+  window.addEventListener('pointerdown', e => {
+    pointer.x = e.clientX; pointer.y = e.clientY; pointer.active = true;
+    burst();
+  }, { passive: true });
+  window.addEventListener('pointerup', e => {
+    if (e.pointerType === 'touch') pointer.active = false;
+  }, { passive: true });
+  window.addEventListener('pointercancel', () => { pointer.active = false; });
+  window.addEventListener('blur', () => { pointer.active = false; });
+  document.addEventListener('mouseleave', () => { pointer.active = false; });
+
+  function buildGradients() {
+    bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+    bgGrad.addColorStop(0.0, '#0a0d20');
+    bgGrad.addColorStop(0.42, '#0e1533');
+    bgGrad.addColorStop(0.75, '#0c1b2a');
+    bgGrad.addColorStop(1.0, '#081310');
+
+    vigGrad = ctx.createRadialGradient(
+      W * 0.5, H * 0.44, Math.min(W, H) * 0.3,
+      W * 0.5, H * 0.52, Math.max(W, H) * 0.78
+    );
+    vigGrad.addColorStop(0, 'rgba(0,0,0,0)');
+    vigGrad.addColorStop(1, 'rgba(1,4,10,0.6)');
+
+    soilGrad = ctx.createLinearGradient(0, H * 0.84, 0, H);
+    soilGrad.addColorStop(0, '#2b251a');
+    soilGrad.addColorStop(0.4, '#1c1912');
+    soilGrad.addColorStop(1, '#0b0906');
+  }
+
+  function buildScene() {
+    const r = mulberry32(20250607);
+    const cx = W * 0.5;
+    const gy = H * 0.885;
+    const sw = W * 0.44;
+    const sh = H * 0.085;
+
+    const n = 16;
+    const pts = [];
+    for (let i = 0; i <= n; i++) {
+      const f = i / n;
+      pts.push({
+        x: lerp(cx - sw, cx + sw, f),
+        y: gy - Math.sin(f * Math.PI) * sh * (0.85 + 0.35 * r()) - sh * 0.22 * r()
+      });
+    }
+
+    scene = {
+      cx, gy, sw, pts,
+      motes: [], threads: [], rimDots: [], side: [],
+      stars: [], moss: [], myc: [], grass: [], pebbles: [], spots: [],
+      main: null, mainGeom: null, topY: null
+    };
+
+    scene.topY = function (x) {
+      if (x <= pts[0].x) return pts[0].y;
+      const lastP = pts[pts.length - 1];
+      if (x >= lastP.x) return lastP.y;
+      for (let i = 0; i < pts.length - 1; i++) {
+        if (x >= pts[i].x && x <= pts[i + 1].x) {
+          const f = (x - pts[i].x) / (pts[i + 1].x - pts[i].x);
+          return lerp(pts[i].y, pts[i + 1].y, f);
+        }
+      }
+      return lastP.y;
+    };
+
+    const nS = Math.round(clamp(W * H / 20000, 18, 70));
+    for (let i = 0; i < nS; i++) {
+      scene.stars.push({
+        x: r() * W, y: r() * H * 0.82,
+        rad: (0.5 + r() * 1.3) * u,
+        ph: r() * TAU, sp: 0.3 + r() * 1.1
+      });
+    }
+
+    for (let i = 0; i < 7; i++) {
+      const x = lerp(cx - sw * 0.85, cx + sw * 0.85, r());
+      scene.pebbles.push({
+        x, y: scene.topY(x) + (2 + r() * 5) * u,
+        rx: (2.5 + r() * 5) * u, ry: (1.6 + r() * 3) * u,
+        c: r() < 0.5 ? '#39332a' : '#2c2833'
+      });
+    }
+
+    const mossCols = ['#2c5a40', '#356a4b', '#3f7a55', '#2a4f3a', '#4c8a5f', '#57a06b'];
+    const nM = Math.round(90 * u) + 46;
+    for (let i = 0; i < nM; i++) {
+      const x = lerp(cx - sw * 0.94, cx + sw * 0.94, r());
+      const rad = (1.2 + r() * 3.4) * u;
+      scene.moss.push({
+        x, y: scene.topY(x) - rad * 0.3 - r() * 2.5 * u,
+        r: rad, c: mossCols[(r() * mossCols.length) | 0],
+        glow: r() < 0.14, ph: r() * TAU
+      });
+    }
+
+    for (let i = 0; i < 6; i++) {
+      const sx = lerp(cx - sw * 0.72, cx + sw * 0.72, r());
+      const br = { pts: [{ x: sx, y: scene.topY(sx) - 1.5 * u }], runners: 1 + (r() * 2 | 0), offs: [], spd: [] };
+      let ang = (r() < 0.5 ? -1 : 1) * (0.2 + r() * 0.6);
+      let px = sx, py = br.pts[0].y;
+      const segs = 3 + (r() * 3 | 0);
+      for (let s = 0; s < segs; s++) {
+        const len = (6 + r() * 13) * u;
+        ang += (r() - 0.5) * 1.0;
+        px += Math.cos(ang) * len * 1.7;
+        py += Math.abs(Math.sin(ang)) * len * 0.6 + len * 0.4;
+        py = Math.min(py, H * 0.995);
+        br.pts.push({ x: clamp(px, 2, W - 2), y: py });
+      }
+      for (let k = 0; k < br.runners; k++) {
+        br.offs.push(r());
+        br.spd.push(0.04 + r() * 0.1);
+      }
+      scene.myc.push(br);
+    }
+
+    for (let i = 0; i < 5; i++) {
+      const x = lerp(cx - sw * 0.88, cx + sw * 0.88, r());
+      scene.grass.push({
+        x, y: scene.topY(x),
+        h: (24 + r() * 46) * u,
+        lean: (r() - 0.5) * 0.7,
+        ph: r() * TAU,
+        w: (1.2 + r() * 1.4) * u
+      });
+    }
+
+    const capW = clamp(W * 0.335, 44, 320);
+    const capH = capW * 0.74;
+    const baseX = cx;
+    const baseY = scene.topY(cx) - 3 * u;
+    const stemH = Math.max(H * 0.1, Math.min(H * 0.4, baseY - capH - H * 0.055));
+    scene.main = { baseX, baseY, stemH, capW, capH };
+
+    for (let i = 0; i < 6; i++) {
+      scene.spots.push({ a: -0.55 + 1.1 * r(), b: 0.25 + 0.6 * r(), s: 0.05 + r() * 0.06 });
+    }
+
+    const hw = capW / 2;
+    const nT = 7;
+    for (let i = 0; i < nT; i++) {
+      const a = lerp(-0.85, 0.85, i / (nT - 1)) + (r() - 0.5) * 0.05;
+      const ax = a * hw * 0.85;
+      const ay = -capH * Math.sqrt(Math.max(0.04, 1 - (a * 0.85) * (a * 0.85))) + capH * 0.05;
+      scene.threads.push({
+        ax, ay,
+        len: -ay + (5 + r() * 14) * u,
+        ph: r() * TAU, sp: 0.8 + r() * 0.8,
+        br: (2.0 + r() * 2.2) * u,
+        cool: r() * 6, scale: 1
+      });
+    }
+
+    const nD = 9;
+    for (let i = 0; i < nD; i++) {
+      scene.rimDots.push({ a: lerp(-1, 1, i / (nD - 1)), ph: r() * TAU, r: (0.9 + r() * 1.3) * u });
+    }
+
+    const defs = [
+      { dx: -0.245, s: 0.42, bud: false, ph: 0.0 },
+      { dx: 0.265, s: 0.31, bud: true, ph: 2.4 },
+      { dx: 0.105, s: 0.23, bud: false, ph: 4.3 }
+    ];
+    for (const d of defs) {
+      const x = cx + d.dx * W;
+      scene.side.push({
+        x,
+        y: scene.topY(clamp(x, cx - sw, cx + sw)) - 2 * u,
+        capW: capW * d.s,
+        stemH: Math.max(10 * u, stemH * d.s * 0.9),
+        bud: d.bud, ph: d.ph
+      });
+    }
+
+    for (let i = 0; i < 8; i++) {
+      spawnMote(cx + (Math.random() - 0.5) * W * 0.4, H * (0.3 + Math.random() * 0.5));
+    }
+  }
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, window.innerWidth);
+    H = Math.max(1, window.innerHeight);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    u = clamp(Math.min(W, H) / 380, 0.42, 1.9);
+    buildGradients();
+    buildScene();
+  }
+  window.addEventListener('resize', resize);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', resize);
+
+  function polyPoint(pts, tt) {
+    let total = 0;
+    for (let i = 0; i < pts.length - 1; i++) {
+      total += Math.hypot(pts[i + 1].x - pts[i].x, pts[i + 1].y - pts[i].y);
+    }
+    let d = tt * total;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const l = Math.hypot(pts[i + 1].x - pts[i].x, pts[i + 1].y - pts[i].y);
+      if (d <= l || i === pts.length - 2) {
+        const f = l > 0 ? clamp(d / l, 0, 1) : 0;
+        return { x: lerp(pts[i].x, pts[i + 1].x, f), y: lerp(pts[i].y, pts[i + 1].y, f) };
+      }
+      d -= l;
+    }
+    const p = pts[pts.length - 1];
+    return { x: p.x, y: p.y };
+  }
+
+  function capCenter(t) {
+    const m = scene.main;
+    const sway = Math.sin(t * 0.45) * W * 0.007 +
+      (pointer.active ? clamp((pointer.sx - W / 2) / W, -1, 1) * W * 0.012 : 0);
+    return { x: m.baseX + sway, y: m.baseY - m.stemH };
+  }
+
+  function threadTip(t, th, g) {
+    const sway = Math.sin(t * 1.15 * th.sp + th.ph) * 0.11 + Math.sin(t * 0.6 + th.ph * 1.7) * 0.07;
+    let lx = th.ax + Math.sin(sway) * th.len;
+    let ly = th.ay + Math.cos(sway) * th.len;
+    if (pointer.active) {
+      const px = g.x + lx, py = g.y + ly;
+      const dx = pointer.sx - px, dy = pointer.sy - py;
+      const d = Math.hypot(dx, dy);
+      const R = Math.max(80, W * 0.38);
+      if (d < R && d > 0.01) {
+        const f = (1 - d / R) * 9 * u;
+        lx += dx / d * f;
+        ly += dy / d * f * 0.7;
+      }
+    }
+    return { x: g.x + lx, y: g.y + ly };
+  }
+
+  function rimPoint(g, a) {
+    const t = (a + 1) / 2;
+    const x0 = g.x - g.hw - g.flare;
+    const x2 = g.x + g.hw + g.flare;
+    const q = 1 - t;
+    return {
+      x: q * q * x0 + 2 * q * t * g.x + t * t * x2,
+      y: q * q * g.y + 2 * q * t * (g.y + g.rimD * 2.4) + t * t * g.y
+    };
+  }
+
+  function spawnMote(x, y) {
+    if (scene.motes.length > 80) return;
+    const life = 2.6 + Math.random() * 3.4;
+    scene.motes.push({
+      x, y,
+      vx: (Math.random() - 0.5) * 7 * u,
+      vy: -(9 + Math.random() * 20) * u,
+      r: (0.9 + Math.random() * 1.7) * u,
+      life, max: life,
+      wf: 1 + Math.random() * 2.5,
+      ph: Math.random() * TAU
+    });
+  }
+
+  function burst() {
+    const g = scene.mainGeom;
+    if (!g) return;
+    for (let i = 0; i < 10; i++) {
+      const p = rimPoint(g, Math.random() * 2 - 1);
+      spawnMote(p.x, p.y - 2);
+    }
+  }
+
+  let spawnTimer = 0.5;
+
+  function update(t, dt) {
+    if (pointer.active) {
+      if (pointer.sx < -1e3) { pointer.sx = pointer.x; pointer.sy = pointer.y; }
+      pointer.sx += (pointer.x - pointer.sx) * Math.min(1, dt * 7);
+      pointer.sy += (pointer.y - pointer.sy) * Math.min(1, dt * 7);
+    }
+
+    spawnTimer -= dt;
+    if (spawnTimer <= 0) {
+      spawnTimer = 0.3 + Math.random() * 0.85;
+      const g = scene.mainGeom;
+      if (g) {
+        const roll = Math.random();
+        if (roll < 0.55 && scene.threads.length) {
+          const th = scene.threads[(Math.random() * scene.threads.length) | 0];
+          const tip = threadTip(t, th, g);
+          spawnMote(tip.x, tip.y);
+        } else if (roll < 0.85) {
+          const rd = scene.rimDots[(Math.random() * scene.rimDots.length) | 0];
+          const p = rimPoint(g, rd.a);
+          spawnMote(p.x, p.y - 2);
+        } else {
+          const s = scene.side[(Math.random() * scene.side.length) | 0];
+          spawnMote(s.x + (Math.random() - 0.5) * s.capW, s.y - s.stemH - s.capW * 0.3);
+        }
+      }
+    }
+
+    for (const th of scene.threads) {
+      th.cool -= dt;
+      if (th.cool <= 0) {
+        th.cool = 4 + Math.random() * 9;
+        th.scale = 0.35;
+        const g = scene.mainGeom;
+        if (g) {
+          const tip = threadTip(t, th, g);
+          spawnMote(tip.x, tip.y);
+        }
+      }
+      th.scale = Math.min(1, th.scale + dt * 0.9);
+    }
+
+    for (let i = scene.motes.length - 1; i >= 0; i--) {
+      const p = scene.motes[i];
+      p.life -= dt;
+      if (p.life <= 0 || p.y < -20) { scene.motes.splice(i, 1); continue; }
+      p.x += (p.vx + Math.sin(t * p.wf + p.ph) * 7 * u) * dt;
+      p.y += p.vy * dt;
+      if (pointer.active) {
+        const dx = pointer.sx - p.x, dy = pointer.sy - p.y;
+        const d = Math.hypot(dx, dy);
+        const R = 60 + 90 * u;
+        if (d < R && d > 0.01) {
+          p.x += dx / d * (1 - d / R) * 34 * dt;
+          p.y += dy / d * (1 - d / R) * 24 * dt;
+        }
+      }
+    }
+  }
+
+  function bead(x, y, r, boost) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.fillStyle = 'rgba(255,178,84,' + (0.13 + boost * 0.12).toFixed(3) + ')';
+    ctx.beginPath(); ctx.arc(x, y, r * 3.1, 0, TAU); ctx.fill();
+    ctx.fillStyle = 'rgba(255,208,128,' + (0.38 + boost * 0.35).toFixed(3) + ')';
+    ctx.beginPath(); ctx.arc(x, y, r * 1.7, 0, TAU); ctx.fill();
+    ctx.restore();
+    ctx.fillStyle = 'rgba(255,246,222,0.95)';
+    ctx.beginPath(); ctx.arc(x, y, Math.max(0.5, r * 0.72), 0, TAU); ctx.fill();
+  }
+
+  function drawShroom(o) {
+    const t = o.t;
+    const capH = o.capW * 0.74;
+    const psway = pointer.active ? clamp((pointer.sx - W / 2) / W, -1, 1) * o.capW * 0.05 : 0;
+    const sway = Math.sin(t * 0.5 + o.ph) * o.capW * 0.03 + psway;
+    const topX = o.x + sway;
+    const topY = o.baseY - o.stemH;
+    const hw = o.capW / 2;
+    const open = o.bud ? 0.5 + 0.5 * Math.sin(t * 0.21 + o.ph) : 1;
+    const breathe = o.main ? 1 + 0.025 * Math.sin(t * 0.7) : 1;
+    const hEff = capH * (o.bud ? lerp(0.42, 1, open) : 1) * breathe;
+    const flare = o.capW * (0.05 + 0.06 * open);
+    const rimD = hEff * 0.22;
+
+    // stem
+    const bw = o.capW * 0.17, tw = o.capW * 0.105;
+    const cx0 = o.x, by = o.baseY;
+    ctx.beginPath();
+    ctx.moveTo(cx0 - bw / 2, by);
+    ctx.quadraticCurveTo(cx0 - bw * 0.35 + sway * 1.5, by - o.stemH * 0.55, topX - tw / 2, topY);
+    ctx.lineTo(topX + tw / 2, topY);
+    ctx.quadraticCurveTo(cx0 + bw * 0.35 + sway * 1.5, by - o.stemH * 0.55, cx0 + bw / 2, by);
+    ctx.closePath();
+    const sg = ctx.createLinearGradient(0, topY, 0, by);
+    sg.addColorStop(0, '#f4ecd8');
+    sg.addColorStop(0.55, '#d3c7a8');
+    sg.addColorStop(1, '#847a5e');
+    ctx.fillStyle = sg;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(topX + tw / 2, topY);
+    ctx.quadraticCurveTo(cx0 + bw * 0.35 + sway * 1.5, by - o.stemH * 0.55, cx0 + bw / 2, by);
+    ctx.strokeStyle = 'rgba(66,54,34,0.3)';
+    ctx.lineWidth = Math.max(0.7, 1.4 * u);
+    ctx.stroke();
+
+    // halo behind the cap
+    const pulse = 0.5 + 0.5 * Math.sin(t * 0.85 + o.ph);
+    let boost = 0;
+    if (pointer.active && o.main) {
+      const d = Math.hypot(pointer.sx - topX, pointer.sy - (topY - hEff * 0.4));
+      boost = clamp(1 - d / (W * 0.65), 0, 1);
+    }
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const gr = o.capW * 1.6;
+    const gg = ctx.createRadialGradient(topX, topY - hEff * 0.35, 0, topX, topY - hEff * 0.35, gr);
+    gg.addColorStop(0, 'rgba(110,215,245,' + (o.glow * (0.09 + 0.05 * pulse) + boost * 0.16).toFixed(3) + ')');
+    gg.addColorStop(1, 'rgba(110,215,245,0)');
+    ctx.fillStyle = gg;
+    ctx.fillRect(topX - gr, topY - hEff * 0.35 - gr, gr * 2, gr * 2);
+    ctx.restore();
+
+    // glassy bell cap
+    ctx.beginPath();
+    ctx.moveTo(topX - hw - flare, topY);
+    ctx.bezierCurveTo(topX - hw * 0.98, topY - hEff * 0.52, topX - hw * 0.52, topY - hEff * 0.96, topX, topY - hEff);
+    ctx.bezierCurveTo(topX + hw * 0.52, topY - hEff * 0.96, topX + hw * 0.98, topY - hEff * 0.52, topX + hw + flare, topY);
+    ctx.closePath();
+    const cg = ctx.createRadialGradient(topX - hw * 0.28, topY - hEff * 0.85, o.capW * 0.06, topX, topY - hEff * 0.3, o.capW * 1.2);
+    cg.addColorStop(0, 'rgba(240,253,255,0.94)');
+    cg.addColorStop(0.38, 'rgba(178,228,250,0.74)');
+    cg.addColorStop(0.72, 'rgba(110,185,228,0.64)');
+    cg.addColorStop(1, 'rgba(72,138,198,0.68)');
+    ctx.fillStyle = cg;
+    ctx.fill();
+
+    if (o.spots) {
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      for (const s of o.spots) {
+        ctx.beginPath();
+        ctx.ellipse(topX + s.a * hw, topY - hEff * s.b, hw * s.s * 1.6, hEff * s.s, s.a * 0.6, 0, TAU);
+        ctx.fill();
+      }
+    }
+
+    // hollow under the bell
+    const inA = o.bud ? clamp((open - 0.3) / 0.45, 0, 1) : 1;
+    if (inA > 0.02) {
+      ctx.beginPath();
+      ctx.ellipse(topX, topY + rimD * 0.1, hw + flare * 0.55, rimD * 0.95, 0, 0, TAU);
+      const ig = ctx.createRadialGradient(topX, topY - rimD * 0.2, 0, topX, topY + rimD * 0.3, hw + flare);
+      ig.addColorStop(0, 'rgba(6,16,26,' + (0.92 * inA).toFixed(3) + ')');
+      ig.addColorStop(1, 'rgba(24,58,80,' + (0.5 * inA).toFixed(3) + ')');
+      ctx.fillStyle = ig;
+      ctx.fill();
+    }
+
+    if (o.main) {
+      // gills
+      ctx.strokeStyle = 'rgba(226,246,255,0.2)';
+      ctx.lineWidth = Math.max(0.5, 0.8 * u);
+      for (let i = -4; i <= 4; i++) {
+        const a = i / 4 * 0.92;
+        const gx = topX + a * hw * 0.98;
+        const gy2 = topY + rimD * 0.35 + Math.sqrt(Math.max(0, 1 - a * a)) * rimD * 0.65;
+        ctx.beginPath();
+        ctx.moveTo(topX + a * hw * 0.12, topY - hEff * 0.08);
+        ctx.quadraticCurveTo(lerp(topX, gx, 0.55), lerp(topY - hEff * 0.08, gy2, 0.55) - 1.5 * u, gx, gy2);
+        ctx.stroke();
+      }
+      // hanging spore lanterns
+      for (const th of scene.threads) {
+        const tip = threadTip(t, th, { x: topX, y: topY });
+        const ax = topX + th.ax, ay = topY + th.ay;
+        const mx = (ax + tip.x) / 2 + (tip.y - ay) * 0.14;
+        const my = (ay + tip.y) / 2;
+        ctx.beginPath();
+        ctx.moveTo(ax, ay);
+        ctx.quadraticCurveTo(mx, my, tip.x, tip.y);
+        ctx.strokeStyle = 'rgba(214,240,255,0.34)';
+        ctx.lineWidth = Math.max(0.5, 0.8 * u);
+        ctx.stroke();
+        for (const f of [0.45, 0.72]) {
+          const q = 1 - f;
+          const px = q * q * ax + 2 * q * f * mx + f * f * tip.x;
+          const py = q * q * ay + 2 * q * f * my + f * f * tip.y;
+          ctx.fillStyle = 'rgba(255,236,190,0.55)';
+          ctx.beginPath();
+          ctx.arc(px, py, th.br * 0.34, 0, TAU);
+          ctx.fill();
+        }
+        bead(tip.x, tip.y, th.br * (0.55 + 0.45 * th.scale), boost);
+      }
+    }
+
+    // bright rim
+    ctx.beginPath();
+    ctx.moveTo(topX - hw - flare, topY);
+    ctx.quadraticCurveTo(topX, topY + rimD * 2.4, topX + hw + flare, topY);
+    ctx.strokeStyle = 'rgba(140,230,255,0.16)';
+    ctx.lineWidth = 3.2 * u;
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(214,248,255,0.85)';
+    ctx.lineWidth = Math.max(0.8, 1.2 * u);
+    ctx.stroke();
+
+    if (o.main) {
+      for (const rd of scene.rimDots) {
+        const p = rimPoint({ x: topX, y: topY, hw, flare, rimD }, rd.a);
+        const tw2 = 0.6 + 0.4 * Math.sin(t * 2.2 + rd.ph);
+        bead(p.x, p.y, rd.r, tw2 * 0.4 + boost * 0.6);
+      }
+    }
+
+    // glossy highlight
+    ctx.beginPath();
+    ctx.ellipse(topX - hw * 0.36, topY - hEff * 0.6, hw * 0.2, hEff * 0.14, -0.55, 0, TAU);
+    ctx.fillStyle = 'rgba(255,255,255,0.32)';
+    ctx.fill();
+
+    return { x: topX, y: topY, hw, flare, rimD, hEff };
+  }
+
+  function draw(t) {
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    for (const s of scene.stars) {
+      const a = 0.18 + 0.3 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph));
+      ctx.fillStyle = 'rgba(175,205,255,' + a.toFixed(3) + ')';
+      ctx.fillRect(s.x, s.y, s.rad, s.rad);
+    }
+
+    const cap = capCenter(t);
+    const m = scene.main;
+    const pulse = 0.5 + 0.5 * Math.sin(t * 0.9);
+    let boost = 0;
+    if (pointer.active) {
+      const d = Math.hypot(pointer.sx - cap.x, pointer.sy - (cap.y - m.capH * 0.4));
+      boost = clamp(1 - d / (W * 0.7), 0, 1);
+    }
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const R = m.capW * 2.8;
+    const g = ctx.createRadialGradient(cap.x, cap.y - m.capH * 0.3, 0, cap.x, cap.y - m.capH * 0.3, R);
+    g.addColorStop(0, 'rgba(80,190,225,' + (0.08 + 0.045 * pulse + boost * 0.13).toFixed(3) + ')');
+    g.addColorStop(1, 'rgba(80,190,225,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(cap.x - R, cap.y - m.capH * 0.3 - R, R * 2, R * 2);
+    ctx.restore();
+
+    // soil mound
+    const pts = scene.pts;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x - W * 0.1, H + 6);
+    ctx.lineTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length - 1; i++) {
+      const mx = (pts[i].x + pts[i + 1].x) / 2;
+      const my = (pts[i].y + pts[i + 1].y) / 2;
+      ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
+    }
+    ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+    ctx.lineTo(pts[pts.length - 1].x + W * 0.1, H + 6);
+    ctx.closePath();
+    ctx.fillStyle = soilGrad;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length - 1; i++) {
+      const mx = (pts[i].x + pts[i + 1].x) / 2;
+      const my = (pts[i].y + pts[i + 1].y) / 2;
+      ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
+    }
+    ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+    ctx.strokeStyle = 'rgba(135,205,165,0.15)';
+    ctx.lineWidth = 1.6 * u;
+    ctx.stroke();
+
+    for (const p of scene.pebbles) {
+      ctx.fillStyle = p.c;
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y, p.rx, p.ry, 0, 0, TAU);
+      ctx.fill();
+    }
+
+    // glow pool on the moss
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const lp = ctx.createRadialGradient(scene.cx, scene.gy, 0, scene.cx, scene.gy, scene.sw * 1.15);
+    lp.addColorStop(0, 'rgba(105,205,235,' + (0.09 + 0.035 * pulse + boost * 0.06).toFixed(3) + ')');
+    lp.addColorStop(1, 'rgba(105,205,235,0)');
+    ctx.fillStyle = lp;
+    ctx.fillRect(scene.cx - scene.sw * 1.2, scene.gy - scene.sw * 0.55, scene.sw * 2.4, scene.sw * 1.1);
+    ctx.restore();
+
+    // mycelium veins with travelling pulses
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const br of scene.myc) {
+      ctx.beginPath();
+      ctx.moveTo(br.pts[0].x, br.pts[0].y);
+      for (let i = 1; i < br.pts.length; i++) ctx.lineTo(br.pts[i].x, br.pts[i].y);
+      ctx.strokeStyle = 'rgba(120,240,208,0.12)';
+      ctx.lineWidth = 1.1 * u;
+      ctx.stroke();
+      for (let k = 0; k < br.runners; k++) {
+        const tt = (t * br.spd[k] + br.offs[k]) % 1;
+        const pos = polyPoint(br.pts, tt);
+        const a = Math.sin(tt * Math.PI);
+        ctx.fillStyle = 'rgba(140,255,220,' + (0.1 * a).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(pos.x, pos.y, 7 * u * (0.5 + a), 0, TAU); ctx.fill();
+        ctx.fillStyle = 'rgba(200,255,238,' + (0.7 * a).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(pos.x, pos.y, 1.8 * u, 0, TAU); ctx.fill();
+      }
+    }
+    ctx.restore();
+
+    // moss
+    for (const mo of scene.moss) {
+      ctx.fillStyle = mo.c;
+      ctx.beginPath(); ctx.arc(mo.x, mo.y, mo.r, 0, TAU); ctx.fill();
+    }
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const mo of scene.moss) {
+      if (!mo.glow) continue;
+      const a = 0.16 + 0.16 * (0.5 + 0.5 * Math.sin(t * 1.5 + mo.ph));
+      ctx.fillStyle = 'rgba(140,255,205,' + a.toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(mo.x, mo.y, mo.r * 2.3, 0, TAU); ctx.fill();
+    }
+    ctx.restore();
+
+    // grass
+    ctx.lineCap = 'round';
+    for (const gr of scene.grass) {
+      const sway = Math.sin(t * 0.9 + gr.ph) * 0.16 +
+        (pointer.active ? clamp((pointer.sx - gr.x) / W, -1, 1) * 0.12 : 0);
+      const ang = gr.lean + sway;
+      const tipX = gr.x + Math.sin(ang) * gr.h;
+      const tipY = gr.y - Math.cos(ang) * gr.h;
+      ctx.beginPath();
+      ctx.moveTo(gr.x, gr.y);
+      ctx.quadraticCurveTo(gr.x + Math.sin(ang) * gr.h * 0.4, gr.y - gr.h * 0.62, tipX, tipY);
+      ctx.strokeStyle = gr.w > 2 * u ? '#4f9068' : '#3d7a55';
+      ctx.lineWidth = gr.w;
+      ctx.stroke();
+    }
+
+    // the cluster
+    const sides = scene.side.slice().sort((a, b) => a.x - b.x);
+    for (const s of sides) {
+      drawShroom({ x: s.x, baseY: s.y, stemH: s.stemH, capW: s.capW, t: t, ph: s.ph, bud: s.bud, glow: 0.55, main: false });
+    }
+    scene.mainGeom = drawShroom({
+      x: m.baseX, baseY: m.baseY, stemH: m.stemH, capW: m.capW,
+      t: t, ph: 0, bud: false, glow: 1, main: true, spots: scene.spots
+    });
+
+    // drifting spores
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of scene.motes) {
+      const f = clamp(p.life / p.max, 0, 1);
+      const a = Math.sin(f * Math.PI);
+      const tw = 0.7 + 0.3 * Math.sin(t * 7 + p.ph);
+      ctx.fillStyle = 'rgba(255,186,96,' + (0.1 * a * tw).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 3.4, 0, TAU); ctx.fill();
+      ctx.fillStyle = 'rgba(255,214,138,' + (0.34 * a * tw).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 1.7, 0, TAU); ctx.fill();
+      ctx.fillStyle = 'rgba(255,247,224,' + (0.9 * a * tw).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 0.8, 0, TAU); ctx.fill();
+    }
+    ctx.restore();
+
+    ctx.fillStyle = vigGrad;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  let last = performance.now();
+  function frame(now) {
+    const t = now / 1000;
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    update(t, dt);
+    draw(t);
+    requestAnimationFrame(frame);
+  }
+
+  resize();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

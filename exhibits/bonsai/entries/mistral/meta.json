@@ -4,5 +4,20 @@
   "modelId": "mistralai/mistral-large-4-0",
   "route": "OpenRouter",
   "host": "mistral",
-  "openWeights": true
+  "openWeights": true,
+  "status": "final",
+  "title": "Amber Drift Maple",
+  "statement": "A young maple in a celadon pot, caught mid-autumn: it sways a little, slowly turns gold, and lets one leaf go at a time, trusting the breeze to catch it.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Mistral)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 6,
+      "host": "mistral",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }
