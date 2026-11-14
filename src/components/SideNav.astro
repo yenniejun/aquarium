@@ -11,7 +11,7 @@ const exhibits = getListedExhibits();
 
 <button class="menu-toggle" type="button" popovertarget="site-nav">Menu</button>
 <nav id="site-nav" class="side-nav" popover aria-label="Museum">
-  <span class="label">Galleries</span>
+  <span class="label">G<span class="ai">a</span>ller<span class="ai">i</span>es</span>
   {
     exhibits.map((ex) => {
       const url = href(exhibitPath(ex));
@@ -63,8 +63,13 @@ const exhibits = getListedExhibits();
 
   .label {
     margin: 4px 0;
+    color: #8d9aa6;
     text-align: center;
     text-transform: uppercase;
+  }
+
+  .label .ai {
+    color: var(--accent);
   }
 
   .label:not(:first-child) {

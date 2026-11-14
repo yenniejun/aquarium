@@ -30,7 +30,7 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 | DreAm CIty | `dream-city` | windows | draft (hidden) |
 
 - **Status:** `live` and `preview` appear in the menu; `draft` only builds on the dev server and stays out of the menu.
-- **Titles:** the capital A and I that spell AI are highlighted in the gallery's accent color, as in `cArnIvora` or `BonsAI`. The aquarium keeps its older style: parenthesized parts are dimmed, so `A(quar)I(um)` reads as AI.
+- **Titles:** the capital A and I that spell AI are highlighted in the gallery's accent color, as in `cArnIvora` or `BonsAI`. The aquarium keeps its parentheses: `A(quar)I(um)`.
 - **Blind mode:** pieces are shuffled and unlabeled until you vote. `?reset` in the URL forgets your vote (and shows the aquarium's welcome again); on the dev server there's also a "Reset vote" button.
 - **"?" button:** every gallery has one with its intro and its prompt; only the aquarium's opens by itself on a first visit.
 

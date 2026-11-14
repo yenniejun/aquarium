@@ -54,11 +54,6 @@ const { exhibit, pieces } = Astro.props;
     inset: 0 0 auto;
   }
 
-  /* The page is just the room; what the footer would say lives in the "?" modal. */
-  :global(body[data-skin='aquarium'] .site-footer) {
-    display: none;
-  }
-
   .room {
     position: relative;
     isolation: isolate;

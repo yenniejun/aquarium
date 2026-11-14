@@ -46,8 +46,9 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
       <slot />
     </main>
     <footer class="site-footer">
-      <slot name="footer" />
-      <p>Every piece on this site is code written by an AI model.</p>
+      <a class="credit" href="https://artfish.ai" target="_blank" rel="noopener">
+        Created by <b>Art Fish Intelligence</b> <em>♥</em>
+      </a>
     </footer>
   </body>
 </html>

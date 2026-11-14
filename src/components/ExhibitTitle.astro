@@ -1,8 +1,8 @@
 ---
 /**
  * An exhibit title that plays with "AI": the capital A and I that spell it are highlighted, as in
- * "cArnIvora" or "BonsAI". A title with parentheses keeps the older style instead, where the
- * parenthesized parts are softer so "A(quar)I(um)" reads as AI.
+ * "cArnIvora" or "BonsAI". In a title with parentheses (the aquarium's "A(quar)I(um)") it's the
+ * letters outside them.
  */
 interface Props {
   title: string;
@@ -15,17 +15,11 @@ const parts = title.split(parens ? /(\([^)]*\))/ : /([AI]+)/).filter(Boolean);
 
 {
   parts.map((part) =>
-    parens ? (part.startsWith('(') ? <span class="aside">{part}</span> : part)
-    : /^[AI]+$/.test(part) ? <span class="ai">{part}</span>
-    : part,
+    (parens ? !part.startsWith('(') : /^[AI]+$/.test(part)) ? <span class="ai">{part}</span> : part,
   )
 }
 
 <style>
-  .aside {
-    opacity: 0.5;
-  }
-
   .ai {
     color: var(--accent, currentColor);
   }
