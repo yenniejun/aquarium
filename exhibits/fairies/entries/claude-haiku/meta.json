@@ -4,14 +4,14 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of the Ebbing Tide",
-  "statement": "Let the water go. It always comes back, silver-footed.",
+  "title": "The Fairy of Rust",
+  "statement": "Patience turns iron to dust. What you guard quietly unmakes itself while you watch.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 1
+      "promptVersion": 2
     },
     "attempts": 1,
     "edits": "none"

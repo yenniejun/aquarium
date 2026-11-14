@@ -3,386 +3,325 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tarot Fairy</title>
+<title>Tarot Artwork</title>
 <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #08101f;
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0a120f; }
+  body { position:fixed; inset:0; }
+  svg { display:block; width:100vw; height:100vh; width:100dvw; height:100dvh; }
+
+  .wingL, .wingR, .armL, .armR, .hairStrand, .antenna, .mist, .haloPulse, .dressSway {
+    transform-box: view-box;
   }
-  canvas {
-    display: block;
-    width: 100vw;
-    height: 100vh;
-    touch-action: pan-y;
+  .wingL { transform-origin: 202px 272px; animation: flutterL 3.4s ease-in-out infinite; }
+  .wingR { transform-origin: 198px 272px; animation: flutterR 3.4s ease-in-out infinite; }
+  @keyframes flutterL {
+    0%,100% { transform: rotate(4deg) scaleX(1); }
+    28% { transform: rotate(-11deg) scaleX(.86); }
+    52% { transform: rotate(7deg) scaleX(1.02); }
+    74% { transform: rotate(-7deg) scaleX(.9); }
   }
+  @keyframes flutterR {
+    0%,100% { transform: rotate(-4deg) scaleX(1); }
+    28% { transform: rotate(11deg) scaleX(.86); }
+    52% { transform: rotate(-7deg) scaleX(1.02); }
+    74% { transform: rotate(7deg) scaleX(.9); }
+  }
+  .armL { transform-origin: 184px 272px; animation: armSwayL 5s ease-in-out infinite; }
+  .armR { transform-origin: 216px 272px; animation: armSwayR 5.5s ease-in-out infinite; }
+  @keyframes armSwayL { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-7deg)} }
+  @keyframes armSwayR { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(9deg)} }
+  .hairStrand { animation: hairFlow 4.2s ease-in-out infinite; }
+  .hairStrand:nth-child(odd){ animation-duration:5.1s; animation-delay:-1.4s; }
+  @keyframes hairFlow { 0%,100%{transform:rotate(0deg) translateX(0)} 50%{transform:rotate(2deg) translateX(-3px)} }
+  .haloPulse { transform-origin:200px 265px; animation: halo 6s ease-in-out infinite; }
+  @keyframes halo { 0%,100%{transform:scale(1); opacity:.85} 50%{transform:scale(1.045); opacity:1} }
+  .mist { animation: mistDrift 11s ease-in-out infinite alternate; }
+  .mist2 { animation-duration:15s; animation-delay:-6s; }
+  @keyframes mistDrift { from{transform:translateX(-16px)} to{transform:translateX(18px)} }
+  .dressSway { transform-origin:200px 255px; animation: sway 4.8s ease-in-out infinite; }
+  @keyframes sway { 0%,100%{transform:rotate(-1.2deg)} 50%{transform:rotate(1.4deg)} }
+  .glowDot { animation: pulseGlow 2.8s ease-in-out infinite; }
+  .glowDot:nth-child(2n){ animation-delay:-1.2s; }
+  @keyframes pulseGlow { 0%,100%{opacity:.45} 50%{opacity:1} }
+  .eye { transform-box: fill-box; transform-origin:center; transition: transform .08s linear; }
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
+<svg id="scene" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="85%">
+      <stop offset="0%" stop-color="#23473d"/>
+      <stop offset="34%" stop-color="#12251f"/>
+      <stop offset="68%" stop-color="#160f0b"/>
+      <stop offset="100%" stop-color="#070908"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#b8ffe9" stop-opacity=".34"/>
+      <stop offset="42%" stop-color="#4fae94" stop-opacity=".22"/>
+      <stop offset="72%" stop-color="#c75b26" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wingL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5fc0a5"/>
+      <stop offset="38%" stop-color="#7a4a28"/>
+      <stop offset="70%" stop-color="#c85f24"/>
+      <stop offset="100%" stop-color="#2b1710"/>
+    </linearGradient>
+    <linearGradient id="wingR" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#63c2a7"/>
+      <stop offset="38%" stop-color="#6f4527"/>
+      <stop offset="70%" stop-color="#d96c26"/>
+      <stop offset="100%" stop-color="#24120c"/>
+    </linearGradient>
+    <linearGradient id="dress" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b2a20"/>
+      <stop offset="35%" stop-color="#8a3d1c"/>
+      <stop offset="72%" stop-color="#c65a20"/>
+      <stop offset="100%" stop-color="#1c0f0a"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eee0bd"/>
+      <stop offset="60%" stop-color="#cdbb93"/>
+      <stop offset="100%" stop-color="#8f7f61"/>
+    </linearGradient>
+    <linearGradient id="keyMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6b3b22"/>
+      <stop offset="30%" stop-color="#c96424"/>
+      <stop offset="55%" stop-color="#4a2a1a"/>
+      <stop offset="78%" stop-color="#e07f2e"/>
+      <stop offset="100%" stop-color="#241109"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff9a3c"/>
+      <stop offset="45%" stop-color="#c7501e"/>
+      <stop offset="100%" stop-color="#4a180b"/>
+    </linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <filter id="soft2" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4"/>
+    </filter>
+  </defs>
+
+  <rect width="400" height="600" fill="url(#bg)"/>
+
+  <!-- distant ruined gate -->
+  <g opacity=".20" stroke="#9fd8c5" stroke-width="5">
+    <line x1="28" y1="0" x2="22" y2="600"/><line x1="78" y1="0" x2="76" y2="600"/>
+    <line x1="330" y1="0" x2="336" y2="600"/><line x1="374" y1="0" x2="380" y2="600"/>
+  </g>
+  <g opacity=".13" fill="#d96c26">
+    <circle cx="54" cy="118" r="19"/><circle cx="342" cy="88" r="24"/><circle cx="44" cy="438" r="28"/>
+    <circle cx="356" cy="470" r="20"/><circle cx="92" cy="540" r="16"/><circle cx="312" cy="540" r="14"/>
+  </g>
+  <g id="bgLayer">
+    <circle cx="200" cy="265" r="178" fill="url(#halo)" class="haloPulse"/>
+    <circle cx="200" cy="265" r="126" fill="none" stroke="#7ed0b6" stroke-opacity=".20" stroke-width="1.5" stroke-dasharray="3 11"/>
+    <circle cx="200" cy="265" r="148" fill="none" stroke="#e07f2e" stroke-opacity=".14" stroke-width="9" stroke-dasharray="2 28" stroke-linecap="round"/>
+  </g>
+
+  <g id="particlesBack"></g>
+
+  <!-- the great rusted key, nearby and untouched -->
+  <g id="keyGroup" filter="url(#rough)">
+    <g transform="rotate(38 302 418)">
+      <circle cx="302" cy="352" r="34" fill="none" stroke="url(#keyMetal)" stroke-width="17"/>
+      <circle cx="302" cy="352" r="34" fill="none" stroke="#ff9a3c" stroke-opacity=".35" stroke-width="3" stroke-dasharray="4 13"/>
+      <rect x="291" y="378" width="22" height="118" rx="9" fill="url(#keyMetal)"/>
+      <rect x="307" y="452" width="38" height="17" rx="5" fill="url(#keyMetal)"/>
+      <rect x="307" y="480" width="30" height="16" rx="5" fill="url(#keyMetal)"/>
+      <g fill="#e87f2e" opacity=".85">
+        <circle cx="294" cy="338" r="7"/><circle cx="318" cy="362" r="5"/><circle cx="299" cy="404" r="8"/>
+        <circle cx="306" cy="438" r="5"/><circle cx="294" cy="472" r="7"/><circle cx="326" cy="458" r="4"/>
+        <circle cx="290" cy="356" r="3" fill="#5fc0a5"/><circle cx="310" cy="486" r="3" fill="#5fc0a5"/>
+        <circle cx="300" cy="424" r="3" fill="#ffe1a8"/>
+      </g>
+      <g fill="#160b06" opacity=".55">
+        <circle cx="304" cy="390" r="4"/><circle cx="296" cy="452" r="5"/><circle cx="314" cy="352" r="4"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- fairy -->
+  <g id="fairy">
+    <!-- wings -->
+    <g class="wingL" opacity=".94">
+      <path d="M202,272 C158,196 72,146 38,196 C12,234 48,292 116,306 C162,315 194,300 202,272 Z" fill="url(#wingL)"/>
+      <path d="M202,288 C164,302 88,306 62,356 C44,392 96,412 146,378 C182,353 198,318 202,288 Z" fill="url(#wingL)" opacity=".88"/>
+      <path d="M192,268 C150,224 102,196 62,202 M188,282 C146,282 104,292 82,322" stroke="#2a1208" stroke-width="2" fill="none" opacity=".55"/>
+      <circle cx="92" cy="238" r="17" fill="#120b06" opacity=".72"/><circle cx="92" cy="238" r="8" fill="#ffab4a" opacity=".8"/>
+      <circle cx="118" cy="352" r="10" fill="#120b06" opacity=".6"/><circle cx="55" cy="278" r="5" fill="#0d1713"/>
+      <circle cx="150" cy="214" r="4" fill="#0d1713" opacity=".8"/>
+    </g>
+    <g class="wingR" opacity=".94">
+      <path d="M198,272 C242,196 328,146 362,196 C388,234 352,292 284,306 C238,315 206,300 198,272 Z" fill="url(#wingR)"/>
+      <path d="M198,288 C236,302 312,306 338,356 C356,392 304,412 254,378 C218,353 202,318 198,288 Z" fill="url(#wingR)" opacity=".88"/>
+      <path d="M208,268 C250,224 298,196 338,202 M212,282 C254,282 296,292 318,322" stroke="#2a1208" stroke-width="2" fill="none" opacity=".55"/>
+      <circle cx="308" cy="238" r="17" fill="#120b06" opacity=".72"/><circle cx="308" cy="238" r="8" fill="#ffab4a" opacity=".8"/>
+      <circle cx="282" cy="352" r="10" fill="#120b06" opacity=".6"/><circle cx="345" cy="278" r="5" fill="#0d1713"/>
+      <circle cx="250" cy="214" r="4" fill="#0d1713" opacity=".8"/>
+    </g>
+
+    <!-- legs -->
+    <g stroke="#d8c69c" stroke-width="7" stroke-linecap="round" fill="none">
+      <path d="M188,382 C182,424 170,458 156,486"/>
+      <path d="M214,382 C224,418 238,444 252,462"/>
+    </g>
+    <path d="M156,486 l-10,12 l16,-3 Z" fill="#2b1710"/>
+    <path d="M252,462 l16,4 l-10,10 Z" fill="#2b1710"/>
+
+    <!-- arms -->
+    <g class="armL">
+      <path d="M184,274 C158,292 138,316 130,344" stroke="#e2d0a4" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <circle cx="129" cy="347" r="6" fill="#e2d0a4"/>
+      <path d="M129,347 l-14,8 M129,347 l-4,16 M129,347 l-18,-3" stroke="#e2d0a4" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+    <g class="armR">
+      <path d="M216,274 C240,286 258,302 268,326" stroke="#e2d0a4" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <circle cx="270" cy="329" r="6" fill="#e2d0a4"/>
+      <path d="M270,329 l15,2 M270,329 l10,12 M270,329 l16,-8" stroke="#e2d0a4" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- dress / body -->
+    <g class="dressSway">
+      <path d="M200,238 C176,252 172,282 182,316 C172,344 162,372 150,398 C176,390 188,404 200,386 C212,404 226,390 250,400 C238,370 228,342 218,316 C228,282 224,252 200,238 Z" fill="url(#dress)"/>
+      <path d="M200,246 C188,286 190,336 200,382 C210,336 212,286 200,246 Z" fill="#2e1a10" opacity=".55"/>
+      <g fill="#ff8b35" opacity=".8">
+        <circle cx="188" cy="300" r="5"/><circle cx="214" cy="326" r="7"/><circle cx="196" cy="356" r="4"/>
+        <circle cx="222" cy="282" r="3"/><circle cx="176" cy="338" r="3" fill="#5fc0a5"/>
+      </g>
+      <path d="M176,262 C188,272 212,272 224,262" stroke="#5fc0a5" stroke-width="5" fill="none" stroke-linecap="round" opacity=".85"/>
+      <circle cx="200" cy="270" r="6" fill="#79d3b8" class="glowDot"/>
+    </g>
+
+    <!-- head -->
+    <g id="head">
+      <!-- hair back -->
+      <g stroke="url(#hair)" stroke-width="7" stroke-linecap="round" fill="none" opacity=".92">
+        <path class="hairStrand" d="M176,176 C156,218 158,268 142,306" style="transform-origin:176px 176px"/>
+        <path class="hairStrand" d="M224,176 C244,218 242,268 258,306" style="transform-origin:224px 176px"/>
+        <path class="hairStrand" d="M186,168 C172,210 176,246 164,282" style="transform-origin:186px 168px"/>
+        <path class="hairStrand" d="M214,168 C228,210 224,246 236,282" style="transform-origin:214px 168px"/>
+      </g>
+      <!-- antennae -->
+      <g stroke="#e8d8ae" stroke-width="2.5" fill="none" stroke-linecap="round">
+        <path d="M186,158 C174,132 158,122 142,120"/>
+        <path d="M214,158 C226,132 242,122 258,120"/>
+      </g>
+      <circle cx="140" cy="120" r="5" fill="#ffb14e" class="glowDot" filter="url(#soft)"/>
+      <circle cx="260" cy="120" r="5" fill="#ffb14e" class="glowDot" filter="url(#soft)"/>
+      <circle cx="140" cy="120" r="2.6" fill="#fff0bd"/>
+      <circle cx="260" cy="120" r="2.6" fill="#fff0bd"/>
+
+      <ellipse cx="200" cy="196" rx="29" ry="36" fill="url(#skin)"/>
+      <path d="M171,188 C174,160 186,148 200,148 C216,148 228,162 229,188 C218,168 208,174 200,162 C192,174 181,168 171,188 Z" fill="url(#hair)"/>
+      <!-- nail crown -->
+      <g fill="#3a2418">
+        <path d="M178,158 l4,-20 l7,17 Z"/><path d="M194,152 l6,-22 l6,22 Z"/><path d="M210,155 l8,-18 l4,20 Z"/>
+      </g>
+      <g class="eye">
+        <ellipse cx="188" cy="198" rx="6.5" ry="8.5" fill="#100806"/>
+        <circle cx="188" cy="200" r="2.6" fill="#ffab3d"/>
+      </g>
+      <g class="eye">
+        <ellipse cx="212" cy="198" rx="6.5" ry="8.5" fill="#100806"/>
+        <circle cx="212" cy="200" r="2.6" fill="#ffab3d"/>
+      </g>
+      <path d="M190,220 C196,224 204,224 210,220" stroke="#5a2315" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <circle cx="176" cy="212" r="4" fill="#c75b26" opacity=".45"/>
+      <circle cx="224" cy="212" r="4" fill="#3fa08c" opacity=".5"/>
+      <!-- neck -->
+      <rect x="192" y="226" width="16" height="20" rx="6" fill="#cdbb93"/>
+    </g>
+  </g>
+
+  <g id="particlesFront"></g>
+  <g id="flakes"></g>
+
+  <!-- mist and vignette -->
+  <ellipse class="mist" cx="200" cy="548" rx="230" ry="52" fill="#8fd8c2" opacity=".10" filter="url(#soft2)"/>
+  <ellipse class="mist mist2" cx="180" cy="578" rx="250" ry="44" fill="#e07f2e" opacity=".10" filter="url(#soft2)"/>
+  <rect width="400" height="600" fill="none" stroke="#000" stroke-opacity=".35" stroke-width="36" filter="url(#soft2)"/>
+</svg>
+
 <script>
-const canvas = document.getElementById('c');
-const ctx = canvas.getContext('2d');
+(function(){
+  const NS = 'http://www.w3.org/2000/svg';
+  const fairy = document.getElementById('fairy');
+  const head = document.getElementById('head');
+  const key = document.getElementById('keyGroup');
+  const eyes = document.querySelectorAll('.eye');
+  const back = document.getElementById('particlesBack');
+  const front = document.getElementById('particlesFront');
+  const flakesG = document.getElementById('flakes');
+  head.style.transformBox = 'view-box';
+  head.style.transformOrigin = '200px 205px';
 
-let W = 0, H = 0, DPR = 1;
-function resize() {
-  DPR = Math.min(window.devicePixelRatio || 1, 2);
-  W = window.innerWidth;
-  H = window.innerHeight;
-  canvas.width = Math.round(W * DPR);
-  canvas.height = Math.round(H * DPR);
-  canvas.style.width = W + 'px';
-  canvas.style.height = H + 'px';
-  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-}
-window.addEventListener('resize', resize);
-resize();
-
-let mx = 0.5, my = 0.45, smx = 0.5, smy = 0.45;
-window.addEventListener('pointermove', e => {
-  mx = e.clientX / Math.max(1, W);
-  my = e.clientY / Math.max(1, H);
-});
-
-const snow = [];
-for (let i = 0; i < 85; i++) {
-  snow.push({
-    x: Math.random(), y: Math.random(),
-    r: 0.7 + Math.random() * 2.1,
-    s: 0.12 + Math.random() * 0.38,
-    ph: Math.random() * Math.PI * 2,
-    drift: 0.2 + Math.random() * 0.8
-  });
-}
-const stars = [];
-for (let i = 0; i < 70; i++) {
-  stars.push({ x: Math.random(), y: Math.random() * 0.52, r: Math.random() * 1.4 + 0.3, ph: Math.random() * 7 });
-}
-const sparkles = [];
-for (let i = 0; i < 36; i++) {
-  sparkles.push({ x: Math.random(), y: Math.random(), ph: Math.random() * 7, s: 0.5 + Math.random() });
-}
-
-function lerp(a, b, t){ return a + (b - a) * t; }
-
-function drawCrystal(x, y, size, angle, alpha) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(angle);
-  ctx.strokeStyle = `rgba(230,248,255,${alpha})`;
-  ctx.lineWidth = Math.max(0.6, size * 0.12);
-  ctx.lineCap = 'round';
-  for (let i = 0; i < 6; i++) {
-    ctx.rotate(Math.PI / 3);
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, -size);
-    ctx.moveTo(0, -size * 0.55);
-    ctx.lineTo(size * 0.28, -size * 0.78);
-    ctx.moveTo(0, -size * 0.55);
-    ctx.lineTo(-size * 0.28, -size * 0.78);
-    ctx.stroke();
+  function mk(parent, type, attrs){
+    const el = document.createElementNS(NS, type);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    parent.appendChild(el); return el;
   }
-  ctx.restore();
-}
 
-function wing(cx, cy, len, wid, angle, flap, upper) {
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.rotate(angle + flap);
-  const g = ctx.createLinearGradient(0, 0, -len, 0);
-  g.addColorStop(0, 'rgba(210,242,255,0.55)');
-  g.addColorStop(0.55, 'rgba(140,205,245,0.26)');
-  g.addColorStop(1, 'rgba(235,250,255,0.06)');
-  ctx.fillStyle = g;
-  ctx.strokeStyle = 'rgba(225,248,255,0.75)';
-  ctx.lineWidth = 1.1;
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.bezierCurveTo(-len * 0.35, -wid, -len * 0.92, -wid * 0.72, -len, 0);
-  ctx.bezierCurveTo(-len * 0.75, wid * (upper ? 0.55 : 0.42), -len * 0.3, wid * 0.35, 0, 4);
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-  ctx.strokeStyle = 'rgba(235,250,255,0.35)';
-  ctx.lineWidth = 0.7;
-  for (let i = 1; i <= 3; i++) {
-    ctx.beginPath();
-    ctx.moveTo(-4, 1);
-    ctx.quadraticCurveTo(-len * 0.45 * i / 2, -wid * 0.28, -len * (0.32 + i * 0.18), -wid * 0.12 + i * 3);
-    ctx.stroke();
+  const motes = [];
+  for (let i=0;i<46;i++){
+    const frontLayer = i>28;
+    const c = mk(frontLayer?front:back,'circle',{
+      r:(Math.random()*2.2+0.7).toFixed(2),
+      fill: Math.random()<.55 ? '#ffb14e' : (Math.random()<.5?'#7ed0b6':'#e8d8ae'),
+      opacity:(Math.random()*.55+.25).toFixed(2)
+    });
+    motes.push({el:c,x:Math.random()*400,y:Math.random()*600,s:Math.random()*14+5,p:Math.random()*Math.PI*2,v:Math.random()*.22+.06});
   }
-  ctx.restore();
-}
-
-function drawFern(vw, vh, t, frost) {
-  const bx = vw * 0.76;
-  const by = vh * 0.92;
-  // soft shadow
-  ctx.fillStyle = 'rgba(3,10,20,0.35)';
-  ctx.beginPath(); ctx.ellipse(bx, by + 6, 78, 13, 0, 0, Math.PI * 2); ctx.fill();
-
-  const stems = [
-    { a: -0.22, l: 150, bend: -18 },
-    { a: 0.05, l: 178, bend: 4 },
-    { a: 0.34, l: 138, bend: 24 },
-    { a: -0.48, l: 105, bend: -30 }
-  ];
-  stems.forEach((st, si) => {
-    const tipX = bx + Math.sin(st.a) * st.l + st.bend;
-    const tipY = by - Math.cos(st.a) * st.l;
-    const midX = bx + Math.sin(st.a) * st.l * 0.5 + st.bend * 0.35;
-    const midY = by - Math.cos(st.a) * st.l * 0.55;
-    ctx.strokeStyle = si % 2 ? '#2f7f6d' : '#256f62';
-    ctx.lineWidth = 3.2 - si * 0.3;
-    ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(bx, by); ctx.quadraticCurveTo(midX, midY, tipX, tipY); ctx.stroke();
-
-    const leaves = 9;
-    for (let i = 2; i < leaves; i++) {
-      const p = i / leaves;
-      const px = lerp(lerp(bx, midX, p), lerp(midX, tipX, p), p);
-      const py = lerp(lerp(by, midY, p), lerp(midY, tipY, p), p);
-      const sz = (1 - p) * 34 + 7;
-      const sway = Math.sin(t * 0.9 + si + i * 0.4) * 2;
-      for (let side of [-1, 1]) {
-        const ex = px + side * sz + sway;
-        const ey = py - sz * 0.28 + Math.abs(side) * 2;
-        const leafGrad = ctx.createLinearGradient(px, py, ex, ey);
-        leafGrad.addColorStop(0, '#2d8a72');
-        leafGrad.addColorStop(1, `rgba(210,242,235,${0.25 + frost * 0.55})`);
-        ctx.strokeStyle = leafGrad;
-        ctx.lineWidth = 2.2;
-        ctx.beginPath(); ctx.moveTo(px, py); ctx.quadraticCurveTo(px + side * sz * 0.55, py - sz * 0.42, ex, ey); ctx.stroke();
-        if (frost > 0.35 && (i + si) % 2 === 0) {
-          ctx.fillStyle = `rgba(235,250,255,${(frost - 0.3) * 0.9})`;
-          ctx.beginPath(); ctx.arc(ex, ey, 1.8 + frost * 1.4, 0, Math.PI * 2); ctx.fill();
-        }
-      }
-    }
-    drawCrystal(tipX, tipY, 7 + frost * 7 + Math.sin(t + si) * 1.2, t * 0.08 + si, 0.35 + frost * 0.55);
-  });
-
-  // frost creeping on the ground toward the fern
-  ctx.strokeStyle = `rgba(220,245,255,${0.25 + frost * 0.4})`;
-  ctx.lineWidth = 1;
-  for (let i = 0; i < 7; i++) {
-    const yy = by - 4 + i * 3;
-    ctx.beginPath();
-    ctx.moveTo(bx - 76 + i * 6, yy);
-    ctx.lineTo(bx - 30 + Math.sin(i * 2.1) * 8, yy - 3);
-    ctx.lineTo(bx + 8, yy + 1);
-    ctx.stroke();
+  const flakes = [];
+  for (let i=0;i<16;i++){
+    const p = mk(flakesG,'rect',{width:5,height:3,rx:1,fill: i%3?'#d96c26':'#5fc0a5',opacity:.85});
+    flakes.push({el:p,x:275+Math.random()*65,y:340+Math.random()*180,v:Math.random()*.5+.25,r:Math.random()*360,vr:(Math.random()-.5)*3,p:Math.random()*Math.PI*2});
   }
-}
 
-function frame(now) {
-  const t = now * 0.001;
-  smx = lerp(smx, mx, 0.04);
-  smy = lerp(smy, my, 0.04);
-  const lookX = (smx - 0.5) * 14;
-  const lookY = (smy - 0.5) * 8;
+  let mx=0,my=0,tx=0,ty=0,lastBlink=0,blinkUntil=0;
+  window.addEventListener('pointermove', e=>{
+    tx = (e.clientX/window.innerWidth - .5)*2;
+    ty = (e.clientY/window.innerHeight - .5)*2;
+  }, {passive:true});
 
-  // virtual portrait space, cover-fit
-  const vw = 400, vh = 600;
-  const scale = Math.max(W / vw, H / vh);
-  const ox = (W - vw * scale) / 2;
-  const oy = (H - vh * scale) / 2;
+  function frame(now){
+    const t = now/1000;
+    mx += (tx-mx)*.045; my += (ty-my)*.045;
 
-  // night sky in screen space
-  const sky = ctx.createLinearGradient(0, 0, 0, H);
-  sky.addColorStop(0, '#070d24');
-  sky.addColorStop(0.42, '#12294a');
-  sky.addColorStop(0.72, '#1d4a5e');
-  sky.addColorStop(1, '#b9d9de');
-  ctx.fillStyle = sky;
-  ctx.fillRect(0, 0, W, H);
+    const bob = Math.sin(t*1.35)*9;
+    fairy.setAttribute('transform', `translate(${mx*7} ${bob + my*4})`);
+    key.setAttribute('transform', `translate(${ -mx*5} ${Math.sin(t*1.05+1.7)*7}) rotate(${Math.sin(t*.55)*3} 302 418)`);
 
-  ctx.save();
-  ctx.translate(ox, oy);
-  ctx.scale(scale, scale);
+    const headRot = Math.sin(t*.62)*5 + mx*9;
+    const blinking = now < blinkUntil;
+    if (now-lastBlink > 2800 + Math.sin(now*.001)*700 && !blinking){ blinkUntil = now+130; lastBlink = now; }
+    const eyeS = blinking ? .08 : 1;
+    eyes.forEach(e=>{ e.style.transform = `translate(${mx*2.2}px, ${my*1.4}px) scaleY(${eyeS})`; });
+    head.style.transform = `rotate(${headRot}deg) translate(${mx*3}px, ${Math.sin(t*1.35)*1.5}px)`;
 
-  // stars
-  stars.forEach(s => {
-    const a = 0.25 + 0.65 * Math.abs(Math.sin(t * 0.7 + s.ph));
-    ctx.fillStyle = `rgba(230,244,255,${a})`;
-    ctx.beginPath(); ctx.arc(s.x * vw, s.y * vh, s.r, 0, Math.PI * 2); ctx.fill();
-  });
-
-  // moon
-  const moonX = vw * 0.82 + lookX * 0.25, moonY = vh * 0.15;
-  const glow = ctx.createRadialGradient(moonX, moonY, 4, moonX, moonY, 92);
-  glow.addColorStop(0, 'rgba(230,246,255,0.55)');
-  glow.addColorStop(1, 'rgba(230,246,255,0)');
-  ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(moonX, moonY, 92, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = '#eef8ff';
-  ctx.beginPath(); ctx.arc(moonX, moonY, 27, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = '#12294a';
-  ctx.beginPath(); ctx.arc(moonX + 11, moonY - 7, 23, 0, Math.PI * 2); ctx.fill();
-
-  // distant pines / hills
-  ctx.fillStyle = '#0e2b3f';
-  ctx.beginPath();
-  ctx.moveTo(0, 438);
-  for (let x = 0; x <= vw; x += 20) ctx.lineTo(x, 420 + Math.sin(x * 0.045) * 16 - (x % 60 === 0 ? 18 : 0));
-  ctx.lineTo(vw, vh); ctx.lineTo(0, vh); ctx.closePath(); ctx.fill();
-  ctx.fillStyle = '#e8f4f6';
-  ctx.beginPath();
-  ctx.moveTo(0, 492); ctx.quadraticCurveTo(vw * 0.3, 462, vw * 0.58, 488);
-  ctx.quadraticCurveTo(vw * 0.82, 506, vw, 482); ctx.lineTo(vw, vh); ctx.lineTo(0, vh); ctx.closePath(); ctx.fill();
-
-  // ground sparkles
-  sparkles.forEach(s => {
-    const a = 0.18 + 0.5 * Math.abs(Math.sin(t * 1.4 + s.ph));
-    ctx.fillStyle = `rgba(255,255,255,${a})`;
-    ctx.beginPath(); ctx.arc(s.x * vw, 495 + s.y * 92, s.s, 0, Math.PI * 2); ctx.fill();
-  });
-
-  const frost = 0.58 + 0.42 * Math.sin(t * 0.45);
-  drawFern(vw, vh, t, frost);
-
-  // ---- Fairy ----
-  const bob = Math.sin(t * 1.15) * 7;
-  const fx = vw * 0.40 + Math.sin(t * 0.5) * 4 + lookX * 0.35;
-  const fy = vh * 0.46 + bob;
-  const flap = Math.sin(t * 7.2) * 0.34;
-  const flap2 = Math.sin(t * 7.2 + 0.5) * 0.28;
-
-  // aura
-  const aura = ctx.createRadialGradient(fx, fy, 5, fx, fy, 118);
-  aura.addColorStop(0, 'rgba(170,225,255,0.34)');
-  aura.addColorStop(0.6, 'rgba(140,200,240,0.10)');
-  aura.addColorStop(1, 'rgba(140,200,240,0)');
-  ctx.fillStyle = aura; ctx.beginPath(); ctx.arc(fx, fy, 118, 0, Math.PI * 2); ctx.fill();
-
-  // wings (behind body, both sides suggested by depth)
-  ctx.save(); ctx.translate(fx, fy - 24); ctx.scale(-1, 1); wing(0, 0, 76, 48, -0.55, -flap * 0.7, true); ctx.restore();
-  wing(fx - 4, fy - 26, 104, 62, -0.62, flap, true);
-  wing(fx - 3, fy - 5, 78, 38, 0.42, -flap2, false);
-
-  // flowing hair behind
-  ctx.fillStyle = '#cfe8f5';
-  ctx.beginPath();
-  ctx.moveTo(fx - 17, fy - 62);
-  ctx.bezierCurveTo(fx - 38, fy - 20, fx - 28 + Math.sin(t * 1.6) * 6, fy + 42, fx - 20 + Math.sin(t * 1.3) * 8, fy + 82);
-  ctx.bezierCurveTo(fx - 8, fy + 55, fx - 6, fy + 20, fx - 4, fy - 30);
-  ctx.closePath(); ctx.fill();
-  ctx.fillStyle = '#a9cade';
-  ctx.beginPath();
-  ctx.moveTo(fx + 12, fy - 60);
-  ctx.bezierCurveTo(fx + 30, fy - 18, fx + 24 + Math.sin(t * 1.4 + 2) * 6, fy + 34, fx + 18, fy + 68);
-  ctx.bezierCurveTo(fx + 8, fy + 30, fx + 7, fy - 15, fx + 5, fy - 45);
-  ctx.closePath(); ctx.fill();
-
-  // legs
-  const legSwing = Math.sin(t * 1.15) * 5;
-  ctx.strokeStyle = '#f2d7c8'; ctx.lineWidth = 7; ctx.lineCap = 'round';
-  ctx.beginPath(); ctx.moveTo(fx - 6, fy + 43); ctx.quadraticCurveTo(fx - 10, fy + 76, fx - 14 + legSwing, fy + 101); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(fx + 7, fy + 43); ctx.quadraticCurveTo(fx + 13, fy + 72, fx + 20 - legSwing, fy + 96); ctx.stroke();
-  // ice slippers
-  ctx.fillStyle = '#dff5ff';
-  ctx.beginPath(); ctx.ellipse(fx - 15 + legSwing, fy + 103, 7, 3.5, -0.3, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(fx + 21 - legSwing, fy + 98, 7, 3.5, 0.3, 0, Math.PI * 2); ctx.fill();
-
-  // dress
-  const dress = ctx.createLinearGradient(fx, fy - 38, fx, fy + 52);
-  dress.addColorStop(0, '#eaf9ff');
-  dress.addColorStop(0.35, '#7fc6dd');
-  dress.addColorStop(1, '#2d7f9e');
-  ctx.fillStyle = dress;
-  ctx.beginPath();
-  ctx.moveTo(fx - 13, fy - 36);
-  ctx.quadraticCurveTo(fx, fy - 43, fx + 14, fy - 36);
-  ctx.quadraticCurveTo(fx + 20, fy + 4, fx + 25, fy + 34);
-  // icicle hem
-  const hem = [[25,34],[17,52],[10,36],[3,56],[-4,38],[-11,54],[-18,36],[-25,46]];
-  hem.forEach(p => ctx.lineTo(fx + p[0], fy + p[1]));
-  ctx.quadraticCurveTo(fx - 20, fy + 2, fx - 13, fy - 36);
-  ctx.closePath(); ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,0.65)'; ctx.lineWidth = 1; ctx.stroke();
-  // sash sparkle
-  ctx.fillStyle = 'rgba(255,255,255,0.85)';
-  ctx.beginPath(); ctx.arc(fx + 2, fy - 12 + Math.sin(t * 2) * 1.5, 2.2, 0, Math.PI * 2); ctx.fill();
-
-  // arms
-  const armR = Math.sin(t * 1.1) * 0.12;
-  ctx.strokeStyle = '#f2d7c8'; ctx.lineWidth = 6;
-  ctx.beginPath(); ctx.moveTo(fx + 12, fy - 30); ctx.quadraticCurveTo(fx + 34, fy - 22 + armR * 18, fx + 47, fy - 4 + Math.sin(t * 1.5) * 3); ctx.stroke(); // reaching toward fern
-  ctx.beginPath(); ctx.moveTo(fx - 12, fy - 30); ctx.quadraticCurveTo(fx - 30, fy - 12, fx - 36, fy + 10 + Math.sin(t * 1.2) * 3); ctx.stroke();
-  // frost magic from reaching hand
-  const hx = fx + 47, hy = fy - 4 + Math.sin(t * 1.5) * 3;
-  for (let i = 0; i < 5; i++) {
-    const p = ((t * 0.45 + i / 5) % 1);
-    const px = hx + p * 58 + Math.sin(p * 9 + i) * 5;
-    const py = hy + p * 34 + Math.cos(p * 7 + i) * 4;
-    ctx.fillStyle = `rgba(225,248,255,${(1 - p) * 0.9})`;
-    ctx.beginPath(); ctx.arc(px, py, 2.4 * (1 - p) + 0.6, 0, Math.PI * 2); ctx.fill();
+    motes.forEach(m=>{
+      m.y -= m.v; m.x += Math.sin(t*.8 + m.p)*.22;
+      if (m.y < -6){ m.y = 606; m.x = Math.random()*400; }
+      m.el.setAttribute('cx', m.x + mx*m.s*.35);
+      m.el.setAttribute('cy', m.y);
+    });
+    flakes.forEach(f=>{
+      f.y += f.v; f.x += Math.sin(t*1.4+f.p)*.45 - .12; f.r += f.vr;
+      if (f.y > 610){ f.y = 345+Math.random()*30; f.x = 278+Math.random()*58; }
+      f.el.setAttribute('transform', `translate(${f.x} ${f.y}) rotate(${f.r})`);
+      f.el.setAttribute('opacity', Math.max(.15, .9 - Math.max(0,f.y-480)/160));
+    });
+    requestAnimationFrame(frame);
   }
-  drawCrystal(hx + 4, hy - 4, 6 + Math.sin(t * 3) * 1.5, t * 0.6, 0.8);
-
-  // head — slow turn via shifting features
-  const headTilt = Math.sin(t * 0.45) * 0.07 + (smx - 0.5) * 0.08;
-  ctx.save();
-  ctx.translate(fx, fy - 55);
-  ctx.rotate(headTilt);
-  ctx.fillStyle = '#f7e3d3';
-  ctx.beginPath(); ctx.arc(0, 0, 17, 0, Math.PI * 2); ctx.fill();
-  // ears
-  ctx.beginPath(); ctx.moveTo(-16, -2); ctx.lineTo(-24, -8); ctx.lineTo(-15, 5); ctx.closePath(); ctx.fill();
-  ctx.beginPath(); ctx.moveTo(16, -2); ctx.lineTo(24, -8); ctx.lineTo(15, 5); ctx.closePath(); ctx.fill();
-  // hair cap & fringe
-  ctx.fillStyle = '#e6f3fa';
-  ctx.beginPath(); ctx.arc(0, -4, 18, Math.PI * 0.95, Math.PI * 2.05); ctx.quadraticCurveTo(10, -10, 6, -1); ctx.quadraticCurveTo(0, -7, -7, -1); ctx.quadraticCurveTo(-12, -9, -18, -3); ctx.closePath(); ctx.fill();
-  // ice crown
-  ctx.fillStyle = 'rgba(205,240,255,0.95)'; ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 0.7;
-  [[-11,-17,8],[-4,-21,13],[4,-22,15],[11,-18,9]].forEach(c => {
-    ctx.beginPath(); ctx.moveTo(c[0]-3, c[1]+6); ctx.lineTo(c[0], c[1]-c[2]+6); ctx.lineTo(c[0]+3, c[1]+6); ctx.closePath(); ctx.fill(); ctx.stroke();
-  });
-  // face
-  const fxOff = Math.sin(t * 0.45) * 2.2 + lookX * 0.28;
-  const blink = Math.sin(t * 0.9) > 0.985 ? 0.15 : 1;
-  ctx.fillStyle = '#20344d';
-  ctx.beginPath(); ctx.ellipse(-6 + fxOff, 1, 1.9, 2.4 * blink, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(6 + fxOff, 1, 1.9, 2.4 * blink, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = 'rgba(255,170,175,0.55)';
-  ctx.beginPath(); ctx.ellipse(-9 + fxOff, 6, 3.4, 1.8, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(9 + fxOff, 6, 3.4, 1.8, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = '#a85f5f'; ctx.lineWidth = 1.1;
-  ctx.beginPath(); ctx.arc(1 + fxOff, 6, 3, 0.25, Math.PI - 0.6); ctx.stroke();
-  ctx.restore();
-
-  // breath mist
-  const breathP = (t * 0.28) % 1;
-  ctx.fillStyle = `rgba(235,250,255,${(1 - breathP) * 0.20})`;
-  ctx.beginPath(); ctx.ellipse(fx + 20 + breathP * 30, fy - 48 + breathP * 6, 6 + breathP * 13, 3 + breathP * 5, 0, 0, Math.PI * 2); ctx.fill();
-
-  // falling snow in virtual space
-  snow.forEach(s => {
-    s.y += s.s * 0.0016;
-    s.x += Math.sin(t * s.drift + s.ph) * 0.00035;
-    if (s.y > 1.02) { s.y = -0.02; s.x = Math.random(); }
-    ctx.fillStyle = 'rgba(255,255,255,0.82)';
-    ctx.beginPath(); ctx.arc(s.x * vw, s.y * vh, s.r, 0, Math.PI * 2); ctx.fill();
-  });
-
-  // foreground crystals bottom-left
-  drawCrystal(38, 556, 13, t * 0.05, 0.55);
-  drawCrystal(66, 572, 8, -t * 0.04, 0.45);
-  drawCrystal(332, 560, 9, t * 0.06, 0.4);
-
-  // vignette
-  const vig = ctx.createRadialGradient(vw/2, vh/2, vh*0.28, vw/2, vh/2, vh*0.78);
-  vig.addColorStop(0, 'rgba(0,0,0,0)');
-  vig.addColorStop(1, 'rgba(2,6,18,0.48)');
-  ctx.fillStyle = vig; ctx.fillRect(0, 0, vw, vh);
-
-  ctx.restore();
   requestAnimationFrame(frame);
-}
-requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>

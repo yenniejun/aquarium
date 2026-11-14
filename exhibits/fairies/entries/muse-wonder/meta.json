@@ -6,14 +6,14 @@
   "host": "meta",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of First Frost",
-  "statement": "Cold arrives gently; endings reveal the beauty hidden in letting go.",
+  "title": "The Fairy of Rust",
+  "statement": "What decays remembers its shape; let go before you are held fast.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenRouter (served by Meta)",
     "params": {
-      "max_tokens": 64000,
-      "promptVersion": 1,
+      "max_tokens": 100000,
+      "promptVersion": 2,
       "host": "meta",
       "reasoning": "medium"
     },

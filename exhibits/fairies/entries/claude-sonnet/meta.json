@@ -5,13 +5,13 @@
   "openWeights": false,
   "status": "final",
   "title": "The Fairy of Unsent Letters",
-  "statement": "What was felt but never mailed still flutters, seeking a reader.",
+  "statement": "What was never said still flies; it finds you at night.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 1
+      "promptVersion": 2
     },
     "attempts": 1,
     "edits": "none"

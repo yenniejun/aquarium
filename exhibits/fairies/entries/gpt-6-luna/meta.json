@@ -4,14 +4,14 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of First Light",
-  "statement": "Hope arrives softly; notice what has begun to glow.",
+  "title": "The Fairy of Unsent Letters",
+  "statement": "What remains unspoken still finds wings; release the message, not its ache.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 1
+      "promptVersion": 2
     },
     "attempts": 1,
     "edits": "none"

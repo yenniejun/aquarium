@@ -4,14 +4,14 @@
   "modelId": "gpt-6.1-sol",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of Mending",
-  "statement": "What was broken can become a map of light.",
+  "title": "The Fairy of Lost Keys",
+  "statement": "What is missing still remembers the door it opens.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 1
+      "promptVersion": 2
     },
     "attempts": 1,
     "edits": "none"

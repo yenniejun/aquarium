@@ -6,14 +6,14 @@
   "host": "alibaba",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of First Frost",
-  "statement": "She touches the world gently, and it learns to sleep.",
+  "title": "The Fairy of Dead Channels",
+  "statement": "What seems like noise is a voice waiting to be found.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenRouter (served by Alibaba)",
     "params": {
-      "max_tokens": 64000,
-      "promptVersion": 1,
+      "max_tokens": 100000,
+      "promptVersion": 2,
       "host": "alibaba",
       "reasoning": "medium"
     },
