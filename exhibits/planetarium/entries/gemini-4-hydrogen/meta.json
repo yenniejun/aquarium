@@ -5,13 +5,13 @@
   "openWeights": false,
   "status": "final",
   "title": "The Lantern Moth",
-  "statement": "Born from an ember that drifted past an evening hearth, she gathers stray starlight inside the twin lanterns of her wings and beats them gently through the dark so the quietest corners of the sky never grow cold.",
+  "statement": "Born from a stray spark of the first hearthfire, she climbs the midnight sky toward an unreachable golden star. Whenever she nears its warmth, her gossamer wings catch the glow and scatter new constellations into the dark.",
   "generation": {
     "date": "2026-11-14",
     "via": "Gemini API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 3
     },
     "attempts": 1,
     "edits": "none"

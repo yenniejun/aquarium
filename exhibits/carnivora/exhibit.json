@@ -1,5 +1,5 @@
 {
-  "title": "(c)A(rnivor)I(a)",
+  "title": "(c)A(rn)I(vora)",
   "intro": "Each AI model is told to grow one carnivorous plant under a glass bell jar.",
   "skin": "cabinet",
   "variant": "belljar",
@@ -7,7 +7,7 @@
   "mode": "blind",
   "order": 2,
   "pieceLabel": "Jar",
-  "promptVersion": 3,
+  "promptVersion": 4,
   "lineup": [
     "claude-haiku",
     "gpt-6-luna",

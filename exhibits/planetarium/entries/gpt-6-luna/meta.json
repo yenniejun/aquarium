@@ -4,14 +4,14 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "The Ember Moth",
-  "statement": "A moth once carried a borrowed ember through the dark, guiding lost stars back to their places. Now its wings appear only now and then, to remind wanderers that even a small light can help someone find their way.",
+  "title": "The Hushwing",
+  "statement": "The Hushwing is a lantern-moth said to gather the questions whispered into the dark and carry them somewhere they can grow wings. Once each night, its starry outline wakes, glimmers, and slips quietly back into the sky.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 3
     },
     "attempts": 1,
     "edits": "none"

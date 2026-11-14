@@ -1,0 +1,19 @@
+{
+  "artist": "Claude Haiku 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-haiku-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Lantern Sundew",
+  "statement": "A sundew whose glands shine like tiny lamps in the dusk, drawing in gnats and the occasional firefly with sticky dew. Once a leaf folds around its catch, it spends about ten seconds digesting before it opens again, ready for the next visitor.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 4
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

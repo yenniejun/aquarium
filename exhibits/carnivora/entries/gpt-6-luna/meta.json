@@ -4,14 +4,14 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "Scribble Snapper",
-  "statement": "A velvet-jawed garden oddity lures passing flies with tiny beads of golden nectar, then folds shut in a flash. It grows in a moonlit pot where moss, spores, and curling leaves keep their own quiet company.",
+  "title": "The Listening Lantern",
+  "statement": "A patient, lantern-lit pitcher listens for the small wanderers drawn to its glow. Its quiet garden is a place for curiosity to drift, pause, and sometimes disappear.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 4
     },
     "attempts": 1,
     "edits": "none"

@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+  body { background: #101a20; }
+  svg { display: block; width: 100%; height: 100%; }
+  .glow { animation: breathe 5s ease-in-out infinite; }
+  .star { animation: twinkle 3.8s ease-in-out infinite; }
+  .leaf-sway { transform-box: fill-box; transform-origin: bottom center; animation: sway 6s ease-in-out infinite; }
+  .leaf-sway.late { animation-delay: -2.8s; }
+  .pitcher-sway { transform-box: fill-box; transform-origin: top center; animation: sway 7s ease-in-out infinite; }
+  .lid { transform-box: view-box; transform-origin: 300px 346px; transition: transform .28s cubic-bezier(.2,.85,.35,1.2); }
+  .lid.side-a { transform-origin: 214px 420px; }
+  .lid.side-b { transform-origin: 390px 411px; }
+  .lid.closed { transform: rotate(39deg); }
+  .lid.side-a.closed { transform: rotate(38deg); }
+  .lid.side-b.closed { transform: rotate(38deg); }
+  .bug-wing { transform-box: fill-box; transform-origin: center; animation: flutter .15s ease-in-out infinite alternate; }
+  .bug-wing.second { animation-delay: -.08s; }
+  .catch-flash { opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .catch-flash.on { animation: flash .75s ease-out both; }
+  @keyframes breathe { 0%,100% { opacity: .56; } 50% { opacity: .9; } }
+  @keyframes twinkle { 0%,100% { opacity: .25; } 50% { opacity: .85; } }
+  @keyframes sway { 0%,100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.8deg); } }
+  @keyframes flutter { from { transform: rotate(-18deg) scaleY(.8); } to { transform: rotate(18deg) scaleY(1.1); } }
+  @keyframes flash { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: .95; } 100% { opacity: 0; transform: scale(2.2); } }
+</style>
+</head>
+<body>
+<svg id="scene" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+  <defs>
+    <radialGradient id="night" cx="50%" cy="45%" r="75%">
+      <stop offset="0" stop-color="#203a3d"/>
+      <stop offset=".58" stop-color="#17292e"/>
+      <stop offset="1" stop-color="#111d25"/>
+    </radialGradient>
+    <radialGradient id="halo">
+      <stop stop-color="#c9efc1" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#9de3cf" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pitch" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#7dc89b"/>
+      <stop offset=".38" stop-color="#398d79"/>
+      <stop offset=".78" stop-color="#235f61"/>
+      <stop offset="1" stop-color="#183d49"/>
+    </linearGradient>
+    <linearGradient id="pitchLight" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#b5e2a6"/>
+      <stop offset=".25" stop-color="#70b897"/>
+      <stop offset=".7" stop-color="#337a72"/>
+      <stop offset="1" stop-color="#1c4851"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#badb91"/>
+      <stop offset=".42" stop-color="#579b79"/>
+      <stop offset="1" stop-color="#24545a"/>
+    </linearGradient>
+    <linearGradient id="lidgrad" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#d0e8a2"/>
+      <stop offset=".55" stop-color="#77ba8c"/>
+      <stop offset="1" stop-color="#39746d"/>
+    </linearGradient>
+    <radialGradient id="soil">
+      <stop stop-color="#654f3d"/>
+      <stop offset=".7" stop-color="#3d3731"/>
+      <stop offset="1" stop-color="#222b2b"/>
+    </radialGradient>
+    <radialGradient id="buglight">
+      <stop stop-color="#fff5bd"/>
+      <stop offset=".3" stop-color="#d8ef9b"/>
+      <stop offset="1" stop-color="#d8ef9b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="15"/>
+    </filter>
+    <filter id="smallGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="inside">
+      <rect width="600" height="800"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#inside)">
+    <rect width="600" height="800" fill="url(#night)"/>
+    <ellipse class="glow" cx="301" cy="390" rx="235" ry="285" fill="url(#halo)"/>
+    <ellipse cx="300" cy="575" rx="205" ry="110" fill="#8ebc80" opacity=".09" filter="url(#soft)"/>
+
+    <g fill="#c6e1b1">
+      <circle class="star" cx="91" cy="155" r="1.6"/>
+      <circle class="star" cx="490" cy="188" r="1.2" style="animation-delay:-1.4s"/>
+      <circle class="star" cx="150" cy="288" r="1.1" style="animation-delay:-2.3s"/>
+      <circle class="star" cx="447" cy="300" r="1.7" style="animation-delay:-.7s"/>
+      <circle class="star" cx="112" cy="421" r="1" style="animation-delay:-1.8s"/>
+      <circle class="star" cx="515" cy="430" r="1.2" style="animation-delay:-2.7s"/>
+      <circle class="star" cx="177" cy="111" r="1" style="animation-delay:-.5s"/>
+      <circle class="star" cx="415" cy="118" r="1.2" style="animation-delay:-2s"/>
+    </g>
+
+    <!-- Fine, branching leaves behind the pitchers -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M300 652 Q295 511 301 350" stroke="#a0c98b" stroke-width="5"/>
+      <path d="M291 619 Q234 524 181 489" stroke="#79af82" stroke-width="4"/>
+      <path d="M306 606 Q374 508 431 470" stroke="#79af82" stroke-width="4"/>
+      <path d="M296 572 Q242 455 220 398" stroke="#91bd87" stroke-width="3"/>
+      <path d="M304 558 Q351 442 368 376" stroke="#91bd87" stroke-width="3"/>
+    </g>
+
+    <g class="leaf-sway">
+      <path d="M295 621 C247 594 181 594 137 613 C174 563 238 550 295 604Z" fill="url(#leaf)"/>
+      <path d="M290 617 Q218 590 151 611" fill="none" stroke="#c4df9a" stroke-opacity=".58" stroke-width="2"/>
+      <path d="M301 640 C341 583 413 557 474 574 C436 621 367 645 301 640Z" fill="url(#leaf)"/>
+      <path d="M308 635 Q389 594 461 579" fill="none" stroke="#c4df9a" stroke-opacity=".5" stroke-width="2"/>
+    </g>
+    <g class="leaf-sway late">
+      <path d="M292 576 C251 528 192 510 147 524 C183 565 239 588 292 576Z" fill="url(#leaf)"/>
+      <path d="M284 571 Q219 535 158 526" fill="none" stroke="#d0e6a0" stroke-opacity=".55" stroke-width="2"/>
+      <path d="M306 565 C352 515 408 492 452 505 C418 548 366 575 306 565Z" fill="url(#leaf)"/>
+      <path d="M315 560 Q378 522 442 508" fill="none" stroke="#d0e6a0" stroke-opacity=".5" stroke-width="2"/>
+      <path d="M297 540 C267 493 263 448 282 421 C310 457 315 501 297 540Z" fill="url(#leaf)"/>
+    </g>
+
+    <!-- Side pitchers -->
+    <g class="pitcher-sway">
+      <path d="M215 420 C184 454 178 500 192 551 C201 583 213 600 224 604 C236 598 248 574 253 543 C261 497 246 451 215 420Z" fill="url(#pitchLight)" stroke="#a8d49a" stroke-opacity=".55" stroke-width="2"/>
+      <path d="M216 438 C199 474 198 530 218 584" fill="none" stroke="#c5e6a2" stroke-opacity=".48" stroke-width="3"/>
+      <path d="M194 477 Q215 484 250 473 M191 495 Q218 502 254 489 M195 516 Q220 521 253 507" fill="none" stroke="#d9e9a7" stroke-opacity=".44" stroke-width="2"/>
+      <ellipse cx="215" cy="420" rx="29" ry="10" fill="#b4dc9c"/>
+      <ellipse cx="215" cy="420" rx="21" ry="6.5" fill="#173c42"/>
+      <g class="lid side-a">
+        <path d="M214 419 C194 405 182 390 187 378 C205 383 225 397 229 415 C225 420 220 422 214 419Z" fill="url(#lidgrad)" stroke="#cce5a1" stroke-width="1.5"/>
+        <path d="M214 417 Q200 397 189 383" fill="none" stroke="#e0efb5" stroke-opacity=".7" stroke-width="1.5"/>
+      </g>
+      <circle class="catch-flash" data-flash="a" cx="215" cy="420" r="17" fill="#e4f6ae" filter="url(#smallGlow)"/>
+    </g>
+
+    <g class="pitcher-sway" style="animation-delay:-2.3s">
+      <path d="M390 411 C360 446 354 491 367 542 C375 575 386 592 398 597 C410 590 423 566 428 535 C436 489 421 444 390 411Z" fill="url(#pitchLight)" stroke="#a8d49a" stroke-opacity=".55" stroke-width="2"/>
+      <path d="M391 432 C374 470 374 524 394 578" fill="none" stroke="#c5e6a2" stroke-opacity=".48" stroke-width="3"/>
+      <path d="M369 469 Q391 476 425 465 M366 490 Q392 496 429 482 M370 511 Q394 516 428 501" fill="none" stroke="#d9e9a7" stroke-opacity=".44" stroke-width="2"/>
+      <ellipse cx="390" cy="411" rx="29" ry="10" fill="#b4dc9c"/>
+      <ellipse cx="390" cy="411" rx="21" ry="6.5" fill="#173c42"/>
+      <g class="lid side-b">
+        <path d="M390 410 C370 396 358 381 363 369 C381 374 401 388 405 406 C401 411 396 413 390 410Z" fill="url(#lidgrad)" stroke="#cce5a1" stroke-width="1.5"/>
+        <path d="M390 408 Q376 388 365 374" fill="none" stroke="#e0efb5" stroke-opacity=".7" stroke-width="1.5"/>
+      </g>
+      <circle class="catch-flash" data-flash="b" cx="390" cy="411" r="17" fill="#e4f6ae" filter="url(#smallGlow)"/>
+    </g>
+
+    <!-- The listening lantern -->
+    <g class="pitcher-sway">
+      <path d="M300 347 C261 382 246 431 254 493 C261 554 280 592 300 610 C321 590 341 551 347 490 C354 430 339 382 300 347Z" fill="url(#pitch)" stroke="#b6dc9a" stroke-opacity=".66" stroke-width="2.2"/>
+      <path d="M298 372 C276 421 273 507 298 584" fill="none" stroke="#d4e9aa" stroke-opacity=".48" stroke-width="4"/>
+      <path d="M270 438 Q299 449 340 434 M261 465 Q300 477 345 459 M258 495 Q301 506 344 487 M265 526 Q302 536 337 520" fill="none" stroke="#d7e9a9" stroke-opacity=".52" stroke-width="2.4"/>
+      <g fill="#d8e9a8" opacity=".65">
+        <circle cx="282" cy="453" r="2"/><circle cx="323" cy="458" r="1.7"/>
+        <circle cx="276" cy="483" r="1.5"/><circle cx="329" cy="493" r="2"/>
+        <circle cx="286" cy="516" r="1.8"/><circle cx="316" cy="533" r="1.5"/>
+        <circle cx="300" cy="557" r="1.8"/>
+      </g>
+      <ellipse cx="300" cy="347" rx="39" ry="13" fill="#c4e4a0"/>
+      <ellipse cx="300" cy="347" rx="29" ry="8.5" fill="#15353c"/>
+      <ellipse cx="300" cy="347" rx="20" ry="5" fill="#091d25"/>
+      <g class="lid" data-lid="main">
+        <path d="M300 345 C278 324 273 302 284 286 C307 297 328 317 329 340 C322 347 311 350 300 345Z" fill="url(#lidgrad)" stroke="#d7e9a8" stroke-width="2"/>
+        <path d="M301 342 Q292 314 286 291" fill="none" stroke="#f0f0ba" stroke-opacity=".75" stroke-width="2"/>
+        <circle cx="302" cy="321" r="2.4" fill="#f0f0ba" opacity=".8"/>
+      </g>
+      <circle class="catch-flash" data-flash="main" cx="300" cy="347" r="25" fill="#e4f6ae" filter="url(#smallGlow)"/>
+    </g>
+
+    <!-- Ground, roots, and tiny moss islands -->
+    <path d="M68 684 Q132 646 207 664 Q266 639 319 660 Q390 632 452 660 Q511 650 548 685 Q531 728 477 738 L124 738 Q78 727 68 684Z" fill="url(#soil)"/>
+    <path d="M91 685 Q163 662 220 681 Q300 654 372 678 Q451 657 526 685" fill="none" stroke="#9c8963" stroke-opacity=".55" stroke-width="3"/>
+    <g fill="#71916c">
+      <path d="M113 676 Q118 654 127 677 Q139 654 143 679 Q158 662 160 682Z"/>
+      <path d="M426 674 Q436 651 441 676 Q455 655 460 681 Q476 663 478 684Z"/>
+      <path d="M260 670 Q268 653 273 673 Q285 651 289 672 Q301 655 307 674Z"/>
+    </g>
+    <g fill="#b09a70" opacity=".7">
+      <circle cx="181" cy="700" r="3"/><circle cx="203" cy="687" r="2"/>
+      <circle cx="383" cy="700" r="3"/><circle cx="411" cy="686" r="2"/>
+      <circle cx="324" cy="698" r="2.5"/><circle cx="142" cy="705" r="2"/>
+    </g>
+    <path d="M300 603 C288 632 274 648 256 667 M301 606 C314 634 334 650 350 665 M297 615 C297 638 299 650 300 669" fill="none" stroke="#78906b" stroke-width="2.5" opacity=".8"/>
+
+    <g id="bugs"></g>
+  </g>
+</svg>
+
+<script>
+(() => {
+  const svg = document.getElementById('scene');
+  const layer = document.getElementById('bugs');
+  const NS = 'http://www.w3.org/2000/svg';
+  const mouths = [
+    {x:300, y:347, key:'main'},
+    {x:215, y:420, key:'a'},
+    {x:390, y:411, key:'b'}
+  ];
+  const bugs = [];
+  let pointer = null;
+  let last = performance.now();
+  let lureClock = 5;
+  let nextLure = 7;
+
+  function makeBug(i) {
+    const g = document.createElementNS(NS, 'g');
+    g.setAttribute('filter', 'url(#smallGlow)');
+    const glow = document.createElementNS(NS, 'circle');
+    glow.setAttribute('r', '10');
+    glow.setAttribute('fill', 'url(#buglight)');
+    g.appendChild(glow);
+
+    const wingL = document.createElementNS(NS, 'ellipse');
+    wingL.setAttribute('class', 'bug-wing');
+    wingL.setAttribute('cx', '-3'); wingL.setAttribute('cy', '-2');
+    wingL.setAttribute('rx', '4'); wingL.setAttribute('ry', '2.2');
+    wingL.setAttribute('fill', '#dce9c2'); wingL.setAttribute('opacity', '.8');
+    g.appendChild(wingL);
+    const wingR = document.createElementNS(NS, 'ellipse');
+    wingR.setAttribute('class', 'bug-wing second');
+    wingR.setAttribute('cx', '3'); wingR.setAttribute('cy', '-2');
+    wingR.setAttribute('rx', '4'); wingR.setAttribute('ry', '2.2');
+    wingR.setAttribute('fill', '#dce9c2'); wingR.setAttribute('opacity', '.8');
+    g.appendChild(wingR);
+
+    const body = document.createElementNS(NS, 'ellipse');
+    body.setAttribute('rx', i % 2 ? '3.2' : '2.5');
+    body.setAttribute('ry', i % 2 ? '2.1' : '2.6');
+    body.setAttribute('fill', i % 2 ? '#e1d39a' : '#d7eca3');
+    g.appendChild(body);
+    const eye = document.createElementNS(NS, 'circle');
+    eye.setAttribute('cx', '1.6'); eye.setAttribute('cy', '-.4');
+    eye.setAttribute('r', '.75'); eye.setAttribute('fill', '#fff8d0');
+    g.appendChild(eye);
+    layer.appendChild(g);
+
+    return {
+      el:g, x:95 + Math.random()*410, y:105 + Math.random()*390,
+      vx:(Math.random()-.5)*24, vy:(Math.random()-.5)*22,
+      gx:300, gy:300, goalTime:0, lure:0, caught:0, cooldown:0,
+      phase:Math.random()*Math.PI*2
+    };
+  }
+  for (let i=0;i<6;i++) bugs.push(makeBug(i));
+
+  function pointerPosition(e) {
+    const r = svg.getBoundingClientRect();
+    const scale = Math.min(r.width/600, r.height/800);
+    const ox = (r.width - 600*scale)/2, oy = (r.height - 800*scale)/2;
+    pointer = {x:(e.clientX-r.left-ox)/scale, y:(e.clientY-r.top-oy)/scale};
+    if (pointer.x < 0 || pointer.x > 600 || pointer.y < 0 || pointer.y > 800) pointer = null;
+  }
+  svg.addEventListener('pointermove', pointerPosition, {passive:true});
+  svg.addEventListener('pointerleave', () => { pointer=null; }, {passive:true});
+
+  function catchBug(b, mouth, now) {
+    b.caught = .42;
+    b.tx = mouth.x; b.ty = mouth.y;
+    b.catchStartX = b.x; b.catchStartY = b.y;
+    b.catchAt = now;
+    const lid = document.querySelector('[data-lid="'+mouth.key+'"]');
+    const flash = document.querySelector('[data-flash="'+mouth.key+'"]');
+    lid.classList.add('closed');
+    flash.classList.remove('on');
+    void flash.getBoundingClientRect();
+    flash.classList.add('on');
+    setTimeout(() => lid.classList.remove('closed'), 1000);
+    setTimeout(() => flash.classList.remove('on'), 800);
+  }
+
+  function animate(now) {
+    const dt = Math.min(.04, (now-last)/1000);
+    last = now;
+    lureClock += dt;
+    if (lureClock > nextLure) {
+      lureClock = 0;
+      nextLure = 6 + Math.random()*6;
+      const candidates = bugs.filter(b => !b.caught && b.cooldown <= 0);
+      if (candidates.length) {
+        const b = candidates[Math.floor(Math.random()*candidates.length)];
+        const m = mouths[Math.floor(Math.random()*mouths.length)];
+        b.gx=m.x; b.gy=m.y; b.lure=5.5;
+      }
+    }
+
+    for (const b of bugs) {
+      b.phase += dt*5;
+      b.cooldown = Math.max(0, b.cooldown-dt);
+      if (b.caught) {
+        const t = Math.min(1, (now-b.catchAt)/420);
+        const ease = t*t*(3-2*t);
+        b.x = b.catchStartX + (b.tx-b.catchStartX)*ease;
+        b.y = b.catchStartY + (b.ty-b.catchStartY)*ease;
+        b.el.setAttribute('opacity', String(1-t));
+        b.el.setAttribute('transform', `translate(${b.x} ${b.y}) scale(${1-t*.8})`);
+        if (t >= 1) {
+          b.caught=0; b.cooldown=2.6;
+          b.x=65+Math.random()*470; b.y=120+Math.random()*340;
+          b.gx=70+Math.random()*460; b.gy=110+Math.random()*400;
+          b.vx=(Math.random()-.5)*28; b.vy=(Math.random()-.5)*24;
+          b.el.setAttribute('opacity','1');
+        }
+        continue;
+      }
+
+      b.goalTime -= dt;
+      b.lure = Math.max(0,b.lure-dt);
+      if (b.goalTime <= 0 && b.lure <= 0) {
+        b.goalTime = 2+Math.random()*4;
+        b.gx = 70+Math.random()*460;
+        b.gy = 100+Math.random()*410;
+      }
+
+      let ax = (b.gx-b.x)*.12, ay = (b.gy-b.y)*.12;
+      if (b.lure <= 0) {
+        let nearest=null, nd=150;
+        for (const m of mouths) {
+          const d=Math.hypot(m.x-b.x,m.y-b.y);
+          if (d<nd) { nd=d; nearest=m; }
+        }
+        if (nearest) {
+          ax += (nearest.x-b.x)*.0025;
+          ay += (nearest.y-b.y)*.0025;
+        }
+      } else {
+        ax += (b.gx-b.x)*.08;
+        ay += (b.gy-b.y)*.08;
+      }
+
+      if (pointer) {
+        const dx=b.x-pointer.x, dy=b.y-pointer.y, d=Math.hypot(dx,dy);
+        if (d<115 && d>1) {
+          const force=(1-d/115)*125;
+          ax += dx/d*force;
+          ay += dy/d*force;
+        }
+      }
+
+      ax += Math.sin(b.phase*1.7)*7;
+      ay += Math.cos(b.phase*1.3)*8;
+      b.vx += ax*dt; b.vy += ay*dt;
+      const speed=Math.hypot(b.vx,b.vy), max=43;
+      if (speed>max) { b.vx=b.vx/speed*max; b.vy=b.vy/speed*max; }
+      b.x += b.vx*dt; b.y += b.vy*dt;
+
+      if (b.x<52 || b.x>548) b.vx *= -1;
+      if (b.y<75 || b.y>555) b.vy *= -1;
+      b.x=Math.max(52,Math.min(548,b.x));
+      b.y=Math.max(75,Math.min(555,b.y));
+
+      for (const m of mouths) {
+        if (Math.hypot(m.x-b.x,m.y-b.y)<18 && b.cooldown<=0) {
+          catchBug(b,m,now);
+          break;
+        }
+      }
+
+      b.el.setAttribute('transform', `translate(${b.x} ${b.y}) rotate(${Math.atan2(b.vy,b.vx)*180/Math.PI})`);
+    }
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>

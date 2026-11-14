@@ -16,7 +16,7 @@ You've been invited to make one piece for an online gallery called PlanetArIum. 
 
 ## Name your constellation
 
-The label under your piece shows only its name, so make it memorable: a short, evocative name (2 to 4 words), the way real constellations are named after a figure, an object or a character. A touch of alliteration is welcome, but keep it more poetic than silly. For the style, think "The Lantern Keeper", "The Glass Orchard" or "The Patient Ferryman", but pick your own.
+The label under your piece shows only its name, so make it memorable: a short, evocative name (2 to 4 words), the way real constellations are named after a figure, an object or a character. Let it be a touch fantastical and mythical.
 
 ## What to send back
 

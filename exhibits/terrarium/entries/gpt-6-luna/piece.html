@@ -2,262 +2,250 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   * { box-sizing: border-box; }
-  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: transparent; }
-  svg { display: block; width: 100vw; height: 100vh; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  body { position: fixed; inset: 0; }
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
-<svg id="garden" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet" aria-label="A luminous plant growing in a terrarium">
+<svg id="scene" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
   <defs>
-    <radialGradient id="air">
-      <stop offset="0" stop-color="#17494b" stop-opacity=".42"/>
-      <stop offset=".55" stop-color="#133840" stop-opacity=".18"/>
-      <stop offset="1" stop-color="#071c2b" stop-opacity="0"/>
+    <clipPath id="inside">
+      <path d="M300 72 L548 208 L548 766 L52 766 L52 208 Z"/>
+    </clipPath>
+    <radialGradient id="air" cx="50%" cy="42%" r="68%">
+      <stop offset="0" stop-color="#304a62"/>
+      <stop offset="1" stop-color="#101b31"/>
+    </radialGradient>
+    <radialGradient id="dayAir" cx="50%" cy="37%" r="75%">
+      <stop offset="0" stop-color="#ffdfa0"/>
+      <stop offset=".55" stop-color="#9cc5bd"/>
+      <stop offset="1" stop-color="#527c89"/>
     </radialGradient>
     <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0">
-      <stop stop-color="#83f2c5"/>
-      <stop offset=".48" stop-color="#44b99d"/>
-      <stop offset="1" stop-color="#c1ef9c"/>
+      <stop stop-color="#668d79"/>
+      <stop offset=".48" stop-color="#b4d49c"/>
+      <stop offset="1" stop-color="#557c77"/>
     </linearGradient>
     <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#a9ffe0" stop-opacity=".94"/>
-      <stop offset=".38" stop-color="#57d8b8" stop-opacity=".82"/>
-      <stop offset="1" stop-color="#6ca8d3" stop-opacity=".82"/>
+      <stop stop-color="#c7edbb" stop-opacity=".76"/>
+      <stop offset=".48" stop-color="#78c8b6" stop-opacity=".54"/>
+      <stop offset="1" stop-color="#4d8b91" stop-opacity=".42"/>
     </linearGradient>
-    <linearGradient id="petal" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#fff4b0"/>
-      <stop offset=".42" stop-color="#f9bd74"/>
-      <stop offset="1" stop-color="#ed78a6"/>
+    <linearGradient id="petal" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fff8c7"/>
+      <stop offset=".38" stop-color="#f8d980"/>
+      <stop offset=".78" stop-color="#e9a6b4"/>
+      <stop offset="1" stop-color="#8bd9d1"/>
     </linearGradient>
-    <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#29483f"/>
-      <stop offset="1" stop-color="#102a32"/>
-    </linearGradient>
-    <radialGradient id="seed">
-      <stop stop-color="#ffe9a1"/>
-      <stop offset=".65" stop-color="#e9a66d"/>
-      <stop offset="1" stop-color="#995e66"/>
+    <radialGradient id="heart">
+      <stop stop-color="#fffde3"/>
+      <stop offset=".42" stop-color="#ffd66f"/>
+      <stop offset="1" stop-color="#ec9b60"/>
     </radialGradient>
+    <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#685b59"/>
+      <stop offset="1" stop-color="#262b39"/>
+    </linearGradient>
     <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feGaussianBlur stdDeviation="12" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="tinyGlow" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+    <filter id="smallGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
-  <ellipse cx="300" cy="430" rx="270" ry="365" fill="url(#air)"/>
-  <g id="atmosphere"></g>
+  <g clip-path="url(#inside)">
+    <rect x="40" y="65" width="520" height="710" fill="url(#air)" id="airFill"/>
+    <rect x="40" y="65" width="520" height="710" fill="url(#dayAir)" id="dayWash" opacity="0"/>
+    <ellipse id="sunlight" cx="300" cy="180" rx="245" ry="220" fill="#ffe8ae" opacity="0" filter="url(#softGlow)"/>
 
-  <g opacity=".36" fill="none" stroke="#8ee6c3">
-    <path d="M108 620 Q300 603 492 620" stroke-width="1"/>
-    <path d="M142 630 Q300 616 458 630" stroke-width=".7" opacity=".55"/>
-  </g>
-  <path d="M48 643 Q102 625 159 638 Q226 647 300 635 Q379 625 447 640 Q500 626 552 644 L552 715 L48 715Z" fill="url(#soil)"/>
-  <path d="M48 643 Q102 625 159 638 Q226 647 300 635 Q379 625 447 640 Q500 626 552 644" fill="none" stroke="#a6d98e" stroke-opacity=".72" stroke-width="2"/>
-  <g id="soilLights" fill="#b8e994" filter="url(#tinyGlow)"></g>
-  <g id="roots" fill="none" stroke="#9ce5af" stroke-linecap="round" opacity=".75"></g>
-
-  <g id="plant">
-    <g id="stemGroup">
-      <path id="mainStem" d="M300 644 C271 573 321 523 294 465 C275 421 306 378 300 337" fill="none" stroke="url(#stem)" stroke-width="6" stroke-linecap="round" filter="url(#tinyGlow)"/>
-      <g id="branches"></g>
+    <g opacity=".3" fill="#d9e6d8">
+      <circle cx="149" cy="310" r="1.4"/><circle cx="435" cy="282" r="1.2"/>
+      <circle cx="190" cy="448" r="1.1"/><circle cx="407" cy="474" r="1.5"/>
+      <circle cx="128" cy="540" r="1"/><circle cx="462" cy="390" r="1"/>
     </g>
-    <g id="flower" opacity="0">
-      <circle r="82" fill="#ffc77d" opacity=".1" filter="url(#softGlow)"/>
-      <g id="orbit" fill="none" stroke="#d8f6c6" stroke-opacity=".72">
-        <ellipse rx="76" ry="30" stroke-width="1.3"/>
-        <ellipse rx="66" ry="24" stroke-width=".8" transform="rotate(62)"/>
+
+    <path d="M52 682 Q120 661 180 680 T305 677 T430 677 T548 680 L548 770 L52 770Z" fill="url(#soil)"/>
+    <path d="M52 682 Q120 661 180 680 T305 677 T430 677 T548 680" fill="none" stroke="#b1a184" stroke-opacity=".58" stroke-width="2"/>
+    <g fill="#d4bd91" opacity=".55">
+      <ellipse cx="113" cy="704" rx="2.2" ry="1.2"/><ellipse cx="176" cy="690" rx="1.5" ry="1"/>
+      <ellipse cx="420" cy="698" rx="2" ry="1.2"/><ellipse cx="483" cy="686" rx="1.4" ry="1"/>
+      <ellipse cx="372" cy="724" rx="2.5" ry="1.2"/><ellipse cx="221" cy="730" rx="1.8" ry="1"/>
+    </g>
+
+    <g id="plant">
+      <path id="mainStem" d="M300 680 C278 615 321 555 300 497 C281 450 315 408 300 361"
+            fill="none" stroke="url(#stem)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M300 672 Q285 690 267 696 M302 672 Q321 689 338 696 M298 674 Q297 694 296 704"
+            fill="none" stroke="#8caa83" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+
+      <g class="sprout" data-at=".12" data-x="290" data-y="604">
+        <path d="M0 0 C-26 -31 -58 -52 -93 -51 C-76 -22 -40 1 0 0Z" fill="url(#leaf)" stroke="#c6e4bf" stroke-opacity=".8" stroke-width="1.6"/>
+        <path d="M0 0 C25 -38 57 -63 87 -62 C74 -30 38 -5 0 0Z" fill="url(#leaf)" stroke="#c6e4bf" stroke-opacity=".8" stroke-width="1.6"/>
+        <path d="M0 0 Q-45 -28 -83 -48 M0 0 Q42 -36 78 -58" fill="none" stroke="#e1edbd" stroke-opacity=".72" stroke-width="1.2"/>
+        <path d="M-49 -27 l-13 -11 M-33 -17 l-9 -12 M44 -26 l13 -14 M29 -16 l9 -12" fill="none" stroke="#e1edbd" stroke-opacity=".48"/>
       </g>
-      <g id="petals" filter="url(#tinyGlow)"></g>
-      <circle r="17" fill="#ffe79a" filter="url(#softGlow)"/>
-      <circle r="7" fill="#fff9d2"/>
-      <circle id="satellite" cx="76" cy="0" r="5" fill="#b8f6e0" filter="url(#tinyGlow)"/>
+
+      <g class="sprout" data-at=".31" data-x="307" data-y="535">
+        <path d="M0 0 C-25 -32 -59 -46 -89 -40 C-69 -13 -34 5 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.6"/>
+        <path d="M0 0 C29 -35 61 -54 91 -48 C69 -17 35 1 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.6"/>
+        <path d="M0 0 Q-46 -26 -81 -38 M0 0 Q46 -31 82 -45" fill="none" stroke="#e1edbd" stroke-opacity=".72" stroke-width="1.2"/>
+        <path d="M-48 -22 l-12 -12 M-29 -12 l-10 -12 M45 -25 l13 -12 M29 -15 l10 -12" fill="none" stroke="#e1edbd" stroke-opacity=".5"/>
+      </g>
+
+      <g class="sprout" data-at=".49" data-x="294" data-y="469">
+        <path d="M0 0 C-23 -30 -49 -46 -77 -48 C-63 -19 -33 1 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.5"/>
+        <path d="M0 0 C24 -34 51 -54 79 -53 C63 -23 34 -2 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.5"/>
+        <path d="M0 0 Q-42 -28 -71 -45 M0 0 Q43 -34 72 -49" fill="none" stroke="#e1edbd" stroke-opacity=".7" stroke-width="1.2"/>
+      </g>
+
+      <g class="sprout" data-at=".65" data-x="305" data-y="410">
+        <path d="M0 0 C-19 -27 -42 -40 -67 -42 C-53 -16 -28 1 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.5"/>
+        <path d="M0 0 C21 -30 43 -44 69 -42 C54 -17 28 -1 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.5"/>
+        <path d="M0 0 Q-36 -25 -61 -39 M0 0 Q37 -29 63 -39" fill="none" stroke="#e1edbd" stroke-opacity=".7" stroke-width="1.1"/>
+      </g>
+
+      <g id="bloom" transform="translate(300 350)">
+        <circle cx="0" cy="0" r="61" fill="#ffe7a1" opacity=".18" filter="url(#softGlow)"/>
+        <g id="petals">
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(30)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(60)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(90)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(120)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(150)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(180)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(210)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(240)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(270)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(300)"/>
+          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(330)"/>
+          <g stroke="#fff9d9" stroke-opacity=".58" stroke-width="1">
+            <path d="M0 0 L0 -77"/><path d="M0 0 L39 -66"/><path d="M0 0 L68 -39"/>
+            <path d="M0 0 L77 0"/><path d="M0 0 L68 39"/><path d="M0 0 L39 66"/>
+          </g>
+        </g>
+        <ellipse cx="0" cy="0" rx="30" ry="13" fill="none" stroke="#f9e4a0" stroke-opacity=".65" stroke-width="1.4" transform="rotate(-27)"/>
+        <ellipse cx="0" cy="0" rx="30" ry="13" fill="none" stroke="#c5f1e1" stroke-opacity=".68" stroke-width="1.4" transform="rotate(33)"/>
+        <circle cx="0" cy="0" r="21" fill="url(#heart)" stroke="#fff5c6" stroke-width="1.5" filter="url(#smallGlow)"/>
+        <circle cx="0" cy="0" r="7" fill="#fffde6"/>
+        <g fill="#fff5bd">
+          <circle cx="-12" cy="-4" r="1.8"/><circle cx="11" cy="-8" r="1.5"/>
+          <circle cx="8" cy="11" r="1.6"/><circle cx="-9" cy="10" r="1.3"/>
+        </g>
+      </g>
+
+      <g id="orbit" fill="none" stroke="#bdebe0" stroke-width="1.6" stroke-opacity=".8">
+        <ellipse cx="300" cy="350" rx="102" ry="36" transform="rotate(-25 300 350)" stroke-dasharray="2 7"/>
+        <ellipse cx="300" cy="350" rx="80" ry="28" transform="rotate(58 300 350)" stroke="#f5d88d" stroke-opacity=".7" stroke-dasharray="1 8"/>
+      </g>
+      <g id="moons" filter="url(#smallGlow)">
+        <circle cx="399" cy="307" r="4" fill="#fff2b2"/>
+        <path d="M367 423 l5 -7 5 7 -5 7Z" fill="#a6ece1"/>
+        <circle cx="220" cy="321" r="3" fill="#f4c5bf"/>
+      </g>
     </g>
-    <g id="seed">
-      <ellipse cx="300" cy="637" rx="15" ry="20" fill="url(#seed)" transform="rotate(18 300 637)"/>
-      <path d="M298 620 Q304 634 300 650" fill="none" stroke="#fff0b6" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="295" cy="632" r="2" fill="#fff3ce" opacity=".8"/>
+
+    <g id="seed" transform="translate(300 667)">
+      <path d="M0 -17 C18 -13 22 5 0 18 C-22 5 -18 -13 0 -17Z" fill="#b8d7a4" stroke="#e8edba" stroke-width="1.5"/>
+      <path d="M0 -12 Q-2 1 0 13" fill="none" stroke="#648c78" stroke-width="2"/>
+      <circle cx="0" cy="-19" r="3" fill="#f7dc91"/>
+    </g>
+
+    <g id="pollen" fill="#fff1bd" filter="url(#smallGlow)">
+      <circle cx="214" cy="382" r="2.1"/><circle cx="390" cy="446" r="1.8"/>
+      <circle cx="236" cy="510" r="1.6"/><circle cx="371" cy="535" r="2"/>
+      <circle cx="336" cy="281" r="1.5"/><circle cx="190" cy="472" r="1.4"/>
     </g>
   </g>
 </svg>
 
 <script>
 (() => {
-  const svg = document.getElementById("garden");
-  const NS = "http://www.w3.org/2000/svg";
-  const make = (tag, attrs = {}) => {
-    const el = document.createElementNS(NS, tag);
-    for (const [key, value] of Object.entries(attrs)) el.setAttribute(key, value);
-    return el;
+  const stem = document.getElementById('mainStem');
+  const stemLength = stem.getTotalLength();
+  stem.style.strokeDasharray = stemLength;
+  stem.style.strokeDashoffset = stemLength;
+
+  const sprouts = [...document.querySelectorAll('.sprout')].map(el => ({
+    el, at: Number(el.dataset.at), x: Number(el.dataset.x), y: Number(el.dataset.y)
+  }));
+  const bloom = document.getElementById('bloom');
+  const petals = document.getElementById('petals');
+  const orbit = document.getElementById('orbit');
+  const moons = document.getElementById('moons');
+  const plant = document.getElementById('plant');
+  const seed = document.getElementById('seed');
+  const pollen = document.getElementById('pollen');
+  const dayWash = document.getElementById('dayWash');
+  const sunlight = document.getElementById('sunlight');
+  const airFill = document.getElementById('airFill');
+
+  const smooth = x => {
+    x = Math.max(0, Math.min(1, x));
+    return x * x * (3 - 2 * x);
   };
-  const clamp = n => Math.max(0, Math.min(1, n));
-  const ease = n => { n = clamp(n); return n * n * (3 - 2 * n); };
 
-  const atmosphere = document.getElementById("atmosphere");
-  for (let i = 0; i < 23; i++) {
-    const x = 104 + ((i * 83) % 392);
-    const y = 195 + ((i * 67) % 405);
-    const r = 1 + (i % 3) * .55;
-    atmosphere.appendChild(make("circle", {
-      cx: x, cy: y, r,
-      fill: i % 4 === 0 ? "#ffd99a" : "#a9efd6",
-      opacity: ".55",
-      "data-mote": i
-    }));
-  }
+  function frame() {
+    const t = (Date.now() / 1000) % 60;
+    let growth = 0, light = 0.16;
 
-  const soilLights = document.getElementById("soilLights");
-  for (let i = 0; i < 27; i++) {
-    const x = 74 + ((i * 71) % 452);
-    const y = 651 + ((i * 19) % 43);
-    soilLights.appendChild(make("circle", {
-      cx: x, cy: y, r: i % 5 === 0 ? 2.1 : 1.1,
-      opacity: i % 3 === 0 ? ".75" : ".38"
-    }));
-  }
+    if (t >= 8 && t < 14) {
+      growth = smooth((t - 8) / 6);
+      light = 0.16 + 0.84 * smooth((t - 8) / 6);
+    } else if (t >= 14 && t < 46) {
+      growth = 1;
+      light = 1;
+    } else if (t >= 46 && t < 52) {
+      growth = 1 - smooth((t - 46) / 6);
+      light = 1 - 0.84 * smooth((t - 46) / 6);
+    }
 
-  const roots = document.getElementById("roots");
-  const rootPaths = [
-    "M300 640 C282 658 274 672 259 689",
-    "M301 642 C317 659 327 675 343 692",
-    "M297 649 C291 670 294 683 287 699",
-    "M305 651 C321 664 346 668 360 684"
-  ];
-  rootPaths.forEach((d, i) => {
-    const p = make("path", { d, "stroke-width": i % 2 ? "2" : "1.4" });
-    roots.appendChild(p);
-  });
+    const now = Date.now() / 1000;
+    const sway = Math.sin(now * 0.72) * (1.1 + growth * 1.5);
+    plant.setAttribute('transform', `translate(300 680) rotate(${sway}) translate(-300 -680)`);
 
-  const leaves = [
-    { x: 365, y: 560, sx: 1, angle: -12, size: 1.00, start: 9 },
-    { x: 228, y: 527, sx: -1, angle: 8, size: .94, start: 14 },
-    { x: 371, y: 499, sx: 1, angle: -15, size: .90, start: 19 },
-    { x: 228, y: 469, sx: -1, angle: 6, size: .88, start: 24 },
-    { x: 357, y: 438, sx: 1, angle: -17, size: .82, start: 29 },
-    { x: 226, y: 418, sx: -1, angle: 5, size: .78, start: 34 },
-    { x: 349, y: 389, sx: 1, angle: -24, size: .70, start: 39 },
-    { x: 258, y: 366, sx: -1, angle: -7, size: .62, start: 44 }
-  ];
-  const branches = document.getElementById("branches");
-  const growthParts = [];
-  const leafPath = "M0 0 C23 -29 68 -31 103 -4 C76 23 33 29 0 0Z";
+    stem.style.strokeDashoffset = stemLength * (1 - growth);
+    dayWash.setAttribute('opacity', (light * 0.64).toFixed(3));
+    sunlight.setAttribute('opacity', (light * 0.20).toFixed(3));
+    airFill.setAttribute('opacity', (0.52 + light * 0.48).toFixed(3));
 
-  leaves.forEach((leaf, i) => {
-    const baseY = [575, 548, 520, 490, 465, 440, 415, 390][i];
-    const baseX = [300, 290, 301, 295, 293, 290, 298, 300][i];
-    const curve = `M${baseX} ${baseY} Q${(baseX + leaf.x) / 2} ${leaf.y - 18} ${leaf.x} ${leaf.y}`;
-    const branch = make("path", {
-      d: curve, fill: "none", stroke: "url(#stem)",
-      "stroke-width": i < 4 ? "3.5" : "3",
-      "stroke-linecap": "round", filter: "url(#tinyGlow)"
-    });
-    branches.appendChild(branch);
-
-    const group = make("g", { opacity: "0" });
-    group.appendChild(make("path", {
-      d: leafPath, fill: "url(#leaf)", stroke: "#c5ffe4",
-      "stroke-width": "1.3", "stroke-opacity": ".8"
-    }));
-    group.appendChild(make("path", {
-      d: "M2 0 Q48 -2 99 -4", fill: "none",
-      stroke: "#dcffe7", "stroke-width": "1.5", "stroke-opacity": ".9"
-    }));
-    group.appendChild(make("path", {
-      d: "M31 -2 Q39 -14 47 -20 M52 -3 Q62 -15 71 -20 M36 2 Q46 13 54 17 M60 0 Q72 10 81 11",
-      fill: "none", stroke: "#d0ffe5", "stroke-width": ".8", "stroke-opacity": ".55"
-    }));
-    group.appendChild(make("path", {
-      d: "M16 -7 L45 -20 L65 -14 L43 -2Z",
-      fill: "#fff4c2", opacity: ".18"
-    }));
-    branches.appendChild(group);
-
-    growthParts.push({
-      branch, group, start: leaf.start, duration: 7,
-      transform: `translate(${leaf.x} ${leaf.y}) rotate(${leaf.angle}) scale(${leaf.sx * leaf.size} ${leaf.size})`
-    });
-  });
-
-  const mainStem = document.getElementById("mainStem");
-  const stemLength = mainStem.getTotalLength();
-  mainStem.style.strokeDasharray = stemLength;
-  mainStem.style.strokeDashoffset = stemLength;
-
-  growthParts.forEach(part => {
-    const length = part.branch.getTotalLength();
-    part.branch.style.strokeDasharray = length;
-    part.branch.style.strokeDashoffset = length;
-  });
-
-  const rootEls = [...roots.querySelectorAll("path")];
-  rootEls.forEach(path => {
-    const length = path.getTotalLength();
-    path.style.strokeDasharray = length;
-    path.style.strokeDashoffset = length;
-  });
-
-  const petals = document.getElementById("petals");
-  for (let i = 0; i < 11; i++) {
-    const petal = make("path", {
-      d: "M0 -7 C-17 -23 -17 -45 0 -61 C17 -45 17 -23 0 -7Z",
-      fill: "url(#petal)", stroke: "#fff1ba", "stroke-width": "1",
-      transform: `rotate(${i * (360 / 11)})`
-    });
-    petals.appendChild(petal);
-  }
-
-  const started = performance.now();
-  const flower = document.getElementById("flower");
-  const seed = document.getElementById("seed");
-  const orbit = document.getElementById("orbit");
-  const satellite = document.getElementById("satellite");
-
-  function frame(now) {
-    const t = (now - started) / 1000;
-
-    const main = ease((t - 3) / 48);
-    mainStem.style.strokeDashoffset = stemLength * (1 - main);
-
-    growthParts.forEach((part, i) => {
-      const p = ease((t - part.start) / part.duration);
-      const length = part.branch.getTotalLength();
-      part.branch.style.strokeDashoffset = length * (1 - p);
-      const pop = .08 + .92 * p;
-      part.group.setAttribute("opacity", p.toFixed(3));
-      part.group.setAttribute("transform", `${part.transform} scale(${pop})`);
-      part.group.style.transformBox = "fill-box";
-      part.group.style.transformOrigin = "0px 0px";
+    sprouts.forEach(({el, at, x, y}) => {
+      const p = smooth((growth - at) / 0.2);
+      el.setAttribute('transform', `translate(${x} ${y}) scale(${p})`);
+      el.setAttribute('opacity', p.toFixed(3));
     });
 
-    const rootProgress = ease((t - 12) / 30);
-    rootEls.forEach((path, i) => {
-      const length = path.getTotalLength();
-      path.style.strokeDashoffset = length * (1 - rootProgress);
-    });
+    const bloomScale = smooth((growth - 0.56) / 0.36);
+    bloom.setAttribute('transform', `translate(300 350) rotate(${Math.sin(now * 0.4) * 2}) scale(${bloomScale})`);
+    petals.setAttribute('transform', `rotate(${now * 5})`);
+    orbit.setAttribute('transform', `rotate(${now * 8} 300 350)`);
+    moons.setAttribute('transform', `rotate(${now * 14} 300 350)`);
+    orbit.setAttribute('opacity', (growth * 0.88).toFixed(3));
+    moons.setAttribute('opacity', (growth * 0.95).toFixed(3));
 
-    seed.setAttribute("opacity", (1 - ease((t - 7) / 10)).toFixed(3));
-
-    const bloom = ease((t - 46) / 12);
-    flower.setAttribute("opacity", bloom.toFixed(3));
-    flower.setAttribute("transform", `translate(300 334) scale(${.16 + .84 * bloom})`);
-    petals.setAttribute("transform", `rotate(${t * 5})`);
-    orbit.setAttribute("transform", `rotate(${t * 13})`);
-    satellite.setAttribute("transform", `rotate(${t * 13})`);
-
-    atmosphere.querySelectorAll("[data-mote]").forEach((mote, i) => {
-      const phase = t * (.55 + (i % 5) * .09) + i * 1.7;
-      const x = 104 + ((i * 83) % 392) + Math.sin(phase) * 8;
-      const y = 195 + ((i * 67) % 405) + Math.cos(phase * .8) * 9;
-      mote.setAttribute("cx", x);
-      mote.setAttribute("cy", y);
-      mote.setAttribute("opacity", (.2 + .48 * (0.5 + 0.5 * Math.sin(phase * 1.3))).toFixed(2));
-    });
+    const seedScale = Math.max(0.001, 1 - smooth((growth - 0.02) / 0.28));
+    seed.setAttribute('transform', `translate(300 667) scale(${seedScale})`);
+    pollen.setAttribute('opacity', (growth * light * (0.58 + 0.28 * Math.sin(now * 2))).toFixed(3));
+    pollen.setAttribute('transform', `translate(0 ${Math.sin(now * 0.8) * 5})`);
 
     requestAnimationFrame(frame);
   }

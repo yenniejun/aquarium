@@ -4,14 +4,14 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "Murmur Moon-Mint",
-  "statement": "A patient little moon-mint grows glass-bright leaves, then opens a solar bloom that keeps softly turning. Its floating motes are tomorrow’s pollinators, following whatever makes the garden feel alive.",
+  "title": "Sunlace Orbit Lily",
+  "statement": "At sunrise, this patient little lily unfurls a constellation of translucent petals and sets its pollen into slow orbit. By night it folds its light back into a seed, keeping one bright idea for tomorrow.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 4
     },
     "attempts": 1,
     "edits": "none"

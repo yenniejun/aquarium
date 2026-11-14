@@ -7,7 +7,7 @@
   "mode": "blind",
   "order": 7,
   "pieceLabel": "Sky",
-  "promptVersion": 2,
+  "promptVersion": 3,
   "lineup": [
     "claude-haiku",
     "gpt-6-luna",

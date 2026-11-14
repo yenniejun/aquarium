@@ -19,6 +19,14 @@ const variant = exhibit.variant ?? 'niche';
 ---
 
 <div class="room" data-variant={variant}>
+  {
+    variant === 'terrarium' && (
+      <>
+        <div class="night" aria-hidden="true" />
+        <div class="sun" aria-hidden="true" />
+      </>
+    )
+  }
   <section class="screen">
     <h1><ExhibitTitle title={exhibit.title} /></h1>
     <ol class="pieces" data-pieces>
@@ -32,6 +40,22 @@ const variant = exhibit.variant ?? 'niche';
     </ol>
   </section>
 </div>
+
+<script>
+  import { daylight, sunArc, timeOfDay } from './day';
+
+  // Terrarium: the sky follows the shared day, the same clock every piece is told to use.
+  const room = document.querySelector<HTMLElement>('.room[data-variant="terrarium"]');
+  if (room) {
+    const tick = () => {
+      const t = timeOfDay();
+      room.style.setProperty('--light', daylight(t).toFixed(3));
+      room.style.setProperty('--sun', sunArc(t).toFixed(4));
+      requestAnimationFrame(tick);
+    };
+    tick();
+  }
+</script>
 
 <style>
   :global(body[data-skin='cabinet']) {
@@ -149,15 +173,50 @@ const variant = exhibit.variant ?? 'niche';
       linear-gradient(#2d1c12, #150c07);
   }
 
-  /* Terrarium: a misty glasshouse wall. */
+  /* Terrarium: a misty glasshouse wall under a sky that follows the shared day (--light, --sun). */
   [data-variant='terrarium'] {
-    --ink: #12261b;
+    --light: 1;
+    --sun: 0.5;
+    --ink: color-mix(in srgb, #12261b calc(var(--light) * 100%), #e6f1ea);
     --accent: #2e7d4f;
     --wall:
       linear-gradient(90deg, rgba(255, 255, 255, 0.28) 2px, transparent 2px) 0 0 / 150px 100%,
       linear-gradient(rgba(255, 255, 255, 0.2) 2px, transparent 2px) 0 0 / 100% 190px,
       radial-gradient(70% 50% at 50% 0%, rgba(255, 255, 255, 0.45), transparent 70%),
       linear-gradient(#c3dccb, #86ab97);
+  }
+
+  /* Night falls over the glasshouse as the light goes. */
+  .night {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: calc(1 - var(--light));
+    background:
+      radial-gradient(circle, rgba(255, 255, 255, 0.8) 0 1px, transparent 1.6px) 0 0 / 103px 91px,
+      radial-gradient(circle, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.6px) 50px 40px / 137px 119px,
+      linear-gradient(#0a1428, #16283a 70%, #1d3a33);
+    pointer-events: none;
+  }
+
+  /* The sun rises on the left, arcs over the room and sets on the right. */
+  .sun {
+    position: fixed;
+    z-index: -1;
+    left: calc(8% + var(--sun) * 84%);
+    top: calc(82% - sin(var(--sun) * 180deg) * 60%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff6d6 0 30%, #ffd77a 55%, rgba(255, 200, 90, 0) 72%);
+    box-shadow: 0 0 80px 30px rgba(255, 214, 120, 0.35);
+    opacity: clamp(0, min(var(--sun), 1 - var(--sun)) * 20, 1);
+    translate: -50% -50%;
+    pointer-events: none;
+  }
+
+  [data-variant='terrarium']:not([style*='--sun']) .sun {
+    opacity: 0;
   }
 
   /* Planetarium: a night-sky dome. */

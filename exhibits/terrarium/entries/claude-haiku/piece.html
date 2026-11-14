@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 html,body{margin:0;height:100%;overflow:hidden;background:transparent;}
-canvas{display:block;width:100vw;height:100vh;touch-action:pan-y;}
+canvas{display:block;width:100vw;height:100vh;touch-action:none;}
 </style>
 </head>
 <body>
@@ -14,262 +14,252 @@ canvas{display:block;width:100vw;height:100vh;touch-action:pan-y;}
 (function(){
 const cv=document.getElementById('c');
 const ctx=cv.getContext('2d');
-let W=1,H=1,S=1,dpr=1;
+let W=0,H=0,DPR=1;
 
 function resize(){
-  dpr=Math.min(window.devicePixelRatio||1,2);
+  DPR=Math.min(window.devicePixelRatio||1,2);
   W=window.innerWidth;H=window.innerHeight;
-  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  S=Math.min(W,H*0.75);
+  cv.width=Math.floor(W*DPR);cv.height=Math.floor(H*DPR);
+  ctx.setTransform(DPR,0,0,DPR,0,0);
 }
 window.addEventListener('resize',resize);
 resize();
 
+const TAU=Math.PI*2;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const ss=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
 const frac=x=>x-Math.floor(x);
-function sm(a,b,x){
-  let k=(x-a)/(b-a);
-  k=k<0?0:(k>1?1:k);
-  return k*k*(3-2*k);
+const rnd=i=>frac(Math.sin(i*127.1+311.7)*43758.5453);
+
+function bz(P,s){
+  const u=1-s;
+  const a=u*u*u,b=3*u*u*s,c=3*u*s*s,e=s*s*s;
+  return [
+    a*P[0][0]+b*P[1][0]+c*P[2][0]+e*P[3][0],
+    a*P[0][1]+b*P[1][1]+c*P[2][1]+e*P[3][1]
+  ];
 }
 
-const pebbles=[];
-for(let i=0;i<46;i++){
-  pebbles.push({x:frac(i*0.6180339),y:0.015+frac(i*0.3819)*0.1,r:0.006+frac(i*0.77)*0.013,
-    l:0.25+frac(i*0.13)*0.2});
-}
+// Stems in unit coordinates (u right, v up), full size at growth 1
+const stems=[
+  {p:[[0,0],[0.02,-0.2],[-0.04,-0.42],[0.01,-0.6]],delay:0,hue:190},
+  {p:[[0,0],[-0.02,-0.18],[-0.14,-0.3],[-0.24,-0.44]],delay:0.18,hue:280},
+  {p:[[0,0],[0.02,-0.16],[0.16,-0.3],[0.27,-0.4]],delay:0.26,hue:40}
+];
+const tipsFull=stems.map(s=>bz(s.p,1));
 
-const motes=[];
-for(let j=0;j<26;j++){
-  motes.push({
-    rx:0.16+0.22*frac(j*0.618),
-    ryk:0.25+0.2*frac(j*0.37),
-    spd:0.25+0.35*frac(j*0.73),
-    dir:(j%2)?1:-1,
-    ph:j*2.399,
-    hue:(160+j*11)%360,
-    sz:0.006+0.004*frac(j*0.5),
-    at:0.4+j*0.02,
-    rise:0.5+j*0.02
-  });
-}
+const NSEED=7;
 
-// growth cycle: grow, bloom and hold, then wilt back to a seed and begin again
-const P=92, GT=58;
-function growthAt(t){
-  const ph=t%P;
-  if(ph<GT){const x=ph/GT;return x*x*(3-2*x);}
-  if(ph<P-12)return 1;
-  return 1-sm(P-12,P,ph);
-}
+function frame(){
+  const t=(Date.now()/1000)%60;
 
-let px=0,pxT=0;
-window.addEventListener('pointermove',e=>{pxT=(e.clientX/W-0.5)*2;},{passive:true});
+  const d=ss(8,14,t)*(1-ss(46,52,t));                       // daylight
+  const warm=Math.max(ss(7,11,t)*(1-ss(11,16,t)),ss(42,46,t)*(1-ss(48,52,t)))*0.6;
+  const L=ss(8,30,t)*(1-ss(46,56,t))*(t>=8||t<8?1:1);       // life: seed -> grown -> seed
+  const Lg=(t<8)?0:L;
+  const open=ss(9,17,t)*(1-ss(44,52,t));                    // bloom openness
 
-function drawSoil(groundY){
-  ctx.beginPath();
-  ctx.moveTo(0,H);
-  ctx.lineTo(0,groundY+H*0.02);
-  ctx.quadraticCurveTo(W*0.5,groundY-H*0.03,W,groundY+H*0.02);
-  ctx.lineTo(W,H);
-  ctx.closePath();
-  ctx.fillStyle='#3a2a20';
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(0,groundY+H*0.02);
-  ctx.quadraticCurveTo(W*0.5,groundY-H*0.03,W,groundY+H*0.02);
-  ctx.strokeStyle='rgba(255,220,180,0.10)';
-  ctx.lineWidth=1.5;
-  ctx.stroke();
-  for(const p of pebbles){
-    const x=p.x*W, y=groundY+p.y*H+H*0.02;
-    ctx.beginPath();
-    ctx.ellipse(x,y,S*p.r,S*p.r*0.6,0,0,Math.PI*2);
-    ctx.fillStyle=`rgba(${Math.round(90*p.l+60)},${Math.round(75*p.l+50)},${Math.round(62*p.l+45)},0.9)`;
-    ctx.fill();
-  }
-}
+  const k=Math.min(H*0.62,W*1.0);
+  const ox=W/2, oy=H*0.84;
 
-function draw(t){
   ctx.clearRect(0,0,W,H);
-  px+=(pxT-px)*0.03;
-  const g=growthAt(t);
-  const groundY=H*0.9, cx=W*0.5;
 
-  // soft light pooling around the plant
-  if(g>0.05){
-    const gr=ctx.createRadialGradient(cx,H*0.55,0,cx,H*0.55,S*0.65);
-    gr.addColorStop(0,`rgba(120,255,210,${0.10*g})`);
-    gr.addColorStop(1,'rgba(120,255,210,0)');
-    ctx.fillStyle=gr;
+  // Light mood
+  if(1-d>0.01){
+    ctx.fillStyle=`rgba(4,8,22,${0.45*(1-d)})`;
+    ctx.fillRect(0,0,W,H);
+  }
+  if(warm>0.01){
+    ctx.fillStyle=`rgba(255,140,70,${0.12*warm})`;
     ctx.fillRect(0,0,W,H);
   }
 
-  drawSoil(groundY);
-
-  // seed, fades as the sprout emerges
-  const seedA=1-sm(0.04,0.2,g);
-  if(seedA>0.01){
+  // Soil
+  const sr=[60+60*d,40+40*d,30+30*d];
+  ctx.beginPath();
+  ctx.ellipse(ox,oy+k*0.03,k*0.46,k*0.08,0,0,TAU);
+  ctx.fillStyle=`rgb(${sr[0]|0},${sr[1]|0},${sr[2]|0})`;
+  ctx.fill();
+  for(let i=0;i<22;i++){
+    const x=ox+(rnd(i*3+1)-0.5)*k*0.86;
+    const y=oy+k*(0.02+rnd(i*3+2)*0.06);
+    const r=k*(0.004+rnd(i*3+3)*0.008);
     ctx.beginPath();
-    ctx.ellipse(cx,groundY-S*0.008,S*0.018,S*0.012,0.2,0,Math.PI*2);
-    ctx.fillStyle=`rgba(201,164,106,${seedA})`;
+    ctx.arc(x,y,r,0,TAU);
+    ctx.fillStyle=`rgba(${(150+80*d)|0},${(140+70*d)|0},${(160+60*d)|0},0.7)`;
     ctx.fill();
   }
 
-  const stemG=sm(0.02,0.5,g);
-  const L=H*0.55*stemG+S*0.02;
-  const sway=s=>Math.sin(t*0.7+s*2.2)*S*0.03*s*s+px*S*0.08*s*s;
-  const pt=s=>[cx+S*0.06*s*s+sway(s), groundY-s*L];
-
-  // stem
-  const n=36;
-  ctx.lineCap='round';
-  for(let i=0;i<n;i++){
-    const s0=i/n,s1=(i+1)/n;
-    const a=pt(s0),b=pt(s1);
+  // Drifting motes
+  for(let i=0;i<16;i++){
+    const x=W*(0.22+0.56*rnd(i))+Math.sin(t*0.3+i)*8;
+    const y=H*(0.85-0.5*frac(rnd(i+5)+t*0.01*(rnd(i+9)+0.5)));
     ctx.beginPath();
-    ctx.moveTo(a[0],a[1]);
-    ctx.lineTo(b[0],b[1]);
-    ctx.lineWidth=S*0.02*(1-0.55*s0)+0.8;
-    ctx.strokeStyle=`hsl(${150-20*s0},55%,${40+12*s0}%)`;
-    ctx.stroke();
-  }
-
-  // fronds that unfurl up the stem
-  for(let i=0;i<6;i++){
-    const s=0.18+0.12*i;
-    const lg=sm(0.2+0.06*i,0.45+0.06*i,g);
-    if(lg<=0.001)continue;
-    const at=pt(s);
-    const side=(i%2===0)?-1:1;
-    const a=-Math.PI/2+side*(0.75+0.12*(i%3))+Math.sin(t*0.9+i*1.7)*0.06;
-    const len=S*(0.24-0.018*i)*lg;
-    const dx=Math.cos(a),dy=Math.sin(a);
-    const ax=at[0],ay=at[1];
-    const tipX=ax+dx*len, tipY=ay+dy*len+len*0.22*lg;
-    const midX=ax+dx*len*0.5, midY=ay+dy*len*0.5+len*0.05;
-    const px_=-dy,py_=dx,w=len*0.2;
-    ctx.beginPath();
-    ctx.moveTo(ax,ay);
-    ctx.quadraticCurveTo(midX+px_*w,midY+py_*w,tipX,tipY);
-    ctx.quadraticCurveTo(midX-px_*w,midY-py_*w,ax,ay);
-    ctx.fillStyle=`hsl(${140+i*8},60%,${38+i*2}%)`;
+    ctx.arc(x,y,1.2,0,TAU);
+    ctx.fillStyle=`rgba(255,250,235,${0.15+0.35*d})`;
     ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(ax,ay);
-    ctx.quadraticCurveTo(midX,midY,tipX,tipY);
-    ctx.strokeStyle='rgba(220,255,240,0.18)';
-    ctx.lineWidth=1;
-    ctx.stroke();
   }
 
-  // bell-flowers hanging from the crown
-  const top=pt(1);
-  ctx.globalCompositeOperation='lighter';
-  const bells=[];
-  for(let i=0;i<5;i++){
-    const b=sm(0.5+i*0.03,0.8+i*0.02,g);
-    if(b<=0.001)continue;
-    const openAmt=sm(0.85,1.0,g)*(0.75+0.25*Math.sin(t*1.3+i*1.1));
-    const o=0.35*b+0.65*openAmt;
-    const hue=[280,190,45,320,160][i];
-    const ang=Math.PI/2+(i-2)*0.42;
-    const len=S*(0.14+0.03*((i*5)%3))*b;
-    const bx=top[0]+Math.cos(ang)*len+Math.sin(t*1.2+i)*S*0.005;
-    const by=top[1]+Math.sin(ang)*len;
-    const pulse=0.5+0.5*Math.sin(t*5.6+i*1.3);
-    const r=S*0.045*b*(1+0.04*Math.sin(t*9+i));
-    bells.push({bx,by,r,o,hue,b,pulse});
-    // halo
-    if(b>0.05){
-      const hg=ctx.createRadialGradient(bx,by,0,bx,by,r*3.6);
-      hg.addColorStop(0,`hsla(${hue},100%,65%,${0.22*b*(0.6+0.4*pulse)})`);
-      hg.addColorStop(1,`hsla(${hue},100%,60%,0)`);
-      ctx.fillStyle=hg;
+  // Prism beams from open flowers
+  if(d>0.01){
+    stems.forEach((s,i)=>{
+      const prog=clamp((Lg-s.delay)/(1-s.delay),0,1);
+      if(prog<0.05)return;
+      const tip=bz(s.p,prog);
+      const cx=ox+tip[0]*k, cy=oy+tip[1]*k;
+      const a=0.07*d*open*prog;
+      if(a<0.002)return;
+      const spread=k*0.22;
       ctx.beginPath();
-      ctx.arc(bx,by,r*3.6,0,Math.PI*2);
+      ctx.moveTo(cx-k*0.02,cy);
+      ctx.lineTo(cx+k*0.02,cy);
+      ctx.lineTo(cx+spread*0.6+(i-1)*k*0.05,oy);
+      ctx.lineTo(cx-spread*0.6+(i-1)*k*0.05,oy);
+      ctx.closePath();
+      ctx.fillStyle=`hsla(${(s.hue+t*4)%360},90%,80%,${a})`;
       ctx.fill();
-    }
+    });
   }
-  ctx.globalCompositeOperation='source-over';
 
-  for(let i=0;i<bells.length;i++){
-    const B=bells[i];
-    const {bx,by,r,o,hue,b}=B;
-    // stalk
-    const midX=(top[0]+bx)/2, midY=(top[1]+by)/2;
+  // Stems
+  stems.forEach(s=>{
+    const prog=clamp((Lg-s.delay)/(1-s.delay),0,1);
+    if(prog<=0.001)return;
+    const n=28;
     ctx.beginPath();
-    ctx.moveTo(top[0],top[1]);
-    ctx.quadraticCurveTo(midX-S*0.02,midY,bx,by-r*0.8);
-    ctx.strokeStyle='rgba(120,220,170,0.85)';
-    ctx.lineWidth=Math.max(1,S*0.006);
+    for(let j=0;j<=n;j++){
+      const p=bz(s.p,prog*j/n);
+      const X=ox+p[0]*k, Y=oy+p[1]*k;
+      if(j===0)ctx.moveTo(X,Y);else ctx.lineTo(X,Y);
+    }
+    ctx.lineWidth=Math.max(1.2,k*0.012);
+    ctx.lineCap='round';
+    ctx.strokeStyle=`hsla(${160+d*10},55%,${45+25*d}%,0.85)`;
     ctx.stroke();
-    // hum rings
-    if(o>0.5){
-      for(let k=0;k<2;k++){
-        const ph=frac(t*0.6+k*0.5+i*0.13);
-        const rad=r*(1+ph*4);
-        ctx.beginPath();
-        ctx.arc(bx,by,rad,0,Math.PI*2);
-        ctx.strokeStyle=`hsla(${hue},100%,75%,${(1-ph)*0.25*o})`;
-        ctx.lineWidth=1;
-        ctx.stroke();
-      }
+    ctx.lineWidth=Math.max(0.6,k*0.003);
+    ctx.strokeStyle='rgba(255,255,255,0.45)';
+    ctx.stroke();
+  });
+
+  // Crystal leaves on main stem
+  const main=stems[0];
+  [0.3,0.55,0.8].forEach((s0,i)=>{
+    const prog=clamp((Lg-main.delay)/(1-main.delay),0,1);
+    if(prog<s0)return;
+    const lg=ss(0.15+0.12*i,0.45+0.12*i,Lg);
+    if(lg<0.01)return;
+    const P=bz(main.p,s0), P2=bz(main.p,s0+0.01);
+    const px=ox+P[0]*k, py=oy+P[1]*k;
+    const ang=Math.atan2((P2[1]-P[1])*k,(P2[0]-P[0])*k);
+    const side=i%2?1:-1;
+    const dir=ang+side*0.9;
+    const dx=Math.cos(dir),dy=Math.sin(dir);
+    const len=k*0.13*lg;
+    const w=len*0.28;
+    const perpx=-dy,perpy=dx;
+    const tipx=px+dx*len,tipy=py+dy*len;
+    const c1x=px+dx*len*0.5+perpx*w, c1y=py+dy*len*0.5+perpy*w;
+    const c2x=px+dx*len*0.5-perpx*w, c2y=py+dy*len*0.5-perpy*w;
+    ctx.beginPath();
+    ctx.moveTo(px,py);ctx.quadraticCurveTo(c1x,c1y,tipx,tipy);ctx.closePath();
+    ctx.fillStyle=`hsla(${150+i*8},60%,${40+30*d}%,0.55)`;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(px,py);ctx.quadraticCurveTo(c2x,c2y,tipx,tipy);ctx.closePath();
+    ctx.fillStyle=`hsla(${170+i*8},70%,${55+25*d}%,0.5)`;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(px,py);ctx.lineTo(tipx,tipy);
+    ctx.strokeStyle='rgba(255,255,255,0.35)';
+    ctx.lineWidth=0.8;ctx.stroke();
+  });
+
+  // Flowers
+  stems.forEach((s,si)=>{
+    const prog=clamp((Lg-s.delay)/(1-s.delay),0,1);
+    if(prog<0.02)return;
+    const tip=bz(s.p,prog);
+    const cx=ox+tip[0]*k, cy=oy+tip[1]*k;
+    const R=k*0.075*Math.min(1,prog*1.4);
+    const o=open;
+    const spacing=(TAU/6)*(0.2+0.8*o);
+    const lightness=40+30*d;
+    const n=6;
+    for(let j=0;j<n;j++){
+      const ang=-Math.PI/2+(j-2.5)*spacing+Math.sin(t*0.5+j+si)*0.03*o;
+      const len=R*(0.5+0.5*o);
+      const rx=len*0.5, ry=R*(0.18+0.22*o);
+      const hue=(s.hue+j*22+t*4)%360;
+      ctx.save();
+      ctx.translate(cx,cy);
+      ctx.rotate(ang);
+      ctx.beginPath();
+      ctx.ellipse(len*0.5+R*0.05,0,rx,ry,0,0,TAU);
+      ctx.fillStyle=`hsla(${hue},85%,${lightness}%,0.55)`;
+      ctx.fill();
+      ctx.strokeStyle=`hsla(${hue},90%,90%,0.7)`;
+      ctx.lineWidth=0.8;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(len*0.5+R*0.05+rx*0.2,-ry*0.2,rx*0.35,ry*0.3,0,0,TAU);
+      ctx.fillStyle='rgba(255,255,255,0.35)';
+      ctx.fill();
+      ctx.restore();
     }
-    // bell body (mouth facing down)
-    const rw=r*(0.55+0.45*o);
+    // Core glow (brighter at night, when the flower is closed)
+    const glow=0.35+0.45*(1-d)*(1-o*0.5)+0.2*o;
+    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*0.9);
+    g.addColorStop(0,`rgba(255,246,190,${glow})`);
+    g.addColorStop(0.4,`rgba(255,220,140,${glow*0.4})`);
+    g.addColorStop(1,'rgba(255,220,140,0)');
+    ctx.fillStyle=g;
+    ctx.beginPath();ctx.arc(cx,cy,R*0.9,0,TAU);ctx.fill();
+  });
+
+  // Seed bulb at base (visible when plant has retracted)
+  const bulbA=(1-ss(0.05,0.3,Lg));
+  if(bulbA>0.01){
+    const pulse=0.7+0.3*Math.sin(t*1.3);
+    const br=k*0.03;
+    const g=ctx.createRadialGradient(ox,oy-k*0.03,0,ox,oy-k*0.03,br*4);
+    g.addColorStop(0,`rgba(255,200,120,${0.5*bulbA*pulse})`);
+    g.addColorStop(1,'rgba(255,200,120,0)');
+    ctx.fillStyle=g;
+    ctx.beginPath();ctx.arc(ox,oy-k*0.03,br*4,0,TAU);ctx.fill();
     ctx.beginPath();
-    ctx.moveTo(bx-r*0.35,by-r*0.9);
-    ctx.quadraticCurveTo(bx-rw*0.95,by-r*0.2,bx-rw,by+r*0.7);
-    ctx.quadraticCurveTo(bx,by+r*0.7+r*0.35*o,bx+rw,by+r*0.7);
-    ctx.quadraticCurveTo(bx+rw*0.95,by-r*0.2,bx+r*0.35,by-r*0.9);
-    ctx.quadraticCurveTo(bx,by-r*1.1,bx-r*0.35,by-r*0.9);
-    ctx.closePath();
-    const bg=ctx.createRadialGradient(bx,by-r*0.3,r*0.1,bx,by,r*1.2);
-    bg.addColorStop(0,`hsla(${hue},90%,82%,0.95)`);
-    bg.addColorStop(1,`hsla(${hue},80%,45%,0.92)`);
-    ctx.fillStyle=bg;
-    ctx.fill();
-    // stamen
-    ctx.beginPath();
-    ctx.arc(bx,by+r*0.1,Math.max(1,r*0.12),0,Math.PI*2);
-    ctx.fillStyle=`rgba(255,250,220,${0.6+0.4*B.pulse})`;
+    ctx.ellipse(ox,oy-k*0.03,br,br*1.35,0,0,TAU);
+    ctx.fillStyle=`rgba(255,226,170,${bulbA*0.95})`;
     ctx.fill();
   }
 
-  // motes orbiting the crown like tiny moons
-  ctx.globalCompositeOperation='lighter';
-  const cy=top[1]-S*0.01;
-  for(let j=0;j<motes.length;j++){
-    const m=motes[j];
-    const ap=sm(m.at,m.at+0.1,g);
-    if(ap<0.01)continue;
-    const ang=m.ph+m.dir*t*m.spd;
-    const rx=S*m.rx, ry=rx*m.ryk;
-    const x=cx+rx*Math.cos(ang), y=cy+ry*Math.sin(ang)-S*0.05*sm(m.rise,m.rise+0.1,g);
-    const z=Math.sin(ang);
-    const size=S*m.sz*ap;
-    const gl=ctx.createRadialGradient(x,y,0,x,y,size*3.5);
-    gl.addColorStop(0,`hsla(${m.hue},100%,70%,${0.22*ap})`);
-    gl.addColorStop(1,`hsla(${m.hue},100%,60%,0)`);
-    ctx.fillStyle=gl;
-    ctx.beginPath();
-    ctx.arc(x,y,size*3.5,0,Math.PI*2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(x,y,size,0,Math.PI*2);
-    ctx.fillStyle=`rgba(240,255,250,${ap*(0.45+0.4*(z+1)/2)})`;
-    ctx.fill();
+  // Glowing seeds released at sunset, drifting into the night
+  const age0=((t-46)+60)%60;
+  for(let i=0;i<NSEED;i++){
+    const age=age0-i*0.9;
+    if(age<0||age>22)continue;
+    const tip=tipsFull[i%tipsFull.length];
+    const px=ox+tip[0]*k, py=oy+tip[1]*k;
+    const x=px+Math.sin(age*0.9+i)*k*0.04+(rnd(i+7)-0.5)*k*0.1*age*0.3;
+    const y=py-age*k*0.02-age*age*k*0.0006;
+    let a=ss(0,1.5,age)*(1-ss(16,22,age));
+    a*=(1-d*0.95)*(0.6+0.4*Math.sin(t*3+i));
+    if(a<0.01)continue;
+    const r=k*0.012;
+    const g=ctx.createRadialGradient(x,y,0,x,y,r*3);
+    g.addColorStop(0,`rgba(190,255,230,${a})`);
+    g.addColorStop(1,'rgba(190,255,230,0)');
+    ctx.fillStyle=g;
+    ctx.beginPath();ctx.arc(x,y,r*3,0,TAU);ctx.fill();
+    ctx.beginPath();ctx.arc(x,y,r*0.35,0,TAU);
+    ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fill();
   }
-  ctx.globalCompositeOperation='source-over';
 }
 
-const t0=performance.now();
-function frame(now){
-  draw((now-t0)/1000);
-  requestAnimationFrame(frame);
+function loop(){
+  frame();
+  requestAnimationFrame(loop);
 }
-requestAnimationFrame(frame);
+loop();
 })();
 </script>
 </body>

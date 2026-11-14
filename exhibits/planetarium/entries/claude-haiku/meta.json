@@ -4,14 +4,14 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "The Mending Moth",
-  "statement": "Each night a moth made of silver thread flies the torn places of the dark and stitches them shut with its own small lantern, which is why the sky never quite unravels. When the lantern gutters out the stitches loosen, and the moth sleeps folded until the stars are sewn back in.",
+  "title": "The Dawn-Thief Heron",
+  "statement": "Before the first morning, a heron waded into the still lake of the night and swallowed the dawn whole, so the sun would never rise and the reeds would stay silver forever. Its stars still stand in the sky, waiting for the water to glow again.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 3
     },
     "attempts": 1,
     "edits": "none"

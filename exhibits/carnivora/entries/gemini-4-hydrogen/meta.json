@@ -4,14 +4,14 @@
   "modelId": "gemini-4-hydrogen",
   "openWeights": false,
   "status": "final",
-  "title": "Glimmer-Gulp Glowdew",
-  "statement": "A twilight-dwelling sundew-orchid hybrid that lures nocturnal midges with shimmering nectar pearls and an angler-lit blossom throat before snapping shut for a cozy bioluminescent digest.",
+  "title": "The Lantern Sundew",
+  "statement": "A nocturnal conservatory hybrid whose dew-beaded crimson tendrils coil slowly around stray midges while its luminous orchid-chalice snaps shut on bolder twilight moths.",
   "generation": {
     "date": "2026-11-14",
     "via": "Gemini API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 4
     },
     "attempts": 1,
     "edits": "none"

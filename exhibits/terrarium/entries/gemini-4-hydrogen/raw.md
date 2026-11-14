@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luster-Loom Lotus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Heliotrope Orrery</title>
 <style>
   *, *::before, *::after {
     box-sizing: border-box;
@@ -15,8 +15,10 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #071017;
+    background: #060913;
     touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
   }
   canvas {
     display: block;
@@ -30,152 +32,113 @@
 <canvas id="c"></canvas>
 <script>
 (() => {
+  'use strict';
+
   const canvas = document.getElementById('c');
   const ctx = canvas.getContext('2d', { alpha: false });
 
-  let W = 0, H = 0, DPR = 1, S = 1;
-  const pointer = { x: 0.5, y: 0.5, active: false, tx: 0.5, ty: 0.5 };
+  let W = 0;
+  let H = 0;
+  let DPR = 1;
+  let U = 100; // responsive unit
 
-  // Math helpers
-  const TAU = Math.PI * 2;
-  const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
-  const lerp = (a, b, t) => a + (b - a) * t;
-  const smoothstep = (e0, e1, x) => {
-    const t = clamp((x - e0) / (e1 - e0), 0, 1);
-    return t * t * (3 - 2 * t);
-  };
-  const easeOutCubic = t => 1 - Math.pow(1 - clamp(t, 0, 1), 3);
-  const easeInOutSine = t => 0.5 - 0.5 * Math.cos(Math.PI * clamp(t, 0, 1));
+  // Gentle optional pointer state (never required)
+  const pointer = { x: 0, y: 0, tx: 0, ty: 0, active: false };
 
-  // Deterministic PRNG for steady flora placement
+  window.addEventListener('pointermove', (e) => {
+    if (!W || !H) return;
+    pointer.tx = (e.clientX / W - 0.5) * 2;
+    pointer.ty = (e.clientY / H - 0.5) * 2;
+    pointer.active = true;
+  }, { passive: true });
+
+  window.addEventListener('pointerleave', () => {
+    pointer.tx = 0;
+    pointer.ty = 0;
+    pointer.active = false;
+  }, { passive: true });
+
+  // Deterministic PRNG for static soil grains, pebbles, moss, stars
   function mulberry32(seed) {
-    return function() {
-      let t = (seed += 0x6D2B79F5);
-      t = Math.imul(t ^ (t >>> 15), t | 1);
-      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    let a = seed >>> 0;
+    return function () {
+      a |= 0;
+      a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
   }
 
-  // Pre-rendered glow sprites for fast additive luminescence
-  function makeGlow(stops) {
-    const size = 128;
-    const off = document.createElement('canvas');
-    off.width = size;
-    off.height = size;
-    const octx = off.getContext('2d');
-    const g = octx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-    for (const [pos, col] of stops) g.addColorStop(pos, col);
-    octx.fillStyle = g;
-    octx.fillRect(0, 0, size, size);
-    return off;
-  }
+  const rng = mulberry32(40917);
 
-  const glowCyan = makeGlow([
-    [0, 'rgba(220, 255, 250, 1)'],
-    [0.2, 'rgba(95, 238, 225, 0.72)'],
-    [0.55, 'rgba(40, 165, 190, 0.22)'],
-    [1, 'rgba(10, 40, 60, 0)']
-  ]);
-
-  const glowGold = makeGlow([
-    [0, 'rgba(255, 252, 225, 1)'],
-    [0.22, 'rgba(255, 214, 120, 0.78)'],
-    [0.58, 'rgba(235, 145, 70, 0.2)'],
-    [1, 'rgba(80, 30, 10, 0)']
-  ]);
-
-  const glowViolet = makeGlow([
-    [0, 'rgba(248, 225, 255, 1)'],
-    [0.25, 'rgba(190, 130, 255, 0.65)'],
-    [0.6, 'rgba(105, 65, 195, 0.18)'],
-    [1, 'rgba(25, 15, 55, 0)']
-  ]);
-
-  function drawGlow(sprite, x, y, radius, alpha = 1) {
-    if (alpha <= 0.005 || radius <= 0.5) return;
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.globalAlpha = alpha;
-    ctx.drawImage(sprite, x - radius, y - radius, radius * 2, radius * 2);
-    ctx.restore();
-  }
-
-  // Generate fixed scene geometry data
-  const rng = mulberry32(40921);
-
-  // Pebbles and quartz crystals in the soil
-  const pebbles = Array.from({ length: 34 }, () => ({
-    nx: 0.06 + rng() * 0.88,
-    ny: rng(), // depth inside soil band
-    rx: 0.006 + rng() * 0.015,
-    ry: 0.003 + rng() * 0.007,
-    rot: (rng() - 0.5) * 0.7,
-    crystal: rng() > 0.72,
-    hue: rng() > 0.5 ? 175 : 42,
-    phase: rng() * TAU
-  }));
-
-  // Moss tufts along the soil contour
-  const mossTufts = Array.from({ length: 42 }, (_, i) => ({
-    nx: 0.05 + (i / 41) * 0.9 + (rng() - 0.5) * 0.018,
-    h: 0.012 + rng() * 0.024,
-    w: 0.018 + rng() * 0.025,
-    phase: rng() * TAU,
-    glow: rng() > 0.6
-  }));
-
-  // Underground glowing root branches
-  const roots = Array.from({ length: 9 }, (_, i) => {
-    const side = i - 4;
-    const spread = side * 0.065 + (rng() - 0.5) * 0.025;
+  // Stars (kept inside central sky & lower than peaked roof corners)
+  const stars = Array.from({ length: 42 }, () => {
+    const x = 0.08 + rng() * 0.84;
+    const roofMinY = 0.20 * Math.abs(x - 0.5) * 2 + 0.03;
+    const y = roofMinY + rng() * (0.58 - roofMinY);
     return {
-      dx1: spread * 0.45,
-      dy1: 0.03 + rng() * 0.03,
-      dx2: spread * 1.15,
-      dy2: 0.06 + rng() * 0.055,
-      thickness: 1.1 + (1 - Math.abs(side) / 5) * 1.6,
-      delay: 0.4 + Math.abs(side) * 0.45 + rng() * 0.6,
-      phase: rng() * TAU
+      x,
+      y,
+      r: 0.45 + rng() * 1.15,
+      phase: rng() * Math.PI * 2,
+      freq: 2 + Math.floor(rng() * 5),
+      tint: rng()
     };
   });
 
-  // Basal & mid prism-leaves
-  const leaves = [
-    // Lower lush rosette
-    { side: -1, attach: 0.06, angle: -1.18, len: 0.21, width: 0.044, curve: 0.35, start: 6.5, dur: 9, hue: 168, tier: 0 },
-    { side: 1,  attach: 0.08, angle: 1.15,  len: 0.22, width: 0.045, curve: -0.34, start: 7.5, dur: 9, hue: 174, tier: 0 },
-    { side: -1, attach: 0.14, angle: -0.92, len: 0.24, width: 0.042, curve: 0.28, start: 10.5, dur: 10, hue: 182, tier: 0 },
-    { side: 1,  attach: 0.16, angle: 0.89,  len: 0.23, width: 0.040, curve: -0.27, start: 11.5, dur: 10, hue: 162, tier: 0 },
-    // Mid-stem cradling leaves
-    { side: -1, attach: 0.36, angle: -0.98, len: 0.19, width: 0.036, curve: 0.42, start: 17.5, dur: 10, hue: 192, tier: 1 },
-    { side: 1,  attach: 0.40, angle: 0.96,  len: 0.185, width: 0.035, curve: -0.40, start: 19.0, dur: 10, hue: 186, tier: 1 },
-    { side: -1, attach: 0.58, angle: -0.78, len: 0.145, width: 0.029, curve: 0.32, start: 24.5, dur: 9, hue: 205, tier: 2 },
-    { side: 1,  attach: 0.62, angle: 0.76,  len: 0.14,  width: 0.028, curve: -0.30, start: 26.0, dur: 9, hue: 198, tier: 2 }
-  ];
-
-  // Floating dew-orbs tethered to mid leaves
-  const dewOrbs = [
-    { leafIdx: 4, phase: 0.2, orbitR: 0.022, start: 25 },
-    { leafIdx: 5, phase: 2.4, orbitR: 0.022, start: 27 },
-    { leafIdx: 6, phase: 4.1, orbitR: 0.018, start: 32 },
-    { leafIdx: 7, phase: 1.1, orbitR: 0.018, start: 34 }
-  ];
-
-  // Ambient floating stardust motes in terrarium air
-  const motes = Array.from({ length: 30 }, () => ({
-    x: 0.1 + rng() * 0.8,
-    y: 0.16 + rng() * 0.68,
-    vx: (rng() - 0.5) * 0.008,
-    vy: -0.004 - rng() * 0.008,
-    r: 0.7 + rng() * 1.7,
-    phase: rng() * TAU,
-    kind: rng() > 0.45 ? 0 : (rng() > 0.4 ? 1 : 2)
+  // Soil mineral grains
+  const soilGrains = Array.from({ length: 130 }, () => ({
+    x: rng(),
+    y: rng(),
+    r: 0.6 + rng() * 1.9,
+    alpha: 0.12 + rng() * 0.35,
+    warm: rng() > 0.5
   }));
 
-  // Ephemeral drifted seeds that sprout mini crystal buds after full bloom
-  const driftSeeds = [];
-  let nextSeedTime = 61;
+  // River pebbles along moss horizon
+  const pebbles = [
+    { rx: -0.26, ry: 0.012, w: 0.045, h: 0.022, rot: -0.12, shade: 0.85 },
+    { rx: -0.17, ry: 0.004, w: 0.030, h: 0.016, rot: 0.08, shade: 1.0 },
+    { rx: -0.09, ry: 0.016, w: 0.024, h: 0.013, rot: -0.05, shade: 0.72 },
+    { rx: 0.10, ry: 0.014, w: 0.034, h: 0.017, rot: 0.14, shade: 0.92 },
+    { rx: 0.19, ry: 0.006, w: 0.048, h: 0.023, rot: -0.09, shade: 0.78 },
+    { rx: 0.29, ry: 0.018, w: 0.026, h: 0.014, rot: 0.06, shade: 1.05 }
+  ];
+
+  // Moss cushions
+  const mossCushions = Array.from({ length: 18 }, (_, i) => {
+    const t = i / 17;
+    return {
+      nx: 0.03 + t * 0.94 + (rng() - 0.5) * 0.03,
+      w: 0.065 + rng() * 0.06,
+      h: 0.018 + rng() * 0.022,
+      hueShift: (rng() - 0.5) * 18,
+      glowSeed: rng() * Math.PI * 2
+    };
+  });
+
+  // Bioluminescent mycelium / moss spores in soil
+  const mossSpores = Array.from({ length: 24 }, () => ({
+    x: 0.10 + rng() * 0.80,
+    yOff: 0.005 + rng() * 0.065,
+    r: 0.8 + rng() * 1.4,
+    phase: rng() * Math.PI * 2,
+    harm: 3 + Math.floor(rng() * 5),
+    cyan: rng() > 0.35
+  }));
+
+  // Floating particles (pollen, seed-spores, night motes)
+  const particles = Array.from({ length: 34 }, (_, i) => ({
+    x: 0.2 + rng() * 0.6,
+    y: 0.28 + rng() * 0.52,
+    vx: (rng() - 0.5) * 0.02,
+    vy: -0.015 - rng() * 0.02,
+    r: 0.9 + rng() * 1.8,
+    phase: rng() * Math.PI * 2,
+    seed: i / 34,
+    life: rng()
+  }));
 
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -184,708 +147,1009 @@
     canvas.width = Math.round(W * DPR);
     canvas.height = Math.round(H * DPR);
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    S = Math.min(W, H * 0.75);
+    U = Math.min(W, H * 0.78);
   }
   window.addEventListener('resize', resize, { passive: true });
   resize();
 
-  window.addEventListener('pointermove', e => {
-    pointer.tx = clamp(e.clientX / Math.max(W, 1), 0, 1);
-    pointer.ty = clamp(e.clientY / Math.max(H, 1), 0, 1);
-    pointer.active = true;
-  }, { passive: true });
+  // Math & Color helpers
+  const TAU = Math.PI * 2;
+  const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const smoothstep = (e0, e1, x) => {
+    const t = clamp((x - e0) / (e1 - e0), 0, 1);
+    return t * t * (3 - 2 * t);
+  };
+  const smootherstep = (e0, e1, x) => {
+    const t = clamp((x - e0) / (e1 - e0), 0, 1);
+    return t * t * t * (t * (t * 6 - 15) + 10);
+  };
 
-  window.addEventListener('pointerleave', () => {
-    pointer.active = false;
-  }, { passive: true });
-
-  // Soil surface height function (gentle central mound)
-  function soilSurfaceY(nx) {
-    const base = H * 0.855;
-    const mound = Math.exp(-Math.pow((nx - 0.5) / 0.24, 2)) * (H * 0.026);
-    const wave = Math.sin(nx * 14) * (H * 0.003);
-    return base - mound + wave;
+  function mixRGB(c1, c2, t) {
+    const k = clamp(t, 0, 1);
+    return [
+      Math.round(lerp(c1[0], c2[0], k)),
+      Math.round(lerp(c1[1], c2[1], k)),
+      Math.round(lerp(c1[2], c2[2], k))
+    ];
   }
 
-  // Spine point along the growing helical stem
-  function getStemPoint(u, stemGrow, t, pointerBend) {
-    const baseX = W * 0.5;
-    const baseY = soilSurfaceY(0.5) + H * 0.005;
-    const maxStemH = H * 0.465; // Crown sits around ~0.365*H, safely below peaked roof
-    const currentH = maxStemH * stemGrow;
+  function rgb(c, a = 1) {
+    if (a >= 0.999) return `rgb(${c[0]},${c[1]},${c[2]})`;
+    return `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(3)})`;
+  }
 
-    const breeze = Math.sin(t * 0.75) * 0.5 + Math.sin(t * 1.33 + 1.2) * 0.35;
-    const sway = (breeze * 0.022 * W + pointerBend * 0.032 * W) * Math.pow(u, 1.5) * stemGrow;
-    const naturalS = Math.sin(u * Math.PI * 1.15) * (W * 0.018) * stemGrow;
+  // Soil surface curve (gently mounded in center)
+  function soilSurfaceY(nx) {
+    const dx = (nx - 0.5) * 2;
+    const mound = Math.exp(-dx * dx * 3.2) * 0.022;
+    return H * (0.845 - mound);
+  }
+
+  // Compute sky & lighting palette from shared clock t in [0, 60)
+  function getEnvironment(t) {
+    // 0..8 night, 8..14 sunrise, 14..46 day (30 midday), 46..52 sunset, 52..60 night
+    let daylight = 0;
+    let dawnWeight = 0;
+    let duskWeight = 0;
+
+    if (t >= 8 && t < 14) {
+      daylight = smoothstep(8, 14, t);
+      dawnWeight = Math.sin(smoothstep(8, 14, t) * Math.PI);
+    } else if (t >= 14 && t < 46) {
+      daylight = 1;
+      if (t < 18) dawnWeight = (1 - smoothstep(14, 18, t)) * 0.45;
+      if (t > 42) duskWeight = smoothstep(42, 46, t) * 0.45;
+    } else if (t >= 46 && t < 52) {
+      daylight = 1 - smoothstep(46, 52, t);
+      duskWeight = Math.sin(smoothstep(46, 52, t) * Math.PI);
+    }
+
+    // Subtle twilight glow just before sunrise and after sunset
+    const preDawn = t >= 6.5 && t < 8 ? smoothstep(6.5, 8, t) * 0.35 : 0;
+    const postDusk = t >= 52 && t < 54 ? (1 - smoothstep(52, 54, t)) * 0.35 : 0;
+    dawnWeight = clamp(dawnWeight + preDawn, 0, 1);
+    duskWeight = clamp(duskWeight + postDusk, 0, 1);
+
+    // Sun arc from 8..52 (-1 east to +1 west, 0 at 30)
+    const sunProg = clamp((t - 8) / 44, 0, 1);
+    const sunX = (sunProg - 0.5) * 2;
+    const sunElev = t >= 8 && t <= 52 ? Math.sin(sunProg * Math.PI) : 0;
+
+    // Sky gradient stops: top, mid, horizon
+    const nightTop = [6, 10, 22];
+    const nightMid = [11, 18, 36];
+    const nightLow = [16, 28, 46];
+
+    const dayTop = [128, 190, 214];
+    const dayMid = [194, 228, 224];
+    const dayLow = [235, 244, 228];
+
+    const dawnTop = [58, 52, 92];
+    const dawnMid = [206, 126, 128];
+    const dawnLow = [248, 202, 146];
+
+    const duskTop = [40, 32, 74];
+    const duskMid = [184, 86, 108];
+    const duskLow = [242, 152, 98];
+
+    let top = mixRGB(nightTop, dayTop, daylight);
+    let mid = mixRGB(nightMid, dayMid, daylight);
+    let low = mixRGB(nightLow, dayLow, daylight);
+
+    if (dawnWeight > 0.001) {
+      top = mixRGB(top, dawnTop, dawnWeight * 0.85);
+      mid = mixRGB(mid, dawnMid, dawnWeight * 0.9);
+      low = mixRGB(low, dawnLow, dawnWeight * 0.95);
+    }
+    if (duskWeight > 0.001) {
+      top = mixRGB(top, duskTop, duskWeight * 0.85);
+      mid = mixRGB(mid, duskMid, duskWeight * 0.9);
+      low = mixRGB(low, duskLow, duskWeight * 0.95);
+    }
 
     return {
-      x: baseX + naturalS + sway,
-      y: baseY - currentH * u
+      daylight,
+      dawnWeight,
+      duskWeight,
+      sunX,
+      sunElev,
+      skyTop: top,
+      skyMid: mid,
+      skyLow: low
     };
   }
 
-  // Draw background twilight + subtle aurora mist (respecting peaked roof geometry)
-  function drawAtmosphere(t, maturity) {
-    const bg = ctx.createLinearGradient(0, 0, 0, H);
-    bg.addColorStop(0, '#060d15');
-    bg.addColorStop(0.45, '#091822');
-    bg.addColorStop(0.82, '#0c1f22');
-    bg.addColorStop(1, '#091316');
-    ctx.fillStyle = bg;
+  // Draw sky, stars, and sunbeams
+  function drawAtmosphere(t, env) {
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, H * 0.86);
+    skyGrad.addColorStop(0, rgb(env.skyTop));
+    skyGrad.addColorStop(0.52, rgb(env.skyMid));
+    skyGrad.addColorStop(1, rgb(env.skyLow));
+    ctx.fillStyle = skyGrad;
     ctx.fillRect(0, 0, W, H);
 
-    // Soft distant nebula-mist behind the plant
-    const mistY = H * 0.46;
-    const pulse = 0.85 + 0.15 * Math.sin(t * 0.4);
-    const mist = ctx.createRadialGradient(W * 0.5, mistY, 0, W * 0.5, mistY, S * 0.58);
-    mist.addColorStop(0, `rgba(28, 120, 130, ${0.12 * pulse * (0.35 + 0.65 * maturity)})`);
-    mist.addColorStop(0.5, `rgba(30, 75, 115, ${0.07 * pulse})`);
-    mist.addColorStop(1, 'rgba(6, 14, 22, 0)');
-    ctx.fillStyle = mist;
-    ctx.fillRect(0, 0, W, H);
+    // Night stars
+    const starVis = clamp(1 - env.daylight * 1.8 - (env.dawnWeight + env.duskWeight) * 0.5, 0, 1);
+    if (starVis > 0.01) {
+      for (const s of stars) {
+        const twinkle = 0.55 + 0.45 * Math.sin(t * (TAU / 60) * s.freq + s.phase);
+        const a = starVis * twinkle * 0.8;
+        ctx.fillStyle = s.tint > 0.5
+          ? `rgba(210, 235, 255, ${a.toFixed(3)})`
+          : `rgba(255, 238, 205, ${a.toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(s.x * W, s.y * H, s.r * (U / 360 + 0.45), 0, TAU);
+        ctx.fill();
+      }
+    }
+
+    // Soft atmospheric sun glow & diagonal light shafts during sunlit hours
+    if (env.daylight > 0.02) {
+      const beamColor = env.dawnWeight > env.duskWeight
+        ? mixRGB([255, 250, 224], [255, 210, 168], env.dawnWeight)
+        : mixRGB([255, 250, 224], [255, 185, 138], env.duskWeight);
+
+      const srcX = W * (0.5 + env.sunX * 0.38);
+      const srcY = H * (0.18 - env.sunElev * 0.14);
+
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+
+      // Ambient sun halo near upper sky
+      const halo = ctx.createRadialGradient(srcX, srcY, 0, srcX, srcY, U * 0.85);
+      halo.addColorStop(0, rgb(beamColor, 0.22 * env.daylight));
+      halo.addColorStop(0.5, rgb(beamColor, 0.07 * env.daylight));
+      halo.addColorStop(1, rgb(beamColor, 0));
+      ctx.fillStyle = halo;
+      ctx.fillRect(0, 0, W, H * 0.86);
+
+      // 3 subtle greenhouse sunbeams angled from the sun
+      const beamAlpha = 0.055 * env.daylight * (0.55 + 0.45 * env.sunElev);
+      for (let i = -1; i <= 1; i++) {
+        const targetX = W * (0.5 - env.sunX * 0.18 + i * 0.19);
+        const topSpread = U * 0.08;
+        const botSpread = U * 0.22;
+        const grad = ctx.createLinearGradient(srcX, srcY, targetX, H * 0.85);
+        grad.addColorStop(0, rgb(beamColor, beamAlpha));
+        grad.addColorStop(0.7, rgb(beamColor, beamAlpha * 0.5));
+        grad.addColorStop(1, rgb(beamColor, 0));
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(srcX + i * topSpread * 0.9 - topSpread, 0);
+        ctx.lineTo(srcX + i * topSpread * 0.9 + topSpread, 0);
+        ctx.lineTo(targetX + botSpread, H * 0.86);
+        ctx.lineTo(targetX - botSpread, H * 0.86);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+    }
   }
 
-  // Draw soil strata, crystals, glowing roots & moss
-  function drawSoilAndRoots(t, rootGrow) {
-    const segs = 40;
-    // Soil body
+  // Draw terrarium soil, pebbles, moss, and night mycelium
+  function drawSoilAndMoss(t, env) {
+    const soilTopColor = mixRGB([14, 17, 22], [44, 34, 28], env.daylight);
+    const soilBotColor = mixRGB([7, 9, 13], [22, 16, 13], env.daylight);
+
+    // Base soil silhouette
     ctx.beginPath();
-    ctx.moveTo(0, soilSurfaceY(0));
-    for (let i = 1; i <= segs; i++) {
-      const nx = i / segs;
+    ctx.moveTo(0, H);
+    for (let i = 0; i <= 32; i++) {
+      const nx = i / 32;
       ctx.lineTo(nx * W, soilSurfaceY(nx));
     }
     ctx.lineTo(W, H);
-    ctx.lineTo(0, H);
     ctx.closePath();
 
     const soilGrad = ctx.createLinearGradient(0, H * 0.82, 0, H);
-    soilGrad.addColorStop(0, '#16241f');
-    soilGrad.addColorStop(0.22, '#14191b');
-    soilGrad.addColorStop(0.65, '#0d1014');
-    soilGrad.addColorStop(1, '#08090d');
+    soilGrad.addColorStop(0, rgb(soilTopColor));
+    soilGrad.addColorStop(1, rgb(soilBotColor));
     ctx.fillStyle = soilGrad;
     ctx.fill();
 
-    // Subtle mineral layer line
-    ctx.beginPath();
-    for (let i = 0; i <= segs; i++) {
-      const nx = i / segs;
-      const y = soilSurfaceY(nx) + H * 0.055 + Math.sin(nx * 9 + 1) * H * 0.006;
-      if (i === 0) ctx.moveTo(0, y);
-      else ctx.lineTo(nx * W, y);
-    }
-    ctx.strokeStyle = 'rgba(70, 145, 140, 0.14)';
-    ctx.lineWidth = Math.max(1, S * 0.003);
-    ctx.stroke();
+    // Subtle stratified mineral layer & grains clipped to soil
+    ctx.save();
+    ctx.clip();
 
-    // Glowing underground roots
-    const rootOriginX = W * 0.5;
-    const rootOriginY = soilSurfaceY(0.5) + H * 0.006;
-    for (const r of roots) {
-      const p = smoothstep(r.delay, r.delay + 4.5, t);
-      if (p <= 0.01) continue;
-      const gp = easeOutCubic(p);
-
-      const x1 = rootOriginX + r.dx1 * W * gp;
-      const y1 = rootOriginY + r.dy1 * H * gp;
-      const x2 = rootOriginX + r.dx2 * W * gp;
-      const y2 = rootOriginY + r.dy2 * H * gp;
-
-      const glowPulse = 0.4 + 0.3 * Math.sin(t * 1.4 + r.phase);
+    const mineralCol = mixRGB([55, 78, 86], [128, 102, 78], env.daylight);
+    for (const g of soilGrains) {
+      const gx = g.x * W;
+      const gy = soilSurfaceY(g.x) + g.y * (H - soilSurfaceY(g.x));
+      ctx.fillStyle = g.warm
+        ? rgb(mineralCol, g.alpha * (0.4 + 0.6 * env.daylight))
+        : `rgba(18, 24, 28, ${(g.alpha * 0.8).toFixed(3)})`;
       ctx.beginPath();
-      ctx.moveTo(rootOriginX, rootOriginY);
-      ctx.quadraticCurveTo(x1, y1, x2, y2);
-      ctx.strokeStyle = `rgba(95, 230, 200, ${0.28 * gp * glowPulse})`;
-      ctx.lineWidth = r.thickness * (S / 350);
-      ctx.lineCap = 'round';
-      ctx.stroke();
-
-      drawGlow(glowCyan, x2, y2, S * 0.016 * gp, 0.35 * gp * glowPulse);
+      ctx.arc(gx, gy, g.r * (U / 380 + 0.4), 0, TAU);
+      ctx.fill();
     }
 
-    // Pebbles & embedded quartz shards
-    for (const pb of pebbles) {
-      const topY = soilSurfaceY(pb.nx) + H * 0.012;
-      const px = pb.nx * W;
-      const py = lerp(topY, H * 0.985, pb.ny);
-      const rx = pb.rx * S;
-      const ry = pb.ry * S;
+    // Nighttime subtle bioluminescent mycelium threads near the center roots
+    const nightGlow = clamp(1 - env.daylight * 1.3, 0.08, 1);
+    if (nightGlow > 0.05) {
+      const pulse = 0.65 + 0.35 * Math.sin(t * (TAU / 60) * 6);
+      ctx.lineWidth = Math.max(0.8, U * 0.003);
+      for (let i = -2; i <= 2; i++) {
+        const startX = W * 0.5 + i * U * 0.015;
+        const startY = soilSurfaceY(0.5) + U * 0.02;
+        const endX = W * 0.5 + i * U * 0.14;
+        const endY = H * 0.96;
+        const g = ctx.createLinearGradient(startX, startY, endX, endY);
+        g.addColorStop(0, `rgba(92, 235, 200, ${(0.28 * nightGlow * pulse).toFixed(3)})`);
+        g.addColorStop(1, 'rgba(92, 235, 200, 0)');
+        ctx.strokeStyle = g;
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.quadraticCurveTo(
+          (startX + endX) * 0.5 + i * U * 0.03,
+          (startY + endY) * 0.5 - U * 0.015,
+          endX,
+          endY
+        );
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+
+    // Moss cushions along the horizon
+    for (const m of mossCushions) {
+      const mx = m.nx * W;
+      const my = soilSurfaceY(m.nx) + U * 0.008;
+      const mw = m.w * W;
+      const mh = m.h * H;
+      const mossDark = mixRGB([14, 34, 32], [46, 86, 48], env.daylight);
+      const mossLit = mixRGB([26, 66, 58], [108, 158, 72], env.daylight);
+      const mg = ctx.createLinearGradient(mx, my - mh, mx, my + mh * 0.4);
+      mg.addColorStop(0, rgb(mossLit));
+      mg.addColorStop(1, rgb(mossDark));
+      ctx.fillStyle = mg;
+      ctx.beginPath();
+      ctx.ellipse(mx, my, mw * 0.55, mh * 0.65, 0, Math.PI, TAU);
+      ctx.fill();
+    }
+
+    // Smooth river pebbles
+    for (const p of pebbles) {
+      const px = W * 0.5 + p.rx * W;
+      const py = soilSurfaceY(0.5 + p.rx) + p.ry * H;
+      const pw = p.w * U * 0.95;
+      const ph = p.h * U * 0.95;
 
       ctx.save();
       ctx.translate(px, py);
-      ctx.rotate(pb.rot);
-      if (pb.crystal) {
-        const shimmer = 0.45 + 0.35 * Math.sin(t * 1.1 + pb.phase);
-        ctx.beginPath();
-        ctx.moveTo(-rx, ry * 0.3);
-        ctx.lineTo(0, -ry * 1.6);
-        ctx.lineTo(rx, ry * 0.3);
-        ctx.lineTo(0, ry * 0.9);
-        ctx.closePath();
-        ctx.fillStyle = `hsla(${pb.hue}, 70%, 62%, ${0.32 * shimmer})`;
-        ctx.fill();
-        ctx.strokeStyle = `hsla(${pb.hue}, 90%, 80%, ${0.45 * shimmer})`;
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-      } else {
-        ctx.beginPath();
-        ctx.ellipse(0, 0, rx, ry, 0, 0, TAU);
-        ctx.fillStyle = 'rgba(36, 48, 52, 0.72)';
-        ctx.fill();
-      }
-      ctx.restore();
-    }
-
-    // Velvety bioluminescent moss cushions along the top ridge
-    for (const m of mossTufts) {
-      const mx = m.nx * W;
-      const my = soilSurfaceY(m.nx) + H * 0.004;
-      const mw = m.w * W;
-      const mh = m.h * H;
-      const pulse = 0.7 + 0.3 * Math.sin(t * 0.9 + m.phase);
-
+      ctx.rotate(p.rot);
+      const baseC = mixRGB([26, 34, 44], [106, 102, 95], env.daylight).map(v => Math.round(v * p.shade));
+      const hiC = mixRGB([56, 74, 88], [176, 170, 158], env.daylight).map(v => Math.round(v * p.shade));
+      const pg = ctx.createLinearGradient(-env.sunX * pw, -ph, env.sunX * pw, ph);
+      pg.addColorStop(0, rgb(hiC));
+      pg.addColorStop(1, rgb(baseC));
+      ctx.fillStyle = pg;
       ctx.beginPath();
-      ctx.ellipse(mx, my, mw, mh, 0, Math.PI, TAU);
-      ctx.fillStyle = m.glow
-        ? `rgba(38, 128, 108, ${0.45 * pulse})`
-        : 'rgba(24, 78, 65, 0.55)';
-      ctx.fill();
-
-      if (m.glow && rootGrow > 0.2) {
-        drawGlow(glowCyan, mx, my - mh * 0.35, S * 0.015, 0.16 * pulse * rootGrow);
-      }
-    }
-  }
-
-  // Draw the glowing seed resting/splitting in the center at t = 0..8s
-  function drawSeed(t) {
-    const fadeOut = 1 - smoothstep(4.5, 9.5, t);
-    if (fadeOut <= 0.01) return;
-
-    const sx = W * 0.5;
-    const sy = soilSurfaceY(0.5) - S * 0.008;
-    const breathe = 1 + 0.08 * Math.sin(t * 3.0);
-    const r = S * 0.022 * breathe * (0.7 + 0.3 * smoothstep(0, 2, t));
-    const split = smoothstep(3.2, 6.5, t);
-
-    drawGlow(glowGold, sx, sy, r * 3.6, 0.75 * fadeOut);
-    drawGlow(glowCyan, sx, sy, r * 2.2, 0.55 * fadeOut);
-
-    ctx.save();
-    ctx.globalAlpha = fadeOut;
-    // Left and right seed shell halves parting
-    for (const dir of [-1, 1]) {
-      ctx.save();
-      ctx.translate(sx + dir * split * r * 0.55, sy);
-      ctx.rotate(dir * split * 0.45);
-      ctx.beginPath();
-      ctx.ellipse(0, 0, r * 0.55, r * 0.9, 0, 0, TAU);
-      const sg = ctx.createLinearGradient(0, -r, 0, r);
-      sg.addColorStop(0, '#ffe8a8');
-      sg.addColorStop(0.5, '#6ce8d4');
-      sg.addColorStop(1, '#225e68');
-      ctx.fillStyle = sg;
+      ctx.ellipse(0, 0, pw, ph, 0, 0, TAU);
       ctx.fill();
       ctx.restore();
     }
-    ctx.restore();
-  }
 
-  // Draw a translucent veined prism-leaf
-  function drawLeaf(leaf, t, stemGrow, pointerBend) {
-    const grow = easeOutCubic(smoothstep(leaf.start, leaf.start + leaf.dur, t));
-    if (grow <= 0.01 || stemGrow < leaf.attach) return;
-
-    const pt = getStemPoint(leaf.attach, stemGrow, t, pointerBend);
-    const sway = Math.sin(t * 1.15 + leaf.start) * 0.055 * grow;
-    // Unfurl from vertical curl to graceful arch
-    const angle = lerp(leaf.side * 0.18, leaf.angle, grow) + sway;
-    const len = leaf.len * S * grow;
-    const wid = leaf.width * S * grow;
-
-    const tipX = pt.x + Math.sin(angle) * len;
-    const tipY = pt.y - Math.cos(angle) * len;
-
-    // Control point creates arched silhouette
-    const perpX = Math.cos(angle);
-    const perpY = Math.sin(angle);
-    const midX = lerp(pt.x, tipX, 0.52) + perpX * len * leaf.curve * 0.35;
-    const midY = lerp(pt.y, tipY, 0.52) + perpY * len * leaf.curve * 0.35;
-
-    const c1x = midX + perpX * wid;
-    const c1y = midY + perpY * wid;
-    const c2x = midX - perpX * wid;
-    const c2y = midY - perpY * wid;
-
-    ctx.save();
-    // Translucent gradient fill
-    const lg = ctx.createLinearGradient(pt.x, pt.y, tipX, tipY);
-    lg.addColorStop(0, `hsla(${leaf.hue}, 70%, 26%, 0.72)`);
-    lg.addColorStop(0.55, `hsla(${leaf.hue + 10}, 85%, 48%, 0.58)`);
-    lg.addColorStop(1, `hsla(${leaf.hue + 24}, 95%, 78%, 0.78)`);
-
-    ctx.beginPath();
-    ctx.moveTo(pt.x, pt.y);
-    ctx.quadraticCurveTo(c1x, c1y, tipX, tipY);
-    ctx.quadraticCurveTo(c2x, c2y, pt.x, pt.y);
-    ctx.closePath();
-    ctx.fillStyle = lg;
-    ctx.fill();
-
-    // Iridescent rim highlight
-    ctx.strokeStyle = `hsla(${leaf.hue + 20}, 95%, 80%, ${0.42 * grow})`;
-    ctx.lineWidth = Math.max(0.8, S * 0.0028);
-    ctx.stroke();
-
-    // Central fiber-optic vein
-    ctx.beginPath();
-    ctx.moveTo(pt.x, pt.y);
-    ctx.quadraticCurveTo(midX, midY, tipX, tipY);
-    ctx.strokeStyle = `hsla(52, 95%, 82%, ${0.55 * grow})`;
-    ctx.lineWidth = Math.max(0.9, S * 0.003);
-    ctx.stroke();
-
-    // Subtle lateral lattice veins
-    for (let k = 1; k <= 3; k++) {
-      const f = k * 0.23;
-      const vx = (1 - f) * (1 - f) * pt.x + 2 * (1 - f) * f * midX + f * f * tipX;
-      const vy = (1 - f) * (1 - f) * pt.y + 2 * (1 - f) * f * midY + f * f * tipY;
-      const edgeScale = Math.sin(f * Math.PI) * 0.42;
-      for (const s of [-1, 1]) {
+    // Tiny glowing moss spores at night/dusk
+    if (nightGlow > 0.1) {
+      for (const sp of mossSpores) {
+        const tw = 0.35 + 0.65 * Math.sin(t * (TAU / 60) * sp.harm + sp.phase);
+        const a = nightGlow * tw * 0.55;
+        const sx = sp.x * W;
+        const sy = soilSurfaceY(sp.x) + sp.yOff * H * 0.4;
+        ctx.fillStyle = sp.cyan
+          ? `rgba(110, 245, 210, ${a.toFixed(3)})`
+          : `rgba(245, 215, 125, ${a.toFixed(3)})`;
         ctx.beginPath();
-        ctx.moveTo(vx, vy);
-        ctx.lineTo(
-          lerp(vx, (s > 0 ? c1x : c2x), edgeScale) + Math.sin(angle) * len * 0.07,
-          lerp(vy, (s > 0 ? c1y : c2y), edgeScale) - Math.cos(angle) * len * 0.07
-        );
-        ctx.strokeStyle = `hsla(${leaf.hue + 18}, 90%, 78%, ${0.24 * grow})`;
-        ctx.lineWidth = Math.max(0.6, S * 0.0018);
-        ctx.stroke();
+        ctx.arc(sx, sy, sp.r * (U / 380 + 0.45), 0, TAU);
+        ctx.fill();
       }
     }
-    ctx.restore();
-
-    // Soft glowing tip droplet
-    drawGlow(glowCyan, tipX, tipY, S * 0.022 * grow, 0.38 * grow);
-
-    return { tipX, tipY, grow };
   }
 
-  // Draw the twin-helix "Luster-Loom" woven stem
-  function drawHelixStem(t, stemGrow, pointerBend) {
-    if (stemGrow <= 0.01) return;
-
-    const steps = 48;
-    const strandA = [];
-    const strandB = [];
-    const maxAmp = S * 0.015;
-
-    for (let i = 0; i <= steps; i++) {
-      const u = i / steps;
-      const pt = getStemPoint(u, stemGrow, t, pointerBend);
-      const taper = (1 - 0.55 * u) * smoothstep(0, 0.08, u) * smoothstep(1.0, 0.92, u * 0.95);
-      const phase = u * Math.PI * 5.5 - t * 0.65;
-      const offset = Math.sin(phase) * maxAmp * taper;
-      const depth = Math.cos(phase); // for subtle front/back shading
-
-      strandA.push({ x: pt.x + offset, y: pt.y, z: depth });
-      strandB.push({ x: pt.x - offset, y: pt.y, z: -depth });
-    }
-
-    // Loom cross-threads weaving between the two strands
-    ctx.save();
-    for (let i = 2; i < steps - 1; i += 2) {
-      const a = strandA[i];
-      const b = strandB[i];
-      const u = i / steps;
-      const pulse = 0.5 + 0.5 * Math.sin(u * 12 - t * 2.5);
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
-      ctx.strokeStyle = `rgba(255, 224, 150, ${(0.16 + 0.24 * pulse) * stemGrow})`;
-      ctx.lineWidth = Math.max(0.7, S * 0.002);
-      ctx.stroke();
-    }
-
-    // Draw the two helical vine strands
-    for (let s = 0; s < 2; s++) {
-      const pts = s === 0 ? strandA : strandB;
-      ctx.beginPath();
-      ctx.moveTo(pts[0].x, pts[0].y);
-      for (let i = 1; i < pts.length; i++) {
-        ctx.lineTo(pts[i].x, pts[i].y);
-      }
-      ctx.strokeStyle = s === 0 ? 'rgba(90, 232, 205, 0.85)' : 'rgba(130, 195, 255, 0.78)';
-      ctx.lineWidth = Math.max(1.6, S * 0.0072);
-      ctx.lineCap = 'round';
-      ctx.stroke();
-
-      // Inner luminous highlight
-      ctx.strokeStyle = 'rgba(235, 255, 248, 0.45)';
-      ctx.lineWidth = Math.max(0.8, S * 0.0025);
-      ctx.stroke();
-    }
-
-    // Rising bioluminescent sap pulses
-    for (let p = 0; p < 3; p++) {
-      const u = ((t * 0.22 + p / 3) % 1);
-      if (u > 0.05 && u < 0.96) {
-        const pt = getStemPoint(u, stemGrow, t, pointerBend);
-        drawGlow(glowGold, pt.x, pt.y, S * 0.025 * stemGrow, 0.48 * Math.sin(u * Math.PI));
-      }
-    }
-    ctx.restore();
+  // Helper to evaluate cubic Bezier point & tangent
+  function cubicPoint(p0, p1, p2, p3, u) {
+    const m = 1 - u;
+    const m2 = m * m;
+    const u2 = u * u;
+    return {
+      x: m2 * m * p0.x + 3 * m2 * u * p1.x + 3 * m * u2 * p2.x + u2 * u * p3.x,
+      y: m2 * m * p0.y + 3 * m2 * u * p1.y + 3 * m * u2 * p2.y + u2 * u * p3.y
+    };
   }
 
-  // Draw a single iridescent lotus petal
-  function drawPetal(cx, cy, angle, length, width, openAmt, hueBase, alpha, rimHue) {
-    if (length <= 0.5) return;
+  // Draw a graceful veined botanical leaf
+  function drawLeaf(bx, by, angle, length, width, daylight, dewAmount, goldEdge = 0.3) {
+    if (length < 1) return;
     ctx.save();
-    ctx.translate(cx, cy);
+    ctx.translate(bx, by);
     ctx.rotate(angle);
 
-    const tipY = -length;
-    const spread = width * (0.55 + 0.45 * openAmt);
+    const tipX = length;
+    const tipY = 0;
 
+    const c1 = mixRGB([22, 68, 62], [68, 152, 108], daylight);
+    const c2 = mixRGB([14, 42, 46], [34, 96, 78], daylight);
+    const rim = mixRGB([84, 210, 185], [228, 214, 130], daylight * 0.8 + goldEdge * 0.2);
+
+    const grad = ctx.createLinearGradient(0, -width, tipX, width);
+    grad.addColorStop(0, rgb(c2, 0.94));
+    grad.addColorStop(0.55, rgb(c1, 0.9));
+    grad.addColorStop(1, rgb(rim, 0.88));
+
+    ctx.fillStyle = grad;
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.bezierCurveTo(-spread * 1.15, -length * 0.35, -spread * 0.75, -length * 0.82, 0, tipY);
-    ctx.bezierCurveTo(spread * 0.75, -length * 0.82, spread * 1.15, -length * 0.35, 0, 0);
+    ctx.bezierCurveTo(length * 0.28, -width * 1.05, length * 0.72, -width * 0.65, tipX, tipY);
+    ctx.bezierCurveTo(length * 0.72, width * 0.65, length * 0.28, width * 1.05, 0, 0);
     ctx.closePath();
-
-    const pg = ctx.createLinearGradient(0, 0, 0, tipY);
-    pg.addColorStop(0, `hsla(${hueBase}, 78%, 35%, ${alpha * 0.85})`);
-    pg.addColorStop(0.55, `hsla(${hueBase + 16}, 88%, 58%, ${alpha * 0.68})`);
-    pg.addColorStop(1, `hsla(${rimHue}, 95%, 82%, ${alpha * 0.92})`);
-    ctx.fillStyle = pg;
     ctx.fill();
 
-    // Rim light
-    ctx.strokeStyle = `hsla(${rimHue}, 100%, 85%, ${alpha * 0.72})`;
-    ctx.lineWidth = Math.max(0.8, S * 0.0028);
+    // Subtle luminous rim
+    ctx.strokeStyle = rgb(rim, 0.45 + 0.3 * daylight);
+    ctx.lineWidth = Math.max(0.7, U * 0.0026);
     ctx.stroke();
 
-    // Center geometric keel line
+    // Central midrib & delicate veins
+    ctx.strokeStyle = rgb(mixRGB([120, 235, 200], [238, 245, 190], daylight), 0.45);
+    ctx.lineWidth = Math.max(0.65, U * 0.0022);
     ctx.beginPath();
-    ctx.moveTo(0, -length * 0.08);
-    ctx.lineTo(0, tipY * 0.94);
-    ctx.strokeStyle = `hsla(50, 95%, 86%, ${alpha * 0.45})`;
-    ctx.lineWidth = Math.max(0.6, S * 0.002);
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(length * 0.5, -width * 0.05, tipX * 0.96, 0);
+    ctx.stroke();
+
+    for (let v = 1; v <= 3; v++) {
+      const f = v * 0.22;
+      const vx = length * f;
+      const vw = width * Math.sin(f * Math.PI) * 0.62;
+      ctx.beginPath();
+      ctx.moveTo(vx, 0);
+      ctx.quadraticCurveTo(vx + length * 0.09, -vw * 0.5, vx + length * 0.16, -vw);
+      ctx.moveTo(vx, 0);
+      ctx.quadraticCurveTo(vx + length * 0.09, vw * 0.5, vx + length * 0.16, vw);
+      ctx.stroke();
+    }
+
+    // Morning dew bead at sunrise
+    if (dewAmount > 0.05) {
+      const dx = length * 0.88;
+      const dy = width * 0.08;
+      const dr = Math.max(1.1, U * 0.0065) * dewAmount;
+      ctx.fillStyle = `rgba(235, 252, 255, ${(0.78 * dewAmount).toFixed(3)})`;
+      ctx.beginPath();
+      ctx.arc(dx, dy, dr, 0, TAU);
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  // Draw resting / opening chrysalis seed-bulb at soil crown
+  function drawBulb(cx, cy, openFactor, t, env) {
+    const bw = U * 0.055;
+    const bh = U * 0.072;
+
+    // Bioluminescent inner core (visible especially at night & dusk)
+    const pulse = 0.72 + 0.28 * Math.sin(t * (TAU / 60) * 6);
+    const nightCore = clamp(1 - env.daylight * 0.7, 0.25, 1) * pulse;
+    const glowR = bw * (1.8 + 0.4 * pulse);
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const g = ctx.createRadialGradient(cx, cy - bh * 0.45, 0, cx, cy - bh * 0.45, glowR);
+    g.addColorStop(0, `rgba(255, 215, 130, ${(0.55 * nightCore).toFixed(3)})`);
+    g.addColorStop(0.45, `rgba(90, 230, 200, ${(0.32 * nightCore).toFixed(3)})`);
+    g.addColorStop(1, 'rgba(90, 230, 200, 0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy - bh * 0.45, glowR, 0, TAU);
+    ctx.fill();
+    ctx.restore();
+
+    // Inner glowing seed-heart
+    ctx.fillStyle = `rgba(255, 224, 148, ${(0.55 + 0.35 * nightCore).toFixed(3)})`;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy - bh * 0.42, bw * 0.42, bh * 0.52, 0, 0, TAU);
+    ctx.fill();
+
+    // Two protective outer bronze-jade bulb scales that part as stem rises
+    const partAngle = openFactor * 0.48;
+    const scaleOuter = mixRGB([26, 48, 48], [62, 108, 82], env.daylight);
+    const scaleInner = mixRGB([48, 105, 92], [148, 168, 102], env.daylight);
+
+    for (const dir of [-1, 1]) {
+      ctx.save();
+      ctx.translate(cx + dir * bw * 0.14, cy);
+      ctx.rotate(dir * partAngle);
+      const sg = ctx.createLinearGradient(0, 0, dir * bw * 0.6, -bh);
+      sg.addColorStop(0, rgb(scaleOuter));
+      sg.addColorStop(1, rgb(scaleInner));
+      ctx.fillStyle = sg;
+      ctx.beginPath();
+      ctx.moveTo(0, U * 0.008);
+      ctx.bezierCurveTo(dir * bw * 0.95, -bh * 0.18, dir * bw * 0.85, -bh * 0.82, -dir * bw * 0.06, -bh);
+      ctx.bezierCurveTo(-dir * bw * 0.25, -bh * 0.55, -dir * bw * 0.18, -bh * 0.15, 0, U * 0.008);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = `rgba(180, 235, 200, ${(0.25 + 0.25 * env.daylight).toFixed(3)})`;
+      ctx.lineWidth = Math.max(0.7, U * 0.0025);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  // Draw a stained-glass prism petal in crown space
+  function drawPrismPetal(cx, cy, dirX, dirY, len, wid, isInner, env, lanternGlow) {
+    const ang = Math.atan2(dirY, dirX);
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(ang);
+
+    // Color shifts smoothly across dawn -> midday -> sunset
+    const midOuter = isInner ? [125, 240, 218] : [78, 205, 196];
+    const midTip = isInner ? [255, 238, 165] : [188, 245, 212];
+    const dawnCol = isInner ? [255, 212, 186] : [238, 168, 178];
+    const duskCol = isInner ? [255, 188, 118] : [206, 112, 164];
+    const nightCol = isInner ? [98, 178, 184] : [54, 108, 134];
+
+    let baseC = mixRGB(nightCol, midOuter, env.daylight);
+    let tipC = mixRGB([165, 224, 218], midTip, env.daylight);
+
+    if (env.dawnWeight > 0.01) {
+      baseC = mixRGB(baseC, dawnCol, env.dawnWeight * 0.75);
+    }
+    if (env.duskWeight > 0.01) {
+      baseC = mixRGB(baseC, duskCol, env.duskWeight * 0.85);
+      tipC = mixRGB(tipC, [255, 206, 128], env.duskWeight * 0.75);
+    }
+    if (lanternGlow > 0.01) {
+      tipC = mixRGB(tipC, [255, 215, 125], lanternGlow * 0.6);
+    }
+
+    const alpha = isInner ? 0.78 : 0.68;
+    const pg = ctx.createLinearGradient(0, 0, len, 0);
+    pg.addColorStop(0, rgb(baseC, alpha * 0.92));
+    pg.addColorStop(0.55, rgb(mixRGB(baseC, tipC, 0.5), alpha));
+    pg.addColorStop(1, rgb(tipC, alpha * 0.95));
+
+    ctx.fillStyle = pg;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.bezierCurveTo(len * 0.25, -wid * 0.95, len * 0.72, -wid * 0.68, len, 0);
+    ctx.bezierCurveTo(len * 0.72, wid * 0.68, len * 0.25, wid * 0.95, 0, 0);
+    ctx.closePath();
+    ctx.fill();
+
+    // Iridescent glass edge & central vein
+    ctx.strokeStyle = rgb(tipC, 0.55 + 0.3 * lanternGlow);
+    ctx.lineWidth = Math.max(0.75, U * 0.0028);
+    ctx.stroke();
+
+    ctx.strokeStyle = `rgba(255, 250, 228, ${(0.35 + 0.25 * env.daylight).toFixed(3)})`;
+    ctx.lineWidth = Math.max(0.6, U * 0.002);
+    ctx.beginPath();
+    ctx.moveTo(len * 0.06, 0);
+    ctx.lineTo(len * 0.9, 0);
     ctx.stroke();
 
     ctx.restore();
   }
 
-  // Draw the grand central Luster-Loom Lotus bloom & orbital rings
-  function drawLotusCrown(t, stemGrow, pointerBend) {
-    const crownPt = getStemPoint(1.0, stemGrow, t, pointerBend);
-    const cx = crownPt.x;
-    const cy = crownPt.y;
+  // 3D projection helper for the botanical orrery
+  function projectOrrery(radius, theta, rx, rz) {
+    const lx = radius * Math.cos(theta);
+    const lz = radius * Math.sin(theta);
+    const y1 = -lz * Math.sin(rx);
+    const z1 = lz * Math.cos(rx);
+    const x2 = lx * Math.cos(rz) - y1 * Math.sin(rz);
+    const y2 = lx * Math.sin(rz) + y1 * Math.cos(rz);
+    return { x: x2, y: y2, z: z1 };
+  }
 
-    // Bud emergence from t=22..36, blooming from t=34..60
-    const budGrow = easeOutCubic(smoothstep(21, 36, t));
-    if (budGrow <= 0.01) return;
-
-    const bloomOpen = easeInOutSine(smoothstep(34, 59, t));
-    const breathe = 1 + 0.045 * Math.sin(t * 0.75); // Slow rhythmic breathing once mature
-    const openFactor = bloomOpen * (0.94 + 0.06 * Math.sin(t * 0.42));
-
-    // Crown ambient halo
-    drawGlow(glowViolet, cx, cy - S * 0.02, S * 0.24 * budGrow, 0.28 + 0.22 * bloomOpen);
-    drawGlow(glowCyan, cx, cy - S * 0.03, S * 0.17 * budGrow, 0.35 + 0.25 * bloomOpen);
-
-    // 1. Back sepal/outer petals (7)
-    const outerCount = 7;
-    const outerLen = S * (0.065 + 0.115 * bloomOpen) * budGrow * breathe;
-    const outerWid = S * (0.025 + 0.032 * bloomOpen) * budGrow;
-
-    for (let i = 0; i < outerCount; i++) {
-      const frac = i / (outerCount - 1) - 0.5; // -0.5 to 0.5
-      const maxSpread = 1.48;
-      const angle = frac * maxSpread * (0.28 + 0.72 * openFactor) + Math.sin(t * 0.8 + i) * 0.025;
-      const hue = 195 + Math.abs(frac) * 45;
-      drawPetal(cx, cy, angle, outerLen, outerWid, openFactor, hue, 0.78, 285);
+  // Draw the full Heliotrope Orrery plant & crown
+  function drawPlant(t, env) {
+    // Lifecycle curves
+    // Stem growth: starts at sunrise (8), fully grown by 27, retracts 45..54
+    let grow = 0;
+    if (t >= 8 && t < 27) {
+      grow = smootherstep(8, 27, t);
+    } else if (t >= 27 && t < 45) {
+      grow = 1;
+    } else if (t >= 45 && t < 54) {
+      grow = 1 - smootherstep(45, 54, t);
     }
 
-    // 2. Luminous filaments / stamens arching upward & out
-    const stamenGrow = easeOutCubic(smoothstep(38, 56, t));
-    const stamenTips = [];
-    if (stamenGrow > 0.01) {
-      const count = 8;
-      for (let i = 0; i < count; i++) {
-        const frac = i / (count - 1) - 0.5;
-        const a = frac * 1.15 * stamenGrow + Math.sin(t * 1.2 + i * 0.9) * 0.04;
-        const slen = S * (0.11 + 0.035 * Math.cos(frac * Math.PI)) * stamenGrow * breathe;
-        const tx = cx + Math.sin(a) * slen;
-        const ty = cy - Math.cos(a) * slen;
-        const ctrlX = cx + Math.sin(a * 0.45) * slen * 0.55;
-        const ctrlY = cy - Math.cos(a * 0.45) * slen * 0.6;
-
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.quadraticCurveTo(ctrlX, ctrlY, tx, ty);
-        ctx.strokeStyle = `rgba(255, 226, 150, ${0.65 * stamenGrow})`;
-        ctx.lineWidth = Math.max(0.8, S * 0.0025);
-        ctx.stroke();
-
-        stamenTips.push({ x: tx, y: ty });
-        drawGlow(glowGold, tx, ty, S * 0.018 * stamenGrow, 0.85 * stamenGrow);
-
-        ctx.beginPath();
-        ctx.arc(tx, ty, S * 0.0045 * stamenGrow, 0, TAU);
-        ctx.fillStyle = '#fff9d8';
-        ctx.fill();
-      }
+    // Blossom opening: 14..30 -> 1, holds to 44, folds shut 44..51.5
+    let bloom = 0;
+    if (t >= 14 && t < 30) {
+      bloom = smootherstep(14, 30, t);
+    } else if (t >= 30 && t < 44) {
+      bloom = 1;
+    } else if (t >= 44 && t < 51.5) {
+      bloom = 1 - smootherstep(44, 51.5, t);
     }
 
-    // 3. Levitating prism heart + counter-rotating orbital loom rings
-    const coreY = cy - S * (0.045 + 0.05 * bloomOpen) * budGrow;
-    const coreR = S * (0.018 + 0.016 * bloomOpen) * budGrow * breathe;
+    // Orrery rings & moons expand 18..30, contract 43..49
+    let orrery = 0;
+    if (t >= 18 && t < 30) {
+      orrery = smootherstep(18, 30, t);
+    } else if (t >= 30 && t < 43) {
+      orrery = 1;
+    } else if (t >= 43 && t < 49) {
+      orrery = 1 - smootherstep(43, 49, t);
+    }
 
-    // Gossamer loom threads linking stamen tips to the floating heart
-    if (stamenGrow > 0.2) {
+    // Dusk lantern glow (when flower is closing at sunset)
+    const lanternGlow = t >= 43 && t <= 53.5
+      ? Math.sin(smoothstep(43, 53.5, t) * Math.PI)
+      : 0;
+
+    // Morning dew on cradle leaves
+    const dewAmount = t >= 8.5 && t <= 18
+      ? Math.sin(smoothstep(8.5, 18, t) * Math.PI)
+      : 0;
+
+    // Gentle synchronized sway (integer harmonics of 60s = zero seam)
+    const sway1 = Math.sin(t * (TAU / 60) * 7);
+    const sway2 = Math.sin(t * (TAU / 60) * 11 + 1.2);
+    const swayOffset = (sway1 * 0.65 + sway2 * 0.35) * U * 0.018 * grow + pointer.x * U * 0.025 * grow;
+
+    const baseX = W * 0.5;
+    const baseY = soilSurfaceY(0.5) + U * 0.01;
+
+    // Basal cradle leaves (unfold early during sunrise!)
+    const basalOpen = clamp(grow * 1.45, 0, 1);
+    if (basalOpen > 0.02) {
+      const leafSway = sway1 * 0.04;
+      drawLeaf(
+        baseX - U * 0.012, baseY - U * 0.012,
+        -Math.PI * (0.86 - 0.08 * basalOpen) + leafSway,
+        U * 0.165 * basalOpen, U * 0.042 * basalOpen,
+        env.daylight, dewAmount, 0.25
+      );
+      drawLeaf(
+        baseX + U * 0.012, baseY - U * 0.012,
+        -Math.PI * (0.14 + 0.08 * basalOpen) - leafSway,
+        U * 0.165 * basalOpen, U * 0.042 * basalOpen,
+        env.daylight, dewAmount, 0.25
+      );
+      drawLeaf(
+        baseX - U * 0.008, baseY - U * 0.018,
+        -Math.PI * (0.72 - 0.06 * basalOpen) + leafSway * 0.8,
+        U * 0.125 * basalOpen, U * 0.032 * basalOpen,
+        env.daylight, dewAmount * 0.7, 0.35
+      );
+      drawLeaf(
+        baseX + U * 0.008, baseY - U * 0.018,
+        -Math.PI * (0.28 + 0.06 * basalOpen) - leafSway * 0.8,
+        U * 0.125 * basalOpen, U * 0.032 * basalOpen,
+        env.daylight, dewAmount * 0.7, 0.35
+      );
+    }
+
+    // If still tiny dormant seed, just draw bulb
+    if (grow < 0.015) {
+      drawBulb(baseX, baseY, 0, t, env);
+      return;
+    }
+
+    // Stem geometry: rises up to ~48% of H (crown at ~36% of H, well clear of top roof)
+    const maxStemH = Math.min(H * 0.48, U * 0.68);
+    const stemH = maxStemH * grow;
+    const sunLean = env.sunX * U * 0.075 * grow;
+
+    const p0 = { x: baseX, y: baseY - U * 0.015 };
+    const p1 = { x: baseX - sunLean * 0.2 + swayOffset * 0.25, y: baseY - stemH * 0.36 };
+    const p2 = { x: baseX + sunLean * 0.55 + swayOffset * 0.75, y: baseY - stemH * 0.72 };
+    const p3 = { x: baseX + sunLean + swayOffset, y: baseY - stemH };
+
+    // Draw stem segments with tapering thickness & luminous sap core
+    const segs = 22;
+    const pts = [];
+    for (let i = 0; i <= segs; i++) {
+      pts.push(cubicPoint(p0, p1, p2, p3, i / segs));
+    }
+
+    const stemDark = mixRGB([24, 62, 58], [46, 112, 82], env.daylight);
+    const stemLit = mixRGB([56, 146, 128], [134, 198, 126], env.daylight);
+
+    ctx.lineCap = 'round';
+    for (let i = 0; i < segs; i++) {
+      const f = i / segs;
+      const w = U * lerp(0.018, 0.0075, f) * (0.45 + 0.55 * grow);
+      ctx.strokeStyle = rgb(mixRGB(stemDark, stemLit, f * 0.7 + 0.2));
+      ctx.lineWidth = w;
+      ctx.beginPath();
+      ctx.moveTo(pts[i].x, pts[i].y);
+      ctx.lineTo(pts[i + 1].x, pts[i + 1].y);
+      ctx.stroke();
+    }
+
+    // Inner glowing vascular sap line
+    const sapAlpha = 0.25 + 0.35 * env.daylight + 0.35 * lanternGlow;
+    ctx.strokeStyle = `rgba(175, 250, 215, ${sapAlpha.toFixed(3)})`;
+    ctx.lineWidth = Math.max(0.8, U * 0.003);
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i <= segs; i++) {
+      ctx.lineTo(pts[i].x, pts[i].y);
+    }
+    ctx.stroke();
+
+    // Bulb wraps the base of the stem
+    drawBulb(baseX, baseY, clamp(grow * 2.2, 0, 1), t, env);
+
+    // Mid-stem filigree leaves (emerge as stem passes 30% height)
+    const midLeaf1 = clamp((grow - 0.28) / 0.45, 0, 1);
+    if (midLeaf1 > 0.02) {
+      const anchorL = pts[8];
+      const anchorR = pts[11];
+      drawLeaf(
+        anchorL.x, anchorL.y,
+        -Math.PI * 0.78 + sway1 * 0.06,
+        U * 0.135 * midLeaf1, U * 0.032 * midLeaf1,
+        env.daylight, 0, 0.5
+      );
+      drawLeaf(
+        anchorR.x, anchorR.y,
+        -Math.PI * 0.22 - sway1 * 0.06,
+        U * 0.125 * midLeaf1, U * 0.03 * midLeaf1,
+        env.daylight, 0, 0.5
+      );
+    }
+
+    const midLeaf2 = clamp((grow - 0.52) / 0.4, 0, 1);
+    if (midLeaf2 > 0.02) {
+      const anchorL2 = pts[15];
+      const anchorR2 = pts[17];
+      drawLeaf(
+        anchorL2.x, anchorL2.y,
+        -Math.PI * 0.68 + sway2 * 0.05,
+        U * 0.095 * midLeaf2, U * 0.022 * midLeaf2,
+        env.daylight, 0, 0.65
+      );
+      drawLeaf(
+        anchorR2.x, anchorR2.y,
+        -Math.PI * 0.32 - sway2 * 0.05,
+        U * 0.09 * midLeaf2, U * 0.021 * midLeaf2,
+        env.daylight, 0, 0.65
+      );
+    }
+
+    // --- CROWN: THE BOTANICAL ORRERY & PRISM BLOSSOM ---
+    const cx = p3.x;
+    const cy = p3.y;
+    const crownScale = clamp((grow - 0.12) / 0.55, 0.12, 1);
+    const crownTiltX = env.sunX * 0.16 * grow + sway1 * 0.04;
+
+    // Soft crown aura (golden-cyan halo behind blossom)
+    const auraStrength = 0.28 * bloom + 0.5 * lanternGlow + 0.15 * crownScale;
+    if (auraStrength > 0.02) {
+      const auraR = U * (0.14 + 0.15 * bloom);
       ctx.save();
-      for (let i = 0; i < stamenTips.length; i++) {
-        const st = stamenTips[i];
-        const shimmer = 0.4 + 0.6 * Math.sin(t * 2.2 + i * 1.1);
-        ctx.beginPath();
-        ctx.moveTo(st.x, st.y);
-        ctx.lineTo(cx, coreY);
-        ctx.strokeStyle = `rgba(155, 248, 235, ${0.22 * shimmer * stamenGrow})`;
-        ctx.lineWidth = Math.max(0.6, S * 0.0016);
-        ctx.stroke();
-      }
+      ctx.globalCompositeOperation = 'screen';
+      const ag = ctx.createRadialGradient(cx, cy, 0, cx, cy, auraR);
+      const auraC = lanternGlow > 0.2
+        ? mixRGB([140, 245, 220], [255, 195, 110], lanternGlow)
+        : mixRGB([140, 245, 220], [255, 238, 175], env.daylight);
+      ag.addColorStop(0, rgb(auraC, 0.42 * auraStrength));
+      ag.addColorStop(0.5, rgb(auraC, 0.14 * auraStrength));
+      ag.addColorStop(1, rgb(auraC, 0));
+      ctx.fillStyle = ag;
+      ctx.beginPath();
+      ctx.arc(cx, cy, auraR, 0, TAU);
+      ctx.fill();
       ctx.restore();
     }
 
-    // Orbital golden-cyan rings around the heart
-    const ringGrow = easeOutCubic(smoothstep(42, 59, t));
-    if (ringGrow > 0.01) {
-      const rings = [
-        { rx: S * 0.092 * ringGrow, ry: S * 0.026 * ringGrow, tilt: 0.28 + Math.sin(t * 0.45) * 0.08, speed: 0.7, col: 'rgba(130, 245, 230, 0.52)', orbs: 4 },
-        { rx: S * 0.072 * ringGrow, ry: S * 0.022 * ringGrow, tilt: -0.34 + Math.cos(t * 0.38) * 0.08, speed: -0.95, col: 'rgba(255, 218, 130, 0.55)', orbs: 3 }
-      ];
-      for (const ring of rings) {
-        ctx.save();
-        ctx.translate(cx, coreY);
-        ctx.rotate(ring.tilt);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, ring.rx, ring.ry, 0, 0, TAU);
-        ctx.strokeStyle = ring.col;
-        ctx.lineWidth = Math.max(0.7, S * 0.0022);
-        ctx.stroke();
-
-        // Orbiting light-beads along the ellipse
-        for (let k = 0; k < ring.orbs; k++) {
-          const a = t * ring.speed + (k / ring.orbs) * TAU;
-          const ox = Math.cos(a) * ring.rx;
-          const oy = Math.sin(a) * ring.ry;
-          const front = Math.sin(a) > 0 ? 1 : 0.45;
-          drawGlow(k % 2 === 0 ? glowGold : glowCyan, cx + ox * Math.cos(ring.tilt) - oy * Math.sin(ring.tilt), coreY + ox * Math.sin(ring.tilt) + oy * Math.cos(ring.tilt), S * 0.016 * ringGrow, 0.75 * front * ringGrow);
-        }
-        ctx.restore();
-      }
+    // Calyx sepals beneath blossom
+    const sepalCount = 6;
+    const sepalFlare = lerp(0.24, 1.48, bloom);
+    const sepalLen = U * 0.072 * crownScale;
+    const sepalWid = U * 0.015 * crownScale;
+    for (let i = 0; i < sepalCount; i++) {
+      const phi = (i / sepalCount) * TAU + 0.25;
+      const dx = Math.sin(sepalFlare) * Math.cos(phi);
+      const dy = -Math.cos(sepalFlare) * 0.45 - Math.sin(sepalFlare) * Math.sin(phi) * 0.35;
+      drawLeaf(cx, cy + U * 0.008, Math.atan2(dy, dx), sepalLen, sepalWid, env.daylight, 0, 0.8);
     }
 
-    // Faceted glowing heart gem
-    drawGlow(glowGold, cx, coreY, coreR * 4.5, 0.85 * budGrow);
-    drawGlow(glowCyan, cx, coreY, coreR * 2.8, 0.7 * budGrow);
-
-    ctx.save();
-    ctx.translate(cx, coreY);
-    const spin = Math.sin(t * 0.9) * 0.2;
-    ctx.rotate(spin);
-    ctx.beginPath();
-    ctx.moveTo(0, -coreR * 1.35);
-    ctx.lineTo(coreR * 0.88, 0);
-    ctx.lineTo(0, coreR * 1.15);
-    ctx.lineTo(-coreR * 0.88, 0);
-    ctx.closePath();
-    const cg = ctx.createLinearGradient(0, -coreR, 0, coreR);
-    cg.addColorStop(0, '#ffffff');
-    cg.addColorStop(0.45, '#ffe79e');
-    cg.addColorStop(1, '#5cead6');
-    ctx.fillStyle = cg;
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-    ctx.restore();
-
-    // 4. Inner translucent front petals (5) cradling the lower half of the heart
-    const innerCount = 5;
-    const innerLen = S * (0.048 + 0.088 * bloomOpen) * budGrow * breathe;
-    const innerWid = S * (0.020 + 0.025 * bloomOpen) * budGrow;
-
-    for (let i = 0; i < innerCount; i++) {
-      const frac = i / (innerCount - 1) - 0.5;
-      const angle = frac * 0.95 * (0.2 + 0.8 * openFactor) + Math.cos(t * 0.9 + i) * 0.02;
-      const hue = 172 + Math.abs(frac) * 32;
-      drawPetal(cx, cy, angle, innerLen, innerWid, openFactor, hue, 0.56, 48);
-    }
-
-    return { cx, coreY, bloomOpen };
-  }
-
-  // Draw floating dew-orbs tethered to mid-leaves
-  function drawDewOrbs(t, leafAnchors) {
-    for (const orb of dewOrbs) {
-      const anchor = leafAnchors[orb.leafIdx];
-      if (!anchor) continue;
-      const g = easeOutCubic(smoothstep(orb.start, orb.start + 5, t));
-      if (g <= 0.01) continue;
-
-      const ox = anchor.tipX + Math.sin(t * 1.1 + orb.phase) * S * orb.orbitR * g;
-      const oy = anchor.tipY - S * 0.028 * g + Math.cos(t * 1.4 + orb.phase) * S * 0.01 * g;
-
-      // Gossamer tether
-      ctx.beginPath();
-      ctx.moveTo(anchor.tipX, anchor.tipY);
-      ctx.lineTo(ox, oy);
-      ctx.strokeStyle = `rgba(180, 255, 240, ${0.38 * g})`;
-      ctx.lineWidth = Math.max(0.6, S * 0.0018);
-      ctx.stroke();
-
-      drawGlow(glowCyan, ox, oy, S * 0.024 * g, 0.7 * g);
-      ctx.beginPath();
-      ctx.arc(ox, oy, S * 0.006 * g, 0, TAU);
-      ctx.fillStyle = `rgba(235, 255, 252, ${0.9 * g})`;
-      ctx.fill();
-    }
-  }
-
-  // Manage & draw drifting spore-seeds that gently sprout tiny ephemeral moss buds
-  function updateAndDrawDriftSeeds(dt, t, crownInfo) {
-    if (crownInfo && crownInfo.bloomOpen > 0.95 && t >= nextSeedTime && driftSeeds.length < 4) {
-      nextSeedTime = t + 7.5;
-      const side = (Math.random() > 0.5 ? 1 : -1) * (0.14 + Math.random() * 0.24);
-      driftSeeds.push({
-        x: crownInfo.cx,
-        y: crownInfo.coreY,
-        targetNx: clamp(0.5 + side, 0.16, 0.84),
-        age: 0,
-        state: 'fall',
-        phase: Math.random() * TAU
+    // Build sorted outer + inner prism petals
+    const petals = [];
+    const rotDrift = t * (TAU / 60) * 1 * 0.25; // subtle quarter-turn per cycle
+    const outerN = 8;
+    const outerFlare = lerp(0.16, 1.36, bloom);
+    for (let i = 0; i < outerN; i++) {
+      const phi = (i / outerN) * TAU + rotDrift;
+      const depth = Math.sin(phi);
+      const dx = Math.sin(outerFlare) * Math.cos(phi) + crownTiltX * 0.3;
+      const dy = -Math.cos(outerFlare) * 0.72 + Math.sin(outerFlare) * depth * 0.42;
+      petals.push({
+        depth: depth - 0.05,
+        dx, dy,
+        len: U * lerp(0.068, 0.145, bloom) * crownScale,
+        wid: U * lerp(0.019, 0.036, bloom) * crownScale,
+        inner: false
       });
     }
 
-    for (let i = driftSeeds.length - 1; i >= 0; i--) {
-      const s = driftSeeds[i];
-      s.age += dt;
-      const targetX = s.targetNx * W;
-      const targetY = soilSurfaceY(s.targetNx);
+    const innerN = 8;
+    const innerFlare = lerp(0.10, 1.10, bloom);
+    for (let i = 0; i < innerN; i++) {
+      const phi = ((i + 0.5) / innerN) * TAU + rotDrift;
+      const depth = Math.sin(phi);
+      const dx = Math.sin(innerFlare) * Math.cos(phi) + crownTiltX * 0.3;
+      const dy = -Math.cos(innerFlare) * 0.78 + Math.sin(innerFlare) * depth * 0.38;
+      petals.push({
+        depth: depth + 0.15,
+        dx, dy,
+        len: U * lerp(0.056, 0.108, bloom) * crownScale,
+        wid: U * lerp(0.015, 0.028, bloom) * crownScale,
+        inner: true
+      });
+    }
 
-      if (s.state === 'fall') {
-        s.x = lerp(s.x, targetX, dt * 0.55) + Math.sin(t * 2.1 + s.phase) * S * 0.0008;
-        s.y += S * 0.032 * dt;
-        drawGlow(glowGold, s.x, s.y, S * 0.02, 0.78);
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, S * 0.0038, 0, TAU);
-        ctx.fillStyle = '#fff8dc';
-        ctx.fill();
+    petals.sort((a, b) => a.depth - b.depth);
 
-        if (s.y >= targetY) {
-          s.y = targetY;
-          s.x = targetX;
-          s.state = 'sprout';
-          s.age = 0;
-        }
-      } else {
-        // Sprout a miniature crystal-clover for ~14s then fade softly back into soil
-        const life = s.age / 14;
-        if (life >= 1) {
-          driftSeeds.splice(i, 1);
-          continue;
-        }
-        const env = Math.sin(life * Math.PI);
-        const h = S * 0.042 * easeOutCubic(Math.min(1, life * 3)) * env;
-        const sway = Math.sin(t * 2 + s.phase) * 0.15;
+    // Draw back petals (depth < 0)
+    for (const p of petals) {
+      if (p.depth < 0) {
+        drawPrismPetal(cx, cy, p.dx, p.dy, p.len, p.wid, p.inner, env, lanternGlow);
+      }
+    }
 
-        ctx.save();
-        ctx.translate(s.x, s.y);
-        ctx.rotate(sway);
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(0, -h);
-        ctx.strokeStyle = `rgba(110, 240, 215, ${0.75 * env})`;
-        ctx.lineWidth = Math.max(0.8, S * 0.0022);
-        ctx.stroke();
+    // --- 3D BOTANICAL ORRERY RINGS & ORBITING SPORE-MOONS ---
+    const ringRadiusA = U * 0.185 * orrery;
+    const ringRadiusB = U * 0.135 * orrery;
+    const ringTiltXA = 0.92;
+    const ringTiltZA = -0.26 + crownTiltX * 0.5;
+    const ringTiltXB = 1.08;
+    const ringTiltZB = 0.42 + crownTiltX * 0.5;
 
-        for (const dir of [-1, 0, 1]) {
-          ctx.save();
-          ctx.translate(0, -h);
-          ctx.rotate(dir * 0.65);
+    const moons = [
+      {
+        r: ringRadiusA,
+        rx: ringTiltXA,
+        rz: ringTiltZA,
+        angle: t * (TAU / 60) * 6,
+        size: U * 0.013,
+        col: [255, 232, 152],
+        trailDir: 1
+      },
+      {
+        r: ringRadiusB,
+        rx: ringTiltXB,
+        rz: ringTiltZB,
+        angle: -t * (TAU / 60) * 8 + 2.1,
+        size: U * 0.0105,
+        col: [135, 248, 222],
+        trailDir: -1
+      },
+      {
+        r: ringRadiusA * 0.56,
+        rx: 0.72,
+        rz: 0.12 + crownTiltX * 0.5,
+        angle: t * (TAU / 60) * 11 + 4.0,
+        size: U * 0.0085,
+        col: [255, 198, 178],
+        trailDir: 1
+      }
+    ];
+
+    function drawOrreryRingPass(radius, rx, rz, frontPass, col) {
+      if (radius < 2) return;
+      const steps = 48;
+      ctx.lineWidth = Math.max(0.75, U * 0.0024);
+      ctx.strokeStyle = rgb(col, 0.52 * orrery);
+      for (let i = 0; i < steps; i++) {
+        const a0 = (i / steps) * TAU;
+        const a1 = ((i + 1) / steps) * TAU;
+        const pA = projectOrrery(radius, a0, rx, rz);
+        const pB = projectOrrery(radius, a1, rx, rz);
+        const zMid = (pA.z + pB.z) * 0.5;
+        if ((frontPass && zMid >= 0) || (!frontPass && zMid < 0)) {
           ctx.beginPath();
-          ctx.ellipse(0, -h * 0.22, h * 0.14, h * 0.26, 0, 0, TAU);
-          ctx.fillStyle = `rgba(155, 255, 232, ${0.65 * env})`;
+          ctx.moveTo(cx + pA.x, cy + pA.y);
+          ctx.lineTo(cx + pB.x, cy + pB.y);
+          ctx.stroke();
+
+          // Tiny astrolabe tick-buds every 4 steps
+          if (i % 4 === 0) {
+            ctx.fillStyle = rgb(col, 0.75 * orrery);
+            ctx.beginPath();
+            ctx.arc(cx + pA.x, cy + pA.y, Math.max(0.9, U * 0.0032), 0, TAU);
+            ctx.fill();
+          }
+        }
+      }
+    }
+
+    function drawMoonsPass(frontPass) {
+      if (orrery < 0.05) return;
+      for (const m of moons) {
+        const pos = projectOrrery(m.r, m.angle, m.rx, m.rz);
+        if ((frontPass && pos.z >= 0) || (!frontPass && pos.z < 0)) {
+          // Delicate luminous orbital trail
+          const trailSteps = 10;
+          for (let k = 1; k <= trailSteps; k++) {
+            const ta = m.angle - m.trailDir * (k / trailSteps) * 0.55;
+            const tp = projectOrrery(m.r, ta, m.rx, m.rz);
+            const fade = (1 - k / trailSteps) * 0.45 * orrery;
+            ctx.fillStyle = rgb(m.col, fade);
+            ctx.beginPath();
+            ctx.arc(cx + tp.x, cy + tp.y, m.size * (1 - k / trailSteps) * 0.75, 0, TAU);
+            ctx.fill();
+          }
+
+          // Spore-moon glow + pearl body
+          const mx = cx + pos.x;
+          const my = cy + pos.y;
+          const persp = 1 + (pos.z / (U * 0.5)) * 0.16;
+          const mr = m.size * persp * orrery;
+
+          ctx.save();
+          ctx.globalCompositeOperation = 'screen';
+          const mg = ctx.createRadialGradient(mx, my, 0, mx, my, mr * 3.0);
+          mg.addColorStop(0, rgb(m.col, 0.75 * orrery));
+          mg.addColorStop(1, rgb(m.col, 0));
+          ctx.fillStyle = mg;
+          ctx.beginPath();
+          ctx.arc(mx, my, mr * 3.0, 0, TAU);
           ctx.fill();
           ctx.restore();
+
+          ctx.fillStyle = rgb(mixRGB(m.col, [255, 255, 255], 0.45), 0.95 * orrery);
+          ctx.beginPath();
+          ctx.arc(mx, my, mr, 0, TAU);
+          ctx.fill();
         }
-        ctx.restore();
-        drawGlow(glowCyan, s.x, s.y - h, S * 0.022, 0.55 * env);
       }
+    }
+
+    const ringColA = mixRGB([165, 235, 200], [248, 224, 148], env.daylight);
+    const ringColB = mixRGB([110, 215, 230], [185, 248, 235], env.daylight);
+
+    // Back pass (behind central sun-pistil)
+    drawOrreryRingPass(ringRadiusA, ringTiltXA, ringTiltZA, false, ringColA);
+    drawOrreryRingPass(ringRadiusB, ringTiltXB, ringTiltZB, false, ringColB);
+    drawMoonsPass(false);
+
+    // --- CENTRAL SUN-PISTIL & STAMENS ---
+    const coreScale = crownScale * (0.5 + 0.5 * bloom);
+    const coreY = cy - U * 0.015 * crownScale;
+    const coreR = U * 0.022 * coreScale;
+
+    // Radiating stamens
+    const stamenCount = 8;
+    const stamenLen = U * (0.028 + 0.036 * bloom) * crownScale;
+    ctx.strokeStyle = `rgba(255, 232, 155, ${(0.55 + 0.35 * bloom).toFixed(3)})`;
+    ctx.lineWidth = Math.max(0.7, U * 0.0022);
+    for (let i = 0; i < stamenCount; i++) {
+      const sa = (i / stamenCount) * TAU + rotDrift * 1.5;
+      const sx = cx + Math.cos(sa) * stamenLen * 0.85;
+      const sy = coreY + Math.sin(sa) * stamenLen * 0.58 - U * 0.012 * bloom;
+      ctx.beginPath();
+      ctx.moveTo(cx, coreY);
+      ctx.quadraticCurveTo((cx + sx) * 0.5, coreY - U * 0.012, sx, sy);
+      ctx.stroke();
+
+      ctx.fillStyle = 'rgba(255, 242, 182, 0.92)';
+      ctx.beginPath();
+      ctx.arc(sx, sy, Math.max(1.0, U * 0.0042 * coreScale), 0, TAU);
+      ctx.fill();
+    }
+
+    // Central sun-pearl core
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const cg = ctx.createRadialGradient(cx, coreY, 0, cx, coreY, coreR * 2.8);
+    cg.addColorStop(0, 'rgba(255, 250, 215, 0.95)');
+    cg.addColorStop(0.4, `rgba(255, 210, 118, ${(0.65 + 0.25 * lanternGlow).toFixed(3)})`);
+    cg.addColorStop(1, 'rgba(255, 190, 95, 0)');
+    ctx.fillStyle = cg;
+    ctx.beginPath();
+    ctx.arc(cx, coreY, coreR * 2.8, 0, TAU);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.fillStyle = 'rgb(255, 248, 218)';
+    ctx.beginPath();
+    ctx.arc(cx, coreY, coreR, 0, TAU);
+    ctx.fill();
+
+    // Front petals (depth >= 0) — cup around the sun-core when folded!
+    for (const p of petals) {
+      if (p.depth >= 0) {
+        drawPrismPetal(cx, cy, p.dx, p.dy, p.len, p.wid, p.inner, env, lanternGlow);
+      }
+    }
+
+    // Front pass of orrery rings & spore-moons (in front of blossom)
+    drawOrreryRingPass(ringRadiusA, ringTiltXA, ringTiltZA, true, ringColA);
+    drawOrreryRingPass(ringRadiusB, ringTiltXB, ringTiltZB, true, ringColB);
+    drawMoonsPass(true);
+
+    return { crownX: cx, crownY: cy, bloom, grow };
+  }
+
+  // Update & draw gentle floating pollen, dusk seed-spores, and night motes
+  function updateAndDrawParticles(dt, t, env, plantInfo) {
+    // Seed-release surge in late afternoon / early sunset (t = 38..50)
+    const seedSurge = t >= 38 && t <= 50
+      ? Math.sin(smoothstep(38, 50, t) * Math.PI)
+      : 0;
+
+    for (const p of particles) {
+      p.life += dt * (0.14 + 0.18 * seedSurge);
+      if (p.life >= 1) {
+        p.life -= 1;
+        if (seedSurge > 0.2 && plantInfo.grow > 0.2) {
+          // Spawn near the blossom crown during seed drop
+          p.x = plantInfo.crownX / W + (Math.sin(p.phase + t) * 0.08);
+          p.y = plantInfo.crownY / H + (Math.cos(p.phase * 1.7) * 0.04);
+        } else {
+          p.x = 0.16 + ((p.seed * 1.73 + t * 0.03) % 0.68);
+          p.y = env.daylight > 0.35 ? 0.80 : 0.72 + (p.seed * 0.11);
+        }
+      }
+
+      const driftX = Math.sin(t * 0.9 + p.phase + p.life * 6) * 0.015;
+      if (seedSurge > 0.25) {
+        // Gentle downward spiraling golden seeds toward the moss
+        p.x += (driftX + p.vx * 0.5) * dt;
+        p.y += (0.045 + p.seed * 0.03) * dt;
+      } else if (env.daylight > 0.3) {
+        // Sunlit ascending pollen motes
+        p.x += (driftX + env.sunX * 0.008) * dt;
+        p.y += p.vy * dt;
+      } else {
+        // Serene night drifting dust near moss
+        p.x += driftX * 0.55 * dt;
+        p.y += Math.cos(t * 0.7 + p.phase) * 0.008 * dt;
+      }
+
+      // Fade cleanly at start/end of life and near borders
+      const envFade = Math.sin(p.life * Math.PI);
+      const px = clamp(p.x, 0.08, 0.92) * W;
+      const py = p.y * H;
+      const floorY = soilSurfaceY(p.x);
+      if (py > floorY + U * 0.01 || py < H * 0.16) continue;
+
+      const isSeed = seedSurge > 0.25;
+      const alpha = envFade * (isSeed ? 0.85 : env.daylight > 0.3 ? 0.45 : 0.52);
+      const col = isSeed
+        ? [255, 224, 138]
+        : env.daylight > 0.3
+          ? [255, 248, 210]
+          : [130, 245, 215];
+
+      const rad = p.r * (U / 380 + 0.4) * (isSeed ? 1.3 : 1.0);
+      ctx.fillStyle = rgb(col, alpha);
+      ctx.beginPath();
+      ctx.arc(px, py, rad, 0, TAU);
+      ctx.fill();
     }
   }
 
-  // Ambient stardust drifting in the terrarium
-  function updateAndDrawMotes(dt, t, maturity) {
-    for (const m of motes) {
-      m.x += m.vx * dt;
-      m.y += m.vy * dt;
-      if (m.y < 0.14) {
-        m.y = 0.84;
-        m.x = 0.15 + Math.random() * 0.7;
-      }
-      if (m.x < 0.08 || m.x > 0.92) m.vx *= -1;
-
-      // Keep clear of top sloped roof corners
-      const roofLimit = 0.22 * (1 - Math.abs(m.x - 0.5) * 2) + 0.18 * Math.abs(m.x - 0.5) * 2;
-      if (m.y < roofLimit) continue;
-
-      const px = m.x * W + Math.sin(t * 0.8 + m.phase) * S * 0.01;
-      const py = m.y * H;
-      const twinkle = (0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * 1.9 + m.phase))) * (0.35 + 0.65 * maturity);
-
-      const spr = m.kind === 0 ? glowCyan : (m.kind === 1 ? glowGold : glowViolet);
-      drawGlow(spr, px, py, m.r * (S / 120), 0.55 * twinkle);
-    }
-  }
-
-  // Main animation loop
-  let startTime = null;
-  let lastTime = null;
+  let lastTime = performance.now();
 
   function frame(now) {
-    if (startTime === null) {
-      startTime = now;
-      lastTime = now;
-    }
-    const dt = Math.min((now - lastTime) / 1000, 0.1);
+    const dt = Math.min((now - lastTime) / 1000, 0.05);
     lastTime = now;
-    const t = (now - startTime) / 1000;
 
-    // Smooth pointer parallax offset
-    const targetBend = pointer.active ? (pointer.tx - 0.5) : 0;
-    pointer.x = lerp(pointer.x, targetBend, 1 - Math.exp(-dt * 3));
+    // Smooth optional pointer damping
+    pointer.x += (pointer.tx - pointer.x) * Math.min(1, dt * 5);
+    pointer.y += (pointer.ty - pointer.y) * Math.min(1, dt * 5);
 
-    // Core 60-second growth curves
-    const rootGrow = easeOutCubic(smoothstep(0.3, 6.5, t));
-    const stemGrow = easeInOutSine(smoothstep(3.8, 35.0, t));
-    const maturity = smoothstep(5.0, 58.0, t);
+    // Shared 60-second clock
+    const t = (Date.now() / 1000) % 60;
+    const env = getEnvironment(t);
 
-    drawAtmosphere(t, maturity);
-    drawSoilAndRoots(t, rootGrow);
-    updateAndDrawMotes(dt, t, maturity);
-
-    drawSeed(t);
-    drawHelixStem(t, stemGrow, pointer.x);
-
-    const leafAnchors = leaves.map(leaf => drawLeaf(leaf, t, stemGrow, pointer.x));
-    drawDewOrbs(t, leafAnchors);
-
-    const crownInfo = drawLotusCrown(t, stemGrow, pointer.x);
-    updateAndDrawDriftSeeds(dt, t, crownInfo);
+    drawAtmosphere(t, env);
+    drawSoilAndMoss(t, env);
+    const plantInfo = drawPlant(t, env);
+    updateAndDrawParticles(dt, t, env, plantInfo);
 
     requestAnimationFrame(frame);
   }
@@ -899,7 +1163,7 @@
 
 ```json
 {
-  "title": "Luster-Loom Lotus",
-  "statement": "Sown from a split prism-seed, this future-flora weaves twin helices of starlit sap into translucent glass fronds before crowning itself with counter-rotating halos of captured dawn. Once in full bloom, it breathes endlessly and sheds drifting light-spores that briefly bud along the moss below."
+  "title": "Heliotrope Orrery",
+  "statement": "A sun-tracking botanical astrolabe that unfurls stained-glass petals and orbiting spore-moons by midday, then showers the moss with golden seeds before folding into a glowing chrysalis for the night."
 }
 ```
