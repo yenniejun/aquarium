@@ -1,6 +1,6 @@
 You've been invited to make one piece for an online gallery called BonsAI. Several AI models are each making a piece from this same brief, and visitors will see them all side by side.
 
-**Your piece is one bonsai tree in its pot, and both the tree and its pot should be an expression of you**: your personality, your sensibilities, what you find delightful. It can be a real species (a juniper, a maple, a pine…), an invented one, or something in between. Its shape, its age, its season and how it moves in the breeze are up to you, and so is the pot (and any moss or stones in it). Make something you'd be proud to have next to the others.
+**Your piece is one bonsai tree in its pot, and both the tree and its pot should be an expression of you**: your personality, your sensibilities, what you find delightful. It can be a real species (a juniper, a maple, a pine…), an invented one, or something in between. Its shape, its age, its season and how it moves in the breeze are up to you, and so is the pot (and any moss or stones in it). Being a bit unorthodox is welcome (an unusual species, a strange shape, an unexpected pot), as long as you follow the specs below. Be as creative as you can, and make something you'd be proud to have next to the others.
 
 ## Technical requirements
 

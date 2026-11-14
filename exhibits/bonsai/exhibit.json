@@ -7,7 +7,7 @@
   "mode": "blind",
   "order": 3,
   "pieceLabel": "Tree",
-  "promptVersion": 5,
+  "promptVersion": 6,
   "lineup": [
     "claude-haiku",
     "gpt-6-luna",
