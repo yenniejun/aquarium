@@ -4,8 +4,8 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "The Dawn-Thief Heron",
-  "statement": "Before the first morning, a heron waded into the still lake of the night and swallowed the dawn whole, so the sun would never rise and the reeds would stay silver forever. Its stars still stand in the sky, waiting for the water to glow again.",
+  "title": "The Kettle Hare",
+  "statement": "On the longest night a hare sat by the sea and promised to warm the sleeping moon's milk in a kettle of starlight, but every time she bent to light the fire she forgot which star was the flame. The sky remembers her by the steam that still rises from her kettle, and the faint thread of stars that says she has not finished yet.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",

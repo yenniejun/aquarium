@@ -4,8 +4,8 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "The Hushwing",
-  "statement": "The Hushwing is a lantern-moth said to gather the questions whispered into the dark and carry them somewhere they can grow wings. Once each night, its starry outline wakes, glimmers, and slips quietly back into the sky.",
+  "title": "The Threadbearer Moth",
+  "statement": "It gathers the small, unfinished questions drifting through the dark and stitches them into wings of starlight. One thread is always left loose, so wonder can wander on.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",

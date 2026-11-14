@@ -3,15 +3,15 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title></title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <style>
+  * { box-sizing: border-box; }
   html, body {
     width: 100%;
     height: 100%;
     margin: 0;
     overflow: hidden;
-    background: transparent;
+    background: #050914;
   }
   canvas {
     display: block;
@@ -21,263 +21,257 @@
 </style>
 </head>
 <body>
-<canvas id="sky" aria-hidden="true"></canvas>
+<canvas id="sky"></canvas>
 <script>
 (() => {
   const canvas = document.getElementById("sky");
-  const ctx = canvas.getContext("2d", { alpha: true });
-  let width = 0, height = 0, unit = 0, dpr = 1;
-  let pointer = null;
+  const ctx = canvas.getContext("2d", { alpha: false });
+  let W = 0, H = 0, S = 0, stars = [];
+
+  function rng(seed) {
+    return () => {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
+  }
 
   function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    unit = Math.min(width, height);
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    S = Math.min(W, H) * 0.42;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const random = rng(72491);
+    stars = Array.from({ length: Math.max(100, Math.floor(W * H / 3100)) }, () => ({
+      x: random() * W,
+      y: random() * H,
+      r: 0.35 + random() * 1.15,
+      phase: random() * Math.PI * 2,
+      speed: 0.25 + random() * 0.8,
+      warmth: random()
+    }));
   }
+
   window.addEventListener("resize", resize);
-  window.addEventListener("pointermove", e => {
-    pointer = { x: (e.clientX - width / 2) / unit, y: (e.clientY - height / 2) / unit };
-  }, { passive: true });
   resize();
 
-  let seed = 18731;
-  function random() {
-    seed = (seed * 16807) % 2147483647;
-    return (seed - 1) / 2147483646;
-  }
+  const P = {
+    head: [0, -0.15],
+    neck: [0, -0.065],
+    thorax: [0, 0.015],
+    belly: [0, 0.13],
+    tip: [0, 0.29],
+    antL1: [-0.075, -0.205],
+    antL2: [-0.17, -0.295],
+    antR1: [0.075, -0.205],
+    antR2: [0.17, -0.295],
 
-  const stars = [];
-  for (let i = 0; i < 245; i++) {
-    const angle = random() * Math.PI * 2;
-    const radius = Math.sqrt(random()) * 0.478;
-    stars.push({
-      x: Math.cos(angle) * radius,
-      y: Math.sin(angle) * radius,
-      r: 0.00055 + random() * 0.00105,
-      phase: random() * Math.PI * 2,
-      speed: 0.35 + random() * 1.5,
-      tint: random()
-    });
-  }
+    l0: [-0.035, -0.025],
+    l1: [-0.18, -0.095],
+    l2: [-0.34, -0.215],
+    l3: [-0.55, -0.27],
+    l4: [-0.48, -0.105],
+    l5: [-0.59, 0.025],
+    l6: [-0.43, 0.16],
+    l7: [-0.19, 0.105],
+    l8: [-0.035, 0.055],
 
-  const points = [
-    [ 0,     -0.205], // crown
-    [ 0,     -0.105], // heart
-    [ 0,      0.015], // waist
-    [ 0,      0.145], // hem
-    [ 0,      0.235], // lantern
-    [-0.065, -0.085],
-    [-0.175, -0.125],
-    [-0.305, -0.275],
-    [-0.285, -0.075],
-    [-0.125,  0.005],
-    [-0.268,  0.215],
-    [-0.105,  0.135],
-    [ 0.065, -0.085],
-    [ 0.175, -0.125],
-    [ 0.305, -0.275],
-    [ 0.285, -0.075],
-    [ 0.125,  0.005],
-    [ 0.268,  0.215],
-    [ 0.105,  0.135]
+    r0: [0.035, -0.025],
+    r1: [0.18, -0.095],
+    r2: [0.34, -0.215],
+    r3: [0.55, -0.27],
+    r4: [0.48, -0.105],
+    r5: [0.59, 0.025],
+    r6: [0.43, 0.16],
+    r7: [0.19, 0.105],
+    r8: [0.035, 0.055],
+
+    mote: [0.54, 0.36]
+  };
+
+  const strokes = [
+    ["head", "neck"], ["neck", "thorax"], ["thorax", "belly"], ["belly", "tip"],
+    ["head", "antL1"], ["antL1", "antL2"], ["head", "antR1"], ["antR1", "antR2"],
+    ["l0", "l1"], ["l1", "l2"], ["l2", "l3"], ["l3", "l4"], ["l4", "l5"],
+    ["l5", "l6"], ["l6", "l7"], ["l7", "l8"], ["l8", "l0"],
+    ["r0", "r1"], ["r1", "r2"], ["r2", "r3"], ["r3", "r4"], ["r4", "r5"],
+    ["r5", "r6"], ["r6", "r7"], ["r7", "r8"], ["r8", "r0"],
+    ["l1", "thorax"], ["l7", "belly"], ["r1", "thorax"], ["r7", "belly"],
+    ["l2", "l5"], ["l4", "l7"], ["r2", "r5"], ["r4", "r7"]
   ];
 
-  const edges = [
-    [0,1],[1,2],[2,3],[3,4],
-    [1,5],[5,6],[6,7],[7,8],[8,9],[9,5],
-    [9,11],[11,10],[10,9],
-    [1,12],[12,13],[13,14],[14,15],[15,16],[16,12],
-    [16,18],[18,17],[17,16]
-  ];
+  const at = (p) => [W / 2 + p[0] * S, H / 2 + p[1] * S];
 
-  function line(x1, y1, x2, y2, color, alpha, width) {
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.strokeStyle = color;
-    ctx.globalAlpha = alpha;
-    ctx.lineWidth = width;
-    ctx.stroke();
-  }
-
-  function drawWing(side, flutter, alpha) {
-    ctx.save();
-    ctx.scale(side, 1);
-    ctx.globalAlpha = alpha;
-    const sway = Math.sin(flutter) * 0.012;
-    const grad = ctx.createLinearGradient(-0.04, -0.22, -0.32, 0.19);
-    grad.addColorStop(0, "rgba(133, 229, 231, 0.18)");
-    grad.addColorStop(0.52, "rgba(128, 127, 229, 0.12)");
-    grad.addColorStop(1, "rgba(223, 145, 209, 0.025)");
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.moveTo(-0.035, -0.075);
-    ctx.bezierCurveTo(-0.12, -0.20 + sway, -0.22, -0.34 + sway, -0.315, -0.274 + sway);
-    ctx.bezierCurveTo(-0.31, -0.19, -0.25, -0.12, -0.285, -0.074);
-    ctx.bezierCurveTo(-0.30, 0.015, -0.33, 0.16 - sway, -0.268, 0.215 - sway);
-    ctx.bezierCurveTo(-0.20, 0.205, -0.15, 0.115, -0.035, 0.065);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(-0.07, -0.06);
-    ctx.quadraticCurveTo(-0.20, -0.10 + sway, -0.285, -0.245 + sway);
-    ctx.moveTo(-0.10, 0.04);
-    ctx.quadraticCurveTo(-0.23, 0.12 - sway, -0.25, 0.19 - sway);
-    ctx.strokeStyle = "rgba(183, 218, 246, 0.28)";
-    ctx.lineWidth = 0.001;
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function drawConstellation(t, reveal) {
-    const glow = 0.58 + 0.18 * Math.sin(t * 1.2);
-    const wingAlpha = 0.16 + reveal * 0.34;
-    drawWing(-1, t * 1.6, wingAlpha);
-    drawWing(1, t * 1.6 + 0.3, wingAlpha);
-
-    // Fine, slowly brightening threads between the lantern-stars.
-    ctx.save();
-    ctx.globalCompositeOperation = "lighter";
-    edges.forEach((edge, i) => {
-      const progress = Math.max(0, Math.min(1, reveal * 1.55 - i * 0.018));
-      if (progress <= 0) return;
-      const a = points[edge[0]], b = points[edge[1]];
-      const ex = a[0] + (b[0] - a[0]) * progress;
-      const ey = a[1] + (b[1] - a[1]) * progress;
-      line(a[0], a[1], ex, ey, "#a9e9f3", 0.16 * glow, 0.0011);
-      line(a[0], a[1], ex, ey, "#dcf7ff", 0.62 * glow, 0.00042);
-    });
-
-    points.forEach((p, i) => {
-      const twinkle = 0.72 + 0.28 * Math.sin(t * (1.5 + (i % 4) * 0.18) + i);
-      const major = [0, 2, 4, 7, 10, 14, 17].includes(i);
-      const r = major ? 0.0030 : 0.0018;
-      const a = (0.68 + reveal * 0.28) * twinkle;
-      const halo = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], major ? 0.022 : 0.013);
-      halo.addColorStop(0, `rgba(190, 247, 255, ${0.43 * a})`);
-      halo.addColorStop(0.25, `rgba(125, 205, 241, ${0.13 * a})`);
-      halo.addColorStop(1, "rgba(125, 205, 241, 0)");
-      ctx.fillStyle = halo;
-      ctx.globalAlpha = 1;
-      ctx.beginPath();
-      ctx.arc(p[0], p[1], major ? 0.022 : 0.013, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.globalAlpha = a;
-      ctx.fillStyle = major ? "#f3ffff" : "#d7f3ff";
-      ctx.beginPath();
-      ctx.arc(p[0], p[1], r, 0, Math.PI * 2);
-      ctx.fill();
-
-      if (major) {
-        ctx.globalAlpha = a * 0.62;
-        ctx.strokeStyle = "#dbf9ff";
-        ctx.lineWidth = 0.00055;
-        ctx.beginPath();
-        ctx.moveTo(p[0] - 0.009, p[1]);
-        ctx.lineTo(p[0] + 0.009, p[1]);
-        ctx.moveTo(p[0], p[1] - 0.009);
-        ctx.lineTo(p[0], p[1] + 0.009);
-        ctx.stroke();
-      }
-    });
-
-    // The moth's delicate, question-mark antennae.
-    ctx.globalAlpha = 0.32 + reveal * 0.45;
-    ctx.strokeStyle = "rgba(180, 225, 244, 0.8)";
-    ctx.lineWidth = 0.00065;
-    for (const side of [-1, 1]) {
-      ctx.beginPath();
-      ctx.moveTo(0, -0.198);
-      ctx.quadraticCurveTo(side * 0.035, -0.255, side * 0.078, -0.244);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(side * 0.078, -0.244, 0.0022, 0, Math.PI * 2);
-      ctx.fillStyle = "#d9f8ff";
-      ctx.fill();
-    }
-    ctx.restore();
-  }
-
-  function frame(ms) {
-    const time = ms * 0.001;
-    ctx.clearRect(0, 0, width, height);
-    ctx.save();
-    ctx.translate(width / 2, height / 2);
-    ctx.scale(unit, unit);
-
-    ctx.beginPath();
-    ctx.arc(0, 0, 0.5, 0, Math.PI * 2);
-    ctx.clip();
-
-    const bg = ctx.createRadialGradient(-0.10, -0.13, 0.025, 0, 0, 0.53);
-    bg.addColorStop(0, "#172342");
-    bg.addColorStop(0.48, "#0b1530");
-    bg.addColorStop(1, "#050a18");
+  function drawBackground(t) {
+    const bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, "#080e20");
+    bg.addColorStop(0.52, "#0a1428");
+    bg.addColorStop(1, "#10152a");
     ctx.fillStyle = bg;
-    ctx.fillRect(-0.5, -0.5, 1, 1);
+    ctx.fillRect(0, 0, W, H);
 
-    // A slow, almost imperceptible drift in the distant cloud of stars.
-    ctx.save();
-    ctx.rotate(time * 0.003);
-    const haze = ctx.createRadialGradient(-0.18, 0.13, 0.01, -0.18, 0.13, 0.40);
-    haze.addColorStop(0, "rgba(78, 98, 167, 0.11)");
-    haze.addColorStop(0.42, "rgba(102, 63, 133, 0.045)");
-    haze.addColorStop(1, "rgba(70, 90, 150, 0)");
-    ctx.fillStyle = haze;
-    ctx.fillRect(-0.5, -0.5, 1, 1);
+    const cx = W / 2, cy = H / 2;
+    const mist = ctx.createRadialGradient(cx - S * 0.22, cy - S * 0.12, 0, cx, cy, S * 1.04);
+    mist.addColorStop(0, "rgba(54,91,127,0.17)");
+    mist.addColorStop(0.45, "rgba(36,58,99,0.09)");
+    mist.addColorStop(1, "rgba(5,9,20,0)");
+    ctx.fillStyle = mist;
+    ctx.fillRect(0, 0, W, H);
 
+    const blush = ctx.createRadialGradient(cx + S * 0.40, cy + S * 0.12, 0, cx + S * 0.40, cy + S * 0.12, S * 0.48);
+    blush.addColorStop(0, "rgba(108,63,106,0.09)");
+    blush.addColorStop(1, "rgba(108,63,106,0)");
+    ctx.fillStyle = blush;
+    ctx.fillRect(0, 0, W, H);
+
+    const turn = t * 0.000012;
     for (const s of stars) {
-      const twinkle = 0.28 + 0.72 * (0.5 + 0.5 * Math.sin(time * s.speed + s.phase));
-      ctx.globalAlpha = twinkle * (s.tint > 0.83 ? 0.8 : 0.57);
-      ctx.fillStyle = s.tint > 0.83 ? "#b8d6ff" : "#d8e3ff";
+      const dx = s.x - cx, dy = s.y - cy;
+      const x = cx + dx * Math.cos(turn) - dy * Math.sin(turn);
+      const y = cy + dx * Math.sin(turn) + dy * Math.cos(turn);
+      const twinkle = 0.48 + 0.52 * (0.5 + 0.5 * Math.sin(t * 0.001 * s.speed + s.phase));
+      const alpha = (0.22 + twinkle * 0.68) * (0.55 + s.r * 0.25);
       ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r * (0.8 + twinkle * 0.45), 0, Math.PI * 2);
+      ctx.fillStyle = s.warmth > 0.82
+        ? `rgba(255,218,173,${alpha})`
+        : `rgba(190,220,255,${alpha})`;
+      ctx.arc(x, y, s.r * (0.72 + twinkle * 0.35), 0, Math.PI * 2);
       ctx.fill();
-    }
-    ctx.restore();
-    ctx.globalAlpha = 1;
-
-    // A faint wandering glow follows a nearby visitor, never obscuring the stars.
-    if (pointer) {
-      const dx = pointer.x, dy = pointer.y;
-      if (dx * dx + dy * dy < 0.23) {
-        const g = ctx.createRadialGradient(dx, dy, 0, dx, dy, 0.12);
-        g.addColorStop(0, "rgba(104, 192, 232, 0.055)");
-        g.addColorStop(1, "rgba(104, 192, 232, 0)");
-        ctx.fillStyle = g;
-        ctx.fillRect(dx - 0.12, dy - 0.12, 0.24, 0.24);
+      if (s.r > 1.15 && twinkle > 0.83) {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(185,218,255,${alpha * 0.16})`;
+        ctx.arc(x, y, s.r * 3.2, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
+  }
 
-    const cycle = (time % 24) / 24;
-    const reveal = cycle < 0.12 ? 0 :
-      cycle < 0.42 ? (cycle - 0.12) / 0.30 :
-      cycle < 0.70 ? 1 :
-      cycle < 0.88 ? 1 - (cycle - 0.70) / 0.18 : 0;
-    drawConstellation(time, reveal);
+  function smooth(a, b, x) {
+    x = Math.max(0, Math.min(1, (x - a) / (b - a)));
+    return x * x * (3 - 2 * x);
+  }
 
-    // A few drifting motes make the dark feel gently inhabited.
-    for (let i = 0; i < 7; i++) {
-      const a = i * 2.4 + time * (0.045 + i * 0.003);
-      const r = 0.22 + 0.075 * Math.sin(time * 0.11 + i * 2);
-      const x = Math.cos(a) * r, y = Math.sin(a) * r * 0.72;
-      ctx.globalAlpha = 0.18 + 0.14 * Math.sin(time + i);
-      ctx.fillStyle = "#a8dbef";
+  function drawMoth(t, reveal) {
+    const pulse = 0.82 + 0.18 * Math.sin(t * 0.0014);
+    const visibility = reveal * pulse;
+
+    ctx.save();
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    const wingFill = (side) => {
+      const names = side === "l"
+        ? ["l0","l1","l2","l3","l4","l5","l6","l7","l8"]
+        : ["r0","r1","r2","r3","r4","r5","r6","r7","r8"];
       ctx.beginPath();
-      ctx.arc(x, y, 0.0011, 0, Math.PI * 2);
+      names.forEach((name, i) => {
+        const [x, y] = at(P[name]);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.closePath();
+      ctx.fillStyle = `rgba(111,177,190,${0.027 * visibility})`;
+      ctx.fill();
+    };
+    wingFill("l");
+    wingFill("r");
+
+    const segmentCount = strokes.length;
+    const drawn = smooth(0, 1, reveal) * segmentCount;
+    for (let i = 0; i < segmentCount; i++) {
+      const amount = Math.max(0, Math.min(1, drawn - i));
+      if (!amount) continue;
+      const a = at(P[strokes[i][0]]);
+      const b = at(P[strokes[i][1]]);
+      const ex = a[0] + (b[0] - a[0]) * amount;
+      const ey = a[1] + (b[1] - a[1]) * amount;
+
+      ctx.beginPath();
+      ctx.moveTo(a[0], a[1]);
+      ctx.lineTo(ex, ey);
+      ctx.strokeStyle = i < 8
+        ? `rgba(255,220,166,${0.68 * visibility})`
+        : `rgba(151,220,224,${0.57 * visibility})`;
+      ctx.lineWidth = Math.max(0.8, S * 0.0032);
+      ctx.shadowBlur = S * 0.022;
+      ctx.shadowColor = i < 8 ? "#ffd79d" : "#8ee8e3";
+      ctx.stroke();
+    }
+    ctx.shadowBlur = 0;
+
+    const veinAlpha = visibility * 0.34;
+    for (const pair of [
+      ["l1","l4"], ["l2","l6"], ["l4","l7"],
+      ["r1","r4"], ["r2","r6"], ["r4","r7"]
+    ]) {
+      const a = at(P[pair[0]]), b = at(P[pair[1]]);
+      ctx.beginPath();
+      ctx.moveTo(...a);
+      ctx.quadraticCurveTo(W / 2, H / 2, ...b);
+      ctx.strokeStyle = `rgba(171,218,209,${veinAlpha})`;
+      ctx.lineWidth = Math.max(0.6, S * 0.0016);
+      ctx.stroke();
+    }
+
+    const nodeNames = Object.keys(P).filter(n => n !== "mote");
+    for (const name of nodeNames) {
+      const [x, y] = at(P[name]);
+      const important = ["head", "thorax", "tip", "l3", "l5", "r3", "r5"].includes(name);
+      const tw = 0.72 + 0.28 * Math.sin(t * 0.0018 + name.length * 1.7);
+      const radius = (important ? 2.5 : 1.35) * (W < 250 ? 0.8 : 1);
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(255,${important ? 232 : 216},${important ? 188 : 177},${0.32 + 0.68 * visibility * tw})`;
+      ctx.shadowBlur = important ? S * 0.035 : S * 0.018;
+      ctx.shadowColor = "#ffdfa9";
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
       ctx.fill();
     }
-    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+
+    const tail = at(P.tip);
+    const satellite = at(P.mote);
+    const drift = Math.sin(t * 0.00045) * S * 0.012;
+    ctx.beginPath();
+    ctx.moveTo(tail[0], tail[1]);
+    ctx.bezierCurveTo(
+      tail[0] + S * 0.22, tail[1] + S * 0.15,
+      satellite[0] - S * 0.20, satellite[1] + drift,
+      satellite[0], satellite[1] + drift
+    );
+    ctx.setLineDash([S * 0.009, S * 0.016]);
+    ctx.lineDashOffset = -t * 0.012;
+    ctx.strokeStyle = `rgba(243,199,151,${0.26 + 0.42 * visibility})`;
+    ctx.lineWidth = Math.max(0.7, S * 0.0018);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    const motePulse = 0.7 + 0.3 * Math.sin(t * 0.0021);
+    const mx = satellite[0], my = satellite[1] + drift;
+    ctx.save();
+    ctx.translate(mx, my);
+    ctx.rotate(Math.PI / 4);
+    ctx.fillStyle = `rgba(255,230,184,${0.7 + 0.3 * motePulse})`;
+    ctx.shadowColor = "#ffdca4";
+    ctx.shadowBlur = S * 0.045;
+    ctx.fillRect(-S * 0.009, -S * 0.009, S * 0.018, S * 0.018);
+    ctx.restore();
 
     ctx.restore();
+  }
+
+  function frame(now) {
+    drawBackground(now);
+
+    const cycle = (now % 18000) / 18000;
+    const reveal = smooth(0.07, 0.48, cycle) * (1 - smooth(0.75, 0.94, cycle));
+    drawMoth(now, reveal);
+
     requestAnimationFrame(frame);
   }
+
   requestAnimationFrame(frame);
 })();
 </script>
@@ -287,7 +281,7 @@
 
 ```json
 {
-  "title": "The Hushwing",
-  "statement": "The Hushwing is a lantern-moth said to gather the questions whispered into the dark and carry them somewhere they can grow wings. Once each night, its starry outline wakes, glimmers, and slips quietly back into the sky."
+  "title": "The Threadbearer Moth",
+  "statement": "It gathers the small, unfinished questions drifting through the dark and stitches them into wings of starlight. One thread is always left loose, so wonder can wander on."
 }
 ```
