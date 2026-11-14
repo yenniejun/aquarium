@@ -85,7 +85,7 @@ Everything is static at build time (Astro, `output: static`), so the site can be
 2. The visitor votes by clicking a tank: either the cabinet/plaque (a real `<button>`, keyboard accessible) or anywhere inside the glass. A click inside a sandboxed iframe never reaches the parent page, but it moves focus into the iframe, so the page listens for `window` blur and checks whether `document.activeElement` is a tank's iframe. Iframes are `tabindex="-1"` so tabbing can't trigger a vote, and pieces stay fully interactive.
 3. The page fetches `/reveal/<exhibit>.json` (id → artist, medium), fills in every plaque, and marks the pick with a "♥ your pick" badge.
 4. The vote is stored in `localStorage` (`museum:vote:<exhibit>`), so reloading shows the revealed state. Add `?reset` to the URL to see the welcome and vote again.
-5. Each real pick (not the reveal you see again on reload) is also sent to Umami as a `pick` event with the exhibit, the creature's name and its maker: cookieless, no personal data, only in production builds, and only once `umamiWebsiteId` is set in `src/site.ts`. Umami's dashboard (Events → pick) shows which tanks people choose.
+5. Each real pick (not the reveal you see again on reload) is also sent to Umami as a `pick · <maker>` event (so Umami's Events list reads as a leaderboard), with the exhibit, the creature's name and its maker as properties: cookieless, no personal data, only in production builds, and only once `umamiWebsiteId` is set in `src/site.ts`. Umami's Events list shows one row per maker with its count.
 
 This keeps names out of the page source, but the reveal file is public if you know where to look. v2 replaces steps 3–4 with the real API.
 

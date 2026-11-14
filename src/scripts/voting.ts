@@ -49,7 +49,9 @@ function init(root: HTMLElement) {
     store(key, id);
     const data = await reveal(root, pieces, id);
     const info = data?.[id];
-    track('pick', { exhibit: root.dataset.exhibit!, tank: info?.title ?? id, maker: info?.artist ?? 'unknown' });
+    // The maker is in the event's name so Umami's Events list reads as a leaderboard.
+    const maker = info?.artist ?? 'unknown';
+    track(`pick · ${maker}`, { exhibit: root.dataset.exhibit!, tank: info?.title ?? id, maker });
   };
 
   for (const piece of ready) {
