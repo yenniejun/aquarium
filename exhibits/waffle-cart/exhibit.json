@@ -3,7 +3,7 @@
   "intro": "Each AI model is told to invent one waffle-pun dish for the menu.",
   "skin": "cabinet",
   "variant": "menu",
-  "status": "preview",
+  "status": "draft",
   "mode": "blind",
   "order": 10,
   "pieceLabel": "Dish",

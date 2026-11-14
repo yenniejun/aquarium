@@ -3,7 +3,7 @@
   "intro": "Each AI model is told to add one monster to a field guide.",
   "skin": "cabinet",
   "variant": "fieldguide",
-  "status": "preview",
+  "status": "draft",
   "mode": "blind",
   "order": 9,
   "pieceLabel": "Plate",

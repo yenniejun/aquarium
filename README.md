@@ -18,12 +18,13 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 |---|---|---|---|
 | A(quar)I(um) | `aquarium` | fish tanks (aquarium skin) | live, home page |
 | (c)A(rn)I(vora) | `carnivora` | bell jars | preview |
+| (c)A(rn)I(val) | `carnival` | circus stages | draft (hidden) |
 | Bons(AI) | `bonsai` | frameless, on a wooden stand | preview |
 | A(pothecar)I | `apothecary` | shelf cubbies | preview |
 | (Planet)A(r)I(um) | `planetarium` | brass portholes | preview |
 | (Fung)A(r)I(um) | `fungarium` | museum vitrines | preview |
-| Nightm(AI)re | `nightmare` | field-guide pages | preview |
-| W(AI)ffle Cart | `waffle-cart` | chalkboard menu | preview |
+| Nightm(AI)re | `nightmare` | field-guide pages | draft (hidden) |
+| W(AI)ffle Cart | `waffle-cart` | chalkboard menu | draft (hidden) |
 | f(AI)ries | `fairies` | tarot cards | preview |
 | (Terr)A(r)I(um) | `terrarium` | glass terrarium, shared sun/moon day | draft (hidden) |
 | (Dre)A(m) (C)I(ty) | `dream-city` | windows | draft (hidden) |
@@ -36,7 +37,7 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 ### Adding a gallery
 
 1. Copy a similar folder in `exhibits/` and edit `exhibit.json` (`title`, `intro`, `order`, `pieceLabel`, `lineup`) and `prompt.md`.
-2. Pick a display: `"skin": "cabinet"` with a `variant` (`belljar`, `niche`, `window`, `shelf`, `terrarium`, `porthole`, `specimen`, `fieldguide`, `menu`, `tarot`). Displays live in `src/skins/cabinet/Frame.astro` and their rooms in `src/skins/cabinet/Room.astro`; a new variant also goes in `src/skins/names.ts`.
+2. Pick a display: `"skin": "cabinet"` with a `variant` (`belljar`, `niche`, `window`, `shelf`, `terrarium`, `porthole`, `specimen`, `fieldguide`, `menu`, `tarot`, `bigtop`). Displays live in `src/skins/cabinet/Frame.astro` and their rooms in `src/skins/cabinet/Room.astro`; a new variant also goes in `src/skins/names.ts`.
 3. Start it as `"status": "draft"` or `"preview"`, generate pieces (below), and look at it locally.
 
 ## Generating pieces
