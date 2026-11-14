@@ -126,9 +126,9 @@ export function getHomeExhibit(): Exhibit {
   return getListedExhibits()[0];
 }
 
-/** Where an exhibit's page lives: "/" for the home exhibit, "/<slug>/" for the rest. */
+/** Where an exhibit's page lives: "/<slug>/" ("/" just forwards to the home exhibit's). */
 export function exhibitPath(exhibit: Exhibit): string {
-  return exhibit.slug === getHomeExhibit()?.slug ? '/' : `/${exhibit.slug}/`;
+  return `/${exhibit.slug}/`;
 }
 
 /** The brief, exactly as sent to the models (minus any <!-- notes to ourselves -->). */

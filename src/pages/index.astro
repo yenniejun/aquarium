@@ -1,6 +1,20 @@
 ---
-import ExhibitPage from '../components/ExhibitPage.astro';
-import { getHomeExhibit } from '../lib/exhibits';
+/** "/" forwards to the home exhibit (the first listed one), so there's no lobby page. */
+import { exhibitPath, getHomeExhibit } from '../lib/exhibits';
+import { href } from '../lib/url';
+
+const home = getHomeExhibit();
+const to = href(exhibitPath(home));
 ---
 
-<ExhibitPage exhibit={getHomeExhibit()} />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+    <link rel="canonical" href={to} />
+    <title>{home.title}</title>
+  </head>
+  <body>
+    <a href={to}>{home.title}</a>
+  </body>
+</html>

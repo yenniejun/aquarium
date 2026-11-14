@@ -1,5 +1,9 @@
 export const site = {
   name: 'The Model Museum',
+  /** Where the site lives. Pages name it as their canonical address. */
+  url: 'https://galleries.artfish.ai',
+  /** The site's earlier addresses: a visitor arriving on one is sent to the same page at `url`. */
+  oldHosts: ['aquarium.artfish.ai'],
   blurb:
     'Every exhibit gives several AI models the same brief. Every piece is pure code the model wrote: no images, no assets.',
   /** Shown in the lobby directory before they have an exhibit folder. */

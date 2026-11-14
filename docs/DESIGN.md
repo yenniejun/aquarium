@@ -114,7 +114,7 @@ Why not inline the code, or use `srcdoc`? Inlining lets pieces' CSS and globals 
 ## Roadmap
 
 ### v0 (now)
-Live at https://aquarium.artfish.ai (Cloudflare Pages, built from this repo on every push; DNS at GoDaddy via a CNAME to `aquarium-con.pages.dev`). The aquarium is the home page. Twelve generated tanks, blind click-to-pick with a client-side reveal, anonymous pick counts in Umami, and sandboxing. There is no lobby page anymore; the gilded-frame Modern Art skin is parked (modern-art is a draft).
+Live at https://galleries.artfish.ai (Cloudflare Pages, built from this repo on every push; DNS at GoDaddy via CNAMEs to `aquarium-con.pages.dev`; the first address, aquarium.artfish.ai, redirects there). Each gallery lives at `/<slug>/` and `/` forwards to the aquarium. Twelve generated tanks, blind click-to-pick with a client-side reveal, anonymous pick counts in Umami, and sandboxing. There is no lobby page anymore; the gilded-frame Modern Art skin is parked (modern-art is a draft).
 
 ### v1: real pieces
 - `scripts/generate.mjs` (`npm run generate -- <entry>…`, built): sends `prompt.md` to each entry's model: Anthropic, OpenAI and Google directly, everyone else through OpenRouter pinned to one host (`route` and `host` in `meta.json`). Saves the raw reply to `entries/<slug>/raw.md`, the HTML block to `piece.html`, and the JSON block plus a `generation` record (date, API and serving host, params) to `meta.json`.
