@@ -13,6 +13,7 @@
  *   fieldguide  a plate on an aged page of a field guide, notes in ink   3:4
  *   menu      a dish drawn on a chalkboard menu, name and blurb in chalk 4:3
  *   tarot     a tarot card: gold-framed artwork, title and blurb on it   2:3
+ *   bigtop    a little circus stage: bunting, curtains, a striped drum   3:4
  */
 import type { PieceView } from '../../lib/exhibits';
 import type { CabinetVariant } from '../names';
@@ -869,6 +870,88 @@ const empty = piece.status === 'pending';
 
   :global([data-picked]) .tarot .label {
     box-shadow: none;
+  }
+
+  /* ---------- Circus stage (carnival) ---------- */
+  /* Pieces are transparent: the plant performs on our drum, under a spotlight. */
+  .bigtop .vessel {
+    margin-top: 18px;
+  }
+
+  .bigtop .glass {
+    overflow: visible;
+    background: radial-gradient(60% 45% at 50% 100%, rgba(255, 238, 190, 0.22), transparent 75%);
+  }
+
+  /* Velvet curtain edges down the sides. */
+  .bigtop .glass::after {
+    background:
+      linear-gradient(90deg, #7d0f1f 0, #b3172e 4%, #6b0b19 8%, transparent 10%, transparent 90%, #6b0b19 92%, #b3172e 96%, #7d0f1f 100%);
+    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4));
+  }
+
+  /* Red-and-cream bunting across the top. */
+  .bigtop .vessel::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    left: -3%;
+    right: -3%;
+    top: -16px;
+    height: 26px;
+    background:
+      radial-gradient(circle at 50% 0, #c8102e 0 62%, transparent 64%) 0 6px / 28px 22px repeat-x,
+      radial-gradient(circle at 50% 0, #f3e6c8 0 62%, transparent 64%) 14px 6px / 28px 22px repeat-x,
+      linear-gradient(#d9b25c, #9b7128) 0 0 / 100% 7px no-repeat;
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.45));
+  }
+
+  /* A striped circus drum, gold-rimmed. */
+  .bigtop .base {
+    position: relative;
+    width: 74%;
+    height: 34px;
+    margin-top: -2px;
+    border-radius: 0 0 50% 50% / 0 0 30% 30%;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.35), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.35)),
+      repeating-linear-gradient(90deg, #c8102e 0 16px, #f3e6c8 16px 32px);
+    box-shadow:
+      inset 0 -4px 0 #d9b25c,
+      0 10px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  .bigtop .base::before {
+    content: '';
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    top: -9px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 50% 40%, #fff0bf, #d9b25c 60%, #9b7128);
+  }
+
+  /* The label is a red carnival ticket with notched ends. */
+  .bigtop .label {
+    width: 76%;
+    margin-top: 16px;
+    border-radius: 2px;
+    color: #fff4dc;
+    background:
+      radial-gradient(circle at 0 50%, transparent 7px, #c8102e 7.5px) left / 51% 100% no-repeat,
+      radial-gradient(circle at 100% 50%, transparent 7px, #c8102e 7.5px) right / 51% 100% no-repeat;
+    box-shadow: none;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.45));
+  }
+
+  .bigtop .label::before {
+    content: '';
+    position: absolute;
+    inset: 4px 12px;
+    border: 1px dashed rgba(255, 244, 220, 0.55);
+    border-radius: 2px;
+    pointer-events: none;
   }
 
   /* ---------- Chalkboard menu (waffle cart) ---------- */

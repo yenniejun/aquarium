@@ -1,0 +1,19 @@
+{
+  "artist": "Claude Haiku 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-haiku-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "Nepenthe the Tumbling Pitcher",
+  "statement": "Step right up and witness the juggling marvel who has never once dropped a fly, with a bow for every applause and a snap for every sceptic. Mind the hat, it is known to snap back.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

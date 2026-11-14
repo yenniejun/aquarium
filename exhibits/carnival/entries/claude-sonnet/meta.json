@@ -1,0 +1,6 @@
+{
+  "artist": "Claude Sonnet 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-sonnet-5-5",
+  "openWeights": false
+}

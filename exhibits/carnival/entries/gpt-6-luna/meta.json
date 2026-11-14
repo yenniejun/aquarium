@@ -1,0 +1,19 @@
+{
+  "artist": "GPT-6 Luna",
+  "provider": "OpenAI",
+  "modelId": "gpt-6-luna",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Dewdrop Revue",
+  "statement": "Step right up for a pitcher-plant clown with a leafy flourish and three impossible dewdrop tricks. Every loop ends with a smile—and starts all over again.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

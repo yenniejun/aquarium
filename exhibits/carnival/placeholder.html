@@ -1,0 +1,23 @@
+<!doctype html>
+<!-- Shown for any bonsai entry with no piece.html yet: an empty pot waiting on the drum. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awaiting arrival</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: transparent; }
+  .pot {
+    position: absolute; left: 50%; bottom: 0; width: 42%; height: 13%;
+    translate: -50% 0; border-radius: 0 0 18% 18% / 0 0 60% 60%;
+    background: linear-gradient(#a8735a, #7d4f3a);
+    opacity: .55;
+  }
+  .pot::before {
+    content: ''; position: absolute; left: -4%; right: -4%; top: -14%; height: 26%;
+    border-radius: 3px; background: #8f5e46;
+  }
+</style>
+</head>
+<body><div class="pot"></div></body>
+</html>

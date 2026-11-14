@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: transparent; }
+  canvas { display: block; position: absolute; left: 0; top: 0; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(function () {
+  const cv = document.getElementById('c');
+  const ctx = cv.getContext('2d');
+  let W, H, S, OX, OY, DPR;
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    cv.width = Math.round(W * DPR);
+    cv.height = Math.round(H * DPR);
+    cv.style.width = W + 'px';
+    cv.style.height = H + 'px';
+    S = Math.min(W / 300, H / 400);
+    OX = (W - 300 * S) / 2;
+    OY = H - 400 * S;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const T = 1.1;
+  const BALLS = ['#ffd23f', '#2ec4b6', '#ff5d8f'];
+
+  function dist2(q, target) {
+    let d = ((q - target + 1) % 2 + 2) % 2 - 1;
+    return Math.abs(d);
+  }
+
+  function ballPos(i, t) {
+    const q = ((t / T) + i * 2 / 3) % 2;
+    const a = Math.PI * q;
+    return { x: 150 + 70 * Math.cos(a), y: 236 - 92 * Math.abs(Math.sin(a)), q: q };
+  }
+
+  function drawPot(t) {
+    // pot body
+    ctx.beginPath();
+    ctx.moveTo(72, 302);
+    ctx.lineTo(228, 302);
+    ctx.lineTo(210, 390);
+    ctx.quadraticCurveTo(208, 398, 200, 398);
+    ctx.lineTo(100, 398);
+    ctx.quadraticCurveTo(92, 398, 90, 390);
+    ctx.closePath();
+    ctx.fillStyle = '#fbf7ef';
+    ctx.fill();
+    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = '#d7263d';
+    for (let x = 60; x < 250; x += 26) {
+      ctx.beginPath();
+      ctx.moveTo(x, 290);
+      ctx.lineTo(x + 12, 290);
+      ctx.lineTo(x - 8, 400);
+      ctx.lineTo(x - 20, 400);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+    ctx.strokeStyle = '#3a1f2b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(72, 302);
+    ctx.lineTo(90, 390);
+    ctx.quadraticCurveTo(92, 398, 100, 398);
+    ctx.lineTo(200, 398);
+    ctx.quadraticCurveTo(208, 398, 210, 390);
+    ctx.lineTo(228, 302);
+    ctx.stroke();
+
+    // gold rim
+    ctx.beginPath();
+    ctx.roundRect(64, 290, 172, 14, 5);
+    ctx.fillStyle = '#f2c14e';
+    ctx.fill();
+    ctx.strokeStyle = '#3a1f2b';
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.fillRect(74, 293, 60, 3);
+
+    // leaves curling out of the pot
+    const sway = Math.sin(t * 1.4) * 0.06;
+    [[92, -1], [208, 1]].forEach(function (p, k) {
+      const x0 = p[0], dir = p[1];
+      ctx.save();
+      ctx.translate(x0, 296);
+      ctx.rotate(dir * (-0.5 + sway * (k ? 1 : -1)));
+      ctx.beginPath();
+      ctx.moveTo(-6, 0);
+      ctx.quadraticCurveTo(-14, -44, 6, -78);
+      ctx.quadraticCurveTo(14, -40, 6, 0);
+      ctx.closePath();
+      ctx.fillStyle = '#4fa23e';
+      ctx.fill();
+      ctx.strokeStyle = '#2b5e22';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+    });
+  }
+
+  function arm(sx, sy, hx, hy, bend) {
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.quadraticCurveTo((sx + hx) / 2 + bend, (sy + hy) / 2 + 26, hx, hy);
+    ctx.lineWidth = 9;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#3f8a35';
+    ctx.stroke();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#8fd46b';
+    ctx.stroke();
+  }
+
+  function shell() {
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(-14, -4, -11, -21);
+    ctx.quadraticCurveTo(-4, -24, 0, -14);
+    ctx.closePath();
+  }
+
+  function trapHand(hx, hy, open) {
+    ctx.save();
+    ctx.translate(hx, hy);
+    // mouth interior
+    ctx.beginPath();
+    ctx.ellipse(0, -6, 7, 9, 0, 0, Math.PI * 2);
+    ctx.fillStyle = '#c2185b';
+    ctx.fill();
+    // left lobe
+    ctx.save();
+    ctx.rotate(-open);
+    shell();
+    ctx.fillStyle = '#6cc24a';
+    ctx.fill();
+    ctx.strokeStyle = '#2b5e22';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.restore();
+    // right lobe
+    ctx.save();
+    ctx.scale(-1, 1);
+    ctx.rotate(-open);
+    shell();
+    ctx.fillStyle = '#6cc24a';
+    ctx.fill();
+    ctx.strokeStyle = '#2b5e22';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.restore();
+    ctx.restore();
+  }
+
+  function body(t, eyeTarget) {
+    // urn body
+    ctx.beginPath();
+    ctx.moveTo(150, 300);
+    ctx.bezierCurveTo(198, 300, 207, 262, 197, 232);
+    ctx.bezierCurveTo(190, 212, 180, 200, 168, 192);
+    ctx.lineTo(132, 192);
+    ctx.bezierCurveTo(120, 200, 110, 212, 103, 232);
+    ctx.bezierCurveTo(93, 262, 102, 300, 150, 300);
+    ctx.closePath();
+    const g = ctx.createLinearGradient(100, 0, 200, 0);
+    g.addColorStop(0, '#3d8f3a');
+    g.addColorStop(0.5, '#7fd15e');
+    g.addColorStop(1, '#3d8f3a');
+    ctx.fillStyle = g;
+    ctx.fill();
+    ctx.strokeStyle = '#1f4a22';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // veins
+    ctx.strokeStyle = 'rgba(92,36,110,0.55)';
+    ctx.lineWidth = 1.5;
+    [[-30, 0.1], [-14, 0.2], [14, 0.2], [30, 0.1]].forEach(function (v) {
+      ctx.beginPath();
+      ctx.moveTo(150 + v[0] * 0.3, 296);
+      ctx.quadraticCurveTo(150 + v[0] * 1.1, 260, 150 + v[0] * 0.6, 214);
+      ctx.stroke();
+    });
+
+    // opening
+    ctx.beginPath();
+    ctx.ellipse(150, 192, 20, 6, 0, 0, Math.PI * 2);
+    ctx.fillStyle = '#3b1d4a';
+    ctx.fill();
+
+    // cheeks
+    ctx.fillStyle = 'rgba(255,110,140,0.55)';
+    ctx.beginPath(); ctx.ellipse(122, 258, 7, 4.5, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(178, 258, 7, 4.5, 0, 0, Math.PI * 2); ctx.fill();
+
+    // eyes
+    const blink = (t % 3.7) < 0.12 ? 0.12 : 1;
+    [[131, 240], [169, 240]].forEach(function (e) {
+      const ex = e[0], ey = e[1];
+      let dx = eyeTarget.x - ex, dy = eyeTarget.y - ey;
+      const L = Math.hypot(dx, dy) || 1;
+      dx = dx / L * 2.4; dy = dy / L * 2.4;
+      ctx.save();
+      ctx.translate(ex, ey);
+      ctx.scale(1, blink);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 10, 10, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.strokeStyle = '#1f4a22';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(dx, dy, 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#18101c';
+      ctx.fill();
+      ctx.restore();
+    });
+
+    // painted smile
+    ctx.beginPath();
+    ctx.moveTo(126, 264);
+    ctx.quadraticCurveTo(150, 288, 174, 264);
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#d7263d';
+    ctx.stroke();
+
+    // clown nose
+    ctx.beginPath();
+    ctx.arc(150, 252, 6, 0, Math.PI * 2);
+    ctx.fillStyle = '#e63946';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(148, 250, 1.8, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.fill();
+  }
+
+  function hat(t) {
+    let a = Math.sin(t * 1.7) * 0.07;
+    const p = t % 4.2;
+    if (p < 0.3) a += -Math.sin(p / 0.3 * Math.PI) * 0.4;
+    ctx.save();
+    ctx.translate(150, 192);
+    ctx.rotate(a);
+    ctx.translate(-150, -192);
+    ctx.beginPath();
+    ctx.moveTo(126, 196);
+    ctx.bezierCurveTo(120, 166, 134, 142, 158, 126);
+    ctx.bezierCurveTo(168, 150, 180, 172, 176, 196);
+    ctx.closePath();
+    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = '#fff3d6';
+    ctx.fillRect(110, 110, 90, 100);
+    ctx.fillStyle = '#d7263d';
+    for (let k = -2; k < 6; k++) {
+      ctx.beginPath();
+      const x = 118 + k * 14;
+      ctx.moveTo(x, 200);
+      ctx.lineTo(x + 7, 200);
+      ctx.lineTo(x + 26, 110);
+      ctx.lineTo(x + 19, 110);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+    ctx.strokeStyle = '#3a1f2b';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    // pompom
+    ctx.beginPath();
+    ctx.arc(160, 124, 10, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffd23f';
+    ctx.fill();
+    ctx.strokeStyle = '#3a1f2b';
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(157, 120, 3, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function sparkle(x, y, s, ph) {
+    const k = 0.5 + 0.5 * Math.sin(ph);
+    const r = s * (0.4 + 0.6 * k);
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.beginPath();
+    ctx.moveTo(0, -r); ctx.quadraticCurveTo(0, 0, r, 0);
+    ctx.quadraticCurveTo(0, 0, 0, r);
+    ctx.quadraticCurveTo(0, 0, -r, 0);
+    ctx.quadraticCurveTo(0, 0, 0, -r);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(255,240,170,' + (0.5 + 0.5 * k) + ')';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function frame(t) {
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, W * DPR, H * DPR);
+    ctx.setTransform(DPR * S, 0, 0, DPR * S, DPR * OX, DPR * OY);
+
+    drawPot(t);
+
+    // bow every nine seconds
+    const cyc = t % 9;
+    let bow = 0;
+    if (cyc < 1.8) bow = Math.sin((cyc / 1.8) * Math.PI) * 0.25;
+
+    ctx.save();
+    ctx.translate(150, 300);
+    ctx.rotate(bow + Math.sin(t * 1.3) * 0.025);
+    ctx.translate(-150, -300);
+
+    // twinkles
+    sparkle(58, 150, 7, t * 3.1);
+    sparkle(246, 128, 6, t * 2.4 + 1.5);
+    sparkle(92, 96, 5, t * 2.8 + 3);
+
+    // compute balls and hands
+    const balls = [0, 1, 2].map(function (i) { return ballPos(i, t); });
+    const bob = Math.sin(t * 2.1) * 2.5;
+    const lh = { x: 80, y: 240 + bob };
+    const rh = { x: 220, y: 240 - bob };
+
+    let snapR = 0, snapL = 0;
+    balls.forEach(function (b) {
+      const dR = dist2(b.q, 0), dL = dist2(b.q, 1);
+      snapR = Math.max(snapR, Math.exp(-(dR * dR) / 0.02));
+      snapL = Math.max(snapL, Math.exp(-(dL * dL) / 0.02));
+    });
+    const openL = 0.75 * (1 - 0.85 * snapL);
+    const openR = 0.75 * (1 - 0.85 * snapR);
+
+    // arms
+    arm(116, 246, lh.x + 6, lh.y, -6);
+    arm(184, 246, rh.x - 6, rh.y, 6);
+
+    // body and face
+    body(t, { x: balls[0].x, y: balls[0].y });
+
+    // hat
+    hat(t);
+
+    // hands
+    trapHand(lh.x, lh.y, openL);
+    trapHand(rh.x, rh.y, openR);
+
+    // juggling balls
+    balls.forEach(function (b, i) {
+      const c = BALLS[i];
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, 8.5, 0, Math.PI * 2);
+      ctx.fillStyle = c;
+      ctx.fill();
+      ctx.strokeStyle = '#3a1f2b';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(b.x - 3, b.y - 3, 2.4, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.fill();
+    });
+
+    ctx.restore();
+  }
+
+  function loop(ms) {
+    frame(ms / 1000);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

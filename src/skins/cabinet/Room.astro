@@ -239,6 +239,31 @@ const fireflies = Array.from({ length: 46 }, () =>
     row-gap: clamp(1.5rem, 4vh, 2.5rem);
   }
 
+  /* Carnival: inside the big top, stripes fanning down from the peak, lights strung across. */
+  [data-variant='bigtop'] {
+    --ink: #fff4dc;
+    --accent: #f2c14e;
+    --wall:
+      radial-gradient(circle, #ffe9a8 0 3px, rgba(255, 220, 120, 0.35) 4px, transparent 9px) 0 70px / 64px 30px repeat-x,
+      radial-gradient(70% 55% at 50% 45%, rgba(255, 210, 120, 0.12), transparent 70%),
+      linear-gradient(rgba(25, 6, 12, 0.62), rgba(12, 3, 6, 0.85)),
+      repeating-conic-gradient(from -90deg at 50% -25%, #a8132a 0 5deg, #efe4cf 5deg 10deg);
+  }
+
+  [data-variant='bigtop'] h1 {
+    font: 400 clamp(2.2rem, 4.6vw, 3.4rem) / 1 'Limelight', 'Gluten', serif;
+    letter-spacing: 0.04em;
+    color: #fff4dc;
+    text-shadow:
+      0 3px 0 #5a0a16,
+      0 0 18px rgba(0, 0, 0, 0.55);
+  }
+
+  /* The softer letters still need to read against the tent stripes. */
+  [data-variant='bigtop'] h1 :global(.aside) {
+    opacity: 0.72;
+  }
+
   /* Fairies: tarot cards on a fortune-teller's velvet table, gold dust in the air. */
   [data-variant='tarot'] {
     --ink: #f1e4c3;
