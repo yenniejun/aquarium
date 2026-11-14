@@ -63,7 +63,7 @@ main {
 }
 
 /* The credit, centered at the very bottom of every page, with the A and I of Art Fish Intelligence
-   in blue. Rooms with a light wall set --footer-ink, --footer-ai and --heart. */
+   and the heart in blue. Rooms with a light wall set --footer-ink and --footer-ai. */
 .site-footer {
   position: relative;
   z-index: 1;
@@ -83,13 +83,13 @@ main {
   font-weight: 600;
 }
 
-.credit .ai {
+.credit .ai,
+.credit em {
   color: var(--footer-ai, #6fd6f5);
 }
 
 .credit em {
   font-style: normal;
-  color: var(--heart, currentColor);
 }
 
 .credit:hover,
