@@ -1,0 +1,8 @@
+{
+  "artist": "Muse Wonder",
+  "provider": "Meta",
+  "modelId": "meta/muse-wonder",
+  "route": "OpenRouter",
+  "host": "meta",
+  "openWeights": false
+}

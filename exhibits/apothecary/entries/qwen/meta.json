@@ -1,0 +1,8 @@
+{
+  "artist": "Qwen3.8 Max Prime",
+  "provider": "Alibaba",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "route": "OpenRouter",
+  "host": "alibaba",
+  "openWeights": false
+}
