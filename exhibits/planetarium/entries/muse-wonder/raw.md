@@ -1,0 +1,609 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title></title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #030412;
+  }
+  canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    touch-action: pan-y;
+  }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<script>
+(function () {
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d');
+
+  let W = 0, H = 0, CX = 0, CY = 0, R = 0, DPR = 1;
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    CX = W / 2;
+    CY = H / 2;
+    R = Math.min(W, H) / 2;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const pointer = { x: 0, y: 0, tx: 0, ty: 0, active: 0, tActive: 0 };
+  function onMove(e) {
+    const p = e.touches && e.touches[0] ? e.touches[0] : e;
+    if (!p || p.clientX === undefined) return;
+    pointer.tx = (p.clientX / W - 0.5) * 2;
+    pointer.ty = (p.clientY / H - 0.5) * 2;
+    pointer.tActive = 1;
+  }
+  window.addEventListener('mousemove', onMove, { passive: true });
+  window.addEventListener('touchmove', onMove, { passive: true });
+  window.addEventListener('touchstart', onMove, { passive: true });
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function smooth(a, b, v) {
+    const t = clamp((v - a) / (b - a), 0, 1);
+    return t * t * (3 - 2 * t);
+  }
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+  function easeInOut(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+  let seed = 1873;
+  function rnd() {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  }
+
+  const stars = [];
+  for (let i = 0; i < 340; i++) {
+    const layer = i < 90 ? 0 : (i < 220 ? 1 : 2);
+    stars.push({
+      ang: rnd() * Math.PI * 2,
+      rad: Math.sqrt(rnd()) * 1.02,
+      size: [0.55, 0.9, 1.45][layer] * (0.6 + rnd() * 0.9),
+      layer: layer,
+      phase: rnd() * Math.PI * 2,
+      speed: 0.7 + rnd() * 1.8,
+      hue: rnd()
+    });
+  }
+
+  const dust = [];
+  for (let i = 0; i < 55; i++) {
+    dust.push({
+      x: (rnd() * 2 - 1) * 0.9,
+      y: (rnd() * 2 - 1) * 0.9,
+      s: 0.4 + rnd() * 1.3,
+      phase: rnd() * Math.PI * 2,
+      drift: 0.2 + rnd() * 0.7
+    });
+  }
+
+  const nebulae = [
+    { x: -0.45, y: -0.35, r: 0.62, c: '99,72,210', a: 0.20, ph: 0.0 },
+    { x: 0.52, y: -0.18, r: 0.55, c: '34,170,190', a: 0.14, ph: 1.7 },
+    { x: 0.18, y: 0.48, r: 0.60, c: '210,88,148', a: 0.11, ph: 3.1 },
+    { x: -0.58, y: 0.42, r: 0.48, c: '255,166,92', a: 0.08, ph: 4.4 },
+    { x: 0.72, y: 0.58, r: 0.42, c: '82,92,230', a: 0.13, ph: 2.2 }
+  ];
+
+  const miniCons = [
+    { pts: [[-0.78,-0.52],[-0.66,-0.60],[-0.55,-0.51],[-0.60,-0.39]], a: 0.16 },
+    { pts: [[0.66,0.34],[0.76,0.24],[0.82,0.36],[0.74,0.45]], a: 0.13 },
+    { pts: [[-0.82,0.08],[-0.72,0.02],[-0.68,0.13]], a: 0.11 }
+  ];
+
+  const N = {
+    tailTip:  [-0.64,  0.18],
+    tailTop:  [-0.48, -0.04],
+    tailBot:  [-0.50,  0.30],
+    rearTop:  [-0.35, -0.02],
+    rearBot:  [-0.30,  0.18],
+    back:     [-0.15, -0.11],
+    neck:     [ 0.05, -0.19],
+    earA:     [ 0.09, -0.37],
+    earAn:    [ 0.165,-0.235],
+    earB:     [ 0.235,-0.345],
+    fore:     [ 0.265,-0.205],
+    nose:     [ 0.365,-0.13],
+    chin:     [ 0.22, -0.03],
+    pawUp:    [ 0.365,  0.025],
+    pawUpIn:  [ 0.335,  0.095],
+    chest:    [ 0.06,  0.06],
+    legF:     [ 0.155,  0.27],
+    footF:    [ 0.045,  0.315],
+    belly:    [-0.12,  0.20],
+    legH:     [-0.205, 0.34],
+    footH:    [-0.075, 0.365]
+  };
+  const nodeKeys = Object.keys(N);
+  const nodeSize = {
+    tailTip: 2.2, tailTop: 2.6, tailBot: 2.0, rearTop: 2.4, rearBot: 2.1,
+    back: 3.0, neck: 2.7, earA: 3.1, earAn: 1.9, earB: 2.8, fore: 2.0,
+    nose: 3.2, chin: 2.0, pawUp: 2.7, pawUpIn: 1.8, chest: 2.5,
+    legF: 2.2, footF: 2.6, belly: 2.3, legH: 2.1, footH: 2.8
+  };
+
+  const edges = [
+    ['tailTip','tailTop'],['tailTop','rearTop'],['rearTop','back'],['back','neck'],
+    ['neck','earA'],['earA','earAn'],['earAn','earB'],['earB','fore'],['fore','nose'],
+    ['nose','chin'],['chin','pawUp'],['pawUp','pawUpIn'],['pawUpIn','chest'],
+    ['chest','legF'],['legF','footF'],['chest','belly'],['belly','legH'],['legH','footH'],
+    ['belly','rearBot'],['rearBot','tailBot'],['tailBot','tailTip'],
+    ['neck','chest'],['rearTop','rearBot'],['back','belly'],['chin','chest']
+  ];
+  const edgeLen = edges.map(function (e) {
+    const a = N[e[0]], b = N[e[1]];
+    return Math.hypot(b[0] - a[0], b[1] - a[1]);
+  });
+  const totalLen = edgeLen.reduce(function (s, v) { return s + v; }, 0);
+
+  const bodyOutline = ['rearTop','back','neck','earA','earAn','earB','fore','nose','chin','pawUp','pawUpIn','chest','legF','footF','belly','legH','footH','rearBot'];
+  const tailOutline = ['rearTop','tailTop','tailTip','tailBot','rearBot'];
+
+  let particles = [];
+  let prevCycle = 0;
+
+  function spawnBurst(x, y) {
+    for (let i = 0; i < 42; i++) {
+      const a = rnd() * Math.PI * 2;
+      const sp = (0.04 + rnd() * 0.22) * R;
+      particles.push({
+        x: x, y: y,
+        vx: Math.cos(a) * sp,
+        vy: Math.sin(a) * sp - R * 0.02,
+        life: 0,
+        max: 1.1 + rnd() * 1.1,
+        size: 0.8 + rnd() * 2.2,
+        hue: rnd()
+      });
+    }
+  }
+
+  function mothPos(time, cycle) {
+    const wanderX = Math.sin(time * 0.55) * 0.045 + Math.sin(time * 1.31) * 0.018;
+    const wanderY = Math.cos(time * 0.71) * 0.038 + Math.sin(time * 1.73) * 0.014;
+    let x = 0.54 + wanderX;
+    let y = -0.33 + wanderY;
+    if (pointer.active > 0.01) {
+      const px = pointer.x * 0.72;
+      const py = pointer.y * 0.72;
+      const pull = 0.22 * pointer.active * smooth(8, 11, cycle) * (1 - smooth(13.5, 14.5, cycle));
+      x += (px - x) * pull * 0.35;
+      y += (py - y) * pull * 0.35;
+    }
+    return { x: x, y: y };
+  }
+
+  function foxTransform(time, cycle) {
+    const alive = smooth(7.6, 9.4, cycle) * (1 - smooth(17.4, 19.2, cycle));
+    let pounce = 0;
+    if (cycle > 14.1 && cycle < 17.0) {
+      if (cycle < 15.25) pounce = easeOut((cycle - 14.1) / 1.15);
+      else pounce = 1 - easeInOut((cycle - 15.25) / 1.75);
+    }
+    const bob = Math.sin(time * 0.85) * 0.009 + Math.sin(time * 0.37) * 0.005;
+    return {
+      alive: alive,
+      pounce: pounce,
+      tx: pounce * 0.115,
+      ty: bob - pounce * 0.085,
+      rot: pounce * -0.16 + Math.sin(time * 0.6) * 0.008 * (0.4 + alive),
+      sx: 1 + Math.sin(time * 1.6) * 0.008 * alive + pounce * 0.055,
+      sy: 1 + Math.cos(time * 1.6) * 0.007 * alive - pounce * 0.02,
+      wag: Math.sin(time * 2.4) * 0.09 * alive + Math.sin(time * 0.9) * 0.02
+    };
+  }
+
+  function transformPt(p, tr) {
+    const cx0 = -0.02, cy0 = 0.02;
+    let x = (p[0] - cx0) * tr.sx;
+    let y = (p[1] - cy0) * tr.sy;
+    const c = Math.cos(tr.rot), s = Math.sin(tr.rot);
+    const rx = x * c - y * s;
+    const ry = x * s + y * c;
+    return [rx + cx0 + tr.tx, ry + cy0 + tr.ty];
+  }
+
+  function nodePt(key, tr) {
+    let p = N[key].slice();
+    if ((key === 'tailTip' || key === 'tailTop' || key === 'tailBot') && tr.wag !== 0) {
+      const base = N.rearTop;
+      const dx = p[0] - base[0], dy = p[1] - base[1];
+      const c = Math.cos(tr.wag), s = Math.sin(tr.wag);
+      p = [base[0] + dx * c - dy * s, base[1] + dx * s + dy * c];
+    }
+    return transformPt(p, tr);
+  }
+
+  function toScreen(p) {
+    return [CX + p[0] * R + pointer.x * R * 0.006, CY + p[1] * R + pointer.y * R * 0.006];
+  }
+
+  function drawSmoothClosed(pts) {
+    if (pts.length < 3) return;
+    const mid = function (a, b) { return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; };
+    let m = mid(pts[pts.length - 1], pts[0]);
+    ctx.beginPath();
+    ctx.moveTo(m[0], m[1]);
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i];
+      const q = pts[(i + 1) % pts.length];
+      const mm = mid(p, q);
+      ctx.quadraticCurveTo(p[0], p[1], mm[0], mm[1]);
+    }
+    ctx.closePath();
+  }
+
+  function draw(nowMs) {
+    const time = nowMs / 1000;
+    const CYCLE = 20;
+    const cycle = time % CYCLE;
+
+    pointer.x += (pointer.tx - pointer.x) * 0.035;
+    pointer.y += (pointer.ty - pointer.y) * 0.035;
+    pointer.active += (pointer.tActive - pointer.active) * 0.02;
+    pointer.tActive *= 0.995;
+
+    if (prevCycle < 15.25 && cycle >= 15.25) {
+      const mp = mothPos(time, 15.0);
+      const sp = toScreen([mp.x, mp.y]);
+      spawnBurst(sp[0], sp[1]);
+    }
+    if (cycle < prevCycle && prevCycle > 19) { /* looped */ }
+    prevCycle = cycle;
+
+    ctx.clearRect(0, 0, W, H);
+
+    const bg = ctx.createRadialGradient(CX - R * 0.15, CY - R * 0.2, R * 0.05, CX, CY, R * 1.05);
+    bg.addColorStop(0, '#141a4a');
+    bg.addColorStop(0.38, '#0b1033');
+    bg.addColorStop(0.72, '#05061d');
+    bg.addColorStop(1, '#01020a');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    for (let i = 0; i < nebulae.length; i++) {
+      const n = nebulae[i];
+      const nx = CX + (n.x + Math.sin(time * 0.05 + n.ph) * 0.03 + pointer.x * 0.012) * R;
+      const ny = CY + (n.y + Math.cos(time * 0.04 + n.ph * 1.3) * 0.025 + pointer.y * 0.012) * R;
+      const nr = n.r * R * (1 + Math.sin(time * 0.07 + n.ph) * 0.04);
+      const g = ctx.createRadialGradient(nx, ny, 0, nx, ny, nr);
+      g.addColorStop(0, 'rgba(' + n.c + ',' + n.a + ')');
+      g.addColorStop(0.55, 'rgba(' + n.c + ',' + (n.a * 0.35) + ')');
+      g.addColorStop(1, 'rgba(' + n.c + ',0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(nx, ny, nr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    const skyRot = time * 0.006;
+    for (let i = 0; i < stars.length; i++) {
+      const st = stars[i];
+      const ang = st.ang + skyRot * (1 - st.layer * 0.18);
+      const par = (st.layer + 1) * 0.007;
+      const x = CX + Math.cos(ang) * st.rad * R + pointer.x * R * par;
+      const y = CY + Math.sin(ang) * st.rad * R + pointer.y * R * par;
+      const dx = x - CX, dy = y - CY;
+      if (dx * dx + dy * dy > R * R * 1.01) continue;
+      const tw = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(time * st.speed + st.phase));
+      const a = tw * (0.35 + st.layer * 0.28);
+      ctx.fillStyle = st.hue > 0.82 ? 'rgba(190,220,255,' + a + ')' : (st.hue > 0.68 ? 'rgba(255,230,190,' + a + ')' : 'rgba(255,255,255,' + a + ')');
+      ctx.beginPath();
+      ctx.arc(x, y, st.size * (R / 420) * (0.75 + tw * 0.35), 0, Math.PI * 2);
+      ctx.fill();
+      if (st.layer === 2 && tw > 0.88) {
+        ctx.strokeStyle = 'rgba(255,255,255,' + ((tw - 0.88) * 2.2) + ')';
+        ctx.lineWidth = 0.7;
+        const L = 5 * (R / 420);
+        ctx.beginPath();
+        ctx.moveTo(x - L, y); ctx.lineTo(x + L, y);
+        ctx.moveTo(x, y - L); ctx.lineTo(x, y + L);
+        ctx.stroke();
+      }
+    }
+
+    ctx.save();
+    ctx.lineWidth = Math.max(0.6, R / 600);
+    for (let i = 0; i < miniCons.length; i++) {
+      const mc = miniCons[i];
+      const pulse = 0.7 + 0.3 * Math.sin(time * 0.5 + i * 2.1);
+      ctx.strokeStyle = 'rgba(170,195,255,' + (mc.a * pulse) + ')';
+      ctx.beginPath();
+      for (let j = 0; j < mc.pts.length; j++) {
+        const p = mc.pts[j];
+        const a2 = Math.atan2(p[1], p[0]) + skyRot;
+        const r2 = Math.hypot(p[0], p[1]);
+        const x = CX + Math.cos(a2) * r2 * R;
+        const y = CY + Math.sin(a2) * r2 * R;
+        if (j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        ctx.fillStyle = 'rgba(210,225,255,' + (mc.a * 2.2 * pulse) + ')';
+        ctx.fillRect(x - 0.8, y - 0.8, 1.6, 1.6);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    (function drawMoon() {
+      const mx = CX + (-0.63 + pointer.x * 0.01) * R;
+      const my = CY + (-0.60 + pointer.y * 0.01) * R;
+      const mr = R * 0.085;
+      const glow = ctx.createRadialGradient(mx, my, 0, mx, my, mr * 3.2);
+      glow.addColorStop(0, 'rgba(235,240,255,0.20)');
+      glow.addColorStop(1, 'rgba(235,240,255,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath(); ctx.arc(mx, my, mr * 3.2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath();
+      ctx.arc(mx, my, mr, Math.PI * 0.32, Math.PI * 1.68, false);
+      ctx.arc(mx + mr * 0.48, my - mr * 0.12, mr * 0.82, Math.PI * 1.55, Math.PI * 0.45, true);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(238,242,255,0.92)';
+      ctx.fill();
+    })();
+
+    const shootT = (time % 9.5);
+    if (shootT < 1.1) {
+      const p = shootT / 1.1;
+      const sx = CX + (-0.55 + p * 0.85) * R;
+      const sy = CY + (-0.72 + p * 0.42) * R;
+      const tail = 0.16 * R;
+      const grad = ctx.createLinearGradient(sx, sy, sx - tail, sy - tail * 0.48);
+      grad.addColorStop(0, 'rgba(255,255,255,' + (0.85 * Math.sin(p * Math.PI)) + ')');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = Math.max(1, R / 320);
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(sx - tail, sy - tail * 0.48);
+      ctx.stroke();
+    }
+
+    const tr = foxTransform(time, cycle);
+    const alive = tr.alive;
+    const lineProg = smooth(2.0, 7.2, cycle);
+    const lineFade = 1 - smooth(17.8, 19.4, cycle);
+    const starBright = 0.35 + 0.65 * smooth(1.2, 3.2, cycle);
+
+    const screenNodes = {};
+    for (let i = 0; i < nodeKeys.length; i++) {
+      screenNodes[nodeKeys[i]] = toScreen(nodePt(nodeKeys[i], tr));
+    }
+
+    if (alive > 0.01) {
+      ctx.save();
+      ctx.globalAlpha = alive;
+      ctx.shadowColor = 'rgba(255,168,92,0.55)';
+      ctx.shadowBlur = R * 0.06;
+
+      const tailPts = tailOutline.map(function (k) { return screenNodes[k]; });
+      const tg = ctx.createLinearGradient(tailPts[2][0], tailPts[2][1], tailPts[0][0], tailPts[0][1]);
+      tg.addColorStop(0, '#ffe3b8');
+      tg.addColorStop(0.45, '#ffb877');
+      tg.addColorStop(1, '#f28a5e');
+      drawSmoothClosed(tailPts);
+      ctx.fillStyle = tg;
+      ctx.fill();
+
+      const bodyPts = bodyOutline.map(function (k) { return screenNodes[k]; });
+      const chestPt = screenNodes.chest;
+      const bgd = ctx.createRadialGradient(chestPt[0], chestPt[1], R * 0.02, CX, CY + R * 0.05, R * 0.55);
+      bgd.addColorStop(0, '#ffe9c4');
+      bgd.addColorStop(0.45, '#ffc184');
+      bgd.addColorStop(1, '#ef7f5c');
+      drawSmoothClosed(bodyPts);
+      ctx.fillStyle = bgd;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      const tip = screenNodes.tailTip;
+      ctx.beginPath();
+      ctx.arc(tip[0], tip[1], R * 0.028 * (0.8 + alive * 0.2), 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,248,232,0.85)';
+      ctx.fill();
+
+      const nose = screenNodes.nose;
+      ctx.beginPath();
+      ctx.arc(nose[0], nose[1], Math.max(1.4, R * 0.008), 0, Math.PI * 2);
+      ctx.fillStyle = '#38202e';
+      ctx.fill();
+
+      const eyeP = transformPt([0.225, -0.115], tr);
+      const eyeS = toScreen(eyeP);
+      const blink = (Math.sin(time * 0.9) > 0.985 || (cycle > 12 && cycle < 12.18)) ? 0.15 : 1;
+      ctx.save();
+      ctx.translate(eyeS[0], eyeS[1]);
+      ctx.scale(1, blink);
+      ctx.beginPath();
+      ctx.arc(0, 0, Math.max(1.3, R * 0.009), 0, Math.PI * 2);
+      ctx.fillStyle = '#2c1826';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(-R * 0.003, -R * 0.003, Math.max(0.6, R * 0.003), 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.fill();
+      ctx.restore();
+
+      const cheek = toScreen(transformPt([0.16, -0.04], tr));
+      ctx.beginPath();
+      ctx.arc(cheek[0], cheek[1], R * 0.016, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,150,130,0.28)';
+      ctx.fill();
+      ctx.restore();
+    }
+
+    if (lineProg > 0 && lineFade > 0) {
+      let remaining = lineProg * totalLen;
+      ctx.save();
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      for (let i = 0; i < edges.length; i++) {
+        if (remaining <= 0) break;
+        const a = screenNodes[edges[i][0]];
+        const b = screenNodes[edges[i][1]];
+        const frac = clamp(remaining / edgeLen[i], 0, 1);
+        remaining -= edgeLen[i];
+        const ex = a[0] + (b[0] - a[0]) * frac;
+        const ey = a[1] + (b[1] - a[1]) * frac;
+        ctx.strokeStyle = 'rgba(190,205,255,' + (0.10 * lineFade) + ')';
+        ctx.lineWidth = Math.max(3, R * 0.012);
+        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(ex, ey); ctx.stroke();
+        ctx.strokeStyle = 'rgba(214,226,255,' + (0.58 * lineFade) + ')';
+        ctx.lineWidth = Math.max(0.8, R * 0.0022);
+        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(ex, ey); ctx.stroke();
+        if (frac > 0 && frac < 1) {
+          ctx.beginPath();
+          ctx.arc(ex, ey, Math.max(1.6, R * 0.006), 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,244,214,0.95)';
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+    }
+
+    for (let i = 0; i < nodeKeys.length; i++) {
+      const k = nodeKeys[i];
+      const p = screenNodes[k];
+      const tw = 0.7 + 0.3 * Math.sin(time * 2.1 + i * 1.37);
+      const r0 = (nodeSize[k] || 2.2) * (R / 430) * starBright * tw;
+      const halo = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], r0 * 5.2);
+      halo.addColorStop(0, 'rgba(255,236,196,' + (0.55 * starBright) + ')');
+      halo.addColorStop(0.35, 'rgba(190,205,255,' + (0.18 * starBright) + ')');
+      halo.addColorStop(1, 'rgba(190,205,255,0)');
+      ctx.fillStyle = halo;
+      ctx.beginPath(); ctx.arc(p[0], p[1], r0 * 5.2, 0, Math.PI * 2); ctx.fill();
+
+      ctx.beginPath(); ctx.arc(p[0], p[1], Math.max(0.9, r0), 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,250,235,' + (0.65 + 0.35 * starBright) + ')';
+      ctx.fill();
+
+      if (starBright > 0.55) {
+        const L = r0 * (2.6 + Math.sin(time * 1.4 + i) * 0.5);
+        ctx.strokeStyle = 'rgba(255,244,210,' + (0.35 * starBright * tw) + ')';
+        ctx.lineWidth = Math.max(0.6, R / 700);
+        ctx.beginPath();
+        ctx.moveTo(p[0] - L, p[1]); ctx.lineTo(p[0] + L, p[1]);
+        ctx.moveTo(p[0], p[1] - L); ctx.lineTo(p[0], p[1] + L);
+        ctx.stroke();
+      }
+    }
+
+    const mothAlive = smooth(0.6, 1.8, cycle) * (1 - smooth(15.05, 15.35, cycle)) + smooth(18.2, 19.6, cycle) * 0.9;
+    if (mothAlive > 0.01 && cycle < 18.5) {
+      const mp = mothPos(time, cycle);
+      const ms = toScreen([mp.x, mp.y]);
+      const flap = Math.sin(time * 11) * 0.75;
+      ctx.save();
+      ctx.globalAlpha = clamp(mothAlive, 0, 1);
+      const mg = ctx.createRadialGradient(ms[0], ms[1], 0, ms[0], ms[1], R * 0.07);
+      mg.addColorStop(0, 'rgba(190,250,255,0.55)');
+      mg.addColorStop(1, 'rgba(190,250,255,0)');
+      ctx.fillStyle = mg;
+      ctx.beginPath(); ctx.arc(ms[0], ms[1], R * 0.07, 0, Math.PI * 2); ctx.fill();
+
+      ctx.translate(ms[0], ms[1]);
+      ctx.rotate(Math.sin(time * 1.3) * 0.25 - 0.2);
+      const ws = R * 0.020;
+      for (let side = -1; side <= 1; side += 2) {
+        ctx.save();
+        ctx.rotate(side * (0.55 + flap * 0.45));
+        ctx.beginPath();
+        ctx.ellipse(side * ws * 0.85, -ws * 0.18, ws * 0.95, ws * 0.52, side * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(205,248,255,0.88)';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(side * ws * 0.65, ws * 0.38, ws * 0.62, ws * 0.36, side * -0.4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,214,240,0.75)';
+        ctx.fill();
+        ctx.restore();
+      }
+      ctx.beginPath();
+      ctx.ellipse(0, 0, ws * 0.20, ws * 0.48, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff7dd';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,247,221,0.8)';
+      ctx.lineWidth = Math.max(0.6, R / 800);
+      ctx.beginPath();
+      ctx.moveTo(0, -ws * 0.4); ctx.quadraticCurveTo(-ws * 0.5, -ws * 0.9, -ws * 0.75, -ws * 0.85);
+      ctx.moveTo(0, -ws * 0.4); ctx.quadraticCurveTo(ws * 0.5, -ws * 0.9, ws * 0.75, -ws * 0.85);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    for (let i = 0; i < dust.length; i++) {
+      const d = dust[i];
+      const fx = CX + (d.x + Math.sin(time * 0.11 * d.drift + d.phase) * 0.04) * R;
+      const fy = CY + (d.y + Math.cos(time * 0.09 * d.drift + d.phase * 1.4) * 0.04 - Math.sin(time * 0.05 + d.phase) * 0.015) * R;
+      const a = 0.10 + 0.16 * (0.5 + 0.5 * Math.sin(time * 0.9 * d.drift + d.phase));
+      ctx.beginPath();
+      ctx.arc(fx, fy, d.s * (R / 460), 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,224,170,' + a + ')';
+      ctx.fill();
+    }
+
+    particles = particles.filter(function (p) { return p.life < p.max; });
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.life += 1 / 60;
+      const dt = 1 / 60;
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.vx *= 0.985;
+      p.vy = p.vy * 0.985 + R * 0.018 * dt;
+      const lf = 1 - p.life / p.max;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * (R / 430) * (0.5 + lf * 0.5), 0, Math.PI * 2);
+      ctx.fillStyle = p.hue > 0.5 ? 'rgba(180,245,255,' + (lf * 0.9) + ')' : 'rgba(255,226,170,' + (lf * 0.9) + ')';
+      ctx.fill();
+      const L = p.size * 2.4 * (R / 430) * lf;
+      ctx.strokeStyle = 'rgba(255,255,255,' + (lf * 0.45) + ')';
+      ctx.lineWidth = 0.6;
+      ctx.beginPath();
+      ctx.moveTo(p.x - L, p.y); ctx.lineTo(p.x + L, p.y);
+      ctx.moveTo(p.x, p.y - L); ctx.lineTo(p.x, p.y + L);
+      ctx.stroke();
+    }
+
+    const vig = ctx.createRadialGradient(CX, CY, R * 0.55, CX, CY, R * 1.0);
+    vig.addColorStop(0, 'rgba(0,0,5,0)');
+    vig.addColorStop(0.82, 'rgba(0,0,5,0.10)');
+    vig.addColorStop(1, 'rgba(0,0,8,0.48)');
+    ctx.fillStyle = vig;
+    ctx.fillRect(0, 0, W, H);
+
+    requestAnimationFrame(draw);
+  }
+
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "The Curious Fox",
+  "statement": "She leapt after a moth of starlight to map the dark between the stars, and still chases it each night, her tail brushing new paths across the sky."
+}
+```

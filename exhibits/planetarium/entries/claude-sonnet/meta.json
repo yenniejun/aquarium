@@ -2,5 +2,18 @@
   "artist": "Claude Sonnet 5.5",
   "provider": "Anthropic",
   "modelId": "claude-sonnet-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Moth Who Borrowed the Moon",
+  "statement": "Long ago a small moth mistook the Moon for a porch lamp and flew up to ask if it might stay a while. The Moon, flattered, lent her one gold spark to carry home, and on clear nights the moth still flutters toward it, shaking silver dust from her wings.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 3
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

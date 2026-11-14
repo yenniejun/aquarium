@@ -1,0 +1,286 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#04050d; }
+  canvas { display:block; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(function(){
+  const cv = document.getElementById('c');
+  const ctx = cv.getContext('2d');
+
+  let W, H, CX, CY, R, S, sc, D0, dpr;
+  const stars = [], dust = [], met = [];
+
+  // crane geometry, local units
+  const CP = [
+    [-0.62, 0.50], [-0.28, 0.30], [-0.02, 0.20], [0.20, 0.30],
+    [0.50, 0.62],  [0.58, 0.70],  [0.74, 0.65],
+    [-0.20, 0.16], [-0.06,-0.46], [-0.62,-0.42]
+  ];
+  const SEG = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[2,8],[8,9],[9,2],[7,8]];
+  const PSIZE = [1.4,1.1,1.2,1.1,1.3,1.7,1.5,0.9,1.8,1.6];
+  const TH0 = -0.55;
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    CX = W / 2; CY = H / 2;
+    S = Math.min(W, H);
+    R = Math.hypot(W, H) / 2 * 1.03;
+    sc = S * 0.42;
+    D0 = S * 0.04;
+    genSky();
+  }
+
+  function genSky(){
+    stars.length = 0; dust.length = 0;
+    const k = Math.max(0.7, S / 650);
+    for (let i = 0; i < 240; i++){
+      stars.push({
+        a: Math.random() * Math.PI * 2,
+        r: Math.sqrt(Math.random()) * R,
+        s: (Math.random() * Math.random() * 1.4 + 0.5) * k,
+        tw: Math.random() * Math.PI * 2,
+        ts: 0.5 + Math.random() * 1.6,
+        col: Math.random()
+      });
+    }
+    // faint band of star-dust across the sky
+    const band = 0.7, ca = Math.cos(band), sa = Math.sin(band);
+    for (let i = 0; i < 650; i++){
+      const u = (Math.random() * 2 - 1) * R;
+      const g = (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
+      const off = g * R * 0.11;
+      const x = ca * u - sa * off, y = sa * u + ca * off;
+      const r = Math.hypot(x, y);
+      if (r > R) continue;
+      dust.push({ a: Math.atan2(y, x), r: r, s: (Math.random() * 1.1 + 0.4) * k, al: Math.random() * 0.13 + 0.04 });
+    }
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  // gentle parallax toward the pointer
+  let tx = 0, ty = 0, parx = 0, pary = 0;
+  window.addEventListener('pointermove', function(e){
+    tx = (e.clientX / W - 0.5) * 2;
+    ty = (e.clientY / H - 0.5) * 2;
+  }, { passive: true });
+
+  const ease = k => k * k * (3 - 2 * k);
+
+  function state(t){
+    const P = 16, u = ((t % P) + P) % P;
+    let p = 1, a = 0.16, flap = 0, bob = 0, pen = 0, live = 0;
+    if (u < 3){ }
+    else if (u < 7.5){
+      const k = (u - 3) / 4.5;
+      p = ease(k); a = 0.16 + 0.8 * p; pen = 1;
+    } else if (u < 11.5){
+      p = 1; a = 0.95;
+      const k = (u - 7.5) / 4;
+      flap = Math.sin(k * Math.PI * 4) * 0.5 * Math.sin(Math.PI * Math.min(1, k * 1.15));
+      bob = Math.sin(k * Math.PI * 3) * 0.012;
+      live = Math.sin(Math.PI * k);
+    } else {
+      const k = Math.min(1, (u - 11.5) / 2);
+      p = 1; a = 0.16 + 0.79 * (1 - k);
+    }
+    return { p, a, flap, bob, pen, live };
+  }
+
+  let t = 0, last = performance.now();
+
+  function frame(now){
+    let dt = (now - last) / 1000; last = now;
+    if (dt > 0.05) dt = 0.05;
+    t += dt;
+
+    parx += (tx * 9 - parx) * 0.04;
+    pary += (ty * 9 - pary) * 0.04;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const skyA = t * Math.PI * 2 / 240;
+    const st = state(t + 1.2);
+
+    // sky
+    const g = ctx.createRadialGradient(CX, CY, 0, CX, CY, Math.max(W, H) * 0.7);
+    g.addColorStop(0, '#0c1226'); g.addColorStop(0.6, '#070b1a'); g.addColorStop(1, '#04050d');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+    // dust band
+    ctx.fillStyle = 'rgb(200,212,240)';
+    for (const d of dust){
+      const A = d.a + skyA;
+      const x = CX + Math.cos(A) * d.r + parx * 1.3;
+      const y = CY + Math.sin(A) * d.r + pary * 1.3;
+      ctx.globalAlpha = d.al;
+      ctx.fillRect(x, y, d.s, d.s);
+    }
+    ctx.globalAlpha = 1;
+
+    // field stars
+    for (const s of stars){
+      const A = s.a + skyA;
+      const x = CX + Math.cos(A) * s.r + parx;
+      const y = CY + Math.sin(A) * s.r + pary;
+      const tw = 0.55 + 0.45 * Math.sin(t * s.ts + s.tw);
+      const col = s.col < 0.14 ? '255,224,190' : (s.col > 0.86 ? '185,205,255' : '240,240,248');
+      ctx.fillStyle = 'rgba(' + col + ',' + (0.3 + 0.7 * tw).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(x, y, s.s, 0, 7); ctx.fill();
+    }
+
+    // ---- the crane ----
+    const ca = Math.cos(skyA), sa = Math.sin(skyA);
+    const ox = Math.cos(TH0) * D0, oy = Math.sin(TH0) * D0;
+    const croot = CP[7];
+    const pts = CP.map(function(p, i){
+      let x = p[0], y = p[1] + st.bob;
+      if (i === 8 || i === 9){ // wing flaps about its fold
+        const rx = x - croot[0], ry = y - croot[1];
+        const c = Math.cos(st.flap), s = Math.sin(st.flap);
+        x = croot[0] + rx * c - ry * s;
+        y = croot[1] + rx * s + ry * c;
+      }
+      const X = x * sc, Y = y * sc;
+      return [CX + ca * (ox + X) - sa * (oy + Y) + parx,
+              CY + sa * (ox + X) + ca * (oy + Y) + pary];
+    });
+
+    // soft halo while it lives
+    if (st.live > 0.02){
+      const cx0 = (pts[2][0] + pts[8][0]) / 2, cy0 = (pts[2][1] + pts[8][1]) / 2;
+      const hg = ctx.createRadialGradient(cx0, cy0, 0, cx0, cy0, sc * 0.75);
+      hg.addColorStop(0, 'rgba(240,220,170,' + (0.10 * st.live).toFixed(3) + ')');
+      hg.addColorStop(1, 'rgba(240,220,170,0)');
+      ctx.fillStyle = hg;
+      ctx.fillRect(cx0 - sc * 0.8, cy0 - sc * 0.8, sc * 1.6, sc * 1.6);
+    }
+
+    // lines, traced in order
+    let total = 0;
+    const lens = SEG.map(function(sg){
+      const dx = pts[sg[1]][0] - pts[sg[0]][0], dy = pts[sg[1]][1] - pts[sg[0]][1];
+      const L = Math.hypot(dx, dy); total += L; return L;
+    });
+    const target = st.p * total;
+    ctx.lineWidth = Math.max(1, sc * 0.006);
+    ctx.lineCap = 'round';
+    if (st.a > 0.2){ ctx.shadowColor = 'rgba(240,220,170,0.8)'; ctx.shadowBlur = sc * 0.028; }
+    let acc = 0, penX = null, penY = null;
+    for (let i = 0; i < SEG.length; i++){
+      if (acc >= target) break;
+      const L = lens[i], f = Math.min(1, (target - acc) / L); acc += L;
+      const A = pts[SEG[i][0]], B = pts[SEG[i][1]];
+      const x = A[0] + (B[0] - A[0]) * f, y = A[1] + (B[1] - A[1]) * f;
+      const inner = (i === 9);
+      ctx.strokeStyle = 'rgba(236,216,170,' + (st.a * (inner ? 0.45 : 1)).toFixed(3) + ')';
+      ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.lineTo(x, y); ctx.stroke();
+      penX = x; penY = y;
+    }
+    ctx.shadowBlur = 0;
+
+    // constellation stars, with soft flares
+    for (let i = 0; i < pts.length; i++){
+      const p = pts[i];
+      const base = PSIZE[i] * sc * 0.012 + 0.5;
+      const tw = 0.75 + 0.25 * Math.sin(t * 2 + i * 1.7);
+      const al = Math.min(1, st.a * 0.85 + 0.45) * tw;
+      ctx.fillStyle = 'rgba(246,238,214,' + al.toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(p[0], p[1], base, 0, 7); ctx.fill();
+      const fl = base * 3.2 * tw;
+      ctx.lineWidth = 0.7;
+      ctx.strokeStyle = 'rgba(246,238,214,' + (al * 0.32).toFixed(3) + ')';
+      ctx.beginPath();
+      ctx.moveTo(p[0] - fl, p[1]); ctx.lineTo(p[0] + fl, p[1]);
+      ctx.moveTo(p[0], p[1] - fl); ctx.lineTo(p[0], p[1] + fl);
+      ctx.stroke();
+    }
+
+    // the tracing pen, a bright spark
+    if (st.pen && penX !== null){
+      ctx.fillStyle = 'rgba(255,250,230,0.95)';
+      ctx.shadowColor = 'rgba(255,240,200,0.9)'; ctx.shadowBlur = sc * 0.05;
+      ctx.beginPath(); ctx.arc(penX, penY, sc * 0.008 + 1, 0, 7); ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    // motes rising while it lives
+    if (st.live > 0.03){
+      const anchor = pts[2];
+      for (let i = 0; i < 14; i++){
+        const ph = (t * 0.16 + i * 0.0717) % 1;
+        const lx = Math.sin(t * 0.7 + i * 2.1) * sc * 0.28;
+        const ly = (0.18 - ph * 0.55) * sc;
+        const x = anchor[0] + ca * lx - sa * ly;
+        const y = anchor[1] + sa * lx + ca * ly;
+        const al = st.live * 0.55 * Math.sin(Math.PI * ph);
+        if (al > 0.01){
+          ctx.fillStyle = 'rgba(250,232,190,' + al.toFixed(3) + ')';
+          ctx.beginPath(); ctx.arc(x, y, 1.1, 0, 7); ctx.fill();
+        }
+      }
+    }
+
+    // occasional meteor
+    if (Math.random() < dt / 8 && met.length < 2){
+      met.push({
+        x: Math.random() * W, y: Math.random() * H * 0.45,
+        a: 2.3 + Math.random() * 0.55,
+        sp: (0.55 + Math.random() * 0.4) * S,
+        life: 0, max: 0.8
+      });
+    }
+    for (let i = met.length - 1; i >= 0; i--){
+      const m = met[i];
+      m.x += Math.cos(m.a) * m.sp * dt;
+      m.y += Math.sin(m.a) * m.sp * dt;
+      m.life += dt;
+      if (m.life > m.max || m.x < -80 || m.y > H + 80){ met.splice(i, 1); continue; }
+      const al = Math.sin(Math.PI * m.life / m.max) * 0.75;
+      const len = m.sp * 0.16;
+      const mg = ctx.createLinearGradient(m.x, m.y, m.x - Math.cos(m.a) * len, m.y - Math.sin(m.a) * len);
+      mg.addColorStop(0, 'rgba(255,250,235,' + al.toFixed(3) + ')');
+      mg.addColorStop(1, 'rgba(255,250,235,0)');
+      ctx.strokeStyle = mg; ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(m.x, m.y);
+      ctx.lineTo(m.x - Math.cos(m.a) * len, m.y - Math.sin(m.a) * len);
+      ctx.stroke();
+    }
+
+    // night gathers at the edge of the glass
+    const v = ctx.createRadialGradient(CX, CY, S * 0.42, CX, CY, S * 0.78);
+    v.addColorStop(0, 'rgba(0,0,5,0)');
+    v.addColorStop(1, 'rgba(0,0,5,0.45)');
+    ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
+
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "The Thousandth Crane",
+  "statement": "A girl folded nine hundred and ninety-nine cranes and ran out of paper, so the night folded the thousandth from its own darkness. It hangs there mid-flap, wings creased from starlight, still carrying the wish she never spoke aloud."
+}
+```
+
+A few notes on how it works: the whole sky — field stars, a faint dust band, and the crane — turns slowly around the porthole's center over four minutes, so the constellation drifts through the glass like a real night sky. Every sixteen seconds the figure re-introduces itself: a bright spark traces the folds in sequence, the lines settle, then the crane comes briefly to life — its paper wing flaps twice about its crease, small golden motes rise from its body, and everything eases back to a quiet, faint outline. The field stars twinkle individually, an occasional meteor crosses, and moving the pointer adds a gentle parallax so the sky feels like it has depth behind the glass. It's one canvas, a few hundred points, and runs comfortably alongside many other pieces.

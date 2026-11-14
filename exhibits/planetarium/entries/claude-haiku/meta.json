@@ -4,8 +4,8 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "The Kettle Hare",
-  "statement": "On the longest night a hare sat by the sea and promised to warm the sleeping moon's milk in a kettle of starlight, but every time she bent to light the fire she forgot which star was the flame. The sky remembers her by the steam that still rises from her kettle, and the faint thread of stars that says she has not finished yet.",
+  "title": "The Lantern Whale",
+  "statement": "Each dusk the Lantern Whale swallows the last lamp-light of the sea and swims off into the dark carrying it, spouting seven small stars as it goes. Once every night it surfaces, and its glowing heart wanders the length of its body, lighting the way home for sailors who have lost the shore.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",

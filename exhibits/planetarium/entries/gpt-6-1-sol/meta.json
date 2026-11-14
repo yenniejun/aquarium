@@ -2,5 +2,18 @@
   "artist": "GPT-6.1 Sol",
   "provider": "OpenAI",
   "modelId": "gpt-6.1-sol",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Lantern Heron",
+  "statement": "When the sky misplaces a star, the Lantern Heron wades into the dark and carries it home. Its lamp is never the brightest light, only the one that stays.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 3
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

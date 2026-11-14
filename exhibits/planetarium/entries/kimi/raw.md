@@ -1,0 +1,457 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Thimble Moth</title>
+<style>
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #02030a;
+  }
+  canvas {
+    position: fixed;
+    inset: 0;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    touch-action: pan-y;
+  }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<script>
+(() => {
+  const canvas = document.getElementById("sky");
+  const ctx = canvas.getContext("2d");
+  const backdrop = document.createElement("canvas");
+  const bctx = backdrop.getContext("2d");
+
+  let W = 0, H = 0, R = 0, DPR = 1;
+  let seed = 871341;
+
+  function random() {
+    seed |= 0;
+    seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
+
+  const smooth = (a, b, x) => {
+    const v = Math.max(0, Math.min(1, (x - a) / (b - a)));
+    return v * v * (3 - 2 * v);
+  };
+
+  const stars = [];
+  for (let i = 0; i < 245; i++) {
+    const angle = random() * Math.PI * 2;
+    const radius = Math.sqrt(random()) * 0.985;
+    stars.push({
+      x: Math.cos(angle) * radius,
+      y: Math.sin(angle) * radius,
+      r: 0.28 + Math.pow(random(), 3) * 1.35,
+      a: 0.22 + random() * 0.66,
+      phase: random() * Math.PI * 2,
+      speed: 0.45 + random() * 1.5,
+      depth: random(),
+      warm: random() > 0.88,
+      band: false
+    });
+  }
+  for (let i = 0; i < 105; i++) {
+    const x = (random() * 2 - 1) * 1.12;
+    const spread = (random() + random() + random() - 1.5) * 0.105;
+    const c = Math.cos(-0.57), s = Math.sin(-0.57);
+    stars.push({
+      x: x * c - spread * s,
+      y: x * s + spread * c,
+      r: 0.2 + random() * 0.55,
+      a: 0.12 + random() * 0.28,
+      phase: random() * Math.PI * 2,
+      speed: 0.3 + random(),
+      depth: random() * 0.4,
+      warm: false,
+      band: true
+    });
+  }
+
+  function makeBackdrop() {
+    backdrop.width = Math.round(W * DPR);
+    backdrop.height = Math.round(H * DPR);
+    bctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    bctx.clearRect(0, 0, W, H);
+
+    const cx = W / 2, cy = H / 2;
+    let g = bctx.createRadialGradient(
+      cx - R * 0.22, cy - R * 0.3, R * 0.04,
+      cx, cy, R * 1.1
+    );
+    g.addColorStop(0, "#101b3a");
+    g.addColorStop(0.42, "#090f27");
+    g.addColorStop(0.78, "#05091b");
+    g.addColorStop(1, "#02040d");
+    bctx.fillStyle = g;
+    bctx.fillRect(0, 0, W, H);
+
+    function haze(x, y, radius, inner, middle) {
+      const h = bctx.createRadialGradient(x, y, 0, x, y, radius);
+      h.addColorStop(0, inner);
+      h.addColorStop(0.38, middle);
+      h.addColorStop(1, "rgba(0,0,0,0)");
+      bctx.fillStyle = h;
+      bctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+    }
+
+    bctx.globalCompositeOperation = "screen";
+    haze(cx - R * 0.48, cy + R * 0.12, R * 0.92,
+      "rgba(73,42,118,0.18)", "rgba(40,34,92,0.07)");
+    haze(cx + R * 0.38, cy - R * 0.42, R * 0.77,
+      "rgba(30,104,126,0.13)", "rgba(24,62,100,0.055)");
+    haze(cx + R * 0.08, cy + R * 0.56, R * 0.62,
+      "rgba(83,42,94,0.09)", "rgba(34,31,76,0.035)");
+
+    bctx.save();
+    bctx.translate(cx, cy);
+    bctx.rotate(-0.57);
+    const band = bctx.createLinearGradient(0, -R * 0.27, 0, R * 0.27);
+    band.addColorStop(0, "rgba(0,0,0,0)");
+    band.addColorStop(0.34, "rgba(84,105,152,0.018)");
+    band.addColorStop(0.5, "rgba(124,139,176,0.045)");
+    band.addColorStop(0.66, "rgba(84,105,152,0.018)");
+    band.addColorStop(1, "rgba(0,0,0,0)");
+    bctx.fillStyle = band;
+    bctx.fillRect(-R * 1.5, -R * 0.27, R * 3, R * 0.54);
+    bctx.restore();
+
+    bctx.globalCompositeOperation = "source-over";
+    const vignette = bctx.createRadialGradient(cx, cy, R * 0.42, cx, cy, R);
+    vignette.addColorStop(0, "rgba(0,0,8,0)");
+    vignette.addColorStop(0.8, "rgba(0,1,9,0.12)");
+    vignette.addColorStop(1, "rgba(0,1,8,0.6)");
+    bctx.fillStyle = vignette;
+    bctx.fillRect(0, 0, W, H);
+  }
+
+  function resize() {
+    W = innerWidth;
+    H = innerHeight;
+    R = Math.min(W, H) / 2;
+    DPR = Math.min(devicePixelRatio || 1, 1.8);
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    makeBackdrop();
+  }
+  addEventListener("resize", resize);
+  resize();
+
+  const N = [
+    { x: 0, y: -0.24, r: 2.35, warm: true },
+    { x: 0, y: -0.10, r: 2.65, warm: true },
+    { x: 0, y:  0.08, r: 1.85 },
+    { x: 0, y:  0.30, r: 1.45, warm: true }
+  ];
+
+  function pair(x, y, r, warm = false) {
+    const i = N.length;
+    N.push({ x: -x, y, r, warm }, { x, y, r, warm });
+    return [i, i + 1];
+  }
+
+  const P = {
+    ant1: pair(0.07, -0.34, 1.05),
+    ant2: pair(0.20, -0.43, 1.35),
+    ant3: pair(0.29, -0.37, 1.10, true),
+    root: pair(0.10, -0.15, 1.40),
+    shoulder: pair(0.28, -0.30, 1.65),
+    apex: pair(0.60, -0.46, 2.45, true),
+    outer: pair(0.70, -0.20, 1.75),
+    middle: pair(0.58, 0.04, 1.40),
+    lower: pair(0.34, 0.17, 1.55),
+    hip: pair(0.12, 0.14, 1.35),
+    eye1: pair(0.43, -0.22, 1.65),
+    eye2: pair(0.40, -0.05, 1.25),
+    tailMid: pair(0.24, 0.35, 1.30),
+    tailTip: pair(0.42, 0.42, 1.95, true),
+    tailIn: pair(0.10, 0.28, 1.05)
+  };
+
+  const E = [];
+  const edge = (a, b, gold = false) => E.push({ a, b, gold });
+  edge(0, 1, true);
+  edge(1, 2, true);
+  edge(2, 3, true);
+
+  for (let side = 0; side < 2; side++) {
+    edge(0, P.ant1[side]);
+    edge(P.ant1[side], P.ant2[side]);
+    edge(P.ant2[side], P.ant3[side], true);
+
+    edge(1, P.root[side]);
+    edge(P.root[side], P.shoulder[side]);
+    edge(P.shoulder[side], P.apex[side], true);
+    edge(P.apex[side], P.outer[side]);
+    edge(P.outer[side], P.middle[side]);
+    edge(P.middle[side], P.lower[side]);
+    edge(P.lower[side], P.hip[side]);
+    edge(P.hip[side], 2);
+
+    edge(P.root[side], P.eye1[side]);
+    edge(P.eye1[side], P.apex[side]);
+    edge(P.eye1[side], P.eye2[side]);
+    edge(P.eye2[side], P.middle[side]);
+    edge(P.eye2[side], P.hip[side]);
+
+    edge(P.hip[side], P.tailMid[side]);
+    edge(P.tailMid[side], P.tailTip[side], true);
+    edge(P.tailTip[side], P.tailIn[side]);
+    edge(P.tailIn[side], 3);
+  }
+
+  const looseStar = N.length;
+  N.push({ x: 0.58, y: 0.43, r: 2.25, warm: true });
+
+  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+  addEventListener("pointermove", e => {
+    pointer.tx = (e.clientX / W - 0.5) * 2;
+    pointer.ty = (e.clientY / H - 0.5) * 2;
+  }, { passive: true });
+  addEventListener("pointerleave", () => {
+    pointer.tx = 0;
+    pointer.ty = 0;
+  });
+
+  function drawStar(x, y, radius, alpha, warm, sparkle) {
+    if (alpha <= 0.005) return;
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = warm ? "#ffe3a3" : "#d8edff";
+    ctx.shadowColor = warm ? "#ffc86a" : "#80cfff";
+    ctx.shadowBlur = radius * 4.2;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    if (sparkle > 0) {
+      ctx.globalAlpha = alpha * 0.48 * sparkle;
+      ctx.strokeStyle = warm ? "#ffe9b7" : "#c4e9ff";
+      ctx.lineWidth = Math.max(0.35, radius * 0.25);
+      ctx.beginPath();
+      ctx.moveTo(x - radius * 3.8, y);
+      ctx.lineTo(x + radius * 3.8, y);
+      ctx.moveTo(x, y - radius * 3.8);
+      ctx.lineTo(x, y + radius * 3.8);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function bezier(p0, p1, p2, p3, u) {
+    const v = 1 - u;
+    return {
+      x: v*v*v*p0.x + 3*v*v*u*p1.x + 3*v*u*u*p2.x + u*u*u*p3.x,
+      y: v*v*v*p0.y + 3*v*v*u*p1.y + 3*v*u*u*p2.y + u*u*u*p3.y
+    };
+  }
+
+  const start = performance.now();
+
+  function frame(now) {
+    const time = (now - start) / 1000;
+    const cycle = time % 24;
+    const cx = W / 2, cy = H / 2;
+
+    pointer.x += (pointer.tx - pointer.x) * 0.025;
+    pointer.y += (pointer.ty - pointer.y) * 0.025;
+
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.clip();
+
+    ctx.drawImage(backdrop, 0, 0, W, H);
+
+    const rotation = time * 0.0032;
+    const cs = Math.cos(rotation), sn = Math.sin(rotation);
+    const unit = Math.max(0.55, R / 350);
+
+    for (const s of stars) {
+      const x0 = s.x * cs - s.y * sn;
+      const y0 = s.x * sn + s.y * cs;
+      const parallax = (s.band ? 1.2 : 3.2) * s.depth;
+      const x = cx + x0 * R + pointer.x * parallax;
+      const y = cy + y0 * R + pointer.y * parallax;
+      const pulse = 0.72 + 0.28 * Math.sin(time * s.speed + s.phase);
+      const alpha = s.a * pulse;
+      const radius = s.r * unit;
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = s.warm ? "#ffe4bd" : (s.band ? "#9eadd0" : "#c5dcff");
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (!s.band && s.r > 1.22) {
+        ctx.globalAlpha = alpha * 0.32;
+        ctx.strokeStyle = "#b9d8ff";
+        ctx.lineWidth = 0.45;
+        ctx.beginPath();
+        ctx.moveTo(x - radius * 3, y);
+        ctx.lineTo(x + radius * 3, y);
+        ctx.moveTo(x, y - radius * 3);
+        ctx.lineTo(x, y + radius * 3);
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+
+    const fade = 1 - smooth(19.2, 23.2, cycle);
+    const alive = smooth(11.3, 13.1, cycle) * (1 - smooth(18.2, 20, cycle));
+    const wing = Math.sin((cycle - 11.3) * 2.25) * alive;
+    const figureAngle = Math.sin(time * 0.22) * 0.018;
+    const fc = Math.cos(figureAngle), fs = Math.sin(figureAngle);
+    const drift = Math.sin(time * 0.55) * R * 0.006;
+    const pos = N.map((n, i) => {
+      let x = n.x, y = n.y;
+      if (i !== looseStar) {
+        const reach = Math.min(1, Math.abs(x) / 0.7);
+        x *= 1 + wing * 0.035 * reach;
+        y += Math.abs(x) * wing * 0.025;
+      }
+      return {
+        x: cx + (x * fc - y * fs) * R * 0.94 + pointer.x * 1.8,
+        y: cy + (x * fs + y * fc) * R * 0.94 + drift + pointer.y * 1.8
+      };
+    });
+
+    if (alive > 0.001) {
+      const aura = ctx.createRadialGradient(
+        pos[1].x, pos[1].y, 0,
+        pos[1].x, pos[1].y, R * 0.18
+      );
+      aura.addColorStop(0, `rgba(255,205,119,${0.055 * alive * fade})`);
+      aura.addColorStop(0.35, `rgba(106,184,209,${0.025 * alive * fade})`);
+      aura.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = aura;
+      ctx.fillRect(pos[1].x - R * 0.18, pos[1].y - R * 0.18, R * 0.36, R * 0.36);
+    }
+
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.setLineDash([1.2 * unit, 5 * unit]);
+    ctx.lineWidth = 0.55 * unit;
+    ctx.strokeStyle = `rgba(130,183,208,${0.055 * fade})`;
+    ctx.beginPath();
+    for (const e of E) {
+      ctx.moveTo(pos[e.a].x, pos[e.a].y);
+      ctx.lineTo(pos[e.b].x, pos[e.b].y);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    E.forEach((e, i) => {
+      const begin = 3.7 + i * 0.092;
+      const p = smooth(begin, begin + 0.85, cycle) * fade;
+      if (p <= 0.001) return;
+      const a = pos[e.a], b = pos[e.b];
+      const x = a.x + (b.x - a.x) * p;
+      const y = a.y + (b.y - a.y) * p;
+
+      ctx.strokeStyle = e.gold
+        ? `rgba(255,211,139,${0.23 * p})`
+        : `rgba(132,207,229,${0.19 * p})`;
+      ctx.lineWidth = 3.2 * unit;
+      ctx.shadowColor = e.gold ? "#ffc875" : "#65bfe5";
+      ctx.shadowBlur = 7 * unit;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = e.gold
+        ? `rgba(255,232,184,${0.72 * p})`
+        : `rgba(191,231,241,${0.64 * p})`;
+      ctx.lineWidth = 0.72 * unit;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    });
+
+    const threadLife = smooth(11.8, 13.1, cycle) * fade;
+    if (threadLife > 0.001) {
+      const p0 = pos[3];
+      const p3 = pos[looseStar];
+      const p1 = {
+        x: cx + R * 0.12,
+        y: cy + R * 0.61
+      };
+      const p2 = {
+        x: cx + R * 0.48,
+        y: cy + R * 0.63
+      };
+      const sew = Math.min(1, Math.max(0, (cycle - 12.2) / 4.8));
+
+      ctx.setLineDash([1.4 * unit, 5.5 * unit]);
+      ctx.lineDashOffset = -time * 4 * unit;
+      ctx.strokeStyle = `rgba(246,197,116,${0.43 * threadLife})`;
+      ctx.lineWidth = 0.75 * unit;
+      ctx.shadowColor = "#ffc76f";
+      ctx.shadowBlur = 4 * unit;
+      ctx.beginPath();
+      ctx.moveTo(p0.x, p0.y);
+      const segments = 44;
+      for (let i = 1; i <= segments * sew; i++) {
+        const q = bezier(p0, p1, p2, p3, i / segments);
+        ctx.lineTo(q.x, q.y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.shadowBlur = 0;
+
+      if (sew > 0 && sew < 1) {
+        const q = bezier(p0, p1, p2, p3, sew);
+        drawStar(q.x, q.y, 1.25 * unit, threadLife, true, 0.8);
+      }
+    }
+
+    N.forEach((n, i) => {
+      const begin = 1.35 + i * 0.108;
+      const reveal = smooth(begin, begin + 1.05, cycle) * fade;
+      const twinkle = 0.84 + 0.16 * Math.sin(time * 1.45 + i * 2.17);
+      const livingPulse = i === looseStar
+        ? 1 + alive * (0.25 + 0.18 * Math.sin(time * 4))
+        : 1 + alive * 0.1 * Math.sin(time * 2.4 + i);
+      const alpha = (0.075 + reveal * 0.925) * twinkle;
+      const radius = n.r * unit * (0.46 + reveal * 0.54) * livingPulse;
+      const sparkle = reveal * (n.r > 1.8 ? 0.85 : 0.28);
+      drawStar(pos[i].x, pos[i].y, radius, alpha, n.warm, sparkle);
+    });
+
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+    ctx.restore();
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "The Thimble Moth",
+  "statement": "When the night tore a seam and scattered its smallest stars, a thimble-sized moth stitched them home with a thread of light. It still opens its wings whenever a lost wish is looking for the way back."
+}
+```

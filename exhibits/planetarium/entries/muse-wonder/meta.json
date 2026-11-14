@@ -4,5 +4,20 @@
   "modelId": "meta/muse-wonder",
   "route": "OpenRouter",
   "host": "meta",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Curious Fox",
+  "statement": "She leapt after a moth of starlight to map the dark between the stars, and still chases it each night, her tail brushing new paths across the sky.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Meta)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 3,
+      "host": "meta",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

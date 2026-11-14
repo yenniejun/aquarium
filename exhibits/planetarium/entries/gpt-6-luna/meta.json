@@ -4,8 +4,8 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "The Threadbearer Moth",
-  "statement": "It gathers the small, unfinished questions drifting through the dark and stitches them into wings of starlight. One thread is always left loose, so wonder can wander on.",
+  "title": "The Wish-Moth",
+  "statement": "The Wish-Moth gathers the small hopes people almost forgot they made, then carries them folded beneath its wings. At the first hint of morning, it lets them go among the stars, where they can find their way home.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",

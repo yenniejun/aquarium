@@ -3,7 +3,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title></title>
 <style>
   * { box-sizing: border-box; }
   html, body {
@@ -11,7 +12,7 @@
     height: 100%;
     margin: 0;
     overflow: hidden;
-    background: #050914;
+    background: #050918;
   }
   canvas {
     display: block;
@@ -21,258 +22,235 @@
 </style>
 </head>
 <body>
-<canvas id="sky"></canvas>
+<canvas aria-hidden="true"></canvas>
 <script>
 (() => {
-  const canvas = document.getElementById("sky");
-  const ctx = canvas.getContext("2d", { alpha: false });
-  let W = 0, H = 0, S = 0, stars = [];
-
-  function rng(seed) {
-    return () => {
-      seed = (seed * 1664525 + 1013904223) >>> 0;
-      return seed / 4294967296;
-    };
-  }
+  const canvas = document.querySelector("canvas");
+  const ctx = canvas.getContext("2d");
+  let width = 0, height = 0, dpr = 1, radius = 0;
 
   function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = window.innerWidth;
-    H = window.innerHeight;
-    S = Math.min(W, H) * 0.42;
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    const random = rng(72491);
-    stars = Array.from({ length: Math.max(100, Math.floor(W * H / 3100)) }, () => ({
-      x: random() * W,
-      y: random() * H,
-      r: 0.35 + random() * 1.15,
-      phase: random() * Math.PI * 2,
-      speed: 0.25 + random() * 0.8,
-      warmth: random()
-    }));
+    radius = Math.min(width, height) * 0.47;
   }
-
   window.addEventListener("resize", resize);
   resize();
 
-  const P = {
-    head: [0, -0.15],
-    neck: [0, -0.065],
-    thorax: [0, 0.015],
-    belly: [0, 0.13],
-    tip: [0, 0.29],
-    antL1: [-0.075, -0.205],
-    antL2: [-0.17, -0.295],
-    antR1: [0.075, -0.205],
-    antR2: [0.17, -0.295],
+  let seed = 84127;
+  function random() {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  }
 
-    l0: [-0.035, -0.025],
-    l1: [-0.18, -0.095],
-    l2: [-0.34, -0.215],
-    l3: [-0.55, -0.27],
-    l4: [-0.48, -0.105],
-    l5: [-0.59, 0.025],
-    l6: [-0.43, 0.16],
-    l7: [-0.19, 0.105],
-    l8: [-0.035, 0.055],
+  const stars = Array.from({ length: 310 }, () => {
+    const a = random() * Math.PI * 2;
+    const r = Math.sqrt(random()) * 1.09;
+    return {
+      x: Math.cos(a) * r,
+      y: Math.sin(a) * r,
+      size: 0.35 + random() * 1.35,
+      phase: random() * Math.PI * 2,
+      speed: 0.35 + random() * 1.3,
+      tint: random()
+    };
+  });
 
-    r0: [0.035, -0.025],
-    r1: [0.18, -0.095],
-    r2: [0.34, -0.215],
-    r3: [0.55, -0.27],
-    r4: [0.48, -0.105],
-    r5: [0.59, 0.025],
-    r6: [0.43, 0.16],
-    r7: [0.19, 0.105],
-    r8: [0.035, 0.055],
-
-    mote: [0.54, 0.36]
-  };
-
-  const strokes = [
-    ["head", "neck"], ["neck", "thorax"], ["thorax", "belly"], ["belly", "tip"],
-    ["head", "antL1"], ["antL1", "antL2"], ["head", "antR1"], ["antR1", "antR2"],
-    ["l0", "l1"], ["l1", "l2"], ["l2", "l3"], ["l3", "l4"], ["l4", "l5"],
-    ["l5", "l6"], ["l6", "l7"], ["l7", "l8"], ["l8", "l0"],
-    ["r0", "r1"], ["r1", "r2"], ["r2", "r3"], ["r3", "r4"], ["r4", "r5"],
-    ["r5", "r6"], ["r6", "r7"], ["r7", "r8"], ["r8", "r0"],
-    ["l1", "thorax"], ["l7", "belly"], ["r1", "thorax"], ["r7", "belly"],
-    ["l2", "l5"], ["l4", "l7"], ["r2", "r5"], ["r4", "r7"]
+  const lines = [
+    [[0, -.24], [-.09, -.34], [-.16, -.38]],
+    [[0, -.24], [.09, -.34], [.16, -.38]],
+    [[0, -.22], [0, -.12], [0, -.02], [0, .12]],
+    [[0, -.15], [-.16, -.21], [-.31, -.30], [-.39, -.19], [-.31, -.08], [-.17, -.05], [0, -.12]],
+    [[0, -.15], [.16, -.21], [.31, -.30], [.39, -.19], [.31, -.08], [.17, -.05], [0, -.12]],
+    [[0, -.02], [-.13, .00], [-.28, .08], [-.33, .21], [-.22, .25], [-.10, .14], [0, .12]],
+    [[0, -.02], [.13, .00], [.28, .08], [.33, .21], [.22, .25], [.10, .14], [0, .12]],
+    [[-.31, -.08], [-.28, .08]],
+    [[.31, -.08], [.28, .08]]
   ];
 
-  const at = (p) => [W / 2 + p[0] * S, H / 2 + p[1] * S];
+  const nodes = [
+    {x:0,y:-.24,s:2.6,c:0},{x:-.09,y:-.34,s:1.45,c:1},{x:-.16,y:-.38,s:1.15,c:2},
+    {x:.09,y:-.34,s:1.45,c:1},{x:.16,y:-.38,s:1.15,c:2},{x:0,y:-.12,s:1.7,c:1},
+    {x:0,y:-.02,s:1.35,c:2},{x:0,y:.12,s:2.2,c:0},
+    {x:-.16,y:-.21,s:1.45,c:1},{x:-.31,y:-.30,s:1.8,c:0},{x:-.39,y:-.19,s:2.2,c:0},
+    {x:-.31,y:-.08,s:1.45,c:1},{x:-.17,y:-.05,s:1.1,c:2},
+    {x:.16,y:-.21,s:1.45,c:1},{x:.31,y:-.30,s:1.8,c:0},{x:.39,y:-.19,s:2.2,c:0},
+    {x:.31,y:-.08,s:1.45,c:1},{x:.17,y:-.05,s:1.1,c:2},
+    {x:-.13,y:0,s:1.2,c:2},{x:-.28,y:.08,s:1.6,c:1},{x:-.33,y:.21,s:2,c:0},
+    {x:-.22,y:.25,s:1.4,c:1},{x:-.10,y:.14,s:1.2,c:2},
+    {x:.13,y:0,s:1.2,c:2},{x:.28,y:.08,s:1.6,c:1},{x:.33,y:.21,s:2,c:0},
+    {x:.22,y:.25,s:1.4,c:1},{x:.10,y:.14,s:1.2,c:2}
+  ];
 
-  function drawBackground(t) {
-    const bg = ctx.createLinearGradient(0, 0, W, H);
-    bg.addColorStop(0, "#080e20");
-    bg.addColorStop(0.52, "#0a1428");
-    bg.addColorStop(1, "#10152a");
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, W, H);
+  const palette = ["#fff1c4", "#a8f4ed", "#c3a9ff"];
+  const cycle = 19;
 
-    const cx = W / 2, cy = H / 2;
-    const mist = ctx.createRadialGradient(cx - S * 0.22, cy - S * 0.12, 0, cx, cy, S * 1.04);
-    mist.addColorStop(0, "rgba(54,91,127,0.17)");
-    mist.addColorStop(0.45, "rgba(36,58,99,0.09)");
-    mist.addColorStop(1, "rgba(5,9,20,0)");
-    ctx.fillStyle = mist;
-    ctx.fillRect(0, 0, W, H);
+  function ease(t) { return t * t * (3 - 2 * t); }
 
-    const blush = ctx.createRadialGradient(cx + S * 0.40, cy + S * 0.12, 0, cx + S * 0.40, cy + S * 0.12, S * 0.48);
-    blush.addColorStop(0, "rgba(108,63,106,0.09)");
-    blush.addColorStop(1, "rgba(108,63,106,0)");
-    ctx.fillStyle = blush;
-    ctx.fillRect(0, 0, W, H);
+  function draw(timeMs) {
+    const t = timeMs / 1000;
+    const cx = width / 2, cy = height / 2;
+    const turn = t * 0.012;
+    const ct = Math.cos(turn), st = Math.sin(turn);
 
-    const turn = t * 0.000012;
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = "#050918";
+    ctx.fillRect(0, 0, width, height);
+
+    const wash = ctx.createRadialGradient(cx - radius*.12, cy - radius*.18, radius*.02, cx, cy, radius*1.1);
+    wash.addColorStop(0, "#182345");
+    wash.addColorStop(.48, "#101a35");
+    wash.addColorStop(1, "#070d20");
+    ctx.fillStyle = wash;
+    ctx.fillRect(0, 0, width, height);
+
+    const clouds = [
+      [-.36,-.31,.48,"rgba(87,73,151,.16)"],
+      [.36,.22,.43,"rgba(31,128,151,.13)"],
+      [-.05,.48,.36,"rgba(92,61,128,.10)"],
+      [.24,-.45,.30,"rgba(66,94,155,.12)"]
+    ];
+    for (const [x,y,r,c] of clouds) {
+      const driftX = Math.sin(t*.06 + x*5) * radius*.035;
+      const driftY = Math.cos(t*.05 + y*4) * radius*.025;
+      const g = ctx.createRadialGradient(cx+x*radius+driftX, cy+y*radius+driftY, 0, cx+x*radius+driftX, cy+y*radius+driftY, r*radius);
+      g.addColorStop(0,c);
+      g.addColorStop(1,"rgba(10,17,39,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,width,height);
+    }
+
     for (const s of stars) {
-      const dx = s.x - cx, dy = s.y - cy;
-      const x = cx + dx * Math.cos(turn) - dy * Math.sin(turn);
-      const y = cy + dx * Math.sin(turn) + dy * Math.cos(turn);
-      const twinkle = 0.48 + 0.52 * (0.5 + 0.5 * Math.sin(t * 0.001 * s.speed + s.phase));
-      const alpha = (0.22 + twinkle * 0.68) * (0.55 + s.r * 0.25);
+      const x = s.x*ct - s.y*st;
+      const y = s.x*st + s.y*ct;
+      const twinkle = .45 + .55 * (0.5 + 0.5*Math.sin(t*s.speed+s.phase));
+      const px = cx + x*radius, py = cy + y*radius;
       ctx.beginPath();
-      ctx.fillStyle = s.warmth > 0.82
-        ? `rgba(255,218,173,${alpha})`
-        : `rgba(190,220,255,${alpha})`;
-      ctx.arc(x, y, s.r * (0.72 + twinkle * 0.35), 0, Math.PI * 2);
+      ctx.fillStyle = s.tint > .83
+        ? `rgba(177,205,255,${.42*twinkle})`
+        : `rgba(221,230,255,${.65*twinkle})`;
+      ctx.arc(px, py, s.size*twinkle, 0, Math.PI*2);
       ctx.fill();
-      if (s.r > 1.15 && twinkle > 0.83) {
+      if (s.size > 1.25) {
         ctx.beginPath();
-        ctx.fillStyle = `rgba(185,218,255,${alpha * 0.16})`;
-        ctx.arc(x, y, s.r * 3.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(154,190,255,${.07*twinkle})`;
+        ctx.arc(px, py, s.size*4, 0, Math.PI*2);
         ctx.fill();
       }
     }
-  }
 
-  function smooth(a, b, x) {
-    x = Math.max(0, Math.min(1, (x - a) / (b - a)));
-    return x * x * (3 - 2 * x);
-  }
+    const phase = (t % cycle) / cycle;
+    let reveal, opacity;
+    if (phase < .07) {
+      reveal = 0; opacity = 0;
+    } else if (phase < .34) {
+      reveal = ease((phase-.07)/.27);
+      opacity = ease((phase-.07)/.10);
+    } else if (phase < .65) {
+      reveal = 1;
+      opacity = 1;
+    } else if (phase < .79) {
+      reveal = 1;
+      opacity = 1 - ease((phase-.65)/.14);
+    } else {
+      reveal = 0; opacity = 0;
+    }
 
-  function drawMoth(t, reveal) {
-    const pulse = 0.82 + 0.18 * Math.sin(t * 0.0014);
-    const visibility = reveal * pulse;
+    if (opacity > .001) {
+      const flutter = Math.sin(t*2.1) * (phase > .34 && phase < .65 ? .035 : .012);
+      function point(p) {
+        const wing = Math.min(1, Math.abs(p[0])/.24);
+        const x = p[0] * (1 + flutter*.65);
+        const y = p[1] + wing * Math.sign(p[0] || 1) * flutter * .38;
+        return [cx + x*radius, cy + y*radius];
+      }
 
-    ctx.save();
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-
-    const wingFill = (side) => {
-      const names = side === "l"
-        ? ["l0","l1","l2","l3","l4","l5","l6","l7","l8"]
-        : ["r0","r1","r2","r3","r4","r5","r6","r7","r8"];
-      ctx.beginPath();
-      names.forEach((name, i) => {
-        const [x, y] = at(P[name]);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+      const lengths = lines.map(line => {
+        let total = 0;
+        for (let i=1;i<line.length;i++) {
+          const a=point(line[i-1]), b=point(line[i]);
+          total += Math.hypot(b[0]-a[0],b[1]-a[1]);
+        }
+        return total;
       });
-      ctx.closePath();
-      ctx.fillStyle = `rgba(111,177,190,${0.027 * visibility})`;
-      ctx.fill();
-    };
-    wingFill("l");
-    wingFill("r");
+      const totalLength = lengths.reduce((a,b)=>a+b,0);
+      let remaining = totalLength * reveal;
 
-    const segmentCount = strokes.length;
-    const drawn = smooth(0, 1, reveal) * segmentCount;
-    for (let i = 0; i < segmentCount; i++) {
-      const amount = Math.max(0, Math.min(1, drawn - i));
-      if (!amount) continue;
-      const a = at(P[strokes[i][0]]);
-      const b = at(P[strokes[i][1]]);
-      const ex = a[0] + (b[0] - a[0]) * amount;
-      const ey = a[1] + (b[1] - a[1]) * amount;
+      ctx.save();
+      ctx.globalAlpha = opacity;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      let passed = 0;
+      lines.forEach((line, li) => {
+        const wanted = Math.max(0, Math.min(lengths[li], remaining-passed));
+        if (wanted <= 0) { passed += lengths[li]; return; }
+        ctx.beginPath();
+        const first = point(line[0]);
+        ctx.moveTo(first[0],first[1]);
+        let drawn = 0;
+        for (let i=1;i<line.length;i++) {
+          const a=point(line[i-1]), b=point(line[i]);
+          const len=Math.hypot(b[0]-a[0],b[1]-a[1]);
+          if (drawn+len <= wanted) {
+            ctx.lineTo(b[0],b[1]);
+            drawn += len;
+          } else {
+            const q=(wanted-drawn)/len;
+            ctx.lineTo(a[0]+(b[0]-a[0])*q,a[1]+(b[1]-a[1])*q);
+            break;
+          }
+        }
+        ctx.strokeStyle = li < 3 ? "rgba(199,240,255,.9)" : "rgba(151,206,255,.68)";
+        ctx.lineWidth = Math.max(1, radius*.0042);
+        ctx.shadowColor = li < 3 ? "#a8efff" : "#9b9bff";
+        ctx.shadowBlur = radius*.018;
+        ctx.stroke();
+        passed += lengths[li];
+      });
 
-      ctx.beginPath();
-      ctx.moveTo(a[0], a[1]);
-      ctx.lineTo(ex, ey);
-      ctx.strokeStyle = i < 8
-        ? `rgba(255,220,166,${0.68 * visibility})`
-        : `rgba(151,220,224,${0.57 * visibility})`;
-      ctx.lineWidth = Math.max(0.8, S * 0.0032);
-      ctx.shadowBlur = S * 0.022;
-      ctx.shadowColor = i < 8 ? "#ffd79d" : "#8ee8e3";
-      ctx.stroke();
+      const nodeProgress = reveal * (nodes.length + 2);
+      nodes.forEach((n,i) => {
+        const appear = Math.max(0, Math.min(1, nodeProgress - i));
+        if (appear <= 0) return;
+        const [x,y] = point([n.x,n.y]);
+        const pulse = .78 + .22*Math.sin(t*2.4+i*1.7);
+        const r = Math.max(1.2, radius*.006*n.s);
+        ctx.globalAlpha = opacity * appear;
+        const halo = ctx.createRadialGradient(x,y,0,x,y,r*5);
+        halo.addColorStop(0, palette[n.c] + "cc");
+        halo.addColorStop(.22, palette[n.c] + "45");
+        halo.addColorStop(1, palette[n.c] + "00");
+        ctx.fillStyle = halo;
+        ctx.beginPath(); ctx.arc(x,y,r*5,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle = palette[n.c];
+        ctx.globalAlpha = opacity * appear * pulse;
+        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+      });
+
+      if (phase > .34 && phase < .65) {
+        const sparkle = (t*0.16) % 1;
+        for (let i=0;i<8;i++) {
+          const q=(sparkle+i/8)%1;
+          const side = i%2 ? 1 : -1;
+          const x=cx+side*radius*(.09+q*.26);
+          const y=cy+radius*(-.15+Math.sin(q*Math.PI*2+i)*.12+q*.26);
+          const a=(1-q)*.42;
+          ctx.globalAlpha=opacity*a;
+          ctx.fillStyle=i%3===0?"#ffe7ae":"#b8f5f2";
+          ctx.beginPath();ctx.arc(x,y,Math.max(.7,radius*.0025),0,Math.PI*2);ctx.fill();
+        }
+      }
+      ctx.restore();
     }
-    ctx.shadowBlur = 0;
 
-    const veinAlpha = visibility * 0.34;
-    for (const pair of [
-      ["l1","l4"], ["l2","l6"], ["l4","l7"],
-      ["r1","r4"], ["r2","r6"], ["r4","r7"]
-    ]) {
-      const a = at(P[pair[0]]), b = at(P[pair[1]]);
-      ctx.beginPath();
-      ctx.moveTo(...a);
-      ctx.quadraticCurveTo(W / 2, H / 2, ...b);
-      ctx.strokeStyle = `rgba(171,218,209,${veinAlpha})`;
-      ctx.lineWidth = Math.max(0.6, S * 0.0016);
-      ctx.stroke();
-    }
-
-    const nodeNames = Object.keys(P).filter(n => n !== "mote");
-    for (const name of nodeNames) {
-      const [x, y] = at(P[name]);
-      const important = ["head", "thorax", "tip", "l3", "l5", "r3", "r5"].includes(name);
-      const tw = 0.72 + 0.28 * Math.sin(t * 0.0018 + name.length * 1.7);
-      const radius = (important ? 2.5 : 1.35) * (W < 250 ? 0.8 : 1);
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(255,${important ? 232 : 216},${important ? 188 : 177},${0.32 + 0.68 * visibility * tw})`;
-      ctx.shadowBlur = important ? S * 0.035 : S * 0.018;
-      ctx.shadowColor = "#ffdfa9";
-      ctx.arc(x, y, radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.shadowBlur = 0;
-
-    const tail = at(P.tip);
-    const satellite = at(P.mote);
-    const drift = Math.sin(t * 0.00045) * S * 0.012;
-    ctx.beginPath();
-    ctx.moveTo(tail[0], tail[1]);
-    ctx.bezierCurveTo(
-      tail[0] + S * 0.22, tail[1] + S * 0.15,
-      satellite[0] - S * 0.20, satellite[1] + drift,
-      satellite[0], satellite[1] + drift
-    );
-    ctx.setLineDash([S * 0.009, S * 0.016]);
-    ctx.lineDashOffset = -t * 0.012;
-    ctx.strokeStyle = `rgba(243,199,151,${0.26 + 0.42 * visibility})`;
-    ctx.lineWidth = Math.max(0.7, S * 0.0018);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    const motePulse = 0.7 + 0.3 * Math.sin(t * 0.0021);
-    const mx = satellite[0], my = satellite[1] + drift;
-    ctx.save();
-    ctx.translate(mx, my);
-    ctx.rotate(Math.PI / 4);
-    ctx.fillStyle = `rgba(255,230,184,${0.7 + 0.3 * motePulse})`;
-    ctx.shadowColor = "#ffdca4";
-    ctx.shadowBlur = S * 0.045;
-    ctx.fillRect(-S * 0.009, -S * 0.009, S * 0.018, S * 0.018);
-    ctx.restore();
-
-    ctx.restore();
+    requestAnimationFrame(draw);
   }
 
-  function frame(now) {
-    drawBackground(now);
-
-    const cycle = (now % 18000) / 18000;
-    const reveal = smooth(0.07, 0.48, cycle) * (1 - smooth(0.75, 0.94, cycle));
-    drawMoth(now, reveal);
-
-    requestAnimationFrame(frame);
-  }
-
-  requestAnimationFrame(frame);
+  requestAnimationFrame(draw);
 })();
 </script>
 </body>
@@ -281,7 +259,7 @@
 
 ```json
 {
-  "title": "The Threadbearer Moth",
-  "statement": "It gathers the small, unfinished questions drifting through the dark and stitches them into wings of starlight. One thread is always left loose, so wonder can wander on."
+  "title": "The Wish-Moth",
+  "statement": "The Wish-Moth gathers the small hopes people almost forgot they made, then carries them folded beneath its wings. At the first hint of morning, it lets them go among the stars, where they can find their way home."
 }
 ```

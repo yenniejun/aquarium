@@ -1,0 +1,893 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #03050c;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y;
+  }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<script>
+(() => {
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d', { alpha: false });
+
+  // Seeded pseudo-random generator for a balanced, repeatable sky composition
+  function createRng(seed) {
+    let s = seed >>> 0;
+    return function() {
+      s += 0x6D2B79F5;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  const rng = createRng(482719);
+
+  // Pre-rendered star glow sprites for smooth, lightweight rendering
+  const spectralPalettes = [
+    { core: '#ffffff', mid: 'rgba(175, 215, 255, 0.65)', outer: 'rgba(90, 150, 255, 0)' }, // Icy blue-white
+    { core: '#fffdf8', mid: 'rgba(255, 240, 210, 0.62)', outer: 'rgba(235, 195, 130, 0)' }, // Warm pearl
+    { core: '#fffaf0', mid: 'rgba(255, 210, 140, 0.68)', outer: 'rgba(230, 145, 70, 0)' },  // Golden amber
+    { core: '#fff8fb', mid: 'rgba(235, 185, 225, 0.58)', outer: 'rgba(170, 110, 210, 0)' }  // Pale rose-violet
+  ];
+
+  const starSprites = spectralPalettes.map(pal => {
+    const sc = document.createElement('canvas');
+    sc.width = 64;
+    sc.height = 64;
+    const sctx = sc.getContext('2d');
+    const g = sctx.createRadialGradient(32, 32, 0.5, 32, 32, 30);
+    g.addColorStop(0, pal.core);
+    g.addColorStop(0.14, pal.core);
+    g.addColorStop(0.35, pal.mid);
+    g.addColorStop(1, pal.outer);
+    sctx.fillStyle = g;
+    sctx.fillRect(0, 0, 64, 64);
+    return sc;
+  });
+
+  // Pre-rendered deep sky & Milky Way nebula canvas
+  const nebulaCanvas = document.createElement('canvas');
+  nebulaCanvas.width = 768;
+  nebulaCanvas.height = 768;
+
+  function buildNebula() {
+    const nctx = nebulaCanvas.getContext('2d');
+    const w = nebulaCanvas.width;
+    const h = nebulaCanvas.height;
+    const cx = w / 2;
+    const cy = h / 2;
+
+    const bg = nctx.createRadialGradient(cx, cy, 20, cx, cy, w * 0.52);
+    bg.addColorStop(0, '#0a1126');
+    bg.addColorStop(0.55, '#060a18');
+    bg.addColorStop(1, '#03050c');
+    nctx.fillStyle = bg;
+    nctx.fillRect(0, 0, w, h);
+
+    // Subtle Milky Way ribbon flowing along a gentle curve through the spindle axis
+    const nrng = createRng(99133);
+    nctx.globalCompositeOperation = 'screen';
+
+    for (let i = 0; i < 210; i++) {
+      const along = (nrng() - 0.5) * w * 0.98;
+      const curve = Math.sin(along / (w * 0.28)) * 42;
+      const spread = (nrng() + nrng() - 1) * 135;
+      const x = cx + spread + curve + along * 0.28;
+      const y = cy + along;
+      const rad = 35 + nrng() * 115;
+
+      const hueChoice = nrng();
+      let color;
+      if (hueChoice < 0.45) {
+        color = `rgba(28, 52, 102, ${0.016 + nrng() * 0.022})`;
+      } else if (hueChoice < 0.78) {
+        color = `rgba(58, 45, 96, ${0.014 + nrng() * 0.02})`;
+      } else {
+        color = `rgba(110, 88, 68, ${0.01 + nrng() * 0.015})`;
+      }
+
+      const g = nctx.createRadialGradient(x, y, 0, x, y, rad);
+      g.addColorStop(0, color);
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      nctx.fillStyle = g;
+      nctx.beginPath();
+      nctx.arc(x, y, rad, 0, Math.PI * 2);
+      nctx.fill();
+    }
+
+    // Soft dark dust rifts for astronomical depth
+    nctx.globalCompositeOperation = 'multiply';
+    for (let i = 0; i < 45; i++) {
+      const along = (nrng() - 0.5) * w * 0.85;
+      const curve = Math.sin(along / (w * 0.28)) * 38;
+      const x = cx + (nrng() - 0.5) * 55 + curve + along * 0.28;
+      const y = cy + along;
+      const rad = 22 + nrng() * 65;
+      const g = nctx.createRadialGradient(x, y, 0, x, y, rad);
+      g.addColorStop(0, 'rgba(8, 10, 20, 0.32)');
+      g.addColorStop(1, 'rgba(255, 255, 255, 1)');
+      nctx.fillStyle = g;
+      nctx.beginPath();
+      nctx.arc(x, y, rad, 0, Math.PI * 2);
+      nctx.fill();
+    }
+    nctx.globalCompositeOperation = 'source-over';
+  }
+  buildNebula();
+
+  // Background starfield clustered naturally toward the Milky Way stream
+  const bgStars = [];
+  const BG_COUNT = 310;
+  for (let i = 0; i < BG_COUNT; i++) {
+    const inBand = rng() < 0.48;
+    let x, y;
+    if (inBand) {
+      const along = (rng() - 0.5) * 2.5;
+      const spread = (rng() + rng() - 1) * 0.42;
+      x = spread + Math.sin(along * 1.3) * 0.11 + along * 0.28;
+      y = along;
+    } else {
+      const angle = rng() * Math.PI * 2;
+      const dist = Math.sqrt(rng()) * 1.42;
+      x = Math.cos(angle) * dist;
+      y = Math.sin(angle) * dist;
+    }
+    const mag = Math.pow(rng(), 2.4);
+    bgStars.push({
+      x,
+      y,
+      size: 0.42 + mag * 1.55,
+      alpha: 0.22 + mag * 0.68,
+      tint: Math.floor(rng() * spectralPalettes.length),
+      twinkleSpeed: 0.7 + rng() * 2.2,
+      twinklePhase: rng() * Math.PI * 2,
+      depth: 0.3 + mag * 0.7
+    });
+  }
+
+  // Constellation: The Spindle Moth (19 stars in normalized sky radius units)
+  const cStars = [
+    { x:  0.000, y: -0.095, mag: 1.00, tint: 2, flare: true  }, // 0: Thorax (Heart)
+    { x:  0.000, y: -0.205, mag: 0.76, tint: 0, flare: false }, // 1: Head
+    { x: -0.145, y: -0.345, mag: 0.64, tint: 2, flare: false }, // 2: Left Antenna
+    { x:  0.145, y: -0.345, mag: 0.64, tint: 2, flare: false }, // 3: Right Antenna
+    { x:  0.000, y:  0.060, mag: 0.74, tint: 1, flare: false }, // 4: Abdomen
+    { x: -0.265, y: -0.235, mag: 0.68, tint: 0, flare: false }, // 5: Left Costa
+    { x: -0.545, y: -0.275, mag: 0.96, tint: 0, flare: true  }, // 6: Left Wing Apex
+    { x: -0.445, y: -0.010, mag: 0.76, tint: 3, flare: false }, // 7: Left Forewing Outer
+    { x:  0.265, y: -0.235, mag: 0.68, tint: 0, flare: false }, // 8: Right Costa
+    { x:  0.545, y: -0.275, mag: 0.96, tint: 0, flare: true  }, // 9: Right Wing Apex
+    { x:  0.445, y: -0.010, mag: 0.76, tint: 3, flare: false }, // 10: Right Forewing Outer
+    { x: -0.305, y:  0.165, mag: 0.70, tint: 3, flare: false }, // 11: Left Hindwing
+    { x: -0.205, y:  0.465, mag: 0.82, tint: 1, flare: false }, // 12: Left Swallowtail
+    { x:  0.305, y:  0.165, mag: 0.70, tint: 3, flare: false }, // 13: Right Hindwing
+    { x:  0.205, y:  0.465, mag: 0.82, tint: 1, flare: false }, // 14: Right Swallowtail
+    { x:  0.000, y:  0.220, mag: 0.75, tint: 2, flare: false }, // 15: Spindle Crown
+    { x: -0.078, y:  0.355, mag: 0.62, tint: 2, flare: false }, // 16: Spindle West
+    { x:  0.078, y:  0.355, mag: 0.62, tint: 2, flare: false }, // 17: Spindle East
+    { x:  0.000, y:  0.515, mag: 0.94, tint: 2, flare: true  }  // 18: Spindle Point
+  ].map((s, idx) => ({
+    ...s,
+    phase: idx * 1.37 + 0.5,
+    speed: 1.1 + (idx % 5) * 0.22
+  }));
+
+  // Directed edges with staggered normalized trace timing [u, v, t0, t1]
+  const cEdges = [
+    [0, 1,  0.00, 0.16],
+    [1, 2,  0.14, 0.34],
+    [1, 3,  0.14, 0.34],
+    [0, 5,  0.08, 0.28],
+    [5, 6,  0.26, 0.48],
+    [6, 7,  0.46, 0.66],
+    [7, 0,  0.62, 0.80],
+    [0, 8,  0.08, 0.28],
+    [8, 9,  0.26, 0.48],
+    [9, 10, 0.46, 0.66],
+    [10, 0, 0.62, 0.80],
+    [0, 4,  0.12, 0.28],
+    [4, 11, 0.28, 0.48],
+    [11, 12,0.46, 0.70],
+    [7, 11, 0.52, 0.72],
+    [4, 13, 0.28, 0.48],
+    [13, 14,0.46, 0.70],
+    [10, 13,0.52, 0.72],
+    [4, 15, 0.30, 0.48],
+    [15, 16,0.48, 0.68],
+    [15, 17,0.48, 0.68],
+    [16, 18,0.68, 0.92],
+    [17, 18,0.68, 0.92],
+    [12, 18,0.78, 1.00],
+    [14, 18,0.78, 1.00]
+  ];
+
+  // Drifting silk stardust motes during awakening
+  const dustMotes = Array.from({ length: 44 }, (_, i) => ({
+    seed: i * 17.31,
+    side: i % 2 === 0 ? -1 : 1,
+    originType: i % 3, // 0: forewing, 1: tail, 2: spindle
+    offset: rng(),
+    speed: 0.14 + rng() * 0.16,
+    driftX: (rng() - 0.5) * 0.14,
+    driftY: 0.08 + rng() * 0.16,
+    size: 0.7 + rng() * 1.3
+  }));
+
+  // Occasional shooting star state
+  let meteor = { active: false, nextTime: 5.5 };
+
+  // Pointer parallax state (subtle, optional)
+  const pointer = { tx: 0, ty: 0, x: 0, y: 0, proximity: 0, tProximity: 0 };
+
+  window.addEventListener('pointermove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return;
+    const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    const dist = Math.hypot(nx, ny);
+    if (dist <= 1.05) {
+      pointer.tx = nx;
+      pointer.ty = ny;
+      pointer.tProximity = Math.max(0, 1 - dist * 0.85);
+    } else {
+      pointer.tProximity = 0;
+    }
+  }, { passive: true });
+
+  window.addEventListener('pointerleave', () => {
+    pointer.tx = 0;
+    pointer.ty = 0;
+    pointer.tProximity = 0;
+  }, { passive: true });
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.max(1, Math.floor(width * dpr));
+    canvas.height = Math.max(1, Math.floor(height * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function smoothstep(e0, e1, x) {
+    const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0)));
+    return t * t * (3 - 2 * t);
+  }
+
+  function drawStarFlare(x, y, radius, alpha, color) {
+    if (alpha <= 0.01) return;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = Math.max(0.75, radius * 0.08);
+    ctx.beginPath();
+    ctx.moveTo(-radius, 0);
+    ctx.lineTo(radius, 0);
+    ctx.moveTo(0, -radius);
+    ctx.lineTo(0, radius);
+    ctx.stroke();
+
+    ctx.globalAlpha = alpha * 0.45;
+    const d = radius * 0.42;
+    ctx.beginPath();
+    ctx.moveTo(-d, -d);
+    ctx.lineTo(d, d);
+    ctx.moveTo(-d, d);
+    ctx.lineTo(d, -d);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawMothFigure(R, lifeAlpha, cycleSec, totalTime) {
+    if (lifeAlpha <= 0.002) return;
+
+    // Smooth, unhurried wingbeat while awakened (starts & ends gently near 1.0)
+    const localT = Math.max(0, cycleSec - 7.2);
+    const beatWave = 0.5 - 0.5 * Math.cos(localT * 1.18);
+    const flap = 1 - 0.15 * beatWave * smoothstep(0, 1.5, localT) * (1 - smoothstep(8.2, 10.5, localT));
+    const liftY = -0.012 * beatWave * R;
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+
+    // 1. Luminous silk threads spun from the spindle into the Milky Way stream
+    const spTopY = 0.220 * R;
+    const spMidY = 0.355 * R;
+    const spTipY = 0.515 * R;
+    const spinPhase = totalTime * 1.35;
+
+    for (let k = 0; k < 5; k++) {
+      const offsetPhase = spinPhase + k * (Math.PI * 2 / 5);
+      const ribbonAlpha = lifeAlpha * (0.16 + 0.08 * Math.sin(offsetPhase));
+      const sway = Math.sin(totalTime * 0.9 + k * 1.4) * 0.07 * R;
+      const spread = (k - 2) * 0.055 * R;
+
+      // Downward flowing silk skein
+      const gradDown = ctx.createLinearGradient(0, spMidY, 0.22 * R, 1.05 * R);
+      gradDown.addColorStop(0, `rgba(255, 226, 158, ${ribbonAlpha * 1.5})`);
+      gradDown.addColorStop(0.45, `rgba(170, 215, 255, ${ribbonAlpha})`);
+      gradDown.addColorStop(1, 'rgba(110, 160, 240, 0)');
+
+      ctx.strokeStyle = gradDown;
+      ctx.lineWidth = Math.max(0.8, R * 0.0042);
+      ctx.beginPath();
+      ctx.moveTo(Math.sin(offsetPhase) * 0.055 * R, spMidY);
+      ctx.bezierCurveTo(
+        spread * 0.6, spTipY,
+        0.08 * R + sway + spread, 0.74 * R,
+        0.25 * R + spread * 1.8, 1.06 * R
+      );
+      ctx.stroke();
+
+      // Upward delicate gossamer filament toward the northern Milky Way stream
+      const gradUp = ctx.createLinearGradient(0, -0.20 * R, -0.24 * R, -1.02 * R);
+      gradUp.addColorStop(0, `rgba(245, 220, 165, ${ribbonAlpha * 0.85})`);
+      gradUp.addColorStop(0.5, `rgba(150, 205, 255, ${ribbonAlpha * 0.65})`);
+      gradUp.addColorStop(1, 'rgba(110, 160, 240, 0)');
+
+      ctx.strokeStyle = gradUp;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(offsetPhase) * 0.03 * R, -0.205 * R);
+      ctx.bezierCurveTo(
+        -0.06 * R - sway * 0.6 + spread * 0.7, -0.52 * R,
+        -0.16 * R + sway * 0.5 + spread * 1.1, -0.76 * R,
+        -0.28 * R + spread * 1.6, -1.05 * R
+      );
+      ctx.stroke();
+    }
+
+    // Spinning 3D astral spindle rings & glowing bobbin core
+    const orbitW = 0.078 * R;
+    const westX = Math.cos(spinPhase) * orbitW;
+    const eastX = -westX;
+
+    const spindleGlow = ctx.createRadialGradient(0, spMidY, 0, 0, spMidY, 0.19 * R);
+    spindleGlow.addColorStop(0, `rgba(255, 228, 160, ${0.28 * lifeAlpha})`);
+    spindleGlow.addColorStop(0.5, `rgba(165, 195, 255, ${0.09 * lifeAlpha})`);
+    spindleGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = spindleGlow;
+    ctx.beginPath();
+    ctx.arc(0, spMidY, 0.19 * R, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = `rgba(255, 224, 155, ${0.42 * lifeAlpha})`;
+    ctx.lineWidth = Math.max(0.85, R * 0.004);
+    ctx.beginPath();
+    ctx.moveTo(0, spTopY);
+    ctx.quadraticCurveTo(westX * 1.25, spMidY, 0, spTipY);
+    ctx.moveTo(0, spTopY);
+    ctx.quadraticCurveTo(eastX * 1.25, spMidY, 0, spTipY);
+    ctx.ellipse(0, spMidY, orbitW, 0.022 * R, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // 2. Symmetrical Gossamer Wings (Hindwings + Swallowtails, then Forewings)
+    for (const side of [-1, 1]) {
+      const sx = side * flap;
+
+      // --- Hindwing & Swallowtail ---
+      ctx.save();
+      ctx.translate(0, liftY * 0.6);
+
+      const hwGrad = ctx.createLinearGradient(0, 0.04 * R, sx * 0.34 * R, 0.52 * R);
+      hwGrad.addColorStop(0, `rgba(130, 205, 245, ${0.22 * lifeAlpha})`);
+      hwGrad.addColorStop(0.52, `rgba(168, 142, 235, ${0.19 * lifeAlpha})`);
+      hwGrad.addColorStop(1, `rgba(250, 218, 152, ${0.25 * lifeAlpha})`);
+
+      ctx.fillStyle = hwGrad;
+      ctx.strokeStyle = `rgba(195, 225, 255, ${0.38 * lifeAlpha})`;
+      ctx.lineWidth = Math.max(0.8, R * 0.0038);
+
+      const tailSway = Math.sin(totalTime * 1.6 + side * 0.8) * 0.018 * R;
+
+      ctx.beginPath();
+      ctx.moveTo(0, 0.01 * R);
+      ctx.bezierCurveTo(
+        sx * 0.22 * R, -0.01 * R,
+        sx * 0.40 * R, 0.06 * R,
+        sx * 0.33 * R, 0.18 * R
+      );
+      ctx.bezierCurveTo(
+        sx * 0.28 * R, 0.28 * R,
+        sx * 0.25 * R + tailSway, 0.42 * R,
+        sx * 0.225 * R + tailSway * 1.4, 0.545 * R
+      );
+      ctx.bezierCurveTo(
+        sx * 0.175 * R + tailSway, 0.51 * R,
+        sx * 0.16 * R, 0.33 * R,
+        sx * 0.11 * R, 0.23 * R
+      );
+      ctx.quadraticCurveTo(sx * 0.04 * R, 0.16 * R, 0, 0.08 * R);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Hindwing delicate venation
+      ctx.strokeStyle = `rgba(230, 215, 255, ${0.20 * lifeAlpha})`;
+      ctx.lineWidth = Math.max(0.6, R * 0.0026);
+      ctx.beginPath();
+      ctx.moveTo(sx * 0.03 * R, 0.04 * R);
+      ctx.quadraticCurveTo(sx * 0.20 * R, 0.14 * R, sx * 0.22 * R + tailSway * 1.2, 0.52 * R);
+      ctx.moveTo(sx * 0.12 * R, 0.09 * R);
+      ctx.quadraticCurveTo(sx * 0.24 * R, 0.12 * R, sx * 0.32 * R, 0.17 * R);
+      ctx.stroke();
+
+      // --- Forewing ---
+      const fwGrad = ctx.createLinearGradient(0, -0.10 * R, sx * 0.56 * R, -0.24 * R);
+      fwGrad.addColorStop(0, `rgba(255, 228, 168, ${0.22 * lifeAlpha})`);
+      fwGrad.addColorStop(0.42, `rgba(110, 212, 242, ${0.24 * lifeAlpha})`);
+      fwGrad.addColorStop(0.82, `rgba(150, 155, 245, ${0.20 * lifeAlpha})`);
+      fwGrad.addColorStop(1, `rgba(255, 240, 200, ${0.32 * lifeAlpha})`);
+
+      ctx.fillStyle = fwGrad;
+      ctx.strokeStyle = `rgba(220, 240, 255, ${0.46 * lifeAlpha})`;
+      ctx.lineWidth = Math.max(0.9, R * 0.0044);
+
+      ctx.beginPath();
+      ctx.moveTo(0, -0.115 * R);
+      // Swept Saturniid leading costal arch out to curved lunar apex
+      ctx.bezierCurveTo(
+        sx * 0.16 * R, -0.24 * R,
+        sx * 0.38 * R, -0.26 * R,
+        sx * 0.565 * R, -0.285 * R
+      );
+      // Falcate wingtip hook down to outer margin
+      ctx.bezierCurveTo(
+        sx * 0.585 * R, -0.22 * R,
+        sx * 0.51 * R, -0.13 * R,
+        sx * 0.455 * R, -0.005 * R
+      );
+      // Trailing margin back to thorax
+      ctx.bezierCurveTo(
+        sx * 0.34 * R, 0.055 * R,
+        sx * 0.16 * R, 0.03 * R,
+        0, -0.035 * R
+      );
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Forewing venation & golden costal edge highlight
+      ctx.strokeStyle = `rgba(255, 228, 165, ${0.42 * lifeAlpha})`;
+      ctx.lineWidth = Math.max(0.85, R * 0.004);
+      ctx.beginPath();
+      ctx.moveTo(sx * 0.02 * R, -0.12 * R);
+      ctx.bezierCurveTo(
+        sx * 0.17 * R, -0.242 * R,
+        sx * 0.38 * R, -0.262 * R,
+        sx * 0.56 * R, -0.283 * R
+      );
+      ctx.stroke();
+
+      ctx.strokeStyle = `rgba(205, 235, 255, ${0.22 * lifeAlpha})`;
+      ctx.lineWidth = Math.max(0.6, R * 0.0028);
+      ctx.beginPath();
+      ctx.moveTo(sx * 0.04 * R, -0.09 * R);
+      ctx.quadraticCurveTo(sx * 0.26 * R, -0.15 * R, sx * 0.49 * R, -0.14 * R);
+      ctx.moveTo(sx * 0.18 * R, -0.13 * R);
+      ctx.quadraticCurveTo(sx * 0.32 * R, -0.07 * R, sx * 0.45 * R, -0.01 * R);
+      ctx.moveTo(sx * 0.14 * R, -0.11 * R);
+      ctx.quadraticCurveTo(sx * 0.24 * R, -0.02 * R, sx * 0.32 * R, 0.03 * R);
+      ctx.stroke();
+
+      // Lunar Eyespot (Ocellus) on each forewing
+      const eyeX = sx * 0.285 * R;
+      const eyeY = -0.115 * R;
+      ctx.save();
+      ctx.translate(eyeX, eyeY);
+      ctx.scale(flap, 1);
+      ctx.strokeStyle = `rgba(255, 232, 172, ${0.52 * lifeAlpha})`;
+      ctx.fillStyle = `rgba(140, 215, 255, ${0.18 * lifeAlpha})`;
+      ctx.lineWidth = Math.max(0.75, R * 0.0035);
+      ctx.beginPath();
+      ctx.arc(0, 0, 0.036 * R, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Inner crescent moon inside eyespot
+      ctx.strokeStyle = `rgba(255, 250, 230, ${0.68 * lifeAlpha})`;
+      ctx.beginPath();
+      ctx.arc(-side * 0.006 * R, -0.004 * R, 0.021 * R, -Math.PI * 0.7, Math.PI * 0.55);
+      ctx.stroke();
+      ctx.restore();
+
+      // Smaller lunar ocellus on hindwing
+      ctx.save();
+      ctx.translate(sx * 0.195 * R, 0.135 * R);
+      ctx.scale(flap, 1);
+      ctx.strokeStyle = `rgba(245, 215, 175, ${0.42 * lifeAlpha})`;
+      ctx.lineWidth = Math.max(0.65, R * 0.003);
+      ctx.beginPath();
+      ctx.arc(0, 0, 0.024 * R, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+
+      // Feathered Saturniid Antennae Plumes
+      ctx.strokeStyle = `rgba(255, 224, 158, ${0.52 * lifeAlpha})`;
+      ctx.lineWidth = Math.max(0.75, R * 0.0035);
+      ctx.beginPath();
+      ctx.moveTo(0, -0.205 * R);
+      ctx.quadraticCurveTo(side * 0.055 * R, -0.315 * R, side * 0.145 * R, -0.345 * R);
+      ctx.stroke();
+
+      ctx.lineWidth = Math.max(0.55, R * 0.0024);
+      ctx.strokeStyle = `rgba(255, 224, 158, ${0.34 * lifeAlpha})`;
+      for (let f = 1; f <= 6; f++) {
+        const u = f / 7;
+        const inv = 1 - u;
+        const ax = 2 * inv * u * (side * 0.055 * R) + u * u * (side * 0.145 * R);
+        const ay = inv * inv * (-0.205 * R) + 2 * inv * u * (-0.315 * R) + u * u * (-0.345 * R);
+        const plen = Math.sin(u * Math.PI) * 0.032 * R;
+        ctx.beginPath();
+        ctx.moveTo(ax, ay);
+        ctx.lineTo(ax + side * plen * 0.85, ay + plen * 0.65);
+        ctx.moveTo(ax, ay);
+        ctx.lineTo(ax - side * plen * 0.35, ay - plen * 0.65);
+        ctx.stroke();
+      }
+
+      // Gossamer thread linking outer wingtip softly down to the spinning spindle
+      const silkAlpha = lifeAlpha * (0.15 + 0.08 * Math.sin(totalTime * 2 + side));
+      ctx.strokeStyle = `rgba(255, 232, 175, ${silkAlpha})`;
+      ctx.lineWidth = Math.max(0.6, R * 0.0025);
+      ctx.beginPath();
+      ctx.moveTo(sx * 0.545 * R, -0.275 * R);
+      ctx.bezierCurveTo(
+        sx * 0.42 * R, 0.12 * R,
+        sx * 0.22 * R, 0.36 * R,
+        side === -1 ? westX : eastX, spMidY
+      );
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // 3. Softly luminous body silhouette (Head, Thorax, Abdomen)
+    ctx.save();
+    ctx.translate(0, liftY * 0.4);
+    const bodyGrad = ctx.createLinearGradient(0, -0.21 * R, 0, 0.12 * R);
+    bodyGrad.addColorStop(0, `rgba(225, 240, 255, ${0.38 * lifeAlpha})`);
+    bodyGrad.addColorStop(0.4, `rgba(255, 230, 175, ${0.42 * lifeAlpha})`);
+    bodyGrad.addColorStop(1, `rgba(185, 175, 235, ${0.26 * lifeAlpha})`);
+    ctx.fillStyle = bodyGrad;
+    ctx.beginPath();
+    ctx.ellipse(0, -0.065 * R, 0.028 * R, 0.145 * R, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // 4. Drifting luminous silk motes shed from wings & spindle
+    for (let i = 0; i < dustMotes.length; i++) {
+      const m = dustMotes[i];
+      const prog = (totalTime * m.speed + m.offset) % 1;
+      const fade = Math.sin(prog * Math.PI) * lifeAlpha;
+      if (fade <= 0.02) continue;
+
+      let ox, oy;
+      if (m.originType === 0) {
+        ox = m.side * flap * (0.28 + (i % 5) * 0.055) * R;
+        oy = (-0.18 + (i % 3) * 0.06) * R;
+      } else if (m.originType === 1) {
+        ox = m.side * flap * 0.21 * R;
+        oy = 0.46 * R;
+      } else {
+        ox = Math.sin(totalTime * 1.5 + m.seed) * 0.06 * R;
+        oy = 0.36 * R;
+      }
+
+      const mx = ox + (m.driftX + Math.sin(totalTime + m.seed) * 0.03) * prog * R;
+      const my = oy + m.driftY * prog * R;
+      const r = Math.max(0.8, m.size * (R / 260));
+
+      ctx.fillStyle = i % 2 === 0
+        ? `rgba(255, 232, 175, ${fade * 0.75})`
+        : `rgba(175, 225, 255, ${fade * 0.75})`;
+      ctx.beginPath();
+      ctx.arc(mx, my, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  function drawAstrolabeGeometry(R, chartAlpha, totalTime) {
+    if (chartAlpha <= 0.005) return;
+    ctx.save();
+    ctx.strokeStyle = `rgba(218, 195, 145, ${0.15 * chartAlpha})`;
+    ctx.lineWidth = Math.max(0.65, R * 0.0028);
+
+    // Delicate celestial ring centered on the Heart star
+    ctx.save();
+    ctx.translate(0, -0.095 * R);
+    ctx.rotate(totalTime * 0.04);
+    ctx.beginPath();
+    ctx.arc(0, 0, 0.14 * R, -0.65, 1.15);
+    ctx.arc(0, 0, 0.14 * R, Math.PI - 0.65, Math.PI + 1.15);
+    ctx.stroke();
+    ctx.restore();
+
+    // Compass arc around the Spindle Crown & Tip
+    ctx.save();
+    ctx.translate(0, 0.355 * R);
+    ctx.rotate(-totalTime * 0.05);
+    ctx.beginPath();
+    ctx.arc(0, 0, 0.16 * R, -0.4, Math.PI + 0.4);
+    ctx.stroke();
+
+    // Subtle tick marks along the spindle arc
+    const tickAlpha = 0.2 * chartAlpha;
+    ctx.strokeStyle = `rgba(235, 212, 160, ${tickAlpha})`;
+    for (let a = 0; a <= 8; a++) {
+      const ang = -0.2 + (a / 8) * (Math.PI + 0.4);
+      const r0 = 0.152 * R;
+      const r1 = 0.168 * R;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(ang) * r0, Math.sin(ang) * r0);
+      ctx.lineTo(Math.cos(ang) * r1, Math.sin(ang) * r1);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    ctx.restore();
+  }
+
+  // Start slightly into the cycle so visitors immediately catch the stars stirring
+  const TIME_OFFSET = 2.4;
+  const CYCLE_DURATION = 22.0;
+  let lastNow = performance.now();
+
+  function render(now) {
+    const dt = Math.min(0.1, (now - lastNow) * 0.001);
+    lastNow = now;
+
+    const totalTime = now * 0.001 + TIME_OFFSET;
+    const cycleSec = totalTime % CYCLE_DURATION;
+
+    // Smooth pointer interpolation
+    pointer.x += (pointer.tx - pointer.x) * Math.min(1, dt * 4.5);
+    pointer.y += (pointer.ty - pointer.y) * Math.min(1, dt * 4.5);
+    pointer.proximity += (pointer.tProximity - pointer.proximity) * Math.min(1, dt * 3.5);
+
+    const cx = width * 0.5;
+    const cy = height * 0.5;
+    const R = Math.min(width, height) * 0.5;
+
+    // Slow, serene planetarium dome rotation
+    const skyAngle = -0.38 + totalTime * 0.0085;
+
+    // Clear base
+    ctx.fillStyle = '#03050c';
+    ctx.fillRect(0, 0, width, height);
+
+    // Parallax center offset
+    const parX = pointer.x * R * 0.026;
+    const parY = pointer.y * R * 0.026;
+
+    ctx.save();
+    ctx.translate(cx + parX, cy + parY);
+    ctx.rotate(skyAngle);
+
+    // 1. Draw deep sky & Milky Way nebula
+    const nebSpan = Math.max(width, height) * 1.52;
+    ctx.drawImage(nebulaCanvas, -nebSpan * 0.5, -nebSpan * 0.5, nebSpan, nebSpan);
+
+    // 2. Draw twinkling background starfield
+    const scaleFactor = Math.max(0.65, R / 280);
+    for (let i = 0; i < BG_COUNT; i++) {
+      const s = bgStars[i];
+      const sx = s.x * R + pointer.x * s.depth * R * 0.012;
+      const sy = s.y * R + pointer.y * s.depth * R * 0.012;
+
+      // Skip stars clearly outside the viewport diagonal
+      if (sx * sx + sy * sy > R * R * 2.1) continue;
+
+      const tw = 0.72 + 0.28 * Math.sin(totalTime * s.twinkleSpeed + s.twinklePhase);
+      const a = s.alpha * tw;
+      const drawR = Math.max(1.8, s.size * 3.4 * scaleFactor);
+
+      ctx.globalAlpha = a;
+      ctx.drawImage(starSprites[s.tint], sx - drawR, sy - drawR, drawR * 2, drawR * 2);
+    }
+    ctx.globalAlpha = 1;
+
+    // 3. Sporadic delicate shooting star across the sky
+    if (!meteor.active && totalTime >= meteor.nextTime) {
+      const angle = (rng() - 0.5) * Math.PI * 1.6;
+      const startAngle = rng() * Math.PI * 2;
+      const rStart = (0.35 + rng() * 0.5) * R;
+      meteor = {
+        active: true,
+        t: 0,
+        dur: 0.75 + rng() * 0.45,
+        x0: Math.cos(startAngle) * rStart,
+        y0: Math.sin(startAngle) * rStart,
+        vx: Math.cos(angle) * R * 0.95,
+        vy: Math.sin(angle) * R * 0.95,
+        nextTime: totalTime + 9.5 + rng() * 7.5
+      };
+    }
+    if (meteor.active) {
+      meteor.t += dt;
+      const u = meteor.t / meteor.dur;
+      if (u >= 1) {
+        meteor.active = false;
+      } else {
+        const env = Math.sin(u * Math.PI);
+        const hx = meteor.x0 + meteor.vx * u;
+        const hy = meteor.y0 + meteor.vy * u;
+        const tx = hx - meteor.vx * 0.18;
+        const ty = hy - meteor.vy * 0.18;
+        const mg = ctx.createLinearGradient(hx, hy, tx, ty);
+        mg.addColorStop(0, `rgba(255, 252, 240, ${0.85 * env})`);
+        mg.addColorStop(1, 'rgba(160, 205, 255, 0)');
+        ctx.strokeStyle = mg;
+        ctx.lineWidth = Math.max(1.0, R * 0.0045);
+        ctx.beginPath();
+        ctx.moveTo(hx, hy);
+        ctx.lineTo(tx, ty);
+        ctx.stroke();
+      }
+    }
+
+    // 4. Compute animation envelopes for the 22-second narrative cycle
+    //    0.0s -  3.2s : Quiet twinkling night sky
+    //    3.2s -  8.4s : Constellation lines trace progressively outward
+    //    7.4s - 15.8s : The Spindle Moth awakens & spins starlight into silk
+    //   15.8s - 19.8s : Mythical figure & chart lines softly dissolve back to stars
+    const traceMaster = smoothstep(3.2, 8.4, cycleSec);
+    const fadeOutLines = 1 - smoothstep(16.4, 19.8, cycleSec);
+    const hoverHint = pointer.proximity * 0.16;
+
+    const lifeIn = smoothstep(7.4, 10.6, cycleSec);
+    const lifeOut = 1 - smoothstep(15.4, 18.6, cycleSec);
+    const lifeAlpha = lifeIn * lifeOut;
+
+    const chartAlpha = Math.max(
+      smoothstep(4.5, 8.5, cycleSec) * fadeOutLines,
+      hoverHint
+    );
+
+    // 5. Subtle celestial chart geometry
+    drawAstrolabeGeometry(R, chartAlpha, totalTime);
+
+    // 6. Living mythical figure (Gossamer wings, lunar eyespots, spinning spindle)
+    drawMothFigure(R, lifeAlpha, cycleSec, totalTime);
+
+    // 7. Constellation connecting lines
+    if (traceMaster > 0.001 && fadeOutLines > 0.001) {
+      ctx.save();
+      ctx.lineCap = 'round';
+
+      for (let i = 0; i < cEdges.length; i++) {
+        const [uIdx, vIdx, t0, t1] = cEdges[i];
+        const segProg = smoothstep(t0, t1, traceMaster);
+        if (segProg <= 0.002) continue;
+
+        const p1 = cStars[uIdx];
+        const p2 = cStars[vIdx];
+        const x1 = p1.x * R;
+        const y1 = p1.y * R;
+        const x2 = x1 + (p2.x * R - x1) * segProg;
+        const y2 = y1 + (p2.y * R - y1) * segProg;
+
+        const lineAlpha = (0.38 + 0.24 * lifeAlpha) * fadeOutLines;
+
+        // Soft outer filament glow
+        ctx.strokeStyle = `rgba(165, 205, 255, ${lineAlpha * 0.35})`;
+        ctx.lineWidth = Math.max(2.2, R * 0.011);
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+
+        // Crisp silver-gold chart thread
+        ctx.strokeStyle = `rgba(248, 232, 192, ${lineAlpha})`;
+        ctx.lineWidth = Math.max(0.85, R * 0.0042);
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    } else if (hoverHint > 0.02) {
+      // Gentle whisper of connections if pointer explores during the quiet phase
+      ctx.save();
+      ctx.strokeStyle = `rgba(235, 220, 185, ${hoverHint * 0.6})`;
+      ctx.lineWidth = Math.max(0.7, R * 0.003);
+      ctx.beginPath();
+      for (let i = 0; i < cEdges.length; i++) {
+        const p1 = cStars[cEdges[i][0]];
+        const p2 = cStars[cEdges[i][1]];
+        ctx.moveTo(p1.x * R, p1.y * R);
+        ctx.lineTo(p2.x * R, p2.y * R);
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 8. Constellation stars (drawn crisp on top so they anchor the firmament)
+    for (let i = 0; i < cStars.length; i++) {
+      const s = cStars[i];
+      const sx = s.x * R;
+      const sy = s.y * R;
+
+      const twinkle = 0.84 + 0.16 * Math.sin(totalTime * s.speed + s.phase);
+      const awakenBoost = 1 + 0.28 * lifeAlpha + hoverHint * 0.4;
+      const spriteRadius = Math.max(4.5, (5.5 + s.mag * 8.5) * scaleFactor * awakenBoost);
+
+      ctx.globalAlpha = Math.min(1, (0.78 + s.mag * 0.22) * twinkle);
+      ctx.drawImage(
+        starSprites[s.tint],
+        sx - spriteRadius,
+        sy - spriteRadius,
+        spriteRadius * 2,
+        spriteRadius * 2
+      );
+
+      // Crisp jewel core
+      ctx.fillStyle = '#ffffff';
+      ctx.globalAlpha = Math.min(1, 0.88 * twinkle + 0.12 * lifeAlpha);
+      const coreR = Math.max(1.05, (0.9 + s.mag * 1.45) * scaleFactor);
+      ctx.beginPath();
+      ctx.arc(sx, sy, coreR, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Delicate diffraction spikes on primary stars
+      if (s.flare) {
+        const flareLen = Math.max(6, (8 + s.mag * 11) * scaleFactor * (1 + 0.35 * lifeAlpha));
+        const flareAlpha = (0.32 + 0.36 * lifeAlpha) * twinkle;
+        const flareCol = s.tint === 2 ? 'rgba(255, 236, 195, 0.9)' : 'rgba(210, 235, 255, 0.9)';
+        drawStarFlare(sx, sy, flareLen, flareAlpha, flareCol);
+      }
+    }
+    ctx.globalAlpha = 1;
+
+    ctx.restore();
+
+    // Soft natural night-sky depth gradient near outer edge (no frame, just atmospheric falloff)
+    const vig = ctx.createRadialGradient(cx, cy, R * 0.68, cx, cy, R * 1.08);
+    vig.addColorStop(0, 'rgba(3, 5, 12, 0)');
+    vig.addColorStop(1, 'rgba(2, 3, 9, 0.52)');
+    ctx.fillStyle = vig;
+    ctx.fillRect(0, 0, width, height);
+
+    requestAnimationFrame(render);
+  }
+
+  requestAnimationFrame(render);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "The Spindle Moth",
+  "statement": "Drawn nightly to the scattered embers of creation, this nocturnal weaver gathers stray starlight upon its golden spindle and spins it into the pale ribbon of the Milky Way. Old star charts claim that whenever its gossamer wings stir the dark, distant lights briefly remember how they belong together."
+}
+```

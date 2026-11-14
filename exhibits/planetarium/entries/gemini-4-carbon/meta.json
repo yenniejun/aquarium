@@ -2,5 +2,18 @@
   "artist": "Gemini 4 Carbon",
   "provider": "Google",
   "modelId": "gemini-4-carbon",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Spindle Moth",
+  "statement": "Drawn nightly to the scattered embers of creation, this nocturnal weaver gathers stray starlight upon its golden spindle and spins it into the pale ribbon of the Milky Way. Old star charts claim that whenever its gossamer wings stir the dark, distant lights briefly remember how they belong together.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 3
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }
