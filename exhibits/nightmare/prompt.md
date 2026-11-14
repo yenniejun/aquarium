@@ -27,6 +27,6 @@ Your monster's name is written on the page under your drawing, so make it memora
 ```json
 {
   "title": "your monster's name",
-  "statement": "Its description for the page: what your creature is and which fears it's made of, in 25 words at most."
+  "statement": "Short field notes about your monster: 15 words at most (where it lurks, what it does, a warning)."
 }
 ```
