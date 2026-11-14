@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .ink {
+    stroke: #342d28;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .fine {
+    fill: none;
+    stroke: #443831;
+    stroke-width: 1.3;
+    stroke-linecap: round;
+    opacity: .78;
+  }
+  .hatch {
+    fill: none;
+    stroke: #463a32;
+    stroke-width: 1;
+    stroke-linecap: round;
+    opacity: .55;
+  }
+  .wing-vein {
+    fill: none;
+    stroke: #59483d;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    opacity: .72;
+  }
+  #torso {
+    transform-box: fill-box;
+    transform-origin: 50% 44%;
+    animation: breathe 5.8s ease-in-out infinite;
+  }
+  #mantle {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: mantle 7s ease-in-out infinite;
+  }
+  #head {
+    transform-box: fill-box;
+    transform-origin: 50% 75%;
+    animation: listen 6.4s ease-in-out infinite;
+  }
+  .finger-twitch {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
+    animation: twitch 4.7s ease-in-out infinite;
+  }
+  .blink {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: blink 6.3s infinite;
+  }
+  .blink.second { animation-delay: 1.1s; }
+  .blink.third { animation-delay: 2.4s; }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1, 1); }
+    48% { transform: scale(1.018, 1.025); }
+  }
+  @keyframes mantle {
+    0%, 100% { transform: rotate(0deg); }
+    48% { transform: rotate(-.8deg); }
+    78% { transform: rotate(.45deg); }
+  }
+  @keyframes listen {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    38% { transform: rotate(1deg) translateY(1px); }
+    72% { transform: rotate(-.8deg) translateY(-1px); }
+  }
+  @keyframes twitch {
+    0%, 78%, 100% { transform: rotate(0); }
+    82% { transform: rotate(3deg); }
+    86% { transform: rotate(-1deg); }
+  }
+  @keyframes blink {
+    0%, 89%, 93%, 100% { transform: scaleY(1); }
+    91% { transform: scaleY(.12); }
+  }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+  <defs>
+    <linearGradient id="membrane" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8b7964" stop-opacity=".18"/>
+      <stop offset=".55" stop-color="#8c6e55" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#58483d" stop-opacity=".12"/>
+    </linearGradient>
+    <linearGradient id="flesh" x1="0" y1="0" x2=".9" y2="1">
+      <stop offset="0" stop-color="#b1a087" stop-opacity=".78"/>
+      <stop offset=".47" stop-color="#8a7865" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#55483e" stop-opacity=".8"/>
+    </linearGradient>
+    <linearGradient id="mask" x1="0" y1="0" x2="1" y2=".9">
+      <stop offset="0" stop-color="#d0bea0" stop-opacity=".9"/>
+      <stop offset=".7" stop-color="#aa987d" stop-opacity=".88"/>
+      <stop offset="1" stop-color="#766452" stop-opacity=".92"/>
+    </linearGradient>
+    <radialGradient id="eye">
+      <stop offset="0" stop-color="#b18345"/>
+      <stop offset=".48" stop-color="#725133"/>
+      <stop offset="1" stop-color="#211d1b"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Torn listening fans -->
+  <g id="mantle" class="ink" stroke-width="2.3">
+    <path d="M268 278 C231 238 186 213 153 181
+      C128 157 112 129 91 118 C100 148 80 160 73 180
+      C100 185 91 208 119 213 C105 232 126 247 150 244
+      C166 266 205 283 252 305 Z"
+      fill="url(#membrane)"/>
+    <path d="M330 276 C367 229 403 202 439 166
+      C463 142 481 113 505 98 C495 129 517 145 527 165
+      C499 173 511 193 483 204 C502 224 478 242 455 241
+      C437 263 393 286 343 305 Z"
+      fill="url(#membrane)"/>
+    <path class="wing-vein" d="M286 286 C235 246 180 207 99 127 M270 293 C222 268 163 250 128 218 M251 302 C206 292 177 278 153 247 M278 289 C239 225 208 189 147 168"/>
+    <path class="wing-vein" d="M313 286 C364 244 421 205 498 109 M330 293 C380 262 439 242 488 208 M348 301 C391 292 424 273 455 244 M321 288 C364 224 400 185 464 150"/>
+    <path d="M95 120 Q105 148 91 159 M125 153 Q139 175 119 188 M482 119 Q471 146 493 154 M458 155 Q444 177 467 190"
+      fill="none" stroke="#342d28" stroke-width="1.6"/>
+    <path d="M176 214 q-10 12-18 7 M205 239 q-12 11-19 8 M405 223 q14 10 21 4 M382 246 q12 11 20 6"
+      fill="none" stroke="#7d604b" stroke-width="2" opacity=".7"/>
+  </g>
+
+  <!-- Needle crown -->
+  <g class="ink" fill="none" stroke-width="2">
+    <path d="M274 158 C259 124 250 93 257 71 C265 94 281 106 282 137"/>
+    <path d="M296 147 C287 111 292 78 309 55 C306 87 319 111 311 146"/>
+    <path d="M321 155 C333 122 353 101 377 91 C357 114 362 136 337 160"/>
+    <path d="M262 108 q-12-10-19-8 M307 91 q12-12 22-12 M352 119 q13-5 20-2"/>
+    <path d="M272 153 q-11-22-11-44 M304 141 q0-27 5-50 M328 151 q10-20 26-34" stroke="#8b6d50" stroke-width="1.1"/>
+  </g>
+
+  <!-- Rear limbs and root-like feet -->
+  <g class="ink" fill="none" stroke-width="5">
+    <path d="M272 448 C242 480 227 511 230 548 C231 572 209 591 183 607"/>
+    <path d="M328 447 C362 470 381 508 373 545 C368 572 397 592 422 608"/>
+    <path d="M185 606 C163 615 148 627 139 641 M185 606 C178 628 178 642 181 654 M185 606 C200 623 213 627 229 628"/>
+    <path d="M421 607 C442 615 455 629 463 644 M421 607 C428 630 426 644 422 656 M421 607 C408 622 394 629 379 631"/>
+  </g>
+  <g class="fine">
+    <path d="M253 484 q-14 24-12 49 M344 478 q20 28 19 48 M225 563 q-14 20-35 29 M379 563 q13 19 32 29"/>
+    <path d="M157 627 l-13 13 M177 634 l-1 15 M204 620 l18 8 M444 628 l14 14 M426 637 l-2 14 M402 622 l-18 9"/>
+  </g>
+
+  <!-- Arms, impossibly long -->
+  <g class="ink" fill="none" stroke-width="6">
+    <path d="M255 285 C225 298 205 334 197 379 C190 416 178 453 161 482"/>
+    <path d="M345 284 C378 296 399 331 405 373 C412 416 428 451 447 479"/>
+  </g>
+  <g class="fine">
+    <path d="M247 298 C226 326 218 354 213 382 M257 309 C239 341 233 371 227 397"/>
+    <path d="M353 299 C375 326 384 354 388 383 M343 309 C362 340 370 370 375 396"/>
+  </g>
+
+  <!-- Hands: long, searching fingers -->
+  <g class="ink" fill="none" stroke-width="3.2">
+    <path d="M161 475 C147 488 137 505 131 527 C126 545 115 553 105 561"/>
+    <path d="M160 479 C159 503 164 522 157 543 C152 557 143 566 135 570"/>
+    <path d="M165 480 C174 502 180 519 178 538 C177 550 172 558 166 565"/>
+    <path d="M447 474 C461 488 470 505 476 526 C481 544 491 552 502 559"/>
+    <path d="M448 479 C449 503 445 522 451 543 C456 557 466 566 474 570"/>
+    <path d="M443 480 C434 502 428 519 430 538 C431 550 436 558 442 565"/>
+  </g>
+  <g class="finger-twitch ink" fill="none" stroke-width="2.2">
+    <path d="M105 561 q-8 8-7 17 M135 570 q-5 10-2 16 M166 565 q2 10 9 14"/>
+    <path d="M502 559 q8 8 7 17 M474 570 q5 10 2 16 M442 565 q-2 10-9 14"/>
+  </g>
+  <g fill="#8a6e54" opacity=".72">
+    <path d="M97 578 q7-5 11 0 l-5 8z M130 585 q7-5 10 0 l-4 8z M171 578 q7-4 10 2 l-6 6z"/>
+    <path d="M510 576 q-7-5-11 0 l5 8z M477 585 q-7-5-10 0 l4 8z M436 578 q-7-4-10 2 l6 6z"/>
+  </g>
+
+  <!-- Breathing body -->
+  <g id="torso" class="ink">
+    <path d="M264 269 C244 283 236 313 242 341
+      C249 367 238 392 246 419 C253 444 266 463 289 473
+      C310 482 334 469 347 450 C364 425 354 399 360 372
+      C367 339 359 307 340 281 C321 261 286 256 264 269 Z"
+      fill="url(#flesh)" stroke-width="2.6"/>
+    <path d="M251 306 C269 320 282 319 299 306 C317 319 335 317 354 302"
+      fill="none" stroke="#453830" stroke-width="2.4"/>
+    <path d="M251 335 C269 349 282 348 299 336 C318 348 337 345 359 331
+      M248 359 C267 371 283 371 300 359 C317 372 338 368 360 354
+      M247 383 C265 395 283 394 300 382 C318 395 338 391 358 378
+      M251 408 C269 419 284 417 300 405 C316 418 334 415 354 402"
+      fill="none" stroke="#514238" stroke-width="2"/>
+    <path d="M299 310 C294 340 295 379 300 425 C302 444 301 458 299 468"
+      fill="none" stroke="#3e342e" stroke-width="2"/>
+    <path d="M266 284 C257 307 259 328 270 339 M338 285 C349 307 347 326 336 339"
+      fill="none" stroke="#c0a98a" stroke-width="2" opacity=".65"/>
+    <!-- ribbed shadow -->
+    <path d="M259 363 q17 8 32 0 M259 371 q17 8 32 0 M260 379 q16 7 31 0
+      M309 363 q17 8 31 0 M309 371 q17 8 31 0 M309 379 q17 7 30 0"
+      fill="none" stroke="#302925" stroke-width="1.2" opacity=".8"/>
+    <path d="M254 432 q15 21 29 24 M345 430 q-12 20-28 25"
+      fill="none" stroke="#3a302a" stroke-width="1.5"/>
+    <!-- scratchy surface marks -->
+    <g class="hatch">
+      <path d="M267 294 l-8 13 M273 298 l-7 13 M281 301 l-6 12 M330 297 l8 13 M323 300 l7 13"/>
+      <path d="M254 393 l-7 12 M261 397 l-6 12 M346 390 l7 12 M339 396 l6 11"/>
+      <path d="M270 441 l-5 10 M278 444 l-4 10 M324 444 l5 10 M332 440 l6 10"/>
+    </g>
+  </g>
+
+  <!-- Head: listening mask -->
+  <g id="head" class="ink">
+    <path d="M267 174 C270 151 286 138 306 139
+      C329 141 344 161 344 187 C344 211 330 240 311 254
+      C302 260 292 254 283 247 C264 231 255 202 267 174 Z"
+      fill="url(#mask)" stroke-width="2.5"/>
+    <path d="M267 179 C254 192 250 210 259 224 C267 235 278 235 286 227"
+      fill="none" stroke="#56463a" stroke-width="2"/>
+    <path d="M342 178 C354 191 357 210 348 223 C341 233 332 234 324 227"
+      fill="none" stroke="#56463a" stroke-width="2"/>
+    <path d="M284 153 Q303 162 328 153 M276 220 Q301 237 332 218"
+      fill="none" stroke="#78624d" stroke-width="1.4" opacity=".8"/>
+    <!-- side eyes -->
+    <g class="blink">
+      <ellipse cx="277" cy="194" rx="8.3" ry="11.4" fill="#302925" stroke-width="1.4"/>
+      <ellipse cx="277" cy="194" rx="5.5" ry="7.4" fill="url(#eye)" stroke="none"/>
+      <circle id="pupil-left" cx="277" cy="194" r="2.3" fill="#171514" stroke="none"/>
+      <circle cx="275" cy="191" r="1.1" fill="#e0c99c" stroke="none"/>
+    </g>
+    <g class="blink second">
+      <ellipse cx="333" cy="194" rx="8.3" ry="11.4" fill="#302925" stroke-width="1.4"/>
+      <ellipse cx="333" cy="194" rx="5.5" ry="7.4" fill="url(#eye)" stroke="none"/>
+      <circle id="pupil-right" cx="333" cy="194" r="2.3" fill="#171514" stroke="none"/>
+      <circle cx="331" cy="191" r="1.1" fill="#e0c99c" stroke="none"/>
+    </g>
+    <!-- vertical third eye -->
+    <g class="blink third">
+      <ellipse cx="305" cy="171" rx="7" ry="10" fill="#302925" stroke-width="1.2"/>
+      <ellipse cx="305" cy="171" rx="4.6" ry="6.6" fill="url(#eye)" stroke="none"/>
+      <circle id="pupil-top" cx="305" cy="171" r="2" fill="#171514" stroke="none"/>
+    </g>
+    <path d="M301 204 C299 214 297 220 300 223 C303 226 307 222 309 218"
+      fill="none" stroke="#45372f" stroke-width="1.6"/>
+    <path d="M292 232 Q304 226 316 232 Q307 244 298 239 Z"
+      fill="#292320" stroke-width="1.4"/>
+    <path d="M298 234 q6 2 11-1" fill="none" stroke="#a18361" stroke-width="1"/>
+    <path d="M268 182 q-5 8-3 15 M342 184 q5 8 2 15"
+      fill="none" stroke="#e0c9a7" stroke-width="1.2" opacity=".7"/>
+    <!-- mask scratches -->
+    <g class="hatch">
+      <path d="M282 207 l-5 8 M286 210 l-5 8 M323 208 l5 8 M319 212 l5 8"/>
+      <path d="M289 158 l-3 7 M317 158 l4 7 M285 227 l-4 5 M325 226 l4 5"/>
+    </g>
+  </g>
+
+  <!-- A small remnant of earth beneath it -->
+  <g class="ink" fill="none">
+    <path d="M112 674 C164 662 202 670 242 665 C283 659 319 666 357 663 C402 660 449 668 488 657"
+      stroke-width="1.7" opacity=".72"/>
+    <path d="M146 679 l-15 8 M171 674 l-6 10 M225 674 l10 7 M366 670 l-9 9 M421 675 l14 7 M461 669 l7 9"
+      stroke-width="1.1" opacity=".62"/>
+    <path d="M264 666 q9-9 17-1 q9-10 17-1 M322 667 q7-8 14-2"
+      stroke-width="1.4" opacity=".68"/>
+  </g>
+  <g fill="#6e5846" opacity=".55">
+    <circle cx="194" cy="675" r="2.2"/>
+    <circle cx="390" cy="671" r="1.7"/>
+    <circle cx="284" cy="678" r="1.5"/>
+    <path d="M238 670 l7-5 2 6z M347 672 l6-6 2 7z"/>
+  </g>
+</svg>
+<script>
+(() => {
+  const svg = document.querySelector("svg");
+  const pupils = [
+    document.getElementById("pupil-left"),
+    document.getElementById("pupil-right"),
+    document.getElementById("pupil-top")
+  ];
+  let targetX = 0, targetY = 0, x = 0, y = 0;
+
+  function point(event) {
+    const box = svg.getBoundingClientRect();
+    targetX = ((event.clientX - box.left) / box.width - 0.5) * 2;
+    targetY = ((event.clientY - box.top) / box.height - 0.5) * 2;
+    targetX = Math.max(-1, Math.min(1, targetX));
+    targetY = Math.max(-1, Math.min(1, targetY));
+  }
+  document.addEventListener("pointermove", point, { passive: true });
+  document.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+  }, { passive: true });
+
+  function drift() {
+    x += (targetX - x) * 0.035;
+    y += (targetY - y) * 0.035;
+    const dx = x * 2.6;
+    const dy = y * 2.2;
+    pupils[0].setAttribute("transform", `translate(${dx} ${dy})`);
+    pupils[1].setAttribute("transform", `translate(${dx} ${dy})`);
+    pupils[2].setAttribute("transform", `translate(${dx * 0.65} ${dy * 0.65})`);
+    requestAnimationFrame(drift);
+  }
+  drift();
+})();
+</script>
+</body>
+</html>

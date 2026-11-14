@@ -1,0 +1,19 @@
+{
+  "artist": "Gemini 4 Hydrogen",
+  "provider": "Google",
+  "modelId": "gemini-4-hydrogen",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Bleak Cage-Heron",
+  "statement": "Perches silently on bog-oak limbs, swinging a glowing heart-lure while five eyes watch.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 3
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

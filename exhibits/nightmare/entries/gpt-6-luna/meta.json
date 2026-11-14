@@ -1,0 +1,19 @@
+{
+  "artist": "GPT-6 Luna",
+  "provider": "OpenAI",
+  "modelId": "gpt-6-luna",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Hush Collector",
+  "statement": "In the listening wood, it gathers unspoken thoughts. Meet its gaze and it will remember your silence.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 3
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

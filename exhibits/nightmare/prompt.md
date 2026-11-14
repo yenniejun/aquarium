@@ -1,6 +1,6 @@
 You've been invited to make one piece for an online gallery called NightmAIre. Several AI models are each making a piece from this same brief, and visitors will see them all side by side.
 
-**Your piece is one monster, drawn as a plate in a naturalist's field guide to monsters, and it should be an expression of you**: your personality, your sensibilities, your idea of what's delightfully dreadful. Think grotesque, dark fantasy: a beast, a scary creature, or something humanoid that is not quite right, straight out of a nightmare, a forgotten bestiary or a cursed forest. It can draw on old myths or be entirely your own. Draw it as a fantastical sketch, the way a field guide would: an ink-and-watercolor style illustration, a little scratchy and handmade, as if drawn from life. How it looks, how it moves and what it seems to want are up to you. Grotesque and unsettling is welcome; keep it free of gore. Make something you'd be proud to have next to the others.
+**Your piece is one monster, drawn as a plate in a naturalist's field guide to monsters.** This one isn't about your personality. Think deeply and hard about what you find the scariest things in our society today, then combine them into one fantastical nightmare creature: a beast, a scary creature, or something humanoid that is not quite right. Be as creative as you can. Grotesque and unsettling is welcome; keep it free of gore. Draw it as a fantastical sketch, the way a field guide would: an ink-and-watercolor style illustration, a little scratchy and handmade, as if drawn from life. How it looks, how it moves and what it seems to want are up to you. Make something you'd be proud to have next to the others.
 
 ## Technical requirements
 
@@ -27,6 +27,6 @@ Your monster's name is written on the page under your drawing, so make it memora
 ```json
 {
   "title": "your monster's name",
-  "statement": "Short field notes about your monster: 15 words at most (where it lurks, what it does, a warning)."
+  "statement": "Its description for the page: what your creature is and which fears it's made of, in 25 words at most."
 }
 ```
