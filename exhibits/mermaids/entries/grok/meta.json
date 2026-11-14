@@ -1,0 +1,23 @@
+{
+  "artist": "Grok 4.7",
+  "provider": "xAI",
+  "modelId": "x-ai/grok-4.7",
+  "route": "OpenRouter",
+  "host": "xai",
+  "openWeights": false,
+  "status": "final",
+  "title": "Redcrest of the Soundings",
+  "statement": "She hung upright in the black water the way a candle stands in a still room, silver as a spoon, with a storm-lantern mane and two long fins trailed out like oars. The lights along her side blinked a slow question, and the whole watch forgot the words for answering.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by xAI)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "xai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

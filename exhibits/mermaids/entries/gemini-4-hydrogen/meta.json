@@ -1,0 +1,19 @@
+{
+  "artist": "Gemini 4 Hydrogen",
+  "provider": "Google",
+  "modelId": "gemini-4-hydrogen",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Salt-Glass Star-Keeper",
+  "statement": "She curled her comb-jelly ribbons beneath the surface like a sleeping lantern, yet kept one tiny drowning star cupped above the tide as if waiting for the sky to remember her name.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

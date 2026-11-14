@@ -1,0 +1,22 @@
+<!doctype html>
+<!-- Shown for any mermaid entry with no piece.html yet: just a slow ripple where she'll sit. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awaiting arrival</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: transparent; }
+  .ripple {
+    position: absolute; left: 50%; bottom: 2%; width: 40%; aspect-ratio: 4 / 1;
+    translate: -50% 0; border-radius: 50%;
+    border: 1.5px solid rgba(200, 230, 255, .35);
+    animation: spread 4s ease-out infinite;
+  }
+  .ripple + .ripple { animation-delay: -2s; }
+  @keyframes spread { from { scale: .3; opacity: 1; } to { scale: 1; opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .ripple { animation: none; opacity: .4; } }
+</style>
+</head>
+<body><div class="ripple"></div><div class="ripple"></div></body>
+</html>

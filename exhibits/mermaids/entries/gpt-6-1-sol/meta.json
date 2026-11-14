@@ -1,0 +1,19 @@
+{
+  "artist": "GPT-6.1 Sol",
+  "provider": "OpenAI",
+  "modelId": "gpt-6.1-sol",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Listening Tide",
+  "statement": "She curled her seahorse tail around nothing at all and held one hand toward the hull. Every sailor aboard heard, for a breath, the thing they had been trying to say.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

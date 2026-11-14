@@ -1,0 +1,355 @@
+I pictured her immediately: not a fishtail, but a medusa — a pale, serene girl whose lower body is a translucent jellyfish bell with drifting tentacles that dip below the waterline and shy away from a finger pressed on the glass. She pulses, glows, blinks, and glances at you.
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mermaid</title>
+<style>
+  html,body{margin:0;padding:0;height:100%;overflow:hidden;background:transparent}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+'use strict';
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const TAU=Math.PI*2;
+let W=0,H=0;
+function resize(){
+  const d=Math.min(window.devicePixelRatio||1,2);
+  W=window.innerWidth;H=window.innerHeight;
+  cv.width=Math.round(W*d);cv.height=Math.round(H*d);
+  ctx.setTransform(d,0,0,d,0,0);
+}
+window.addEventListener('resize',resize);resize();
+
+const ptr={x:-999,y:-999};let ptrT=-99;
+window.addEventListener('pointermove',e=>{ptr.x=e.clientX;ptr.y=e.clientY;ptrT=t;});
+
+let t=0,last=performance.now();
+let K=1,CX=0,OY=0,pulse=0,pdx=0,pdy=0,ptrS=0;
+const X=d=>CX+d*K,Y=d=>OY+d*K;
+
+/* ---------- parts ---------- */
+const hair=[];
+for(let i=0;i<9;i++){
+  const a=-2.35+i*(1.56/8);
+  hair.push({a,len:46+Math.sin(i*1.3)*8+ (i===4?26:i===3||i===5?16:0),w:4.6+Math.random()*1.8,ph:Math.random()*TAU});
+}
+const frontHair=[
+  {x:-13,y:35,a:Math.PI/2+0.35,len:58,w:4.4,ph:0.7},
+  {x: 13,y:35,a:Math.PI/2-0.35,len:58,w:4.4,ph:2.9}
+];
+const TB=[-34,-26,-17,-8,0,8,17,26,34];
+const tents=TB.map(bx=>({
+  bx,ph:Math.random()*TAU,L:196-Math.abs(bx)*2.4,
+  pts:Array.from({length:17},(_,j)=>({x:bx,y:130+j*6}))
+}));
+const orals=[-5,5].map((bx,i)=>({
+  bx,ph:1.3+i*2.4,
+  pts:Array.from({length:15},(_,j)=>({x:bx,y:130+j*9}))
+}));
+const motes=Array.from({length:15},()=>({
+  x:Math.random()*140-70,y:Math.random()*340,
+  s:0.5+Math.random(),p:Math.random()*TAU
+}));
+const bodyDots=[[-10,33],[10,33],[-13,31],[13,31],[-9,35.5],[9,35.5],
+  [-8,61],[8,61],[-11,63],[11,63],[-6,74],[6,74],[-4.5,89],[4.5,89]];
+
+/* ---------- helpers ---------- */
+function strand(x0,y0,ang,len,ph,w,fill,amp){
+  const n=9,bx=Math.cos(ang),by=Math.sin(ang),px=-by,py=bx;
+  let ax=x0,ay=y0;
+  ctx.lineCap='round';
+  for(let i=1;i<=n;i++){
+    const s=i/n;
+    const lat=Math.sin(s*2.7-t*1.7+ph)*len*0.24*s*amp;
+    const xi=x0+bx*len*s+px*lat,yi=y0+by*len*s+py*lat;
+    ctx.beginPath();
+    ctx.moveTo(X(ax),Y(ay));ctx.lineTo(X(xi),Y(yi));
+    ctx.lineWidth=Math.max(0.45,(w*(1-s)*0.85+0.4))*K;
+    ctx.strokeStyle=fill;ctx.stroke();
+    ax=xi;ay=yi;
+  }
+  return [ax,ay];
+}
+const rimBase=()=>124-3*pulse;
+const rimY=x=>rimBase()+7*(1-(x/40)*(x/40));
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+
+let nextBlink=2.5,blinkStart=-10;
+
+/* ---------- frame ---------- */
+function frame(now){
+  const dt=Math.min(0.05,(now-last)/1000);last=now;t+=dt;
+  ctx.clearRect(0,0,W,H);
+
+  K=Math.min(W/185,H/455);
+  pulse=Math.sin(t*2.1);
+  const bob=Math.sin(t*0.85)*5-pulse*3;
+  CX=W/2+Math.sin(t*0.45)*5*K;
+  OY=H*0.05+56*K+bob*K;
+  ptrS=ptrT>0?clamp(1-(t-ptrT)/2.5,0,1):0;
+  pdx=(ptr.x-CX)/K;pdy=(ptr.y-OY)/K;
+
+  if(t>nextBlink){blinkStart=t;nextBlink=t+2.2+Math.random()*4;}
+  let bamp=0;const bts=t-blinkStart;
+  if(bts>=0&&bts<0.22)bamp=Math.sin(bts/0.22*Math.PI);
+
+  /* aura */
+  ctx.globalCompositeOperation='lighter';
+  const ag=ctx.createRadialGradient(X(0),Y(115),0,X(0),Y(115),145*K);
+  ag.addColorStop(0,'rgba(110,235,255,'+(0.09+0.08*ptrS)+')');
+  ag.addColorStop(1,'rgba(110,235,255,0)');
+  ctx.fillStyle=ag;
+  ctx.beginPath();ctx.arc(X(0),Y(115),145*K,0,TAU);ctx.fill();
+  ctx.globalCompositeOperation='source-over';
+
+  /* back hair */
+  for(const h of hair){
+    const rx=16.2*Math.cos(h.a),ry=30+16.2*Math.sin(h.a);
+    strand(rx,ry,h.a,h.len,h.ph,h.w,'rgba(18,55,72,0.92)',1);
+    strand(rx,ry,h.a,h.len*0.92,h.ph+1.4,h.w*0.4,'rgba(95,215,230,0.45)',1);
+  }
+
+  /* tentacles */
+  for(const tc of tents){
+    const R=40*(1+0.07*pulse);
+    const bx=tc.bx*(R/40),by=rimY(bx);
+    const pts=tc.pts;
+    pts[0].x=bx;pts[0].y=by;
+    const amp=1+0.55*pulse;
+    for(let j=1;j<pts.length;j++){
+      const s=j/(pts.length-1);
+      let tx=bx+Math.sin(t*1.4+tc.ph+s*2.8)*(4+14*s)*amp
+             +Math.sin(t*0.8+tc.ph*2+s*4)*3*s;
+      let ty=by+tc.L*s;
+      if(ptrS>0){
+        const dx=tx-pdx,dy=ty-pdy,d=Math.hypot(dx,dy);
+        if(d<55&&d>0.01){const f=(1-d/55)*20*ptrS;tx+=dx/d*f;ty+=dy/d*f*0.4;}
+      }
+      const e=1-Math.exp(-dt*5);
+      pts[j].x+=(tx-pts[j].x)*e;pts[j].y+=(ty-pts[j].y)*e;
+    }
+    ctx.lineCap='round';
+    for(let j=1;j<pts.length;j++){
+      const s=j/(pts.length-1);
+      ctx.beginPath();
+      ctx.moveTo(X(pts[j-1].x),Y(pts[j-1].y));
+      ctx.lineTo(X(pts[j].x),Y(pts[j].y));
+      ctx.lineWidth=Math.max(0.4,(3.4*(1-s)+0.6))*K;
+      ctx.strokeStyle='rgba(150,225,240,0.45)';ctx.stroke();
+    }
+    ctx.globalCompositeOperation='lighter';
+    for(let j=4;j<pts.length;j+=4){
+      const a=0.35+0.35*Math.sin(t*2.4+j*0.8+tc.ph);
+      ctx.beginPath();
+      ctx.arc(X(pts[j].x),Y(pts[j].y),(1.1+0.5*Math.sin(t*2.5+j+tc.ph))*K,0,TAU);
+      ctx.fillStyle='rgba(150,255,255,'+a+')';ctx.fill();
+    }
+    ctx.globalCompositeOperation='source-over';
+  }
+
+  /* bell */
+  const R=40*(1+0.07*pulse),M=16;
+  ctx.beginPath();
+  ctx.moveTo(X(-14),Y(102));
+  ctx.bezierCurveTo(X(-30),Y(107),X(-R*0.95),Y(rimBase()-16),X(-R),Y(rimY(-R)));
+  for(let i=1;i<=M;i++){
+    const x=-R+2*R*i/M;
+    ctx.lineTo(X(x),Y(rimY(x)+1.6*Math.sin(x*0.33+t*3.2)));
+  }
+  ctx.bezierCurveTo(X(R*0.95),Y(rimBase()-16),X(30),Y(107),X(14),Y(102));
+  ctx.quadraticCurveTo(X(0),Y(99),X(-14),Y(102));
+  ctx.closePath();
+  ctx.fillStyle='rgba(150,230,240,0.30)';ctx.fill();
+  ctx.lineWidth=1.4*K;ctx.strokeStyle='rgba(60,170,195,0.6)';ctx.stroke();
+
+  ctx.save();
+  ctx.clip();
+  ctx.globalCompositeOperation='lighter';
+  const bg=ctx.createRadialGradient(X(0),Y(116),0,X(0),Y(116),R*1.15*K);
+  bg.addColorStop(0,'rgba(150,250,255,0.5)');
+  bg.addColorStop(1,'rgba(150,250,255,0)');
+  ctx.fillStyle=bg;ctx.fillRect(X(-R*1.3),Y(95),R*2.6*K,45*K);
+  ctx.globalCompositeOperation='source-over';
+  ctx.lineWidth=0.9*K;
+  for(let i=-3;i<=3;i++){
+    ctx.beginPath();
+    ctx.moveTo(X(i*7),Y(104));
+    ctx.quadraticCurveTo(X(i*10),Y(113),X(i*11.5),Y(rimY(i*11.5)));
+    ctx.strokeStyle='rgba(225,250,255,0.35)';ctx.stroke();
+  }
+  ctx.restore();
+
+  ctx.globalCompositeOperation='lighter';
+  for(let i=0;i<=M;i+=2){
+    const x=-R+2*R*i/M,y=rimY(x)+1.6*Math.sin(x*0.33+t*3.2);
+    ctx.beginPath();ctx.arc(X(x),Y(y),1.2*K,0,TAU);
+    ctx.fillStyle='rgba(140,255,255,'+(0.4+0.3*Math.sin(t*3+i*1.7))+')';ctx.fill();
+  }
+  const core=ctx.createRadialGradient(X(0),Y(114),0,X(0),Y(114),(8+3*pulse+3*ptrS)*K);
+  core.addColorStop(0,'rgba(190,255,255,0.75)');
+  core.addColorStop(1,'rgba(190,255,255,0)');
+  ctx.fillStyle=core;
+  ctx.beginPath();ctx.arc(X(0),Y(114),(8+3*pulse+3*ptrS)*K,0,TAU);ctx.fill();
+  ctx.globalCompositeOperation='source-over';
+
+  /* oral arms (ribbons) */
+  for(const oa of orals){
+    const Rb=40*(1+0.07*pulse);
+    const bx=oa.bx*(Rb/40),by=rimY(bx)+1;
+    const pts=oa.pts,Np=pts.length;
+    pts[0].x=bx;pts[0].y=by;
+    const amp=1.5+0.5*pulse;
+    for(let j=1;j<Np;j++){
+      const s=j/(Np-1);
+      let tx=bx+Math.sin(t*1.1+oa.ph+s*2.2)*(5+18*s)*amp;
+      let ty=by+145*s;
+      if(ptrS>0){
+        const dx=tx-pdx,dy=ty-pdy,d=Math.hypot(dx,dy);
+        if(d<55&&d>0.01){const f=(1-d/55)*16*ptrS;tx+=dx/d*f;}
+      }
+      const e=1-Math.exp(-dt*4);
+      pts[j].x+=(tx-pts[j].x)*e;pts[j].y+=(ty-pts[j].y)*e;
+    }
+    const Lft=[],Rgt=[];
+    for(let j=0;j<Np;j++){
+      const s=j/(Np-1);
+      const a=pts[Math.max(0,j-1)],b=pts[Math.min(Np-1,j+1)];
+      let dx=b.x-a.x,dy=b.y-a.y;const dl=Math.hypot(dx,dy)||1;dx/=dl;dy/=dl;
+      const w=(7.5*(1-s)+1)+Math.sin(t*2.6+s*5+oa.ph)*1.6*(0.3+s);
+      Lft.push([pts[j].x-dy*w,pts[j].y+dx*w]);
+      Rgt.push([pts[j].x+dy*w,pts[j].y-dx*w]);
+    }
+    ctx.beginPath();
+    ctx.moveTo(X(Lft[0][0]),Y(Lft[0][1]));
+    for(let j=1;j<Np;j++)ctx.lineTo(X(Lft[j][0]),Y(Lft[j][1]));
+    for(let j=Np-1;j>=0;j--)ctx.lineTo(X(Rgt[j][0]),Y(Rgt[j][1]));
+    ctx.closePath();
+    ctx.fillStyle='rgba(180,240,248,0.30)';ctx.fill();
+    ctx.lineWidth=0.8*K;ctx.strokeStyle='rgba(120,210,230,0.35)';ctx.stroke();
+  }
+
+  /* neck + torso */
+  ctx.beginPath();
+  ctx.moveTo(X(-5),Y(42));ctx.lineTo(X(5),Y(42));
+  ctx.lineTo(X(7),Y(54));ctx.lineTo(X(-7),Y(54));ctx.closePath();
+  ctx.fillStyle='rgba(228,240,245,0.96)';ctx.fill();
+  const sg=ctx.createLinearGradient(0,Y(50),0,Y(103));
+  sg.addColorStop(0,'rgba(240,248,250,0.97)');
+  sg.addColorStop(1,'rgba(198,222,230,0.97)');
+  ctx.beginPath();
+  ctx.moveTo(X(-25),Y(57));
+  ctx.quadraticCurveTo(X(-17),Y(80),X(-14),Y(101));
+  ctx.quadraticCurveTo(X(0),Y(105),X(14),Y(101));
+  ctx.quadraticCurveTo(X(17),Y(80),X(25),Y(57));
+  ctx.quadraticCurveTo(X(13),Y(52.5),X(0),Y(52));
+  ctx.quadraticCurveTo(X(-13),Y(52.5),X(-25),Y(57));
+  ctx.closePath();
+  ctx.fillStyle=sg;ctx.fill();
+  ctx.lineWidth=1.2*K;ctx.strokeStyle='rgba(30,70,90,0.45)';ctx.stroke();
+  ctx.lineWidth=0.9*K;ctx.strokeStyle='rgba(60,110,130,0.22)';
+  ctx.beginPath();ctx.moveTo(X(-6),Y(62));ctx.quadraticCurveTo(X(0),Y(64),X(6),Y(62));ctx.stroke();
+  ctx.beginPath();ctx.moveTo(X(-13),Y(96));ctx.quadraticCurveTo(X(0),Y(99),X(13),Y(96));ctx.stroke();
+
+  /* arms + hands */
+  for(const side of [-1,1]){
+    const a=Math.PI/2-side*0.52,ph=side>0?0.4:3.5;
+    strand(side*23,58,a,56,ph,7.2,'rgba(30,70,90,0.25)',0.45);
+    const tip=strand(side*23,58,a,56,ph,6.0,'rgba(222,240,245,0.96)',0.45);
+    for(let f=0;f<3;f++){
+      strand(tip[0],tip[1],a+side*(0.22+f*0.16),10+f*1.5,ph+f,1.7,'rgba(222,240,245,0.92)',0.5);
+    }
+  }
+
+  /* head */
+  ctx.beginPath();ctx.arc(X(0),Y(30),16.5*K,0,TAU);
+  const hg=ctx.createLinearGradient(0,Y(14),0,Y(46));
+  hg.addColorStop(0,'rgba(243,250,252,0.97)');
+  hg.addColorStop(1,'rgba(210,232,238,0.97)');
+  ctx.fillStyle=hg;ctx.fill();
+  ctx.lineWidth=1.2*K;ctx.strokeStyle='rgba(30,70,90,0.45)';ctx.stroke();
+
+  /* hair cap */
+  ctx.beginPath();
+  ctx.arc(X(0),Y(30),16.6*K,Math.PI*1.12,Math.PI*1.88);
+  ctx.quadraticCurveTo(X(0),Y(26.5),X(16.6*Math.cos(Math.PI*1.12))*1,Y(30+16.6*Math.sin(Math.PI*1.12)));
+  ctx.closePath();
+  ctx.fillStyle='rgba(18,55,72,0.92)';ctx.fill();
+
+  /* face */
+  const ox=clamp(pdx/30,-1,1)*1.4,oyy=clamp((pdy-30)/40,-1,1)*1.2;
+  for(const side of [-1,1]){
+    const ex=side*6.5,ey=28.6;
+    ctx.beginPath();
+    ctx.ellipse(X(ex),Y(ey),3.1*K,2.3*K*(1-bamp*0.92),0,0,TAU);
+    ctx.fillStyle='rgba(238,250,252,0.95)';ctx.fill();
+    if(bamp<0.85){
+      ctx.beginPath();
+      ctx.arc(X(ex+ox),Y(ey+oyy*0.6),1.45*K,0,TAU);
+      ctx.fillStyle='rgba(25,60,82,0.92)';ctx.fill();
+      ctx.beginPath();
+      ctx.arc(X(ex+ox-0.5),Y(ey+oyy*0.6-0.5),0.5*K,0,TAU);
+      ctx.fillStyle='rgba(200,255,255,0.9)';ctx.fill();
+    }
+    ctx.beginPath();
+    ctx.ellipse(X(ex),Y(ey),3.4*K,2.7*K*(1-bamp*0.9),0,Math.PI,TAU);
+    ctx.lineWidth=1.0*K;ctx.strokeStyle='rgba(20,50,68,0.55)';ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(X(side*9.4),Y(24.6));
+    ctx.quadraticCurveTo(X(side*6.5),Y(23.4),X(side*3.8),Y(24.2));
+    ctx.lineWidth=0.9*K;ctx.strokeStyle='rgba(20,50,68,0.35)';ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.moveTo(X(-2.5),Y(37.8));
+  ctx.quadraticCurveTo(X(0),Y(38.9),X(2.5),Y(37.8));
+  ctx.lineWidth=0.9*K;ctx.strokeStyle='rgba(160,90,105,0.5)';ctx.stroke();
+
+  /* front hair over shoulders */
+  for(const h of frontHair){
+    strand(h.x,h.y,h.a,h.len,h.ph,h.w,'rgba(18,55,72,0.92)',0.6);
+    strand(h.x,h.y,h.a,h.len*0.9,h.ph+1.2,h.w*0.4,'rgba(95,215,230,0.4)',0.6);
+  }
+
+  /* bioluminescent freckles */
+  ctx.globalCompositeOperation='lighter';
+  bodyDots.forEach((d,i)=>{
+    const a=0.3+0.3*Math.sin(t*2+i*0.9)+0.25*ptrS;
+    ctx.beginPath();
+    ctx.arc(X(d[0]),Y(d[1]),0.85*K,0,TAU);
+    ctx.fillStyle='rgba(150,255,255,'+clamp(a,0,0.85)+')';ctx.fill();
+  });
+
+  /* motes */
+  for(const m of motes){
+    m.y-=dt*12*m.s;
+    m.x+=Math.sin(t*1.5+m.p)*dt*3;
+    if(m.y<-55){m.y=335;m.x=Math.random()*140-70;}
+    const a=0.18+0.22*Math.sin(t*2+m.p);
+    ctx.beginPath();
+    ctx.arc(X(m.x),Y(m.y),1.1*K*m.s,0,TAU);
+    ctx.fillStyle='rgba(160,255,255,'+a+')';ctx.fill();
+  }
+  ctx.globalCompositeOperation='source-over';
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "The Lantern of the Drowned",
+  "statement": "Past the hull at third bell she drifted — a pale girl hung from a moon-jelly for a tail, all soft light and hanging silk, and where she passed the water glowed a full minute after. Press your hand to the glass and her tendrils shrink from your finger, shy as candle-flame."
+}
+```
+
+A few notes on how I built her: she's a jellyfish-mermaid, drawn entirely in Canvas 2D with layered tapered strokes, translucent fills and additive glow — no images, no libraries, no network. Her bell contracts in rhythm with her slow rise-and-sink, the tentacles trail with smoothed physics and flick on each pulse, her hair drifts in sine-curves, and she blinks, glances toward your pointer, and lets her tendrils shy away from a finger on the glass. Everything is scaled from the viewport in design units so nothing clips at any size, and her tentacle tips dip just below the 70% waterline so the lower silk sits underwater in the bottle.

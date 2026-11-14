@@ -10,3 +10,4 @@ mockups/
 
 # Replies that came back without a page (see scripts/generate.mjs)
 raw.failed.md
+__pycache__/

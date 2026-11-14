@@ -1,0 +1,20 @@
+{
+  "artist": "Claude Opus 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-opus-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "Sepia, Who Answers Bottles",
+  "statement": "Half lass, half cuttlefish she was, with one hand cupped to her ear like she was listening to the whole sea at once. She held a sailor's letter to her heart, and her skin rippled colors like she was thinking it over, and I swear on my mother's anchor, when I looked at her she turned the color of a reply.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1,
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

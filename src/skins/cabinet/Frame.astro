@@ -14,6 +14,7 @@
  *   menu      a dish drawn on a chalkboard menu, name and blurb in chalk 4:3
  *   tarot     a tarot card: gold-framed artwork, title and blurb on it   2:3
  *   bigtop    a little circus stage: bunting, curtains, a striped drum   3:4
+ *   bottle    a glass bottle with a cork, water in the bottom             3:4
  */
 import type { PieceView } from '../../lib/exhibits';
 import type { CabinetVariant } from '../names';
@@ -25,6 +26,7 @@ interface Props {
 
 const { piece, variant } = Astro.props;
 const empty = piece.status === 'pending';
+
 ---
 
 <div class:list={['display', variant, { empty }]} role="group" aria-label={piece.title}>
@@ -1009,6 +1011,84 @@ const empty = piece.status === 'pending';
 
   :global([data-picked]) .tarot .label {
     box-shadow: none;
+  }
+
+  /* ---------- Bottle (mermaids) ---------- */
+  /* A mermaid in a bottle, like a ship in a bottle: glass and a cork, filled with sea water. */
+  .bottle {
+    --ratio: 3 / 4;
+  }
+
+  .bottle .vessel {
+    margin-top: 58px;
+  }
+
+  .bottle .glass {
+    border-radius: 30% 30% 14% 14% / 18% 18% 8% 8%;
+    background: rgba(150, 210, 220, 0.08);
+    box-shadow:
+      inset 0 0 0 2px rgba(220, 240, 245, 0.35),
+      inset 0 0 34px rgba(150, 220, 230, 0.16);
+  }
+
+  /* Water over the whole page, deepening toward the bottom, and a stripe of glare. */
+  .bottle .glass::after {
+    border-radius: inherit;
+    background:
+      linear-gradient(100deg, transparent 10%, rgba(255, 255, 255, 0.16) 12% 16%, transparent 18%),
+      linear-gradient(rgba(90, 185, 200, 0.07), rgba(40, 130, 155, 0.13) 60%, rgba(25, 100, 130, 0.24));
+  }
+
+  /* The neck and the cork. */
+  .bottle .vessel::before,
+  .bottle .vessel::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  /* The neck is full too, up to a little pocket of air under the cork and a faint surface line. */
+  .bottle .vessel::before {
+    top: -48px;
+    width: 26%;
+    height: 52px;
+    border-radius: 8px 8px 0 0;
+    background:
+      linear-gradient(transparent 22%, rgba(220, 245, 250, 0.45) 22% 25%, rgba(90, 185, 200, 0.08) 25%),
+      rgba(150, 210, 220, 0.08);
+    box-shadow: inset 0 0 0 2px rgba(220, 240, 245, 0.35);
+  }
+
+  .bottle .vessel::after {
+    top: -62px;
+    width: 20%;
+    height: 22px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #8a5f3a, #d0a374 45%, #a87b4f);
+  }
+
+  .bottle .base {
+    width: 76%;
+    height: 12px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: radial-gradient(rgba(0, 0, 0, 0.45), transparent 70%);
+  }
+
+  /* The label is a little paper message tag. */
+  .bottle .label {
+    margin-top: 10px;
+    border-radius: 2px;
+    color: #3b2f22;
+    background: linear-gradient(#f3e7cd, #e2d1ad);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .bottle .name {
+    font: italic 700 0.9rem/1.15 'Playfair Display', serif;
+    letter-spacing: 0.02em;
+    text-transform: none;
   }
 
   /* ---------- Circus stage (carnival) ---------- */

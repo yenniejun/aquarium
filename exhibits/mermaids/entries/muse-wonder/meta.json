@@ -1,0 +1,23 @@
+{
+  "artist": "Muse Wonder",
+  "provider": "Meta",
+  "modelId": "meta/muse-wonder",
+  "route": "OpenRouter",
+  "host": "meta",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Sly Ink Singer",
+  "statement": "I swear she wound eight soft arms round my anchor chain, sang one low note that made the lanterns sway, and tucked a warm pearl into my boot. When I looked down to thank her, there was only a curl of ink and she was gone, smiling somewhere below.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Meta)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "meta",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

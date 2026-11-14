@@ -26,6 +26,7 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 | nightmAIre | `nightmare` | field-guide pages | draft (hidden) |
 | wAIffle cart | `waffle-cart` | chalkboard menu | draft (hidden) |
 | fAIries | `fairies` | tarot cards | preview |
+| mermAIds | `mermaids` | mermaids in glass bottles | preview |
 | terrArIum | `terrarium` | glass terrarium, shared sun/moon day | draft (hidden) |
 | dreAm cIty | `dream-city` | windows | draft (hidden) |
 
@@ -38,7 +39,7 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 ### Adding a gallery
 
 1. Copy a similar folder in `exhibits/` and edit `exhibit.json` (`title`, `intro`, `order`, `pieceLabel`, `lineup`) and `prompt.md`.
-2. Pick a display: `"skin": "cabinet"` with a `variant` (`belljar`, `niche`, `window`, `shelf`, `terrarium`, `porthole`, `specimen`, `fieldguide`, `menu`, `tarot`, `bigtop`). Displays live in `src/skins/cabinet/Frame.astro` and their rooms in `src/skins/cabinet/Room.astro`; a new variant also goes in `src/skins/names.ts`.
+2. Pick a display: `"skin": "cabinet"` with a `variant` (`belljar`, `niche`, `window`, `shelf`, `terrarium`, `porthole`, `specimen`, `fieldguide`, `menu`, `tarot`, `bigtop`, `bottle`). Displays live in `src/skins/cabinet/Frame.astro` and their rooms in `src/skins/cabinet/Room.astro`; a new variant also goes in `src/skins/names.ts`.
 3. Start it as `"status": "draft"` or `"preview"`, generate pieces (below), and look at it locally.
 
 ## Generating pieces
@@ -66,7 +67,7 @@ npm run generate -- --exhibit nightmare --reasoning medium --max-tokens 64000 --
 
 ## The names experiment
 
-How much do models repeat themselves? `npm run names -- --exhibit planetarium --runs 50` sends each model a gallery's brief with the building part taken out, so it only imagines its piece and sends back a name and description, many times over, at its default temperature and with the same settings as its gallery piece. Answers land in `experiments/names/<exhibit>/`, and `experiments/names/analysis.ipynb` (pandas only) loads, cleans and summarizes them: repeats within and across models, the words everyone reaches for, and whether more answers keep turning up new names.
+How much do models repeat themselves? `npm run names -- --exhibit planetarium --runs 50` sends each model a gallery's brief with the building part taken out, so it only imagines its piece and sends back a name and description, many times over, at its default temperature and with the same settings as its gallery piece. Answers land in `experiments/names/<exhibit>/`, and each gallery gets its own notebook (`experiments/names/planetarium.ipynb`, `aquarium.ipynb`; pandas only, shared helpers in `names.py`) that loads, cleans and summarizes them: repeats within and across models, the words everyone reaches for, and whether more answers keep turning up new names.
 
 ## Deploying and counting
 

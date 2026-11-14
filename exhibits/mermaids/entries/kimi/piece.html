@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Listening Light</title>
+<style>
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: visible;
+  }
+  .drift {
+    transform-origin: 150px 205px;
+    animation: drift 7s ease-in-out infinite;
+  }
+  .tail {
+    transform-origin: 148px 217px;
+    animation: tail-sway 5.8s ease-in-out infinite;
+  }
+  .fluke {
+    transform-origin: 187px 339px;
+    animation: fluke-sway 3.7s ease-in-out infinite;
+  }
+  .hair-left, .hair-right, .frond {
+    transform-box: fill-box;
+    transform-origin: 50% 5%;
+  }
+  .hair-left { animation: hair-left 5.1s ease-in-out infinite; }
+  .hair-right { animation: hair-right 5.8s ease-in-out infinite; }
+  .frond { animation: frond 4.4s ease-in-out infinite; }
+  .fin {
+    transform-box: fill-box;
+    transform-origin: 10% 50%;
+    animation: fin-fan 3.4s ease-in-out infinite;
+  }
+  .eyes {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: blink 7.2s linear infinite;
+  }
+  .pupils {
+    transform: translate(var(--look-x, 0px), var(--look-y, 0px));
+    transition: transform .45s ease-out;
+  }
+  .lamp-core { animation: lamp 3.2s ease-in-out infinite; }
+  .lamp-halo {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: halo 3.2s ease-in-out infinite;
+  }
+  .light-speck { animation: speck 3.2s ease-in-out infinite; }
+  .light-speck:nth-of-type(2n) { animation-delay: -1.1s; }
+  .light-speck:nth-of-type(3n) { animation-delay: -2.2s; }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) rotate(-1deg); }
+    50% { transform: translate(0, -4px) rotate(1.2deg); }
+  }
+  @keyframes tail-sway {
+    0%, 100% { transform: rotate(-2.5deg); }
+    50% { transform: rotate(3.5deg); }
+  }
+  @keyframes fluke-sway {
+    0%, 100% { transform: rotate(-6deg) scaleY(.98); }
+    50% { transform: rotate(7deg) scaleY(1.03); }
+  }
+  @keyframes hair-left {
+    0%, 100% { transform: rotate(-3deg) skewX(-1deg); }
+    50% { transform: rotate(5deg) skewX(3deg); }
+  }
+  @keyframes hair-right {
+    0%, 100% { transform: rotate(4deg) skewX(1deg); }
+    50% { transform: rotate(-5deg) skewX(-3deg); }
+  }
+  @keyframes frond {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(5deg); }
+  }
+  @keyframes fin-fan {
+    0%, 100% { transform: scaleX(.82) rotate(-3deg); opacity: .68; }
+    50% { transform: scaleX(1.08) rotate(4deg); opacity: .96; }
+  }
+  @keyframes blink {
+    0%, 43%, 45%, 78%, 80%, 100% { transform: scaleY(1); }
+    44%, 79% { transform: scaleY(.06); }
+  }
+  @keyframes lamp {
+    0%, 100% { opacity: .78; }
+    50% { opacity: 1; }
+  }
+  @keyframes halo {
+    0%, 100% { transform: scale(.86); opacity: .34; }
+    50% { transform: scale(1.15); opacity: .72; }
+  }
+  @keyframes speck {
+    0%, 100% { opacity: .28; }
+    50% { opacity: .95; }
+  }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A gentle deep-sea mermaid with a softly glowing lantern">
+  <defs>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d8d4ef"/>
+      <stop offset=".5" stop-color="#a9b7d5"/>
+      <stop offset="1" stop-color="#718aa9"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2=".8" y2="1">
+      <stop offset="0" stop-color="#293453"/>
+      <stop offset=".55" stop-color="#182e46"/>
+      <stop offset="1" stop-color="#285c68"/>
+    </linearGradient>
+    <linearGradient id="tailColor" x1=".15" y1="0" x2=".85" y2="1">
+      <stop offset="0" stop-color="#536b98"/>
+      <stop offset=".35" stop-color="#355d79"/>
+      <stop offset=".72" stop-color="#26767c"/>
+      <stop offset="1" stop-color="#62b5a5"/>
+    </linearGradient>
+    <linearGradient id="finColor" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b7e8dc" stop-opacity=".88"/>
+      <stop offset=".55" stop-color="#7da8bd" stop-opacity=".62"/>
+      <stop offset="1" stop-color="#b7a9d9" stop-opacity=".25"/>
+    </linearGradient>
+    <radialGradient id="lampColor">
+      <stop offset="0" stop-color="#fffde1"/>
+      <stop offset=".35" stop-color="#d7ffd9"/>
+      <stop offset=".75" stop-color="#7fffd4"/>
+      <stop offset="1" stop-color="#58cbbd"/>
+    </radialGradient>
+    <radialGradient id="lampHalo">
+      <stop offset="0" stop-color="#baffdc" stop-opacity=".85"/>
+      <stop offset=".45" stop-color="#83fbd7" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#72e7d1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="3.2"/>
+    </filter>
+    <clipPath id="tailClip">
+      <path d="M130 209 C121 232 122 253 141 273 C158 291 184 296 194 314 C201 327 195 338 184 343 C202 342 215 330 212 313 C208 288 179 278 167 264 C155 250 163 230 167 212 Z"/>
+    </clipPath>
+  </defs>
+
+  <g class="drift">
+    <g class="tail">
+      <path class="fin" d="M159 253 C185 247 199 253 204 266 C190 262 183 269 175 278 C172 266 166 259 159 253 Z"
+            fill="url(#finColor)" stroke="#9bd8d0" stroke-opacity=".45" stroke-width=".8"/>
+      <g class="fluke">
+        <path d="M188 337 C171 333 153 337 142 353 C158 354 171 360 181 369 C184 356 187 347 188 337 Z"
+              fill="url(#finColor)" stroke="#a3dfd2" stroke-width="1"/>
+        <path d="M187 338 C201 333 221 337 234 350 C219 353 208 362 199 372 C195 357 191 347 187 338 Z"
+              fill="url(#finColor)" stroke="#a3dfd2" stroke-width="1"/>
+        <path d="M184 342 C173 345 161 349 151 353 M191 342 C204 344 216 348 226 351"
+              fill="none" stroke="#d1f4e8" stroke-opacity=".48" stroke-width=".8"/>
+        <path d="M184 346 C180 352 179 359 180 365 M193 346 C198 353 199 360 199 367"
+              fill="none" stroke="#d1f4e8" stroke-opacity=".36" stroke-width=".7"/>
+      </g>
+
+      <path d="M130 209 C121 232 122 253 141 273 C158 291 184 296 194 314 C201 327 195 338 184 343 C202 342 215 330 212 313 C208 288 179 278 167 264 C155 250 163 230 167 212 Z"
+            fill="url(#tailColor)" stroke="#729fac" stroke-width="1.2"/>
+
+      <g clip-path="url(#tailClip)" fill="none" stroke="#b1dad5" stroke-opacity=".27" stroke-width="1">
+        <path d="M124 228 Q134 237 144 228 Q154 237 164 228"/>
+        <path d="M123 241 Q133 250 143 241 Q153 250 163 241"/>
+        <path d="M126 255 Q136 264 146 255 Q156 264 166 255"/>
+        <path d="M135 270 Q145 279 155 270 Q165 279 175 270"/>
+        <path d="M150 284 Q160 293 170 284 Q180 293 190 284"/>
+        <path d="M171 299 Q181 308 191 299 Q201 308 211 299"/>
+        <path d="M184 314 Q194 323 204 314"/>
+        <path d="M184 329 Q194 338 204 329"/>
+      </g>
+
+      <path d="M135 215 C128 240 136 257 153 272 C171 287 196 292 203 315"
+            fill="none" stroke="#b6e5d7" stroke-opacity=".42" stroke-width="1.5" stroke-linecap="round"/>
+      <g fill="#a7ffda">
+        <circle class="light-speck" cx="137" cy="239" r="1.6"/>
+        <circle class="light-speck" cx="147" cy="263" r="1.4"/>
+        <circle class="light-speck" cx="169" cy="283" r="1.7"/>
+        <circle class="light-speck" cx="195" cy="302" r="1.4"/>
+        <circle class="light-speck" cx="202" cy="324" r="1.2"/>
+      </g>
+    </g>
+
+    <g class="hair-left" fill="url(#hair)" stroke="#365c70" stroke-width=".8">
+      <path d="M132 119 C113 120 104 137 107 155 C109 171 96 183 83 185 C101 192 119 180 119 163 C119 148 126 141 137 139 Z"/>
+      <path d="M126 132 C110 148 117 166 109 180 C103 192 91 198 83 196 C96 207 115 198 122 184 C131 166 123 153 139 143 Z"/>
+      <path d="M126 149 C116 169 128 185 118 201 C113 210 104 215 96 214 C108 223 124 214 130 203 C140 183 129 170 141 155 Z"/>
+    </g>
+    <g class="hair-right" fill="url(#hair)" stroke="#365c70" stroke-width=".8">
+      <path d="M164 116 C183 121 192 137 188 156 C185 171 198 183 211 184 C195 193 176 181 177 164 C178 148 170 140 159 138 Z"/>
+      <path d="M171 135 C185 149 178 167 188 182 C195 193 205 197 214 194 C203 207 184 199 177 185 C168 168 177 154 160 144 Z"/>
+      <path d="M172 151 C183 168 172 185 183 201 C190 211 199 214 207 211 C197 223 179 214 173 201 C164 182 174 170 159 157 Z"/>
+    </g>
+
+    <path d="M146 109 C137 88 144 69 162 65 C174 62 185 67 188 77"
+          fill="none" stroke="#607b94" stroke-width="3" stroke-linecap="round"/>
+    <path d="M146 108 C141 88 148 73 163 70"
+          fill="none" stroke="#b1cbd0" stroke-opacity=".55" stroke-width=".8" stroke-linecap="round"/>
+    <circle class="lamp-halo" cx="189" cy="79" r="20" fill="url(#lampHalo)"/>
+    <circle cx="189" cy="79" r="8" fill="#79fbd2" opacity=".55" filter="url(#softGlow)"/>
+    <circle class="lamp-core" cx="189" cy="79" r="6.2" fill="url(#lampColor)"/>
+    <circle cx="187.3" cy="77.1" r="1.7" fill="#ffffff" opacity=".9"/>
+
+    <path class="fin" d="M124 130 C109 123 99 126 94 138 C105 137 111 144 121 151 Z"
+          fill="url(#finColor)" stroke="#94c6ca" stroke-width=".8"/>
+    <path class="fin" d="M172 130 C187 123 197 127 202 139 C190 137 184 145 175 152 Z"
+          fill="url(#finColor)" stroke="#94c6ca" stroke-width=".8"/>
+
+    <path d="M126 128 C124 107 136 100 149 100 C165 100 175 112 172 132 C170 151 161 163 148 164 C134 163 127 149 126 128 Z"
+          fill="url(#skin)" stroke="#758da9" stroke-width="1"/>
+    <path d="M126 125 C122 112 132 98 146 97 C159 95 172 102 175 116 C164 113 158 107 153 103 C150 113 137 119 126 125 Z"
+          fill="url(#hair)"/>
+    <path class="frond" d="M140 103 C132 94 130 84 135 77 C136 88 143 91 147 99 Z"
+          fill="#2b4960"/>
+    <path class="frond" d="M153 101 C154 90 161 84 168 83 C162 91 163 98 160 105 Z"
+          fill="#2b4960" style="animation-delay:-1.8s"/>
+
+    <g class="eyes">
+      <path d="M132 130 Q138 124 144 130 Q138 137 132 130 Z" fill="#eef8ef"/>
+      <path d="M152 130 Q158 124 164 130 Q158 137 152 130 Z" fill="#eef8ef"/>
+      <g class="pupils" fill="#193d50">
+        <ellipse cx="138.5" cy="130" rx="2.8" ry="3.7"/>
+        <ellipse cx="157.5" cy="130" rx="2.8" ry="3.7"/>
+        <circle cx="137.7" cy="128.7" r=".9" fill="#d9fff0"/>
+        <circle cx="156.7" cy="128.7" r=".9" fill="#d9fff0"/>
+      </g>
+      <path d="M132 129 Q138 124 144 129 M152 129 Q158 124 164 129"
+            fill="none" stroke="#344e68" stroke-width="1.2" stroke-linecap="round"/>
+    </g>
+
+    <path d="M147 132 L145.8 139 L149 139.5" fill="none" stroke="#7289a6" stroke-width=".8" stroke-linecap="round"/>
+    <path d="M142 146 Q148 151 155 145 Q149 154 142 146 Z" fill="#796f94" opacity=".85"/>
+    <path d="M143 146 Q149 148.5 154 145.5" fill="none" stroke="#e0c9dc" stroke-width=".7"/>
+    <ellipse cx="132.5" cy="141" rx="4" ry="2" fill="#c5a7c7" opacity=".25"/>
+    <ellipse cx="163.5" cy="141" rx="4" ry="2" fill="#c5a7c7" opacity=".25"/>
+
+    <path d="M140 158 L139 169 C129 171 124 181 126 193 L132 216 C140 222 157 222 166 214 L170 191 C172 180 165 171 157 169 L156 158 Z"
+          fill="url(#skin)" stroke="#748ca5" stroke-width="1"/>
+    <path d="M137 166 Q148 176 159 166 L163 181 Q149 188 133 180 Z"
+          fill="#425f7d" opacity=".9"/>
+    <path d="M133 180 Q148 188 163 181 L165 211 Q149 221 132 213 Z"
+          fill="#3e647c"/>
+    <path d="M136 184 Q148 191 160 184 M135 193 Q148 200 162 193 M134 202 Q148 209 163 202"
+          fill="none" stroke="#8fc1be" stroke-opacity=".4" stroke-width="1"/>
+    <g fill="#b2ffdc">
+      <circle class="light-speck" cx="140" cy="187" r="1.3"/>
+      <circle class="light-speck" cx="156" cy="196" r="1.2"/>
+      <circle class="light-speck" cx="143" cy="207" r="1.1"/>
+    </g>
+
+    <path d="M130 175 C119 178 113 190 111 201 C109 211 114 220 123 220 C129 220 132 215 128 212 C121 209 120 203 123 197 L137 185 Z"
+          fill="url(#skin)" stroke="#748ca5" stroke-width="1"/>
+    <path d="M165 175 C178 179 184 190 184 200 C184 211 176 217 165 216 L151 211 L154 204 L168 206 C173 203 172 197 168 193 L158 185 Z"
+          fill="url(#skin)" stroke="#748ca5" stroke-width="1"/>
+
+    <path d="M123 211 C128 209 134 210 137 214 C133 214 131 216 130 220 C127 217 124 216 121 217"
+          fill="url(#skin)" stroke="#748ca5" stroke-width=".8" stroke-linejoin="round"/>
+    <path d="M153 203 C148 201 143 202 140 207 C145 206 147 209 148 213 C151 210 154 209 158 211"
+          fill="url(#skin)" stroke="#748ca5" stroke-width=".8" stroke-linejoin="round"/>
+    <path d="M126 213 L130 217 M130 212 L133 215 M151 205 L147 209 M154 207 L150 211"
+          stroke="#6e88a2" stroke-width=".6" stroke-linecap="round"/>
+
+    <path d="M127 183 C120 181 116 183 112 188 C119 188 122 192 124 196 Z"
+          fill="url(#finColor)" opacity=".72"/>
+    <path d="M169 183 C177 181 181 184 184 189 C177 188 174 192 172 196 Z"
+          fill="url(#finColor)" opacity=".72"/>
+  </g>
+</svg>
+<script>
+  (() => {
+    const root = document.documentElement;
+    let frame = 0;
+    let x = 0, y = 0;
+
+    function paint() {
+      root.style.setProperty('--look-x', x.toFixed(2) + 'px');
+      root.style.setProperty('--look-y', y.toFixed(2) + 'px');
+      frame = 0;
+    }
+
+    window.addEventListener('pointermove', event => {
+      if (event.pointerType === 'touch') return;
+      x = ((event.clientX / window.innerWidth) - .5) * 3.2;
+      y = ((event.clientY / window.innerHeight) - .5) * 2.2;
+      if (!frame) frame = requestAnimationFrame(paint);
+    }, { passive: true });
+
+    window.addEventListener('pointerleave', () => {
+      x = 0;
+      y = 0;
+      if (!frame) frame = requestAnimationFrame(paint);
+    }, { passive: true });
+  })();
+</script>
+</body>
+</html>

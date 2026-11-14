@@ -39,6 +39,10 @@ const skyStars = Array.from({ length: 460 }, (_, i) => {
   const tint = tints[Math.floor(rand() * tints.length)];
   return `${x.toFixed(2)}vw ${y.toFixed(2)}vh 0 ${big ? 0.6 : 0}px rgba(${tint}, ${(0.2 + rand() * (big ? 0.7 : 0.5)).toFixed(2)})`;
 }).join(', ');
+// Mermaids: specks drifting in the water (marine snow), scattered once at build time.
+const marineSnow = Array.from({ length: 80 }, () =>
+  `${(rand() * 100).toFixed(2)}vw ${(rand() * 100).toFixed(2)}vh ${(rand() * 2).toFixed(1)}px ${(rand() * 0.8).toFixed(1)}px rgba(205, 238, 245, ${(0.15 + rand() * 0.35).toFixed(2)})`,
+).join(', ');
 const brightStars = [0, 1, 2].map(() =>
   Array.from({ length: 8 }, () => `${(rand() * 100).toFixed(2)}vw ${(rand() * 100).toFixed(2)}vh 3px 1px rgba(255, 248, 230, 0.85)`).join(', '),
 );
@@ -57,6 +61,7 @@ const brightStars = [0, 1, 2].map(() =>
     )
   }
   {variant === 'tarot' && <i class="fireflies" aria-hidden="true" style={`box-shadow: ${fireflies}`} />}
+  {variant === 'bottle' && <i class="snow" aria-hidden="true" style={`box-shadow: ${marineSnow}`} />}
   {
     variant === 'porthole' && (
       <div class="sky" aria-hidden="true">
@@ -163,7 +168,7 @@ const brightStars = [0, 1, 2].map(() =>
   }
 
   [data-variant='specimen'] h1 {
-    font: 700 clamp(2.3rem, 4.6vw, 3.3rem) / 1.1 'Mountains of Christmas', serif;
+    font: italic 500 clamp(2.2rem, 4.4vw, 3.2rem) / 1.1 'Fraunces', serif;
   }
 
   [data-variant='terrarium'] h1 {
@@ -265,16 +270,17 @@ const brightStars = [0, 1, 2].map(() =>
       linear-gradient(#c3dccb, #86ab97);
   }
 
-  /* Fungarium: a dark forest wall with faint glowing spores. */
+  /* Fungarium: dark wood paneling, like an old natural-history museum: vertical planks, each a
+     slightly different tone, with fine grain, seams between them, and a warm lamp glow from above. */
   [data-variant='specimen'] {
-    --ink: #e8f0dc;
+    --ink: #f1e9da;
     --accent: #b7e07a;
     --wall:
-      radial-gradient(circle, rgba(190, 240, 160, 0.35) 0 1px, transparent 1.8px) 0 0 / 83px 97px,
-      radial-gradient(circle, rgba(160, 220, 200, 0.25) 0 1px, transparent 1.8px) 30px 50px / 127px 109px,
-      radial-gradient(80% 50% at 50% 0%, rgba(150, 200, 120, 0.12), transparent 70%),
-      repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 2px, transparent 2px 140px),
-      linear-gradient(#1a2418, #0b100b);
+      radial-gradient(80% 50% at 50% -5%, rgba(255, 214, 150, 0.14), transparent 70%),
+      radial-gradient(70% 45% at 50% 115%, rgba(0, 0, 0, 0.45), transparent 70%),
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0 2px, rgba(255, 220, 170, 0.05) 2px 3px, transparent 3px 140px),
+      repeating-linear-gradient(90deg, transparent 0 7px, rgba(0, 0, 0, 0.07) 7px 8px, transparent 8px 19px, rgba(255, 230, 190, 0.035) 19px 20px, transparent 20px 31px),
+      repeating-linear-gradient(90deg, #33241a 0 140px, #2c1f16 140px 280px, #382819 280px 420px, #2f2117 420px 560px);
   }
 
   [data-variant='specimen'] .pieces {
@@ -442,6 +448,49 @@ const brightStars = [0, 1, 2].map(() =>
   }
 
   /* Planetarium: a night-sky dome. */
+  /* Mermaids in bottles: underwater, with light from the surface breaking into dapples near the
+     top, the blue deepening below, and specks drifting in the water (.snow). */
+  [data-variant='bottle'] {
+    --ink: #f2fbff;
+    --accent: #ffd2c2;
+    --wall:
+      radial-gradient(120% 40% at 50% -10%, rgba(170, 235, 245, 0.3), transparent 60%),
+      radial-gradient(16% 5% at 18% 7%, rgba(205, 245, 255, 0.12), transparent 70%),
+      radial-gradient(12% 4% at 44% 4%, rgba(205, 245, 255, 0.1), transparent 70%),
+      radial-gradient(14% 5% at 66% 9%, rgba(205, 245, 255, 0.11), transparent 70%),
+      radial-gradient(20% 6% at 88% 5%, rgba(205, 245, 255, 0.09), transparent 70%),
+      radial-gradient(70% 35% at 50% 112%, rgba(2, 16, 28, 0.65), transparent 70%),
+      linear-gradient(#10637a 0%, #0b4560 35%, #072d45 70%, #04192a 100%);
+  }
+
+  .snow {
+    position: fixed;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    animation: drift 18s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  @keyframes drift {
+    to {
+      translate: 6px -14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .snow {
+      animation: none;
+    }
+  }
+
+  [data-variant='bottle'] h1 {
+    font: 400 clamp(2rem, 4vw, 3rem) / 1.15 'Rye', serif;
+  }
+
   /* Planetarium: a dome of night sky; the stars themselves are in .sky. */
   [data-variant='porthole'] {
     --ink: #e9ecff;

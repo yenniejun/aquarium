@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:transparent}
+svg{position:fixed;inset:0;width:100%;height:100%;display:block}
+#m{transform-box:fill-box;transform-origin:50% 95%;animation:bob 8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(1px) rotate(-1.4deg)}50%{transform:translateY(-2px) rotate(1.4deg)}}
+@media (prefers-reduced-motion:reduce){#m{animation:none}}
+</style>
+</head>
+<body>
+<svg id="s" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+<defs>
+<linearGradient id="hg" gradientUnits="userSpaceOnUse" x1="150" y1="178" x2="150" y2="330">
+<stop offset="0" stop-color="#2a3357"/><stop offset=".55" stop-color="#25435f"/><stop offset="1" stop-color="#2e7c86"/>
+</linearGradient>
+<linearGradient id="tg" gradientUnits="userSpaceOnUse" x1="150" y1="290" x2="150" y2="370">
+<stop offset="0" stop-color="#37808f"/><stop offset="1" stop-color="#1d3f6d"/>
+</linearGradient>
+<linearGradient id="fg" gradientUnits="userSpaceOnUse" x1="150" y1="340" x2="150" y2="395">
+<stop offset="0" stop-color="#8fe9d8" stop-opacity=".95"/><stop offset="1" stop-color="#2b5aa7" stop-opacity=".5"/>
+</linearGradient>
+<radialGradient id="gl"><stop offset="0" stop-color="#ffe9b3" stop-opacity=".9"/><stop offset=".5" stop-color="#ffd98f" stop-opacity=".32"/><stop offset="1" stop-color="#ffd98f" stop-opacity="0"/></radialGradient>
+<radialGradient id="ob"><stop offset="0" stop-color="#fffbe8"/><stop offset=".65" stop-color="#ffd98a"/><stop offset="1" stop-color="#f0a95c"/></radialGradient>
+<radialGradient id="pe"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfe4e8"/></radialGradient>
+</defs>
+<g id="m">
+<path id="back" fill="url(#hg)" opacity=".95"/>
+<g>
+<path id="tail" fill="url(#tg)"/>
+<g id="spk"></g>
+<path id="fins" fill="url(#fg)" opacity=".85"/>
+</g>
+<path d="M140 283 Q122 286 118 299 Q130 295 141 296 Z" fill="url(#fg)" opacity=".7"/>
+<path d="M160 283 Q178 286 182 299 Q170 295 159 296 Z" fill="url(#fg)" opacity=".7"/>
+<path d="M142 230 C142 239 138 242 134 246 C128 253 129 266 136 276 C140 282 141 290 140.5 297 L160 297 C159.5 290 160.5 282 164 276 C171 266 172 253 166 246 C162 242 158 239 158 230 Z" fill="#f4cfb4"/>
+<path d="M134 257 Q150 266 166 257" stroke="#dfeef0" stroke-width="1.2" fill="none" opacity=".8"/>
+<ellipse cx="143" cy="259" rx="5.6" ry="5" fill="url(#pe)" stroke="#a8c4cc" stroke-width=".5"/>
+<ellipse cx="157" cy="259" rx="5.6" ry="5" fill="url(#pe)" stroke="#a8c4cc" stroke-width=".5"/>
+<path d="M134 248 C127 255 126 268 130 280 C132.5 288 137 294 141 297" stroke="#f4cfb4" stroke-width="7.5" fill="none" stroke-linecap="round"/>
+<circle cx="141" cy="297" r="3.8" fill="#f4cfb4"/>
+<g id="head">
+<circle cx="150" cy="212" r="24" fill="#f4cfb4"/>
+<circle cx="136" cy="218.5" r="3" fill="#f2a58d" opacity=".45"/>
+<circle cx="164" cy="218.5" r="3" fill="#f2a58d" opacity=".45"/>
+<path d="M149.5 213.5 q1.2 2.2 -0.4 3.4" stroke="#d8a184" stroke-width="1" fill="none" opacity=".8"/>
+<path d="M144.5 222.5 Q150 226.8 155.5 222.5" stroke="#c96b62" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<path d="M136.5 204.5 Q141 201.5 145.5 203.5" stroke="#33405f" stroke-width="1" fill="none" opacity=".5"/>
+<path d="M154.5 203.5 Q159 201.5 163.5 204.5" stroke="#33405f" stroke-width="1" fill="none" opacity=".5"/>
+<g id="eyes">
+<ellipse id="eL" cx="141.5" cy="211.5" rx="2.1" ry="2.9" fill="#26304e"/>
+<ellipse id="eR" cx="158.5" cy="211.5" rx="2.1" ry="2.9" fill="#26304e"/>
+<circle cx="142.3" cy="210.2" r=".8" fill="#fff" opacity=".85"/>
+<circle cx="159.3" cy="210.2" r=".8" fill="#fff" opacity=".85"/>
+</g>
+<path d="M125 216 Q119 185 150 180 Q181 185 175 216 Q172 197 158 193 Q150 201 142 193 Q128 197 125 216 Z" fill="url(#hg)"/>
+<circle cx="150" cy="186" r="2.3" fill="url(#pe)"/>
+<path id="s3" fill="url(#hg)"/>
+<path id="s4" fill="url(#hg)"/>
+</g>
+<path id="s1" fill="url(#hg)"/>
+<path id="s2" fill="url(#hg)"/>
+<path d="M166 248 C177 244 188 234 193 222 C196.5 214 197 206 195.5 200" stroke="#f4cfb4" stroke-width="7.5" fill="none" stroke-linecap="round"/>
+<circle cx="195.5" cy="200" r="3.8" fill="#f4cfb4"/>
+<g id="orb">
+<circle id="glow" cx="200" cy="183" r="24" fill="url(#gl)"/>
+<circle cx="200" cy="172.5" r="2.6" fill="none" stroke="#d9b46a" stroke-width="1.2"/>
+<circle cx="200" cy="183" r="7.5" fill="url(#ob)"/>
+<path d="M193.5 180.5 Q200 178.5 206.5 180.5" stroke="#e8a94f" stroke-width=".8" fill="none" opacity=".6"/>
+<path d="M193 185.5 Q200 188 207 185.5" stroke="#e8a94f" stroke-width=".8" fill="none" opacity=".6"/>
+<circle id="flame" cx="200" cy="183" r="2.3" fill="#fff6e0"/>
+</g>
+<g id="motes"></g>
+</g>
+</svg>
+<script>
+(function(){
+var NS='http://www.w3.org/2000/svg';
+function $(i){return document.getElementById(i);}
+var svg=$('s'),tailEl=$('tail'),finsEl=$('fins'),backEl=$('back'),spk=$('spk'),
+    head=$('head'),eyes=$('eyes'),eL=$('eL'),eR=$('eR'),
+    glow=$('glow'),flame=$('flame'),orb=$('orb'),motesG=$('motes');
+var strands=[
+ {el:$('s1'),x0:128,y0:205,a:Math.PI/2+0.45,len:88,w0:4.5,ph:0.7},
+ {el:$('s2'),x0:172,y0:205,a:Math.PI/2-0.45,len:82,w0:4.5,ph:2.3},
+ {el:$('s3'),x0:133,y0:221,a:Math.PI/2+0.25,len:52,w0:3,ph:4.1},
+ {el:$('s4'),x0:167,y0:221,a:Math.PI/2-0.25,len:50,w0:3,ph:5.6}
+];
+var sk=[];
+for(var i=0;i<5;i++){var c=document.createElementNS(NS,'circle');c.setAttribute('r','1.3');c.setAttribute('fill','#c8f0ea');spk.appendChild(c);sk.push(c);}
+var motes=[];
+for(i=0;i<12;i++){c=document.createElementNS(NS,'circle');c.setAttribute('fill','#ffe9b8');motesG.appendChild(c);
+ motes.push({el:c,t0:-Math.random()*4,dur:2.6+Math.random()*2.4,x:200+(Math.random()*14-7),ph:Math.random()*6.28,r:0.9+Math.random()*1.4});}
+
+function buildPath(p,w0){
+ var n=p.length-1,L=[],R=[],i,o,q,dx,dy,m,w;
+ for(i=0;i<=n;i++){
+  o=p[Math.max(i-1,0)];q=p[Math.min(i+1,n)];
+  dx=q[0]-o[0];dy=q[1]-o[1];m=Math.hypot(dx,dy)||1;dx/=m;dy/=m;
+  w=w0*(1-i/n)+0.25;
+  L.push((p[i][0]-dy*w).toFixed(1)+' '+(p[i][1]+dx*w).toFixed(1));
+  R.push((p[i][0]+dy*w).toFixed(1)+' '+(p[i][1]-dx*w).toFixed(1));
+ }
+ return 'M'+L.join('L')+'L'+R.reverse().join('L')+'Z';
+}
+function bulge(ax,ay,bx,by,rx,ry,k){
+ var mx=(ax+bx)/2,my=(ay+by)/2,nx=-(by-ay),ny=bx-ax,m=Math.hypot(nx,ny)||1;
+ nx/=m;ny/=m;
+ if(nx*(rx-mx)+ny*(ry-my)>0){nx=-nx;ny=-ny;}
+ return (mx+nx*k).toFixed(1)+' '+(my+ny*k).toFixed(1);
+}
+function petal(ex,ey,a,Ln,t,i){
+ var dx=Math.cos(a),dy=Math.sin(a),w=Math.sin(t*2.1+i*2.3)*Ln*0.1,
+     aa=a-0.5+w*0.02,bb=a+0.5-w*0.02,
+     ax=ex+Math.cos(aa)*Ln*0.85,ay=ey+Math.sin(aa)*Ln*0.85,
+     bx=ex+Math.cos(bb)*Ln*0.85,by=ey+Math.sin(bb)*Ln*0.85,
+     tx=ex+dx*Ln*1.12+w,ty=ey+dy*Ln*1.12+w*0.4;
+ return 'M'+ex.toFixed(1)+' '+ey.toFixed(1)
+ +'Q'+bulge(ex,ey,ax,ay,tx,ty,Ln*0.26)+' '+ax.toFixed(1)+' '+ay.toFixed(1)
+ +'Q'+bulge(ax,ay,tx,ty,ex,ey,Ln*0.3)+' '+tx.toFixed(1)+' '+ty.toFixed(1)
+ +'Q'+bulge(tx,ty,bx,by,ex,ey,Ln*0.3)+' '+bx.toFixed(1)+' '+by.toFixed(1)
+ +'Q'+bulge(bx,by,ex,ey,tx,ty,Ln*0.26)+' '+ex.toFixed(1)+' '+ey.toFixed(1)+'Z';
+}
+var NT=14,SEG=66/NT,pts=[];
+function tail(t){
+ pts=[[150,295]];var x=150,y=295,i,s,a;
+ for(i=1;i<=NT;i++){
+  s=i/NT;a=Math.PI/2+0.3*Math.sin(s*3.1+1)+0.75*s*Math.sin(t*1.25+s*2.3);
+  x+=Math.cos(a)*SEG;y+=Math.sin(a)*SEG;pts.push([x,y]);
+ }
+ tailEl.setAttribute('d',buildPath(pts,13.5));
+ var e=pts[NT],p=pts[NT-1],a0=Math.atan2(e[1]-p[1],e[0]-p[0]);
+ finsEl.setAttribute('d',petal(e[0],e[1],a0-0.6,24,t,0)+petal(e[0],e[1],a0,28,t,1)+petal(e[0],e[1],a0+0.6,24,t,2));
+ for(i=0;i<5;i++){
+  var p2=pts[2+i*3];
+  sk[i].setAttribute('cx',p2[0].toFixed(1));sk[i].setAttribute('cy',p2[1].toFixed(1));
+  sk[i].setAttribute('opacity',(0.3+0.45*Math.abs(Math.sin(t*1.8+i*1.7))).toFixed(2));
+ }
+}
+function ribbon(x0,y0,ba,len,w0,ph,t){
+ var n=10,seg=len/n,p=[[x0,y0]],x=x0,y=y0,i,s,a;
+ for(i=1;i<=n;i++){
+  s=i/n;a=ba+0.15*Math.sin(t*0.6+ph)+0.5*s*Math.sin(t*1.05+ph+s*2.4)+0.18*Math.sin(t*1.8+ph*1.7+s*4.8);
+  x+=Math.cos(a)*seg;y+=Math.sin(a)*seg;p.push([x,y]);
+ }
+ return buildPath(p,w0);
+}
+var vx=150,vy=210;
+addEventListener('pointermove',function(e){
+ var r=svg.getBoundingClientRect(),sc=Math.min(r.width/300,r.height/400),
+     ox=(r.width-300*sc)/2,oy=(r.height-400*sc)/2;
+ vx=(e.clientX-r.left-ox)/sc;vy=(e.clientY-r.top-oy)/sc;
+},{passive:true});
+var pdx=0,pdy=0,tilt=0,nextB=3,bT=-1,t0=performance.now();
+function frame(now){
+ var t=(now-t0)/1000,i,u,m;
+ tail(t);
+ for(i=0;i<strands.length;i++){m=strands[i];m.el.setAttribute('d',ribbon(m.x0,m.y0,m.a,m.len,m.w0,m.ph,t));}
+ backEl.setAttribute('d',ribbon(150,198,Math.PI/2,118,15,3.1,t));
+ for(i=0;i<motes.length;i++){
+  m=motes[i];u=(t-m.t0)/m.dur;
+  if(u>1){m.t0=t+Math.random()*1.2;m.x=200+(Math.random()*14-7);m.dur=2.6+Math.random()*2.4;u=(t-m.t0)/m.dur;}
+  if(u<0){m.el.setAttribute('opacity','0');continue;}
+  m.el.setAttribute('cx',(m.x+Math.sin(u*5+m.ph)*6).toFixed(1));
+  m.el.setAttribute('cy',(176-u*92).toFixed(1));
+  m.el.setAttribute('r',(m.r*(0.5+0.5*Math.sin(Math.PI*u))).toFixed(2));
+  m.el.setAttribute('opacity',(Math.sin(Math.PI*u)*0.85).toFixed(2));
+ }
+ if(t>nextB){bT=t;nextB=t+2.5+Math.random()*4;}
+ var lid=0;
+ if(bT>=0){u=(t-bT)/0.24;if(u>=1)bT=-1;else lid=Math.sin(Math.PI*u);}
+ var ry=(2.9*(1-0.93*lid)).toFixed(2);
+ eL.setAttribute('ry',ry);eR.setAttribute('ry',ry);
+ var tx=Math.max(-2,Math.min(2,(vx-150)*0.03)),ty=Math.max(-1.5,Math.min(1.5,(vy-211)*0.03));
+ pdx+=(tx-pdx)*0.08;pdy+=(ty-pdy)*0.08;
+ eyes.setAttribute('transform','translate('+pdx.toFixed(2)+' '+pdy.toFixed(2)+')');
+ var tt=Math.max(-5,Math.min(5,(vx-150)*0.035));
+ tilt+=(tt-tilt)*0.05;
+ head.setAttribute('transform','rotate('+tilt.toFixed(2)+' 150 226)');
+ var dist=Math.hypot(vx-200,vy-183),boost=Math.max(0,1-dist/130)*0.5;
+ glow.setAttribute('r',(23+2.5*Math.sin(t*2.1)+boost*7).toFixed(1));
+ glow.setAttribute('opacity',(0.55+0.18*Math.sin(t*2.1)+boost*0.4).toFixed(2));
+ flame.setAttribute('r',(2.2+0.4*Math.sin(t*6.3)+0.2*Math.sin(t*11)).toFixed(2));
+ orb.setAttribute('transform','translate(0 '+(1.6*Math.sin(t*1.5)).toFixed(2)+')');
+ requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

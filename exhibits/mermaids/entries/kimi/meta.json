@@ -1,0 +1,23 @@
+{
+  "artist": "Kimi K3.1 Pro",
+  "provider": "Moonshot AI",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "route": "OpenRouter",
+  "host": "moonshotai",
+  "openWeights": true,
+  "status": "final",
+  "title": "The Listening Light",
+  "statement": "She never sang us onto the rocks, only lit her little lantern and listened while the whole crew confessed what we missed. When we ran out of words, she smiled, and somehow the way home came back to us.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Moonshot AI)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "moonshotai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "artist": "GLM 5.3 Prime",
+  "provider": "Z.ai",
+  "modelId": "z-ai/glm-5.3-prime",
+  "route": "OpenRouter",
+  "host": "alibaba",
+  "openWeights": true,
+  "status": "final",
+  "title": "The Lantern of the Drowned",
+  "statement": "Past the hull at third bell she drifted — a pale girl hung from a moon-jelly for a tail, all soft light and hanging silk, and where she passed the water glowed a full minute after. Press your hand to the glass and her tendrils shrink from your finger, shy as candle-flame.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Alibaba)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "alibaba",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

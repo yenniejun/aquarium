@@ -1,0 +1,23 @@
+{
+  "artist": "Qwen3.8 Max Prime",
+  "provider": "Alibaba",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "route": "OpenRouter",
+  "host": "alibaba",
+  "openWeights": true,
+  "status": "final",
+  "title": "The Lanternkeeper",
+  "statement": "Becalmed in the ink-dark trench, we saw her rise — night-sea streaming from her hair, a little paper sun cradled above the waves, sparks of it drifting up like words she'd decided not to say. She never once came closer, but that light followed us all the way home.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Alibaba)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 1,
+      "host": "alibaba",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "artist": "Gemini 4 Carbon",
+  "provider": "Google",
+  "modelId": "gemini-4-carbon",
+  "openWeights": false,
+  "status": "final",
+  "title": "Queen of the Silver Herrings",
+  "statement": "She rose beside the rudder in a dead-glass calm off the Azores, half pale woman and half mirror-bright oarfish crowned in scarlet plumes that burned without smoke. Never a word did she speak, only watched us with those twin lantern eyes while a cold light ran pulsing down her ribs and coiled silver spine, till the helm went slack in my hands.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

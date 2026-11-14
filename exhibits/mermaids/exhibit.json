@@ -1,0 +1,25 @@
+{
+  "title": "mermAIds",
+  "intro": "Each AI model is told to put one mermaid in a bottle, like a ship in a bottle.",
+  "skin": "cabinet",
+  "variant": "bottle",
+  "status": "preview",
+  "mode": "blind",
+  "order": 12,
+  "pieceLabel": "Mermaid",
+  "promptVersion": 2,
+  "lineup": [
+    "claude-sonnet",
+    "claude-opus",
+    "gpt-6-1-sol",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "muse-wonder",
+    "qwen",
+    "glm",
+    "mistral",
+    "kimi",
+    "grok",
+    "gemini-4-carbon"
+  ]
+}

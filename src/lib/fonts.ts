@@ -18,11 +18,12 @@ const byVariant: Record<string, string[]> = {
   niche: ['Shippori Mincho:wght@700'],
   shelf: ['Almendra:wght@700'],
   porthole: ['Poiret One'],
-  specimen: ['Mountains of Christmas:wght@700'],
+  specimen: ['Fraunces:ital,wght@1,500'],
   terrarium: ['Comfortaa:wght@700'],
   window: ['Monoton'],
   menu: ['Caveat:wght@500;700'],
   bigtop: ['Limelight'],
+  bottle: ['Rye', 'Playfair Display:ital,wght@1,700'],
   tarot: ['IM Fell English:ital@0;1'],
   fieldguide: ['Metamorphous', 'IM Fell English:ital@0;1', 'Caveat:wght@500;700'],
 };
