@@ -4,14 +4,14 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "Wobbly Plum Lantern",
-  "statement": "A plum that leaned into the wind long ago and never looked back, potted in a lopsided celadon vessel mended with gold. It blossoms in spring, shades in summer, burns in autumn, and holds bare branches through winter.",
+  "title": "Whistling Spiral Juniper",
+  "statement": "A windswept juniper that has leaned into the same gust for decades, its bleached deadwood a record of the storms it outlived. The deep teal pot is mended with gold, and the foliage turns slowly through the seasons, shedding a few leaves along the way.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 5
+      "promptVersion": 6
     },
     "attempts": 1,
     "edits": "none"

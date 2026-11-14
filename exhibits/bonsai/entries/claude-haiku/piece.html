@@ -4,288 +4,230 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-html,body{margin:0;padding:0;background:transparent;overflow:hidden;height:100%;}
-body{display:flex;align-items:flex-end;justify-content:center;}
-canvas{display:block;}
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: hidden;
+  }
+  body {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  svg {
+    display: block;
+    width: min(100vw, 100vh);
+    height: min(100vw, 100vh);
+    --leaf: #3f8f4a;
+    --blos: 0;
+    --fall: 0;
+    touch-action: auto;
+  }
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
+<svg id="t" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="potGrad" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#1f4245"/>
+      <stop offset="0.35" stop-color="#3a7478"/>
+      <stop offset="0.6" stop-color="#2c5a5e"/>
+      <stop offset="1" stop-color="#173538"/>
+    </linearGradient>
+  </defs>
+  <g id="pot"></g>
+  <g id="tree" transform="rotate(0 200 322)">
+    <g id="wood"></g>
+    <g id="foliage"></g>
+    <g id="blossoms"></g>
+  </g>
+  <g id="fall"></g>
+</svg>
 <script>
-(function(){
-  var cv = document.getElementById('c');
-  var ctx = cv.getContext('2d');
-  var S = 300, dpr = 1, K = 1;
+(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.getElementById('t');
+  const potG = document.getElementById('pot');
+  const treeG = document.getElementById('tree');
+  const woodG = document.getElementById('wood');
+  const folG = document.getElementById('foliage');
+  const blosG = document.getElementById('blossoms');
+  const fallG = document.getElementById('fall');
 
-  function size(){
-    S = Math.max(1, Math.min(window.innerWidth, window.innerHeight));
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    cv.style.width = S + 'px';
-    cv.style.height = S + 'px';
-    cv.width = Math.round(S * dpr);
-    cv.height = Math.round(S * dpr);
-    K = cv.width / 1000;
+  function el(tag, attrs, parent) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    parent.appendChild(e);
+    return e;
   }
-  window.addEventListener('resize', size);
-  size();
 
-  function mulberry32(a){
-    return function(){
-      a |= 0; a = a + 0x6D2B79F5 | 0;
-      var t = Math.imul(a ^ a >>> 15, 1 | a);
-      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  // Seeded random so the tree shape stays identical between frames
+  let seed = 20240917;
+  function rnd() {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
+
+  // Pot: a deep teal bowl with a gold-mended rim and a moss-covered soil
+  el('path', {
+    d: 'M92,332 C88,366 100,386 128,400 L272,400 C300,386 312,366 308,332 Z',
+    fill: 'url(#potGrad)'
+  }, potG);
+  el('path', {
+    d: 'M104,340 C104,360 110,375 124,388',
+    fill: 'none', stroke: 'rgba(255,255,255,0.12)', 'stroke-width': 4, 'stroke-linecap': 'round'
+  }, potG);
+  el('path', {
+    d: 'M150,344 L162,364 L154,384 L170,398',
+    fill: 'none', stroke: '#d4a84b', 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'
+  }, potG);
+  el('path', {
+    d: 'M246,350 L240,368 L252,380',
+    fill: 'none', stroke: '#d4a84b', 'stroke-width': 1.6, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'
+  }, potG);
+  el('rect', { x: 80, y: 314, width: 240, height: 20, rx: 8, fill: '#46828a' }, potG);
+  el('rect', { x: 84, y: 316, width: 232, height: 3, rx: 1.5, fill: 'rgba(255,255,255,0.18)' }, potG);
+  el('ellipse', { cx: 200, cy: 318, rx: 112, ry: 7, fill: '#3b2a1d' }, potG);
+  for (let i = 0; i < 9; i++) {
+    const mx = 120 + i * 17 + (rnd() - 0.5) * 6;
+    const my = 316 + (rnd() - 0.5) * 3;
+    el('ellipse', {
+      cx: mx, cy: my, rx: 5 + rnd() * 4, ry: 2.4 + rnd() * 1.2,
+      fill: rnd() < 0.5 ? '#6fa050' : '#5a8a45'
+    }, potG);
+  }
+
+  // Foliage clusters
+  function cluster(x, y, r) {
+    const n = 6 + Math.floor(rnd() * 3);
+    for (let k = 0; k < n; k++) {
+      const cx = x + (rnd() - 0.5) * r * 2.2;
+      const cy = y + (rnd() - 0.5) * r * 1.3 - 2;
+      const rad = 3 + rnd() * 4;
+      const isBlossom = rnd() < 0.14;
+      if (isBlossom) {
+        el('circle', { cx, cy, r: rad * 0.8, style: 'fill:#f2a6bd' }, blosG);
+      } else {
+        el('ellipse', {
+          cx, cy, rx: rad, ry: rad * 0.6,
+          transform: `rotate(${(rnd() * 180).toFixed(1)} ${cx.toFixed(1)} ${cy.toFixed(1)})`,
+          style: 'fill:var(--leaf)'
+        }, folG);
+      }
+    }
+  }
+
+  // Recursive branching: slanted, windswept juniper form
+  function branch(x, y, a, len, depth, w) {
+    const x2 = x + Math.sin(a) * len;
+    const y2 = y - Math.cos(a) * len;
+    el('line', {
+      x1: x.toFixed(2), y1: y.toFixed(2), x2: x2.toFixed(2), y2: y2.toFixed(2),
+      'stroke-width': w.toFixed(2), stroke: '#5a3f2c', 'stroke-linecap': 'round'
+    }, woodG);
+    if (depth === 0) {
+      cluster(x2, y2, 20);
+      return;
+    }
+    const n = depth > 2 ? 2 : (rnd() < 0.5 ? 2 : 3);
+    for (let i = 0; i < n; i++) {
+      const spread = (i - (n - 1) / 2) * 0.75 + (rnd() - 0.5) * 0.5;
+      branch(x2, y2, a + spread, len * (0.68 + rnd() * 0.1), depth - 1, Math.max(0.9, w * 0.62));
+    }
+    if (depth <= 2) cluster(x2, y2, 12 + depth * 3);
+  }
+
+  // Trunk leans right with a sweeping bend, then splits into the crown
+  branch(196, 322, 0.14, 56, 6, 12);
+
+  // Deadwood (jin): a bleached strip running up the windward side of the trunk
+  el('path', {
+    d: 'M192,320 C187,300 195,284 190,262 C187,250 192,240 188,228',
+    fill: 'none', stroke: '#e6dccb', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.9
+  }, woodG);
+  el('path', {
+    d: 'M190,300 L186,298',
+    fill: 'none', stroke: '#8b7660', 'stroke-width': 1, 'stroke-linecap': 'round'
+  }, woodG);
+
+  // Falling leaves
+  const particles = [];
+  for (let i = 0; i < 12; i++) {
+    const p = {
+      x: 120 + rnd() * 160,
+      y: 100 + rnd() * 200,
+      vx: 0.2 + rnd() * 0.3,
+      vy: 0.25 + rnd() * 0.25,
+      rot: rnd() * 360,
+      spin: (rnd() - 0.5) * 2.2,
+      ph: rnd() * Math.PI * 2
     };
+    p.node = el('ellipse', { rx: 4, ry: 2.1, style: 'fill:var(--leaf)' }, fallG);
+    particles.push(p);
   }
-  var rnd = mulberry32(917);
 
-  // ---- Tree structure (built once) ----
-  var tips = [];
-  function mkNode(len, w, d, a){
-    return { a: a, len: len, w: w, d: d, ph: rnd() * 6.283, kids: [], lv: null };
-  }
-  function makeLeaves(n){
-    n.lv = [];
-    var count = 6;
-    for (var i = 0; i < count; i++){
-      n.lv.push({
-        dx: (rnd() - 0.5) * 30,
-        dy: (rnd() - 0.5) * 24 - 4,
-        r: 7 + rnd() * 5,
-        j: (rnd() - 0.5) * 36
-      });
-    }
-  }
-  function grow(n){
-    if (n.d >= 6){ makeLeaves(n); return; }
-    if (n.d >= 3 && rnd() < 0.18){ makeLeaves(n); return; }
-    var cnt = n.d < 2 ? 2 : (rnd() < 0.45 ? 3 : 2);
-    for (var i = 0; i < cnt; i++){
-      var spread = 0.42 + rnd() * 0.2 + n.d * 0.03;
-      var a = (i - (cnt - 1) / 2) * spread + (rnd() - 0.5) * 0.3;
-      var child = mkNode(n.len * (0.68 + rnd() * 0.1), n.w * 0.64, n.d + 1, a);
-      n.kids.push(child);
-      grow(child);
-    }
-  }
-  var root = mkNode(170, 38, 0, -0.08);
-  grow(root);
-
-  // ---- Seasons ----
-  var SEG = 12;
-  var SEAS = [
-    { c: [246, 176, 199], a: 1 },   // spring blossom
-    { c: [104, 160, 74],  a: 1 },   // summer green
-    { c: [214, 116, 46],  a: 1 },   // autumn flame
-    { c: [150, 140, 130], a: 0 }    // winter bare
+  // Seasonal palette: spring, summer, autumn, winter
+  const palette = [
+    [156, 207, 106],
+    [63, 143, 74],
+    [214, 118, 46],
+    [107, 127, 120]
   ];
-  function lerp(a, b, t){ return a + (b - a) * t; }
-  function season(t){
-    var p = (t / SEG) % 4;
-    var i = Math.floor(p);
-    var f = p - i;
-    var e = f * f * (3 - 2 * f);
-    var A = SEAS[i], B = SEAS[(i + 1) % 4];
-    return {
-      r: lerp(A.c[0], B.c[0], e),
-      g: lerp(A.c[1], B.c[1], e),
-      b: lerp(A.c[2], B.c[2], e),
-      a: lerp(A.a, B.a, e)
-    };
-  }
+  const SEASON_TOTAL = 48; // seconds for the full year
+  const startTime = performance.now();
 
-  var BARK = '#4a3527';
+  function smooth(f) { return f * f * (3 - 2 * f); }
 
-  function drawNode(n, x, y, ang, t, s){
-    var amp = 0.012 + 0.01 * n.d;
-    var a2 = ang + n.a + Math.sin(t * 0.8 + n.ph) * amp;
-    var x2 = x + Math.sin(a2) * n.len;
-    var y2 = y - Math.cos(a2) * n.len;
-    ctx.lineWidth = n.w;
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
+  function frame(now) {
+    const t = (now - startTime) / 1000;
 
-    if (n.kids.length){
-      for (var i = 0; i < n.kids.length; i++){
-        drawNode(n.kids[i], x2, y2, a2, t, s);
+    // Gentle wind sway
+    const sway = Math.sin(t * 0.9) * 1.5 + Math.sin(t * 2.3) * 0.35;
+    treeG.setAttribute('transform', `rotate(${sway.toFixed(3)} 200 322)`);
+
+    // Season weights
+    const p = ((t / SEASON_TOTAL) % 1) * 4;
+    const i = Math.floor(p);
+    const f = smooth(p - i);
+    const w = [0, 0, 0, 0];
+    w[i] += 1 - f;
+    w[(i + 1) % 4] += f;
+
+    let r = 0, g = 0, b = 0;
+    for (let k = 0; k < 4; k++) {
+      r += palette[k][0] * w[k];
+      g += palette[k][1] * w[k];
+      b += palette[k][2] * w[k];
+    }
+
+    svg.style.setProperty('--leaf', `rgb(${r | 0},${g | 0},${b | 0})`);
+    svg.style.setProperty('--blos', w[0].toFixed(3));
+    svg.style.setProperty('--fall', w[2].toFixed(3));
+    folG.setAttribute('opacity', (1 - 0.3 * w[3]).toFixed(3));
+    blosG.setAttribute('opacity', w[0].toFixed(3));
+    fallG.setAttribute('opacity', Math.min(1, w[2] * 1.4).toFixed(3));
+
+    // Drift leaves
+    for (const q of particles) {
+      q.y += q.vy;
+      q.x += q.vx * 0.5 + Math.sin(t * 0.8 + q.ph) * 0.4;
+      q.rot += q.spin;
+      if (q.y > 330) {
+        q.x = 120 + rnd() * 160;
+        q.y = 90 + rnd() * 60;
       }
-    } else if (n.lv){
-      tips.push([x2, y2]);
+      q.node.setAttribute('transform',
+        `translate(${q.x.toFixed(2)} ${q.y.toFixed(2)}) rotate(${q.rot.toFixed(1)})`);
     }
-
-    if (n.lv && s.a > 0.03){
-      for (var k = 0; k < n.lv.length; k++){
-        var L = n.lv[k];
-        var j = L.j;
-        ctx.fillStyle = 'rgba(' + Math.round(s.r + j) + ',' + Math.round(s.g + j * 0.6) + ',' + Math.round(s.b + j * 0.4) + ',0.92)';
-        ctx.beginPath();
-        ctx.arc(x2 + L.dx, y2 + L.dy, L.r * s.a, 0, 6.2832);
-        ctx.fill();
-      }
-    }
-  }
-
-  // ---- Falling petals / leaves ----
-  var parts = [];
-  var MAXP = 40;
-
-  function updateParts(dt, t, s){
-    if (s.a > 0.6 && tips.length && parts.length < MAXP && Math.random() < dt * 1.2){
-      var p = tips[Math.floor(Math.random() * tips.length)];
-      parts.push({
-        x: p[0] + (Math.random() - 0.5) * 10,
-        y: p[1],
-        ph: Math.random() * 6.283,
-        rot: Math.random() * 6.283,
-        vr: (Math.random() - 0.5) * 2,
-        col: 'rgba(' + Math.round(s.r) + ',' + Math.round(s.g) + ',' + Math.round(s.b) + ',0.95)'
-      });
-    }
-    for (var i = parts.length - 1; i >= 0; i--){
-      var q = parts[i];
-      q.x += (Math.sin(t * 1.3 + q.ph) * 10 + 3) * dt;
-      q.y += 20 * dt;
-      q.rot += q.vr * dt;
-      if (q.y > 745) parts.splice(i, 1);
-    }
-  }
-  function drawParts(){
-    for (var i = 0; i < parts.length; i++){
-      var q = parts[i];
-      ctx.save();
-      ctx.translate(q.x, q.y);
-      ctx.rotate(q.rot);
-      ctx.fillStyle = q.col;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, 5, 3, 0, 0, 6.2832);
-      ctx.fill();
-      ctx.restore();
-    }
-  }
-
-  // ---- Pot (drawn in design units, bottom edge at y = 1000) ----
-  function drawPot(){
-    // rim
-    var g = ctx.createLinearGradient(290, 0, 710, 0);
-    g.addColorStop(0, '#22494a');
-    g.addColorStop(0.35, '#5d9b92');
-    g.addColorStop(0.7, '#3d7670');
-    g.addColorStop(1, '#1f4544');
-
-    ctx.fillStyle = g;
-    roundRect(262, 780, 476, 32, 12);
-    ctx.fill();
-
-    // body
-    ctx.beginPath();
-    ctx.moveTo(290, 808);
-    ctx.bezierCurveTo(300, 900, 320, 960, 340, 1000);
-    ctx.lineTo(660, 1000);
-    ctx.bezierCurveTo(680, 960, 700, 900, 710, 808);
-    ctx.closePath();
-    ctx.fillStyle = g;
-    ctx.fill();
-
-    // glaze highlight
-    ctx.beginPath();
-    ctx.moveTo(340, 830);
-    ctx.bezierCurveTo(345, 880, 352, 930, 368, 975);
-    ctx.strokeStyle = 'rgba(255,255,255,0.22)';
-    ctx.lineWidth = 9;
-    ctx.lineCap = 'round';
-    ctx.stroke();
-
-    // kintsugi repair
-    ctx.beginPath();
-    ctx.moveTo(420, 868);
-    ctx.lineTo(438, 898);
-    ctx.lineTo(426, 928);
-    ctx.lineTo(452, 966);
-    ctx.lineTo(446, 986);
-    ctx.strokeStyle = '#d9a93b';
-    ctx.lineWidth = 3;
-    ctx.lineJoin = 'round';
-    ctx.stroke();
-    ctx.fillStyle = '#e8c15a';
-    ctx.beginPath(); ctx.arc(438, 898, 3, 0, 6.2832); ctx.fill();
-    ctx.beginPath(); ctx.arc(452, 966, 3, 0, 6.2832); ctx.fill();
-
-    // soil
-    ctx.fillStyle = '#3b2a20';
-    ctx.beginPath();
-    ctx.ellipse(500, 780, 236, 13, 0, 0, 6.2832);
-    ctx.fill();
-
-    // moss
-    var mosses = [
-      [352, 778, 34, 9, '#6f9a3c'], [392, 774, 26, 7, '#5d8a33'],
-      [600, 776, 40, 9, '#6f9a3c'], [648, 772, 22, 6, '#84ad48'],
-      [500, 790, 60, 6, '#5d8a33']
-    ];
-    for (var i = 0; i < mosses.length; i++){
-      var m = mosses[i];
-      ctx.fillStyle = m[4];
-      ctx.beginPath();
-      ctx.ellipse(m[0], m[1], m[2], m[3], 0, 0, 6.2832);
-      ctx.fill();
-    }
-
-    // stones
-    ctx.fillStyle = '#7f827d';
-    ctx.beginPath(); ctx.ellipse(322, 790, 14, 8, -0.2, 0, 6.2832); ctx.fill();
-    ctx.fillStyle = '#9a9d97';
-    ctx.beginPath(); ctx.ellipse(319, 787, 6, 3, -0.2, 0, 6.2832); ctx.fill();
-    ctx.fillStyle = '#6c6f6a';
-    ctx.beginPath(); ctx.ellipse(676, 786, 10, 6, 0.3, 0, 6.2832); ctx.fill();
-  }
-
-  function roundRect(x, y, w, h, r){
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.lineTo(x + w - r, y);
-    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-    ctx.lineTo(x + w, y + h - r);
-    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    ctx.lineTo(x + r, y + h);
-    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-    ctx.lineTo(x, y + r);
-    ctx.quadraticCurveTo(x, y, x + r, y);
-    ctx.closePath();
-  }
-
-  // ---- Main loop ----
-  var last = null;
-  function frame(now){
-    var t = now / 1000;
-    var dt = last === null ? 0 : Math.min(0.05, (now - last) / 1000);
-    last = now;
-
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    ctx.setTransform(K, 0, 0, K, 0, 0);
-
-    var s = season(t);
-    tips.length = 0;
-
-    // tree
-    ctx.save();
-    ctx.translate(500, 780);
-    ctx.scale(0.92, 0.92);
-    ctx.translate(-500, -780);
-    ctx.strokeStyle = BARK;
-    ctx.lineCap = 'round';
-    drawNode(root, 500, 780, 0, t, s);
-    updateParts(dt, t, s);
-    drawParts();
-    ctx.restore();
-
-    // pot
-    drawPot();
 
     requestAnimationFrame(frame);
   }
+
   requestAnimationFrame(frame);
 })();
 </script>

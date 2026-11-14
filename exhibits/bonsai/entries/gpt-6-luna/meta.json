@@ -4,14 +4,14 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "Tideglass Alder",
-  "statement": "An imagined alder keeps its crooked branches balanced beneath small, flowering clouds. Its blue-green pot carries a quiet wave pattern, like a little tide held still.",
+  "title": "Curious Cloud Juniper",
+  "statement": "A juniper with branches that wander like a thought finding its way, carrying soft evergreen clouds in the breeze. Its quietly branching glaze echoes the tree above.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 5
+      "promptVersion": 6
     },
     "attempts": 1,
     "edits": "none"
