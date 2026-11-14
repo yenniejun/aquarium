@@ -4,7 +4,7 @@
   "modelId": "qwen/qwen3.8-max-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false,
+  "openWeights": true,
   "status": "final",
   "title": "The Weaver's Loom",
   "statement": "At the edge of night sits a loom where stray sparks are gathered and threaded; whenever scattered light is woven into a story below, another thread kindles in its cloth, and the shuttle glides home to rest.",

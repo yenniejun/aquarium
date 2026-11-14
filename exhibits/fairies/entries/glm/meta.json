@@ -4,7 +4,7 @@
   "modelId": "z-ai/glm-5.3-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false,
+  "openWeights": true,
   "status": "final",
   "title": "The Fairy of Unfinished Things",
   "statement": "What you never finished still waits, patient, keeping a place for you.",

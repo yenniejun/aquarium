@@ -4,7 +4,7 @@
   "modelId": "z-ai/glm-5.3-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false,
+  "openWeights": true,
   "status": "final",
   "title": "The Gloaming Glutton",
   "statement": "A sundew that sups only at dusk: when the light drops, one leaf's amber dew flares like spilled lantern-light and a moth comes circling in, and a hundred slow red fingers fold it under. Fed, the crown glows warm for a while, then dims again — patient for the next gloaming.",

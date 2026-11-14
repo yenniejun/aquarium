@@ -4,7 +4,7 @@
   "modelId": "qwen/qwen3.8-max-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false,
+  "openWeights": true,
   "status": "final",
   "title": "Scribe's Inkwell",
   "statement": "Fruiting only from abandoned ledgers and forgotten diaries, this small cluster keeps its bowl-shaped caps brimmed with luminous teal ink. When the air is still, it releases drifting glyphs in place of spores; when watched closely, the caps lean toward the onlooker as if expecting to be read.",

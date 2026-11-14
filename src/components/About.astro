@@ -1,13 +1,15 @@
 ---
 /**
- * The header's "?" and "Prompt" buttons. Hovering "?" (or tapping it, or tabbing to it) shows a
- * small bubble with what the models were told and what to do; "Prompt" opens the exact prompt
- * every model got. A skin can also pass a Welcome (the default slot): it opens by itself in its
- * own modal on a first visit (?reset shows it again).
+ * The header's "Info" and "?" buttons. Hovering "?" (or tapping it, or tabbing to it) shows a
+ * small bubble with what the models were told and what to do. "Info" opens a modal with two tabs:
+ * the models in this gallery (with links to their makers' pages) and the exact prompt they got.
+ * A skin can also pass a Welcome (the default slot): it opens by itself in its own modal on a
+ * first visit (?reset shows it again).
  */
 import { Code } from 'astro:components';
 import type { Exhibit } from '../lib/exhibits';
-import { getPrompt } from '../lib/exhibits';
+import { getPieces, getPrompt } from '../lib/exhibits';
+import { modelLinks } from '../lib/modelLinks';
 
 interface Props {
   exhibit: Exhibit;
@@ -20,15 +22,28 @@ const prompt = getPrompt(exhibit);
 const piece = exhibit.pieceLabel.toLowerCase();
 const key = `museum:welcomed:${exhibit.slug}`;
 const welcome = Astro.slots.has('default');
+
+// The models, open weights first, then by maker and name. Never in lineup order: the pieces are in
+// lineup order in the page, so that would quietly pair each model with its piece.
+const models = getPieces(exhibit)
+  .map(({ entry }) => {
+    const reasoning = entry.generation?.params?.reasoning;
+    return {
+      name: entry.artist,
+      maker: entry.provider,
+      open: entry.openWeights,
+      url: modelLinks[entry.slug],
+      how: [entry.route && `via ${entry.route}`, typeof reasoning === 'string' && `${reasoning} thinking`].filter(Boolean).join(', '),
+    };
+  })
+  .sort((a, b) => Number(b.open) - Number(a.open) || a.maker.localeCompare(b.maker) || a.name.localeCompare(b.name));
+const groups = [
+  { label: 'Open weights', note: 'Anyone can download the model and run it themselves.', models: models.filter((m) => m.open) },
+  { label: 'Closed', note: "Only available through its maker's own service.", models: models.filter((m) => !m.open) },
+].filter((g) => g.models.length);
 ---
 
-{
-  prompt && (
-    <button class="pill prompt-toggle" type="button" aria-haspopup="dialog">
-      Prompt
-    </button>
-  )
-}
+<button class="pill info-toggle" type="button" aria-haspopup="dialog">Info</button>
 <div class="help">
   <button class="about-toggle" type="button" aria-label="About this gallery" aria-describedby="about-hint" aria-expanded="false">
     ?
@@ -39,16 +54,58 @@ const welcome = Astro.slots.has('default');
   </div>
 </div>
 
-{
-  prompt && (
-    <dialog class="modal prompt-dialog" aria-label="The prompt" tabindex="-1">
-      <div class="bar">
-        <span class="heading">Prompt</span>
-        <form method="dialog">
-          <button class="close" aria-label="Close">×</button>
-        </form>
-      </div>
-      <div class="panel">
+<dialog class="modal info-dialog" aria-label={`About ${exhibit.title}`} tabindex="-1">
+  <div class="bar">
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="info-tab-models" aria-controls="info-panel-models" aria-selected="true">
+        Models
+      </button>
+      {
+        prompt && (
+          <button type="button" role="tab" id="info-tab-prompt" aria-controls="info-panel-prompt" aria-selected="false" tabindex="-1">
+            Prompt
+          </button>
+        )
+      }
+    </div>
+    <form method="dialog">
+      <button class="close" aria-label="Close">×</button>
+    </form>
+  </div>
+
+  <div class="panel models" role="tabpanel" id="info-panel-models" aria-labelledby="info-tab-models">
+    <p class="intro">Every model got the same prompt, word for word. None of them is fully open source, which would also mean releasing how it was trained.</p>
+    {
+      groups.map((g) => (
+        <section>
+          <h3>
+            {g.label} <span>{g.note}</span>
+          </h3>
+          <ul>
+            {g.models.map((m) => (
+              <li>
+                {m.url ? (
+                  <a href={m.url} target="_blank" rel="noopener">
+                    {m.name} <span aria-hidden="true">↗</span>
+                  </a>
+                ) : (
+                  <span class="name">{m.name}</span>
+                )}
+                <span class="meta">
+                  {m.maker}
+                  {m.how && ` · ${m.how}`}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+
+  {
+    prompt && (
+      <div class="panel" role="tabpanel" id="info-panel-prompt" aria-labelledby="info-tab-prompt" hidden>
         <figure class="editor">
           <div class="titlebar">
             <span class="dots" aria-hidden="true">
@@ -65,9 +122,9 @@ const welcome = Astro.slots.has('default');
           <Code code={prompt} lang="md" theme="github-light" wrap />
         </figure>
       </div>
-    </dialog>
-  )
-}
+    )
+  }
+</dialog>
 
 {
   welcome && (
@@ -110,10 +167,30 @@ const welcome = Astro.slots.has('default');
   document.addEventListener('click', (e) => !help.contains(e.target as Node) && pin(false));
   document.addEventListener('keydown', (e) => e.key === 'Escape' && pin(false));
 
-  const promptDialog = document.querySelector<HTMLDialogElement>('dialog.prompt-dialog');
-  document.querySelector('.prompt-toggle')?.addEventListener('click', () => {
-    promptDialog!.showModal();
-    promptDialog!.focus();
+  const info = document.querySelector<HTMLDialogElement>('dialog.info-dialog')!;
+  const tabs = [...info.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+  const select = (tab: HTMLButtonElement) => {
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
+    }
+  };
+  for (const [i, tab] of tabs.entries()) {
+    tab.addEventListener('click', () => select(tab));
+    tab.addEventListener('keydown', (e) => {
+      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      const next = tabs[(i + step + tabs.length) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  }
+  document.querySelector('.info-toggle')!.addEventListener('click', () => {
+    select(tabs[0]);
+    info.showModal();
+    info.focus();
   });
 
   // Clicking the backdrop closes either modal.
@@ -237,7 +314,7 @@ const welcome = Astro.slots.has('default');
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
   }
 
-  .prompt-dialog {
+  .info-dialog {
     height: min(30rem, 100svh - 2rem);
   }
 
@@ -275,11 +352,86 @@ const welcome = Astro.slots.has('default');
     padding: 10px 10px 0 18px;
   }
 
-  .heading {
+  .tabs {
+    display: flex;
+    gap: 2px;
+  }
+
+  .tabs button {
+    padding: 7px 12px;
+    appearance: none;
+    border: 0;
+    border-radius: 99px;
+    background: transparent;
+    color: #4a6378;
     font: 500 0.68rem/1 'IBM Plex Mono', monospace;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .tabs button:hover {
+    background: rgba(3, 16, 30, 0.06);
+  }
+
+  .tabs button[aria-selected='true'] {
+    background: #03101e;
+    color: #f7fafc;
+  }
+
+  /* The Models tab: two short lists, each model linking to its maker's page. */
+  .models {
+    padding: 14px 20px 18px;
+    font: 400 0.78rem/1.5 'IBM Plex Mono', monospace;
+  }
+
+  .models .intro {
+    margin: 0 0 1rem;
     color: #4a6378;
+  }
+
+  .models h3 {
+    margin: 1rem 0 0.4rem;
+    font: 600 0.68rem/1.4 'IBM Plex Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .models h3 span {
+    margin-left: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #6b8296;
+  }
+
+  .models ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .models li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 1rem;
+    padding: 0.35rem 0;
+    border-top: 1px solid #e3eaf0;
+  }
+
+  .models a {
+    color: #0a5f8a;
+    text-decoration: none;
+  }
+
+  .models a:hover,
+  .models a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .models .meta {
+    color: #6b8296;
   }
 
   .close {
@@ -314,6 +466,10 @@ const welcome = Astro.slots.has('default');
     min-height: 0;
     overflow-y: auto;
     padding: 12px;
+  }
+
+  .panel[hidden] {
+    display: none;
   }
 
   .welcome {

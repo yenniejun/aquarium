@@ -4,7 +4,7 @@
   "modelId": "z-ai/glm-5.3-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false,
+  "openWeights": true,
   "status": "final",
   "title": "The Thousandth Crane",
   "statement": "A girl folded nine hundred and ninety-nine cranes and ran out of paper, so the night folded the thousandth from its own darkness. It hangs there mid-flap, wings creased from starlight, still carrying the wish she never spoke aloud.",

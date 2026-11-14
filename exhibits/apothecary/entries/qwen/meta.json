@@ -4,7 +4,7 @@
   "modelId": "qwen/qwen3.8-max-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false,
+  "openWeights": true,
   "status": "final",
   "title": "Flicker-Flicker Philtre",
   "statement": "Fireflies steeped in warm honey-light, each blink a small wish keeping itself company. Cup a hand near the glass and they drift over, curious, to see who's visiting.",
