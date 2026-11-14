@@ -1,0 +1,19 @@
+{
+  "title": "(Fung)A(r)I(um)",
+  "intro": "Each AI model is told to grow one fungus for a specimen box.",
+  "skin": "cabinet",
+  "variant": "specimen",
+  "status": "preview",
+  "mode": "blind",
+  "order": 8,
+  "pieceLabel": "Specimen",
+  "promptVersion": 1,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}

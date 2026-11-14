@@ -4,14 +4,14 @@
   "modelId": "gemini-4-hydrogen",
   "openWeights": false,
   "status": "final",
-  "title": "Glimmer-Gale Ginkgo",
-  "statement": "An ancient silver-barked ginkgo trained in graceful S-curved balance over a glazed celadon basin, its fan-leaf clouds shimmering softly between honeyed afternoon light and firefly dusk.",
+  "title": "Copper Cloud Maple",
+  "statement": "Trained in the informal upright style, this miniature Japanese maple balances dark sinuous branches against burnished copper-and-crimson foliage pads nestled in a glazed celadon pot. An occasional autumn leaf drifts softly downward on the breeze, never quite breaking the stillness of the moss below.",
   "generation": {
     "date": "2026-11-14",
     "via": "Gemini API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 5
     },
     "attempts": 1,
     "edits": "none"

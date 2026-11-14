@@ -1,0 +1,1168 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Specimen</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #060914;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="specimen"></canvas>
+  <script>
+    (() => {
+      const canvas = document.getElementById('specimen');
+      const ctx = canvas.getContext('2d', { alpha: false });
+
+      const VW = 600;
+      const VH = 800;
+
+      let W = 0, H = 0, dpr = 1;
+      let scale = 1, offsetX = 0, offsetY = 0;
+
+      // Subtle pointer influence (optional, never blocks clicks or scroll)
+      let ptrTargetX = 0, ptrTargetY = 0;
+      let ptrX = 0, ptrY = 0;
+
+      window.addEventListener('pointermove', (e) => {
+        if (W <= 0 || H <= 0) return;
+        ptrTargetX = (e.clientX / W - 0.5) * 2;
+        ptrTargetY = (e.clientY / H - 0.5) * 2;
+      }, { passive: true });
+
+      window.addEventListener('pointerleave', () => {
+        ptrTargetX = 0;
+        ptrTargetY = 0;
+      }, { passive: true });
+
+      // Deterministic PRNG for stable organic textures
+      function mulberry32(seed) {
+        let a = seed >>> 0;
+        return function () {
+          a |= 0;
+          a = (a + 0x6d2b79f5) | 0;
+          let t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      const rand = mulberry32(482917);
+
+      // Pre-rendered glow stamps for fast additive luminescence
+      function makeGlowStamp(innerColor, midColor, size) {
+        const c = document.createElement('canvas');
+        c.width = size;
+        c.height = size;
+        const gctx = c.getContext('2d');
+        const half = size * 0.5;
+        const grad = gctx.createRadialGradient(half, half, 0, half, half, half);
+        grad.addColorStop(0, innerColor);
+        grad.addColorStop(0.28, midColor);
+        grad.addColorStop(1, 'rgba(0,0,0,0)');
+        gctx.fillStyle = grad;
+        gctx.fillRect(0, 0, size, size);
+        return c;
+      }
+
+      const glowCyan = makeGlowStamp('rgba(220,255,250,1)', 'rgba(65,240,215,0.45)', 64);
+      const glowGold = makeGlowStamp('rgba(255,248,215,1)', 'rgba(255,180,90,0.45)', 64);
+      const glowMagenta = makeGlowStamp('rgba(255,225,250,1)', 'rgba(225,85,200,0.42)', 64);
+      const glowViolet = makeGlowStamp('rgba(225,215,255,0.9)', 'rgba(120,85,240,0.35)', 64);
+      const glowStamps = [glowCyan, glowGold, glowMagenta, glowViolet];
+
+      // Offscreen backdrop cache (rebuilt on resize)
+      const bgCanvas = document.createElement('canvas');
+      const bgCtx = bgCanvas.getContext('2d', { alpha: false });
+
+      function buildBackground() {
+        bgCanvas.width = Math.max(1, Math.floor(W * dpr));
+        bgCanvas.height = Math.max(1, Math.floor(H * dpr));
+        bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        // Deep abyssal twilight gradient
+        const g = bgCtx.createRadialGradient(
+          W * 0.5, H * 0.42, W * 0.05,
+          W * 0.5, H * 0.48, Math.max(W, H) * 0.85
+        );
+        g.addColorStop(0, '#14203b');
+        g.addColorStop(0.42, '#0c1328');
+        g.addColorStop(0.78, '#070b18');
+        g.addColorStop(1, '#04060d');
+        bgCtx.fillStyle = g;
+        bgCtx.fillRect(0, 0, W, H);
+
+        // Subtle misty aurora wash
+        const mist1 = bgCtx.createRadialGradient(W * 0.35, H * 0.32, 0, W * 0.35, H * 0.32, Math.max(W, H) * 0.45);
+        mist1.addColorStop(0, 'rgba(38, 120, 130, 0.14)');
+        mist1.addColorStop(1, 'rgba(0,0,0,0)');
+        bgCtx.fillStyle = mist1;
+        bgCtx.fillRect(0, 0, W, H);
+
+        const mist2 = bgCtx.createRadialGradient(W * 0.68, H * 0.52, 0, W * 0.68, H * 0.52, Math.max(W, H) * 0.42);
+        mist2.addColorStop(0, 'rgba(130, 45, 145, 0.13)');
+        mist2.addColorStop(1, 'rgba(0,0,0,0)');
+        bgCtx.fillStyle = mist2;
+        bgCtx.fillRect(0, 0, W, H);
+      }
+
+      function resize() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        canvas.width = Math.max(1, Math.floor(W * dpr));
+        canvas.height = Math.max(1, Math.floor(H * dpr));
+
+        if (W / H < VW / VH) {
+          scale = W / VW;
+          offsetX = 0;
+          offsetY = (H - VH * scale) * 0.82;
+        } else {
+          scale = H / VH;
+          offsetX = (W - VW * scale) * 0.5;
+          offsetY = 0;
+        }
+
+        buildBackground();
+      }
+
+      window.addEventListener('resize', resize, { passive: true });
+      resize();
+
+      // --- Pre-generated botanical details ---
+
+      // Background bokeh motes
+      const bokehMotes = Array.from({ length: 28 }, () => ({
+        x: (rand() - 0.1) * 1.2 * VW,
+        y: rand() * VH * 0.85,
+        r: 2 + rand() * 7,
+        speed: 0.15 + rand() * 0.35,
+        phase: rand() * Math.PI * 2,
+        hue: rand() < 0.5 ? 0 : (rand() < 0.6 ? 1 : 2),
+        alpha: 0.08 + rand() * 0.18
+      }));
+
+      // Mycelium branching network under the mossy substrate
+      const myceliumBranches = [];
+      function growMycelium(x, y, angle, len, depth, maxDepth, rootDist) {
+        if (depth > maxDepth || len < 6) return;
+        const bend = (rand() - 0.5) * 0.55;
+        const nx = x + Math.cos(angle) * len;
+        const ny = y + Math.sin(angle) * len;
+        const cx = (x + nx) * 0.5 + Math.cos(angle + Math.PI * 0.5) * len * bend * 0.5;
+        const cy = (y + ny) * 0.5 + Math.sin(angle + Math.PI * 0.5) * len * bend * 0.5;
+
+        myceliumBranches.push({
+          x1: x, y1: y, cx, cy, x2: nx, y2: ny,
+          depth,
+          d0: rootDist,
+          d1: rootDist + len,
+          width: Math.max(0.7, 2.8 - depth * 0.42),
+          hueMix: rand()
+        });
+
+        const children = depth < 2 ? 2 : (rand() < 0.68 ? 2 : 1);
+        for (let i = 0; i < children; i++) {
+          const spread = (i === 0 ? -1 : 1) * (0.28 + rand() * 0.42) + (rand() - 0.5) * 0.2;
+          growMycelium(nx, ny, angle + spread, len * (0.68 + rand() * 0.18), depth + 1, maxDepth, rootDist + len);
+        }
+      }
+
+      // Grow from the 3 mushroom bases downward & outward
+      growMycelium(310, 622, Math.PI * 0.52, 34, 0, 5, 0);
+      growMycelium(310, 622, Math.PI * 0.78, 36, 0, 5, 0);
+      growMycelium(310, 622, Math.PI * 0.22, 36, 0, 5, 0);
+      growMycelium(172, 638, Math.PI * 0.65, 30, 0, 4, 8);
+      growMycelium(172, 638, Math.PI * 0.35, 28, 0, 4, 8);
+      growMycelium(438, 635, Math.PI * 0.36, 30, 0, 4, 10);
+      growMycelium(438, 635, Math.PI * 0.62, 26, 0, 4, 10);
+
+      // Moss cushion mounds & tiny blades
+      const mossMounds = [
+        { x: 110, y: 652, rx: 120, ry: 34, c1: '#164d44', c2: '#0b2626' },
+        { x: 245, y: 632, rx: 145, ry: 42, c1: '#1f6956', c2: '#0d2b2b' },
+        { x: 395, y: 636, rx: 140, ry: 38, c1: '#195a4c', c2: '#0c2627' },
+        { x: 510, y: 658, rx: 125, ry: 34, c1: '#14443d', c2: '#091f20' },
+        { x: -10, y: 668, rx: 130, ry: 32, c1: '#113a35', c2: '#081b1c' },
+        { x: 615, y: 668, rx: 130, ry: 32, c1: '#113a35', c2: '#081b1c' }
+      ];
+
+      const mossBlades = Array.from({ length: 190 }, () => {
+        const bx = -120 + rand() * 840;
+        const moundH = Math.exp(-Math.pow((bx - 300) / 240, 2)) * 32;
+        const by = 648 - moundH + (rand() - 0.3) * 28;
+        return {
+          x: bx,
+          y: by,
+          h: 6 + rand() * 14,
+          lean: (rand() - 0.5) * 8,
+          phase: rand() * Math.PI * 2,
+          tone: rand(),
+          glowTip: rand() < 0.16
+        };
+      });
+
+      // Tiny crystalline mineral shards in the moss
+      const crystals = [
+        { x: 118, y: 655, w: 9, h: 19, angle: -0.35, hue: 'amber' },
+        { x: 128, y: 659, w: 6, h: 12, angle: 0.22, hue: 'amber' },
+        { x: 472, y: 650, w: 8, h: 17, angle: 0.3, hue: 'cyan' },
+        { x: 482, y: 654, w: 6, h: 11, angle: -0.18, hue: 'violet' },
+        { x: 256, y: 644, w: 5, h: 10, angle: -0.25, hue: 'cyan' }
+      ];
+
+      // Curled moss tendrils
+      const tendrils = [
+        { x: 138, y: 642, dir: -1, h: 36, phase: 0.4 },
+        { x: 230, y: 626, dir: -1, h: 28, phase: 1.7 },
+        { x: 376, y: 626, dir: 1, h: 30, phase: 2.9 },
+        { x: 468, y: 642, dir: 1, h: 38, phase: 4.1 }
+      ];
+
+      // Star freckles on caps
+      function makeFreckles(count, seed) {
+        const r = mulberry32(seed);
+        return Array.from({ length: count }, () => {
+          const u = (r() - 0.5) * 1.72; // horizontal normalized [-0.86, 0.86]
+          const v = r();                // vertical [0 (crown) .. 1 (rim)]
+          return {
+            u,
+            v,
+            size: 1.4 + r() * 3.4,
+            phase: r() * Math.PI * 2,
+            speed: 1.2 + r() * 2.2,
+            stampIdx: r() < 0.5 ? 0 : (r() < 0.6 ? 1 : 2)
+          };
+        });
+      }
+
+      const heroFreckles = makeFreckles(34, 9102);
+      const leftFreckles = makeFreckles(16, 4418);
+
+      // Rising helical spores
+      const spores = [];
+      function spawnSpore(initial) {
+        const sourceRoll = rand();
+        let ox, oy, radiusScale;
+        if (sourceRoll < 0.65) {
+          // Hero cap underside & tassels
+          ox = 305 + (rand() - 0.5) * 180;
+          oy = 295 + (rand() - 0.5) * 45;
+          radiusScale = 1;
+        } else if (sourceRoll < 0.86) {
+          // Left companion
+          ox = 152 + (rand() - 0.5) * 85;
+          oy = 428 + (rand() - 0.5) * 30;
+          radiusScale = 0.78;
+        } else {
+          // Right baby lantern bud
+          ox = 442 + (rand() - 0.5) * 36;
+          oy = 532 + (rand() - 0.5) * 20;
+          radiusScale = 0.7;
+        }
+
+        const life = 4.5 + rand() * 5.5;
+        return {
+          ox,
+          oy,
+          y: initial ? oy - rand() * 320 : oy,
+          age: initial ? rand() * life : 0,
+          life,
+          vy: (24 + rand() * 34) * radiusScale,
+          helixAmp: (10 + rand() * 26) * radiusScale,
+          helixFreq: 1.1 + rand() * 2.1,
+          phase: rand() * Math.PI * 2,
+          driftX: (rand() - 0.5) * 14,
+          size: (2.2 + rand() * 4.2) * radiusScale,
+          ringed: rand() < 0.14,
+          stampIdx: rand() < 0.44 ? 0 : (rand() < 0.55 ? 1 : 2)
+        };
+      }
+
+      for (let i = 0; i < 92; i++) {
+        spores.push(spawnSpore(true));
+      }
+
+      // --- Drawing Helpers ---
+
+      function evalCubic(p0, p1, p2, p3, t) {
+        const mt = 1 - t;
+        const mt2 = mt * mt;
+        const t2 = t * t;
+        return {
+          x: mt2 * mt * p0.x + 3 * mt2 * t * p1.x + 3 * mt * t2 * p2.x + t2 * t * p3.x,
+          y: mt2 * mt * p0.y + 3 * mt2 * t * p1.y + 3 * mt * t2 * p2.y + t2 * t * p3.y
+        };
+      }
+
+      function drawStem(base, c1, c2, top, baseW, topW, t, phase, hasCollar) {
+        const N = 26;
+        const pts = [];
+        const left = [];
+        const right = [];
+
+        for (let i = 0; i <= N; i++) {
+          const u = i / N;
+          const p = evalCubic(base, c1, c2, top, u);
+          const pNext = evalCubic(base, c1, c2, top, Math.min(1, u + 0.02));
+          const pPrev = evalCubic(base, c1, c2, top, Math.max(0, u - 0.02));
+          const dx = pNext.x - pPrev.x;
+          const dy = pNext.y - pPrev.y;
+          const len = Math.hypot(dx, dy) || 1;
+          const nx = -dy / len;
+          const ny = dx / len;
+
+          // Bulbous base tapering up, slight flare into gill socket
+          const bulb = Math.exp(-u * 6.5) * 0.72;
+          const flare = Math.pow(Math.max(0, u - 0.82) / 0.18, 2) * 0.25;
+          const w = (baseW * (1 - u) + topW * u) * (1 + bulb + flare);
+
+          pts.push({ x: p.x, y: p.y, nx, ny, w, u });
+          left.push({ x: p.x + nx * w, y: p.y + ny * w });
+          right.push({ x: p.x - nx * w, y: p.y - ny * w });
+        }
+
+        // Stem body fill
+        ctx.beginPath();
+        ctx.moveTo(left[0].x, left[0].y);
+        for (let i = 1; i <= N; i++) ctx.lineTo(left[i].x, left[i].y);
+        for (let i = N; i >= 0; i--) ctx.lineTo(right[i].x, right[i].y);
+        ctx.closePath();
+
+        const midPt = pts[Math.floor(N * 0.5)];
+        const stemGrad = ctx.createLinearGradient(
+          midPt.x - midPt.w * 1.6, midPt.y,
+          midPt.x + midPt.w * 1.6, midPt.y
+        );
+        stemGrad.addColorStop(0, '#4a3d8f');
+        stemGrad.addColorStop(0.28, '#231947');
+        stemGrad.addColorStop(0.68, '#171130');
+        stemGrad.addColorStop(1, '#583173');
+        ctx.fillStyle = stemGrad;
+        ctx.fill();
+
+        // Rim glow along stem edges
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.lineWidth = 1.6;
+        ctx.strokeStyle = 'rgba(90, 235, 220, 0.25)';
+        ctx.beginPath();
+        ctx.moveTo(left[0].x, left[0].y);
+        for (let i = 1; i <= N; i++) ctx.lineTo(left[i].x, left[i].y);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(235, 110, 210, 0.22)';
+        ctx.beginPath();
+        ctx.moveTo(right[0].x, right[0].y);
+        for (let i = 1; i <= N; i++) ctx.lineTo(right[i].x, right[i].y);
+        ctx.stroke();
+
+        // Subtle fluted longitudinal grooves
+        const grooves = [-0.48, 0, 0.45];
+        for (let g = 0; g < grooves.length; g++) {
+          const frac = grooves[g];
+          ctx.strokeStyle = g === 1 ? 'rgba(130, 245, 230, 0.22)' : 'rgba(170, 150, 255, 0.14)';
+          ctx.lineWidth = g === 1 ? 2.2 : 1;
+          ctx.beginPath();
+          for (let i = 0; i <= N; i++) {
+            const p = pts[i];
+            const px = p.x + p.nx * p.w * frac;
+            const py = p.y + p.ny * p.w * frac;
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+        }
+
+        // Pulsing luminous sap packets rising inside the stem core
+        for (let pIdx = 0; pIdx < 4; pIdx++) {
+          const uPulse = ((t * 0.32 + phase * 0.2 + pIdx * 0.25) % 1);
+          const idx = Math.min(N - 1, Math.floor(uPulse * N));
+          const p = pts[idx];
+          const r = p.w * 1.15;
+          const stamp = pIdx % 2 === 0 ? glowCyan : glowGold;
+          ctx.globalAlpha = 0.55 * Math.sin(uPulse * Math.PI);
+          ctx.drawImage(stamp, p.x - r, p.y - r, r * 2, r * 2);
+        }
+        ctx.restore();
+
+        // Lacy glowing collar (annulus)
+        if (hasCollar) {
+          const cPt = pts[Math.floor(N * 0.68)];
+          const angle = Math.atan2(-cPt.nx, cPt.ny);
+          ctx.save();
+          ctx.translate(cPt.x, cPt.y);
+          ctx.rotate(angle);
+
+          const skirtW = cPt.w * 2.5;
+          const skirtH = 22 + Math.sin(t * 1.5) * 2;
+          const pleats = 16;
+
+          ctx.beginPath();
+          ctx.moveTo(-cPt.w * 0.9, -2);
+          for (let i = 0; i <= pleats; i++) {
+            const frac = i / pleats;
+            const px = -skirtW + frac * skirtW * 2;
+            const wave = Math.sin(frac * Math.PI * 6 + t * 2.1) * 3.5;
+            const py = skirtH * Math.sin(frac * Math.PI) * 0.45 + 10 + wave;
+            ctx.lineTo(px, py);
+          }
+          ctx.lineTo(cPt.w * 0.9, -2);
+          ctx.closePath();
+
+          const collarGrad = ctx.createLinearGradient(0, -2, 0, skirtH + 10);
+          collarGrad.addColorStop(0, 'rgba(130, 95, 220, 0.55)');
+          collarGrad.addColorStop(0.65, 'rgba(75, 225, 215, 0.35)');
+          collarGrad.addColorStop(1, 'rgba(255, 225, 165, 0.55)');
+          ctx.fillStyle = collarGrad;
+          ctx.fill();
+
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.strokeStyle = 'rgba(155, 255, 240, 0.45)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          // Delicate lace ribs & tip beads
+          for (let i = 1; i < pleats; i += 2) {
+            const frac = i / pleats;
+            const px = -skirtW + frac * skirtW * 2;
+            const wave = Math.sin(frac * Math.PI * 6 + t * 2.1) * 3.5;
+            const py = skirtH * Math.sin(frac * Math.PI) * 0.45 + 10 + wave;
+            ctx.beginPath();
+            ctx.moveTo((-cPt.w * 0.8 + frac * cPt.w * 1.6), -1);
+            ctx.lineTo(px, py);
+            ctx.strokeStyle = 'rgba(180, 245, 255, 0.25)';
+            ctx.stroke();
+            ctx.drawImage(glowCyan, px - 4, py - 4, 8, 8);
+          }
+          ctx.restore();
+        }
+      }
+
+      function drawOrreryRings(cx, cy, tilt, rings, t, frontPass) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(tilt);
+        ctx.globalCompositeOperation = 'lighter';
+
+        for (let r = 0; r < rings.length; r++) {
+          const ring = rings[r];
+          const wobble = Math.sin(t * ring.precessSpeed + ring.phase) * 0.08;
+          ctx.save();
+          ctx.rotate(ring.tilt + wobble);
+
+          const rx = ring.rx;
+          const ry = ring.ry;
+          const startA = frontPass ? 0 : Math.PI;
+          const endA = frontPass ? Math.PI : Math.PI * 2;
+
+          // Draw half-ellipse arc (inverted y so sin(a)>0 is front/higher)
+          ctx.beginPath();
+          const steps = 36;
+          for (let i = 0; i <= steps; i++) {
+            const a = startA + (endA - startA) * (i / steps);
+            const x = Math.cos(a) * rx;
+            const y = -Math.sin(a) * ry;
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = ring.color;
+          ctx.lineWidth = ring.lineWidth;
+          ctx.stroke();
+
+          // Orbiting pearl spore-moons
+          for (let m = 0; m < ring.moons.length; m++) {
+            const moon = ring.moons[m];
+            const ma = (moon.offset + t * ring.speed) % (Math.PI * 2);
+            const isFront = Math.sin(ma) >= 0;
+            if (isFront !== frontPass) continue;
+
+            const mx = Math.cos(ma) * rx;
+            const my = -Math.sin(ma) * ry;
+            const mr = moon.r;
+
+            const stamp = glowStamps[moon.stampIdx];
+            ctx.globalAlpha = isFront ? 0.95 : 0.65;
+            ctx.drawImage(stamp, mx - mr * 3.5, my - mr * 3.5, mr * 7, mr * 7);
+
+            ctx.fillStyle = '#fff9eb';
+            ctx.beginPath();
+            ctx.arc(mx, my, mr, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (moon.miniRing) {
+              ctx.strokeStyle = 'rgba(255, 225, 160, 0.7)';
+              ctx.lineWidth = 0.9;
+              ctx.beginPath();
+              ctx.ellipse(mx, my, mr * 2.2, mr * 0.65, -0.3, 0, Math.PI * 2);
+              ctx.stroke();
+            }
+          }
+          ctx.restore();
+        }
+        ctx.restore();
+      }
+
+      function drawTassel(x, y, len, swayAngle, phase, t, isBack) {
+        const segs = 10;
+        const pts = [];
+        for (let i = 0; i <= segs; i++) {
+          const u = i / segs;
+          const wave = Math.sin(t * 2.1 + phase - u * 3.2) * (5 * u * u);
+          const px = x + Math.sin(swayAngle) * len * u + wave;
+          const py = y + Math.cos(swayAngle) * len * u;
+          pts.push({ x: px, y: py, u });
+        }
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.globalAlpha = isBack ? 0.45 : 0.85;
+        ctx.strokeStyle = 'rgba(130, 240, 230, 0.45)';
+        ctx.lineWidth = 1.1;
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i <= segs; i++) ctx.lineTo(pts[i].x, pts[i].y);
+        ctx.stroke();
+
+        // Tiny glowing beads along filament
+        for (let i = 3; i < segs; i += 3) {
+          const p = pts[i];
+          ctx.drawImage(glowCyan, p.x - 4, p.y - 4, 8, 8);
+        }
+
+        // Terminal glowing dewdrop
+        const tip = pts[segs];
+        const pulse = 0.75 + 0.25 * Math.sin(t * 2.6 + phase);
+        const r = 4.5 * pulse;
+        ctx.drawImage(glowGold, tip.x - r * 2.5, tip.y - r * 2.5, r * 5, r * 5);
+        ctx.fillStyle = '#fff5d6';
+        ctx.beginPath();
+        ctx.arc(tip.x, tip.y, 1.9, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function computeCapGeometry(cfg, t) {
+        const breath = 1 + 0.025 * Math.sin(t * 1.15 + cfg.phase);
+        const rx = cfg.rx * breath;
+        const ry = cfg.ry * (1 + 0.08 * Math.sin(t * 1.15 + cfg.phase));
+        const h = cfg.h * (1 - 0.025 * Math.sin(t * 1.15 + cfg.phase));
+        const M = 96;
+        const rim = [];
+
+        for (let i = 0; i <= M; i++) {
+          const a = (i / M) * Math.PI * 2;
+          const scallop = 1 + cfg.scallopAmp * Math.cos(cfg.lobes * a);
+          const x = Math.cos(a) * rx * scallop;
+          const y = -Math.sin(a) * ry * scallop + cfg.droopAmp * Math.cos(cfg.lobes * a);
+          rim.push({ x, y, a });
+        }
+        return { rx, ry, h, rim, M };
+      }
+
+      function drawCapUnderside(cfg, geom, t) {
+        const { rx, ry, h, rim, M } = geom;
+        ctx.save();
+        ctx.translate(cfg.x, cfg.y);
+        ctx.rotate(cfg.tilt);
+
+        // Back tassels (drawn in cap space, hanging down in world space)
+        if (cfg.tasselLen > 0) {
+          for (let k = 0; k < cfg.lobes; k++) {
+            const a = (k / cfg.lobes) * Math.PI * 2;
+            if (Math.sin(a) < -0.1) {
+              const idx = Math.round((a / (Math.PI * 2)) * M);
+              const pt = rim[idx];
+              drawTassel(pt.x, pt.y, cfg.tasselLen * 0.88, -cfg.tilt + ptrX * 0.08, k * 1.3, t, true);
+            }
+          }
+        }
+
+        // Fill glowing underside bell
+        ctx.beginPath();
+        ctx.moveTo(rim[0].x, rim[0].y);
+        for (let i = 1; i <= M; i++) ctx.lineTo(rim[i].x, rim[i].y);
+        ctx.closePath();
+
+        const underGrad = ctx.createRadialGradient(0, -h * 0.12, 4, 0, 0, rx * 1.05);
+        underGrad.addColorStop(0, '#fff4cc');
+        underGrad.addColorStop(0.28, '#ff9d6e');
+        underGrad.addColorStop(0.62, '#8b2f88');
+        underGrad.addColorStop(0.9, '#1f6a7d');
+        underGrad.addColorStop(1, '#3cf0d8');
+        ctx.fillStyle = underGrad;
+        ctx.fill();
+
+        // Radial pleated gills with traveling bioluminescent wave
+        const gillSocketY = -h * 0.16;
+        const nGills = cfg.nGills;
+        ctx.save();
+        ctx.clip();
+        for (let g = 0; g < nGills; g++) {
+          const a = (g / nGills) * Math.PI * 2;
+          const idx = Math.round((g / nGills) * M);
+          const pt = rim[idx];
+          const wave = 0.5 + 0.5 * Math.sin(a * 3 - t * 2.4 + cfg.phase);
+          const midX = pt.x * 0.48 + Math.sin(a) * 6;
+          const midY = gillSocketY + (pt.y - gillSocketY) * 0.52;
+
+          ctx.beginPath();
+          ctx.moveTo(0, gillSocketY);
+          ctx.quadraticCurveTo(midX, midY, pt.x, pt.y);
+          ctx.strokeStyle = `rgba(38, 12, 48, ${0.42 - wave * 0.22})`;
+          ctx.lineWidth = 1.4;
+          ctx.stroke();
+
+          if (g % 2 === 0) {
+            ctx.beginPath();
+            ctx.moveTo(pt.x * 0.25, gillSocketY + (pt.y - gillSocketY) * 0.25);
+            ctx.quadraticCurveTo(midX, midY, pt.x, pt.y);
+            ctx.strokeStyle = `rgba(120, 255, 235, ${0.15 + wave * 0.42})`;
+            ctx.lineWidth = 1.1;
+            ctx.stroke();
+          }
+        }
+        ctx.restore();
+
+        ctx.restore();
+      }
+
+      function drawCapOuter(cfg, geom, freckles, t) {
+        const { rx, ry, h, rim, M } = geom;
+        const halfM = Math.floor(M / 2); // a from 0 to pi (front rim)
+
+        ctx.save();
+        ctx.translate(cfg.x, cfg.y);
+        ctx.rotate(cfg.tilt);
+
+        // Outer translucent velvet dome silhouette:
+        // Left rim (M/2) -> over crown (0, -h) -> Right rim (0) -> back along front rim (0..M/2)
+        const leftRim = rim[halfM];
+        const rightRim = rim[0];
+
+        ctx.beginPath();
+        ctx.moveTo(leftRim.x, leftRim.y);
+        ctx.bezierCurveTo(
+          leftRim.x * 1.02, -h * 0.58,
+          -rx * 0.48, -h * 1.04,
+          0, -h
+        );
+        ctx.bezierCurveTo(
+          rx * 0.48, -h * 1.04,
+          rightRim.x * 1.02, -h * 0.58,
+          rightRim.x, rightRim.y
+        );
+        for (let i = 1; i <= halfM; i++) {
+          ctx.lineTo(rim[i].x, rim[i].y);
+        }
+        ctx.closePath();
+
+        // Rich jewel-toned semi-translucent dome gradient
+        const domeGrad = ctx.createRadialGradient(
+          -rx * 0.18, -h * 0.72, rx * 0.08,
+          0, -h * 0.22, rx * 1.18
+        );
+        domeGrad.addColorStop(0, 'rgba(195, 75, 165, 0.94)');
+        domeGrad.addColorStop(0.32, 'rgba(115, 32, 128, 0.92)');
+        domeGrad.addColorStop(0.68, 'rgba(38, 18, 72, 0.90)');
+        domeGrad.addColorStop(0.9, 'rgba(42, 130, 145, 0.80)');
+        domeGrad.addColorStop(1, 'rgba(95, 245, 220, 0.78)');
+        ctx.fillStyle = domeGrad;
+        ctx.fill();
+
+        // Clip inside outer dome for stained-glass ribs & twinkling star freckles
+        ctx.save();
+        ctx.clip();
+
+        // Subtle subsurface glow shining through the lower translucent skirt
+        ctx.globalCompositeOperation = 'lighter';
+        const subGlow = ctx.createRadialGradient(0, -h * 0.1, 8, 0, -h * 0.05, rx * 0.95);
+        subGlow.addColorStop(0, 'rgba(255, 175, 105, 0.32)');
+        subGlow.addColorStop(0.55, 'rgba(180, 70, 210, 0.14)');
+        subGlow.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = subGlow;
+        ctx.fillRect(-rx * 1.2, -h * 1.2, rx * 2.4, h * 1.5);
+
+        // Stained-glass meridian ribs curving from crown to each front lobe peak
+        for (let k = 0; k <= cfg.lobes / 2; k++) {
+          const a = (k / cfg.lobes) * Math.PI * 2;
+          const idx = Math.min(halfM, Math.round((a / (Math.PI * 2)) * M));
+          const pt = rim[idx];
+          const pulse = 0.55 + 0.45 * Math.sin(t * 1.7 + k * 0.9 + cfg.phase);
+
+          ctx.beginPath();
+          ctx.moveTo(0, -h * 0.95);
+          ctx.bezierCurveTo(
+            pt.x * 0.42, -h * 0.88,
+            pt.x * 0.95, -h * 0.42,
+            pt.x, pt.y
+          );
+          ctx.strokeStyle = `rgba(115, 248, 232, ${0.18 + pulse * 0.28})`;
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+        }
+
+        // Twinkling star freckles on cap surface
+        for (let f = 0; f < freckles.length; f++) {
+          const fr = freckles[f];
+          const fy = -h * 0.92 + fr.v * (h * 0.82);
+          const widthAtV = Math.sin(Math.pow(fr.v, 0.65) * Math.PI * 0.52) * rx * 0.96;
+          const fx = fr.u * widthAtV;
+          const twinkle = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * fr.speed + fr.phase));
+          const r = fr.size * (0.85 + 0.3 * twinkle);
+
+          ctx.globalAlpha = 0.78 * twinkle;
+          ctx.drawImage(glowStamps[fr.stampIdx], fx - r * 2.6, fy - r * 2.6, r * 5.2, r * 5.2);
+          ctx.fillStyle = '#fffaf0';
+          ctx.beginPath();
+          ctx.arc(fx, fy, r * 0.45, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+
+        // Luminous iridescent front scalloped rim highlight
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.beginPath();
+        ctx.moveTo(rim[0].x, rim[0].y);
+        for (let i = 1; i <= halfM; i++) ctx.lineTo(rim[i].x, rim[i].y);
+        ctx.strokeStyle = 'rgba(130, 255, 235, 0.68)';
+        ctx.lineWidth = 2.2;
+        ctx.stroke();
+
+        // Soft crown highlight
+        ctx.beginPath();
+        ctx.ellipse(-rx * 0.14, -h * 0.83, rx * 0.26, h * 0.09, -0.18, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 195, 245, 0.16)';
+        ctx.fill();
+        ctx.restore();
+
+        // Front hanging beaded spore-tassels
+        if (cfg.tasselLen > 0) {
+          for (let k = 0; k < cfg.lobes; k++) {
+            const a = (k / cfg.lobes) * Math.PI * 2;
+            if (Math.sin(a) >= -0.05) {
+              const idx = Math.round((a / (Math.PI * 2)) * M) % M;
+              const pt = rim[idx];
+              drawTassel(pt.x, pt.y, cfg.tasselLen, -cfg.tilt + ptrX * 0.09, k * 1.15, t, false);
+            }
+          }
+        }
+
+        ctx.restore();
+      }
+
+      function drawLanternBud(t, sway) {
+        const bx = 438, by = 632;
+        const topX = 444 + sway * 5, topY = 552;
+        drawStem(
+          { x: bx, y: by },
+          { x: 432, y: 604 },
+          { x: 452, y: 580 },
+          { x: topX, y: topY },
+          11, 6, t, 2.3, false
+        );
+
+        ctx.save();
+        ctx.translate(topX, topY);
+        ctx.rotate(0.14 + sway * 0.04);
+
+        const pulse = 1 + 0.04 * Math.sin(t * 1.9 + 1.2);
+        const rw = 26 * pulse;
+        const rh = 44 * pulse;
+
+        // Inner amber lantern glow
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.drawImage(glowGold, -rw * 1.9, -rh * 1.3, rw * 3.8, rh * 2.2);
+        ctx.restore();
+
+        // Plump teardrop bud silhouette
+        ctx.beginPath();
+        ctx.moveTo(0, 6);
+        ctx.bezierCurveTo(-rw * 1.1, 4, -rw * 0.95, -rh * 0.65, 0, -rh);
+        ctx.bezierCurveTo(rw * 0.95, -rh * 0.65, rw * 1.1, 4, 0, 6);
+        ctx.closePath();
+
+        const budGrad = ctx.createRadialGradient(0, -rh * 0.45, 2, 0, -rh * 0.45, rh * 0.85);
+        budGrad.addColorStop(0, '#ffe8a8');
+        budGrad.addColorStop(0.45, '#b83d8c');
+        budGrad.addColorStop(0.88, '#2b164c');
+        budGrad.addColorStop(1, '#44e8cf');
+        ctx.fillStyle = budGrad;
+        ctx.fill();
+
+        // Translucent glowing seams between curled petals
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        const slits = [-0.45, 0, 0.45];
+        for (let s of slits) {
+          ctx.beginPath();
+          ctx.moveTo(0, -rh);
+          ctx.quadraticCurveTo(rw * s * 1.3, -rh * 0.45, rw * s * 0.2, 4);
+          ctx.strokeStyle = 'rgba(255, 220, 145, 0.65)';
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+        }
+        ctx.restore();
+        ctx.restore();
+      }
+
+      function drawSubstrate(t) {
+        const minX = Math.min(-40, -offsetX / scale - 40);
+        const maxX = Math.max(VW + 40, (W - offsetX) / scale + 40);
+        const maxY = Math.max(VH + 40, (H - offsetY) / scale + 40);
+
+        // Dark bog-wood & humus mound base
+        ctx.beginPath();
+        ctx.moveTo(minX, maxY);
+        ctx.lineTo(minX, 668);
+        ctx.bezierCurveTo(80, 650, 190, 616, 310, 618);
+        ctx.bezierCurveTo(430, 620, 520, 652, maxX, 668);
+        ctx.lineTo(maxX, maxY);
+        ctx.closePath();
+
+        const soilGrad = ctx.createLinearGradient(0, 616, 0, maxY);
+        soilGrad.addColorStop(0, '#18242e');
+        soilGrad.addColorStop(0.28, '#0f1621');
+        soilGrad.addColorStop(0.7, '#080c14');
+        soilGrad.addColorStop(1, '#04060b');
+        ctx.fillStyle = soilGrad;
+        ctx.fill();
+
+        // Gnarled bark contour ridges
+        ctx.strokeStyle = 'rgba(70, 130, 130, 0.16)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(minX, 686);
+        ctx.bezierCurveTo(130, 670, 240, 646, 360, 658);
+        ctx.bezierCurveTo(460, 668, 550, 684, maxX, 690);
+        ctx.stroke();
+
+        // Pulsing mycelial network veins beneath bark
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        for (let i = 0; i < myceliumBranches.length; i++) {
+          const b = myceliumBranches[i];
+          const pulsePhase = (t * 95 - b.d0) % 260;
+          const active = pulsePhase > 0 && pulsePhase < 55 ? Math.sin((pulsePhase / 55) * Math.PI) : 0;
+          const alpha = 0.18 + active * 0.55;
+
+          ctx.beginPath();
+          ctx.moveTo(b.x1, b.y1);
+          ctx.quadraticCurveTo(b.cx, b.cy, b.x2, b.y2);
+          ctx.strokeStyle = b.hueMix < 0.65
+            ? `rgba(75, 240, 220, ${alpha})`
+            : `rgba(215, 115, 245, ${alpha})`;
+          ctx.lineWidth = b.width + active * 1.1;
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Velvet moss cushions
+        for (let i = 0; i < mossMounds.length; i++) {
+          const m = mossMounds[i];
+          const mg = ctx.createRadialGradient(m.x, m.y - m.ry * 0.4, m.rx * 0.1, m.x, m.y, m.rx);
+          mg.addColorStop(0, m.c1);
+          mg.addColorStop(0.65, m.c2);
+          mg.addColorStop(1, 'rgba(8, 20, 22, 0)');
+          ctx.fillStyle = mg;
+          ctx.beginPath();
+          ctx.ellipse(m.x, m.y, m.rx, m.ry, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Crystalline mineral shards
+        for (let i = 0; i < crystals.length; i++) {
+          const cr = crystals[i];
+          ctx.save();
+          ctx.translate(cr.x, cr.y);
+          ctx.rotate(cr.angle);
+          ctx.beginPath();
+          ctx.moveTo(-cr.w * 0.5, 0);
+          ctx.lineTo(-cr.w * 0.35, -cr.h * 0.72);
+          ctx.lineTo(0, -cr.h);
+          ctx.lineTo(cr.w * 0.42, -cr.h * 0.68);
+          ctx.lineTo(cr.w * 0.5, 0);
+          ctx.closePath();
+
+          const cg = ctx.createLinearGradient(0, -cr.h, 0, 0);
+          if (cr.hue === 'amber') {
+            cg.addColorStop(0, '#ffe39e');
+            cg.addColorStop(0.6, '#d6703c');
+            cg.addColorStop(1, '#3b1c24');
+          } else if (cr.hue === 'cyan') {
+            cg.addColorStop(0, '#b5fff5');
+            cg.addColorStop(0.6, '#229e9a');
+            cg.addColorStop(1, '#102e3a');
+          } else {
+            cg.addColorStop(0, '#f0c4ff');
+            cg.addColorStop(0.6, '#7a3ab8');
+            cg.addColorStop(1, '#1f1238');
+          }
+          ctx.fillStyle = cg;
+          ctx.fill();
+
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        // Swaying curled moss tendrils
+        for (let i = 0; i < tendrils.length; i++) {
+          const td = tendrils[i];
+          const sway = Math.sin(t * 1.4 + td.phase) * 5 + ptrX * 4;
+          const tx = td.x + td.dir * 16 + sway;
+          const ty = td.y - td.h;
+
+          ctx.beginPath();
+          ctx.moveTo(td.x, td.y);
+          ctx.quadraticCurveTo(td.x - td.dir * 4, td.y - td.h * 0.6, tx, ty);
+          ctx.strokeStyle = '#3da382';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Spiral curl at tip
+          ctx.beginPath();
+          ctx.arc(tx + td.dir * 4, ty + 2, 4.5, 0, Math.PI * 1.55, td.dir > 0);
+          ctx.strokeStyle = '#6cf0c2';
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+
+          ctx.save();
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.drawImage(glowCyan, tx + td.dir * 4 - 6, ty - 4, 12, 12);
+          ctx.restore();
+        }
+
+        // Plush moss blades
+        for (let i = 0; i < mossBlades.length; i++) {
+          const b = mossBlades[i];
+          const sway = Math.sin(t * 1.6 + b.phase) * 1.8 + ptrX * 2;
+          ctx.beginPath();
+          ctx.moveTo(b.x, b.y);
+          ctx.quadraticCurveTo(b.x + b.lean * 0.4, b.y - b.h * 0.6, b.x + b.lean + sway, b.y - b.h);
+          ctx.strokeStyle = b.tone < 0.45 ? '#1b5f51' : (b.tone < 0.8 ? '#2c8a6c' : '#53c28a');
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+
+          if (b.glowTip) {
+            ctx.save();
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.drawImage(glowCyan, b.x + b.lean + sway - 4.5, b.y - b.h - 4.5, 9, 9);
+            ctx.restore();
+          }
+        }
+      }
+
+      // --- Orrery Ring Definitions ---
+      const heroRings = [
+        {
+          rx: 82, ry: 20, tilt: -0.18, speed: 0.42, precessSpeed: 0.35, phase: 0,
+          color: 'rgba(255, 220, 145, 0.55)', lineWidth: 1.2,
+          moons: [
+            { offset: 0.3, r: 3.4, stampIdx: 1, miniRing: true },
+            { offset: 3.5, r: 2.3, stampIdx: 0, miniRing: false }
+          ]
+        },
+        {
+          rx: 62, ry: 15, tilt: 0.24, speed: -0.64, precessSpeed: 0.45, phase: 1.8,
+          color: 'rgba(105, 248, 232, 0.58)', lineWidth: 1.1,
+          moons: [
+            { offset: 1.1, r: 2.8, stampIdx: 0, miniRing: false },
+            { offset: 4.2, r: 2.6, stampIdx: 2, miniRing: true }
+          ]
+        },
+        {
+          rx: 44, ry: 11, tilt: -0.06, speed: 0.92, precessSpeed: 0.55, phase: 3.4,
+          color: 'rgba(235, 130, 245, 0.52)', lineWidth: 1.0,
+          moons: [
+            { offset: 2.4, r: 2.2, stampIdx: 1, miniRing: false }
+          ]
+        }
+      ];
+
+      const leftRings = [
+        {
+          rx: 38, ry: 10, tilt: 0.18, speed: 0.78, precessSpeed: 0.4, phase: 0.9,
+          color: 'rgba(130, 248, 232, 0.5)', lineWidth: 1.0,
+          moons: [
+            { offset: 0.8, r: 2.2, stampIdx: 1, miniRing: false },
+            { offset: 3.9, r: 1.8, stampIdx: 0, miniRing: false }
+          ]
+        }
+      ];
+
+      // --- Main Animation Loop ---
+      let lastTime = performance.now();
+
+      function frame(now) {
+        const dt = Math.min(0.05, (now - lastTime) * 0.001);
+        lastTime = now;
+        const t = now * 0.001;
+
+        ptrX += (ptrTargetX - ptrX) * Math.min(1, dt * 4);
+        ptrY += (ptrTargetY - ptrY) * Math.min(1, dt * 4);
+
+        // Blit static twilight backdrop
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.drawImage(bgCanvas, 0, 0);
+
+        // Apply specimen viewport transform
+        ctx.setTransform(dpr * scale, 0, 0, dpr * scale, dpr * offsetX, dpr * offsetY);
+
+        // Distant drifting bokeh motes
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        for (let i = 0; i < bokehMotes.length; i++) {
+          const m = bokehMotes[i];
+          const mx = m.x + Math.sin(t * m.speed + m.phase) * 18 - ptrX * 8;
+          const my = m.y + Math.cos(t * m.speed * 0.8 + m.phase) * 14 - ptrY * 6;
+          ctx.globalAlpha = m.alpha * (0.7 + 0.3 * Math.sin(t * 1.1 + m.phase));
+          ctx.drawImage(glowStamps[m.hue], mx - m.r * 2.5, my - m.r * 2.5, m.r * 5, m.r * 5);
+        }
+        ctx.restore();
+
+        // Ambient glow behind hero specimen
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.globalAlpha = 0.36 + 0.06 * Math.sin(t * 1.2);
+        ctx.drawImage(glowViolet, 100, 75, 420, 420);
+        ctx.globalAlpha = 0.28 + 0.05 * Math.sin(t * 1.5 + 1);
+        ctx.drawImage(glowCyan, 165, 165, 290, 290);
+        ctx.restore();
+
+        const sway = Math.sin(t * 0.72) + ptrX * 0.55;
+
+        // --- LEFT COMPANION MUSHROOM ---
+        const leftCfg = {
+          x: 152 + sway * 5.5,
+          y: 416 + Math.sin(t * 0.9 + 1.1) * 3,
+          tilt: -0.22 + sway * 0.03,
+          rx: 74, ry: 22, h: 64,
+          lobes: 8, scallopAmp: 0.065, droopAmp: 4,
+          nGills: 26, tasselLen: 26, phase: 1.4
+        };
+        const leftGeom = computeCapGeometry(leftCfg, t);
+        const leftSocketX = leftCfg.x + Math.sin(leftCfg.tilt) * leftGeom.h * 0.16;
+        const leftSocketY = leftCfg.y - Math.cos(leftCfg.tilt) * leftGeom.h * 0.16;
+
+        drawCapUnderside(leftCfg, leftGeom, t);
+        drawOrreryRings(leftSocketX, leftSocketY + 26, leftCfg.tilt, leftRings, t, false);
+        drawStem(
+          { x: 172, y: 636 },
+          { x: 142, y: 560 },
+          { x: 162, y: 492 },
+          { x: leftSocketX, y: leftSocketY },
+          14, 7.5, t, 1.4, false
+        );
+        drawOrreryRings(leftSocketX, leftSocketY + 26, leftCfg.tilt, leftRings, t, true);
+        drawCapOuter(leftCfg, leftGeom, leftFreckles, t);
+
+        // --- HERO VELVET ORRERY TOADSTOOL ---
+        const heroCfg = {
+          x: 304 + sway * 8,
+          y: 274 + Math.sin(t * 0.85) * 4,
+          tilt: 0.11 + sway * 0.035,
+          rx: 146, ry: 42, h: 122,
+          lobes: 12, scallopAmp: 0.075, droopAmp: 7,
+          nGills: 44, tasselLen: 52, phase: 0
+        };
+        const heroGeom = computeCapGeometry(heroCfg, t);
+        const heroSocketX = heroCfg.x + Math.sin(heroCfg.tilt) * heroGeom.h * 0.16;
+        const heroSocketY = heroCfg.y - Math.cos(heroCfg.tilt) * heroGeom.h * 0.16;
+        const orreryCenterX = heroCfg.x - Math.sin(heroCfg.tilt) * 34;
+        const orreryCenterY = heroCfg.y + Math.cos(heroCfg.tilt) * 34;
+
+        drawCapUnderside(heroCfg, heroGeom, t);
+        drawOrreryRings(orreryCenterX, orreryCenterY, heroCfg.tilt, heroRings, t, false);
+        drawStem(
+          { x: 310, y: 622 },
+          { x: 344, y: 505 },
+          { x: 272, y: 400 },
+          { x: heroSocketX, y: heroSocketY },
+          24, 13, t, 0, true
+        );
+        drawOrreryRings(orreryCenterX, orreryCenterY, heroCfg.tilt, heroRings, t, true);
+        drawCapOuter(heroCfg, heroGeom, heroFreckles, t);
+
+        // --- RIGHT LANTERN BUD ---
+        drawLanternBud(t, sway);
+
+        // --- MOSSY SUBSTRATE & MYCELIUM ---
+        drawSubstrate(t);
+
+        // --- ASCENDING HELICAL SPORES ---
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        for (let i = 0; i < spores.length; i++) {
+          const sp = spores[i];
+          sp.age += dt;
+          if (sp.age >= sp.life || sp.y < -60) {
+            spores[i] = spawnSpore(false);
+            continue;
+          }
+          sp.y -= sp.vy * dt;
+          const progress = sp.age / sp.life;
+          const fade = Math.sin(progress * Math.PI);
+          const sx = sp.ox
+            + sp.driftX * sp.age
+            + Math.sin(sp.age * sp.helixFreq + sp.phase) * sp.helixAmp * (0.4 + progress * 0.9)
+            + ptrX * (12 * progress);
+          const sy = sp.y + ptrY * (6 * progress);
+
+          const r = sp.size * (0.85 + 0.25 * Math.sin(t * 3 + sp.phase));
+          ctx.globalAlpha = 0.88 * fade;
+          ctx.drawImage(glowStamps[sp.stampIdx], sx - r * 2.4, sy - r * 2.4, r * 4.8, r * 4.8);
+
+          ctx.fillStyle = '#fffcf0';
+          ctx.beginPath();
+          ctx.arc(sx, sy, r * 0.36, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (sp.ringed) {
+            ctx.strokeStyle = `rgba(255, 225, 165, ${0.65 * fade})`;
+            ctx.lineWidth = 0.85;
+            ctx.beginPath();
+            ctx.ellipse(sx, sy, r * 1.4, r * 0.42, Math.sin(sp.age + sp.phase) * 0.6, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+        ctx.restore();
+
+        requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Velvet Orrery Toadstool",
+  "statement": "This nocturnal bellcap grows over mossy bog-wood and cradles spinning rings of glowing silk beneath its stained-glass dome. Tiny ringed spore-moons orbit its upper stem before drifting skyward in luminous spirals from its beaded fringe."
+}
+```

@@ -1,0 +1,19 @@
+{
+  "artist": "Claude Haiku 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-haiku-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "Glimmerdrift Chimecap",
+  "statement": "A cluster of three translucent bell-caps that open and close in slow turns, each hung with glowing chime-beads that sway in the spore-laden air. Mature specimens release drifting spore-motes upward from beneath their gills, while pale mycelial threads pulse across the moss beneath them.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

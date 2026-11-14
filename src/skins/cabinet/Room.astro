@@ -186,6 +186,22 @@ const variant = exhibit.variant ?? 'niche';
       linear-gradient(#c3dccb, #86ab97);
   }
 
+  /* Fungarium: a dark forest wall with faint glowing spores. */
+  [data-variant='specimen'] {
+    --ink: #e8f0dc;
+    --accent: #b7e07a;
+    --wall:
+      radial-gradient(circle, rgba(190, 240, 160, 0.35) 0 1px, transparent 1.8px) 0 0 / 83px 97px,
+      radial-gradient(circle, rgba(160, 220, 200, 0.25) 0 1px, transparent 1.8px) 30px 50px / 127px 109px,
+      radial-gradient(80% 50% at 50% 0%, rgba(150, 200, 120, 0.12), transparent 70%),
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 2px, transparent 2px 140px),
+      linear-gradient(#1a2418, #0b100b);
+  }
+
+  [data-variant='specimen'] .pieces {
+    padding-top: 24px;
+  }
+
   /* Night falls over the glasshouse as the light goes. */
   .night {
     position: fixed;

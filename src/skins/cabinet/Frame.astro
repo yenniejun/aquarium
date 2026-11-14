@@ -9,6 +9,7 @@
  *   shelf     wooden shelf cubby, with a paper tag hanging below         2:3
  *   terrarium glass case with a peaked roof (a Wardian case), brass frame 3:4
  *   porthole  round window in a brass ring (the page is cropped round)   1:1
+ *   specimen  wooden specimen box with a glass front, on a brass hook      3:4
  */
 import type { PieceView } from '../../lib/exhibits';
 import type { CabinetVariant } from '../names';
@@ -498,6 +499,50 @@ const empty = piece.status === 'pending';
 
   .porthole .label {
     margin-top: 26px;
+  }
+
+  /* ---------- Specimen box (fungarium) ---------- */
+  .specimen .vessel {
+    border: 12px solid #6b4a2f;
+    border-radius: 2px;
+    background: #0c120e;
+    box-shadow:
+      inset 0 0 0 2px rgba(0, 0, 0, 0.45),
+      inset 0 2px 0 13px rgba(255, 230, 190, 0.06),
+      0 0 0 1px rgba(0, 0, 0, 0.5),
+      0 20px 34px -12px rgba(0, 0, 0, 0.7);
+  }
+
+  .specimen .glass {
+    box-shadow: inset 0 8px 18px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Glass front. */
+  .specimen .glass::after {
+    background: linear-gradient(120deg, transparent 0 22%, rgba(255, 255, 255, 0.09) 22% 30%, transparent 30% 34%, rgba(255, 255, 255, 0.05) 34% 36%, transparent 36%);
+  }
+
+  /* The brass hook it hangs from. */
+  .specimen .vessel::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: -26px;
+    width: 16px;
+    height: 16px;
+    border: 3px solid #c9a24c;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    translate: -50% 0;
+  }
+
+  .specimen .base {
+    display: none;
+  }
+
+  .specimen .label {
+    width: 70%;
   }
 
   @media (prefers-reduced-motion: reduce) {
