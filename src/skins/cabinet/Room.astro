@@ -114,6 +114,42 @@ const fireflies = Array.from({ length: 46 }, () =>
     letter-spacing: 0.02em;
   }
 
+  /* Light walls get a darker credit at the bottom of the page. */
+  :global(body:has(.room:is([data-variant='niche'], [data-variant='terrarium']))) {
+    --footer-ink: rgba(30, 24, 16, 0.72);
+    --footer-ai: #0a78a8;
+    --heart: #000;
+  }
+
+  /* Each gallery's title has its own typeface (a few more are set with their rooms below). */
+  [data-variant='belljar'] h1 {
+    font: 700 clamp(1.9rem, 3.8vw, 2.8rem) / 1.1 'Cinzel Decorative', serif;
+  }
+
+  [data-variant='niche'] h1 {
+    font: 700 clamp(2rem, 4vw, 3rem) / 1.1 'Shippori Mincho', serif;
+  }
+
+  [data-variant='shelf'] h1 {
+    font: 700 clamp(2.1rem, 4.2vw, 3.1rem) / 1.1 'Almendra', serif;
+  }
+
+  [data-variant='porthole'] h1 {
+    font: 400 clamp(2.2rem, 4.4vw, 3.2rem) / 1.1 'Poiret One', sans-serif;
+  }
+
+  [data-variant='specimen'] h1 {
+    font: 700 clamp(2.3rem, 4.6vw, 3.3rem) / 1.1 'Mountains of Christmas', serif;
+  }
+
+  [data-variant='terrarium'] h1 {
+    font: 700 clamp(1.9rem, 3.8vw, 2.8rem) / 1.1 'Comfortaa', sans-serif;
+  }
+
+  [data-variant='window'] h1 {
+    font: 400 clamp(2rem, 4vw, 3rem) / 1.1 'Monoton', sans-serif;
+  }
+
   /* Three across (two on phones); each display shape gets a width that keeps rows balanced.
      Rows line up at the top, so jars, stands and shelves sit level however long the labels are. */
   .pieces {
@@ -311,7 +347,7 @@ const fireflies = Array.from({ length: 46 }, () =>
   }
 
   [data-variant='fieldguide'] h1 {
-    font: italic 400 clamp(2rem, 4vw, 3rem) / 1.05 'IM Fell English', serif;
+    font: 400 clamp(2rem, 4vw, 3rem) / 1.05 'Metamorphous', serif;
   }
 
   [data-variant='fieldguide'] .pieces {
