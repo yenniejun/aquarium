@@ -1,0 +1,53 @@
+---
+/** One exhibit's page: the skin's Room inside the site layout, with the "?" modal and voting. */
+import Base from '../layouts/Base.astro';
+import About from './About.astro';
+import ResetVote from './ResetVote.astro';
+import { getPieces, toView, type Exhibit } from '../lib/exhibits';
+import { href } from '../lib/url';
+import { skins } from '../skins';
+
+interface Props {
+  exhibit: Exhibit;
+}
+
+const { exhibit } = Astro.props;
+const pieces = getPieces(exhibit).map((piece, i) => toView(exhibit, piece, i));
+const { Room, Welcome } = skins[exhibit.skin];
+const blind = exhibit.mode === 'blind';
+---
+
+
+<Base skin={exhibit.skin} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
+  <Fragment slot="header">
+    <ResetVote exhibit={exhibit} />
+    {
+      Welcome ? (
+        <About exhibit={exhibit}>
+          <Welcome exhibit={exhibit} />
+        </About>
+      ) : (
+        <About exhibit={exhibit} />
+      )
+    }
+  </Fragment>
+  <div
+    class="exhibit"
+    data-exhibit={exhibit.slug}
+    data-state={blind ? 'voting' : 'revealed'}
+    data-reveal-url={blind ? href(`/reveal/${exhibit.slug}.json`) : undefined}
+  >
+    <Room exhibit={exhibit} pieces={pieces} />
+  </div>
+</Base>
+
+<script>
+  import '../scripts/voting';
+</script>
+
+<style>
+  /* Layout belongs to the skin's Room; this wrapper only carries state. */
+  .exhibit {
+    display: contents;
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
 // The museum menu: a slim panel on the left edge on wide screens, a "Menu" popover on narrow ones.
-import { getListedExhibits } from '../lib/exhibits';
+import { exhibitPath, getListedExhibits } from '../lib/exhibits';
 import { href } from '../lib/url';
 import { site } from '../site';
 
@@ -13,9 +13,9 @@ const exhibits = getListedExhibits();
   <span class="label">Galleries</span>
   {
     exhibits.map((ex) => {
-      const url = href(`/${ex.slug}/`);
+      const url = href(exhibitPath(ex));
       return (
-        <a href={url} aria-current={here.startsWith(url) ? 'page' : undefined}>
+        <a href={url} aria-current={(url === href('/') ? here === url : here.startsWith(url)) ? 'page' : undefined}>
           {ex.title}
         </a>
       );

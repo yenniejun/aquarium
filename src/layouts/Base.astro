@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import SideNav from '../components/SideNav.astro';
 import { site } from '../site';
-import { href } from '../lib/url';
 
 interface Props {
   skin: string;
@@ -21,7 +20,7 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title ? `${title} · ${site.name}` : site.name}</title>
+    <title>{title ?? site.name}</title>
     <meta name="description" content={description} />
     <link rel="icon" href={favicon} />
     {
@@ -38,16 +37,6 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
   </head>
   <body data-skin={skin}>
     <header class="site-header">
-      <a class="logo" href={href('/')} aria-label={`${site.name}, home`} title={site.name}>
-        {/* A museum front: pediment with a round window, four columns, two steps. */}
-        <svg viewBox="0 0 32 32" aria-hidden="true">
-          <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3.5 11 16 3.5 28.5 11Z"></path>
-            <circle cx="16" cy="8.4" r="1.3"></circle>
-            <path d="M5 13.5h22M8 16v8M13 16v8M19 16v8M24 16v8M5 26.5h22M3 29h26"></path>
-          </g>
-        </svg>
-      </a>
       <div class="header-tools">
         <slot name="header" />
         <SideNav />

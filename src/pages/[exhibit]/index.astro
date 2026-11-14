@@ -1,51 +1,30 @@
 ---
-import Base from '../../layouts/Base.astro';
-import About from '../../components/About.astro';
-import ResetVote from '../../components/ResetVote.astro';
-import { getExhibits, getPieces, toView, type Exhibit } from '../../lib/exhibits';
+import ExhibitPage from '../../components/ExhibitPage.astro';
+import { exhibitPath, getExhibits, type Exhibit } from '../../lib/exhibits';
 import { href } from '../../lib/url';
-import { skins } from '../../skins';
 
 export function getStaticPaths() {
   return getExhibits().map((exhibit) => ({ params: { exhibit: exhibit.slug }, props: { exhibit } }));
 }
 
 const { exhibit } = Astro.props as { exhibit: Exhibit };
-const pieces = getPieces(exhibit).map((piece, i) => toView(exhibit, piece, i));
-const { Room, Welcome } = skins[exhibit.skin];
-const blind = exhibit.mode === 'blind';
+const home = exhibitPath(exhibit) === '/';
 ---
 
-<Base skin={exhibit.skin} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
-  <Fragment slot="header">
-    <ResetVote exhibit={exhibit} />
-    {
-      Welcome ? (
-        <About exhibit={exhibit}>
-          <Welcome exhibit={exhibit} />
-        </About>
-      ) : (
-        <About exhibit={exhibit} />
-      )
-    }
-  </Fragment>
-  <div
-    class="exhibit"
-    data-exhibit={exhibit.slug}
-    data-state={blind ? 'voting' : 'revealed'}
-    data-reveal-url={blind ? href(`/reveal/${exhibit.slug}.json`) : undefined}
-  >
-    <Room exhibit={exhibit} pieces={pieces} />
-  </div>
-</Base>
-
-<script>
-  import '../../scripts/voting';
-</script>
-
-<style>
-  /* Layout belongs to the skin's Room; this wrapper only carries state. */
-  .exhibit {
-    display: contents;
-  }
-</style>
+{
+  home ? (
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="refresh" content={`0; url=${href('/')}`} />
+        <link rel="canonical" href={href('/')} />
+        <title>{exhibit.title}</title>
+      </head>
+      <body>
+        <a href={href('/')}>{exhibit.title}</a>
+      </body>
+    </html>
+  ) : (
+    <ExhibitPage exhibit={exhibit} />
+  )
+}

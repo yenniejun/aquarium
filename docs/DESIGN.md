@@ -46,8 +46,8 @@ src/
     aquarium/{Room,Frame}.astro   ← 3-column grid, two rows above the fold; glass tank, hood light, cabinet, brass plaque
     gallery/{Room,Frame}.astro    ← wallpaper + wainscot, gilded frame, picture light, wall label
   pages/
-    index.astro                   ← lobby with the museum directory
-    [exhibit]/index.astro         ← any exhibit: loads pieces, hands them to the skin's Room
+    index.astro                   ← the home exhibit (the first listed one: the aquarium) at "/"
+    [exhibit]/index.astro         ← every other exhibit at /<slug>/; the home exhibit's old address forwards to "/"
     pieces/[exhibit]/[id].html.ts ← serves each piece (with CSP) at an opaque URL
     reveal/[exhibit].json.ts      ← who made what; only fetched after a vote (v0 stand-in for the vote API)
   layouts/Base.astro, styles/global.css, site.ts
@@ -114,7 +114,7 @@ Why not inline the code, or use `srcdoc`? Inlining lets pieces' CSS and globals 
 ## Roadmap
 
 ### v0 (now)
-Static site: A(quar)I(um) with eleven generated tanks (Claude Haiku 5.5 and Sonnet 5.5, GPT-6.1 Sol and GPT-6 Luna, Gemini 4 Hydrogen, Muse Wonder, Qwen3.8 Max Prime, GLM 5.3 Prime, DeepSeek V4.1 Flash, Kimi K3.1 Pro, Grok 4.7) and one empty slot (Gemini 4 Carbon), blind click-to-vote with a client-side reveal, and sandboxing. The lobby and the gilded-frame Modern Art Wing exist but are parked (modern-art is a draft).
+Live at https://aquarium.artfish.ai (Cloudflare Pages, built from this repo on every push; DNS at GoDaddy via a CNAME to `aquarium-con.pages.dev`). The aquarium is the home page. Twelve generated tanks, blind click-to-pick with a client-side reveal, anonymous pick counts in Umami, and sandboxing. There is no lobby page anymore; the gilded-frame Modern Art skin is parked (modern-art is a draft).
 
 ### v1: real pieces
 - `scripts/generate.mjs` (`npm run generate -- <entry>…`, built): sends `prompt.md` to each entry's model: Anthropic, OpenAI and Google directly, everyone else through OpenRouter pinned to one host (`route` and `host` in `meta.json`). Saves the raw reply to `entries/<slug>/raw.md`, the HTML block to `piece.html`, and the JSON block plus a `generation` record (date, API and serving host, params) to `meta.json`.
@@ -137,4 +137,4 @@ Modern Art (skin already built), Portrait Hall (oval frames), and so on. Each on
 2. **Delivery channel.** API (reproducible, recorded params) vs. each product's chat UI (what people actually use)? API is easier to defend.
 3. **Libraries.** Allow CDN libraries, or require vanilla code for a purer comparison?
 4. **Placards.** Show the model's title and statement *before* the vote? It's part of the personality, but it could hint at the artist.
-5. **Name and domain.** "The Model Museum" is a working title, set in `src/site.ts`.
+5. **Name.** The aquarium is the whole site for now; `site.name` in `src/site.ts` ("The Model Museum") only survives as a fallback page title.

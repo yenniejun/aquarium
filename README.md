@@ -1,6 +1,6 @@
-# The Model Museum
+# A(quar)I(um)
 
-Same brief, different minds. Each exhibit asks several AI models to make something from the same prompt, entirely in code. First exhibit: **A(quar)I(um)**, twelve tanks with one creature each, showing off its model's personality.
+Twelve AI models, one brief: build a fish tank with one creature in it, entirely in code. Visitors pick a favorite before finding out who made what. Live at https://aquarium.artfish.ai.
 
 ```sh
 npm install

@@ -119,6 +119,16 @@ export function getListedExhibits(): Exhibit[] {
   return exhibits.filter((ex) => ex.status !== 'draft');
 }
 
+/** The exhibit shown at the site root: the first listed one (lowest `order`). */
+export function getHomeExhibit(): Exhibit {
+  return getListedExhibits()[0];
+}
+
+/** Where an exhibit's page lives: "/" for the home exhibit, "/<slug>/" for the rest. */
+export function exhibitPath(exhibit: Exhibit): string {
+  return exhibit.slug === getHomeExhibit()?.slug ? '/' : `/${exhibit.slug}/`;
+}
+
 /** The brief, exactly as sent to the models (minus any <!-- notes to ourselves -->). */
 export function getPrompt(exhibit: Exhibit): string | null {
   const text = promptFiles[`/exhibits/${exhibit.slug}/prompt.md`];
