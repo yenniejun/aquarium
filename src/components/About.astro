@@ -33,14 +33,10 @@ const models = getPieces(exhibit)
       maker: entry.provider,
       open: entry.openWeights,
       url: modelLinks[entry.slug],
-      how: [entry.route && `via ${entry.route}`, typeof reasoning === 'string' && `${reasoning} thinking`].filter(Boolean).join(', '),
+      thinking: typeof reasoning === 'string' ? reasoning : 'default',
     };
   })
   .sort((a, b) => Number(b.open) - Number(a.open) || a.maker.localeCompare(b.maker) || a.name.localeCompare(b.name));
-const groups = [
-  { label: 'Open weights', note: 'Anyone can download the model and run it themselves.', models: models.filter((m) => m.open) },
-  { label: 'Closed', note: "Only available through its maker's own service.", models: models.filter((m) => !m.open) },
-].filter((g) => g.models.length);
 ---
 
 <button class="pill info-toggle" type="button" aria-haspopup="dialog">Info</button>
@@ -75,32 +71,41 @@ const groups = [
 
   <div class="panel models" role="tabpanel" id="info-panel-models" aria-labelledby="info-tab-models">
     <p class="intro">Every model got the same prompt, word for word.</p>
-    {
-      groups.map((g) => (
-        <section>
-          <h3>
-            {g.label} <span>{g.note}</span>
-          </h3>
-          <ul>
-            {g.models.map((m) => (
-              <li>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col">Lab</th>
+          <th scope="col">Thinking</th>
+          <th scope="col">Weights</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          models.map((m) => (
+            <tr>
+              <th scope="row">
                 {m.url ? (
                   <a href={m.url} target="_blank" rel="noopener">
                     {m.name} <span aria-hidden="true">↗</span>
                   </a>
                 ) : (
-                  <span class="name">{m.name}</span>
+                  m.name
                 )}
-                <span class="meta">
-                  {m.maker}
-                  {m.how && ` · ${m.how}`}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))
-    }
+              </th>
+              <td>{m.maker}</td>
+              <td>{m.thinking}</td>
+              <td class:list={{ open: m.open }}>{m.open ? 'Open' : 'Closed'}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    <p class="note">
+      <b>Thinking</b>: how hard each model was asked to think before answering; <i>default</i> means we left its
+      own setting. <b>Open</b> weights: anyone can download the model and run it. <b>Closed</b>: only through its
+      lab's own service.
+    </p>
   </div>
 
   {
@@ -390,34 +395,34 @@ const groups = [
     color: #4a6378;
   }
 
-  .models h3 {
-    margin: 1rem 0 0.4rem;
-    font: 600 0.68rem/1.4 'IBM Plex Mono', monospace;
+  .models table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .models th,
+  .models td {
+    padding: 0.4rem 0.6rem 0.4rem 0;
+    border-top: 1px solid #e3eaf0;
+    text-align: left;
+    vertical-align: top;
+    font-weight: 400;
+  }
+
+  .models thead th {
+    border-top: 0;
+    font: 600 0.62rem/1.4 'IBM Plex Mono', monospace;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    color: #4a6378;
   }
 
-  .models h3 span {
-    margin-left: 0.5rem;
-    font-weight: 400;
-    letter-spacing: 0;
-    text-transform: none;
-    color: #6b8296;
+  .models td {
+    color: #4a6378;
   }
 
-  .models ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .models li {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0 1rem;
-    padding: 0.35rem 0;
-    border-top: 1px solid #e3eaf0;
+  .models td.open {
+    color: #1d7a4f;
   }
 
   .models a {
@@ -430,7 +435,9 @@ const groups = [
     text-decoration: underline;
   }
 
-  .models .meta {
+  .models .note {
+    margin: 1rem 0 0;
+    font-size: 0.7rem;
     color: #6b8296;
   }
 
