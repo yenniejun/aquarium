@@ -4,5 +4,20 @@
   "modelId": "z-ai/glm-5.3-prime",
   "route": "OpenRouter",
   "host": "alibaba",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Vagabond Lantern Toadstool",
+  "statement": "Ripening on old, mossy limbs, each cap of this toadstool swells into a small glowing lantern that eventually slips its stem and drifts up through the canopy, scattering embers of spores as it goes. Every lantern it loses, a pale new bud swells on the vacated stem to take its place.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Alibaba)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 2,
+      "host": "alibaba",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

@@ -4,14 +4,14 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "Tideglass Parasol",
-  "statement": "This luminous fungus unfurls a folded, iridescent cap above a stem that twists like a ribbon. Its pearl-like spores drift through the air while fine mycelial threads stitch the floating peat beneath it.",
+  "title": "Tideglass Umbrel",
+  "statement": "This moonlit fungus raises a glassy, tide-colored canopy above a stone threaded with luminous mycelium. At dusk, it loosens tiny pearl-like spores that drift upward as if buoyed by an invisible current.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 1
+      "promptVersion": 2
     },
     "attempts": 1,
     "edits": "none"

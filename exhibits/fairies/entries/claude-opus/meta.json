@@ -4,14 +4,14 @@
   "modelId": "claude-opus-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of the Candle's Edge",
-  "statement": "Draw near what burns; take its warmth, refuse its hunger.",
+  "title": "The Fairy of Untangled Thread",
+  "statement": "Patience undoes every knot; follow the one bright strand home.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2,
+      "promptVersion": 4,
       "reasoning": "medium"
     },
     "attempts": 1,

@@ -4,5 +4,20 @@
   "modelId": "x-ai/grok-4.7",
   "route": "OpenRouter",
   "host": "xai",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Vesper Orrery Cap",
+  "statement": "Vesper Orrery Cap grows from night moss and unclasps at dusk into hovering rings of glass. The spores it frees do not fall; they keep brief orbits like small moons, then slip into the dark.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by xAI)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 2,
+      "host": "xai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

@@ -4,14 +4,14 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of Rust",
-  "statement": "Patience turns iron to dust. What you guard quietly unmakes itself while you watch.",
+  "title": "The Fairy of the Last Candle",
+  "statement": "What is kept burning when no one is left to see it.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 4
     },
     "attempts": 1,
     "edits": "none"

@@ -2,5 +2,18 @@
   "artist": "GPT-6.1 Sol",
   "provider": "OpenAI",
   "modelId": "gpt-6.1-sol",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Moonfold Parasol",
+  "statement": "Its translucent cap gathers moonlight into pleats, then releases the surplus as tiny folded crescents. Beneath the mineral seed, inquisitive threads follow every possible path through the dark.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

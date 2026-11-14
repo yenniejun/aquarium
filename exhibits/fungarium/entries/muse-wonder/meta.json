@@ -4,5 +4,20 @@
   "modelId": "meta/muse-wonder",
   "route": "OpenRouter",
   "host": "meta",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Twilight Carousel Mushroom",
+  "statement": "Its bell-shaped lanterns sway in silent light, releasing starry spores that orbit the cap before drifting down to seed dreams in the moss.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Meta)",
+    "params": {
+      "max_tokens": 100000,
+      "promptVersion": 2,
+      "host": "meta",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fungarium Specimen</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #050908; }
+  canvas { display: block; width: 100vw; height: 100vh; touch-action: pan-y; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(() => {
+  const cv = document.getElementById('c');
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, DPR = 1;
+  let bgLayer = null, vigLayer = null;
+  let logX = 0, logX2 = 0, logCY = 0, logR = 40, K = 1;
+
+  const CYCLE = 24; // seconds per mushroom lifecycle
+  const mushrooms = [];
+  const lanterns = [];
+  const sparks = [];
+  const ambient = [];
+  const threads = [];
+
+  const defs = [
+    { u: .200, hF: .300, s: 1.00, off: 0,  tilt: -.10 },
+    { u: .330, hF: .200, s: 0.80, off: 8,  tilt: .06 },
+    { u: .500, hF: .400, s: 1.15, off: 16, tilt: -.05 },
+    { u: .645, hF: .175, s: 0.65, off: 4,  tilt: .10 },
+    { u: .790, hF: .260, s: 0.92, off: 12, tilt: -.08 },
+    { u: .265, hF: .095, s: 0.45, off: 20, tilt: .02 },
+    { u: .715, hF: .105, s: 0.50, off: 10, tilt: -.04 }
+  ];
+  const HUES = [36, 30, 38, 26, 33, 30, 36];
+
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, p) => a + (b - a) * p;
+  const easeOutCubic = p => 1 - Math.pow(1 - p, 3);
+
+  function logYat(u) { return logCY + Math.sin((u - 0.5) * 2.0) * logR * 0.5; }
+
+  /* ---------- layout & static layers ---------- */
+
+  function layout() {
+    W = innerWidth; H = innerHeight;
+    DPR = Math.min(devicePixelRatio || 1, 2);
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+    logX = 0.03 * W; logX2 = 0.97 * W;
+    logCY = 0.80 * H; logR = Math.max(22, 0.055 * H);
+    K = clamp(H / 640, 0.55, 1.4);
+
+    mushrooms.length = 0;
+    defs.forEach((d, i) => {
+      const x = lerp(logX, logX2, d.u);
+      const baseY = logYat(d.u) - logR * 0.92;
+      const h = d.hF * H;
+      mushrooms.push({
+        ...d, x, baseY, h, hue: HUES[i],
+        topX: x + d.tilt * h, topY: baseY - h,
+        phase: rand(0, 7), released: false, ps: d.s * K
+      });
+    });
+
+    // mycelium threads (absolute points, rebuilt on resize)
+    threads.length = 0;
+    for (let i = 0; i < 12; i++) {
+      const u = rand(0.08, 0.92);
+      const side = Math.random() < 0.78 ? -1 : 1;
+      const dir = (Math.random() < 0.5 ? -1 : 1) * rand(0.018, 0.05);
+      const pts = [];
+      let cu = u, drift = 0;
+      for (let k = 0; k < 6; k++) {
+        pts.push({ x: cu * W, y: logYat(cu) + side * logR * 0.92 + drift });
+        cu += dir;
+        drift += (Math.random() - 0.5) * logR * 0.35 + side * logR * 0.05;
+      }
+      threads.push({ pts, speed: rand(0.05, 0.1), ph: Math.random() });
+    }
+
+    ambient.length = 0;
+    for (let i = 0; i < 34; i++) {
+      ambient.push({ x: Math.random() * W, y: Math.random() * H,
+        vy: -rand(6, 18), amp: rand(6, 18), ph: rand(0, 7),
+        sz: rand(1, 2), tw: rand(0.5, 2) });
+    }
+
+    paintBackground();
+    paintVignette();
+  }
+
+  function fern(g, cx, cy, len, ang, bendA, color) {
+    const n = 15;
+    g.strokeStyle = color; g.lineWidth = 2;
+    for (let i = 0; i < n; i++) {
+      const p = i / (n - 1);
+      const a = ang + bendA * p;
+      const x = cx + Math.cos(a) * len * p;
+      const y = cy + Math.sin(a) * len * p;
+      const leaf = len * 0.16 * (1 - p * 0.85);
+      g.lineWidth = 1.6 * (1 - p * 0.6);
+      g.beginPath();
+      g.moveTo(x, y); g.lineTo(x - leaf * 0.8, y + leaf * 0.55);
+      g.moveTo(x, y); g.lineTo(x + leaf * 0.8, y + leaf * 0.55);
+      g.stroke();
+    }
+  }
+
+  function paintBackground() {
+    bgLayer = document.createElement('canvas');
+    bgLayer.width = Math.round(W * DPR); bgLayer.height = Math.round(H * DPR);
+    const g = bgLayer.getContext('2d');
+    g.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+    // dusk inside the box
+    const grad = g.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#0d1916');
+    grad.addColorStop(0.45, '#081009');
+    grad.addColorStop(1, '#040706');
+    g.fillStyle = grad; g.fillRect(0, 0, W, H);
+
+    // soft cold light from above
+    const shaft = g.createRadialGradient(W * 0.5, -H * 0.2, 10, W * 0.5, -H * 0.2, H * 0.9);
+    shaft.addColorStop(0, 'rgba(120,160,140,0.10)');
+    shaft.addColorStop(1, 'rgba(120,160,140,0)');
+    g.fillStyle = shaft; g.fillRect(0, 0, W, H);
+
+    // shadow soil beneath
+    g.fillStyle = 'rgba(2,4,3,0.9)';
+    g.beginPath();
+    g.ellipse(W * 0.5, H * 0.99, W * 0.55, H * 0.12, 0, 0, 7);
+    g.fill();
+
+    // dark fern silhouettes
+    fern(g, W * 0.10, H * 1.02, H * 0.55, -Math.PI * 0.62, Math.PI * 0.10, '#0f2119');
+    fern(g, W * 0.22, H * 1.04, H * 0.42, -Math.PI * 0.55, Math.PI * 0.16, '#0c1a14');
+    fern(g, W * 0.92, H * 1.03, H * 0.50, -Math.PI * 0.40, -Math.PI * 0.12, '#0f2119');
+
+    // the fallen branch
+    g.lineCap = 'round';
+    g.strokeStyle = '#33241a';
+    g.lineWidth = logR * 2;
+    g.beginPath();
+    g.moveTo(logX, logYat(0));
+    for (let u = 0; u <= 1.001; u += 0.05) g.lineTo(lerp(logX, logX2, u), logYat(u));
+    g.stroke();
+
+    // bark streaks
+    for (let i = 0; i < 12; i++) {
+      const u0 = rand(0.06, 0.7), uLen = rand(0.08, 0.22);
+      const off = rand(-0.72, 0.72);
+      g.strokeStyle = i % 3 ? 'rgba(20,13,9,0.55)' : 'rgba(94,68,46,0.35)';
+      g.lineWidth = rand(1.5, 3);
+      g.beginPath();
+      for (let k = 0; k <= 1; k += 0.25) {
+        const u = u0 + uLen * k;
+        const x = lerp(logX, logX2, u), y = logYat(u) + off * logR + Math.sin(k * 6 + i) * 2;
+        k === 0 ? g.moveTo(x, y) : g.lineTo(x, y);
+      }
+      g.stroke();
+    }
+
+    // cut face on the right end
+    g.save();
+    g.translate(logX2 - logR * 0.15, logYat(0.96));
+    g.rotate(0.08);
+    g.fillStyle = '#6e5138';
+    g.beginPath(); g.ellipse(0, 0, logR * 0.38, logR * 0.82, 0, 0, 7); g.fill();
+    g.strokeStyle = '#4c3626'; g.lineWidth = 2;
+    for (let r = 0.2; r < 0.8; r += 0.2) {
+      g.beginPath(); g.ellipse(0, 0, logR * 0.38 * r, logR * 0.82 * r, 0, 0, 7); g.stroke();
+    }
+    g.restore();
+
+    // moss on top of the branch
+    const greens = ['#4c6039', '#5b7442', '#6a8349', '#415533'];
+    for (let i = 0; i < 150; i++) {
+      const u = rand(0.05, 0.95);
+      const x = lerp(logX, logX2, u);
+      const y = logYat(u) - logR * 0.9 + rand(0, logR * 0.55);
+      const len = rand(4, 11) * K;
+      g.strokeStyle = greens[(Math.random() * 4) | 0];
+      g.globalAlpha = 0.85; g.lineWidth = 1.5;
+      g.beginPath();
+      g.moveTo(x, y);
+      g.quadraticCurveTo(x + rand(-3, 3), y - len * 0.6, x + rand(-5, 5), y - len);
+      g.stroke();
+    }
+    g.globalAlpha = 1;
+
+    // pale lichen freckles on the flank
+    for (let i = 0; i < 26; i++) {
+      const u = rand(0.08, 0.92);
+      g.fillStyle = 'rgba(168,176,122,0.45)';
+      g.beginPath();
+      g.arc(lerp(logX, logX2, u), logYat(u) + logR * rand(0.1, 0.8), rand(1.5, 4) * K, 0, 7);
+      g.fill();
+    }
+  }
+
+  function paintVignette() {
+    vigLayer = document.createElement('canvas');
+    vigLayer.width = Math.round(W * DPR); vigLayer.height = Math.round(H * DPR);
+    const g = vigLayer.getContext('2d');
+    g.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const v = g.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.32, W / 2, H / 2, Math.max(W, H) * 0.75);
+    v.addColorStop(0, 'rgba(2,5,4,0)');
+    v.addColorStop(1, 'rgba(2,5,4,0.55)');
+    g.fillStyle = v; g.fillRect(0, 0, W, H);
+  }
+
+  /* ---------- drawing parts ---------- */
+
+  function pointOnStipe(m, p) { // p: 0 at base, 1 at top
+    return {
+      x: m.x + (m.topX - m.x) * p + Math.sin(Math.PI * p) * m.tilt * m.h * 0.18,
+      y: lerp(m.baseY, m.topY, p)
+    };
+  }
+
+  function drawStipe(m, nub) {
+    const w0 = 5.5 * m.ps, w1 = 3 * m.ps;
+    const mid = pointOnStipe(m, 0.5);
+    ctx.beginPath();
+    ctx.moveTo(m.x - w0, m.baseY + 2);
+    ctx.quadraticCurveTo(mid.x - w0 * 0.75, mid.y, m.topX - w1, m.topY);
+    ctx.lineTo(m.topX + w1, m.topY);
+    ctx.quadraticCurveTo(mid.x + w0 * 0.75, mid.y, m.x + w0, m.baseY + 2);
+    ctx.closePath();
+    ctx.fillStyle = '#e4dabf';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(80,62,44,0.35)'; ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // little skirt
+    const sp = pointOnStipe(m, 0.34); // partway down from the top
+    const fw = 9 * m.ps, fh = 7 * m.ps;
+    ctx.beginPath();
+    ctx.moveTo(sp.x - w1 * 1.5, sp.y);
+    ctx.quadraticCurveTo(sp.x - fw, sp.y + fh * 0.4, sp.x - fw * 0.6, sp.y + fh);
+    ctx.quadraticCurveTo(sp.x, sp.y + fh * 0.55, sp.x + fw * 0.6, sp.y + fh);
+    ctx.quadraticCurveTo(sp.x + fw, sp.y + fh * 0.4, sp.x + w1 * 1.5, sp.y);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(238,232,212,0.55)';
+    ctx.fill();
+
+    // regrowing bud after the lantern has drifted away
+    if (nub > 0) {
+      const r = 4 * m.ps * (0.3 + 0.7 * easeOutCubic(nub));
+      ctx.beginPath();
+      ctx.arc(m.topX, m.topY - r * 0.3, r, Math.PI, 0);
+      ctx.closePath();
+      ctx.fillStyle = '#efe6cc';
+      ctx.fill();
+    }
+  }
+
+  function drawLantern(x, y, s, glow, hue, time, rot, flying) {
+    const w = 26 * s, h = 20 * s;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+
+    // inner light
+    ctx.globalCompositeOperation = 'lighter';
+    const core = ctx.createRadialGradient(0, -h * 0.45, 1, 0, -h * 0.45, w * 1.4);
+    core.addColorStop(0, `rgba(255,196,120,${0.5 * glow})`);
+    core.addColorStop(0.55, `rgba(255,160,70,${0.16 * glow})`);
+    core.addColorStop(1, 'rgba(255,150,60,0)');
+    ctx.fillStyle = core;
+    ctx.beginPath(); ctx.arc(0, -h * 0.45, w * 1.4, 0, 7); ctx.fill();
+    const heart = ctx.createRadialGradient(0, -h * 0.4, 0, 0, -h * 0.4, h * 0.55);
+    heart.addColorStop(0, `rgba(255,232,180,${0.85 * glow})`);
+    heart.addColorStop(1, 'rgba(255,210,140,0)');
+    ctx.fillStyle = heart;
+    ctx.beginPath(); ctx.arc(0, -h * 0.4, h * 0.55, 0, 7); ctx.fill();
+    ctx.globalCompositeOperation = 'source-over';
+
+    // membrane
+    ctx.beginPath();
+    ctx.moveTo(-w, 0);
+    ctx.quadraticCurveTo(-w, -h * 0.92, 0, -h);
+    ctx.quadraticCurveTo(w, -h * 0.92, w, 0);
+    ctx.quadraticCurveTo(0, h * 0.24, -w, 0);
+    ctx.closePath();
+    ctx.fillStyle = `hsla(${hue},82%,60%,0.30)`;
+    ctx.fill();
+    ctx.strokeStyle = `hsla(${hue},68%,72%,0.85)`;
+    ctx.lineWidth = Math.max(0.7, 1.1 * s);
+    ctx.stroke();
+
+    // ribs
+    ctx.strokeStyle = `hsla(${hue},75%,56%,0.5)`;
+    ctx.lineWidth = Math.max(0.6, 0.8 * s);
+    for (let i = -3; i <= 3; i++) {
+      const rx = w * i / 3.6;
+      ctx.beginPath();
+      ctx.moveTo(rx * 0.94, -h * 0.02);
+      ctx.quadraticCurveTo(rx, -h * 0.55, 0, -h * 0.97);
+      ctx.stroke();
+    }
+
+    // bottom rim
+    ctx.beginPath();
+    ctx.ellipse(0, 0, w * 0.98, h * 0.2, 0, 0, Math.PI * 2);
+    ctx.strokeStyle = `hsla(${hue},70%,60%,0.6)`;
+    ctx.stroke();
+
+    // crown knot on top
+    ctx.fillStyle = `hsla(${hue},55%,48%,0.9)`;
+    ctx.beginPath(); ctx.arc(0, -h, 1.8 * s + 0.6, 0, 7); ctx.fill();
+
+    // swaying tassel beneath a flying lantern
+    if (flying) {
+      ctx.strokeStyle = `hsla(${hue},70%,62%,0.7)`;
+      ctx.lineWidth = Math.max(0.6, 0.8 * s);
+      for (let i = -1; i <= 1; i++) {
+        const sw = Math.sin(time * 3 + i * 1.3) * 3 * s;
+        ctx.beginPath();
+        ctx.moveTo(i * 2.4 * s, h * 0.2);
+        ctx.quadraticCurveTo(i * 2.4 * s + sw * 0.5, h * 0.2 + 5 * s, i * 2.4 * s + sw, h * 0.2 + 9 * s);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  /* ---------- update ---------- */
+
+  const pointer = { x: -1e4, y: -1e4 };
+  addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
+
+  function burst(x, y, n, spread) {
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * 7, sp = rand(6, spread);
+      sparks.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 4,
+        life: 0, max: rand(2.2, 4), sz: rand(1.2, 2.4) * K });
+    }
+  }
+
+  function release(m, t) {
+    lanterns.push({
+      x: m.topX, y: m.topY, s: m.ps, hue: m.hue,
+      vy: H * rand(0.024, 0.034), vx: 0,
+      amp: rand(8, 20) * K, ph: rand(0, 7),
+      born: t, rot: 0, popped: false
+    });
+    burst(m.topX, m.topY - 14 * m.ps, 7, 26 * K);
+  }
+
+  function update(t, dt) {
+    for (const m of mushrooms) {
+      const local = (t + m.off) % CYCLE;
+      if (local >= 16 && local < 16.6 && !m.released) { m.released = true; release(m, t); }
+      if (local < 15) m.released = false;
+      m.local = local;
+    }
+
+    for (let i = lanterns.length - 1; i >= 0; i--) {
+      const l = lanterns[i];
+      const age = t - l.born;
+      l.y -= l.vy * dt;
+      l.x += l.vx * dt + Math.cos(t * 0.9 + l.ph) * l.amp * dt;
+      l.vx *= 0.985;
+      // gently shy away from a nearby pointer
+      const dx = l.x - pointer.x, dy = l.y - pointer.y;
+      const d = Math.hypot(dx, dy);
+      if (d < 150 && d > 1) l.vx += (dx / d) * (150 - d) * 1.6 * dt;
+      l.rot = Math.sin(t * 1.7 + l.ph) * 0.12;
+      l.glow = 0.9;
+      // trail spores
+      if (Math.random() < dt * 6) {
+        sparks.push({ x: l.x + rand(-6, 6), y: l.y + rand(-2, 6),
+          vx: rand(-4, 4), vy: rand(4, 12), life: 0, max: rand(2, 3.5), sz: rand(1, 1.8) * K });
+      }
+      if (l.y < H * 0.17 && !l.popped) {
+        l.popped = true;
+        burst(l.x, l.y, 9, 40 * K);
+      }
+      if (l.popped || l.y < -40) lanterns.splice(i, 1);
+    }
+
+    for (let i = sparks.length - 1; i >= 0; i--) {
+      const p = sparks[i];
+      p.life += dt;
+      p.x += p.vx * dt + Math.sin(t * 2 + p.life * 3) * 8 * dt;
+      p.y += p.vy * dt;
+      p.vx *= 0.99; p.vy = lerp(p.vy, 10, 0.3 * dt);
+      if (p.life > p.max) sparks.splice(i, 1);
+    }
+
+    for (const s of ambient) {
+      s.y += s.vy * dt;
+      s.x += Math.sin(t * 0.5 + s.ph) * s.amp * dt;
+      if (s.y < -12) { s.y = H + 12; s.x = Math.random() * W; }
+      if (s.x < -12) s.x = W + 10; else if (s.x > W + 12) s.x = -10;
+    }
+  }
+
+  /* ---------- render ---------- */
+
+  function drawMycelium(t) {
+    ctx.strokeStyle = 'rgba(225,238,224,0.16)';
+    ctx.lineWidth = 1;
+    for (const th of threads) {
+      const p = (t * th.speed + th.ph) % 1;
+      let env;
+      if (p < 0.6) env = 1;
+      else if (p < 0.8) env = 1;
+      else env = 1 - (p - 0.8) / 0.2;
+      if (env <= 0) continue;
+      const grow = Math.min(1, p / 0.6);
+      const total = (th.pts.length - 1) * grow;
+      ctx.beginPath();
+      ctx.moveTo(th.pts[0].x, th.pts[0].y);
+      for (let k = 1; k < th.pts.length; k++) {
+        const seg = clamp(total - (k - 1), 0, 1);
+        if (seg <= 0) break;
+        const a = th.pts[k - 1], b = th.pts[k];
+        ctx.lineTo(lerp(a.x, b.x, seg), lerp(a.y, b.y, seg));
+      }
+      ctx.globalAlpha = 0.35 + 0.65 * env;
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function render(t) {
+    ctx.drawImage(bgLayer, 0, 0, W, H);
+    drawMycelium(t);
+
+    // warm light pooling on the branch beneath lit caps
+    ctx.globalCompositeOperation = 'lighter';
+    for (const m of mushrooms) {
+      if (m.capGlow > 0.3) {
+        const pool = ctx.createRadialGradient(m.x, m.baseY + logR * 0.2, 2, m.x, m.baseY + logR * 0.2, logR * 1.6);
+        pool.addColorStop(0, `rgba(255,170,90,${0.10 * m.capGlow})`);
+        pool.addColorStop(1, 'rgba(255,150,60,0)');
+        ctx.fillStyle = pool;
+        ctx.beginPath(); ctx.arc(m.x, m.baseY + logR * 0.2, logR * 1.6, 0, 7); ctx.fill();
+      }
+    }
+    ctx.globalCompositeOperation = 'source-over';
+
+    for (const m of mushrooms) {
+      const local = m.local;
+      let cs = 0, glow = 0.15, nub = 0;
+      if (local < 10) {
+        const p = easeOutCubic(local / 10);
+        cs = p; glow = 0.18 + 0.34 * p;
+      } else if (local < 16) {
+        cs = 1;
+        glow = (0.5 + 0.5 * easeOutCubic(Math.min(1, (local - 10) / 4))) *
+               (0.85 + 0.15 * Math.sin(t * 1.6 + m.phase));
+      } else {
+        nub = clamp((local - 16) / 8, 0, 1);
+      }
+      // warms to a hovering hand
+      const d = Math.hypot(pointer.x - m.topX, pointer.y - m.topY + 14 * m.ps);
+      glow *= 1 + clamp(1 - d / (H * 0.35), 0, 1) * 0.5;
+
+      m.capGlow = glow;
+      drawStipe(m, nub);
+      if (cs > 0.02) {
+        const breathe = cs * (1 + 0.01 * Math.sin(t * 1.6 + m.phase));
+        drawLantern(m.topX, m.topY, m.ps * breathe, glow, m.hue, t,
+                    Math.sin(t * 0.7 + m.phase) * 0.03, false);
+      }
+    }
+
+    for (const l of lanterns) drawLantern(l.x, l.y, l.s, l.glow, l.hue, t, l.rot, true);
+
+    // drifting spores
+    ctx.globalCompositeOperation = 'lighter';
+    for (const s of ambient) {
+      const a = 0.22 * (0.5 + 0.5 * Math.sin(t * s.tw + s.ph));
+      ctx.fillStyle = `rgba(255,214,150,${a})`;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.sz, 0, 7); ctx.fill();
+    }
+    for (const p of sparks) {
+      const a = 0.8 * (1 - p.life / p.max);
+      ctx.fillStyle = `rgba(255,232,185,${a})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.sz, 0, 7); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+
+    ctx.drawImage(vigLayer, 0, 0, W, H);
+  }
+
+  /* ---------- run ---------- */
+
+  layout();
+  addEventListener('resize', layout);
+
+  let last = performance.now();
+  function frame(now) {
+    const t = now / 1000;
+    const dt = clamp((now - last) / 1000, 0.001, 0.05);
+    last = now;
+    update(t, dt);
+    render(t);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

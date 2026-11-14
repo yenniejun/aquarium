@@ -6,248 +6,206 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   * { box-sizing: border-box; }
-  html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-    background: #111b24;
-  }
-  svg {
-    display: block;
-    width: 100vw;
-    height: 100vh;
-  }
-  .breath { animation: breathe 5.5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-  .glow { animation: glow 4s ease-in-out infinite; }
-  .spore { animation: drift 8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-  .spore:nth-of-type(2n) { animation-duration: 10s; }
-  .spore:nth-of-type(3n) { animation-duration: 7s; }
-  .spore:nth-of-type(4n) { animation-delay: -3s; }
-  .root { animation: rootlight 5s ease-in-out infinite; }
-  @keyframes breathe {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-5px) rotate(.5deg); }
-  }
-  @keyframes glow {
-    0%, 100% { opacity: .42; }
-    50% { opacity: .78; }
-  }
+  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #101b2b; }
+  body { display: grid; place-items: center; }
+  svg { display: block; width: 100%; height: 100%; }
+  .halo { animation: halo 5s ease-in-out infinite; }
+  .cap-breathe { transform-box: view-box; transform-origin: 302px 270px; animation: breathe 7s ease-in-out infinite; }
+  .spore { animation: drift 7s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .spore.s2 { animation-delay: -2.5s; }
+  .spore.s3 { animation-delay: -4.7s; }
+  .spore.s4 { animation-delay: -1.2s; }
+  .spore.s5 { animation-delay: -5.5s; }
+  .spore.s6 { animation-delay: -3.4s; }
+  .spore.s7 { animation-delay: -6.2s; }
+  .spore.s8 { animation-delay: -0.6s; }
+  @keyframes halo { 0%,100% { opacity: .45; } 50% { opacity: .85; } }
+  @keyframes breathe { 0%,100% { transform: rotate(-.25deg) scale(1); } 50% { transform: rotate(.45deg) scale(1.012); } }
   @keyframes drift {
-    0%, 100% { transform: translate(0, 0); opacity: .35; }
-    50% { transform: translate(8px, -17px); opacity: .95; }
-  }
-  @keyframes rootlight {
-    0%, 100% { opacity: .55; }
-    50% { opacity: .95; }
+    0% { transform: translate(0, 14px); opacity: 0; }
+    18% { opacity: .9; }
+    75% { opacity: .65; }
+    100% { transform: translate(20px, -72px); opacity: 0; }
   }
 </style>
 </head>
 <body>
-<svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="A luminous fantastical mushroom">
+<svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <defs>
-    <linearGradient id="back" x2="0" y2="1">
-      <stop stop-color="#192a37"/>
-      <stop offset=".55" stop-color="#243444"/>
-      <stop offset="1" stop-color="#111e29"/>
+    <linearGradient id="night" x2="0" y2="1">
+      <stop stop-color="#10192b"/>
+      <stop offset=".55" stop-color="#19283a"/>
+      <stop offset="1" stop-color="#101c2a"/>
     </linearGradient>
     <radialGradient id="mist">
-      <stop stop-color="#8dd4cf" stop-opacity=".25"/>
-      <stop offset="1" stop-color="#6daebc" stop-opacity="0"/>
+      <stop stop-color="#4b7890" stop-opacity=".32"/>
+      <stop offset="1" stop-color="#263d50" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="cap" x1=".15" y1="0" x2=".82" y2="1">
-      <stop stop-color="#eed5b0"/>
-      <stop offset=".28" stop-color="#cf91a2"/>
-      <stop offset=".63" stop-color="#796d9e"/>
-      <stop offset="1" stop-color="#405d78"/>
+    <linearGradient id="cap" x1=".1" y1=".1" x2=".85" y2="1">
+      <stop stop-color="#f3b7a0"/>
+      <stop offset=".34" stop-color="#d889a3"/>
+      <stop offset=".72" stop-color="#927bb8"/>
+      <stop offset="1" stop-color="#506d9b"/>
     </linearGradient>
-    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#fff0c5"/>
-      <stop offset=".5" stop-color="#eca9a2"/>
-      <stop offset="1" stop-color="#84d8cb"/>
-    </linearGradient>
-    <linearGradient id="gills" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#e8c1aa"/>
-      <stop offset="1" stop-color="#716e91"/>
+    <linearGradient id="underside" x1="0" y1="0" x2=".5" y2="1">
+      <stop stop-color="#32405e"/>
+      <stop offset=".55" stop-color="#20334c"/>
+      <stop offset="1" stop-color="#72c8bf"/>
     </linearGradient>
     <linearGradient id="stem" x1="0" y1="0" x2="1" y2=".2">
-      <stop stop-color="#477d82"/>
-      <stop offset=".45" stop-color="#c0d1b2"/>
-      <stop offset=".72" stop-color="#e4c393"/>
-      <stop offset="1" stop-color="#739a9b"/>
+      <stop stop-color="#7dd8c5"/>
+      <stop offset=".45" stop-color="#e3cfb3"/>
+      <stop offset="1" stop-color="#79a9b1"/>
     </linearGradient>
-    <linearGradient id="earth" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#8f7867"/>
-      <stop offset=".5" stop-color="#514d50"/>
-      <stop offset="1" stop-color="#29343a"/>
+    <linearGradient id="stone" x1="0" y1="0" x2=".8" y2="1">
+      <stop stop-color="#546874"/>
+      <stop offset=".48" stop-color="#314655"/>
+      <stop offset="1" stop-color="#1e303e"/>
+    </linearGradient>
+    <linearGradient id="smallcap" x1="0" y1="0" x2=".8" y2="1">
+      <stop stop-color="#f1c6a5"/>
+      <stop offset=".5" stop-color="#d58fa8"/>
+      <stop offset="1" stop-color="#738db1"/>
     </linearGradient>
     <radialGradient id="pearl">
-      <stop stop-color="#fff7d8"/>
-      <stop offset=".35" stop-color="#d5f0d4"/>
-      <stop offset="1" stop-color="#7fd4d0" stop-opacity=".2"/>
+      <stop stop-color="#fff9cf"/>
+      <stop offset=".4" stop-color="#c5f0d8"/>
+      <stop offset="1" stop-color="#68b9b7"/>
     </radialGradient>
-    <filter id="soft" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="15"/>
+    <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="shine" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="3"/>
+    <filter id="tinyGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <pattern id="flecks" width="33" height="29" patternUnits="userSpaceOnUse">
-      <circle cx="5" cy="7" r="1.2" fill="#f0d5a7" opacity=".55"/>
-      <circle cx="23" cy="20" r=".8" fill="#d4efda" opacity=".55"/>
-      <path d="M14 2l2 2" stroke="#f2bd9f" stroke-width="1" opacity=".4"/>
-    </pattern>
   </defs>
 
-  <rect width="600" height="800" fill="url(#back)"/>
-  <ellipse cx="303" cy="368" rx="245" ry="295" fill="url(#mist)"/>
-  <ellipse class="glow" cx="302" cy="280" rx="150" ry="105" fill="#a3e0cc" opacity=".5" filter="url(#soft)"/>
+  <rect width="600" height="800" fill="url(#night)"/>
+  <ellipse cx="302" cy="390" rx="250" ry="310" fill="url(#mist)" class="halo"/>
+  <path d="M54 564 C105 505 105 387 166 327 M548 535 C475 458 509 345 439 303"
+        fill="none" stroke="#83c6c1" stroke-opacity=".12" stroke-width="1.5"/>
+  <path d="M74 590 C122 530 121 431 178 376 M526 585 C472 503 490 421 436 365"
+        fill="none" stroke="#d6c9ba" stroke-opacity=".08" stroke-width="1"/>
 
-  <!-- Quiet motes in the specimen air -->
-  <g fill="#d9ebce">
-    <circle cx="102" cy="158" r="1.5" opacity=".55"/><circle cx="478" cy="143" r="1" opacity=".6"/>
-    <circle cx="84" cy="367" r="1.2" opacity=".45"/><circle cx="516" cy="354" r="1.4" opacity=".55"/>
-    <circle cx="125" cy="505" r="1" opacity=".5"/><circle cx="458" cy="477" r="1.2" opacity=".45"/>
-    <circle cx="203" cy="117" r="1" opacity=".5"/><circle cx="393" cy="109" r="1.3" opacity=".45"/>
+  <g fill="#d9ead6">
+    <circle cx="104" cy="190" r="1.7" opacity=".55"/><circle cx="478" cy="164" r="1.5" opacity=".65"/>
+    <circle cx="517" cy="271" r="1.2" opacity=".45"/><circle cx="78" cy="343" r="1.2" opacity=".52"/>
+    <circle cx="133" cy="454" r="1" opacity=".45"/><circle cx="485" cy="496" r="1.5" opacity=".5"/>
+    <circle cx="390" cy="126" r="1" opacity=".55"/><circle cx="217" cy="145" r="1.2" opacity=".35"/>
+    <circle cx="541" cy="390" r="1" opacity=".5"/><circle cx="63" cy="470" r="1.3" opacity=".4"/>
+    <circle cx="445" cy="215" r="1" opacity=".55"/><circle cx="165" cy="255" r="1" opacity=".4"/>
   </g>
-  <path d="M112 252 C158 176 215 147 275 151" fill="none" stroke="#b4dac6" stroke-opacity=".12" stroke-width="1"/>
-  <path d="M362 145 C426 169 470 220 488 269" fill="none" stroke="#b4dac6" stroke-opacity=".12" stroke-width="1"/>
-  <circle cx="112" cy="252" r="2" fill="#b8e6d1" opacity=".5"/>
-  <circle cx="488" cy="269" r="2" fill="#b8e6d1" opacity=".5"/>
-
-  <!-- Floating cushion of peat and mineral -->
-  <path d="M128 633 Q153 610 188 616 Q213 590 247 607 Q279 587 307 608 Q343 588 374 610 Q411 597 431 620 Q465 619 477 644
-           Q461 668 442 683 Q398 696 355 688 Q308 708 260 691 Q216 702 175 680 Q143 669 128 633Z"
-        fill="url(#earth)" stroke="#bda78b" stroke-opacity=".55" stroke-width="2"/>
-  <path d="M128 633 Q153 610 188 616 Q213 590 247 607 Q279 587 307 608 Q343 588 374 610 Q411 597 431 620 Q465 619 477 644
-           Q461 668 442 683 Q398 696 355 688 Q308 708 260 691 Q216 702 175 680 Q143 669 128 633Z"
-        fill="url(#flecks)" opacity=".75"/>
-  <path d="M147 644 Q178 652 197 638 Q220 650 242 636 M357 640 Q389 653 420 636 M217 673 Q250 660 274 677 M327 668 Q350 653 375 674"
-        fill="none" stroke="#d9bb94" stroke-opacity=".4" stroke-width="2"/>
-  <path d="M176 671 Q163 694 150 704 M216 682 Q211 705 197 716 M399 681 Q411 701 425 709 M359 685 Q365 706 379 716"
-        fill="none" stroke="#87c5b2" stroke-width="2" stroke-linecap="round" opacity=".7" class="root"/>
-  <circle cx="177" cy="635" r="4" fill="#e6c79b" opacity=".65"/>
-  <circle cx="414" cy="641" r="3" fill="#a7d9c1" opacity=".8"/>
-  <circle cx="287" cy="670" r="2.5" fill="#f2d09d" opacity=".8"/>
-
-  <!-- Mycelial threads in the floating earth -->
-  <g fill="none" stroke="#b8d8ad" stroke-width="1.5" opacity=".52">
-    <path d="M299 620 Q270 643 233 656 Q216 665 205 679"/>
-    <path d="M302 620 Q328 645 366 652 Q389 661 400 679"/>
-    <path d="M284 638 Q269 656 270 678"/>
-    <path d="M322 638 Q337 657 333 680"/>
+  <g fill="none" stroke="#b3d9c9" stroke-opacity=".25">
+    <path d="M91 224l5 8 8 2-8 3-4 8-2-8-8-3 8-2z"/>
+    <path d="M501 328l4 7 7 2-7 2-4 7-2-7-7-2 7-2z"/>
+    <path d="M140 392l3 5 5 2-5 2-3 5-2-5-5-2 5-2z"/>
+    <path d="M463 132l3 5 5 2-5 2-3 5-2-5-5-2 5-2z"/>
   </g>
 
-  <!-- Stem, twisting like a ribbon -->
-  <path d="M300 624
-           C278 583 331 540 310 500
-           C288 461 270 435 299 400
-           C318 377 303 350 300 306
-           C319 344 342 377 322 414
-           C302 452 344 482 330 521
-           C318 557 342 592 326 625Z"
-        fill="#243b47" opacity=".45" transform="translate(5 7)"/>
-  <path d="M300 624
-           C278 583 331 540 310 500
-           C288 461 270 435 299 400
-           C318 377 303 350 300 306
-           C319 344 342 377 322 414
-           C302 452 344 482 330 521
-           C318 557 342 592 326 625Z"
-        fill="url(#stem)" stroke="#d4d8b1" stroke-opacity=".72" stroke-width="2"/>
-  <path d="M306 597 C294 565 328 538 319 507 C310 475 284 447 307 414 C321 394 313 367 307 340"
-        fill="none" stroke="#f4e0b5" stroke-opacity=".75" stroke-width="4" stroke-linecap="round"/>
-  <path d="M286 540 Q305 550 327 541 M286 464 Q307 474 328 463"
-        fill="none" stroke="#668e8d" stroke-width="2" opacity=".7"/>
+  <ellipse cx="302" cy="648" rx="196" ry="29" fill="#0a1722" opacity=".58"/>
+  <path d="M111 635 C133 615 171 612 197 619 C225 594 271 601 294 614
+           C323 594 369 601 389 618 C428 601 474 615 493 638
+           C464 661 412 669 364 662 C324 676 273 669 238 663
+           C191 675 143 660 111 635Z" fill="url(#stone)"/>
+  <path d="M145 632 C173 618 194 624 211 631 M350 638 C384 619 419 622 451 639"
+        fill="none" stroke="#8ca9a3" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M178 645 C209 631 229 648 254 638 C277 629 292 647 314 640
+           M350 651 C373 634 395 649 419 635"
+        fill="none" stroke="#9be2c4" stroke-opacity=".7" stroke-width="2" filter="url(#tinyGlow)"/>
+  <g fill="#70bba0">
+    <path d="M128 633q-17-24-24-8 9 17 24 8z"/><path d="M146 625q-5-22-17-16 2 17 17 16z"/>
+    <path d="M462 633q13-23 24-11-6 18-24 11z"/><path d="M441 622q4-22 17-17-1 17-17 17z"/>
+    <path d="M264 615q-4-19-15-14 1 14 15 14z"/><path d="M333 614q10-17 19-9-5 13-19 9z"/>
+  </g>
 
-  <!-- Gilled, folded cap -->
-  <g class="breath">
-    <path d="M153 270
-      C170 249 166 223 194 203
-      C217 186 242 198 265 184
-      C288 168 309 164 330 180
-      C352 194 372 186 394 202
-      C420 221 425 241 450 257
-      C430 276 412 276 391 284
-      C365 295 342 283 322 294
-      C300 306 278 294 255 289
-      C223 282 191 293 153 270Z"
-      fill="url(#gills)" stroke="url(#rim)" stroke-width="4"/>
+  <g fill="none" stroke="#83d9c0" stroke-opacity=".66" stroke-width="2">
+    <path d="M300 622 C277 604 282 589 260 581 C246 575 240 584 229 574"/>
+    <path d="M311 622 C337 604 333 589 356 580 C371 574 378 585 391 571"/>
+    <path d="M295 623 C273 616 267 608 251 608"/>
+    <path d="M318 622 C341 614 350 608 367 610"/>
+  </g>
+  <g fill="#b6efd2" filter="url(#tinyGlow)">
+    <circle cx="229" cy="574" r="2.3"/><circle cx="391" cy="571" r="2.2"/>
+    <circle cx="251" cy="608" r="1.8"/><circle cx="367" cy="610" r="1.8"/>
+  </g>
 
-    <!-- Radiating gills -->
-    <g fill="none" stroke="#f1d4b5" stroke-opacity=".76" stroke-width="1.7">
-      <path d="M300 300 Q229 301 159 268"/>
-      <path d="M300 300 Q239 312 174 276"/>
-      <path d="M300 300 Q252 319 193 283"/>
-      <path d="M300 300 Q269 321 213 286"/>
-      <path d="M300 300 Q285 320 235 289"/>
-      <path d="M300 300 Q301 323 258 291"/>
-      <path d="M300 300 Q319 320 281 294"/>
-      <path d="M300 300 Q339 315 304 293"/>
-      <path d="M300 300 Q361 309 329 291"/>
-      <path d="M300 300 Q383 300 354 286"/>
-      <path d="M300 300 Q408 289 379 280"/>
-      <path d="M300 300 Q426 278 404 273"/>
+  <path d="M290 293 C316 338 292 385 305 433 C319 484 297 551 305 619
+           L331 619 C321 548 343 488 326 431 C307 376 332 335 315 292Z"
+        fill="url(#stem)" opacity=".9"/>
+  <path d="M301 315 C313 375 303 408 317 453 C330 498 312 556 320 602"
+        fill="none" stroke="#fff0ca" stroke-opacity=".72" stroke-width="3"/>
+  <path d="M293 352 C280 388 299 412 297 440 M321 481 C331 523 309 552 316 579"
+        fill="none" stroke="#4a9b9e" stroke-opacity=".55" stroke-width="2"/>
+  <path d="M425 438 C439 474 426 520 440 614 L458 614 C447 525 466 482 449 435Z"
+        fill="url(#stem)" opacity=".8"/>
+  <path d="M438 460 C449 510 439 552 450 600" fill="none" stroke="#fff0ca" stroke-opacity=".6" stroke-width="2"/>
+
+  <g class="cap-breathe">
+    <path d="M135 283 C160 228 222 191 292 188 C365 185 435 223 468 282
+             C449 294 430 306 409 305 C390 304 378 295 360 301
+             C341 308 327 314 306 309 C284 304 270 296 250 302
+             C226 310 205 308 185 300 C164 293 151 290 135 283Z"
+          fill="url(#cap)" stroke="#ffd8bd" stroke-opacity=".8" stroke-width="2.5"/>
+    <path d="M139 282 C204 299 399 304 464 282 C450 299 430 314 407 310
+             C383 306 373 297 354 304 C333 313 324 319 302 313
+             C279 306 268 299 247 306 C225 313 206 310 185 302
+             C165 295 150 291 139 282Z"
+          fill="url(#underside)" stroke="#9de5cd" stroke-opacity=".7" stroke-width="1.4"/>
+    <g fill="none" stroke="#9ee1ce" stroke-opacity=".65" stroke-width="1.2">
+      <path d="M302 305 Q226 288 157 285"/><path d="M302 305 Q241 297 176 296"/>
+      <path d="M302 305 Q258 302 198 304"/><path d="M302 305 Q278 307 224 309"/>
+      <path d="M302 305 Q378 288 450 285"/><path d="M302 305 Q364 297 431 296"/>
+      <path d="M302 305 Q346 302 409 304"/><path d="M302 305 Q326 307 383 309"/>
     </g>
-
-    <!-- Iridescent cap surface -->
-    <path d="M153 270
-      C172 248 169 224 195 204
-      C218 187 243 199 266 184
-      C288 169 309 165 330 181
-      C350 195 373 187 394 203
-      C418 220 426 242 450 257
-      C425 266 402 257 382 265
-      C356 276 337 267 315 279
-      C292 292 269 276 245 276
-      C211 275 184 287 153 270Z"
-      fill="url(#cap)" stroke="#f4d6ae" stroke-width="2.5"/>
-
-    <!-- Fold lines and luminous ridges -->
-    <path d="M181 258 C205 236 196 216 225 203 M236 266 C260 237 244 211 272 187
-             M295 273 C315 242 291 211 310 174 M347 267 C362 239 342 213 346 194
-             M390 258 C399 238 382 222 386 206"
-      fill="none" stroke="#fff0c9" stroke-opacity=".67" stroke-width="3" stroke-linecap="round"/>
-    <path d="M169 265 Q211 258 245 268 Q275 273 300 280 Q336 263 372 267 Q412 263 438 258"
-      fill="none" stroke="#92e1d0" stroke-width="3" stroke-opacity=".8"/>
-    <ellipse cx="249" cy="216" rx="21" ry="9" transform="rotate(-28 249 216)" fill="#fff1cf" opacity=".23"/>
-    <ellipse cx="369" cy="226" rx="16" ry="7" transform="rotate(28 369 226)" fill="#d7fff0" opacity=".22"/>
-    <circle cx="300" cy="282" r="6" fill="#fff4cc" opacity=".9" filter="url(#shine)"/>
+    <path d="M177 265 C209 219 254 203 296 202" fill="none" stroke="#ffe0bc" stroke-opacity=".66" stroke-width="2"/>
+    <path d="M322 202 C371 207 410 231 434 262" fill="none" stroke="#f7c5cf" stroke-opacity=".7" stroke-width="2"/>
+    <path d="M238 226 C261 214 277 211 293 212" fill="none" stroke="#fff0cd" stroke-opacity=".75" stroke-width="1.5"/>
+    <g fill="#fff0ca">
+      <circle cx="217" cy="245" r="3"/><circle cx="246" cy="222" r="2.4"/>
+      <circle cx="277" cy="207" r="2"/><circle cx="337" cy="211" r="2.5"/>
+      <circle cx="377" cy="228" r="2"/><circle cx="405" cy="249" r="3"/>
+      <circle cx="190" cy="269" r="1.8"/><circle cx="428" cy="270" r="1.8"/>
+    </g>
+    <g fill="none" stroke="#ffe7c7" stroke-opacity=".7">
+      <path d="M265 238q8-12 16 0q-8 10-16 0z"/>
+      <path d="M350 239q7-10 14 0q-7 9-14 0z"/>
+      <path d="M302 222c-7 8-7 13 0 17 7-4 7-9 0-17z"/>
+    </g>
   </g>
 
-  <!-- Hanging pearl-like spore lamps -->
-  <g stroke="#b9e5d4" stroke-width="1.5" fill="none" opacity=".85">
-    <path d="M202 281 Q195 306 190 321"/>
-    <path d="M395 277 Q404 301 412 314"/>
-    <path d="M242 290 Q237 309 235 325"/>
-    <path d="M360 288 Q365 309 371 324"/>
-  </g>
   <g>
-    <circle cx="190" cy="324" r="7" fill="url(#pearl)"/>
-    <circle cx="412" cy="317" r="8" fill="url(#pearl)"/>
-    <circle cx="235" cy="328" r="5" fill="url(#pearl)"/>
-    <circle cx="371" cy="327" r="6" fill="url(#pearl)"/>
-    <circle cx="188" cy="322" r="1.5" fill="#fff9db"/>
-    <circle cx="410" cy="315" r="2" fill="#fff9db"/>
+    <path d="M381 424 C395 395 425 380 453 384 C481 388 502 408 510 431
+             C497 440 485 444 473 439 C461 434 451 437 440 442
+             C423 447 401 440 381 424Z"
+          fill="url(#smallcap)" stroke="#f8d4bd" stroke-opacity=".8" stroke-width="2"/>
+    <path d="M384 424 C420 437 475 444 507 431 C495 444 480 451 467 447
+             C451 442 443 448 432 450 C413 450 397 440 384 424Z"
+          fill="#34546a" stroke="#a5e4cf" stroke-opacity=".65" stroke-width="1.3"/>
+    <path d="M445 443 Q415 435 390 426 M445 443 Q426 446 403 439 M445 443 Q470 435 498 433 M445 443 Q470 448 482 445"
+          fill="none" stroke="#a5e4cf" stroke-opacity=".6" stroke-width="1"/>
+    <path d="M425 438q-8-17-18-22 M454 435q12-24 25-28" fill="none" stroke="#ffe4c7" stroke-opacity=".6" stroke-width="1.5"/>
+    <circle cx="418" cy="408" r="2" fill="#fff0ca"/><circle cx="476" cy="412" r="2.2" fill="#fff0ca"/>
   </g>
 
-  <!-- Slowly wandering spores -->
-  <g fill="#e3f4d7">
-    <g class="spore"><circle cx="155" cy="354" r="3"/><circle cx="155" cy="354" r="6" fill="none" stroke="#c8f4dc" stroke-width="1" opacity=".7"/></g>
-    <g class="spore"><circle cx="443" cy="376" r="2.5"/><circle cx="443" cy="376" r="5" fill="none" stroke="#c8f4dc" stroke-width="1" opacity=".65"/></g>
-    <g class="spore"><circle cx="211" cy="405" r="2"/><circle cx="211" cy="405" r="4" fill="none" stroke="#c8f4dc" stroke-width="1" opacity=".6"/></g>
-    <g class="spore"><circle cx="386" cy="421" r="3"/><circle cx="386" cy="421" r="6" fill="none" stroke="#c8f4dc" stroke-width="1" opacity=".7"/></g>
-    <g class="spore"><circle cx="130" cy="447" r="2"/><circle cx="130" cy="447" r="4" fill="none" stroke="#c8f4dc" stroke-width="1" opacity=".55"/></g>
-    <g class="spore"><circle cx="468" cy="475" r="2.5"/><circle cx="468" cy="475" r="5" fill="none" stroke="#c8f4dc" stroke-width="1" opacity=".6"/></g>
-    <g class="spore"><circle cx="178" cy="524" r="2"/><circle cx="178" cy="524" r="4" fill="none" stroke="#c8f4dc" stroke-width="1" opacity=".55"/></g>
-    <g class="spore"><circle cx="430" cy="547" r="2"/><circle cx="430" cy="547" r="4" fill="none" stroke="#c8f4dc" stroke-width="1" opacity=".6"/></g>
+  <g filter="url(#softGlow)" opacity=".68">
+    <circle cx="302" cy="316" r="9" fill="#7de3c9"/>
+    <circle cx="444" cy="450" r="5" fill="#8be2c6"/>
   </g>
-
-  <!-- Tiny glints -->
-  <g fill="#fff2c9" opacity=".78">
-    <path d="M123 300l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>
-    <path d="M474 407l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/>
-    <path d="M447 196l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z"/>
+  <g fill="url(#pearl)" filter="url(#tinyGlow)">
+    <circle class="spore s1" cx="174" cy="340" r="3.2"/>
+    <circle class="spore s2" cx="222" cy="365" r="2.2"/>
+    <circle class="spore s3" cx="390" cy="345" r="3"/>
+    <circle class="spore s4" cx="454" cy="356" r="2.1"/>
+    <circle class="spore s5" cx="270" cy="385" r="2.5"/>
+    <circle class="spore s6" cx="354" cy="362" r="1.8"/>
+    <circle class="spore s7" cx="487" cy="389" r="2.7"/>
+    <circle class="spore s8" cx="143" cy="381" r="1.8"/>
+  </g>
+  <g fill="#d6f0d2" opacity=".55">
+    <circle cx="176" cy="341" r=".8"/><circle cx="392" cy="344" r=".8"/>
+    <circle cx="488" cy="388" r=".7"/><circle cx="271" cy="384" r=".7"/>
   </g>
 </svg>
 </body>
@@ -256,7 +214,7 @@
 
 ```json
 {
-  "title": "Tideglass Parasol",
-  "statement": "This luminous fungus unfurls a folded, iridescent cap above a stem that twists like a ribbon. Its pearl-like spores drift through the air while fine mycelial threads stitch the floating peat beneath it."
+  "title": "Tideglass Umbrel",
+  "statement": "This moonlit fungus raises a glassy, tide-colored canopy above a stone threaded with luminous mycelium. At dusk, it loosens tiny pearl-like spores that drift upward as if buoyed by an invisible current."
 }
 ```

@@ -4,14 +4,14 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "Glimmerdrift Chimecap",
-  "statement": "A cluster of three translucent bell-caps that open and close in slow turns, each hung with glowing chime-beads that sway in the spore-laden air. Mature specimens release drifting spore-motes upward from beneath their gills, while pale mycelial threads pulse across the moss beneath them.",
+  "title": "Moonbell Thimblecap",
+  "statement": "A cluster of translucent bell-shaped caps that breathe open and closed on a mossy log, pulsing with violet and teal light. Each cap releases a slow drift of luminous spores, and pale threads of mycelium creep across the wood between them.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 1
+      "promptVersion": 2
     },
     "attempts": 1,
     "edits": "none"

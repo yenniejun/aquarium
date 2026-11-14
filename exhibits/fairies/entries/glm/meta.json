@@ -6,14 +6,14 @@
   "host": "alibaba",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of Rust",
-  "statement": "She keeps what time corrodes. Every lock yields, eventually, to her patience.",
+  "title": "The Fairy of Unfinished Things",
+  "statement": "What you never finished still waits, patient, keeping a place for you.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenRouter (served by Alibaba)",
     "params": {
       "max_tokens": 100000,
-      "promptVersion": 2,
+      "promptVersion": 4,
       "host": "alibaba",
       "reasoning": "medium"
     },

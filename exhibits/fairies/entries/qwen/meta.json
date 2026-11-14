@@ -6,14 +6,14 @@
   "host": "alibaba",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of Dead Channels",
-  "statement": "What seems like noise is a voice waiting to be found.",
+  "title": "The Fairy of Unspoken Words",
+  "statement": "What remains unsaid gathers light, awaiting one brave voice.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenRouter (served by Alibaba)",
     "params": {
       "max_tokens": 100000,
-      "promptVersion": 2,
+      "promptVersion": 4,
       "host": "alibaba",
       "reasoning": "medium"
     },

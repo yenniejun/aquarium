@@ -1,0 +1,1042 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #12181c;
+    overscroll-behavior: none;
+  }
+  svg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+  }
+  .myco {
+    stroke-dasharray: 2.2 7;
+    animation: creep 18s linear infinite;
+  }
+  .spark {
+    animation: twinkle 2.8s ease-in-out infinite;
+  }
+  @keyframes creep { to { stroke-dashoffset: -90; } }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.18; }
+    50% { opacity: 0.95; }
+  }
+</style>
+</head>
+<body>
+<svg id="scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice">
+  <rect width="300" height="400" fill="#12181c"></rect>
+  <g id="root"></g>
+</svg>
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  var scene = document.getElementById("scene");
+  var root = document.getElementById("root");
+  var defs = document.createElementNS(NS, "defs");
+  scene.insertBefore(defs, root);
+
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    if (attrs) {
+      for (var k in attrs) n.setAttribute(k, attrs[k]);
+    }
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0;
+      a = (a + 0x6d2b79f5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  var rnd = mulberry32(20260328);
+
+  function groundY(x) {
+    var n = (x - 152) / 100;
+    return 346 - 30 * Math.exp(-n * n * 1.15) + 2.5 * Math.sin(x * 0.05 + 0.4);
+  }
+
+  function radial(id, stops, cx, cy, r) {
+    var g = el("radialGradient", { id: id, cx: cx || "40%", cy: cy || "36%", r: r || "68%" }, defs);
+    for (var i = 0; i < stops.length; i++) {
+      el("stop", {
+        offset: stops[i][0],
+        "stop-color": stops[i][1],
+        "stop-opacity": stops[i][2]
+      }, g);
+    }
+    return "url(#" + id + ")";
+  }
+
+  function linear(id, x2, y2, stops) {
+    var g = el("linearGradient", { id: id, x1: "0", y1: "0", x2: x2, y2: y2 }, defs);
+    for (var i = 0; i < stops.length; i++) {
+      el("stop", {
+        offset: stops[i][0],
+        "stop-color": stops[i][1],
+        "stop-opacity": stops[i][2] == null ? "1" : stops[i][2]
+      }, g);
+    }
+    return "url(#" + id + ")";
+  }
+
+  var filter = el("filter", { id: "soft", x: "-90%", y: "-90%", width: "280%", height: "280%" }, defs);
+  el("feGaussianBlur", { stdDeviation: "6", in: "SourceGraphic" }, filter);
+
+  linear("sky", "0", "1", [
+    ["0%", "#10181c", "1"],
+    ["42%", "#16242a", "1"],
+    ["74%", "#1a241e", "1"],
+    ["100%", "#12140f", "1"]
+  ]);
+  linear("soilFill", "0", "1", [
+    ["0%", "#4a5a40", "1"],
+    ["28%", "#31402c", "1"],
+    ["100%", "#16180f", "1"]
+  ]);
+  linear("stemFill", "1", "0.15", [
+    ["0%", "#f2d2aa", "1"],
+    ["28%", "#b co".replace(" ", "") && "#c48a56", "1"],
+    ["62%", "#5a3a2c", "1"],
+    ["100%", "#243e3a", "1"]
+  ]);
+  linear("veilFill", "0", "1", [
+    ["0%", "#fff6e4", "0.02"],
+    ["35%", "#f0d09a", "0.42"],
+    ["70%", "#e7b48a", "0.28"],
+    ["100%", "#e8b0c4", "0.02"]
+  ]);
+  radial("shaft", [
+    ["0%", "#ffe6c4", "0.16"],
+    ["36%", "#1d3e3a", "0.07"],
+    ["100%", "#000000", "0"]
+  ], "50%", "42%", "52%");
+  radial("washL", [
+    ["0%", "#1e4c48", "0.55"],
+    ["100%", "#1e4c48", "0"]
+  ], "50%", "50%", "50%");
+  radial("washR", [
+    ["0%", "#4a3428", "0.4"],
+    ["100%", "#4a3428", "0"]
+  ], "50%", "50%", "50%");
+
+  el("rect", { width: "300", height: "400", fill: "url(#sky)" }, root);
+  el("ellipse", { cx: "36", cy: "78", rx: "120", ry: "90", fill: "url(#washL)" }, root);
+  el("ellipse", { cx: "262", cy: "128", rx: "100", ry: "78", fill: "url(#washR)" }, root);
+  el("ellipse", { cx: "158", cy: "176", rx: "128", ry: "168", fill: "url(#shaft)" }, root);
+
+  function soilPath(offset) {
+    var d = "M -20 430 L -20 " + (groundY(0) + offset).toFixed(1);
+    for (var x = 0; x <= 300; x += 6) {
+      d += " L " + x + " " + (groundY(x) + offset).toFixed(1);
+    }
+    d += " L 320 " + (groundY(300) + offset).toFixed(1) + " L 320 430 Z";
+    return d;
+  }
+  el("path", { d: soilPath(0), fill: "url(#soilFill)" }, root);
+  el("ellipse", { cx: "150", cy: "382", rx: "180", ry: "30", fill: "#0c0e0a", opacity: "0.4" }, root);
+
+  function mycoCurve(x0, y0, x1, y1, bend) {
+    var mx = (x0 + x1) / 2 + bend;
+    var my = (y0 + y1) / 2 - 3;
+    return "M " + x0.toFixed(1) + " " + y0.toFixed(1) + " Q " + mx.toFixed(1) + " " + my.toFixed(1) + " " + x1.toFixed(1) + " " + y1.toFixed(1);
+  }
+
+  var habitat = el("g", {}, root);
+  for (var m = 0; m < 8; m++) {
+    var mx0 = 28 + rnd() * 244;
+    var my0 = groundY(mx0) + 1;
+    var pth = el("path", {
+      d: mycoCurve(mx0, my0, 146 + (rnd() - 0.5) * 24, groundY(150) - 1, (rnd() - 0.5) * 46),
+      fill: "none",
+      stroke: m % 2 ? "#d7f3c8" : "#f0e0b0",
+      "stroke-width": "1",
+      opacity: "0.38",
+      "stroke-linecap": "round",
+      class: "myco"
+    }, habitat);
+    pth.style.animationDuration = (12 + rnd() * 12) + "s";
+    pth.style.animationDelay = (-rnd() * 10) + "s";
+  }
+
+  function spiralPath(cx, cy, turns, r0, r1) {
+    var d = "";
+    var n = 72;
+    for (var i = 0; i <= n; i++) {
+      var u = i / n;
+      var a = u * turns * Math.PI * 2;
+      var r = r0 + (r1 - r0) * u;
+      var x = cx + Math.cos(a) * r;
+      var y = cy + Math.sin(a) * r * 0.32;
+      d += (i ? "L" : "M") + x.toFixed(1) + " " + y.toFixed(1);
+    }
+    return d;
+  }
+  var sp = el("path", {
+    d: spiralPath(118, groundY(118) + 5, 2.5, 2.5, 26),
+    fill: "none",
+    stroke: "#e4f8cf",
+    "stroke-width": "1",
+    opacity: "0.45",
+    "stroke-linecap": "round",
+    class: "myco"
+  }, habitat);
+  sp.style.animationDuration = "22s";
+
+  var leafX = 214;
+  var leaf = el("g", { transform: "translate(" + leafX + " " + (groundY(leafX) - 6).toFixed(1) + ") rotate(-16)" }, habitat);
+  el("path", {
+    d: "M 0 0 C 16 -18, 48 -8, 54 8 C 58 20, 34 28, 12 18 C -4 10, -8 4, 0 0 Z",
+    fill: "#7c3348"
+  }, leaf);
+  el("path", {
+    d: "M 3 1 C 18 -8, 40 -2, 49 7",
+    fill: "none",
+    stroke: "#f3c9cc",
+    "stroke-width": "0.9",
+    opacity: "0.75",
+    "stroke-linecap": "round"
+  }, leaf);
+  el("path", {
+    d: "M 8 2 C 14 8, 22 12, 30 11",
+    fill: "none",
+    stroke: "#f3c9cc",
+    "stroke-width": "0.6",
+    opacity: "0.45",
+    "stroke-linecap": "round"
+  }, leaf);
+
+  var pebbles = [[42, 7, 4.2, "#6a6458"], [58, 4.2, 2.6, "#d5cec2"], [246, 6, 3.6, "#4a463f"], [268, 3.4, 2.2, "#8d867c"]];
+  for (var pb = 0; pb < pebbles.length; pb++) {
+    var px0 = pebbles[pb][0];
+    el("ellipse", {
+      cx: px0,
+      cy: groundY(px0) - 1,
+      rx: pebbles[pb][1],
+      ry: pebbles[pb][2],
+      fill: pebbles[pb][3],
+      opacity: "0.9"
+    }, habitat);
+  }
+
+  function addTuft(parent, x, y, sc) {
+    var g = el("g", { transform: "translate(" + x.toFixed(1) + " " + y.toFixed(1) + ")" }, parent);
+    var blades = 4 + Math.floor(rnd() * 3);
+    for (var i = 0; i < blades; i++) {
+      var a = -0.9 + rnd() * 1.8;
+      var h = (4.2 + rnd() * 7.5) * sc;
+      var w = (1.5 + rnd() * 1.7) * sc;
+      var fill = "#2c4630";
+      var roll = rnd();
+      if (roll > 0.86) fill = "#7ed0c4";
+      else if (roll > 0.62) fill = "#8fb86e";
+      else if (roll > 0.35) fill = "#3e5c38";
+      el("ellipse", {
+        cx: (Math.sin(a) * 2.2).toFixed(2),
+        cy: (-h * 0.42).toFixed(2),
+        rx: w.toFixed(2),
+        ry: (h * 0.55).toFixed(2),
+        fill: fill,
+        opacity: (0.72 + rnd() * 0.28).toFixed(2),
+        transform: "rotate(" + (a * 42).toFixed(0) + " 0 0)"
+      }, g);
+    }
+    if (rnd() > 0.7) {
+      var spark = el("circle", {
+        cx: ((rnd() - 0.5) * 5).toFixed(2),
+        cy: (-(4 + rnd() * 7) * sc).toFixed(2),
+        r: (0.85 * sc).toFixed(2),
+        fill: "#eaffb8",
+        class: "spark"
+      }, g);
+      spark.style.animationDelay = (-rnd() * 3) + "s";
+      spark.style.animationDuration = (2.1 + rnd() * 2.6) + "s";
+    }
+  }
+
+  var backMoss = el("g", {}, root);
+  for (var tm = 0; tm < 20; tm++) {
+    var tx = 16 + rnd() * 268;
+    addTuft(backMoss, tx, groundY(tx) - 1.5, 0.75 + rnd() * 0.7);
+  }
+
+  function ringPath(rx, ry, inner, seed) {
+    var n = 56;
+    var wob = 0.03;
+    var d = "";
+    var passes = inner > 0 ? 2 : 1;
+    for (var pass = 0; pass < passes; pass++) {
+      var k = pass === 0 ? 1 : inner;
+      var wm = pass === 0 ? 1 : 0.6;
+      for (var i = 0; i <= n; i++) {
+        var t = (i / n) * Math.PI * 2;
+        var w = 1 + wob * wm * Math.sin(t * 3 + seed) + wob * 0.55 * wm * Math.sin(t * 7 + seed * 1.7);
+        var x = Math.cos(t) * rx * k * w;
+        var y = Math.sin(t) * ry * k * w;
+        d += (i === 0 ? "M" : "L") + x.toFixed(2) + " " + y.toFixed(2);
+      }
+      d += "Z";
+    }
+    return d;
+  }
+
+  function glintPath(rx, ry) {
+    var x1 = -rx * 0.56;
+    var y1 = ry * 0.12;
+    var qx = -rx * 0.12;
+    var qy = -ry * 0.98;
+    var x2 = rx * 0.36;
+    var y2 = -ry * 0.28;
+    return "M " + x1.toFixed(1) + " " + y1.toFixed(1) + " Q " + qx.toFixed(1) + " " + qy.toFixed(1) + " " + x2.toFixed(1) + " " + y2.toFixed(1);
+  }
+
+  function makeVeil(w, h) {
+    var d = "M " + (-w * 0.12).toFixed(1) + " 0";
+    d += " C " + (-w * 0.5).toFixed(1) + " " + (h * 0.32).toFixed(1) + ", " + (-w).toFixed(1) + " " + (h * 0.58).toFixed(1) + ", " + (-w * 0.9).toFixed(1) + " " + h.toFixed(1);
+    for (var i = 0; i <= 9; i++) {
+      var u = i / 9;
+      var x = -w * 0.9 + u * w * 1.8;
+      var jag = Math.sin(u * Math.PI * 5) * h * 0.16 + Math.sin(u * 19) * h * 0.05;
+      d += " L " + x.toFixed(1) + " " + (h + jag).toFixed(1);
+    }
+    d += " C " + w.toFixed(1) + " " + (h * 0.55).toFixed(1) + ", " + (w * 0.42).toFixed(1) + " " + (h * 0.28).toFixed(1) + ", " + (w * 0.12).toFixed(1) + " 0 Z";
+    return d;
+  }
+
+  var gid = 0;
+  function createFruit(opts) {
+    var g = el("g", {}, root);
+    var baseY = groundY(opts.stemBaseX) - 2;
+    var stem = el("path", {
+      d: stemPath(opts.stemBaseX, baseY, opts.cx, opts.stemTopY, opts.stemBaseW, opts.stemTopW),
+      fill: "url(#stemFill)",
+      stroke: "#f0d2b0",
+      "stroke-width": "0.8",
+      "stroke-opacity": "0.35"
+    }, g);
+    el("ellipse", {
+      cx: opts.stemBaseX,
+      cy: baseY - 1,
+      rx: opts.stemBaseW * 1.28,
+      ry: opts.stemBaseW * 0.48,
+      fill: "url(#stemFill)"
+    }, g);
+    el("path", {
+      d: stemSheen(opts.stemBaseX, baseY, opts.cx, opts.stemTopY, opts.stemBaseW, opts.stemTopW),
+      fill: "none",
+      stroke: "#ffe0b8",
+      "stroke-width": Math.max(1.2, opts.stemBaseW * 0.14),
+      "stroke-linecap": "round",
+      opacity: "0.7"
+    }, g);
+    for (var rdg = 0; rdg < opts.ridges; rdg++) {
+      var u = 0.18 + rdg * (0.62 / opts.ridges);
+      var y = opts.stemTopY + (baseY - opts.stemTopY) * u;
+      var x = opts.cx + (opts.stemBaseX - opts.cx) * u;
+      var w = opts.stemTopW + (opts.stemBaseW - opts.stemTopW) * u;
+      el("path", {
+        d: "M " + (x - w * 0.65).toFixed(1) + " " + y.toFixed(1) + " Q " + x.toFixed(1) + " " + (y + 1.6).toFixed(1) + " " + (x + w * 0.5).toFixed(1) + " " + y.toFixed(1),
+        fill: "none",
+        stroke: "#2a1812",
+        "stroke-width": "0.7",
+        opacity: "0.32"
+      }, g);
+    }
+    for (var sap = 0; sap < 5; sap++) {
+      var su = 0.12 + sap * 0.16;
+      var sy = opts.stemTopY + (baseY - opts.stemTopY) * su;
+      var sx = opts.cx + (opts.stemBaseX - opts.cx) * su + (sap % 2 ? 2.2 : -1.4);
+      el("circle", {
+        cx: sx.toFixed(1),
+        cy: sy.toFixed(1),
+        r: opts.small ? "0.9" : "1.25",
+        fill: sap % 2 ? "#9aeee0" : "#ffe0a8",
+        opacity: "0.75"
+      }, g);
+    }
+
+    var glowG = el("g", opts.small ? {} : { filter: "url(#soft)" }, g);
+    var glowA = el("ellipse", { cx: opts.cx, cy: opts.stemTopY, rx: opts.small ? 8 : 18, ry: 20, fill: "#ffe3b0", opacity: "0.45" }, glowG);
+    var glowB = el("ellipse", { cx: opts.cx, cy: opts.stemTopY, rx: opts.small ? 6 : 12, ry: 16, fill: "#9af0de", opacity: "0.2" }, glowG);
+    var axleSoft = el("line", {
+      x1: opts.cx, y1: opts.stemTopY, x2: opts.cx, y2: opts.stemTopY,
+      stroke: "#ffd9a6",
+      "stroke-width": opts.small ? 3 : 5.5,
+      "stroke-linecap": "round",
+      opacity: "0.13"
+    }, g);
+    var axle = el("line", {
+      x1: opts.cx, y1: opts.stemTopY, x2: opts.cx, y2: opts.stemTopY,
+      stroke: "#fff3d4",
+      "stroke-width": opts.small ? 1.2 : 2.1,
+      "stroke-linecap": "round",
+      opacity: "0.45"
+    }, g);
+
+    var partNodes = [];
+    for (var i = 0; i < opts.parts.length; i++) {
+      var part = opts.parts[i];
+      var fillId = "glass" + (++gid);
+      var fill = radial(fillId, part.stops, part.kind === "cap" ? "38%" : "50%", part.kind === "cap" ? "32%" : "46%", "72%");
+      var wrap = el("g", {}, g);
+      if (part.kind === "cap") {
+        el("ellipse", {
+          cx: "1.2",
+          cy: "3.4",
+          rx: part.restRx * 1.01,
+          ry: part.restRy * 1.08,
+          fill: part.shadow,
+          opacity: "0.42"
+        }, wrap);
+      } else {
+        var thick = el("path", {
+          d: ringPath(part.restRx, part.restRy, part.inner, part.seed),
+          fill: part.shadow,
+          opacity: "0.4",
+          "fill-rule": "evenodd",
+          transform: "translate(0.8 2.4)"
+        }, wrap);
+      }
+      var spinG = el("g", {}, wrap);
+      var body = el("path", {
+        d: ringPath(part.restRx, part.restRy, part.inner, part.seed),
+        fill: fill,
+        "fill-rule": "evenodd",
+        stroke: part.kind === "cap" ? "#f8e2c8" : "#e9fff8",
+        "stroke-width": part.kind === "cap" ? "1.35" : "0.9",
+        "stroke-opacity": part.kind === "cap" ? "0.55" : "0.4"
+      }, spinG);
+      if (part.inner > 0) {
+        el("ellipse", {
+          cx: "0",
+          cy: "0",
+          rx: part.restRx * part.inner,
+          ry: part.restRy * part.inner,
+          fill: "none",
+          stroke: "#fffaf2",
+          "stroke-width": "0.85",
+          opacity: "0.55"
+        }, spinG);
+      }
+      if (part.kind === "cap") {
+        var s = part.restRx / 79;
+        el("ellipse", {
+          cx: "0",
+          cy: "0",
+          rx: part.restRx * 0.52,
+          ry: part.restRy * 0.5,
+          fill: "none",
+          stroke: "#fff6e6",
+          "stroke-width": "0.7",
+          opacity: "0.28"
+        }, spinG);
+        for (var v = 0; v < 12; v++) {
+          var va = (v / 12) * Math.PI * 2 + 0.18;
+          el("line", {
+            x1: (Math.cos(va) * 3.2 * s).toFixed(2),
+            y1: (Math.sin(va) * 1.4 * s).toFixed(2),
+            x2: (Math.cos(va) * part.restRx * 0.9).toFixed(2),
+            y2: (Math.sin(va) * part.restRy * 0.9).toFixed(2),
+            stroke: "#fff6e4",
+            "stroke-width": "0.65",
+            opacity: "0.22"
+          }, spinG);
+        }
+        for (var spn = 0; spn < 6; spn++) {
+          var sa = -0.7 + spn * 0.92;
+          var rad = (5.5 + spn * 4.1) * s;
+          var spot = {
+            cx: (Math.cos(sa) * rad).toFixed(2),
+            cy: (Math.sin(sa) * rad * (part.restRy / part.restRx) * 1.15).toFixed(2)
+          };
+          if (spn % 2 === 0) {
+            el("circle", {
+              cx: spot.cx,
+              cy: spot.cy,
+              r: (1.55 + (spn % 3) * 0.35) * Math.max(s, 0.45),
+              fill: "#fff8ee",
+              opacity: "0.88"
+            }, spinG);
+          } else {
+            el("circle", {
+              cx: spot.cx,
+              cy: spot.cy,
+              r: (2.05 * Math.max(s, 0.5)).toFixed(2),
+              fill: "none",
+              stroke: "#fff8ee",
+              "stroke-width": "0.75",
+              opacity: "0.75"
+            }, spinG);
+          }
+        }
+        el("circle", { cx: "0", cy: (-part.restRy * 0.12).toFixed(2), r: Math.max(1.6, 4.2 * s), fill: "#fff7e8" }, spinG);
+        el("circle", { cx: "-0.6", cy: (-part.restRy * 0.22).toFixed(2), r: Math.max(0.7, 1.7 * s), fill: "#ffffff", opacity: "0.9" }, spinG);
+      }
+      if (part.ticks) {
+        for (var tk = 0; tk < 24; tk++) {
+          var ta = (tk / 24) * Math.PI * 2;
+          var long = tk % 6 === 0;
+          var r0 = part.restRx * 0.9;
+          var r1 = part.restRx * (long ? 1.07 : 1.0);
+          el("line", {
+            x1: (Math.cos(ta) * r0).toFixed(2),
+            y1: (Math.sin(ta) * part.restRy * 0.9).toFixed(2),
+            x2: (Math.cos(ta) * r1).toFixed(2),
+            y2: (Math.sin(ta) * part.restRy * (long ? 1.07 : 1)).toFixed(2),
+            stroke: "#fff8ee",
+            "stroke-width": long ? "1" : "0.6",
+            opacity: long ? "0.55" : "0.32",
+            "stroke-linecap": "round"
+          }, spinG);
+        }
+      }
+      el("path", {
+        d: glintPath(part.restRx, part.restRy),
+        fill: "none",
+        stroke: "#fffaf2",
+        "stroke-width": part.kind === "cap" ? "1.8" : "1.25",
+        "stroke-linecap": "round",
+        opacity: part.kind === "cap" ? "0.62" : "0.4"
+      }, wrap);
+      if (part.kind === "cap" && opts.dew) {
+        var ds = part.restRx / 79;
+        var dews = [[-20, -3, 2.3], [10, -6, 1.5], [28, 0.5, 1.15], [-4, -7, 1.2]];
+        for (var dw = 0; dw < dews.length; dw++) {
+          el("ellipse", {
+            cx: (dews[dw][0] * ds).toFixed(2),
+            cy: (dews[dw][1] * ds).toFixed(2),
+            rx: dews[dw][2] * ds,
+            ry: dews[dw][2] * ds * 0.72,
+            fill: "#ffffff",
+            opacity: "0.72"
+          }, wrap);
+        }
+        el("ellipse", {
+          cx: (-part.restRx * 0.18).toFixed(1),
+          cy: (-part.restRy * 0.22).toFixed(1),
+          rx: part.restRx * 0.28,
+          ry: part.restRy * 0.36,
+          fill: "#ffffff",
+          opacity: "0.14"
+        }, wrap);
+      }
+      partNodes.push({ wrap: wrap, spinG: spinG, part: part, y: part.restY, rx: part.restRx, ry: part.restRy });
+    }
+
+    var collar = opts.parts[opts.parts.length - 1];
+    var gills = el("g", {}, g);
+    var gillCount = opts.gillCount;
+    for (var gi = 0; gi < gillCount; gi++) {
+      var ga = Math.PI * (0.06 + 0.88 * (gi / (gillCount - 1)));
+      var gx = Math.cos(ga) * collar.restRx * 0.7;
+      var gy = Math.sin(ga) * collar.restRy * 0.42;
+      var glen = (opts.small ? 4 : 7) + Math.sin(ga) * (opts.small ? 4 : 9);
+      el("path", {
+        d: "M " + gx.toFixed(1) + " " + gy.toFixed(1) + " Q " + (gx * 0.96).toFixed(1) + " " + (gy + glen * 0.55).toFixed(1) + " " + (gx * 0.9).toFixed(1) + " " + (gy + glen).toFixed(1),
+        fill: "none",
+        stroke: gi % 3 === 0 ? "#c8fff4" : "#ffe6c0",
+        "stroke-width": opts.small ? "0.8" : "1.15",
+        opacity: (0.28 + Math.sin(ga) * 0.45).toFixed(2),
+        "stroke-linecap": "round"
+      }, gills);
+      el("circle", {
+        cx: (gx * 0.9).toFixed(1),
+        cy: (gy + glen).toFixed(1),
+        r: opts.small ? "0.7" : "1.05",
+        fill: "#fffaf0",
+        opacity: "0.85"
+      }, gills);
+    }
+
+    var veil = null;
+    if (opts.veil) {
+      veil = el("path", {
+        d: makeVeil(collar.restRx * 0.72, opts.small ? 8 : 15),
+        fill: "url(#veilFill)",
+        opacity: "0.9"
+      }, g);
+    }
+
+    var moonLayer = el("g", {}, g);
+    var moons = [];
+    for (var mi = 0; mi < opts.moons.length; mi++) {
+      var md = opts.moons[mi];
+      var arm = null;
+      if (md.armed) {
+        arm = el("line", {
+          stroke: "#ffe7b8",
+          "stroke-width": opts.small ? "0.8" : "1.35",
+          "stroke-linecap": "round",
+          opacity: "0.45"
+        }, moonLayer);
+      }
+      var mg = el("g", {}, moonLayer);
+      var halo = el("circle", { r: md.size * 2.3, fill: md.planet ? "#fff1cc" : "#dffef4", opacity: "0.28" }, mg);
+      el("circle", { r: md.size, fill: md.planet ? "#fff8ea" : "#f3fff8" }, mg);
+      if (md.planet) {
+        el("circle", { cx: -md.size * 0.28, cy: -md.size * 0.22, r: md.size * 0.36, fill: "#e6c48a" }, mg);
+        el("ellipse", {
+          rx: md.size * 2.15,
+          ry: md.size * 0.62,
+          fill: "none",
+          stroke: "#fff6e2",
+          "stroke-width": opts.small ? "0.6" : "0.85",
+          opacity: "0.8",
+          transform: "rotate(26)"
+        }, mg);
+      }
+      moons.push({ spec: md, g: mg, arm: arm, x: opts.cx, y: opts.stemTopY });
+    }
+
+    var pulseA = el("circle", { r: opts.small ? 1.5 : 2.5, fill: "#fff1c4" }, g);
+    var pulseB = el("circle", { r: opts.small ? 1.2 : 1.8, fill: "#b9fff0" }, g);
+    var refl = el("ellipse", {
+      cx: opts.cx,
+      cy: baseY + 5,
+      rx: opts.parts[0].restRx * 0.42,
+      ry: opts.small ? 4 : 7,
+      fill: "#ffd7a4",
+      opacity: "0.08"
+    }, g);
+
+    var state = { open: 1, collarX: opts.cx, collarY: collar.restY, collarRx: collar.restRx, collarRy: collar.restRy };
+
+    function smooth01(s) {
+      var u = 0.5 + 0.5 * s;
+      return u * u * (3 - 2 * u);
+    }
+
+    function pointOnStem(u) {
+      var y = opts.stemTopY + (baseY - opts.stemTopY) * u;
+      var x = opts.cx + (opts.stemBaseX - opts.cx) * u;
+      return { x: x, y: y };
+    }
+
+    return {
+      group: g,
+      getOpen: function () { return state.open; },
+      sampleGill: function () {
+        var a = Math.PI * (0.1 + Math.random() * 0.8);
+        return {
+          x: state.collarX + Math.cos(a) * state.collarRx * 0.78,
+          y: state.collarY + Math.sin(a) * state.collarRy * 0.65 + (opts.small ? 4 : 7)
+        };
+      },
+      sampleMoon: function () {
+        if (!moons.length) return this.sampleGill();
+        var m = moons[Math.floor(Math.random() * moons.length)];
+        return { x: m.x, y: m.y };
+      },
+      update: function (t, px, py) {
+        var open = smooth01(Math.sin(t * 0.4 + opts.phase));
+        state.open = open;
+        var capY = opts.parts[0].restY;
+        for (var i = 0; i < partNodes.length; i++) {
+          var node = partNodes[i];
+          var part = node.part;
+          var bob = Math.sin(t * 0.85 + part.phase) * (opts.small ? 0.6 : 1.15);
+          var y = part.restY - part.lift * open + bob;
+          node.y = y;
+          node.wrap.setAttribute("transform", "translate(" + (opts.cx + px).toFixed(2) + " " + (y + py).toFixed(2) + ") skewX(" + part.tilt + ")");
+          node.spinG.setAttribute("transform", "rotate(" + (t * part.spin).toFixed(2) + ")");
+          if (i === 0) capY = y;
+        }
+        var collarNode = partNodes[partNodes.length - 1];
+        state.collarX = opts.cx + px;
+        state.collarY = collarNode.y + py;
+        state.collarRx = collar.restRx;
+        state.collarRy = collar.restRy;
+
+        var capTop = partNodes[0].y;
+        glowA.setAttribute("cx", opts.cx + px);
+        glowA.setAttribute("cy", (capTop + collarNode.y) / 2 + py);
+        glowA.setAttribute("ry", Math.max(opts.small ? 10 : 18, (collarNode.y - capTop) * 0.42));
+        glowA.setAttribute("opacity", 0.22 + open * 0.5);
+        glowB.setAttribute("cx", opts.cx + px);
+        glowB.setAttribute("cy", (capTop + collarNode.y) / 2 + py);
+        glowB.setAttribute("opacity", 0.08 + (1 - open) * 0.18);
+        axle.setAttribute("x1", opts.cx + px);
+        axle.setAttribute("y1", capTop + py);
+        axle.setAttribute("x2", opts.cx + px);
+        axle.setAttribute("y2", opts.stemTopY + py);
+        axle.setAttribute("opacity", 0.2 + open * 0.65);
+        axleSoft.setAttribute("x1", opts.cx + px);
+        axleSoft.setAttribute("y1", capTop + py);
+        axleSoft.setAttribute("x2", opts.cx + px);
+        axleSoft.setAttribute("y2", opts.stemTopY + py);
+        axleSoft.setAttribute("opacity", 0.05 + open * 0.18);
+
+        var sway = Math.sin(t * 0.8 + opts.phase) * 1.6;
+        gills.setAttribute("transform", "translate(" + (opts.cx + px).toFixed(2) + " " + (collarNode.y + py).toFixed(2) + ") rotate(" + sway.toFixed(2) + ")");
+        if (veil) {
+          var skew = Math.sin(t * 0.65 + opts.phase) * 3.2;
+          veil.setAttribute("transform", "translate(" + (opts.cx + px).toFixed(2) + " " + (collarNode.y + collar.restRy * 0.15 + py).toFixed(2) + ") skewX(" + skew.toFixed(2) + ")");
+        }
+
+        for (var mi = 0; mi < moons.length; mi++) {
+          var moon = moons[mi];
+          var host = partNodes[moon.spec.part];
+          var ang = t * moon.spec.speed + moon.spec.phase;
+          var depth = Math.sin(ang);
+          var near = depth * 0.5 + 0.5;
+          var x = opts.cx + px + Math.cos(ang) * host.part.restRx * moon.spec.radiusScale;
+          var y = host.y + py + depth * host.part.restRy * moon.spec.radiusScale;
+          moon.x = x;
+          moon.y = y;
+          var sc = 0.72 + 0.38 * near;
+          moon.g.setAttribute("transform", "translate(" + x.toFixed(2) + " " + y.toFixed(2) + ") scale(" + sc.toFixed(3) + ")");
+          moon.g.setAttribute("opacity", (0.28 + 0.72 * near).toFixed(3));
+          if (moon.arm) {
+            moon.arm.setAttribute("x1", opts.cx + px);
+            moon.arm.setAttribute("y1", host.y + py);
+            moon.arm.setAttribute("x2", x);
+            moon.arm.setAttribute("y2", y);
+            moon.arm.setAttribute("opacity", (0.12 + 0.4 * near) * (0.45 + open * 0.55));
+          }
+        }
+
+        function placePulse(node, u, radius) {
+          var p;
+          if (u < 0.78) {
+            p = pointOnStem(u / 0.78);
+          } else {
+            var v = (u - 0.78) / 0.22;
+            p = {
+              x: opts.cx,
+              y: opts.stemTopY + (capTop - opts.stemTopY) * v
+            };
+          }
+          node.setAttribute("cx", p.x + px);
+          node.setAttribute("cy", p.y + py);
+          node.setAttribute("r", radius);
+          node.setAttribute("opacity", Math.sin(u * Math.PI) * 0.9);
+        }
+        var u1 = (t * 0.16 + opts.phase * 0.05) % 1;
+        var u2 = (t * 0.16 + 0.5) % 1;
+        placePulse(pulseA, u1, opts.small ? 1.5 : 2.6);
+        placePulse(pulseB, u2, opts.small ? 1.1 : 1.7);
+        refl.setAttribute("opacity", 0.04 + open * 0.1);
+        refl.setAttribute("cx", opts.cx + px);
+      }
+    };
+  }
+
+  function stemPath(baseX, baseY, topX, topY, baseW, topW) {
+    var mid = (baseY + topY) / 2;
+    return "M " + (baseX - baseW).toFixed(1) + " " + baseY.toFixed(1) +
+      " C " + (baseX - baseW - 9).toFixed(1) + " " + mid.toFixed(1) + ", " +
+      (topX - topW - 2).toFixed(1) + " " + (topY + (baseY - topY) * 0.26).toFixed(1) + ", " +
+      (topX - topW).toFixed(1) + " " + topY.toFixed(1) +
+      " L " + (topX + topW).toFixed(1) + " " + topY.toFixed(1) +
+      " C " + (topX + topW + 3).toFixed(1) + " " + (topY + (baseY - topY) * 0.3).toFixed(1) + ", " +
+      (baseX + baseW + 5).toFixed(1) + " " + mid.toFixed(1) + ", " +
+      (baseX + baseW).toFixed(1) + " " + baseY.toFixed(1) + " Z";
+  }
+
+  function stemSheen(baseX, baseY, topX, topY, baseW, topW) {
+    return "M " + (baseX - baseW + 3.5).toFixed(1) + " " + (baseY - 8).toFixed(1) +
+      " C " + (baseX - baseW - 2).toFixed(1) + " " + ((baseY + topY) / 2).toFixed(1) + ", " +
+      (topX - topW + 1.5).toFixed(1) + " " + (topY + 40).toFixed(1) + ", " +
+      (topX - topW + 2).toFixed(1) + " " + (topY + 6).toFixed(1);
+  }
+
+  var capStops = [
+    ["0%", "#fffdf8", "1"],
+    ["26%", "#ffe6b4", "0.98"],
+    ["58%", "#f0b15a", "0.96"],
+    ["82%", "#d46878", "0.95"],
+    ["100%", "#6a2c40", "1"]
+  ];
+  var roseStops = [
+    ["0%", "#fff4f6", "0.2"],
+    ["48%", "#ffe4ec", "0.95"],
+    ["72%", "#e56a90", "0.92"],
+    ["100%", "#6a2440", "1"]
+  ];
+  var amberStops = [
+    ["0%", "#fff8e8", "0.15"],
+    ["46%", "#fff1cc", "0.96"],
+    ["70%", "#e6a63a", "0.93"],
+    ["100%", "#6a4816", "1"]
+  ];
+  var lichenStops = [
+    ["0%", "#f8ffe8", "0.12"],
+    ["48%", "#f3ffd2", "0.95"],
+    ["72%", "#a8c45a", "0.92"],
+    ["100%", "#3a501f", "1"]
+  ];
+  var tealStops = [
+    ["0%", "#f3fffc", "0.15"],
+    ["46%", "#e7fff8", "0.96"],
+    ["70%", "#3ecfb0", "0.94"],
+    ["100%", "#14584e", "1"]
+  ];
+
+  var main = createFruit({
+    cx: 158,
+    stemBaseX: 150,
+    stemTopY: 176,
+    stemBaseW: 16,
+    stemTopW: 8,
+    phase: 1.15,
+    ridges: 6,
+    veil: true,
+    dew: true,
+    gillCount: 18,
+    small: false,
+    parts: [
+      { kind: "cap", restY: 162, restRx: 79, restRy: 17, lift: 48, spin: 2.2, tilt: -3, inner: 0, seed: 1.1, phase: 0.2, shadow: "#4a2030", stops: capStops },
+      { kind: "ring", restY: 176, restRx: 56, restRy: 10, lift: 36, spin: -5, tilt: 4, inner: 0.6, seed: 2.2, phase: 1.1, shadow: "#3a1828", stops: roseStops },
+      { kind: "ring", restY: 188, restRx: 64, restRy: 11, lift: 24, spin: 4, tilt: -5, inner: 0.54, seed: 3.4, phase: 2.0, shadow: "#3a2a10", stops: amberStops },
+      { kind: "ring", restY: 200, restRx: 71, restRy: 12, lift: 12, spin: -3.2, tilt: 3, inner: 0.58, seed: 4.1, phase: 2.6, shadow: "#1c2814", stops: lichenStops },
+      { kind: "ring", restY: 212, restRx: 76, restRy: 13, lift: 0, spin: 2.6, tilt: -2, inner: 0.5, seed: 5.5, phase: 3.2, shadow: "#0c2422", stops: tealStops, ticks: true }
+    ],
+    moons: [
+      { part: 1, radiusScale: 0.78, speed: 0.42, size: 2.2, armed: true, phase: 0.4 },
+      { part: 2, radiusScale: 0.7, speed: 0.28, size: 4.6, armed: true, phase: 2.15, planet: true },
+      { part: 4, radiusScale: 0.8, speed: -0.34, size: 2.5, armed: true, phase: 4.1 },
+      { part: 0, radiusScale: 1.04, speed: 0.85, size: 1.7, armed: false, phase: 1.0 },
+      { part: 2, radiusScale: 1.06, speed: -1.05, size: 1.45, armed: false, phase: 2.7 },
+      { part: 3, radiusScale: 1.02, speed: 0.72, size: 1.55, armed: false, phase: 0.5 },
+      { part: 4, radiusScale: 1.05, speed: -0.8, size: 1.7, armed: false, phase: 3.6 },
+      { part: 1, radiusScale: 1.08, speed: 1.15, size: 1.3, armed: false, phase: 5.1 }
+    ]
+  });
+
+  var juvenile = createFruit({
+    cx: 92,
+    stemBaseX: 90,
+    stemTopY: 292,
+    stemBaseW: 6.5,
+    stemTopW: 3.4,
+    phase: 2.35,
+    ridges: 3,
+    veil: true,
+    dew: false,
+    gillCount: 8,
+    small: true,
+    parts: [
+      { kind: "cap", restY: 286, restRx: 23, restRy: 8, lift: 18, spin: 3, tilt: 5, inner: 0, seed: 6.2, phase: 0.5, shadow: "#4a2030", stops: capStops },
+      { kind: "ring", restY: 296, restRx: 18, restRy: 5.5, lift: 9, spin: -6, tilt: -4, inner: 0.55, seed: 7.1, phase: 1.4, shadow: "#3a2a10", stops: amberStops },
+      { kind: "ring", restY: 305, restRx: 24, restRy: 6.4, lift: 0, spin: 4.5, tilt: 3, inner: 0.5, seed: 8.2, phase: 2.2, shadow: "#0c2422", stops: tealStops }
+    ],
+    moons: [
+      { part: 1, radiusScale: 0.72, speed: 0.5, size: 1.7, armed: true, phase: 1.2, planet: true },
+      { part: 0, radiusScale: 1.05, speed: 1.0, size: 1.05, armed: false, phase: 0.3 },
+      { part: 2, radiusScale: 1.04, speed: -0.85, size: 1.1, armed: false, phase: 2.4 }
+    ]
+  });
+
+  var frontMoss = el("g", {}, root);
+  for (var fm = 0; fm < 12; fm++) {
+    var fx = 24 + rnd() * 250;
+    addTuft(frontMoss, fx, groundY(fx) + 1.2, 0.85 + rnd() * 0.55);
+  }
+
+  var aerial = el("g", {}, root);
+  function addThread(d, color, width, dur) {
+    var path = el("path", {
+      d: d,
+      fill: "none",
+      stroke: color,
+      "stroke-width": width,
+      opacity: "0.72",
+      "stroke-linecap": "round",
+      class: "myco"
+    }, aerial);
+    path.style.animationDuration = dur + "s";
+    path.style.animationDelay = (-rnd() * 6) + "s";
+  }
+  var y206 = groundY(206);
+  var y228 = groundY(228);
+  var y186 = groundY(186);
+  var y48 = groundY(48);
+  addThread("M 206 " + y206.toFixed(1) + " C 242 294, 212 252, 234 228", "#c9fff2", "1.35", 16);
+  addThread("M 228 " + y228.toFixed(1) + " C 270 304, 246 268, 262 246", "#e7f8c8", "1.15", 19);
+  addThread("M 186 " + y186.toFixed(1) + " C 168 292, 198 274, 182 256", "#d8fff4", "1.05", 21);
+  addThread("M 48 " + y48.toFixed(1) + " C 28 304, 66 292, 78 " + (groundY(78) - 4).toFixed(1), "#e4f6cc", "1.05", 24);
+
+  var bud = el("g", { transform: "translate(234 218)" }, aerial);
+  el("path", {
+    d: "M -1.4 10 C -2.1 4, -1.3 0, -1.2 -1.2 L 1.2 -1.2 C 1.3 0, 2.1 4, 1.4 10 Z",
+    fill: "url(#stemFill)"
+  }, bud);
+  el("ellipse", { cx: "0", cy: "-2.2", rx: "7.6", ry: "3.5", fill: "#e7a24e", stroke: "#fff1d2", "stroke-width": "0.7" }, bud);
+  el("ellipse", { cx: "-1.6", cy: "-3.3", rx: "2.8", ry: "1.15", fill: "#fff6e0", opacity: "0.6" }, bud);
+  var budSpark = el("circle", { cx: "0", cy: "-3.5", r: "1.15", fill: "#fffaf0", class: "spark" }, bud);
+  budSpark.style.animationDuration = "2.4s";
+
+  var nodes = [[250, 268], [182, 258], [262, 246], [70, 304]];
+  for (var nd = 0; nd < nodes.length; nd++) {
+    var spark = el("circle", {
+      cx: nodes[nd][0],
+      cy: nodes[nd][1],
+      r: "1.45",
+      fill: nd % 2 ? "#fff1c8" : "#e7fff8",
+      class: "spark"
+    }, aerial);
+    spark.style.animationDelay = (-nd * 0.6) + "s";
+  }
+
+  var sporeLayer = el("g", {}, root);
+  var SPORE_COLORS = ["#fff4d8", "#ffe1a8", "#d9fff6", "#ffd0dc", "#f4e7ff"];
+  var spores = [];
+  for (var s = 0; s < 24; s++) {
+    var halo = el("circle", { r: "3", fill: "#fff3d2", opacity: "0" }, sporeLayer);
+    var core = el("circle", { r: "1.4", fill: "#fffaf0", opacity: "0" }, sporeLayer);
+    spores.push({
+      halo: halo,
+      core: core,
+      x: 150,
+      y: 180,
+      vx: 0,
+      vy: -8,
+      age: 0,
+      dur: 8,
+      sway: rnd() * 6,
+      swayAmp: 6,
+      size: 1.8,
+      col: "#fff4d8",
+      mode: "drift"
+    });
+  }
+
+  function launch(p, progressed) {
+    var src;
+    var roll = Math.random();
+    if (roll < 0.62) src = main.sampleGill();
+    else if (roll < 0.8) src = main.sampleMoon();
+    else src = juvenile.sampleGill();
+    p.x = src.x;
+    p.y = src.y;
+    p.mode = Math.random() < 0.28 ? "spiral" : "drift";
+    var falling = Math.random() < 0.16;
+    p.vx = (Math.random() - 0.5) * 7;
+    p.vy = falling ? 5 + Math.random() * 7 : -(7 + Math.random() * 11);
+    p.sway = Math.random() * Math.PI * 2;
+    p.swayAmp = 4 + Math.random() * 12;
+    p.dur = 7 + Math.random() * 6;
+    p.size = 1.5 + Math.random() * 1.8;
+    if (Math.random() < 0.2) p.size += 1.3;
+    p.col = SPORE_COLORS[Math.floor(Math.random() * SPORE_COLORS.length)];
+    p.age = progressed ? Math.random() * p.dur * 0.85 : 0;
+  }
+
+  var tx = 0;
+  var ty = 0;
+  var mx = 0;
+  var my = 0;
+  window.addEventListener("pointermove", function (e) {
+    var w = window.innerWidth || 1;
+    var h = window.innerHeight || 1;
+    tx = (e.clientX / w - 0.5) * 2;
+    ty = (e.clientY / h - 0.5) * 2;
+  }, { passive: true });
+  window.addEventListener("pointerleave", function () {
+    tx = 0;
+    ty = 0;
+  }, { passive: true });
+
+  main.update(0, 0, 0);
+  juvenile.update(0, 0, 0);
+  for (var si = 0; si < spores.length; si++) launch(spores[si], true);
+
+  var spawnAcc = 0;
+  var last = 0;
+  var raf = 0;
+
+  function frame(now) {
+    if (!last) last = now;
+    var dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+    var t = now / 1000;
+    mx += (tx - mx) * Math.min(1, dt * 2.6);
+    my += (ty - my) * Math.min(1, dt * 2.6);
+    var px = Math.sin(t * 0.27) * 1.3 + mx * 6;
+    var py = Math.cos(t * 0.21) * 1 + my * 4;
+    main.update(t, px, py);
+    juvenile.update(t, px * 0.85, py * 0.85);
+    aerial.setAttribute("transform", "translate(" + (Math.sin(t * 0.33) * 2.4 + mx * 2).toFixed(2) + " " + (Math.sin(t * 0.27) * 1.2).toFixed(2) + ")");
+
+    var rate = 1.15 + main.getOpen() * 2.3;
+    spawnAcc += dt * rate;
+    while (spawnAcc > 1) {
+      spawnAcc -= 1;
+      var oldest = spores[0];
+      var oi = 0;
+      for (var i = 1; i < spores.length; i++) {
+        if (spores[i].age > oldest.age) {
+          oldest = spores[i];
+          oi = i;
+        }
+      }
+      if (oldest.age > oldest.dur * 0.45) launch(oldest, false);
+      else spawnAcc = 0;
+    }
+
+    for (var i = 0; i < spores.length; i++) {
+      var p = spores[i];
+      p.age += dt;
+      if (p.age >= p.dur) launch(p, false);
+      var life = 1 - p.age / p.dur;
+      var sway = Math.sin(p.age * 1.25 + p.sway) * p.swayAmp;
+      var rad = p.mode === "spiral" ? life * 11 : 0;
+      var ang = p.age * 1.8 + p.sway;
+      var x = p.x + p.vx * p.age * 0.32 + sway + Math.cos(ang) * rad;
+      var y = p.y + p.vy * p.age + Math.sin(ang) * rad * 0.4;
+      var fade = Math.sin(Math.max(0, Math.min(1, life)) * Math.PI);
+      p.core.setAttribute("cx", x.toFixed(1));
+      p.core.setAttribute("cy", y.toFixed(1));
+      p.core.setAttribute("r", p.size.toFixed(2));
+      p.core.setAttribute("fill", p.col);
+      p.core.setAttribute("opacity", fade.toFixed(3));
+      p.halo.setAttribute("cx", x.toFixed(1));
+      p.halo.setAttribute("cy", y.toFixed(1));
+      p.halo.setAttribute("r", (p.size * 2.5).toFixed(2));
+      p.halo.setAttribute("fill", p.col);
+      p.halo.setAttribute("opacity", (fade * 0.28).toFixed(3));
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      last = 0;
+    } else if (!raf) {
+      raf = requestAnimationFrame(frame);
+    }
+  });
+  raf = requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Vesper Orrery Cap",
+  "statement": "Vesper Orrery Cap grows from night moss and unclasps at dusk into hovering rings of glass. The spores it frees do not fall; they keep brief orbits like small moons, then slip into the dark."
+}
+```

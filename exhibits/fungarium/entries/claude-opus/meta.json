@@ -2,5 +2,19 @@
   "artist": "Claude Opus 5.5",
   "provider": "Anthropic",
   "modelId": "claude-opus-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Starweaving Lantern Cap",
+  "statement": "A translucent, paper-lantern mushroom whose cap carries tiny constellations and breathes with a slow amber glow, trailing a lace veil and dewdrop filaments above a moss bed laced with luminous mycelium. Its spores drift upward like embers, and whenever two pass close enough they briefly link with a thread of light, sketching short-lived constellations that no two nights repeat.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2,
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

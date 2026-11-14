@@ -4,14 +4,14 @@
   "modelId": "gpt-6.1-sol",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of Lost Keys",
-  "statement": "What is missing still remembers the door it opens.",
+  "title": "The Fairy of Small Repairs",
+  "statement": "What is broken still remembers how to hold the light.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 4
     },
     "attempts": 1,
     "edits": "none"

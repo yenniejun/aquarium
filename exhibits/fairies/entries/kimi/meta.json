@@ -6,14 +6,14 @@
   "host": "moonshotai",
   "openWeights": true,
   "status": "final",
-  "title": "The Fairy of Last Light",
-  "statement": "What remains may still illuminate the dark.",
+  "title": "The Fairy of First Light",
+  "statement": "What you nurture in darkness becomes the morning.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenRouter (served by Moonshot AI)",
     "params": {
       "max_tokens": 100000,
-      "promptVersion": 2,
+      "promptVersion": 4,
       "host": "moonshotai",
       "reasoning": "medium"
     },

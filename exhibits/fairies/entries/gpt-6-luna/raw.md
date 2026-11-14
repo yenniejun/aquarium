@@ -6,173 +6,276 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   * { box-sizing: border-box; }
-  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #090d20; }
+  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #101829; }
   svg { display: block; width: 100%; height: 100%; }
-  .fairy { transform-box: fill-box; transform-origin: center; animation: hover 6s ease-in-out infinite; }
-  .wing-left { transform-box: view-box; transform-origin: 302px 365px; animation: leftWing 3.4s ease-in-out infinite; }
-  .wing-right { transform-box: view-box; transform-origin: 306px 362px; animation: rightWing 3.4s ease-in-out infinite; }
-  .letter-a { transform-box: fill-box; transform-origin: center; animation: driftA 8s ease-in-out infinite; }
-  .letter-b { transform-box: fill-box; transform-origin: center; animation: driftB 10s ease-in-out infinite; }
-  .letter-c { transform-box: fill-box; transform-origin: center; animation: driftC 9s ease-in-out infinite; }
-  .glow { animation: pulse 4s ease-in-out infinite; }
-  .mote { animation: mote 7s ease-in-out infinite; }
-  @keyframes hover { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-11px) rotate(1deg); } }
-  @keyframes leftWing { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg); } }
-  @keyframes rightWing { 0%,100% { transform: rotate(4deg); } 50% { transform: rotate(-5deg); } }
-  @keyframes driftA { 0%,100% { transform: translate(0,0) rotate(-3deg); } 50% { transform: translate(5px,-9px) rotate(1deg); } }
-  @keyframes driftB { 0%,100% { transform: translate(0,0) rotate(3deg); } 50% { transform: translate(-6px,8px) rotate(-1deg); } }
-  @keyframes driftC { 0%,100% { transform: translate(0,0) rotate(-5deg); } 50% { transform: translate(7px,-6px) rotate(2deg); } }
-  @keyframes pulse { 0%,100% { opacity: .45; } 50% { opacity: .9; } }
-  @keyframes mote { 0%,100% { transform: translateY(0); opacity: .25; } 50% { transform: translateY(-17px); opacity: .9; } }
+  .fairy-float { animation: float 5.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .hair-flow { animation: hair 5.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 12% 20%; }
+  .page-breathe { animation: page 4.6s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+  .glimmer { animation: glimmer 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .drift-a { animation: driftA 8s ease-in-out infinite; }
+  .drift-b { animation: driftB 10s ease-in-out infinite; }
+  .wing-left { animation: flapL 1.8s ease-in-out infinite; }
+  .wing-right { animation: flapR 1.8s ease-in-out infinite; }
+  .wing-lower { animation: flapLow 2.2s ease-in-out infinite; }
+  .ripple { animation: ripple 4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-9px) rotate(1deg); } }
+  @keyframes hair { 0%,100% { transform: rotate(-1deg); } 50% { transform: rotate(2deg); } }
+  @keyframes page { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-1.2deg); } }
+  @keyframes glimmer { 0%,100% { opacity: .45; transform: scale(.86); } 50% { opacity: 1; transform: scale(1.18); } }
+  @keyframes driftA { 0%,100% { transform: translate(0,0); opacity: .35; } 50% { transform: translate(8px,-19px); opacity: 1; } }
+  @keyframes driftB { 0%,100% { transform: translate(0,0); opacity: .8; } 50% { transform: translate(-9px,-24px); opacity: .35; } }
+  @keyframes flapL { 0%,100% { transform: rotate(3deg) scaleX(1); } 50% { transform: rotate(-6deg) scaleX(.94); } }
+  @keyframes flapR { 0%,100% { transform: rotate(-3deg) scaleX(1); } 50% { transform: rotate(6deg) scaleX(.94); } }
+  @keyframes flapLow { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(5deg); } }
+  @keyframes ripple { 0% { opacity: .65; transform: scale(.65); } 100% { opacity: 0; transform: scale(1.5); } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 12s !important; }
+  }
 </style>
 </head>
 <body>
-<svg viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="A moonlit fairy floats among drifting blank letters">
-<defs>
-  <linearGradient id="sky" x2=".15" y2="1">
-    <stop stop-color="#11132c"/>
-    <stop offset=".47" stop-color="#272344"/>
-    <stop offset="1" stop-color="#101d36"/>
-  </linearGradient>
-  <radialGradient id="moonlight">
-    <stop stop-color="#f3d8ae" stop-opacity=".68"/>
-    <stop offset=".3" stop-color="#c6a5b8" stop-opacity=".2"/>
-    <stop offset="1" stop-color="#a087ba" stop-opacity="0"/>
-  </radialGradient>
-  <linearGradient id="wing" x1="0" y1="0" x2="1" y2="1">
-    <stop stop-color="#ffe8c8" stop-opacity=".7"/>
-    <stop offset=".48" stop-color="#d6c6eb" stop-opacity=".33"/>
-    <stop offset="1" stop-color="#9c9acc" stop-opacity=".12"/>
-  </linearGradient>
-  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
-    <stop stop-color="#ffe2c4"/>
-    <stop offset="1" stop-color="#c997a5"/>
-  </linearGradient>
-  <linearGradient id="dress" x1="0" y1="0" x2=".85" y2="1">
-    <stop stop-color="#e8d8d2"/>
-    <stop offset=".48" stop-color="#a99bbd"/>
-    <stop offset="1" stop-color="#555b83"/>
-  </linearGradient>
-  <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
-    <stop stop-color="#fff0d2"/>
-    <stop offset=".65" stop-color="#e5cba9"/>
-    <stop offset="1" stop-color="#bba995"/>
-  </linearGradient>
-  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
-    <stop stop-color="#36405d" stop-opacity=".7"/>
-    <stop offset="1" stop-color="#101a30"/>
-  </linearGradient>
-  <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
-    <feGaussianBlur stdDeviation="12"/>
-  </filter>
-  <filter id="smallGlow" x="-100%" y="-100%" width="300%" height="300%">
-    <feGaussianBlur stdDeviation="3"/>
-  </filter>
-  <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-    <feGaussianBlur stdDeviation="7"/>
-  </filter>
-</defs>
+<svg viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A winged fairy hovers beside an open book in a moonlit forest.">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#101b35"/>
+      <stop offset=".48" stop-color="#23314a"/>
+      <stop offset="1" stop-color="#182b32"/>
+    </linearGradient>
+    <radialGradient id="moonGlow">
+      <stop stop-color="#fff6d3" stop-opacity=".78"/>
+      <stop offset=".35" stop-color="#c8e6d7" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#b9dfd0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fairyGlow">
+      <stop stop-color="#fff4bb" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#fff0b0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wing" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#c6fff0" stop-opacity=".78"/>
+      <stop offset=".48" stop-color="#7de3d7" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#e7dbad" stop-opacity=".48"/>
+    </linearGradient>
+    <linearGradient id="skin" x2=".9" y2="1">
+      <stop stop-color="#ffe7bd"/>
+      <stop offset="1" stop-color="#dba978"/>
+    </linearGradient>
+    <linearGradient id="dress" x2=".8" y2="1">
+      <stop stop-color="#b6d6ab"/>
+      <stop offset=".5" stop-color="#678f79"/>
+      <stop offset="1" stop-color="#314d50"/>
+    </linearGradient>
+    <linearGradient id="hair" x2=".8" y2="1">
+      <stop stop-color="#806044"/>
+      <stop offset=".48" stop-color="#493846"/>
+      <stop offset="1" stop-color="#283345"/>
+    </linearGradient>
+    <linearGradient id="pageInk" x2="0" y2="1">
+      <stop stop-color="#f4e7bd"/>
+      <stop offset="1" stop-color="#c6b98e"/>
+    </linearGradient>
+    <linearGradient id="wood" x2="0" y2="1">
+      <stop stop-color="#76634d"/>
+      <stop offset=".45" stop-color="#4c493d"/>
+      <stop offset="1" stop-color="#292f30"/>
+    </linearGradient>
+    <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <filter id="smallGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feGaussianBlur stdDeviation="11"/>
+    </filter>
+  </defs>
 
-<rect width="600" height="900" fill="url(#sky)"/>
-<ellipse cx="310" cy="398" rx="285" ry="330" fill="url(#moonlight)"/>
-<circle cx="466" cy="160" r="90" fill="#f0d7bd" opacity=".05"/>
-<circle cx="466" cy="160" r="49" fill="#f2ddc5" opacity=".82"/>
-<circle cx="483" cy="144" r="49" fill="#191a35"/>
-<circle cx="455" cy="160" r="68" fill="#e9cda9" opacity=".08" filter="url(#softGlow)"/>
+  <!-- Deep, quiet woodland -->
+  <rect width="600" height="900" fill="url(#sky)"/>
+  <circle cx="170" cy="173" r="160" fill="url(#moonGlow)"/>
+  <circle cx="170" cy="173" r="49" fill="#f2edcf" opacity=".9"/>
+  <circle cx="190" cy="153" r="47" fill="#25344a"/>
+  <path d="M115 186 Q144 163 165 178 Q181 190 199 178" fill="none" stroke="#e5dfc1" stroke-opacity=".38" stroke-width="2"/>
 
-<g fill="#f5dfc5">
-  <circle cx="82" cy="116" r="1.6" opacity=".8"/><circle cx="158" cy="82" r="1.2" opacity=".65"/>
-  <circle cx="228" cy="156" r="1.5" opacity=".7"/><circle cx="363" cy="83" r="1.3" opacity=".7"/>
-  <circle cx="541" cy="259" r="1.5" opacity=".65"/><circle cx="97" cy="300" r="1.2" opacity=".6"/>
-  <circle cx="186" cy="230" r="1" opacity=".7"/><circle cx="410" cy="282" r="1.2" opacity=".6"/>
-  <circle cx="518" cy="82" r="1.2" opacity=".6"/><circle cx="48" cy="199" r="1" opacity=".7"/>
-</g>
+  <g fill="#e9edcf">
+    <circle cx="74" cy="113" r="1.5"/><circle cx="264" cy="90" r="1.2"/>
+    <circle cx="345" cy="147" r="1.3"/><circle cx="470" cy="108" r="1.7"/>
+    <circle cx="530" cy="211" r="1.2"/><circle cx="93" cy="292" r="1.1"/>
+    <circle cx="286" cy="237" r="1.6"/><circle cx="502" cy="323" r="1.1"/>
+    <circle cx="425" cy="185" r="1.1"/><circle cx="54" cy="220" r="1.5"/>
+  </g>
+  <g fill="none" stroke="#c6d8c5" stroke-opacity=".35" stroke-width="1.5">
+    <path d="M0 226 Q70 171 133 207 Q169 229 202 212"/>
+    <path d="M600 187 Q548 157 510 188 Q487 209 454 200"/>
+    <path d="M0 341 Q45 303 88 322"/><path d="M600 294 Q557 262 523 286"/>
+  </g>
 
-<path d="M0 565 C94 536 176 565 255 548 C362 526 450 558 600 524 L600 900 L0 900Z" fill="#151a31" opacity=".72"/>
-<path d="M0 668 C118 635 227 678 323 651 C431 620 519 658 600 634 L600 900 L0 900Z" fill="url(#water)"/>
-<path d="M0 678 C108 649 202 689 302 666 C415 640 505 670 600 652" fill="none" stroke="#b6a6b3" stroke-opacity=".17" stroke-width="2"/>
-<g fill="none" stroke="#c8b6b8" stroke-opacity=".22" stroke-linecap="round">
-  <path d="M60 718 Q137 709 202 720"/><path d="M385 707 Q451 693 535 708"/>
-  <path d="M110 769 Q188 757 255 770"/><path d="M336 752 Q421 741 494 756"/>
-  <path d="M32 824 Q121 813 177 823"/><path d="M419 817 Q491 807 570 820"/>
-</g>
-<g fill="none" stroke="#17172d" stroke-width="8" stroke-linecap="round" opacity=".75">
-  <path d="M29 675 Q44 596 34 529 M34 603 Q10 579 8 548 M34 620 Q61 591 65 558"/>
-  <path d="M565 658 Q548 584 565 513 M561 604 Q587 578 589 549 M558 623 Q532 595 529 565"/>
-</g>
-<ellipse cx="304" cy="574" rx="75" ry="18" fill="#10162a" opacity=".5" filter="url(#shadow)"/>
+  <!-- Distant trunks and canopy -->
+  <path d="M0 0 H65 Q47 116 79 238 Q56 332 71 505 L0 565Z" fill="#141f31"/>
+  <path d="M535 0 H600 V574 Q548 521 554 412 Q572 291 530 193Z" fill="#14202f"/>
+  <path d="M0 403 Q91 337 154 388 Q207 424 250 385 L248 500 Q153 476 0 545Z" fill="#1a2936"/>
+  <path d="M600 375 Q525 330 470 380 Q423 421 385 386 L380 494 Q488 478 600 541Z" fill="#182832"/>
+  <path d="M45 0 Q105 76 91 154 M553 0 Q496 71 513 130" fill="none" stroke="#35413d" stroke-width="13" opacity=".56"/>
+  <g fill="#263c3a" opacity=".8">
+    <ellipse cx="46" cy="474" rx="91" ry="82"/><ellipse cx="124" cy="502" rx="93" ry="62"/>
+    <ellipse cx="565" cy="470" rx="89" ry="88"/><ellipse cx="494" cy="512" rx="106" ry="63"/>
+  </g>
 
-<g class="glow">
-  <circle cx="303" cy="390" r="54" fill="#f8d8b6" opacity=".18" filter="url(#softGlow)"/>
-</g>
+  <!-- A pool of shadow and the green floor -->
+  <path d="M0 652 Q91 609 169 639 Q263 675 351 632 Q462 582 600 641 V900 H0Z" fill="#172a30"/>
+  <path d="M0 740 Q123 684 228 729 Q338 772 452 711 Q534 668 600 704 V900 H0Z" fill="#1d3533"/>
+  <ellipse cx="302" cy="757" rx="177" ry="29" fill="#0d1b25" opacity=".58" filter="url(#shadow)"/>
 
-<g class="wing-left" fill="url(#wing)" stroke="#f5dfd1" stroke-opacity=".76" stroke-width="1.5">
-  <path d="M302 365 C252 307 204 235 135 213 C104 203 87 215 93 245 C104 295 181 352 273 383 C221 369 165 378 128 414 C109 433 115 453 140 456 C199 461 256 416 302 378Z"/>
-  <path d="M296 365 C259 324 223 270 159 232 M291 374 C236 366 179 363 130 414 M282 380 C231 398 186 430 143 447" fill="none" stroke="#fff0d9" stroke-opacity=".52"/>
-  <path d="M210 295 Q223 328 273 372 M167 263 Q199 320 266 376 M184 405 Q225 395 281 378" fill="none" stroke="#f4d7d3" stroke-opacity=".38"/>
-</g>
-<g class="wing-right" fill="url(#wing)" stroke="#f5dfd1" stroke-opacity=".76" stroke-width="1.5">
-  <path d="M306 363 C351 302 392 222 461 204 C491 196 509 208 503 238 C493 291 421 350 333 380 C384 365 439 372 477 407 C499 428 492 450 468 453 C408 458 354 414 306 377Z"/>
-  <path d="M312 363 C349 321 384 265 447 225 M318 374 C374 361 431 357 479 407 M327 381 C377 398 424 426 465 444" fill="none" stroke="#fff0d9" stroke-opacity=".52"/>
-  <path d="M397 292 Q384 328 335 373 M439 256 Q405 316 341 377 M421 400 Q379 392 323 378" fill="none" stroke="#f4d7d3" stroke-opacity=".38"/>
-</g>
+  <!-- Low ferns -->
+  <g fill="none" stroke="#54705a" stroke-width="3" stroke-linecap="round" opacity=".72">
+    <path d="M32 788 Q68 721 113 700 M52 760 Q37 737 24 731 M64 744 Q48 715 46 703 M76 728 Q74 701 82 688 M89 715 Q100 692 114 685"/>
+    <path d="M554 803 Q521 730 477 707 M535 773 Q552 744 570 739 M519 748 Q528 718 526 704 M505 732 Q492 708 479 701 M490 719 Q469 698 454 695"/>
+  </g>
+  <g fill="#79926a" opacity=".7">
+    <ellipse cx="25" cy="731" rx="13" ry="5" transform="rotate(28 25 731)"/>
+    <ellipse cx="46" cy="703" rx="14" ry="5" transform="rotate(74 46 703)"/>
+    <ellipse cx="82" cy="688" rx="13" ry="5" transform="rotate(-26 82 688)"/>
+    <ellipse cx="570" cy="739" rx="14" ry="5" transform="rotate(-24 570 739)"/>
+    <ellipse cx="526" cy="704" rx="14" ry="5" transform="rotate(82 526 704)"/>
+    <ellipse cx="454" cy="695" rx="13" ry="5" transform="rotate(29 454 695)"/>
+  </g>
 
-<g class="letter-a" transform="translate(78 510) rotate(-12)">
-  <path d="M0 12 Q4 4 13 8 L103 0 Q110 1 109 10 L99 101 Q98 109 90 107 L4 95 Q-2 94 0 86Z" fill="#080d1d" opacity=".38" transform="translate(5 9)"/>
-  <path d="M0 12 Q4 4 13 8 L103 0 Q110 1 109 10 L99 101 Q98 109 90 107 L4 95 Q-2 94 0 86Z" fill="url(#paper)" stroke="#fff0d4" stroke-opacity=".65"/>
-  <path d="M12 19 Q51 12 94 12 M10 29 Q49 24 92 22 M9 39 Q45 36 89 32" fill="none" stroke="#9d8d83" stroke-opacity=".28" stroke-width="1"/>
-  <path d="M76 3 L72 30 L101 26" fill="#fff4dd" opacity=".42"/>
-</g>
-<g class="letter-b" transform="translate(411 488) rotate(13)">
-  <path d="M4 4 L97 0 Q104 1 102 9 L111 91 Q111 99 102 100 L9 106 Q1 106 1 98 L0 12 Q0 5 4 4Z" fill="#080d1d" opacity=".4" transform="translate(5 8)"/>
-  <path d="M4 4 L97 0 Q104 1 102 9 L111 91 Q111 99 102 100 L9 106 Q1 106 1 98 L0 12 Q0 5 4 4Z" fill="url(#paper)" stroke="#fff0d4" stroke-opacity=".65"/>
-  <path d="M12 20 Q50 15 90 13 M13 31 Q52 27 94 24 M13 42 Q47 38 96 35" fill="none" stroke="#9d8d83" stroke-opacity=".28" stroke-width="1"/>
-  <path d="M6 12 L33 31 L4 43" fill="#fff3db" opacity=".32"/>
-</g>
-<g class="letter-c" transform="translate(229 622) rotate(5)">
-  <path d="M0 8 Q1 1 9 2 L93 9 Q100 10 99 18 L90 86 Q89 93 81 92 L6 85 Q0 84 0 77Z" fill="#080d1d" opacity=".4" transform="translate(5 8)"/>
-  <path d="M0 8 Q1 1 9 2 L93 9 Q100 10 99 18 L90 86 Q89 93 81 92 L6 85 Q0 84 0 77Z" fill="url(#paper)" stroke="#fff0d4" stroke-opacity=".6"/>
-  <path d="M12 20 Q48 22 84 26 M11 31 Q47 34 82 37 M10 42 Q47 45 80 48" fill="none" stroke="#9d8d83" stroke-opacity=".3" stroke-width="1"/>
-</g>
+  <!-- A weathered stump: the book rests here, the fairy hovers near it -->
+  <path d="M212 675 Q229 650 251 655 Q276 640 301 653 Q326 643 348 659 Q374 650 397 670
+           L381 761 Q339 779 301 766 Q260 780 224 758Z" fill="url(#wood)"/>
+  <path d="M212 674 Q247 653 275 662 Q307 647 335 660 Q365 651 397 670 Q377 694 346 690
+           Q316 704 286 689 Q252 702 224 688Z" fill="#9a8662"/>
+  <path d="M223 675 Q254 663 279 671 Q309 658 335 670 Q362 661 385 673 Q362 685 341 680
+           Q312 694 285 680 Q251 693 223 675Z" fill="#c1aa7c" opacity=".75"/>
+  <path d="M248 688 Q241 725 251 753 M357 689 Q350 724 363 749 M301 700 Q292 733 302 763"
+        fill="none" stroke="#302f2c" stroke-width="3" opacity=".48"/>
+  <g fill="#607453">
+    <path d="M214 671 Q224 651 239 659 Q239 673 214 671Z"/>
+    <path d="M363 660 Q378 646 388 665 Q382 675 363 660Z"/>
+  </g>
 
-<g class="fairy">
-  <ellipse cx="304" cy="354" rx="15" ry="19" fill="#1c172c"/>
-  <path d="M295 304 C285 284 298 268 317 271 C338 275 342 301 330 318 C324 327 307 329 299 320Z" fill="url(#skin)"/>
-  <path d="M294 303 C287 282 299 264 319 269 C338 273 345 289 338 307 C330 294 320 290 309 289 C304 300 299 305 294 307Z" fill="#292033"/>
-  <path d="M329 302 Q340 306 332 313 Q327 317 324 314" fill="none" stroke="#9d6474" stroke-width="1.5"/>
-  <path d="M294 286 C281 294 284 317 291 329 C280 322 274 302 282 286 C288 273 300 266 313 266 C303 272 298 278 294 286Z" fill="#30243a"/>
-  <path d="M301 317 Q312 329 327 320 L331 344 Q318 356 297 344Z" fill="url(#skin)"/>
-  <path d="M297 338 C283 350 282 379 292 406 C299 423 314 431 326 414 C339 391 334 365 324 345Z" fill="url(#dress)"/>
-  <path d="M295 344 Q280 376 288 415 Q299 407 307 379 Q313 410 328 420 Q343 380 325 344 Q313 354 295 344Z" fill="#d7c3d0" opacity=".8"/>
-  <path d="M288 404 Q278 425 266 446 Q295 437 314 449 Q332 431 336 415 Q317 426 307 410Z" fill="#8586a7"/>
-  <path d="M301 370 Q282 382 270 394 Q263 398 258 393" fill="none" stroke="url(#skin)" stroke-width="7" stroke-linecap="round"/>
-  <path d="M326 365 Q344 375 354 391 Q359 397 365 391" fill="none" stroke="url(#skin)" stroke-width="7" stroke-linecap="round"/>
-  <path d="M259 393 L251 398 M365 391 L373 387" stroke="#f4d5b6" stroke-width="3" stroke-linecap="round"/>
-  <path d="M299 422 Q292 446 278 458 M318 424 Q329 446 325 461" fill="none" stroke="url(#skin)" stroke-width="6" stroke-linecap="round"/>
-  <path d="M278 458 Q272 464 267 460 M325 461 Q331 468 336 464" fill="none" stroke="#e3c0bc" stroke-width="4" stroke-linecap="round"/>
-  <path d="M291 337 Q306 350 329 338" fill="none" stroke="#f5e1d0" stroke-width="1.6" opacity=".8"/>
-  <path d="M292 280 C282 260 293 243 309 239 C302 254 310 259 327 251 C321 266 309 276 292 280Z" fill="#312239"/>
-  <path d="M295 276 C282 260 274 252 269 242 M299 274 C294 256 295 248 301 237 M306 272 C309 255 317 249 325 244" fill="none" stroke="#39263d" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="329" cy="312" r="2" fill="#291c31"/>
-  <circle cx="329" cy="312" r="5" fill="#f1c98f" opacity=".5" filter="url(#smallGlow)"/>
-  <path d="M267 398 Q253 405 249 416" fill="none" stroke="#eed8bd" stroke-width="1" opacity=".7"/>
-</g>
+  <!-- Open, blank-paged book -->
+  <g class="page-breathe">
+    <path d="M194 624 Q247 602 300 624 Q353 601 407 621 L399 675 Q349 659 301 681 Q250 658 201 677Z"
+          fill="#282d31" opacity=".7"/>
+    <path d="M202 617 Q250 593 301 617 L301 667 Q251 645 206 665Z" fill="url(#pageInk)"/>
+    <path d="M301 617 Q352 593 402 615 L396 664 Q350 645 301 667Z" fill="#dfd2a9"/>
+    <path d="M301 618 L301 667" stroke="#8e8064" stroke-width="2"/>
+    <path d="M209 620 Q254 600 294 619 M207 628 Q252 609 294 627 M208 637 Q251 619 294 636"
+          fill="none" stroke="#a99a74" stroke-width="1.2" opacity=".55"/>
+    <path d="M307 619 Q348 600 395 619 M307 628 Q351 609 397 627 M307 637 Q350 619 396 636"
+          fill="none" stroke="#a99a74" stroke-width="1.2" opacity=".5"/>
+    <path d="M212 617 Q250 596 301 617 Q354 595 399 615" fill="none" stroke="#fff0ca" stroke-width="2" opacity=".7"/>
+    <path d="M221 646 Q247 637 273 646 M330 646 Q357 637 382 646" fill="none" stroke="#b8a77b" stroke-width="1" opacity=".45"/>
+  </g>
+  <ellipse cx="302" cy="616" rx="125" ry="35" fill="#f3dca0" opacity=".24" filter="url(#softGlow)"/>
 
-<g class="glow">
-  <circle cx="366" cy="392" r="5" fill="#ffe9bd"/>
-  <circle cx="366" cy="392" r="17" fill="#ffdaa0" opacity=".34" filter="url(#smallGlow)"/>
-</g>
-<g fill="#ffe6bd">
-  <circle class="mote" cx="218" cy="443" r="2.2"/>
-  <circle class="mote" cx="400" cy="339" r="1.8" style="animation-delay:-2s"/>
-  <circle class="mote" cx="190" cy="520" r="1.5" style="animation-delay:-4s"/>
-  <circle class="mote" cx="382" cy="553" r="2" style="animation-delay:-1s"/>
-  <circle class="mote" cx="302" cy="490" r="1.7" style="animation-delay:-3s"/>
-  <circle class="mote" cx="458" cy="438" r="1.3" style="animation-delay:-5s"/>
-  <circle class="mote" cx="143" cy="377" r="1.5" style="animation-delay:-2.5s"/>
-  <circle class="mote" cx="342" cy="601" r="1.3" style="animation-delay:-1.5s"/>
-</g>
-<path d="M0 0 H600 V900 H0Z" fill="none" stroke="#070b18" stroke-opacity=".12" stroke-width="22"/>
+  <!-- The fairy's lantern-like hush -->
+  <circle cx="354" cy="418" r="102" fill="url(#fairyGlow)"/>
+  <g class="fairy-float">
+    <!-- upper wings -->
+    <g transform="translate(365 405)">
+      <g class="wing-left">
+        <path d="M0 0 C-12 -47 -52 -105 -104 -111 C-121 -66 -91 -19 -10 10Z"
+              fill="url(#wing)" stroke="#c6eee0" stroke-opacity=".8" stroke-width="1.7"/>
+        <path d="M-2 0 Q-43 -52 -104 -111 M-8 3 Q-71 -38 -104 -111 M-18 -4 Q-45 -71 -104 -111"
+              fill="none" stroke="#d9f1d8" stroke-opacity=".55" stroke-width="1"/>
+        <animateTransform attributeName="transform" type="rotate" values="0; -5; 0; 4; 0" dur="1.8s" repeatCount="indefinite"/>
+      </g>
+      <g class="wing-right">
+        <path d="M0 0 C15 -48 55 -103 103 -108 C117 -63 88 -18 10 10Z"
+              fill="url(#wing)" stroke="#c6eee0" stroke-opacity=".8" stroke-width="1.7"/>
+        <path d="M2 0 Q44 -52 103 -108 M8 3 Q73 -35 103 -108 M18 -4 Q47 -70 103 -108"
+              fill="none" stroke="#d9f1d8" stroke-opacity=".55" stroke-width="1"/>
+        <animateTransform attributeName="transform" type="rotate" values="0; 5; 0; -4; 0" dur="1.8s" repeatCount="indefinite"/>
+      </g>
+      <!-- lower wings -->
+      <g class="wing-lower" opacity=".85">
+        <path d="M0 2 C-34 3 -76 31 -82 74 C-48 87 -16 53 5 13Z"
+              fill="url(#wing)" stroke="#c6eee0" stroke-opacity=".75" stroke-width="1.5"/>
+        <path d="M0 4 Q-48 38 -82 74 M0 7 Q-27 55 -82 74" fill="none" stroke="#d9f1d8" stroke-opacity=".5"/>
+        <path d="M3 2 C35 2 76 30 83 71 C49 87 17 52 -5 13Z"
+              fill="url(#wing)" stroke="#c6eee0" stroke-opacity=".75" stroke-width="1.5"/>
+        <path d="M3 4 Q49 37 83 71 M3 7 Q28 55 83 71" fill="none" stroke="#d9f1d8" stroke-opacity=".5"/>
+      </g>
+    </g>
+
+    <!-- fine legs and feet -->
+    <path d="M356 464 Q349 489 336 503 Q333 508 340 509 Q355 504 363 483"
+          fill="none" stroke="#e6bd8d" stroke-width="4" stroke-linecap="round"/>
+    <path d="M370 462 Q372 489 385 501 Q391 507 385 510 Q371 507 362 485"
+          fill="none" stroke="#e6bd8d" stroke-width="4" stroke-linecap="round"/>
+    <path d="M337 508 Q329 509 326 514 M385 509 Q392 510 396 514"
+          fill="none" stroke="#e6bd8d" stroke-width="2.4" stroke-linecap="round"/>
+
+    <!-- arms, one reaching toward the rising light -->
+    <path d="M351 411 Q332 424 324 445 Q319 455 313 466"
+          fill="none" stroke="url(#skin)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M375 411 Q391 423 396 439 Q398 447 405 451"
+          fill="none" stroke="url(#skin)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M313 466 Q309 470 307 475 M405 451 Q410 453 413 457"
+          fill="none" stroke="#f0c895" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- leaf-draped body -->
+    <path d="M350 399 Q363 390 377 400 Q387 417 380 444 Q375 462 366 472
+             Q356 461 347 446 Q341 419 350 399Z" fill="url(#dress)"/>
+    <path d="M350 402 Q336 408 339 423 Q349 426 356 416Z" fill="#aac89b"/>
+    <path d="M377 403 Q392 409 389 424 Q379 427 371 416Z" fill="#a5c59a"/>
+    <path d="M348 438 Q362 446 381 438 Q378 455 366 470 Q354 458 348 438Z" fill="#6d9b7b"/>
+    <path d="M365 401 Q360 426 366 462" fill="none" stroke="#d0d7a8" stroke-opacity=".62" stroke-width="1.5"/>
+    <path d="M351 431 Q359 438 365 440 M379 428 Q372 437 366 440" fill="none" stroke="#d0d7a8" stroke-opacity=".5" stroke-width="1.3"/>
+
+    <!-- face and slow-turning head -->
+    <g class="head-turn">
+      <path d="M345 360 Q344 337 362 332 Q383 334 387 354 Q388 370 373 381
+               Q359 386 348 374Z" fill="url(#skin)"/>
+      <path d="M345 357 Q337 345 344 334 Q348 317 370 319 Q389 320 393 338
+               Q398 356 386 368 Q383 350 371 346 Q359 356 345 357Z" fill="url(#hair)"/>
+      <path d="M388 344 Q402 373 390 401 Q386 414 376 420 Q389 391 377 370Z" fill="#3b3944"/>
+      <path d="M347 353 Q340 372 352 385 Q345 407 331 414 Q344 387 336 373Z" fill="#55404a"/>
+      <path d="M345 361 Q338 366 343 371 Q347 373 350 369" fill="none" stroke="#d19a73" stroke-width="2"/>
+      <path d="M349 365 Q353 363 357 365" fill="none" stroke="#6b4b43" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="354" cy="365" r="1.5" fill="#27333b"/>
+      <path d="M349 378 Q357 382 364 379" fill="none" stroke="#b87868" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M349 338 Q361 325 380 332" fill="none" stroke="#c9a16b" stroke-width="2" opacity=".7"/>
+      <circle cx="376" cy="337" r="2.2" fill="#ecd79a"/>
+      <animateTransform attributeName="transform" type="rotate" values="0 365 360; 2 365 360; 0 365 360; -1.5 365 360; 0 365 360" dur="7s" repeatCount="indefinite"/>
+    </g>
+  </g>
+
+  <!-- A small, wordless spark between fairy and page -->
+  <g class="glimmer">
+    <circle cx="307" cy="490" r="17" fill="#f9e9af" opacity=".34" filter="url(#smallGlow)"/>
+    <path d="M307 479 Q309 488 318 491 Q309 493 307 502 Q305 493 296 491 Q305 488 307 479Z" fill="#fff1bd"/>
+    <circle cx="307" cy="491" r="2.2" fill="#fffdf0"/>
+  </g>
+
+  <!-- Drifting punctuation-like motes, without symbols or letters -->
+  <g fill="#f3e9be">
+    <circle class="drift-a" cx="271" cy="522" r="2.4"/>
+    <circle class="drift-b" cx="333" cy="550" r="1.8"/>
+    <circle class="drift-a" cx="423" cy="487" r="2"/>
+    <circle class="drift-b" cx="245" cy="573" r="1.5"/>
+    <circle class="drift-a" cx="391" cy="562" r="1.4"/>
+    <circle class="drift-b" cx="286" cy="587" r="2.1"/>
+    <circle class="drift-a" cx="443" cy="536" r="1.6"/>
+    <circle class="drift-b" cx="354" cy="583" r="1.2"/>
+  </g>
+  <circle class="ripple" cx="307" cy="616" r="30" fill="none" stroke="#f5e7b3" stroke-width="1.2" opacity=".45"/>
+
+  <!-- Foreground blooms -->
+  <g fill="#d4b878" opacity=".85">
+    <circle cx="160" cy="747" r="4"/><circle cx="155" cy="740" r="3"/><circle cx="165" cy="740" r="3"/>
+    <circle cx="160" cy="735" r="3"/><circle cx="170" cy="746" r="3"/>
+    <circle cx="450" cy="748" r="4"/><circle cx="444" cy="741" r="3"/><circle cx="455" cy="739" r="3"/>
+    <circle cx="460" cy="746" r="3"/><circle cx="450" cy="735" r="3"/>
+  </g>
+  <g fill="none" stroke="#70835d" stroke-width="2">
+    <path d="M160 747 Q157 769 147 783 M450 748 Q453 768 465 785"/>
+  </g>
+  <g fill="#536e53">
+    <ellipse cx="149" cy="772" rx="11" ry="4" transform="rotate(-27 149 772)"/>
+    <ellipse cx="462" cy="772" rx="11" ry="4" transform="rotate(25 462 772)"/>
+  </g>
 </svg>
 </body>
 </html>
@@ -180,7 +283,7 @@
 
 ```json
 {
-  "title": "The Fairy of Unsent Letters",
-  "statement": "What remains unspoken still finds wings; release the message, not its ache."
+  "title": "The Fairy of Unwritten Stories",
+  "statement": "A beginning waits; listen for the page that breathes."
 }
 ```

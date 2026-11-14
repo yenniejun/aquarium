@@ -4,354 +4,440 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
 <style>
   * { box-sizing: border-box; }
-  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #061315; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #071d24; }
   body { display: grid; place-items: center; }
-  .scene {
-    width: min(100vw, 66.6667vh, 600px);
-    height: min(150vw, 100vh, 900px);
-    overflow: hidden;
-    border-radius: 0 0 12px 12px;
+  .art {
     position: relative;
-    background: #07191b;
+    width: min(100vw, 66.6667vh, 600px);
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 0 0 13px 13px;
+    background: #09242b;
   }
-  svg { display: block; width: 100%; height: 100%; }
+  svg { display: block; width: 100%; height: 100%; overflow: hidden; }
   .hover { animation: hover 8s ease-in-out infinite; }
-  .wing-left { transform-origin: 274px 395px; animation: left-wing 9s ease-in-out infinite; }
-  .wing-right { transform-origin: 290px 390px; animation: right-wing 9s ease-in-out infinite; }
-  .key { transform-origin: 441px 593px; animation: key 10s ease-in-out infinite; }
-  .threads { animation: threads 7s ease-in-out infinite; transform-origin: 270px 540px; }
-  .halo { transform-origin: 281px 332px; animation: halo 70s linear infinite; }
-  .water { animation: water 7s ease-in-out infinite alternate; transform-origin: 300px 790px; }
-  .glimmer { animation: glimmer 5s ease-in-out infinite alternate; }
-  @keyframes hover { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-11px); } }
-  @keyframes left-wing { 0%,100% { transform: rotate(-2deg) scaleX(.98); } 50% { transform: rotate(2deg) scaleX(1.025); } }
-  @keyframes right-wing { 0%,100% { transform: rotate(2deg) scaleX(.98); } 50% { transform: rotate(-2deg) scaleX(1.025); } }
-  @keyframes key { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-15px) rotate(3deg); } }
-  @keyframes threads { 0%,100% { transform: skewX(-2deg); } 50% { transform: skewX(3deg); } }
-  @keyframes halo { to { transform: rotate(360deg); } }
-  @keyframes glimmer { from { opacity: .35; } to { opacity: .85; } }
-  @keyframes water { from { transform: scaleX(.96); opacity: .5; } to { transform: scaleX(1.04); opacity: .8; } }
+  .upper { animation: wing 6s ease-in-out infinite; transform-origin: 0 0; }
+  .lower { animation: wing 6s ease-in-out infinite reverse; transform-origin: 0 0; }
+  .other { animation-delay: -1.1s; }
+  .shard { animation: shard 7s ease-in-out infinite; }
+  .spark { animation: spark 4s ease-in-out infinite; }
+  .breath { animation: breath 6s ease-in-out infinite; }
+  .thread { stroke-dasharray: 3 11; animation: travel 16s linear infinite; }
+  @keyframes hover {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+  }
+  @keyframes wing {
+    0%,100% { transform: scaleX(1) rotate(0deg); opacity: .91; }
+    50% { transform: scaleX(.92) rotate(2deg); opacity: .72; }
+  }
+  @keyframes shard {
+    0%,100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(2px,-9px) rotate(2deg); }
+  }
+  @keyframes spark { 0%,100% { opacity: .18; } 50% { opacity: 1; } }
+  @keyframes breath { 0%,100% { opacity: .5; } 50% { opacity: .85; } }
+  @keyframes travel { to { stroke-dashoffset: -140; } }
 </style>
 </head>
 <body>
-<div class="scene">
-<svg viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" aria-label="A pale, antlered fairy hovers over dark water, watching a solitary golden key suspended beside her.">
+<div class="art">
+<svg viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" aria-label="A moth-winged fairy delicately restores a broken porcelain cup with light in a moonlit garden." role="img">
 <defs>
-  <radialGradient id="sky" cx=".52" cy=".36" r=".8">
-    <stop stop-color="#315153"/>
-    <stop offset=".48" stop-color="#142f32"/>
-    <stop offset="1" stop-color="#020b10"/>
+  <linearGradient id="night" x2=".85" y2="1">
+    <stop stop-color="#102d38"/>
+    <stop offset=".5" stop-color="#103d40"/>
+    <stop offset="1" stop-color="#06181e"/>
+  </linearGradient>
+  <radialGradient id="aura">
+    <stop stop-color="#b5ceaa" stop-opacity=".22"/>
+    <stop offset=".55" stop-color="#6eaea2" stop-opacity=".09"/>
+    <stop offset="1" stop-color="#60b2a6" stop-opacity="0"/>
   </radialGradient>
-  <radialGradient id="haze">
-    <stop stop-color="#92b9a8" stop-opacity=".2"/>
-    <stop offset="1" stop-color="#92b9a8" stop-opacity="0"/>
+  <radialGradient id="moon">
+    <stop stop-color="#dae0b6" stop-opacity=".53"/>
+    <stop offset=".72" stop-color="#a9cbb0" stop-opacity=".3"/>
+    <stop offset="1" stop-color="#8ab7aa" stop-opacity=".05"/>
   </radialGradient>
-  <radialGradient id="amber">
-    <stop stop-color="#e8b46e" stop-opacity=".23"/>
-    <stop offset=".45" stop-color="#d5a562" stop-opacity=".075"/>
-    <stop offset="1" stop-color="#d5a562" stop-opacity="0"/>
+  <linearGradient id="membrane" x1="0" y1="1" x2=".8" y2="0">
+    <stop stop-color="#638f8b" stop-opacity=".13"/>
+    <stop offset=".48" stop-color="#bdc6a5" stop-opacity=".5"/>
+    <stop offset=".82" stop-color="#f1dab4" stop-opacity=".74"/>
+    <stop offset="1" stop-color="#98c4b3" stop-opacity=".3"/>
+  </linearGradient>
+  <linearGradient id="smallWing" x2="1" y2="1">
+    <stop stop-color="#c6c8a6" stop-opacity=".45"/>
+    <stop offset=".65" stop-color="#8bb8aa" stop-opacity=".21"/>
+    <stop offset="1" stop-color="#d7b78e" stop-opacity=".65"/>
+  </linearGradient>
+  <linearGradient id="skin" x2="1" y2=".3">
+    <stop stop-color="#577c72"/>
+    <stop offset=".48" stop-color="#ccd1ab"/>
+    <stop offset="1" stop-color="#f3deac"/>
+  </linearGradient>
+  <linearGradient id="cloth" x2="1" y2=".7">
+    <stop stop-color="#152e36"/>
+    <stop offset=".45" stop-color="#46616a"/>
+    <stop offset=".72" stop-color="#718784"/>
+    <stop offset="1" stop-color="#1c3b42"/>
+  </linearGradient>
+  <linearGradient id="petal" x2=".8" y2="1">
+    <stop stop-color="#cfa28d"/>
+    <stop offset=".45" stop-color="#8d686a"/>
+    <stop offset="1" stop-color="#293e48"/>
+  </linearGradient>
+  <linearGradient id="porcelain" x2=".8" y2="1">
+    <stop stop-color="#e8e3c5"/>
+    <stop offset=".32" stop-color="#bacac0"/>
+    <stop offset=".7" stop-color="#729a98"/>
+    <stop offset="1" stop-color="#365f66"/>
+  </linearGradient>
+  <linearGradient id="inside" x2="0" y2="1">
+    <stop stop-color="#294f58"/>
+    <stop offset="1" stop-color="#71958c"/>
+  </linearGradient>
+  <linearGradient id="stone" x2=".3" y2="1">
+    <stop stop-color="#355454"/>
+    <stop offset=".2" stop-color="#1a363b"/>
+    <stop offset="1" stop-color="#071a21"/>
+  </linearGradient>
+  <radialGradient id="goldLight">
+    <stop stop-color="#ffdc8a" stop-opacity=".43"/>
+    <stop offset=".25" stop-color="#e5bc70" stop-opacity=".13"/>
+    <stop offset="1" stop-color="#e5bc70" stop-opacity="0"/>
   </radialGradient>
-  <linearGradient id="wing" x1="0" y1="0" x2="1" y2="1">
-    <stop stop-color="#b5cdb4" stop-opacity=".55"/>
-    <stop offset=".32" stop-color="#547f79" stop-opacity=".2"/>
-    <stop offset=".78" stop-color="#24474a" stop-opacity=".55"/>
-    <stop offset="1" stop-color="#c8bd86" stop-opacity=".65"/>
-  </linearGradient>
-  <linearGradient id="wingLow" x1="0" y1="1" x2="1" y2="0">
-    <stop stop-color="#c1b879" stop-opacity=".5"/>
-    <stop offset=".5" stop-color="#47716c" stop-opacity=".12"/>
-    <stop offset="1" stop-color="#9bbbaa" stop-opacity=".5"/>
-  </linearGradient>
-  <linearGradient id="skin" x1="0" x2="1" y1="0" y2=".3">
-    <stop stop-color="#496968"/>
-    <stop offset=".48" stop-color="#c5d7bf"/>
-    <stop offset=".76" stop-color="#e7e6c9"/>
-    <stop offset="1" stop-color="#78918b"/>
-  </linearGradient>
-  <linearGradient id="dress" x1="0" x2="1" y1="0" y2=".2">
-    <stop stop-color="#020d13"/>
-    <stop offset=".4" stop-color="#123337"/>
-    <stop offset=".56" stop-color="#43645f"/>
-    <stop offset=".67" stop-color="#102f31"/>
-    <stop offset="1" stop-color="#030f16"/>
-  </linearGradient>
-  <linearGradient id="gold" x1="0" x2="1" y1="0" y2=".5">
-    <stop stop-color="#513d25"/>
-    <stop offset=".25" stop-color="#a2824c"/>
-    <stop offset=".48" stop-color="#ffdf99"/>
-    <stop offset=".61" stop-color="#b18a4d"/>
-    <stop offset=".8" stop-color="#f2d192"/>
-    <stop offset="1" stop-color="#715332"/>
-  </linearGradient>
-  <linearGradient id="leg" x1="0" y1="0" x2=".5" y2="1">
-    <stop stop-color="#b5cbb8"/>
-    <stop offset="1" stop-color="#395755"/>
-  </linearGradient>
-  <linearGradient id="waterFade" x1="0" y1="0" x2="0" y2="1">
-    <stop stop-color="#061e22" stop-opacity="0"/>
-    <stop offset=".4" stop-color="#041319" stop-opacity=".8"/>
-    <stop offset="1" stop-color="#020b10"/>
-  </linearGradient>
-  <filter id="soft"><feGaussianBlur stdDeviation="16"/></filter>
   <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
     <feGaussianBlur stdDeviation="3"/>
   </filter>
+  <filter id="soft"><feGaussianBlur stdDeviation="12"/></filter>
   <filter id="grain">
     <feTurbulence type="fractalNoise" baseFrequency=".73" numOctaves="3" stitchTiles="stitch"/>
     <feColorMatrix type="saturate" values="0"/>
-    <feComponentTransfer><feFuncA type="linear" slope=".085"/></feComponentTransfer>
-    <feBlend in="SourceGraphic" mode="soft-light"/>
   </filter>
-  <path id="upperLeft" d="M278 397 C225 352 122 348 83 267 C62 224 72 167 46 117 C123 133 186 183 218 241 C251 302 270 350 278 397Z"/>
-  <path id="upperRight" d="M286 392 C310 320 346 240 407 190 C446 158 496 144 552 137 C519 181 534 240 508 280 C466 345 359 355 286 392Z"/>
-  <path id="lowerLeft" d="M275 399 C224 379 157 379 128 414 C101 447 123 501 81 552 C142 546 207 510 239 462Z"/>
-  <path id="lowerRight" d="M291 398 C346 375 429 376 463 416 C489 449 470 488 513 523 C442 539 357 481 291 398Z"/>
-  <clipPath id="clipUL"><use href="#upperLeft"/></clipPath>
-  <clipPath id="clipUR"><use href="#upperRight"/></clipPath>
-  <clipPath id="clipLL"><use href="#lowerLeft"/></clipPath>
-  <clipPath id="clipLR"><use href="#lowerRight"/></clipPath>
+
+  <path id="upperShape" d="M0 0 C-47-22-128-72-157-158 C-173-204-183-252-157-251 C-112-248-63-188-39-133 C-17-84-12-35 0 0Z"/>
+  <clipPath id="upperClip"><use href="#upperShape"/></clipPath>
+  <g id="upperWing">
+    <use href="#upperShape" fill="url(#membrane)" stroke="#d0d5b5" stroke-opacity=".65" stroke-width="1"/>
+    <g fill="none" stroke="#d8debc" stroke-opacity=".48" stroke-width=".8">
+      <path d="M0 0 Q-94-112-157-251 M-7-13 Q-92-101-170-207 M-16-25 Q-94-67-147-137 M-34-44 Q-75-128-79-203 M-70-91 Q-91-165-120-236 M-104-146 Q-139-170-171-177"/>
+      <path d="M-31-39 Q-35-102-49-153 M-63-81 Q-107-105-157-153 M-101-137 Q-111-189-139-244"/>
+    </g>
+    <g clip-path="url(#upperClip)" id="wingEtching"></g>
+    <path d="M-161-228 Q-160-192-146-169" fill="none" stroke="#fff0c7" stroke-width="2" opacity=".6"/>
+    <ellipse cx="-115" cy="-161" rx="11" ry="22" transform="rotate(-32 -115 -161)" fill="#274e53" opacity=".32"/>
+    <ellipse cx="-115" cy="-161" rx="5" ry="12" transform="rotate(-32 -115 -161)" fill="#dae0ba" opacity=".65"/>
+  </g>
+  <g id="lowerWing">
+    <path d="M0 0 C-38 5-116 13-148 70 C-163 97-155 153-139 162 C-118 161-80 122-58 88 C-28 47-12 27 0 0Z" fill="url(#smallWing)" stroke="#b4c4aa" stroke-opacity=".58"/>
+    <g fill="none" stroke="#c8d1b1" stroke-opacity=".45" stroke-width=".8">
+      <path d="M0 0 Q-101 51-139 162 M-4 5 Q-68 63-101 132 M-17 6 Q-89 17-144 64 M-58 35 Q-123 62-154 111 M-87 68 Q-107 109-113 144"/>
+      <path d="M-24 18 Q-45 53-58 88 M-110 106 Q-135 119-151 126"/>
+    </g>
+    <g fill="#deceaa" opacity=".65">
+      <circle cx="-143" cy="130" r="2"/><circle cx="-132" cy="112" r="1.7"/>
+      <circle cx="-118" cy="92" r="1.4"/><circle cx="-102" cy="73" r="1"/>
+    </g>
+  </g>
+  <g id="fern" fill="none" stroke="currentColor" stroke-linecap="round">
+    <path d="M0 0 Q-15-50 0-114" stroke-width="1.2"/>
+    <path d="M-4-15 Q-29-16-35-32 Q-13-31-6-23 M-6-30 Q18-35 22-49 Q2-45-7-38 M-7-46 Q-31-49-33-64 Q-16-59-7-53 M-6-62 Q13-68 15-82 Q0-75-5-70 M-3-80 Q-20-89-18-100 Q-7-94-2-87 M0-97 Q9-107 2-120" stroke-width="1"/>
+  </g>
 </defs>
 
-<!-- The submerged garden -->
-<rect width="600" height="900" fill="url(#sky)"/>
-<ellipse cx="300" cy="345" rx="315" ry="332" fill="url(#haze)"/>
-<g fill="none" stroke="#789084" opacity=".12">
-  <path d="M-31 648V270Q-31 128 84 97Q181 128 181 270V642" stroke-width="15"/>
-  <path d="M-12 641V273Q-12 151 84 117Q160 152 160 273V642" stroke-width="2"/>
-  <path d="M417 653V228Q417 65 516 32Q618 64 618 228V653" stroke-width="18"/>
-  <path d="M438 646V228Q438 88 516 55Q596 89 596 228V646" stroke-width="2"/>
-  <path d="M206 498V157Q206 39 302-12Q396 39 396 157V498" stroke-width="6"/>
-</g>
-<g stroke="#081c20" fill="none" opacity=".7">
-  <path d="M24 0Q74 184 27 397T46 760" stroke-width="11"/>
-  <path d="M579 0Q533 192 571 339T552 752" stroke-width="16"/>
-  <path d="M29 208L104 164M37 370L3 312M567 171L524 124M568 385L608 307" stroke-width="4"/>
-</g>
-<circle cx="288" cy="107" r="21" fill="#c8cdb0" opacity=".7"/>
-<circle cx="297" cy="99" r="21" fill="#1b3639"/>
-<path d="M288 140V197" stroke="#a4af90" stroke-width=".7" opacity=".4"/>
-<circle cx="288" cy="207" r="2" fill="#c1b580" opacity=".6"/>
-<ellipse cx="301" cy="659" rx="302" ry="76" fill="#658f83" opacity=".09" filter="url(#soft)"/>
-<g id="backMotes"></g>
+<!-- Night, with a moon almost erased by mist. -->
+<path fill="url(#night)" d="M0 0H600V900H0Z"/>
+<ellipse cx="319" cy="322" rx="339" ry="410" fill="url(#aura)"/>
+<circle cx="349" cy="194" r="125" fill="url(#moon)"/>
+<circle cx="349" cy="194" r="111" fill="none" stroke="#c8d2af" stroke-opacity=".1" stroke-width=".8"/>
+<path d="M256 132 A109 109 0 0 1 424 117" fill="none" stroke="#d9dab4" stroke-opacity=".34" stroke-width="1"/>
+<ellipse cx="328" cy="229" rx="172" ry="42" fill="#8cb3a3" opacity=".045" filter="url(#soft)"/>
 
-<!-- A broken orbit, not quite a halo -->
+<g id="distant" opacity=".26"></g>
+<g id="stars"></g>
+
+<!-- The garden leans inward, but never becomes a frame. -->
+<g fill="#061d25">
+  <path d="M0 0H56 Q32 128 58 233 Q67 331 23 440 L0 500Z"/>
+  <path d="M600 0H574 Q544 101 570 208 Q583 292 552 390 L600 464Z"/>
+</g>
+<g id="branches"></g>
+<g fill="none" stroke="#618778" stroke-opacity=".24">
+  <path d="M39 0 Q18 108 61 190 Q77 229 56 273"/>
+  <path d="M581 0 Q545 89 568 173"/>
+  <path d="M0 531 Q48 498 71 436 Q88 389 79 344"/>
+</g>
+
+<!-- The suspended restorer. -->
 <g class="hover">
-<g class="halo" fill="none" stroke="#b5a778" stroke-width=".8" opacity=".45">
-  <path d="M215 295A76 76 0 0 1 332 274M350 300A76 76 0 0 1 327 393M305 406A76 76 0 0 1 206 343"/>
-  <path d="M203 287L210 292M353 281L348 288M361 371L354 368M240 414L243 407"/>
-  <circle cx="335" cy="278" r="3"/>
-  <circle cx="205" cy="337" r="2"/>
-</g>
-
-<!-- Four transparent, weathered wings -->
-<g class="wing-left">
-  <use href="#upperLeft" fill="url(#wing)" stroke="#a6b59a" stroke-width="1.1"/>
-  <g id="veinsUL" clip-path="url(#clipUL)"></g>
-  <use href="#lowerLeft" fill="url(#wingLow)" stroke="#9ba78a" stroke-width=".9"/>
-  <g id="veinsLL" clip-path="url(#clipLL)"></g>
-  <path d="M278 397Q175 298 46 117M275 399Q182 435 81 552" fill="none" stroke="#c4c59b" stroke-width="1.5" opacity=".7"/>
-  <path d="M82 198Q93 260 134 278Q143 239 109 210Q95 200 82 198Z" fill="#153c40" stroke="#abb996" stroke-width="1" opacity=".7"/>
-  <path d="M94 217Q117 234 123 255Q100 249 94 217Z" fill="#ccbb7a" opacity=".7"/>
-</g>
-<g class="wing-right">
-  <use href="#upperRight" fill="url(#wing)" stroke="#b5b995" stroke-width="1.1"/>
-  <g id="veinsUR" clip-path="url(#clipUR)"></g>
-  <use href="#lowerRight" fill="url(#wingLow)" stroke="#9ba78a" stroke-width=".9"/>
-  <g id="veinsLR" clip-path="url(#clipLR)"></g>
-  <path d="M286 392Q408 276 552 137M291 398Q399 444 513 523" fill="none" stroke="#c7c99f" stroke-width="1.5" opacity=".65"/>
-  <path d="M504 206Q464 211 452 252Q484 259 503 225Z" fill="#153c40" stroke="#abb996" stroke-width="1"/>
-  <path d="M492 219Q474 225 465 242Q483 240 492 219Z" fill="#ccbb7a" opacity=".75"/>
-</g>
-
-<!-- Hair drifting behind the neck -->
-<g fill="none" stroke-linecap="round">
-  <path d="M267 315C224 338 263 386 224 422C202 443 205 465 217 482" stroke="#05191f" stroke-width="26"/>
-  <path d="M269 316C231 354 270 382 235 433S248 488 219 526" stroke="#547570" stroke-width="1.6"/>
-  <path d="M261 330C228 367 250 397 216 430S198 472 205 489" stroke="#8a9b85" stroke-width=".7"/>
-  <path d="M278 330C255 377 288 402 252 452" stroke="#9cae96" stroke-width="1"/>
-</g>
-
-<!-- Legs, partly lost in the skirts -->
-<path d="M272 552C262 598 279 628 264 671C253 700 255 719 270 737L282 741Q267 717 279 688C302 642 297 602 298 562Z" fill="url(#leg)"/>
-<path d="M300 552C310 594 333 622 322 652C312 679 307 704 323 716L337 719Q321 700 335 672C356 631 336 592 330 555Z" fill="url(#leg)"/>
-<path d="M276 611Q281 641 270 667M326 628Q334 644 322 668" fill="none" stroke="#d5dac0" stroke-width="1" opacity=".6"/>
-
-<!-- Narrow, folded thorax and impossible sleeves -->
-<path d="M272 364Q256 378 249 412L270 463L252 515Q293 548 330 516L308 462Q316 420 304 390L290 365Z" fill="url(#dress)"/>
-<path d="M274 359L270 387Q284 402 298 384L289 353Z" fill="url(#skin)"/>
-<path d="M262 392Q280 416 302 393L298 429L279 456L265 429Z" fill="#9bad92" opacity=".55"/>
-<path d="M271 401L279 451L292 407M267 433L299 434M269 440L295 444" fill="none" stroke="#d1c28d" stroke-width=".85"/>
-<circle cx="280" cy="420" r="3" fill="#e4c785"/>
-
-<!-- An arm offered, never quite touching -->
-<path d="M301 391C317 389 322 423 329 443Q347 449 369 461L382 461L394 455Q397 456 391 462L380 468L365 469Q331 463 317 459C308 451 304 424 296 411Z" fill="url(#skin)"/>
-<path d="M369 464L389 469M373 461L392 463M378 460L393 458" fill="none" stroke="#cfd8ba" stroke-width="2" stroke-linecap="round"/>
-<path d="M255 397Q234 412 236 448L221 483L222 502Q224 510 227 506L229 489L249 454Q254 438 264 421Z" fill="url(#skin)"/>
-<path d="M222 487L216 500L218 512M227 489L225 511" fill="none" stroke="#b0c4ae" stroke-width="2" stroke-linecap="round"/>
-<path d="M246 400Q231 419 239 436L255 424L265 400M301 391Q322 398 325 422L307 418Z" fill="#0a262c" stroke="#729085" stroke-width="1"/>
-
-<!-- The face: a listening creature -->
-<path d="M262 315Q266 292 286 294Q305 295 307 315L302 329L310 338L299 342Q299 353 287 363Q271 361 267 347L256 336Z" fill="url(#skin)"/>
-<path d="M263 316Q250 310 246 301Q244 325 265 337" fill="#8ba697" stroke="#365b59" stroke-width="1"/>
-<path d="M267 314Q278 298 296 307Q304 310 307 317Q311 294 290 287Q266 281 255 307Z" fill="#0b2329"/>
-<path d="M281 325Q290 317 300 323Q291 333 281 325Z" fill="#062027"/>
-<path d="M285 324L299 322" stroke="#c2ceaa" stroke-width=".7"/>
-<circle cx="294" cy="324" r="1" fill="#ddcf9c"/>
-<path d="M298 345L290 347M288 352L294 350" fill="none" stroke="#4c7069" stroke-width="1"/>
-<path d="M272 332Q270 342 280 349" fill="none" stroke="#eff0ce" stroke-width=".8" opacity=".7"/>
-<circle cx="264" cy="339" r="2.3" fill="#d5c18c"/>
-<path d="M264 342L260 359L264 363L268 358Z" fill="none" stroke="#c2b17e" stroke-width=".8"/>
-
-<!-- Branching antennae -->
-<g fill="none" stroke-linecap="round">
-  <path d="M270 300C250 276 261 251 243 230M294 296C306 268 290 251 307 223" stroke="#849c89" stroke-width="3"/>
-  <path d="M260 279L241 266L234 249M258 264L271 249L270 235M299 270L317 257L322 241M300 251L288 235L287 225" stroke="#a4af91" stroke-width="1.5"/>
-  <path d="M244 230L239 214M307 223L316 210" stroke="#d3c693" stroke-width="1"/>
-</g>
-
-<!-- Shredded silk, like the gills of a dark flower -->
-<g class="threads">
-  <path d="M269 459Q252 501 225 552Q254 539 247 600Q273 580 276 547Q283 601 270 639Q304 608 303 560Q325 594 354 608Q329 562 342 532Q316 495 306 460Z" fill="url(#dress)" stroke="#54776a" stroke-width=".7"/>
-  <path d="M271 478Q258 543 249 575M281 478Q274 541 285 584M292 476Q295 532 318 568M306 486Q319 527 335 548" fill="none" stroke="#9ca982" stroke-width=".85" opacity=".6"/>
-  <path d="M246 526C210 570 239 625 198 659C247 640 224 597 254 568M323 520C365 561 334 611 379 651C348 642 337 617 339 587" fill="none" stroke="#517468" stroke-width="2"/>
-  <path d="M259 540C229 605 269 659 231 703M317 546C350 611 308 665 355 701M280 581Q302 667 278 700" fill="none" stroke="#a5ad88" stroke-width=".75" opacity=".65"/>
-  <path d="M238 675L231 703L243 692M349 680L355 701L344 693" fill="none" stroke="#c2b881" stroke-width=".8"/>
-</g>
-</g>
-
-<!-- The thing she keeps: separate, out of reach -->
-<ellipse cx="443" cy="577" rx="132" ry="174" fill="url(#amber)" class="glimmer"/>
-<g class="key">
-<g transform="translate(441 584) rotate(25)">
-  <path d="M0-44V89M0 47H24V60H13V74H29V87H0" fill="none" stroke="#e3bc72" stroke-width="13" opacity=".17" filter="url(#glow)"/>
-  <path d="M-5-43H5V86H27V73H14V60H23V47H5" fill="url(#gold)" stroke="#4a3b29" stroke-width="1"/>
-  <path d="M-2-40V82M7 51H18M7 77H22" fill="none" stroke="#ffe1a3" stroke-width="1.3"/>
-  <path d="M0-45C-8-55-30-54-32-73C-35-88-19-99-8-91C-10-108 10-108 8-91C20-99 35-87 32-73C29-54 8-55 0-45Z" fill="none" stroke="#483d2c" stroke-width="10"/>
-  <path d="M0-45C-8-55-30-54-32-73C-35-88-19-99-8-91C-10-108 10-108 8-91C20-99 35-87 32-73C29-54 8-55 0-45Z" fill="none" stroke="url(#gold)" stroke-width="6"/>
-  <path d="M0-53V-85M-17-73H17" stroke="#c8a764" stroke-width="2"/>
-  <path d="M0-86L8-74L0-62L-8-74Z" fill="#193e3b" stroke="#c9ad72" stroke-width="1.3"/>
-  <circle cx="0" cy="-74" r="2.5" fill="#c8d5ae"/>
-  <path d="M-8-38H8M-8-33H8M-7 37H8M-7 41H8" stroke="#e0bd7c" stroke-width="2"/>
-</g>
-</g>
-
-<!-- Black water and its imperfect memory -->
-<path d="M0 700Q170 679 300 704T600 690V900H0Z" fill="url(#waterFade)"/>
-<g class="water" fill="none" stroke-linecap="round">
-  <g stroke="#9baa8a" stroke-width=".8" opacity=".4">
-    <ellipse cx="288" cy="756" rx="83" ry="7"/>
-    <path d="M178 769Q280 783 384 766M241 741L307 740M191 793Q276 803 345 793M257 817H311"/>
+  <g transform="translate(237 380) rotate(-8)">
+    <g class="upper"><use href="#upperWing"/></g>
+    <g class="lower"><use href="#lowerWing"/></g>
   </g>
-  <g stroke="#cfad6c" opacity=".65">
-    <path d="M417 748H452M402 756H460M426 763H449M409 775H443M421 787H453M425 801H440" stroke-width="1.2"/>
-    <path d="M433 815H449M421 824H435M431 837H439" stroke-width=".7"/>
+  <g transform="translate(263 378) scale(-1 1) rotate(9)">
+    <g class="upper other"><use href="#upperWing"/></g>
+    <g class="lower other"><use href="#lowerWing"/></g>
   </g>
+
+  <!-- Long, quiet legs, ending in pointed bare feet. -->
+  <path d="M240 476 Q225 533 231 571 Q232 594 215 635 Q211 648 218 651 Q227 643 233 627 Q251 584 250 563 L268 491Z" fill="url(#skin)"/>
+  <path d="M266 480 Q280 529 269 568 Q258 604 270 640 Q273 650 286 653 Q288 650 279 640 Q275 603 288 568 Q305 518 285 477Z" fill="url(#skin)"/>
+  <path d="M238 533 Q238 576 224 617 M280 541 Q268 582 274 611" fill="none" stroke="#244b4d" stroke-width="2" opacity=".5"/>
+  <path d="M231 593 L238 589 M228 603 L235 599 M271 606 L277 610 M271 618 L278 623" fill="none" stroke="#d0c08c" stroke-width="1"/>
+
+  <!-- Petal coat. -->
+  <path d="M238 353 Q226 377 231 407 Q235 436 211 484 Q224 506 246 516 Q251 476 261 451 Q269 480 288 503 L303 488 Q274 424 278 395 L269 351Z" fill="url(#cloth)" stroke="#87a294" stroke-width=".7"/>
+  <path d="M243 368 Q245 418 221 489 L239 502 Q245 459 257 428Z" fill="#a4aea0" opacity=".42"/>
+  <path d="M267 369 Q257 411 278 474 L295 491 Q285 455 279 413Z" fill="#0c303a" opacity=".7"/>
+  <path d="M237 353 Q219 377 224 407 Q235 416 247 410 Q246 385 253 365Z" fill="url(#petal)"/>
+  <path d="M262 353 Q285 354 286 381 L275 402 Q257 393 258 376Z" fill="url(#petal)"/>
+  <path d="M240 411 Q259 421 278 411" fill="none" stroke="#d4ba83" stroke-width="2"/>
+  <circle cx="259" cy="416" r="3" fill="#e6d19c"/>
+  <g fill="none" stroke="#b5bca2" stroke-opacity=".5" stroke-width=".7">
+    <path d="M240 434 Q238 462 226 481 M249 446 L241 484 M275 435 Q276 460 286 480"/>
+    <path d="M231 478 l3 7 m5-17 2 8 m39-4 4 7"/>
+  </g>
+
+  <!-- Far arm, cupped beneath the work. -->
+  <path d="M237 386 Q224 404 236 427 Q253 444 284 450 L291 442 Q263 431 251 416 L251 388Z" fill="url(#skin)"/>
+  <path d="M282 440 Q293 438 301 442 L309 439 Q313 441 306 447 Q298 454 285 450Z" fill="#bfc8a4"/>
+  <path d="M288 446 L302 446 M287 449 L297 450" fill="none" stroke="#5e8072" stroke-width=".8"/>
+
+  <!-- Near arm and fine, working fingers. -->
+  <path d="M274 382 Q292 392 296 411 L309 433 L302 440 Q280 420 278 409 L266 397Z" fill="url(#skin)"/>
+  <path d="M301 433 Q305 425 312 426 L321 431 L326 430 Q331 433 324 436 L316 436 L310 443 Q305 444 301 439Z" fill="url(#skin)"/>
+  <path d="M312 430 L319 433 M308 435 L316 437" stroke="#5b7767" stroke-width=".8" fill="none"/>
+  <path d="M320 427 L344 460" stroke="#eaddaf" stroke-width="1"/>
+  <circle cx="344" cy="460" r="2" fill="#ffe2a2"/>
+  <circle cx="344" cy="460" r="7" fill="#f9d88e" opacity=".45" filter="url(#glow)"/>
+
+  <!-- Neck, a profile like a seed, and a listening eye. -->
+  <path d="M247 333 L244 358 Q254 371 267 355 L263 330Z" fill="url(#skin)"/>
+  <path d="M240 292 Q257 275 273 292 Q282 305 278 317 L286 326 Q285 330 277 330 Q275 348 264 349 Q244 345 239 327 Q228 316 240 292Z" fill="url(#skin)"/>
+  <path d="M268 312 Q274 308 279 312" fill="none" stroke="#2b4d47" stroke-width="1.7"/>
+  <path d="M270 315 L275 314" stroke="#f5dfa5" stroke-width="1"/>
+  <path d="M275 337 L280 336" stroke="#8c7164" stroke-width="1"/>
+  <path d="M242 312 Q226 303 227 315 Q230 325 241 328" fill="#99b097" stroke="#496f63" stroke-width=".7"/>
+  <path d="M238 315 L230 313" stroke="#41675b" fill="none"/>
+
+  <!-- Hair: a crown of folded, dark leaves. -->
+  <path d="M238 328 Q221 316 225 297 Q225 276 245 272 Q271 267 280 290 Q265 285 257 295 Q245 308 244 335Z" fill="#163a3b"/>
+  <path d="M229 309 Q219 289 231 276 Q229 261 241 249 Q241 273 253 279 Q250 259 259 250 Q256 271 274 281 L289 302 Q266 288 255 300 Q245 317 242 333Z" fill="#244a47"/>
+  <g fill="none" stroke="#769484" stroke-width=".8">
+    <path d="M238 316 Q230 293 240 278 M244 297 Q248 283 263 283 M249 277 Q241 270 241 260 M255 294 Q266 285 275 293"/>
+  </g>
+  <path d="M243 281 Q225 253 223 230 M259 279 Q275 247 270 227" fill="none" stroke="#c2c7a0" stroke-width="1.1"/>
+  <ellipse cx="222" cy="228" rx="2.5" ry="5" fill="#f0dba1" transform="rotate(-15 222 228)"/>
+  <ellipse cx="270" cy="225" rx="2.5" ry="5" fill="#f0dba1" transform="rotate(12 270 225)"/>
+  <circle cx="222" cy="228" r="8" fill="#e8ce8c" opacity=".3" filter="url(#glow)"/>
 </g>
-<g id="reeds"></g>
-<g id="motes"></g>
-<rect width="600" height="900" filter="url(#grain)" opacity=".46" pointer-events="none"/>
+
+<!-- A single bright thread searches for the broken edge. -->
+<ellipse cx="396" cy="548" rx="114" ry="144" fill="url(#goldLight)" class="breath"/>
+<path d="M344 460 C398 480 345 532 391 549 C416 558 445 535 459 557" fill="none" stroke="#e8c47b" stroke-width=".85" opacity=".8"/>
+<path class="thread" d="M344 460 C398 480 345 532 391 549 C416 558 445 535 459 557" fill="none" stroke="#ffedba" stroke-width="1.7"/>
+<g id="repairDust"></g>
+
+<!-- The cup is nearby, independent of the fairy. -->
+<ellipse cx="426" cy="729" rx="107" ry="15" fill="#020f17" opacity=".56" filter="url(#soft)"/>
+<g class="shard">
+  <path d="M496 589 Q546 569 550 612 Q552 649 497 650 L500 635 Q532 635 532 612 Q531 591 504 604Z" fill="url(#porcelain)" stroke="#9ab7aa" stroke-width="1"/>
+  <path d="M510 590 Q544 584 543 614 Q543 638 516 642" fill="none" stroke="#e0d9b8" stroke-opacity=".5" stroke-width="2"/>
+  <path d="M342 573 Q420 553 503 570 L491 601 Q419 626 351 598Z" fill="url(#inside)"/>
+  <path d="M342 573 Q421 608 504 569 L488 652 Q477 684 423 688 Q376 684 362 653Z" fill="url(#porcelain)" stroke="#8ea99c" stroke-width="1"/>
+  <path d="M342 573 Q389 593 433 584 L444 574 L454 586 L464 574 L473 578 L485 567 L504 569" fill="none" stroke="#e9dfb8" stroke-width="3"/>
+  <path d="M362 651 Q423 681 488 651" fill="none" stroke="#496f72" stroke-width="1.5"/>
+  <path d="M391 681 L389 689 Q419 704 451 689 L449 681" fill="url(#porcelain)" stroke="#8da89a"/>
+  <path d="M392 689 Q420 699 450 688" fill="none" stroke="#d0caa7" stroke-width="1"/>
+  <path d="M351 591 Q367 642 384 653" fill="none" stroke="#eef0d2" opacity=".25" stroke-width="5"/>
+  <g color="#315b68" opacity=".84">
+    <use href="#fern" transform="translate(402 662) rotate(-23) scale(.59)"/>
+    <use href="#fern" transform="translate(455 658) rotate(25) scale(.49)"/>
+  </g>
+  <g fill="none" stroke="#547d80" stroke-width=".8" opacity=".7">
+    <path d="M362 611 Q414 637 495 608 M367 620 Q426 647 493 618"/>
+    <path d="M377 654 Q417 675 479 654"/>
+  </g>
+  <!-- Fractures are not hidden; they become the brightest part. -->
+  <path d="M444 574 L432 607 L441 626 L422 646 L427 687 M432 607 L407 614 L396 605 M441 626 L462 632 L475 655" fill="none" stroke="#806f48" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M444 574 L432 607 L441 626 L422 646 L427 687 M432 607 L407 614 L396 605 M441 626 L462 632 L475 655" fill="none" stroke="#f1cf83" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M444 574 L432 607 L441 626 L422 646 L427 687" fill="none" stroke="#ffe6a7" stroke-width="4" filter="url(#glow)" opacity=".7"/>
+  <path d="M458 546 L471 528 L490 539 L482 562 L471 557Z" fill="url(#porcelain)" stroke="#e4ce98" stroke-width="1.3"/>
+  <path d="M463 546 L478 541 L485 544" fill="none" stroke="#456e73" stroke-width="1"/>
+  <path d="M444 551 L450 541 L455 552 L450 559Z" fill="#d8d7b7" stroke="#e6c47d" stroke-width=".8"/>
+</g>
+
+<!-- A garden floor of stone, roots and minute growing things. -->
+<path d="M0 763 Q79 737 146 755 Q215 735 279 758 Q393 724 482 746 Q543 733 600 752 V900H0Z" fill="url(#stone)"/>
+<path d="M0 766 Q91 743 150 761 M280 761 Q380 734 477 751 M496 752 L554 749" fill="none" stroke="#57796d" stroke-opacity=".5"/>
+<path d="M0 837 Q114 790 185 824 Q230 844 317 801 Q405 764 600 804" fill="none" stroke="#061a20" stroke-width="19"/>
+<path d="M-20 831 Q95 790 180 820 Q233 844 320 797" fill="none" stroke="#36574f" stroke-width="2"/>
+<path d="M601 865 Q500 806 449 838 Q416 858 357 844" fill="none" stroke="#0b2429" stroke-width="26"/>
+<path d="M600 852 Q511 809 460 833" fill="none" stroke="#36564d" stroke-width="2"/>
+
+<g id="moss"></g>
+<g color="#497164">
+  <use href="#fern" transform="translate(58 799) rotate(-26) scale(1.05)"/>
+  <use href="#fern" transform="translate(90 814) rotate(21) scale(.65)"/>
+  <use href="#fern" transform="translate(543 816) rotate(21) scale(.94)"/>
+</g>
+<g color="#7c9a7c" opacity=".55">
+  <use href="#fern" transform="translate(33 778) rotate(-13) scale(.62)"/>
+  <use href="#fern" transform="translate(566 813) rotate(39) scale(.62)"/>
+</g>
+
+<!-- Tiny lamps in the undergrowth. -->
+<g fill="none" stroke="#8ca68a" stroke-width="1">
+  <path d="M113 783 Q124 746 112 724 M135 789 Q142 765 154 756 M508 781 Q497 747 506 721"/>
+</g>
+<g fill="#c3c9a3">
+  <path d="M102 727 Q108 710 119 721 L123 728 Q110 733 102 727Z"/>
+  <path d="M145 758 Q153 747 161 757 Q153 763 145 758Z"/>
+  <path d="M497 723 Q505 708 514 722 Q505 729 497 723Z"/>
+</g>
+<g fill="#eddb9e" opacity=".25" filter="url(#glow)">
+  <ellipse cx="112" cy="727" rx="11" ry="3"/>
+  <ellipse cx="505" cy="723" rx="9" ry="3"/>
+</g>
+
+<g id="foregroundMotes"></g>
+<path d="M0 0H600V900H0Z" filter="url(#grain)" opacity=".055" style="mix-blend-mode:soft-light;pointer-events:none"/>
 </svg>
 </div>
 <script>
 (() => {
-  const NS = 'http://www.w3.org/2000/svg';
-  let seed = 7319;
+  const ns = 'http://www.w3.org/2000/svg';
+  let seed = 8713;
   const random = () => {
     seed = (seed * 16807) % 2147483647;
     return (seed - 1) / 2147483646;
   };
-  const make = (tag, attrs, parent) => {
-    const e = document.createElementNS(NS, tag);
-    for (const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
-    parent.appendChild(e);
-    return e;
+  const add = (parent, tag, attrs) => {
+    const el = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+    parent.appendChild(el);
+    return el;
   };
+  const group = id => document.getElementById(id);
 
-  const specs = [
-    ['veinsUL',278,397,46,117,-1],
-    ['veinsUR',286,392,552,137,1],
-    ['veinsLL',275,399,81,552,-1],
-    ['veinsLR',291,398,513,523,1]
-  ];
-  specs.forEach(([id,x,y,tx,ty,side], index) => {
-    const group = document.getElementById(id);
-    for (let i=0;i<15;i++) {
-      const t=(i+1)/16;
-      const ex=tx+(x-tx)*t;
-      const ey=ty+(y-ty)*t;
-      const bend=side*(35+Math.sin(t*Math.PI)*55);
-      make('path',{
-        d:`M${x} ${y} Q${ex+bend} ${ey-35} ${ex+side*62} ${ey-20} T${ex+side*105} ${ey+30}`,
-        fill:'none',stroke:i%3===0?'#c4c89e':'#9cae96',
-        'stroke-width':i%3===0?'.85':'.45',opacity:'.48'
-      },group);
-      for(let j=0;j<5;j++){
-        const u=(j+1)/6;
-        const px=x+(ex+side*75-x)*u;
-        const py=y+(ey-y)*u-25*Math.sin(u*Math.PI);
-        make('path',{
-          d:`M${px} ${py}q${side*12} -14 ${side*25} -18`,
-          fill:'none',stroke:'#c4c89e','stroke-width':'.4',opacity:'.3'
-        },group);
+  // Fine cross-veins, each membrane slightly imperfect.
+  for (let i = 0; i < 37; i++) {
+    const y = -28 - i * 6;
+    add(group('wingEtching'), 'path', {
+      d: `M-185 ${y} Q-105 ${y + 27} -12 ${y - 9}`,
+      fill: 'none', stroke: '#385f5b',
+      'stroke-width': .55, opacity: .24
+    });
+  }
+  for (let i = 0; i < 80; i++) {
+    add(group('wingEtching'), 'circle', {
+      cx: -180 + random() * 175,
+      cy: -255 + random() * 250,
+      r: .35 + random() * .65,
+      fill: '#f7e7bf', opacity: .35 + random() * .4
+    });
+  }
+
+  for (let i = 0; i < 61; i++) {
+    const x = 43 + random() * 512, y = 25 + random() * 650;
+    const r = random() > .9 ? 1.5 : .45 + random() * .55;
+    const el = add(group('stars'), 'circle', {
+      cx: x, cy: y, r,
+      fill: i % 4 ? '#d0d8b6' : '#f0c98d',
+      opacity: .1 + random() * .4
+    });
+    if (i % 5 === 0) {
+      el.setAttribute('class', 'spark');
+      el.style.animationDelay = `${-random() * 5}s`;
+      el.style.animationDuration = `${4 + random() * 5}s`;
+    }
+  }
+
+  // Distant stems drift into the moon's pale field.
+  for (let i = 0; i < 23; i++) {
+    const x = random() * 600;
+    const y = 460 + random() * 330;
+    const height = 100 + random() * 250;
+    const lean = (random() - .5) * 95;
+    add(group('distant'), 'path', {
+      d: `M${x} ${y + 110} Q${x + lean} ${y - height / 2} ${x + lean * .6} ${y - height}`,
+      fill: 'none', stroke: '#73958a', 'stroke-width': .7 + random() * 1.6
+    });
+  }
+
+  for (let side = 0; side < 2; side++) {
+    for (let i = 0; i < 13; i++) {
+      const y = 35 + i * 38 + random() * 20;
+      const edge = side ? 598 : 2;
+      const dir = side ? -1 : 1;
+      const len = 24 + random() * 67;
+      const tip = edge + dir * len;
+      const rise = 15 + random() * 37;
+      add(group('branches'), 'path', {
+        d: `M${edge} ${y + 35} Q${tip} ${y + 15} ${tip} ${y - rise}`,
+        fill: 'none', stroke: '#173c3d', 'stroke-width': 1.4
+      });
+      for (let j = 0; j < 4; j++) {
+        const bx = edge + dir * (len * (.28 + j * .19));
+        const by = y + 24 - j * 13;
+        const l = 12 + random() * 19;
+        add(group('branches'), 'path', {
+          d: `M${bx} ${by} Q${bx + dir * l} ${by - 26} ${bx + dir * (l + 6)} ${by - 15} Q${bx + dir * l} ${by} ${bx} ${by}Z`,
+          fill: i % 3 ? '#183d3c' : '#274b44',
+          opacity: .65
+        });
       }
     }
-    for(let i=0;i<70;i++){
-      const xx=Math.min(x,tx)-35+random()*(Math.abs(x-tx)+80);
-      const yy=Math.min(y,ty)+random()*(Math.abs(y-ty)+25);
-      make('circle',{cx:xx,cy:yy,r:random()*1.3+.3,fill:'#dfd5a7',opacity:random()*.5},group);
-    }
-  });
-
-  const reeds=document.getElementById('reeds');
-  for(let i=0;i<34;i++){
-    const side=i<17;
-    const x=side?random()*125:480+random()*120;
-    const y=835+random()*100;
-    const h=55+random()*165;
-    const lean=(side?1:-1)*(12+random()*50);
-    make('path',{
-      d:`M${x} ${y}Q${x+lean*.2} ${y-h*.55} ${x+lean} ${y-h}`,
-      fill:'none',stroke:i%4===0?'#7e8461':'#0c292b',
-      'stroke-width':1+random()*2,opacity:'.85'
-    },reeds);
-    for(let j=1;j<5;j++){
-      const yy=y-h*j/5;
-      const xx=x+lean*j*j/25;
-      const length=12+random()*20;
-      make('path',{
-        d:`M${xx} ${yy}q${-length} -3 ${-length-5} -18Q${xx-6} ${yy-16} ${xx} ${yy}
-           q${length} -6 ${length+2} -20Q${xx+5} ${yy-14} ${xx} ${yy}`,
-        fill:i%4===0?'#687658':'#102f2e',opacity:'.65'
-      },reeds);
-    }
   }
 
-  const particles=[];
-  for(let i=0;i<49;i++){
-    const group=document.getElementById(i<25?'backMotes':'motes');
-    const p={
-      x:25+random()*550,
-      y:105+random()*720,
-      speed:.3+random()*.65,
-      phase:random()*Math.PI*2,
-      radius:.55+random()*1.25
-    };
-    p.el=make('circle',{r:p.radius,fill:i%3===0?'#d8ba77':'#abc1a7'},group);
-    particles.push(p);
+  for (let i = 0; i < 115; i++) {
+    const x = random() * 600;
+    const y = 754 + random() * 142;
+    const h = 2 + random() * 13;
+    add(group('moss'), 'path', {
+      d: `M${x} ${y} q${-4 + random() * 8} ${-h} ${-3 + random() * 6} ${-h}`,
+      fill: 'none',
+      stroke: ['#6d8767', '#385e50', '#9a9d72'][i % 3],
+      'stroke-width': .6 + random() * 1.1,
+      opacity: .25 + random() * .45
+    });
   }
-  let last=0;
-  function animate(now){
-    if(now-last>40){
-      last=now;
-      const t=now*.001;
-      particles.forEach(p=>{
-        const yy=100+((p.y-100-t*p.speed*5)%720+720)%720;
-        p.el.setAttribute('cx',p.x+Math.sin(t*.33+p.phase)*9);
-        p.el.setAttribute('cy',yy);
-        p.el.setAttribute('opacity',(.14+.45*(.5+.5*Math.sin(t*.7+p.phase))).toFixed(2));
-      });
+
+  for (let i = 0; i < 25; i++) {
+    const t = random();
+    const x = 347 + t * 117 + (random() - .5) * 36;
+    const y = 466 + t * 93 + (random() - .5) * 35;
+    const p = add(group('repairDust'), 'circle', {
+      cx: x, cy: y, r: .6 + random() * 1.35,
+      fill: '#ffe1a1', class: 'spark'
+    });
+    p.style.animationDelay = `${-random() * 6}s`;
+    p.style.animationDuration = `${2 + random() * 5}s`;
+  }
+
+  const motes = [];
+  for (let i = 0; i < 18; i++) {
+    const x = 65 + random() * 480, y = 185 + random() * 600;
+    const el = add(group('foregroundMotes'), 'circle', {
+      cx: x, cy: y, r: .7 + random() * 1.4,
+      fill: i % 3 ? '#dcc78e' : '#a8cfb6',
+      opacity: .5
+    });
+    motes.push({ el, x, y, phase: random() * Math.PI * 2, speed: .25 + random() * .45 });
+  }
+  let last = 0;
+  function animate(time) {
+    if (time - last > 65) {
+      last = time;
+      const t = time * .001;
+      for (const m of motes) {
+        m.el.setAttribute('cx', m.x + Math.sin(t * m.speed + m.phase) * 8);
+        m.el.setAttribute('cy', m.y + Math.cos(t * m.speed * .7 + m.phase) * 13);
+        m.el.setAttribute('opacity', .16 + .4 * (.5 + .5 * Math.sin(t * .7 + m.phase)));
+      }
     }
     requestAnimationFrame(animate);
   }
@@ -364,7 +450,7 @@
 
 ```json
 {
-  "title": "The Fairy of Lost Keys",
-  "statement": "What is missing still remembers the door it opens."
+  "title": "The Fairy of Small Repairs",
+  "statement": "What is broken still remembers how to hold the light."
 }
 ```

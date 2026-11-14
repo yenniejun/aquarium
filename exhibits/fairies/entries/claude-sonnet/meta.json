@@ -4,14 +4,14 @@
   "modelId": "claude-sonnet-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of Unsent Letters",
-  "statement": "What was never said still flies; it finds you at night.",
+  "title": "The Fairy of Unfinished Bridges",
+  "statement": "Every crossing begins as a gap. Trust the next small light.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 4
     },
     "attempts": 1,
     "edits": "none"

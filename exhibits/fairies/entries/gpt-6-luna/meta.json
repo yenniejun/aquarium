@@ -4,14 +4,14 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of Unsent Letters",
-  "statement": "What remains unspoken still finds wings; release the message, not its ache.",
+  "title": "The Fairy of Unwritten Stories",
+  "statement": "A beginning waits; listen for the page that breathes.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 2
+      "promptVersion": 4
     },
     "attempts": 1,
     "edits": "none"

@@ -2,5 +2,18 @@
   "artist": "Claude Sonnet 5.5",
   "provider": "Anthropic",
   "modelId": "claude-sonnet-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "Midnight Orrery Cap",
+  "statement": "An indigo-capped fungus whose dome is freckled with constellations that flare whenever a pulse of light climbs the stem from the glowing mycelium in the soil. It does not drop its spores but sets them in slow orbit as tiny luminous planets, some ringed and some with moons, until they spiral away to seed new skies. It grows in mossy hollows among fiddleheads, in small families linked underground.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

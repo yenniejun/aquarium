@@ -6,14 +6,14 @@
   "host": "xai",
   "openWeights": false,
   "status": "final",
-  "title": "The Fairy of Silent Foxfire",
-  "statement": "Not all light is offered. Some of it simply remains.",
+  "title": "The Fairy of Night Bloom",
+  "statement": "It opens once, and the night leans close.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenRouter (served by xAI)",
     "params": {
-      "max_tokens": 64000,
-      "promptVersion": 1,
+      "max_tokens": 100000,
+      "promptVersion": 4,
       "host": "xai",
       "reasoning": "medium"
     },

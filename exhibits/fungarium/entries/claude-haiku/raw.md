@@ -5,269 +5,339 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-  html,body{margin:0;height:100%;overflow:hidden;background:#05060d}
-  canvas{position:fixed;left:0;top:0;width:100%;height:100%;display:block}
+html,body{margin:0;height:100%;overflow:hidden;background:#060b0c;}
+canvas{position:fixed;left:0;top:0;width:100%;height:100%;display:block;}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
 <script>
 (function(){
-  const cv = document.getElementById('c');
-  const ctx = cv.getContext('2d');
-  let W = 1, H = 1, DPR = 1, K = 1, OX = 0, OY = 0;
+const cv=document.getElementById('c');
+const ctx=cv.getContext('2d');
+const DW=300, DH=400;
+let W,H,dpr,S,ox,oy;
 
-  function resize(){
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
-    W = cv.clientWidth || window.innerWidth;
-    H = cv.clientHeight || window.innerHeight;
-    cv.width = Math.round(W * DPR);
-    cv.height = Math.round(H * DPR);
-    // design space is 300 x 400, fitted and centred
-    K = Math.min(W / 300, H / 400);
-    OX = (W - 300 * K) / 2;
-    OY = (H - 400 * K) / 2;
+function resize(){
+  dpr=Math.min(window.devicePixelRatio||1,2);
+  W=window.innerWidth; H=window.innerHeight;
+  cv.width=Math.floor(W*dpr); cv.height=Math.floor(H*dpr);
+  S=Math.max(W/DW,H/DH);
+  ox=(W-DW*S)/2; oy=(H-DH*S)/2;
+}
+window.addEventListener('resize',resize);
+resize();
+
+const rand=(a,b)=>a+Math.random()*(b-a);
+const clamp01=v=>Math.max(0,Math.min(1,v));
+
+// Mushroom clusters: each is a stalk with a translucent bell cap
+const caps=[
+  {x:88, base:300, h:118, r:30, hue:196, ph:0.0, spots:[[-10,-6],[8,-2],[-2,8]]},
+  {x:150,base:298, h:158, r:42, hue:278, ph:1.7, spots:[[-18,-8],[12,-14],[20,6],[-4,12]]},
+  {x:212,base:302, h:92,  r:26, hue:160, ph:3.1, spots:[[-8,-4],[7,4]]},
+  {x:124,base:303, h:62,  r:17, hue:318, ph:4.2, spots:[[-5,-3],[4,4]]}
+];
+
+// Mycelium threads spreading over the log
+const threads=[];
+for(let i=0;i<18;i++){
+  let x=rand(60,240), y=rand(302,336);
+  let a=rand(-Math.PI,Math.PI);
+  const pts=[[x,y]];
+  for(let k=0;k<34;k++){
+    a+=rand(-0.5,0.5);
+    x+=Math.cos(a)*rand(2,4);
+    y+=Math.sin(a)*rand(1,2.5);
+    x=Math.max(40,Math.min(262,x));
+    y=Math.max(296,Math.min(346,y));
+    pts.push([x,y]);
   }
-  window.addEventListener('resize', resize);
-  resize();
+  threads.push({pts, off:rand(0,1), spd:rand(0.05,0.09), hue:rand(160,185)});
+}
 
-  const R = (a, b) => a + Math.random() * (b - a);
+// Bark marks and moss, fixed per session
+const bark=[];
+for(let i=0;i<16;i++){
+  const x=rand(60,240), y=rand(306,340), l=rand(6,16);
+  bark.push([x,y,l,rand(-0.3,0.3)]);
+}
+const moss=[];
+for(let i=0;i<34;i++){
+  moss.push([rand(44,256), rand(297,308), rand(1.5,4.5), rand(0.25,0.5)]);
+}
 
-  // Three chime-caps on lanky stalks
-  const caps = [
-    { x: 112, top: 214, r: 26, h: 186, ph: 0.0, lean: -8 },
-    { x: 152, top: 150, r: 36, h: 272, ph: 1.7, lean: 3 },
-    { x: 196, top: 222, r: 22, h: 150, ph: 3.1, lean: 9 }
-  ];
+// Distant drifting bokeh
+const bokeh=[];
+for(let i=0;i<14;i++){
+  bokeh.push({x:rand(0,DW),y:rand(0,DH),r:rand(8,26),ph:rand(0,6),hue:rand(150,290),sp:rand(0.02,0.06)});
+}
 
-  // Mycelium threads spreading over the moss mound
-  const threads = [];
-  for (let i = 0; i < 48; i++) {
-    const sx = R(120, 185), sy = R(336, 346);
-    let a = R(Math.PI * 1.05, Math.PI * 1.95);
-    let x = sx, y = sy;
-    const pts = [[x, y]];
-    const len = R(40, 135), steps = 9;
-    for (let k = 1; k <= steps; k++) {
-      a += R(-0.5, 0.5);
-      x += Math.cos(a) * len / steps;
-      y += Math.sin(a) * len / steps;
-      pts.push([x, y]);
-    }
-    threads.push({ pts, off: Math.random(), speed: R(0.035, 0.085) });
+// Spores
+const spores=[];
+const MAX_SPORES=140;
+
+function emitSpore(c,capV,top){
+  if(spores.length>=MAX_SPORES) return;
+  const dx=rand(-c.r*0.85,c.r*0.85);
+  spores.push({
+    x:c.x+dx,
+    y:top+capV*0.5,
+    vx:rand(-0.05,0.05),
+    vy:rand(-0.22,-0.08),
+    life:0,
+    max:rand(6,10),
+    hue:c.hue+rand(-15,15),
+    s:rand(0.6,1.5),
+    ph:rand(0,6.28)
+  });
+}
+
+let t=0, last=performance.now(), emitAcc=0;
+
+function drawBackground(){
+  const g=ctx.createLinearGradient(0,0,0,DH);
+  g.addColorStop(0,'#0c1d20');
+  g.addColorStop(0.6,'#071214');
+  g.addColorStop(1,'#030506');
+  ctx.fillStyle=g;
+  ctx.fillRect(0,0,DW,DH);
+  const rg=ctx.createRadialGradient(150,190,10,150,190,170);
+  rg.addColorStop(0,'rgba(60,110,120,0.22)');
+  rg.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=rg;
+  ctx.fillRect(0,0,DW,DH);
+}
+
+function drawBokeh(){
+  ctx.globalCompositeOperation='lighter';
+  for(const b of bokeh){
+    b.y-=b.sp; if(b.y<-30){b.y=DH+30; b.x=rand(0,DW);}
+    const a=0.04+0.03*Math.sin(t*0.7+b.ph);
+    ctx.fillStyle=`hsla(${b.hue},70%,60%,${a})`;
+    ctx.beginPath(); ctx.arc(b.x+Math.sin(t*0.2+b.ph)*4,b.y,b.r,0,Math.PI*2); ctx.fill();
   }
+  ctx.globalCompositeOperation='source-over';
+}
 
-  // Ambient drifting motes
-  const motes = [];
-  for (let i = 0; i < 34; i++) {
-    motes.push({ x: R(0, 300), y: R(0, 400), s: R(0.3, 1.1), v: R(2, 6), ph: R(0, 6.28) });
+function drawGround(){
+  const g=ctx.createLinearGradient(0,340,0,DH);
+  g.addColorStop(0,'#1b130d');
+  g.addColorStop(1,'#060504');
+  ctx.fillStyle=g;
+  ctx.fillRect(0,340,DW,DH-340);
+  ctx.fillStyle='rgba(90,60,30,0.25)';
+  for(let i=0;i<10;i++){
+    const x=(i*37+11)%DW, y=350+((i*53)%40);
+    ctx.beginPath(); ctx.ellipse(x,y,6,2.2,(i%3)*0.5,0,Math.PI*2); ctx.fill();
   }
+}
 
-  const spores = [];
-  const MAX_SPORES = 320;
+function drawLog(){
+  ctx.beginPath();
+  ctx.moveTo(60,300);
+  ctx.lineTo(245,300);
+  ctx.ellipse(245,322,22,22,0,-Math.PI/2,Math.PI/2);
+  ctx.lineTo(60,344);
+  ctx.quadraticCurveTo(38,322,60,300);
+  ctx.closePath();
+  const g=ctx.createLinearGradient(0,300,0,344);
+  g.addColorStop(0,'#4a3220');
+  g.addColorStop(0.5,'#33210f');
+  g.addColorStop(1,'#1a0f07');
+  ctx.fillStyle=g;
+  ctx.fill();
 
-  function smooth(x){ return x * x * (3 - 2 * x); }
+  // highlight along top
+  ctx.strokeStyle='rgba(180,140,100,0.25)';
+  ctx.lineWidth=1.2;
+  ctx.beginPath(); ctx.moveTo(62,301); ctx.lineTo(243,301); ctx.stroke();
 
-  function drawCap(c, t, dt){
-    const o = 0.5 + 0.5 * Math.sin(t * 0.35 + c.ph);     // openness
-    const Rr = c.r * (0.92 + 0.08 * o);
-    const cx = c.x + c.lean * 0.5;
-    const top = c.top;
-    const hemY = top + Rr * 0.2 + o * Rr * 0.28;
-    const domeY = top - Rr * 0.95;
-    const L = cx - Rr * (0.95 + 0.12 * o);
-    const Rt = cx + Rr * (0.95 + 0.12 * o);
-
-    // glowing gill band beneath the bell
-    ctx.fillStyle = `hsla(${c.h + 40},90%,65%,${0.12 + 0.5 * o})`;
+  // bark
+  ctx.strokeStyle='rgba(0,0,0,0.35)';
+  ctx.lineWidth=1;
+  for(const [x,y,l,b] of bark){
     ctx.beginPath();
-    ctx.ellipse(cx, hemY - 1, Rr * 0.85 * o + 1, 2 + 3 * o, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    // hanging chime strings with bead droplets
-    for (let i = 0; i < 5; i++){
-      const bx = L + (Rt - L) * (i + 0.5) / 5;
-      const sw = Math.sin(t * 1.3 + i * 0.9 + c.ph) * 2.5 * o;
-      const len = ((6 + (i % 2) * 5) * o) + 3;
-      ctx.strokeStyle = `hsla(${c.h},70%,85%,${0.25 + 0.4 * o})`;
-      ctx.lineWidth = 0.5;
-      ctx.beginPath();
-      ctx.moveTo(bx, hemY);
-      ctx.quadraticCurveTo(bx + sw * 0.3, hemY + len * 0.5, bx + sw, hemY + len);
-      ctx.stroke();
-      ctx.fillStyle = `hsla(${c.h},100%,85%,${0.5 + 0.4 * o})`;
-      ctx.shadowColor = `hsla(${c.h},100%,70%,0.9)`;
-      ctx.shadowBlur = 6;
-      ctx.beginPath();
-      ctx.arc(bx + sw, hemY + len, 1.3, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.shadowBlur = 0;
-    }
-
-    // translucent scalloped bell body
-    ctx.beginPath();
-    ctx.moveTo(L, hemY);
-    ctx.bezierCurveTo(L, domeY + Rr * 0.5, cx - Rr * 0.55, domeY, cx, domeY);
-    ctx.bezierCurveTo(cx + Rr * 0.55, domeY, Rt, domeY + Rr * 0.5, Rt, hemY);
-    let px = Rt;
-    for (let i = 1; i <= 6; i++){
-      const nx = Rt - (Rt - L) * i / 6;
-      const mx = (px + nx) / 2;
-      ctx.quadraticCurveTo(mx, hemY + 6, nx, hemY);
-      px = nx;
-    }
-    ctx.closePath();
-    const g = ctx.createLinearGradient(0, domeY, 0, hemY + 6);
-    g.addColorStop(0, `hsla(${c.h},85%,72%,${0.5 + 0.25 * o})`);
-    g.addColorStop(1, `hsla(${c.h + 30},85%,45%,${0.2 + 0.15 * o})`);
-    ctx.fillStyle = g;
-    ctx.shadowColor = `hsla(${c.h},100%,65%,0.8)`;
-    ctx.shadowBlur = 16 + 8 * o;
-    ctx.fill();
-    ctx.shadowBlur = 0;
-
-    // inner luminous spots that breathe
-    for (let k = 0; k < 3; k++){
-      const sx = cx + Math.cos(k * 2.1 + c.ph) * Rr * 0.45;
-      const sy = domeY + Rr * (0.55 + 0.25 * k);
-      const rr = 2 + Math.sin(t * 1.1 + k + c.ph) * 0.6;
-      ctx.fillStyle = `hsla(${c.h + 60},100%,88%,${0.15 + 0.35 * o})`;
-      ctx.beginPath();
-      ctx.arc(sx, sy, rr, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // release spores from under open caps
-    if (o > 0.55 && spores.length < MAX_SPORES && Math.random() < dt * 9 * o){
-      spores.push({
-        x: cx + R(-0.7, 0.7) * Rr,
-        y: hemY + 3,
-        vx: R(-6, 6),
-        vy: R(-18, -8),
-        ph: R(0, 6.28),
-        age: 0,
-        life: R(3, 6),
-        h: c.h
-      });
-    }
-    return hemY;
+    ctx.moveTo(x,y);
+    ctx.quadraticCurveTo(x+l*0.5,y+b*l,x+l,y+Math.sin(b)*2);
+    ctx.stroke();
   }
 
-  let last = 0;
-  function frame(now){
-    const t = now / 1000;
-    const dt = Math.min(0.05, t - last || 0.016);
-    last = t;
+  // end-grain rings
+  ctx.strokeStyle='#6b4a2e';
+  ctx.lineWidth=1.2;
+  for(const r of [14,8,3]){
+    ctx.beginPath(); ctx.ellipse(245,322,r,r,0,0,Math.PI*2); ctx.stroke();
+  }
+  ctx.fillStyle='#2a1a0c';
+  ctx.beginPath(); ctx.ellipse(245,322,1.5,1.5,0,0,Math.PI*2); ctx.fill();
 
-    // background
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    const bg = ctx.createRadialGradient(W * 0.5, H * 0.35, 10, W * 0.5, H * 0.5, Math.max(W, H) * 0.8);
-    bg.addColorStop(0, '#1d1640');
-    bg.addColorStop(1, '#04050b');
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, W, H);
+  // moss
+  for(const [x,y,r,a] of moss){
+    ctx.fillStyle=`hsla(100,45%,${26+a*10}%,${0.6})`;
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+  }
+}
 
-    ctx.setTransform(DPR * K, 0, 0, DPR * K, DPR * OX, DPR * OY);
-
-    // soft central pulse of light
-    const pulse = 0.5 + 0.5 * Math.sin(t * 0.8);
-    const halo = ctx.createRadialGradient(150, 200, 10, 150, 200, 170);
-    halo.addColorStop(0, `rgba(120,95,255,${0.10 + 0.06 * pulse})`);
-    halo.addColorStop(1, 'rgba(120,95,255,0)');
-    ctx.fillStyle = halo;
-    ctx.fillRect(-20, -20, 340, 440);
-
-    // ambient motes
-    ctx.globalCompositeOperation = 'lighter';
-    for (const m of motes){
-      m.y -= m.v * dt;
-      if (m.y < -4) { m.y = 404; m.x = R(0, 300); }
-      const x = m.x + Math.sin(t * 0.5 + m.ph) * 4;
-      ctx.fillStyle = `rgba(170,220,255,${0.18 + 0.12 * Math.sin(t + m.ph)})`;
-      ctx.beginPath();
-      ctx.arc(x, m.y, m.s, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalCompositeOperation = 'source-over';
-
-    // moss mound
-    const mg = ctx.createLinearGradient(0, 330, 0, 400);
-    mg.addColorStop(0, '#1f4a40');
-    mg.addColorStop(1, '#08130f');
-    ctx.fillStyle = mg;
+function drawThreads(){
+  ctx.lineCap='round';
+  ctx.globalCompositeOperation='lighter';
+  for(const th of threads){
+    const g=((t*th.spd)+th.off)%1;
+    const n=Math.floor(g*th.pts.length);
+    const fade=clamp01((1-g)*2.2)*clamp01(g*6);
+    if(n<2||fade<=0) continue;
+    ctx.strokeStyle=`hsla(${th.hue},85%,72%,${0.45*fade})`;
+    ctx.lineWidth=0.9;
     ctx.beginPath();
-    ctx.ellipse(150, 410, 190, 80, 0, Math.PI, 2 * Math.PI);
-    ctx.closePath();
-    ctx.fill();
+    ctx.moveTo(th.pts[0][0],th.pts[0][1]);
+    for(let i=1;i<n;i++) ctx.lineTo(th.pts[i][0],th.pts[i][1]);
+    ctx.stroke();
+    // glowing tip
+    const tip=th.pts[n-1];
+    ctx.fillStyle=`hsla(${th.hue},90%,80%,${0.6*fade})`;
+    ctx.beginPath(); ctx.arc(tip[0],tip[1],1.1,0,Math.PI*2); ctx.fill();
+  }
+  ctx.globalCompositeOperation='source-over';
+}
 
-    // mycelium growing in and out
-    ctx.lineCap = 'round';
-    ctx.globalCompositeOperation = 'lighter';
-    for (const th of threads){
-      const gp = (t * th.speed + th.off) % 1;
-      const alpha = 0.4 * Math.sin(Math.min(1, gp) * Math.PI);
-      if (alpha <= 0.01) continue;
-      const n = th.pts.length - 1;
-      const prog = gp * n;
-      const full = Math.floor(prog);
-      const frac = prog - full;
-      ctx.strokeStyle = `rgba(120,255,225,${alpha})`;
-      ctx.lineWidth = 0.6;
-      ctx.beginPath();
-      ctx.moveTo(th.pts[0][0], th.pts[0][1]);
-      for (let k = 1; k <= full && k <= n; k++) ctx.lineTo(th.pts[k][0], th.pts[k][1]);
-      if (full < n){
-        const a = th.pts[full], b = th.pts[full + 1];
-        ctx.lineTo(a[0] + (b[0] - a[0]) * frac, a[1] + (b[1] - a[1]) * frac);
+function drawCap(c){
+  const open=0.5+0.5*Math.sin(t*0.45+c.ph);
+  const top=c.base-c.h;
+  const sway=Math.sin(t*0.3+c.ph)*c.r*0.06;
+  const cx=c.x+sway;
+  const capW=c.r;
+  const capV=c.r*(0.55+0.4*open);
+  const pulse=0.5+0.5*Math.sin(t*1.1+c.ph);
+
+  // halo
+  ctx.globalCompositeOperation='lighter';
+  const hg=ctx.createRadialGradient(cx,top,2,cx,top,capW*3.2);
+  hg.addColorStop(0,`hsla(${c.hue},95%,65%,${0.22+0.12*pulse})`);
+  hg.addColorStop(1,`hsla(${c.hue},95%,65%,0)`);
+  ctx.fillStyle=hg;
+  ctx.beginPath(); ctx.arc(cx,top,capW*3.2,0,Math.PI*2); ctx.fill();
+  ctx.globalCompositeOperation='source-over';
+
+  // stalk
+  const sx=c.x, sy=c.base;
+  const sg=ctx.createLinearGradient(0,top,0,sy);
+  sg.addColorStop(0,`hsla(${c.hue},70%,80%,0.55)`);
+  sg.addColorStop(1,`hsla(${c.hue},60%,40%,0.5)`);
+  ctx.strokeStyle=sg;
+  ctx.lineWidth=Math.max(2,c.r*0.13);
+  ctx.lineCap='round';
+  ctx.beginPath();
+  ctx.moveTo(sx,sy);
+  ctx.quadraticCurveTo(sx+sway*0.4-c.r*0.1,(sy+top)/2,cx,top+capV*0.4);
+  ctx.stroke();
+
+  // cap body
+  const n=7;
+  ctx.beginPath();
+  ctx.moveTo(cx-capW,top+capV*0.1);
+  ctx.bezierCurveTo(cx-capW,top-capV*1.3,cx+capW,top-capV*1.3,cx+capW,top+capV*0.1);
+  for(let k=0;k<n;k++){
+    const x0=cx+capW-2*capW*k/n;
+    const x1=x0-2*capW/n;
+    const yb=top+capV*(0.55+0.15*(k%2));
+    ctx.quadraticCurveTo((x0+x1)/2,yb,x1,top+capV*0.1);
+  }
+  ctx.closePath();
+  const bg=ctx.createLinearGradient(0,top-capV,0,top+capV*0.9);
+  bg.addColorStop(0,`hsla(${c.hue},80%,85%,0.7)`);
+  bg.addColorStop(0.6,`hsla(${c.hue+15},75%,60%,0.45)`);
+  bg.addColorStop(1,`hsla(${c.hue+30},70%,40%,0.25)`);
+  ctx.fillStyle=bg;
+  ctx.fill();
+  ctx.strokeStyle=`hsla(${c.hue},90%,90%,0.45)`;
+  ctx.lineWidth=0.8;
+  ctx.stroke();
+
+  // gills
+  ctx.strokeStyle=`hsla(${c.hue},100%,88%,${0.22+0.12*pulse})`;
+  ctx.lineWidth=0.6;
+  ctx.beginPath();
+  for(let j=0;j<=8;j++){
+    const f=j/8*2-1;
+    const gx=cx+f*capW*0.85;
+    ctx.moveTo(cx+f*capW*0.15,top+capV*0.05);
+    ctx.lineTo(gx,top+capV*0.5);
+  }
+  ctx.stroke();
+
+  // spots
+  ctx.globalCompositeOperation='lighter';
+  for(let i=0;i<c.spots.length;i++){
+    const [sxp,syp]=c.spots[i];
+    const a=0.35+0.35*Math.sin(t*1.7+c.ph+i*1.3);
+    ctx.fillStyle=`hsla(${c.hue},100%,92%,${clamp01(a)})`;
+    ctx.beginPath();
+    ctx.arc(cx+sxp*(c.r/34),top-capV*0.2+syp*(c.r/34)*0.5,Math.max(0.8,c.r*0.05),0,Math.PI*2);
+    ctx.fill();
+  }
+  ctx.globalCompositeOperation='source-over';
+
+  // emission bookkeeping
+  c.open=open; c.top=top; c.capV=capV; c.cx=cx;
+}
+
+function updateAndDrawSpores(dt){
+  ctx.globalCompositeOperation='lighter';
+  for(let i=spores.length-1;i>=0;i--){
+    const p=spores[i];
+    p.life+=dt;
+    if(p.life>p.max){spores.splice(i,1);continue;}
+    p.x+=(p.vx+Math.sin(t*0.8+p.ph)*0.12)*dt*60;
+    p.y+=p.vy*dt*60;
+    const a=Math.sin(Math.PI*p.life/p.max);
+    const core=p.s;
+    ctx.fillStyle=`hsla(${p.hue},100%,80%,${0.22*a})`;
+    ctx.beginPath(); ctx.arc(p.x,p.y,core*2.6,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=`hsla(${p.hue},100%,94%,${0.85*a})`;
+    ctx.beginPath(); ctx.arc(p.x,p.y,core*0.8,0,Math.PI*2); ctx.fill();
+  }
+  ctx.globalCompositeOperation='source-over';
+}
+
+function frame(now){
+  const dt=Math.min(0.05,(now-last)/1000);
+  last=now;
+  t+=dt;
+
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.fillStyle='#060b0c';
+  ctx.fillRect(0,0,W,H);
+
+  ctx.setTransform(dpr*S,0,0,dpr*S,dpr*ox,dpr*oy);
+
+  drawBackground();
+  drawBokeh();
+  drawGround();
+
+  // caps behind log first (stalks are rooted in the log, so caps draw after log)
+  drawLog();
+  drawThreads();
+
+  // draw caps, shortest in front
+  const order=caps.slice().sort((a,b)=>b.h-a.h);
+  for(const c of order) drawCap(c);
+
+  // spore emission
+  emitAcc+=dt;
+  if(emitAcc>0.06){
+    emitAcc=0;
+    for(const c of caps){
+      if(c.open>0.45 && Math.random()<0.5){
+        emitSpore(c,c.capV,c.top);
       }
-      ctx.stroke();
     }
-    ctx.globalCompositeOperation = 'source-over';
-
-    // stalks
-    for (const c of caps){
-      const sway = Math.sin(t * 0.6 + c.ph) * 1.5;
-      const tipX = c.x + c.lean + sway;
-      const tipY = c.top + c.r * 0.25;
-      ctx.strokeStyle = 'rgba(225,215,255,0.55)';
-      ctx.lineWidth = 2.2;
-      ctx.beginPath();
-      ctx.moveTo(c.x, 338);
-      ctx.quadraticCurveTo(c.x + c.lean * 0.4, (338 + tipY) / 2, tipX, tipY);
-      ctx.stroke();
-    }
-
-    // caps
-    for (const c of caps){
-      const sway = Math.sin(t * 0.6 + c.ph) * 1.5;
-      const shifted = Object.assign({}, c, { x: c.x + sway, lean: c.lean });
-      drawCap(shifted, t, dt);
-    }
-
-    // spores
-    ctx.globalCompositeOperation = 'lighter';
-    for (let i = spores.length - 1; i >= 0; i--){
-      const s = spores[i];
-      s.age += dt;
-      if (s.age > s.life){ spores.splice(i, 1); continue; }
-      s.x += (s.vx + Math.sin(t * 1.5 + s.ph) * 4) * dt;
-      s.y += s.vy * dt;
-      const k = 1 - s.age / s.life;
-      const fade = Math.min(1, s.age * 2) * k;
-      ctx.fillStyle = `hsla(${s.h},100%,80%,${0.15 * fade})`;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, 3, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = `hsla(${s.h},100%,92%,${0.85 * fade})`;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, 0.9, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalCompositeOperation = 'source-over';
-
-    requestAnimationFrame(frame);
   }
+  updateAndDrawSpores(dt);
+
   requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
 })();
 </script>
 </body>
@@ -276,7 +346,7 @@
 
 ```json
 {
-  "title": "Glimmerdrift Chimecap",
-  "statement": "A cluster of three translucent bell-caps that open and close in slow turns, each hung with glowing chime-beads that sway in the spore-laden air. Mature specimens release drifting spore-motes upward from beneath their gills, while pale mycelial threads pulse across the moss beneath them."
+  "title": "Moonbell Thimblecap",
+  "statement": "A cluster of translucent bell-shaped caps that breathe open and closed on a mossy log, pulsing with violet and teal light. Each cap releases a slow drift of luminous spores, and pale threads of mycelium creep across the wood between them."
 }
 ```
