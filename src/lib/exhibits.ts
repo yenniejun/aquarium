@@ -155,6 +155,7 @@ export function pieceSrc(exhibit: Exhibit, piece: Piece): string {
 
 /** Who made what. In blind mode this is served separately and only fetched after a vote. */
 export interface Reveal {
+  title: string;
   artist: string;
   provider: string;
   medium: string | null;
@@ -165,6 +166,7 @@ export function getReveal(exhibit: Exhibit): Record<string, Reveal> {
     getPieces(exhibit).map((piece) => [
       piece.id,
       {
+        title: piece.pending ? 'Awaiting arrival' : (piece.entry.title ?? 'Untitled'),
         artist: piece.entry.artist,
         provider: piece.entry.provider,
         medium: piece.pending ? null : (piece.entry.medium ?? null),

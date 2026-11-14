@@ -9,10 +9,12 @@
  *   [data-artist], [data-medium]   filled in on reveal
  *   [data-vote-hint]   its text is swapped for its data-done text after voting
  *
- * v0 remembers the vote in this browser only. v2 swaps castVote() for POST /api/vote,
- * which returns the same reveal map plus tallies. Add ?reset to the URL to vote again.
+ * The vote is remembered in this browser only; each real pick is also counted (anonymously) in the
+ * site's analytics, if it has any. Add ?reset to the URL to vote again.
  */
-type Reveal = Record<string, { artist: string; provider: string; medium: string | null }>;
+import { track } from './analytics';
+
+type Reveal = Record<string, { title: string; artist: string; provider: string; medium: string | null }>;
 
 const root = document.querySelector<HTMLElement>('[data-exhibit]');
 if (root?.dataset.state === 'voting') init(root);
@@ -41,11 +43,13 @@ function init(root: HTMLElement) {
   ready.forEach((piece, i) => (piece.style.order = String(order[i])));
   for (const piece of pieces) if (!ready.includes(piece)) piece.style.order = String(ready.length);
 
-  const castVote = (id: string) => {
+  const castVote = async (id: string) => {
     if (picked) return;
     picked = id;
     store(key, id);
-    reveal(root, pieces, id);
+    const data = await reveal(root, pieces, id);
+    const info = data?.[id];
+    track('pick', { exhibit: root.dataset.exhibit!, tank: info?.title ?? id, maker: info?.artist ?? 'unknown' });
   };
 
   for (const piece of ready) {
@@ -65,12 +69,13 @@ function init(root: HTMLElement) {
   );
 }
 
-async function reveal(root: HTMLElement, pieces: HTMLElement[], picked: string) {
+async function reveal(root: HTMLElement, pieces: HTMLElement[], picked: string): Promise<Reveal | null> {
   pieces.find((p) => p.dataset.piece === picked)?.setAttribute('data-picked', '');
+  let data: Reveal | null = null;
   try {
-    const data: Reveal = await fetch(root.dataset.revealUrl!).then((r) => r.json());
+    data = await fetch(root.dataset.revealUrl!).then((r) => r.json());
     for (const piece of pieces) {
-      const info = data[piece.dataset.piece!];
+      const info = data![piece.dataset.piece!];
       if (!info) continue;
       piece.querySelectorAll('[data-artist]').forEach((el) => (el.textContent = info.artist));
       piece.querySelectorAll<HTMLElement>('[data-medium]').forEach((el) => {
@@ -83,6 +88,7 @@ async function reveal(root: HTMLElement, pieces: HTMLElement[], picked: string) 
   root.dataset.state = 'revealed';
   const hint = document.querySelector<HTMLElement>('[data-vote-hint]');
   if (hint?.dataset.done) hint.textContent = hint.dataset.done;
+  return data;
 }
 
 function store(key: string, value?: string | null): string | null {
