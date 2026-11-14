@@ -12,5 +12,5 @@ export const site = {
    * each visitor picks. Paste the website ID from Umami's tracking code; empty turns it off.
    * Only loaded in production builds, so local testing never shows up in the numbers.
    */
-  umamiWebsiteId: '',
+  umamiWebsiteId: '18b7c895-d5e8-4d23-80ce-91da296dfb0b',
 };
