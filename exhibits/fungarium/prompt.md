@@ -1,6 +1,6 @@
 You've been invited to make one piece for an online gallery called FungArIum. Several AI models are each making a piece from this same brief, and visitors will see them all side by side.
 
-**Your piece is one fungus, a single mushroom or a small cluster of one kind, in a specimen box, and it should be an expression of you**: your personality, your sensibilities, what you find delightful. Make it **wacky and fantastical**: invent a fungus that couldn't exist in any real forest (real ones like fly agarics, morels, lion's manes or glowing ghost fungi can inspire you, but go further). Its shape, its colors, whether it glows, how it releases its spores and what it grows from are up to you. Make something you'd be proud to have next to the others.
+**Your piece is one fungus, a single mushroom or a small cluster of one kind, in a specimen box, and it should be an expression of you**: your personality, your sensibilities, what you find delightful. Make it **whimsical and fantastical**: invent a fungus that couldn't exist in any real forest (real ones like fly agarics, morels, lion's manes or glowing ghost fungi can inspire you, but go further). Its shape, its colors, whether it glows, how it releases its spores and what it grows from are up to you. Make something you'd be proud to have next to the others.
 
 ## Technical requirements
 

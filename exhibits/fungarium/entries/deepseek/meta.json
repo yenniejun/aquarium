@@ -1,0 +1,8 @@
+{
+  "artist": "DeepSeek V4.1 Flash",
+  "provider": "DeepSeek",
+  "modelId": "deepseek/deepseek-v4.1-flash-1017",
+  "route": "OpenRouter",
+  "host": "deepseek",
+  "openWeights": true
+}
