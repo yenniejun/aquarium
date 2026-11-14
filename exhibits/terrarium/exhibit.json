@@ -3,7 +3,7 @@
   "intro": "Each AI model is told to grow one impossible plant from the future in a terrarium.",
   "skin": "cabinet",
   "variant": "terrarium",
-  "status": "preview",
+  "status": "draft",
   "mode": "blind",
   "order": 6,
   "pieceLabel": "Plant",
