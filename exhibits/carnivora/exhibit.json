@@ -13,7 +13,13 @@
     "gpt-6-luna",
     "gemini-4-hydrogen",
     "claude-sonnet",
+    "claude-opus",
     "gpt-6-1-sol",
-    "gemini-4-carbon"
+    "gemini-4-carbon",
+    "muse-wonder",
+    "qwen",
+    "glm",
+    "kimi",
+    "grok"
   ]
 }
