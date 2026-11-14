@@ -2,7 +2,8 @@
 //
 // Usage: npm run generate -- [--exhibit aquarium] [--max-tokens 64000] [--reasoning low] [--attempts 3] <entry> ...
 //   --reasoning (OpenRouter and Anthropic): low, medium or high thinking effort instead of the model's default
-//   --attempts: ask again (up to this many times) when a reply is missing its page or its name;
+//   --attempts: ask again (up to this many times) when a reply is missing its page or its name,
+//               or the connection drops partway;
 //               the first complete reply is kept, and how many tries it took is recorded
 //   e.g. npm run generate -- claude-haiku claude-sonnet
 //
@@ -78,7 +79,15 @@ async function generate(slug) {
   for (attempt = 1; ; attempt++) {
     console.log(`→ ${slug}: asking ${meta.modelId}${ATTEMPTS > 1 ? ` (attempt ${attempt} of ${ATTEMPTS})` : ''}…`);
     const started = Date.now();
-    reply = await provider.ask(meta.modelId, apiKey, meta);
+    try {
+      reply = await provider.ask(meta.modelId, apiKey, meta);
+    } catch (err) {
+      // A dropped connection (a host going quiet for minutes mid-thought) is worth another try;
+      // API errors (no credits, a bad model id…) aren't.
+      if (err.message !== 'terminated' || attempt >= ATTEMPTS) throw err;
+      console.log(`  ↻ ${slug}: the connection dropped (${err.cause?.code ?? 'terminated'}); asking again`);
+      continue;
+    }
     seconds = Math.round((Date.now() - started) / 1000);
     html = page(reply.text);
     card = parseCard(block(reply.text, 'json'));

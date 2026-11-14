@@ -7,7 +7,7 @@
   "mode": "blind",
   "order": 11,
   "pieceLabel": "Card",
-  "promptVersion": 2,
+  "promptVersion": 3,
   "lineup": [
     "claude-haiku",
     "gpt-6-luna",
