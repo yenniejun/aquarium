@@ -6,7 +6,7 @@
   "status": "preview",
   "mode": "blind",
   "order": 2,
-  "pieceLabel": "Jar",
+  "pieceLabel": "Plant",
   "promptVersion": 4,
   "lineup": [
     "gpt-6-luna",

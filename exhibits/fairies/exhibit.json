@@ -6,7 +6,7 @@
   "status": "preview",
   "mode": "blind",
   "order": 11,
-  "pieceLabel": "Card",
+  "pieceLabel": "Fairy",
   "promptVersion": 4,
   "lineup": [
     "gpt-6-luna",

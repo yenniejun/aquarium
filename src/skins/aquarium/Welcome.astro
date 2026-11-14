@@ -1,12 +1,11 @@
 ---
 /**
- * The aquarium's About tab (and first-visit welcome): the title and two lines above a strip of
- * water with a goldfish in it. A few words play with the water when you hover or tap them:
+ * The aquarium's About tab (and first-visit welcome): two plain lines above a strip of water
+ * with a goldfish in it. A few words play with the water when you hover or tap them:
  * "a tank" swells the waves, "one creature" makes the fish wiggle, "favorite tank" makes it jump.
  * A sandcastle sits on the seabed.
  */
 import type { Exhibit } from '../../lib/exhibits';
-import ExhibitTitle from '../../components/ExhibitTitle.astro';
 
 interface Props {
   exhibit: Exhibit;
@@ -27,7 +26,7 @@ function play(text: string, effects: Record<string, Effect>) {
 const lines = [
   exhibit.intro && play(exhibit.intro, { 'a tank': 'wave', 'one creature': 'wiggle' }),
   exhibit.mode === 'blind' &&
-    play('Pick your favorite tank!', { 'favorite tank': 'jump' }),
+    play('Select your favorite tank.', { 'favorite tank': 'jump' }),
 ].filter((line) => !!line);
 
 const bubbles = [
@@ -47,7 +46,6 @@ const drops = [
 
 <div class="scene">
   <div class="copy">
-    <h2 id="about-title"><ExhibitTitle title={exhibit.title} /></h2>
     {
       lines.map((line) => (
         <p>
@@ -116,19 +114,10 @@ const drops = [
     padding: clamp(1.4rem, 5vh, 2.4rem) clamp(1.25rem, 5vw, 2.6rem) 0.4rem;
   }
 
-  h2 {
-    margin: 0 0 1rem;
-    font-size: clamp(2.3rem, 8vw, 3.3rem);
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.01em;
-  }
-
   p {
-    max-width: 32rem;
-    margin: 0 0 0.7rem;
-    font-size: 1.2rem;
-    line-height: 1.5;
+    max-width: 30rem;
+    margin: 0 0 0.8rem;
+    font: 400 0.95rem/1.6 'IBM Plex Mono', monospace;
   }
 
   /* Wiggly underlines that keep drifting; they speed up while you're on them. */

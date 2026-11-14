@@ -3,12 +3,11 @@
  * The "?" button in the header and the modal it opens. It's also the welcome: on a first visit
  * it opens by itself (?reset shows it again). Two tabs at a fixed size: About, and the exact
  * prompt every model got. A skin can fill the About tab with its own Welcome (passed as the
- * default slot); otherwise it shows the title and intro.
+ * default slot); otherwise it says, in two plain lines, what the models were told and what to do.
  */
 import { Code } from 'astro:components';
 import type { Exhibit } from '../lib/exhibits';
 import { getPrompt } from '../lib/exhibits';
-import ExhibitTitle from './ExhibitTitle.astro';
 
 interface Props {
   exhibit: Exhibit;
@@ -23,7 +22,7 @@ const key = `museum:welcomed:${exhibit.slug}`;
 ---
 
 <button class="about-toggle" type="button" aria-haspopup="dialog" aria-label="About this gallery">?</button>
-<dialog class="about" aria-labelledby="about-title" tabindex="-1">
+<dialog class="about" aria-label={`About ${exhibit.title}`} tabindex="-1">
   <div class="bar">
     <div class="tabs" role="tablist">
       <button type="button" role="tab" id="about-tab-about" aria-controls="about-panel-about" aria-selected="true">
@@ -55,11 +54,8 @@ const key = `museum:welcomed:${exhibit.slug}`;
         <slot />
       ) : (
         <div class="copy">
-          <h2 id="about-title">
-            <ExhibitTitle title={exhibit.title} />
-          </h2>
           {exhibit.intro && <p>{exhibit.intro}</p>}
-          {exhibit.mode === 'blind' && <p>Pick your favorite {piece}!</p>}
+          {exhibit.mode === 'blind' && <p>Select your favorite {piece}.</p>}
         </div>
       )
     }
@@ -172,8 +168,8 @@ const key = `museum:welcomed:${exhibit.slug}`;
 
   /* One fixed size for both tabs; the prompt scrolls inside. */
   .about {
-    width: min(44rem, 100vw - 1.5rem);
-    height: min(34rem, 100svh - 2rem);
+    width: min(36rem, 100vw - 1.5rem);
+    height: min(26rem, 100svh - 2rem);
     max-width: none;
     max-height: none;
     padding: 0;
@@ -279,19 +275,14 @@ const key = `museum:welcomed:${exhibit.slug}`;
   }
 
   .copy {
-    padding: clamp(1.4rem, 5vh, 2.4rem) clamp(1.25rem, 5vw, 2.6rem);
-  }
-
-  .copy h2 {
-    margin: 0 0 1rem;
-    font: 600 clamp(2rem, 7vw, 2.8rem) / 1.05 system-ui, sans-serif;
+    margin: auto 0;
+    padding: 1.5rem clamp(1.25rem, 5vw, 2.4rem) 2.5rem;
   }
 
   .copy p {
-    max-width: 32rem;
-    margin: 0 0 0.7rem;
-    font-size: 1.15rem;
-    line-height: 1.5;
+    max-width: 30rem;
+    margin: 0 0 0.8rem;
+    font: 400 0.95rem/1.6 'IBM Plex Mono', monospace;
   }
 
   /* The prompt, in a small editor window. */
@@ -365,7 +356,7 @@ const key = `museum:welcomed:${exhibit.slug}`;
     padding: 1rem 1.2rem 1.2rem 0;
     border-radius: 0;
     counter-reset: line;
-    font: 0.8rem/1.65 'IBM Plex Mono', monospace;
+    font: 0.7rem/1.6 'IBM Plex Mono', monospace;
   }
 
   .editor :global(pre .line) {

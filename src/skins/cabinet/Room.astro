@@ -27,6 +27,21 @@ const stars = Array.from({ length: 140 }, () => {
 const fireflies = Array.from({ length: 46 }, () =>
   `${(rand() * 100).toFixed(2)}vw ${(30 + rand() * 70).toFixed(2)}vh ${(2 + rand() * 4).toFixed(1)}px ${(rand() * 1.5).toFixed(1)}px rgba(255, ${Math.round(200 + rand() * 40)}, 140, ${(0.4 + rand() * 0.5).toFixed(2)})`,
 ).join(', ');
+
+// Planetarium sky: stars of every size, brightness and tint, thicker along a Milky Way band that
+// runs from bottom left to top right, and three sets of bright stars that twinkle out of step.
+const gauss = () => Math.sqrt(-2 * Math.log(rand() || 1e-9)) * Math.cos(2 * Math.PI * rand());
+const tints = ['255, 255, 255', '205, 218, 255', '255, 238, 214'];
+const skyStars = Array.from({ length: 460 }, (_, i) => {
+  const x = rand() * 100;
+  const y = i % 5 < 2 ? 85 - 0.7 * x + gauss() * 7 : rand() * 100;
+  const big = rand() < 0.07;
+  const tint = tints[Math.floor(rand() * tints.length)];
+  return `${x.toFixed(2)}vw ${y.toFixed(2)}vh 0 ${big ? 0.6 : 0}px rgba(${tint}, ${(0.2 + rand() * (big ? 0.7 : 0.5)).toFixed(2)})`;
+}).join(', ');
+const brightStars = [0, 1, 2].map(() =>
+  Array.from({ length: 8 }, () => `${(rand() * 100).toFixed(2)}vw ${(rand() * 100).toFixed(2)}vh 3px 1px rgba(255, 248, 230, 0.85)`).join(', '),
+);
 ---
 
 <div class="room" data-variant={variant}>
@@ -42,6 +57,16 @@ const fireflies = Array.from({ length: 46 }, () =>
     )
   }
   {variant === 'tarot' && <i class="fireflies" aria-hidden="true" style={`box-shadow: ${fireflies}`} />}
+  {
+    variant === 'porthole' && (
+      <div class="sky" aria-hidden="true">
+        <i class="stars" style={`box-shadow: ${skyStars}`} />
+        {brightStars.map((s) => (
+          <i class="stars bright" style={`box-shadow: ${s}`} />
+        ))}
+      </div>
+    )
+  }
   <section class="screen">
     <h1><ExhibitTitle title={exhibit.title} /></h1>
     <ol class="pieces" data-pieces>
@@ -412,13 +437,47 @@ const fireflies = Array.from({ length: 46 }, () =>
   }
 
   /* Planetarium: a night-sky dome. */
+  /* Planetarium: a dome of night sky; the stars themselves are in .sky. */
   [data-variant='porthole'] {
     --ink: #e9ecff;
     --accent: #a9b8ff;
     --wall:
-      radial-gradient(circle, rgba(255, 255, 255, 0.85) 0 1px, transparent 1.6px) 0 0 / 97px 89px,
-      radial-gradient(circle, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.6px) 40px 60px / 131px 113px,
-      radial-gradient(circle, rgba(200, 210, 255, 0.5) 0 0.8px, transparent 1.4px) 70px 20px / 61px 71px,
+      linear-gradient(159deg, transparent 38%, rgba(170, 180, 255, 0.07) 47%, rgba(255, 225, 240, 0.05) 53%, transparent 62%),
+      radial-gradient(35% 28% at 80% 18%, rgba(140, 90, 200, 0.12), transparent 70%),
+      radial-gradient(30% 25% at 15% 75%, rgba(70, 120, 200, 0.1), transparent 70%),
       radial-gradient(120% 80% at 50% 0%, #1d2b5c, #070b1d 70%);
+  }
+
+  .sky {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .sky .bright {
+    animation: twinkle 3.1s ease-in-out infinite alternate;
+  }
+
+  .sky .bright:nth-child(3) {
+    animation-duration: 4.7s;
+    animation-delay: -1.3s;
+  }
+
+  .sky .bright:nth-child(4) {
+    animation-duration: 6.3s;
+    animation-delay: -2.9s;
+  }
+
+  @keyframes twinkle {
+    from {
+      opacity: 0.35;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sky .bright {
+      animation: none;
+    }
   }
 </style>

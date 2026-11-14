@@ -6,7 +6,7 @@
   "status": "preview",
   "mode": "blind",
   "order": 7,
-  "pieceLabel": "Sky",
+  "pieceLabel": "Constellation",
   "promptVersion": 3,
   "lineup": [
     "gpt-6-luna",

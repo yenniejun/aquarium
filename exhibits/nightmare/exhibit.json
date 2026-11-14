@@ -6,7 +6,7 @@
   "status": "draft",
   "mode": "blind",
   "order": 9,
-  "pieceLabel": "Plate",
+  "pieceLabel": "Monster",
   "promptVersion": 5,
   "lineup": [
     "claude-haiku",
