@@ -2,7 +2,7 @@
 // building part taken out, so each model only imagines its piece and sends back a name and a
 // description, as many times as asked, and saves every answer.
 //
-// Usage: npm run names -- --exhibit planetarium [--runs 10] [--max-tokens 32000] [<entry> ...]
+// Usage: npm run names -- --exhibit planetarium [--runs 10] [--max-tokens 12000] [<entry> ...]
 //   entries default to the gallery's lineup. Each model is asked the way its gallery piece was
 //   (same thinking effort, same host), at its default temperature.
 //
@@ -23,12 +23,15 @@ const option = (name) => {
 };
 const exhibit = option('--exhibit');
 const RUNS = Number(option('--runs') ?? 1);
-// Only a name comes back, but thinking counts against this too, so leave plenty of room.
-const MAX_TOKENS = Number(option('--max-tokens') ?? 32000);
-// Asking several answers of one model at once; models themselves all run side by side.
-const AT_ONCE = 3;
+// Only a name comes back, but thinking counts against this too, so leave room (the longest answer
+// so far was about 6,000 tokens). OpenRouter holds back credit for the most a request could cost,
+// so a much higher cap gets requests refused when the balance is low.
+const MAX_TOKENS = Number(option('--max-tokens') ?? 12000);
+// How many answers of one model to ask for at once (models themselves all run side by side). New
+// OpenRouter accounts get only a few requests a minute per model, so those go one at a time.
+const atOnce = (meta) => (meta.route === 'OpenRouter' ? 1 : 3);
 if (!exhibit) {
-  console.error('Usage: npm run names -- --exhibit planetarium [--runs 10] [--max-tokens 32000] [<entry> ...]');
+  console.error('Usage: npm run names -- --exhibit planetarium [--runs 10] [--max-tokens 12000] [<entry> ...]');
   process.exit(1);
 }
 
@@ -99,7 +102,7 @@ async function askModel(slug) {
   const worker = async () => {
     for (let n; (n = todo.shift()) !== undefined; ) answers.push(await askOnce(slug, meta, reasoning, n));
   };
-  await Promise.all(Array.from({ length: AT_ONCE }, worker));
+  await Promise.all(Array.from({ length: atOnce(meta) }, worker));
   return answers;
 }
 
@@ -111,10 +114,13 @@ async function askOnce(slug, meta, reasoning, n) {
       reply = await ask(meta, { prompt, maxTokens: MAX_TOKENS, reasoning });
       break;
     } catch (err) {
-      if (!dropped(err) || attempt >= 3) {
+      // A rate limit, or credit held back for requests still running, clears up after a wait.
+      const busy = / 429: |in-flight requests/.test(err.message);
+      if (!(dropped(err) || busy) || attempt >= 6) {
         console.error(`✗ ${slug} #${n}: ${err.message.slice(0, 200)}`);
         return {};
       }
+      if (busy) await new Promise((r) => setTimeout(r, 20_000 * attempt));
     }
   }
   const { title, statement } = parseCard(block(reply.text, 'json'));
