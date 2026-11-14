@@ -67,7 +67,7 @@ main {
 .site-footer {
   position: relative;
   z-index: 1;
-  padding: 0.5rem 1rem 1.6rem;
+  padding: 2rem 1rem 1.6rem;
   text-align: center;
   font: 500 0.72rem/1.5 'IBM Plex Mono', monospace;
   letter-spacing: 0.04em;
