@@ -1,0 +1,23 @@
+{
+  "artist": "Mistral Large 4",
+  "provider": "Mistral AI",
+  "modelId": "mistralai/mistral-large-4-0",
+  "route": "OpenRouter",
+  "host": "mistral",
+  "openWeights": true,
+  "status": "final",
+  "title": "Pip the Puffy Puffer",
+  "statement": "A round little optimist who inflates when admired and hums the rest of his song as bubble-rings. He spends his days puttering between the seaweed, blinking slowly, and greeting visitors with a small proud puff.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Mistral)",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 3,
+      "host": "mistral",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

@@ -9,7 +9,6 @@
   "pieceLabel": "Potion",
   "promptVersion": 1,
   "lineup": [
-    "claude-haiku",
     "gpt-6-luna",
     "gemini-4-hydrogen",
     "claude-sonnet",
@@ -20,6 +19,7 @@
     "qwen",
     "glm",
     "kimi",
-    "grok"
+    "grok",
+    "mistral"
   ]
 }

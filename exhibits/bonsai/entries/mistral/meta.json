@@ -1,0 +1,8 @@
+{
+  "artist": "Mistral Large 4",
+  "provider": "Mistral AI",
+  "modelId": "mistralai/mistral-large-4-0",
+  "route": "OpenRouter",
+  "host": "mistral",
+  "openWeights": true
+}
