@@ -26,16 +26,12 @@ const welcome = Astro.slots.has('default');
 // The models, open weights first, then by maker and name. Never in lineup order: the pieces are in
 // lineup order in the page, so that would quietly pair each model with its piece.
 const models = getPieces(exhibit)
-  .map(({ entry }) => {
-    const reasoning = entry.generation?.params?.reasoning;
-    return {
-      name: entry.artist,
-      maker: entry.provider,
-      open: entry.openWeights,
-      url: modelLinks[entry.slug],
-      thinking: typeof reasoning === 'string' ? reasoning : 'default',
-    };
-  })
+  .map(({ entry }) => ({
+    name: entry.artist,
+    maker: entry.provider,
+    open: entry.openWeights,
+    url: modelLinks[entry.slug],
+  }))
   .sort((a, b) => Number(b.open) - Number(a.open) || a.maker.localeCompare(b.maker) || a.name.localeCompare(b.name));
 ---
 
@@ -76,7 +72,6 @@ const models = getPieces(exhibit)
         <tr>
           <th scope="col">Model</th>
           <th scope="col">Lab</th>
-          <th scope="col">Thinking</th>
           <th scope="col">Weights</th>
         </tr>
       </thead>
@@ -94,7 +89,6 @@ const models = getPieces(exhibit)
                 )}
               </th>
               <td>{m.maker}</td>
-              <td>{m.thinking}</td>
               <td class:list={{ open: m.open }}>{m.open ? 'Open' : 'Closed'}</td>
             </tr>
           ))
