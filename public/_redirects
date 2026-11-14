@@ -1,0 +1,3 @@
+# Cloudflare Pages: send the bare address straight to the home gallery, before any page loads.
+# (src/pages/index.astro forwards too, for hosts that don't read this file.)
+/  /aquarium/  302
