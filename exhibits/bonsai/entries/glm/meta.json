@@ -1,0 +1,8 @@
+{
+  "artist": "GLM 5.3 Prime",
+  "provider": "Z.ai",
+  "modelId": "z-ai/glm-5.3-prime",
+  "route": "OpenRouter",
+  "host": "alibaba",
+  "openWeights": false
+}
