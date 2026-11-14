@@ -18,10 +18,10 @@ const blind = exhibit.mode === 'blind';
 ---
 
 
-<Base skin={exhibit.skin} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
+<Base skin={exhibit.skin} variant={exhibit.variant} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
   <Fragment slot="header">
     <ResetVote exhibit={exhibit} />
-    {/* Every exhibit gets the "?" modal; only one whose skin has a Welcome (the aquarium) opens it on a first visit. */}
+    {/* Every exhibit gets "Prompt" and "?"; a skin with a Welcome (the aquarium) also greets first-time visitors with it. */}
     {
       Welcome ? (
         <About exhibit={exhibit} autoOpen>

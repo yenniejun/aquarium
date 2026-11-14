@@ -199,9 +199,14 @@ const brightStars = [0, 1, 2].map(() =>
     --w: 190px;
   }
 
+  /* Phones: two across, and the header gets its own row above the title, like the aquarium's. */
   @media (max-width: 699px) {
     .pieces {
       --cols: 2;
+    }
+
+    :global(body[data-skin='cabinet'] .site-header) {
+      position: static;
     }
   }
 

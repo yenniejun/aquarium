@@ -32,7 +32,8 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 - **Status:** `live` and `preview` appear in the menu; `draft` only builds on the dev server and stays out of the menu.
 - **Titles:** the capital A and I that spell AI are highlighted in the gallery's accent color, as in `cArnIvora` or `BonsAI`. The aquarium keeps its parentheses: `A(quar)I(um)`.
 - **Blind mode:** pieces are shuffled and unlabeled until you vote. `?reset` in the URL forgets your vote (and shows the aquarium's welcome again); on the dev server there's also a "Reset vote" button.
-- **"?" button:** every gallery has one with its intro and its prompt; only the aquarium's opens by itself on a first visit.
+- **"?" and "Prompt":** hovering (or tapping) "?" shows a small bubble with what the models were told; "Prompt" opens the exact prompt. The aquarium also greets first-time visitors with its goldfish welcome.
+- **Fonts:** each page loads only the Google Fonts it uses (`src/lib/fonts.ts`); add a family there when a gallery starts using one.
 
 ### Adding a gallery
 

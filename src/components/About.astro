@@ -1,9 +1,9 @@
 ---
 /**
- * The "?" button in the header and the modal it opens. It's also the welcome: on a first visit
- * it opens by itself (?reset shows it again). Two tabs at a fixed size: About, and the exact
- * prompt every model got. A skin can fill the About tab with its own Welcome (passed as the
- * default slot); otherwise it says, in two plain lines, what the models were told and what to do.
+ * The header's "?" and "Prompt" buttons. Hovering "?" (or tapping it, or tabbing to it) shows a
+ * small bubble with what the models were told and what to do; "Prompt" opens the exact prompt
+ * every model got. A skin can also pass a Welcome (the default slot): it opens by itself in its
+ * own modal on a first visit (?reset shows it again).
  */
 import { Code } from 'astro:components';
 import type { Exhibit } from '../lib/exhibits';
@@ -11,7 +11,7 @@ import { getPrompt } from '../lib/exhibits';
 
 interface Props {
   exhibit: Exhibit;
-  /** Open by itself on a first visit, as a welcome. */
+  /** Open the skin's Welcome by itself on a first visit. */
   autoOpen?: boolean;
 }
 
@@ -19,51 +19,36 @@ const { exhibit, autoOpen = false } = Astro.props;
 const prompt = getPrompt(exhibit);
 const piece = exhibit.pieceLabel.toLowerCase();
 const key = `museum:welcomed:${exhibit.slug}`;
+const welcome = Astro.slots.has('default');
 ---
 
-<button class="about-toggle" type="button" aria-haspopup="dialog" aria-label="About this gallery">?</button>
-<dialog class="about" aria-label={`About ${exhibit.title}`} tabindex="-1">
-  <div class="bar">
-    <div class="tabs" role="tablist">
-      <button type="button" role="tab" id="about-tab-about" aria-controls="about-panel-about" aria-selected="true">
-        About
-      </button>
-      {
-        prompt && (
-          <button
-            type="button"
-            role="tab"
-            id="about-tab-prompt"
-            aria-controls="about-panel-prompt"
-            aria-selected="false"
-            tabindex="-1"
-          >
-            Prompt
-          </button>
-        )
-      }
-    </div>
-    <form method="dialog">
-      <button class="close" aria-label="Close">×</button>
-    </form>
+{
+  prompt && (
+    <button class="pill prompt-toggle" type="button" aria-haspopup="dialog">
+      Prompt
+    </button>
+  )
+}
+<div class="help">
+  <button class="about-toggle" type="button" aria-label="About this gallery" aria-describedby="about-hint" aria-expanded="false">
+    ?
+  </button>
+  <div class="hint" id="about-hint" role="tooltip">
+    {exhibit.intro && <p>{exhibit.intro}</p>}
+    {exhibit.mode === 'blind' && <p>Select your favorite {piece}.</p>}
   </div>
+</div>
 
-  <div class="panel welcome" role="tabpanel" id="about-panel-about" aria-labelledby="about-tab-about">
-    {
-      Astro.slots.has('default') ? (
-        <slot />
-      ) : (
-        <div class="copy">
-          {exhibit.intro && <p>{exhibit.intro}</p>}
-          {exhibit.mode === 'blind' && <p>Select your favorite {piece}.</p>}
-        </div>
-      )
-    }
-  </div>
-
-  {
-    prompt && (
-      <div class="panel" role="tabpanel" id="about-panel-prompt" aria-labelledby="about-tab-prompt" hidden>
+{
+  prompt && (
+    <dialog class="modal prompt-dialog" aria-label="The prompt" tabindex="-1">
+      <div class="bar">
+        <span class="heading">Prompt</span>
+        <form method="dialog">
+          <button class="close" aria-label="Close">×</button>
+        </form>
+      </div>
+      <div class="panel">
         <figure class="editor">
           <div class="titlebar">
             <span class="dots" aria-hidden="true">
@@ -80,19 +65,32 @@ const key = `museum:welcomed:${exhibit.slug}`;
           <Code code={prompt} lang="md" theme="github-light" wrap />
         </figure>
       </div>
-    )
-  }
-</dialog>
+    </dialog>
+  )
+}
+
+{
+  welcome && (
+    <dialog class="modal welcome-dialog" aria-label={`Welcome to ${exhibit.title}`} tabindex="-1">
+      <form method="dialog" class="corner">
+        <button class="close" aria-label="Close">×</button>
+      </form>
+      <div class="welcome">
+        <slot />
+      </div>
+    </dialog>
+  )
+}
 
 {/* Inline so a first-time visitor sees the welcome straight away, not the page and then a popup. */}
-{autoOpen && (
+{welcome && autoOpen && (
 <script is:inline define:vars={{ key }}>
   try {
     if (new URLSearchParams(location.search).has('reset')) localStorage.removeItem(key);
     if (!localStorage.getItem(key)) {
       const dialog = document.currentScript.previousElementSibling;
       dialog.showModal();
-      dialog.focus(); // the modal itself, not its first tab, so no focus ring on open
+      dialog.focus(); // the modal itself, not its close button, so no focus ring on open
       localStorage.setItem(key, '1');
     }
   } catch {}
@@ -100,37 +98,30 @@ const key = `museum:welcomed:${exhibit.slug}`;
 )}
 
 <script>
-  const dialog = document.querySelector<HTMLDialogElement>('dialog.about')!;
-  const tabs = [...dialog.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
-
-  const select = (tab: HTMLButtonElement) => {
-    for (const t of tabs) {
-      const on = t === tab;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
-    }
+  // The bubble shows on hover and keyboard focus (CSS); a tap or click pins it open until you
+  // tap elsewhere or press Escape, since phones can't hover.
+  const help = document.querySelector<HTMLElement>('.help')!;
+  const toggle = help.querySelector<HTMLButtonElement>('.about-toggle')!;
+  const pin = (open: boolean) => {
+    help.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
   };
+  toggle.addEventListener('click', () => pin(!help.classList.contains('open')));
+  document.addEventListener('click', (e) => !help.contains(e.target as Node) && pin(false));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && pin(false));
 
-  document.querySelector('.about-toggle')!.addEventListener('click', () => {
-    select(tabs[0]);
-    dialog.showModal();
-    dialog.focus();
+  const promptDialog = document.querySelector<HTMLDialogElement>('dialog.prompt-dialog');
+  document.querySelector('.prompt-toggle')?.addEventListener('click', () => {
+    promptDialog!.showModal();
+    promptDialog!.focus();
   });
-  dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
 
-  for (const [i, tab] of tabs.entries()) {
-    tab.addEventListener('click', () => select(tab));
-    tab.addEventListener('keydown', (e) => {
-      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (!step) return;
-      const next = tabs[(i + step + tabs.length) % tabs.length];
-      select(next);
-      next.focus();
-    });
+  // Clicking the backdrop closes either modal.
+  for (const dialog of document.querySelectorAll<HTMLDialogElement>('dialog.modal')) {
+    dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
   }
 
-  for (const button of dialog.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+  for (const button of document.querySelectorAll<HTMLButtonElement>('dialog [data-copy]')) {
     button.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(button.dataset.copy!);
@@ -144,32 +135,97 @@ const key = `museum:welcomed:${exhibit.slug}`;
 </script>
 
 <style>
+  .about-toggle,
+  .pill {
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(3, 12, 24, 0.85);
+    color: #e6f5ff;
+    cursor: pointer;
+  }
+
   .about-toggle {
     display: grid;
     place-items: center;
     width: 34px;
     height: 34px;
     padding: 0;
-    appearance: none;
-    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50%;
-    background: rgba(3, 12, 24, 0.85);
-    color: #e6f5ff;
     font: 500 0.9rem/1 'IBM Plex Mono', monospace;
-    cursor: pointer;
+  }
+
+  .pill {
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 99px;
+    font: 500 0.68rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .about-toggle:hover,
-  .about-toggle:focus-visible {
+  .about-toggle:focus-visible,
+  .help.open .about-toggle,
+  .pill:hover,
+  .pill:focus-visible {
     background: #e6f5ff;
     color: #03101e;
     outline: none;
   }
 
-  /* One fixed size for both tabs; the prompt scrolls inside. */
-  .about {
+  /* The bubble under the "?", lined up with its right edge. */
+  .help {
+    position: relative;
+  }
+
+  .hint {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(19rem, 100vw - 2rem);
+    padding: 0.9rem 1rem 0.3rem;
+    border-radius: 12px;
+    background: #f7fafc;
+    color: #10202e;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 -4px;
+    transition:
+      opacity 0.15s,
+      translate 0.15s,
+      visibility 0.15s;
+  }
+
+  /* A little pointer up to the "?". */
+  .hint::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    width: 12px;
+    height: 12px;
+    rotate: 45deg;
+    background: #f7fafc;
+  }
+
+  .help:hover .hint,
+  .help:focus-within .hint,
+  .help.open .hint {
+    opacity: 1;
+    visibility: visible;
+    translate: 0 0;
+  }
+
+  .hint p {
+    margin: 0 0 0.6rem;
+    font: 400 0.8rem/1.55 'IBM Plex Mono', monospace;
+  }
+
+  /* The prompt and the welcome open as modals. */
+  .modal {
     width: min(36rem, 100vw - 1.5rem);
-    height: min(26rem, 100svh - 2rem);
     max-width: none;
     max-height: none;
     padding: 0;
@@ -181,17 +237,25 @@ const key = `museum:welcomed:${exhibit.slug}`;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
   }
 
-  .about:focus {
+  .prompt-dialog {
+    height: min(30rem, 100svh - 2rem);
+  }
+
+  .welcome-dialog {
+    height: min(26rem, 100svh - 2rem);
+  }
+
+  .modal:focus {
     outline: none;
   }
 
-  .about[open] {
+  .modal[open] {
     display: flex;
     flex-direction: column;
     animation: rise 0.25s ease-out;
   }
 
-  .about::backdrop {
+  .modal::backdrop {
     background: rgba(2, 9, 18, 0.55);
     backdrop-filter: blur(4px);
   }
@@ -208,45 +272,26 @@ const key = `museum:welcomed:${exhibit.slug}`;
     flex: none;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 10px 0 12px;
+    padding: 10px 10px 0 18px;
   }
 
-  .tabs {
-    display: flex;
-    gap: 2px;
-  }
-
-  .tabs button,
-  .close {
-    appearance: none;
-    border: 0;
-    background: transparent;
-    color: #4a6378;
-    cursor: pointer;
-  }
-
-  .tabs button {
-    padding: 7px 12px;
-    border-radius: 99px;
+  .heading {
     font: 500 0.68rem/1 'IBM Plex Mono', monospace;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-  }
-
-  .tabs button:hover {
-    background: rgba(3, 16, 30, 0.06);
-  }
-
-  .tabs button[aria-selected='true'] {
-    background: #03101e;
-    color: #f7fafc;
+    color: #4a6378;
   }
 
   .close {
     width: 30px;
     height: 30px;
+    appearance: none;
+    border: 0;
     border-radius: 50%;
+    background: transparent;
+    color: #4a6378;
     font: 400 1.25rem/1 system-ui, sans-serif;
+    cursor: pointer;
   }
 
   .close:hover,
@@ -256,6 +301,14 @@ const key = `museum:welcomed:${exhibit.slug}`;
     outline: none;
   }
 
+  /* The welcome's close button floats over its top corner. */
+  .corner {
+    position: absolute;
+    z-index: 3;
+    top: 10px;
+    right: 10px;
+  }
+
   .panel {
     flex: 1;
     min-height: 0;
@@ -263,26 +316,11 @@ const key = `museum:welcomed:${exhibit.slug}`;
     padding: 12px;
   }
 
-  .panel[hidden] {
-    display: none;
-  }
-
-  /* About: a skin's Welcome fills the whole panel. */
   .welcome {
     display: flex;
+    flex: 1;
     flex-direction: column;
-    padding: 0;
-  }
-
-  .copy {
-    margin: auto 0;
-    padding: 1.5rem clamp(1.25rem, 5vw, 2.4rem) 2.5rem;
-  }
-
-  .copy p {
-    max-width: 30rem;
-    margin: 0 0 0.8rem;
-    font: 400 0.95rem/1.6 'IBM Plex Mono', monospace;
+    min-height: 0;
   }
 
   /* The prompt, in a small editor window. */
@@ -379,8 +417,12 @@ const key = `museum:welcomed:${exhibit.slug}`;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .about[open] {
+    .modal[open] {
       animation: none;
+    }
+
+    .hint {
+      transition: none;
     }
   }
 </style>

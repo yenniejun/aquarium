@@ -1,15 +1,18 @@
 ---
 import '../styles/global.css';
 import SideNav from '../components/SideNav.astro';
+import { fontsUrl } from '../lib/fonts';
 import { site } from '../site';
 
 interface Props {
   skin: string;
+  /** The exhibit's display, for its fonts. */
+  variant?: string;
   title?: string;
   description?: string;
 }
 
-const { skin, title, description = site.blurb } = Astro.props;
+const { skin, variant, title, description = site.blurb } = Astro.props;
 const favicon = `data:image/svg+xml,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0b2a4a"/><path d="M5 16c4-6 12-6 16 0-4 6-12 6-16 0zm16 0 6-5v10z" fill="#ffb347"/><circle cx="10" cy="15" r="1.5" fill="#0b2a4a"/></svg>`,
 )}`;
@@ -30,10 +33,7 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
     }
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Gluten:wght@400;600&family=Caveat:wght@500;700&family=IM+Fell+English:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Josefin+Sans:wght@400;600;700&family=Limelight&family=Cinzel+Decorative:wght@700&family=Shippori+Mincho:wght@700&family=Almendra:wght@700&family=Poiret+One&family=Mountains+of+Christmas:wght@700&family=Metamorphous&family=Comfortaa:wght@700&family=Monoton&display=swap"
-    />
+    <link rel="stylesheet" href={fontsUrl(skin, variant)} />
   </head>
   <body data-skin={skin}>
     <header class="site-header">
