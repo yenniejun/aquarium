@@ -19,18 +19,18 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 | AquarIum | `aquarium` | fish tanks (aquarium skin) | live, home page |
 | cArnIvora | `carnivora` | bell jars | preview |
 | cArnIval | `carnival` | circus stages | draft (hidden) |
-| BonsAI | `bonsai` | frameless, on a wooden stand | preview |
+| bonsAI | `bonsai` | frameless, on a wooden stand | preview |
 | ApothecarI | `apothecary` | shelf cubbies | preview |
-| PlanetArIum | `planetarium` | brass portholes | preview |
-| FungArIum | `fungarium` | museum vitrines | preview |
-| NightmAIre | `nightmare` | field-guide pages | draft (hidden) |
-| WAIffle Cart | `waffle-cart` | chalkboard menu | draft (hidden) |
+| planetArIum | `planetarium` | brass portholes | preview |
+| fungArIum | `fungarium` | museum vitrines | preview |
+| nightmAIre | `nightmare` | field-guide pages | draft (hidden) |
+| wAIffle cart | `waffle-cart` | chalkboard menu | draft (hidden) |
 | fAIries | `fairies` | tarot cards | preview |
-| TerrArIum | `terrarium` | glass terrarium, shared sun/moon day | draft (hidden) |
-| DreAm CIty | `dream-city` | windows | draft (hidden) |
+| terrArIum | `terrarium` | glass terrarium, shared sun/moon day | draft (hidden) |
+| dreAm cIty | `dream-city` | windows | draft (hidden) |
 
 - **Status:** `live` and `preview` appear in the menu; `draft` only builds on the dev server and stays out of the menu.
-- **Titles:** the capital A and I that spell AI are highlighted in the gallery's accent color, as in `AquarIum`, `cArnIvora` or `BonsAI`.
+- **Titles:** all lowercase except the A and I that spell AI, which are highlighted in the gallery's accent color, as in `AquarIum`, `fungArIum` or `bonsAI`.
 - **Blind mode:** pieces are shuffled and unlabeled until you vote. `?reset` in the URL forgets your vote (and shows the aquarium's welcome again); on the dev server there's also a "Reset vote" button.
 - **"?" and "Prompt":** hovering (or tapping) "?" shows a small bubble with what the models were told; "Prompt" opens the exact prompt. The aquarium also greets first-time visitors with its goldfish welcome.
 - **Fonts:** each page loads only the Google Fonts it uses (`src/lib/fonts.ts`); add a family there when a gallery starts using one.
