@@ -17,20 +17,20 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 | Gallery | Folder | Display | Status |
 |---|---|---|---|
 | A(quar)I(um) | `aquarium` | fish tanks (aquarium skin) | live, home page |
-| (c)A(rn)I(vora) | `carnivora` | bell jars | preview |
-| (c)A(rn)I(val) | `carnival` | circus stages | draft (hidden) |
-| Bons(AI) | `bonsai` | frameless, on a wooden stand | preview |
-| A(pothecar)I | `apothecary` | shelf cubbies | preview |
-| (Planet)A(r)I(um) | `planetarium` | brass portholes | preview |
-| (Fung)A(r)I(um) | `fungarium` | museum vitrines | preview |
-| Nightm(AI)re | `nightmare` | field-guide pages | draft (hidden) |
-| W(AI)ffle Cart | `waffle-cart` | chalkboard menu | draft (hidden) |
-| f(AI)ries | `fairies` | tarot cards | preview |
-| (Terr)A(r)I(um) | `terrarium` | glass terrarium, shared sun/moon day | draft (hidden) |
-| (Dre)A(m) (C)I(ty) | `dream-city` | windows | draft (hidden) |
+| cArnIvora | `carnivora` | bell jars | preview |
+| cArnIval | `carnival` | circus stages | draft (hidden) |
+| BonsAI | `bonsai` | frameless, on a wooden stand | preview |
+| ApothecarI | `apothecary` | shelf cubbies | preview |
+| PlanetArIum | `planetarium` | brass portholes | preview |
+| FungArIum | `fungarium` | museum vitrines | preview |
+| NightmAIre | `nightmare` | field-guide pages | draft (hidden) |
+| WAIffle Cart | `waffle-cart` | chalkboard menu | draft (hidden) |
+| fAIries | `fairies` | tarot cards | preview |
+| TerrArIum | `terrarium` | glass terrarium, shared sun/moon day | draft (hidden) |
+| DreAm CIty | `dream-city` | windows | draft (hidden) |
 
 - **Status:** `live` and `preview` appear in the menu; `draft` only builds on the dev server and stays out of the menu.
-- **Titles:** parenthesized parts are dimmed, so `A(quar)I(um)` reads as AI; a parenthesized `(AI)` is highlighted instead, as in `Bons(AI)`.
+- **Titles:** the capital A and I that spell AI are highlighted in the gallery's accent color, as in `cArnIvora` or `BonsAI`. The aquarium keeps its older style: parenthesized parts are dimmed, so `A(quar)I(um)` reads as AI.
 - **Blind mode:** pieces are shuffled and unlabeled until you vote. `?reset` in the URL forgets your vote (and shows the aquarium's welcome again); on the dev server there's also a "Reset vote" button.
 - **"?" button:** every gallery has one with its intro and its prompt; only the aquarium's opens by itself on a first visit.
 

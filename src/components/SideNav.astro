@@ -1,5 +1,6 @@
 ---
 // The museum menu: a slim panel on the left edge on wide screens, a "Menu" popover on narrow ones.
+import ExhibitTitle from './ExhibitTitle.astro';
 import { exhibitPath, getListedExhibits } from '../lib/exhibits';
 import { href } from '../lib/url';
 import { site } from '../site';
@@ -16,7 +17,7 @@ const exhibits = getListedExhibits();
       const url = href(exhibitPath(ex));
       return (
         <a href={url} aria-current={(url === href('/') ? here === url : here.startsWith(url)) ? 'page' : undefined}>
-          {ex.title}
+          <ExhibitTitle title={ex.title} />
         </a>
       );
     })
@@ -57,6 +58,7 @@ const exhibits = getListedExhibits();
     background: rgba(3, 12, 24, 0.85);
     backdrop-filter: blur(8px);
     color: #9ec3dc;
+    --accent: #6fd6f5;
   }
 
   .label {
@@ -86,6 +88,7 @@ const exhibits = getListedExhibits();
   a[aria-current='page'] {
     background: #e6f5ff;
     color: #03101e;
+    --accent: #0a78a8;
   }
 
   .soon {

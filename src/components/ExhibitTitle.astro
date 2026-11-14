@@ -1,18 +1,23 @@
 ---
 /**
- * An exhibit title that plays with "AI": parenthesized parts are softer, so "A(quar)I(um)" reads
- * as AI, except a parenthesized "(AI)" itself, which is highlighted, as in "Bons(AI)".
+ * An exhibit title that plays with "AI": the capital A and I that spell it are highlighted, as in
+ * "cArnIvora" or "BonsAI". A title with parentheses keeps the older style instead, where the
+ * parenthesized parts are softer so "A(quar)I(um)" reads as AI.
  */
 interface Props {
   title: string;
 }
 
-const parts = Astro.props.title.split(/(\([^)]*\))/).filter(Boolean);
+const { title } = Astro.props;
+const parens = title.includes('(');
+const parts = title.split(parens ? /(\([^)]*\))/ : /([AI]+)/).filter(Boolean);
 ---
 
 {
   parts.map((part) =>
-    part === '(AI)' ? <span class="ai">{part}</span> : part.startsWith('(') ? <span class="aside">{part}</span> : part,
+    parens ? (part.startsWith('(') ? <span class="aside">{part}</span> : part)
+    : /^[AI]+$/.test(part) ? <span class="ai">{part}</span>
+    : part,
   )
 }
 
