@@ -26,7 +26,7 @@ function play(text: string, effects: Record<string, Effect>) {
 const lines = [
   exhibit.intro && play(exhibit.intro, { 'a tank': 'wave', 'one creature': 'wiggle' }),
   exhibit.mode === 'blind' &&
-    play('Select your favorite tank.', { 'favorite tank': 'jump' }),
+    play('Select your favorite tank to reveal which AI made each one.', { 'favorite tank': 'jump' }),
 ].filter((line) => !!line);
 
 const bubbles = [
