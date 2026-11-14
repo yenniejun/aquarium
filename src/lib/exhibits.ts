@@ -12,7 +12,7 @@
  */
 import { createHash } from 'node:crypto';
 import { z } from 'astro/zod';
-import { skinNames } from '../skins/names';
+import { cabinetVariants, skinNames } from '../skins/names';
 import { href } from './url';
 
 const ExhibitSchema = z.object({
@@ -21,6 +21,8 @@ const ExhibitSchema = z.object({
   /** Background info, shown small at the bottom of the page */
   intro: z.string().optional(),
   skin: z.enum(skinNames),
+  /** For skins with more than one display shape, e.g. the cabinet's bell jar or porthole */
+  variant: z.enum(cabinetVariants).optional(),
   /** live = in nav, preview = in nav with a badge, draft = only built in dev */
   status: z.enum(['live', 'preview', 'draft']),
   /** open = artists shown; blind = hidden + shuffled until the visitor votes (v2) */

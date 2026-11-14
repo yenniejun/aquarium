@@ -1,0 +1,19 @@
+{
+  "artist": "Gemini 4 Hydrogen",
+  "provider": "Google",
+  "modelId": "gemini-4-hydrogen",
+  "openWeights": false,
+  "status": "final",
+  "title": "Luster-Loom Lotus",
+  "statement": "Sown from a split prism-seed, this future-flora weaves twin helices of starlit sap into translucent glass fronds before crowning itself with counter-rotating halos of captured dawn. Once in full bloom, it breathes endlessly and sheds drifting light-spores that briefly bud along the moss below.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

@@ -1,0 +1,173 @@
+---
+/**
+ * The cabinet skin: a gallery of curiosities. The exhibit's `variant` picks both the display each
+ * piece sits in (see ./Frame.astro) and the room around them: a potting shed for bell jars, a paper
+ * alcove wall for bonsai, a brick wall at night for windows, apothecary shelves, a greenhouse, and
+ * a planetarium dome.
+ */
+import type { Exhibit, PieceView } from '../../lib/exhibits';
+import ExhibitTitle from '../../components/ExhibitTitle.astro';
+import Frame from './Frame.astro';
+
+interface Props {
+  exhibit: Exhibit;
+  pieces: PieceView[];
+}
+
+const { exhibit, pieces } = Astro.props;
+const variant = exhibit.variant ?? 'niche';
+---
+
+<div class="room" data-variant={variant}>
+  <section class="screen">
+    <h1><ExhibitTitle title={exhibit.title} /></h1>
+    <ol class="pieces" data-pieces>
+      {
+        pieces.map((piece, i) => (
+          <li data-piece={piece.id} data-pending={piece.status === 'pending' ? '' : undefined} style={`--i: ${i}`}>
+            <Frame piece={piece} variant={variant} />
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</div>
+
+<style>
+  :global(body[data-skin='cabinet']) {
+    --title-font: 'Gluten', system-ui, sans-serif;
+    --plaque-font: 'Josefin Sans', sans-serif;
+    background: #111;
+  }
+
+  /* The header floats over the room; the page is just the room, like the aquarium. */
+  :global(body[data-skin='cabinet'] .site-header) {
+    position: absolute;
+    inset: 0 0 auto;
+  }
+
+  :global(body[data-skin='cabinet'] .site-footer) {
+    display: none;
+  }
+
+  .room {
+    --ink: #f1efe2;
+    --accent: #c8e66a;
+    min-height: 100vh;
+    min-height: 100svh;
+    color: var(--ink);
+  }
+
+  /* The room's wall covers the whole window, including the strip behind the menu. */
+  .room::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--wall);
+  }
+
+  .screen {
+    padding: 0.55rem clamp(1rem, 4vw, 3rem) 3.5rem;
+  }
+
+  h1 {
+    margin: 0 0 clamp(1.4rem, 5vh, 2.6rem);
+    text-align: center;
+    font: 600 clamp(1.6rem, 3.2vw, 2.4rem) / 1.1 var(--title-font);
+    letter-spacing: 0.02em;
+  }
+
+  /* Three across (two on phones); each display shape gets a width that keeps rows balanced. */
+  .pieces {
+    --cols: 3;
+    --w: 210px;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, var(--w)));
+    justify-content: center;
+    align-items: end;
+    gap: clamp(2rem, 6vh, 3.5rem) clamp(1.5rem, 4vw, 3.5rem);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  [data-variant='niche'] .pieces,
+  [data-variant='porthole'] .pieces {
+    --w: 230px;
+  }
+
+  [data-variant='shelf'] .pieces {
+    --w: 190px;
+  }
+
+  @media (max-width: 699px) {
+    .pieces {
+      --cols: 2;
+    }
+  }
+
+  /* Rooms, one per display. */
+
+  /* Bell jars: a potting shed, warm lamp light on green planks. */
+  [data-variant='belljar'] {
+    --accent: #c8e66a;
+    --wall:
+      radial-gradient(80% 45% at 50% 0%, rgba(255, 214, 150, 0.2), transparent 70%),
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0 2px, transparent 2px 118px),
+      linear-gradient(#24402f, #10201a);
+  }
+
+  /* Bonsai: a calm washi-paper wall. */
+  [data-variant='niche'] {
+    --ink: #2b2620;
+    --accent: #b5543c;
+    --wall:
+      radial-gradient(60% 40% at 50% 8%, #fffaf0, transparent 75%),
+      repeating-linear-gradient(97deg, rgba(120, 100, 70, 0.04) 0 1px, transparent 1px 7px),
+      linear-gradient(#efe8da, #e2d9c6);
+  }
+
+  /* Windows: a brick wall at night. */
+  [data-variant='window'] {
+    --ink: #f3ece0;
+    --accent: #ffcf6e;
+    --wall:
+      radial-gradient(90% 60% at 50% 110%, rgba(255, 190, 110, 0.12), transparent 70%),
+      linear-gradient(rgba(0, 0, 0, 0.32) 2px, transparent 2px) 0 0 / 100% 26px,
+      linear-gradient(#2c1a22, #160d14);
+  }
+
+  /* Apothecary: dark wood paneling by candlelight. */
+  [data-variant='shelf'] {
+    --ink: #f0e2c4;
+    --accent: #e0aa52;
+    --wall:
+      radial-gradient(70% 50% at 50% 20%, rgba(255, 170, 80, 0.16), transparent 70%),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 3px, transparent 3px 11px),
+      linear-gradient(#2d1c12, #150c07);
+  }
+
+  /* Terrarium: a misty glasshouse wall. */
+  [data-variant='terrarium'] {
+    --ink: #12261b;
+    --accent: #2e7d4f;
+    --wall:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.28) 2px, transparent 2px) 0 0 / 150px 100%,
+      linear-gradient(rgba(255, 255, 255, 0.2) 2px, transparent 2px) 0 0 / 100% 190px,
+      radial-gradient(70% 50% at 50% 0%, rgba(255, 255, 255, 0.45), transparent 70%),
+      linear-gradient(#c3dccb, #86ab97);
+  }
+
+  /* Planetarium: a night-sky dome. */
+  [data-variant='porthole'] {
+    --ink: #e9ecff;
+    --accent: #a9b8ff;
+    --wall:
+      radial-gradient(circle, rgba(255, 255, 255, 0.85) 0 1px, transparent 1.6px) 0 0 / 97px 89px,
+      radial-gradient(circle, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.6px) 40px 60px / 131px 113px,
+      radial-gradient(circle, rgba(200, 210, 255, 0.5) 0 0.8px, transparent 1.4px) 70px 20px / 61px 71px,
+      radial-gradient(120% 80% at 50% 0%, #1d2b5c, #070b1d 70%);
+  }
+</style>

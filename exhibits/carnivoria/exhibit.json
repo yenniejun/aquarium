@@ -1,0 +1,19 @@
+{
+  "title": "(c)A(rnivor)I(a)",
+  "intro": "Each AI model is told to grow one carnivorous plant under a glass bell jar.",
+  "skin": "cabinet",
+  "variant": "belljar",
+  "status": "preview",
+  "mode": "blind",
+  "order": 2,
+  "pieceLabel": "Jar",
+  "promptVersion": 3,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}

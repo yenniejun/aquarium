@@ -1,0 +1,895 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shimmer-Sigh Serum</title>
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0a0912;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+<canvas id="c" aria-hidden="true"></canvas>
+<script>
+(() => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+
+  const VW = 400;
+  const VH = 600;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let scale = 1;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  const pointer = { x: 0.5, y: 0.45, tx: 0.5, ty: 0.45, active: false };
+
+  function resize() {
+    width = window.innerWidth || document.documentElement.clientWidth;
+    height = window.innerHeight || document.documentElement.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.floor(width * dpr));
+    canvas.height = Math.max(1, Math.floor(height * dpr));
+    scale = Math.min(width / VW, height / VH);
+    offsetX = (width - VW * scale) * 0.5;
+    offsetY = (height - VH * scale) * 0.5;
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('pointermove', (e) => {
+    if (!width || !height) return;
+    pointer.tx = Math.max(0, Math.min(1, e.clientX / width));
+    pointer.ty = Math.max(0, Math.min(1, e.clientY / height));
+    pointer.active = true;
+  }, { passive: true });
+  window.addEventListener('pointerleave', () => {
+    pointer.tx = 0.5;
+    pointer.ty = 0.45;
+    pointer.active = false;
+  }, { passive: true });
+
+  resize();
+
+  // Deterministic pseudo-random helper for repeatable organic textures
+  function mulberry32(seed) {
+    let a = seed >>> 0;
+    return function () {
+      a |= 0;
+      a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  const rand = mulberry32(48271);
+
+  // Rising micro-bubbles and luminescent motes
+  const motes = Array.from({ length: 34 }, (_, i) => ({
+    xNorm: (rand() - 0.5) * 1.65,
+    y: 325 + rand() * 165,
+    speed: 10 + rand() * 16,
+    radius: 1.0 + rand() * 2.7,
+    wobbleAmp: 4 + rand() * 10,
+    wobbleFreq: 0.7 + rand() * 1.4,
+    phase: rand() * Math.PI * 2,
+    hueType: i % 3,
+    twinkleFreq: 1.5 + rand() * 2.5
+  }));
+
+  // Orbiting starlight pearls in the core
+  const corePearls = Array.from({ length: 14 }, (_, i) => ({
+    angle: (i / 14) * Math.PI * 2,
+    radiusX: 14 + rand() * 34,
+    radiusY: 8 + rand() * 20,
+    tilt: (rand() - 0.5) * 0.9,
+    speed: (0.28 + rand() * 0.35) * (i % 2 === 0 ? 1 : -1),
+    size: 1.4 + rand() * 2.3,
+    phase: rand() * Math.PI * 2,
+    warm: i % 2 === 0
+  }));
+
+  // Vapor sighs drifting in the upper glass neck/shoulder
+  const vapors = Array.from({ length: 12 }, (_, i) => ({
+    progress: i / 12,
+    speed: 0.11 + rand() * 0.08,
+    drift: (rand() - 0.5) * 28,
+    size: 8 + rand() * 14,
+    phase: rand() * Math.PI * 2
+  }));
+
+  // Ambient dust motes softly floating outside the bottle
+  const ambientDust = Array.from({ length: 18 }, () => ({
+    x: 28 + rand() * (VW - 56),
+    y: 45 + rand() * (VH - 95),
+    r: 0.7 + rand() * 1.6,
+    speedY: 3 + rand() * 5,
+    phase: rand() * Math.PI * 2,
+    driftX: 6 + rand() * 10
+  }));
+
+  // Cork texture dots
+  const corkPores = Array.from({ length: 38 }, () => ({
+    x: 186 + rand() * 28,
+    y: 158 + rand() * 32,
+    w: 1 + rand() * 2.4,
+    h: 0.7 + rand() * 1.3,
+    alpha: 0.14 + rand() * 0.22
+  }));
+
+  function traceOuterBottle(c) {
+    c.beginPath();
+    c.moveTo(169, 169);
+    c.bezierCurveTo(166, 177, 177, 179, 177, 189);
+    c.bezierCurveTo(177, 208, 176, 222, 174, 237);
+    c.bezierCurveTo(170, 276, 86, 315, 86, 392);
+    c.bezierCurveTo(86, 463, 114, 509, 146, 514);
+    c.bezierCurveTo(176, 519, 224, 519, 254, 514);
+    c.bezierCurveTo(286, 509, 314, 463, 314, 392);
+    c.bezierCurveTo(314, 315, 230, 276, 226, 237);
+    c.bezierCurveTo(224, 222, 223, 208, 223, 189);
+    c.bezierCurveTo(223, 179, 234, 177, 231, 169);
+    c.bezierCurveTo(216, 165, 184, 165, 169, 169);
+    c.closePath();
+  }
+
+  function traceInnerCavity(c) {
+    c.beginPath();
+    c.moveTo(183, 188);
+    c.bezierCurveTo(183, 208, 182, 224, 180, 240);
+    c.bezierCurveTo(175, 280, 95, 320, 95, 392);
+    c.bezierCurveTo(95, 456, 121, 495, 152, 499);
+    c.bezierCurveTo(176, 502, 186, 491, 200, 491);
+    c.bezierCurveTo(214, 491, 224, 502, 248, 499);
+    c.bezierCurveTo(279, 495, 305, 456, 305, 392);
+    c.bezierCurveTo(305, 320, 225, 280, 220, 240);
+    c.bezierCurveTo(218, 224, 217, 208, 217, 188);
+    c.closePath();
+  }
+
+  function meniscusY(x, t, tilt) {
+    const base = 320;
+    const dx = (x - 200) / 100;
+    return (
+      base +
+      tilt * dx * 6 +
+      Math.sin(x * 0.036 + t * 1.15) * 2.8 +
+      Math.sin(x * 0.072 - t * 1.65) * 1.3 +
+      Math.cos(x * 0.022 + t * 0.65) * 1.5
+    );
+  }
+
+  function drawGlowOrb(x, y, radius, r, g, b, alpha) {
+    const grad = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    grad.addColorStop(0, `rgba(${r},${g},${b},${alpha})`);
+    grad.addColorStop(0.38, `rgba(${r},${g},${b},${alpha * 0.42})`);
+    grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawBackground(t, breathe) {
+    // Full-viewport moody apothecary cubby dark gradient
+    const bgGrad = ctx.createRadialGradient(
+      width * 0.5,
+      height * 0.56,
+      Math.min(width, height) * 0.05,
+      width * 0.5,
+      height * 0.5,
+      Math.max(width, height) * 0.85
+    );
+    bgGrad.addColorStop(0, '#1b1630');
+    bgGrad.addColorStop(0.45, '#110e1d');
+    bgGrad.addColorStop(1, '#08070d');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.save();
+    ctx.translate(offsetX, offsetY);
+    ctx.scale(scale, scale);
+
+    // Subtle shifting aurora behind the bottle
+    const shiftX = (pointer.x - 0.5) * 18;
+    const shiftY = (pointer.y - 0.5) * 12;
+    drawGlowOrb(200 - shiftX, 385 - shiftY, 170 + breathe * 12, 88, 128, 196, 0.14 + breathe * 0.04);
+    drawGlowOrb(182 - shiftX * 0.6, 355, 130, 175, 118, 210, 0.10 + breathe * 0.03);
+    drawGlowOrb(218 + shiftX * 0.5, 425, 115, 92, 206, 192, 0.09);
+
+    // Grounded contact shadow and refracted caustic pool under bottle
+    ctx.save();
+    ctx.translate(200, 520);
+    ctx.scale(1, 0.24);
+    const shadowGrad = ctx.createRadialGradient(0, 0, 12, 0, 0, 128);
+    shadowGrad.addColorStop(0, 'rgba(3, 2, 8, 0.82)');
+    shadowGrad.addColorStop(0.55, 'rgba(5, 4, 12, 0.45)');
+    shadowGrad.addColorStop(1, 'rgba(5, 4, 12, 0)');
+    ctx.fillStyle = shadowGrad;
+    ctx.beginPath();
+    ctx.arc(0, 0, 128, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Shimmering colored caustics on the resting surface
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const cPulse = 0.75 + 0.25 * Math.sin(t * 1.4);
+    ctx.translate(205 + Math.sin(t * 0.7) * 5, 522);
+    ctx.scale(1, 0.22);
+    drawGlowOrb(-18, 0, 74, 110, 224, 212, 0.18 * cPulse);
+    drawGlowOrb(22, 6, 62, 245, 178, 132, 0.14 * cPulse);
+    drawGlowOrb(78, -6, 34, 172, 145, 255, 0.15 * cPulse);
+    ctx.restore();
+
+    // Ambient floating dust outside the bottle
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < ambientDust.length; i++) {
+      const d = ambientDust[i];
+      const y = ((d.y - t * d.speedY) % (VH - 80) + (VH - 80)) % (VH - 80) + 40;
+      const x = d.x + Math.sin(t * 0.55 + d.phase) * d.driftX;
+      // Fade away if inside bottle silhouette region roughly
+      const distCenter = Math.hypot((x - 200) * 0.9, (y - 395) * 0.85);
+      if (distCenter < 92) continue;
+      const tw = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * 1.8 + d.phase));
+      drawGlowOrb(x, y, d.r * 3.2, 210, 225, 255, 0.24 * tw);
+    }
+    ctx.restore();
+
+    ctx.restore();
+  }
+
+  function drawCompanionCrystal(t) {
+    // Small faceted prism shard + two solidified luminous droplets beside the bottle base
+    ctx.save();
+
+    // Contact shadow for crystal & droplets
+    ctx.fillStyle = 'rgba(3, 2, 8, 0.65)';
+    ctx.beginPath();
+    ctx.ellipse(308, 520, 22, 5.5, -0.06, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(278, 523, 7, 2.3, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Prism shard resting on the right
+    ctx.save();
+    ctx.translate(307, 513);
+    ctx.rotate(0.28);
+
+    // Base crystal body
+    ctx.beginPath();
+    ctx.moveTo(-12, 6);
+    ctx.lineTo(-14, -6);
+    ctx.lineTo(-2, -17);
+    ctx.lineTo(13, -8);
+    ctx.lineTo(14, 5);
+    ctx.lineTo(2, 9);
+    ctx.closePath();
+    const pGrad = ctx.createLinearGradient(-12, -14, 12, 8);
+    pGrad.addColorStop(0, 'rgba(176, 238, 240, 0.52)');
+    pGrad.addColorStop(0.55, 'rgba(148, 132, 225, 0.38)');
+    pGrad.addColorStop(1, 'rgba(72, 64, 130, 0.55)');
+    ctx.fillStyle = pGrad;
+    ctx.fill();
+
+    // Internal prism facets
+    ctx.fillStyle = 'rgba(255, 225, 195, 0.25)';
+    ctx.beginPath();
+    ctx.moveTo(-2, -17);
+    ctx.lineTo(2, -1);
+    ctx.lineTo(-14, -6);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(130, 245, 225, 0.22)';
+    ctx.beginPath();
+    ctx.moveTo(-2, -17);
+    ctx.lineTo(13, -8);
+    ctx.lineTo(2, -1);
+    ctx.closePath();
+    ctx.fill();
+
+    // Specular edge
+    ctx.strokeStyle = 'rgba(235, 245, 255, 0.52)';
+    ctx.lineWidth = 0.85;
+    ctx.beginPath();
+    ctx.moveTo(-14, -6);
+    ctx.lineTo(-2, -17);
+    ctx.lineTo(13, -8);
+    ctx.moveTo(-2, -17);
+    ctx.lineTo(2, -1);
+    ctx.lineTo(2, 9);
+    ctx.stroke();
+    ctx.restore();
+
+    // Two tiny fallen starlight droplets
+    const glow = 0.65 + 0.35 * Math.sin(t * 2.1);
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    drawGlowOrb(278, 520, 9, 135, 240, 225, 0.25 * glow);
+    drawGlowOrb(288, 522, 6, 250, 200, 150, 0.22 * glow);
+    ctx.restore();
+
+    ctx.fillStyle = 'rgba(195, 248, 242, 0.72)';
+    ctx.beginPath();
+    ctx.ellipse(278, 520, 4.2, 2.7, -0.1, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255, 238, 210, 0.8)';
+    ctx.beginPath();
+    ctx.arc(277, 519, 1.1, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(245, 206, 165, 0.75)';
+    ctx.beginPath();
+    ctx.ellipse(288, 522, 2.6, 1.7, 0.15, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  function drawBottle(t, breathe) {
+    const tilt = (pointer.x - 0.5) * 0.9 + Math.sin(t * 0.42) * 0.18;
+
+    // 1. Subtle back glass silhouette & ambient inner tint
+    traceOuterBottle(ctx);
+    const backGlass = ctx.createLinearGradient(90, 180, 310, 515);
+    backGlass.addColorStop(0, 'rgba(140, 170, 230, 0.10)');
+    backGlass.addColorStop(0.45, 'rgba(65, 55, 110, 0.14)');
+    backGlass.addColorStop(1, 'rgba(165, 200, 255, 0.12)');
+    ctx.fillStyle = backGlass;
+    ctx.fill();
+
+    // 2. Clipped inner cavity: liquid, gossamer ribbons, core, bubbles, vapor
+    ctx.save();
+    traceInnerCavity(ctx);
+    ctx.clip();
+
+    // Faint opalescent mist lining upper air space
+    const airGrad = ctx.createLinearGradient(200, 185, 200, 330);
+    airGrad.addColorStop(0, 'rgba(155, 185, 245, 0.03)');
+    airGrad.addColorStop(1, 'rgba(145, 225, 225, 0.08)');
+    ctx.fillStyle = airGrad;
+    ctx.fillRect(90, 180, 220, 160);
+
+    // Liquid body clipped below the animated meniscus wave
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(85, 515);
+    ctx.lineTo(85, meniscusY(85, t, tilt));
+    for (let x = 90; x <= 315; x += 6) {
+      ctx.lineTo(x, meniscusY(x, t, tilt));
+    }
+    ctx.lineTo(315, 515);
+    ctx.closePath();
+    ctx.clip();
+
+    // Deep liquid gradient shifting gently over time
+    const hueMix = 0.5 + 0.5 * Math.sin(t * 0.32);
+    const liqGrad = ctx.createLinearGradient(130, 315, 265, 505);
+    liqGrad.addColorStop(0, `rgba(${Math.round(30 + hueMix * 18)}, ${Math.round(44 + hueMix * 26)}, ${Math.round(92 + hueMix * 16)}, 0.88)`);
+    liqGrad.addColorStop(0.42, `rgba(${Math.round(46 + hueMix * 20)}, ${Math.round(26 + (1 - hueMix) * 20)}, ${Math.round(88 + hueMix * 14)}, 0.92)`);
+    liqGrad.addColorStop(1, 'rgba(16, 15, 42, 0.96)');
+    ctx.fillStyle = liqGrad;
+    ctx.fillRect(85, 305, 230, 210);
+
+    // Drifting aurora fluid blooms inside the liquid
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const ax1 = 170 + Math.sin(t * 0.45) * 34;
+    const ay1 = 385 + Math.cos(t * 0.37) * 24;
+    drawGlowOrb(ax1, ay1, 88, 72, 222, 208, 0.24);
+
+    const ax2 = 228 + Math.cos(t * 0.39) * 32;
+    const ay2 = 420 + Math.sin(t * 0.51) * 26;
+    drawGlowOrb(ax2, ay2, 82, 245, 162, 134, 0.19);
+
+    const ax3 = 200 + Math.sin(t * 0.62 + 1.2) * 28;
+    const ay3 = 365 + Math.cos(t * 0.48) * 18;
+    drawGlowOrb(ax3, ay3, 74, 152, 138, 255, 0.22);
+
+    // Gossamer starlight ribbons weaving in 3D Lissajous paths
+    const ribbonCount = 4;
+    for (let r = 0; r < ribbonCount; r++) {
+      const rPhase = r * 1.57;
+      const steps = 42;
+      ctx.beginPath();
+      for (let s = 0; s <= steps; s++) {
+        const u = s / steps;
+        const theta = u * Math.PI * 2 + t * (0.42 + r * 0.08) + rPhase;
+        const rx = 200 + Math.sin(theta * 1.0 + r) * (46 + Math.sin(t * 0.5 + r) * 14) + Math.cos(theta * 2.0 - t * 0.4) * 18;
+        const ry = 408 + Math.cos(theta * 1.0 + t * 0.3) * 34 + Math.sin(theta * 2.0 + rPhase) * 16;
+        if (s === 0) ctx.moveTo(rx, ry);
+        else ctx.lineTo(rx, ry);
+      }
+      if (r % 2 === 0) {
+        ctx.strokeStyle = 'rgba(255, 228, 175, 0.20)';
+        ctx.lineWidth = 4.5;
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(255, 244, 214, 0.48)';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      } else {
+        ctx.strokeStyle = 'rgba(130, 248, 232, 0.18)';
+        ctx.lineWidth = 4.2;
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(205, 255, 248, 0.44)';
+        ctx.lineWidth = 1.15;
+        ctx.stroke();
+      }
+    }
+
+    // Central luminous core & orbiting starlight pearls
+    const coreY = 410 + Math.sin(t * 0.9) * 4;
+    drawGlowOrb(200, coreY, 52 + breathe * 8, 255, 220, 175, 0.26);
+    drawGlowOrb(200, coreY, 28 + breathe * 4, 175, 250, 242, 0.25);
+
+    for (let i = 0; i < corePearls.length; i++) {
+      const p = corePearls[i];
+      const ang = p.angle + t * p.speed;
+      const lx = Math.cos(ang) * p.radiusX;
+      const ly = Math.sin(ang) * p.radiusY;
+      const px = 200 + lx * Math.cos(p.tilt) - ly * Math.sin(p.tilt);
+      const py = coreY + lx * Math.sin(p.tilt) + ly * Math.cos(p.tilt);
+      const depth = 0.6 + 0.4 * Math.sin(ang);
+      const tw = 0.7 + 0.3 * Math.sin(t * 2.6 + p.phase);
+      const rad = p.size * (0.75 + 0.35 * depth);
+      if (p.warm) {
+        drawGlowOrb(px, py, rad * 3.8, 255, 226, 172, 0.32 * depth * tw);
+        ctx.fillStyle = `rgba(255, 248, 225, ${0.88 * depth * tw})`;
+      } else {
+        drawGlowOrb(px, py, rad * 3.8, 150, 248, 235, 0.30 * depth * tw);
+        ctx.fillStyle = `rgba(225, 255, 250, ${0.88 * depth * tw})`;
+      }
+      ctx.beginPath();
+      ctx.arc(px, py, rad * 0.65, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Rising effervescent micro-bubbles
+    for (let i = 0; i < motes.length; i++) {
+      const m = motes[i];
+      const span = 175;
+      const rawY = m.y - t * m.speed;
+      const y = 320 + (((rawY - 320) % span + span) % span);
+      // Narrow horizontally near shoulder and bottom curve
+      const halfSpan = y < 375 ? 58 + (y - 320) * 0.72 : 95 - Math.max(0, y - 420) * 0.55;
+      const x = 200 + m.xNorm * halfSpan * 0.55 + Math.sin(t * m.wobbleFreq + m.phase) * m.wobbleAmp;
+      const lifeFade = Math.min(1, (y - 318) / 14) * Math.min(1, (496 - y) / 18);
+      const tw = 0.65 + 0.35 * Math.sin(t * m.twinkleFreq + m.phase);
+      const a = lifeFade * tw;
+
+      if (m.hueType === 0) {
+        drawGlowOrb(x, y, m.radius * 3.2, 255, 225, 170, 0.25 * a);
+        ctx.fillStyle = `rgba(255, 245, 220, ${0.75 * a})`;
+      } else if (m.hueType === 1) {
+        drawGlowOrb(x, y, m.radius * 3.2, 135, 245, 232, 0.25 * a);
+        ctx.fillStyle = `rgba(215, 255, 248, ${0.72 * a})`;
+      } else {
+        drawGlowOrb(x, y, m.radius * 3.0, 198, 175, 255, 0.24 * a);
+        ctx.fillStyle = `rgba(235, 225, 255, ${0.72 * a})`;
+      }
+      ctx.beginPath();
+      ctx.arc(x, y, m.radius * 0.58, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Tiny crisp bubble highlight ring on larger bubbles
+      if (m.radius > 2.4) {
+        ctx.strokeStyle = `rgba(255, 255, 255, ${0.42 * a})`;
+        ctx.lineWidth = 0.65;
+        ctx.beginPath();
+        ctx.arc(x, y, m.radius * 0.95, -Math.PI * 0.85, -Math.PI * 0.2);
+        ctx.stroke();
+      }
+    }
+
+    ctx.restore(); // end lighter blend
+    ctx.restore(); // end liquid clip
+
+    // 3. 3D Meniscus surface ribbon & bright rim
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(108, meniscusY(108, t, tilt));
+    for (let x = 112; x <= 292; x += 5) {
+      ctx.lineTo(x, meniscusY(x, t, tilt));
+    }
+    for (let x = 292; x >= 108; x -= 5) {
+      const backDepth = Math.sin(((x - 108) / 184) * Math.PI) * 10;
+      ctx.lineTo(x, meniscusY(x, t, tilt) - backDepth);
+    }
+    ctx.closePath();
+    const surfGrad = ctx.createLinearGradient(115, 310, 285, 325);
+    surfGrad.addColorStop(0, 'rgba(155, 238, 232, 0.24)');
+    surfGrad.addColorStop(0.5, 'rgba(255, 225, 195, 0.34)');
+    surfGrad.addColorStop(1, 'rgba(175, 165, 255, 0.24)');
+    ctx.fillStyle = surfGrad;
+    ctx.fill();
+
+    // Front meniscus gleam
+    ctx.beginPath();
+    ctx.moveTo(110, meniscusY(110, t, tilt));
+    for (let x = 114; x <= 290; x += 4) {
+      ctx.lineTo(x, meniscusY(x, t, tilt));
+    }
+    ctx.strokeStyle = 'rgba(235, 252, 250, 0.62)';
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+    ctx.restore();
+
+    // 4. Sighing opalescent vapor rising into the bottle neck
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < vapors.length; i++) {
+      const v = vapors[i];
+      const p = (v.progress + t * v.speed) % 1;
+      const vy = 315 - p * 120;
+      const spread = (1 - p * 0.68);
+      const vx = 200 + Math.sin(t * 0.9 + v.phase + p * 4.5) * 12 * spread + v.drift * (1 - p) * 0.35;
+      const alpha = Math.sin(p * Math.PI) * 0.16;
+      const rad = v.size * (0.65 + p * 0.8);
+      if (i % 2 === 0) {
+        drawGlowOrb(vx, vy, rad, 190, 245, 240, alpha);
+      } else {
+        drawGlowOrb(vx, vy, rad, 235, 210, 255, alpha);
+      }
+    }
+    ctx.restore();
+
+    ctx.restore(); // end inner cavity clip
+
+    // 5. Glass wall thickness, internal base punt refractions & outer highlights
+    // Thick glass punt glow at the base
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.beginPath();
+    ctx.moveTo(148, 505);
+    ctx.bezierCurveTo(175, 508, 186, 496, 200, 496);
+    ctx.bezierCurveTo(214, 496, 225, 508, 252, 505);
+    ctx.strokeStyle = 'rgba(165, 232, 235, 0.28)';
+    ctx.lineWidth = 3.2;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(158, 511);
+    ctx.bezierCurveTo(182, 515, 218, 515, 242, 511);
+    ctx.strokeStyle = 'rgba(255, 224, 185, 0.30)';
+    ctx.lineWidth = 2.4;
+    ctx.stroke();
+    ctx.restore();
+
+    // Outer glass rim edge
+    traceOuterBottle(ctx);
+    const rimGrad = ctx.createLinearGradient(86, 170, 314, 515);
+    rimGrad.addColorStop(0, 'rgba(215, 235, 255, 0.55)');
+    rimGrad.addColorStop(0.35, 'rgba(155, 195, 240, 0.22)');
+    rimGrad.addColorStop(0.7, 'rgba(205, 185, 255, 0.25)');
+    rimGrad.addColorStop(1, 'rgba(225, 245, 255, 0.45)');
+    ctx.strokeStyle = rimGrad;
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+
+    // Inner cavity delicate edge line to emphasize glass wall thickness
+    traceInnerCavity(ctx);
+    ctx.strokeStyle = 'rgba(225, 240, 255, 0.16)';
+    ctx.lineWidth = 1.0;
+    ctx.stroke();
+
+    // Dynamic curved glass specular reflections (responsive to pointer angle)
+    const glintShift = (pointer.x - 0.5) * 6;
+    ctx.save();
+    // Main left studio reflection sweep
+    ctx.beginPath();
+    ctx.moveTo(174 + glintShift * 0.2, 244);
+    ctx.bezierCurveTo(162 + glintShift * 0.4, 282, 102 + glintShift * 0.6, 326, 102 + glintShift * 0.6, 392);
+    ctx.bezierCurveTo(102 + glintShift * 0.6, 444, 120 + glintShift * 0.4, 480, 146, 496);
+    const specLeft = ctx.createLinearGradient(100, 250, 145, 495);
+    specLeft.addColorStop(0, 'rgba(255, 255, 255, 0.04)');
+    specLeft.addColorStop(0.28, 'rgba(240, 248, 255, 0.32)');
+    specLeft.addColorStop(0.65, 'rgba(215, 240, 255, 0.18)');
+    specLeft.addColorStop(1, 'rgba(255, 255, 255, 0.02)');
+    ctx.strokeStyle = specLeft;
+    ctx.lineWidth = 7.5;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Crisp razor specular beside it
+    ctx.beginPath();
+    ctx.moveTo(176 + glintShift * 0.2, 242);
+    ctx.bezierCurveTo(164 + glintShift * 0.4, 280, 96 + glintShift * 0.5, 324, 96 + glintShift * 0.5, 392);
+    ctx.bezierCurveTo(96 + glintShift * 0.5, 434, 108, 466, 124, 484);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.42)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Right-hand subtle cyan-violet rim reflection
+    ctx.beginPath();
+    ctx.moveTo(298 - glintShift * 0.4, 344);
+    ctx.bezierCurveTo(308 - glintShift * 0.4, 376, 306 - glintShift * 0.4, 428, 286, 474);
+    ctx.strokeStyle = 'rgba(185, 232, 255, 0.28)';
+    ctx.lineWidth = 3.2;
+    ctx.stroke();
+
+    // Vertical neck reflection
+    ctx.beginPath();
+    ctx.moveTo(183, 188);
+    ctx.lineTo(182, 234);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.34)';
+    ctx.lineWidth = 2.6;
+    ctx.stroke();
+
+    // Lip glass highlight
+    ctx.beginPath();
+    ctx.ellipse(200, 170, 28, 3.8, 0, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(210, 230, 255, 0.14)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(245, 250, 255, 0.52)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawStopperAndCollar(t) {
+    // 1. Natural cork seated inside the glass neck
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(183, 156);
+    ctx.lineTo(217, 156);
+    ctx.lineTo(214, 194);
+    ctx.bezierCurveTo(205, 197, 195, 197, 186, 194);
+    ctx.closePath();
+    const corkGrad = ctx.createLinearGradient(183, 156, 217, 194);
+    corkGrad.addColorStop(0, '#96714d');
+    corkGrad.addColorStop(0.35, '#be9367');
+    corkGrad.addColorStop(0.75, '#7c5838');
+    corkGrad.addColorStop(1, '#583d25');
+    ctx.fillStyle = corkGrad;
+    ctx.fill();
+
+    // Cork grain pores
+    ctx.save();
+    ctx.clip();
+    for (let i = 0; i < corkPores.length; i++) {
+      const p = corkPores[i];
+      ctx.fillStyle = `rgba(48, 28, 14, ${p.alpha})`;
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y, p.w, p.h, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // Glass neck overlay tint on lower submerged half of cork
+    ctx.fillStyle = 'rgba(180, 215, 255, 0.16)';
+    ctx.fillRect(180, 171, 40, 28);
+    ctx.restore();
+    ctx.restore();
+
+    // 2. Faceted amethyst-quartz crystal finial atop the cork
+    ctx.save();
+    const shimmer = 0.5 + 0.5 * Math.sin(t * 1.3);
+
+    // Brass seating bezel between cork and crystal
+    ctx.beginPath();
+    ctx.ellipse(200, 155, 19, 4.5, 0, 0, Math.PI * 2);
+    const bezelGrad = ctx.createLinearGradient(181, 155, 219, 155);
+    bezelGrad.addColorStop(0, '#6a4d28');
+    bezelGrad.addColorStop(0.32, '#ebcb8b');
+    bezelGrad.addColorStop(0.68, '#a67d43');
+    bezelGrad.addColorStop(1, '#4c3518');
+    ctx.fillStyle = bezelGrad;
+    ctx.fill();
+
+    // Crystal spire silhouette
+    ctx.beginPath();
+    ctx.moveTo(200, 96);
+    ctx.lineTo(217, 122);
+    ctx.lineTo(213, 153);
+    ctx.lineTo(187, 153);
+    ctx.lineTo(183, 122);
+    ctx.closePath();
+    const crysGrad = ctx.createLinearGradient(183, 98, 217, 153);
+    crysGrad.addColorStop(0, 'rgba(232, 224, 255, 0.78)');
+    crysGrad.addColorStop(0.45, 'rgba(155, 216, 232, 0.62)');
+    crysGrad.addColorStop(1, 'rgba(128, 102, 195, 0.72)');
+    ctx.fillStyle = crysGrad;
+    ctx.fill();
+
+    // Crystal facets
+    // Left bright facet
+    ctx.fillStyle = `rgba(255, 245, 255, ${0.32 + shimmer * 0.12})`;
+    ctx.beginPath();
+    ctx.moveTo(200, 96);
+    ctx.lineTo(195, 124);
+    ctx.lineTo(183, 122);
+    ctx.closePath();
+    ctx.fill();
+
+    // Center upper prism facet
+    ctx.fillStyle = 'rgba(162, 244, 236, 0.34)';
+    ctx.beginPath();
+    ctx.moveTo(200, 96);
+    ctx.lineTo(207, 124);
+    ctx.lineTo(195, 124);
+    ctx.closePath();
+    ctx.fill();
+
+    // Lower center facet reflecting internal golden warmth
+    ctx.fillStyle = `rgba(255, 218, 182, ${0.22 + shimmer * 0.10})`;
+    ctx.beginPath();
+    ctx.moveTo(195, 124);
+    ctx.lineTo(207, 124);
+    ctx.lineTo(205, 153);
+    ctx.lineTo(194, 153);
+    ctx.closePath();
+    ctx.fill();
+
+    // Right shadow facet
+    ctx.fillStyle = 'rgba(68, 52, 125, 0.38)';
+    ctx.beginPath();
+    ctx.moveTo(207, 124);
+    ctx.lineTo(217, 122);
+    ctx.lineTo(213, 153);
+    ctx.lineTo(205, 153);
+    ctx.closePath();
+    ctx.fill();
+
+    // Crystal facet crisp edges
+    ctx.strokeStyle = 'rgba(245, 248, 255, 0.68)';
+    ctx.lineWidth = 0.9;
+    ctx.beginPath();
+    ctx.moveTo(200, 96);
+    ctx.lineTo(217, 122);
+    ctx.lineTo(213, 153);
+    ctx.lineTo(187, 153);
+    ctx.lineTo(183, 122);
+    ctx.closePath();
+    ctx.moveTo(200, 96);
+    ctx.lineTo(195, 124);
+    ctx.lineTo(194, 153);
+    ctx.moveTo(200, 96);
+    ctx.lineTo(207, 124);
+    ctx.lineTo(205, 153);
+    ctx.moveTo(183, 122);
+    ctx.lineTo(195, 124);
+    ctx.lineTo(207, 124);
+    ctx.lineTo(217, 122);
+    ctx.stroke();
+
+    // Subtle sparkle on crystal tip
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    drawGlowOrb(199, 102, 14, 225, 242, 255, 0.22 + shimmer * 0.14);
+    ctx.restore();
+    ctx.restore();
+
+    // 3. Antique brass wire-wrap collar around the bottle neck + swaying charm
+    ctx.save();
+    const wireGrad = ctx.createLinearGradient(174, 212, 226, 226);
+    wireGrad.addColorStop(0, '#6a4b24');
+    wireGrad.addColorStop(0.28, '#f0d192');
+    wireGrad.addColorStop(0.58, '#b58a4c');
+    wireGrad.addColorStop(1, '#583d1c');
+
+    const rings = [212, 217, 222];
+    for (let i = 0; i < rings.length; i++) {
+      const y = rings[i];
+      ctx.beginPath();
+      ctx.moveTo(176, y - 1);
+      ctx.bezierCurveTo(188, y + 4.5, 212, y + 4.5, 224, y - 1);
+      ctx.strokeStyle = 'rgba(20, 12, 6, 0.45)';
+      ctx.lineWidth = 3.2;
+      ctx.stroke();
+
+      ctx.strokeStyle = wireGrad;
+      ctx.lineWidth = 2.1;
+      ctx.stroke();
+    }
+
+    // Tiny brass loop and gently swaying pearl charm on the right side
+    const sway = Math.sin(t * 1.15) * 0.09 + (pointer.x - 0.5) * 0.12;
+    ctx.save();
+    ctx.translate(223, 222);
+    ctx.rotate(sway);
+
+    // Wire link
+    ctx.strokeStyle = '#d4af6a';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.arc(3, 4, 3.2, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(4, 7);
+    ctx.lineTo(6, 21);
+    ctx.stroke();
+
+    // Tiny brass cap on teardrop pearl
+    ctx.fillStyle = '#cfa760';
+    ctx.beginPath();
+    ctx.arc(6.5, 21.5, 2.2, Math.PI, 0);
+    ctx.fill();
+
+    // Glowing opalescent teardrop charm
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    drawGlowOrb(6.5, 27, 11, 175, 245, 240, 0.25);
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.moveTo(6.5, 21);
+    ctx.bezierCurveTo(11, 24, 11, 31, 6.5, 32.5);
+    ctx.bezierCurveTo(2, 31, 2, 24, 6.5, 21);
+    const pearlGrad = ctx.createRadialGradient(5, 25, 0.5, 6.5, 27, 6.5);
+    pearlGrad.addColorStop(0, '#ffffff');
+    pearlGrad.addColorStop(0.45, '#b8f2ea');
+    pearlGrad.addColorStop(1, '#6f8ac2');
+    ctx.fillStyle = pearlGrad;
+    ctx.fill();
+
+    ctx.restore();
+    ctx.restore();
+  }
+
+  let lastTime = performance.now();
+  let elapsed = 0;
+
+  function frame(now) {
+    const dt = Math.min(0.05, Math.max(0, (now - lastTime) * 0.001));
+    lastTime = now;
+    elapsed += dt;
+
+    // Smooth pointer follow
+    pointer.x += (pointer.tx - pointer.x) * Math.min(1, dt * 4);
+    pointer.y += (pointer.ty - pointer.y) * Math.min(1, dt * 4);
+
+    const breathe = 0.5 + 0.5 * Math.sin(elapsed * 0.95);
+
+    ctx.save();
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    drawBackground(elapsed, breathe);
+
+    ctx.save();
+    ctx.translate(offsetX, offsetY);
+    ctx.scale(scale, scale);
+
+    drawCompanionCrystal(elapsed);
+    drawBottle(elapsed, breathe);
+    drawStopperAndCollar(elapsed);
+
+    ctx.restore();
+    ctx.restore();
+
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Shimmer-Sigh Serum",
+  "statement": "A quiet suspension of spun starlight and twilight mist that rises in slow, luminous sighs before settling back into velvet calm. One drop steadies racing thoughts and leaves the mind clear as blown glass."
+}
+```

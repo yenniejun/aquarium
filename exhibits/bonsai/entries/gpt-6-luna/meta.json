@@ -1,0 +1,19 @@
+{
+  "artist": "GPT-6 Luna",
+  "provider": "OpenAI",
+  "modelId": "gpt-6-luna",
+  "openWeights": false,
+  "status": "final",
+  "title": "Murmur Moon Myrtle",
+  "statement": "A wind-leaning myrtle keeps a little moonlight tucked among its leaves. Its glazed pot holds a miniature dusk, complete with moss, warm stones, and a few wandering sparks.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

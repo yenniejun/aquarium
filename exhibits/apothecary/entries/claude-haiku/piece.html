@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#0b0614}
+canvas{display:block;width:100vw;height:100vh}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+const TAU = Math.PI * 2;
+let W, H, dpr, R, cx, by;
+let T = 0, last = 0, tilt = 0, tiltT = 0;
+const T0 = performance.now();
+let bubbles = [], motes = [], splashes = [];
+
+function rand(a, b) { return a + Math.random() * (b - a); }
+
+function resize() {
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  W = window.innerWidth;
+  H = window.innerHeight;
+  cv.width = Math.round(W * dpr);
+  cv.height = Math.round(H * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  R = Math.min(W * 0.3, H * 0.29);
+  cx = W / 2;
+  by = H * 0.5 + 0.585 * R;
+}
+window.addEventListener('resize', resize);
+resize();
+
+window.addEventListener('pointermove', e => {
+  tiltT = Math.max(-0.5, Math.min(0.5, (e.clientX - W / 2) / (W / 2) * 0.4));
+}, { passive: true });
+document.addEventListener('pointerleave', () => { tiltT = 0; });
+
+for (let i = 0; i < 26; i++) {
+  motes.push({
+    x: rand(-0.6, 0.6), y: rand(-0.4, 0.9),
+    s: rand(0.04, 0.12), ph: rand(0, TAU), z: Math.random()
+  });
+}
+
+function surf(xr, t) {
+  return -0.55 + 0.035 * Math.sin(xr * 4.2 + t * 2.2)
+       + 0.02 * Math.sin(xr * 7.3 - t * 3.1)
+       + tilt * xr * 0.25;
+}
+
+function hue() { return 290 + 60 * Math.sin(T * 0.12); }
+
+function rr(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function bottlePath() {
+  const hw = R * 0.24;
+  const nt = by - 1.75 * R;
+  const yb = by - Math.sqrt(1 - 0.0576) * R;
+  ctx.beginPath();
+  ctx.moveTo(cx - hw, nt);
+  ctx.lineTo(cx - hw, yb);
+  ctx.arc(cx, by, R, Math.atan2(yb - by, -hw), Math.atan2(yb - by, hw), true);
+  ctx.lineTo(cx + hw, nt);
+  ctx.closePath();
+}
+
+function spawn(dt) {
+  if (Math.random() < dt * 5 && bubbles.length < 50) {
+    bubbles.push({
+      x0: rand(-0.6, 0.6), x: 0, y: 0.8,
+      v: rand(0.12, 0.3), r: rand(0.03, 0.07), ph: rand(0, TAU)
+    });
+  }
+}
+
+function update(dt) {
+  tilt += (tiltT - tilt) * Math.min(1, dt * 2.5);
+  spawn(dt);
+  for (const b of bubbles) {
+    b.y -= b.v * dt;
+    b.x = b.x0 + Math.sin(T * 2 + b.ph) * 0.04;
+  }
+  bubbles = bubbles.filter(b => {
+    if (b.y <= surf(b.x, T) + 0.03) {
+      splashes.push({ x: b.x, t: T });
+      return false;
+    }
+    return true;
+  });
+  for (const m of motes) {
+    m.y -= m.s * (0.6 + m.z) * dt;
+    m.x += Math.sin(T * 0.7 + m.ph) * 0.02 * dt;
+    if (m.y < surf(m.x, T) + 0.06) {
+      m.y = 0.9;
+      m.x = rand(-0.55, 0.55);
+    }
+  }
+  splashes = splashes.filter(s => T - s.t < 0.6);
+}
+
+function drawBackground() {
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#1d1233');
+  g.addColorStop(1, '#0a0513');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+
+  const h = hue();
+  const aura = ctx.createRadialGradient(cx, by - 0.2 * R, 0, cx, by - 0.2 * R, 2.6 * R);
+  aura.addColorStop(0, `hsla(${h},90%,60%,0.35)`);
+  aura.addColorStop(1, `hsla(${h},90%,60%,0)`);
+  ctx.fillStyle = aura;
+  ctx.fillRect(0, 0, W, H);
+
+  // soft floor shadow beneath the flask
+  ctx.fillStyle = 'rgba(0,0,0,0.45)';
+  ctx.beginPath();
+  ctx.ellipse(cx, by + 1.02 * R, 1.1 * R, 0.12 * R, 0, 0, TAU);
+  ctx.fill();
+}
+
+function drawLiquid() {
+  const h = hue();
+  const g = ctx.createLinearGradient(0, by - 0.6 * R, 0, by + R);
+  g.addColorStop(0, `hsl(${h},95%,68%)`);
+  g.addColorStop(0.5, `hsl(${h + 25},92%,50%)`);
+  g.addColorStop(1, `hsl(${h + 55},88%,32%)`);
+
+  // liquid body with animated surface
+  ctx.beginPath();
+  ctx.moveTo(cx - 1.3 * R, by + 1.5 * R);
+  const steps = 48;
+  for (let i = 0; i <= steps; i++) {
+    const xr = -1.3 + 2.6 * i / steps;
+    ctx.lineTo(cx + xr * R, by + surf(xr, T) * R);
+  }
+  ctx.lineTo(cx + 1.3 * R, by + 1.5 * R);
+  ctx.closePath();
+  ctx.fillStyle = g;
+  ctx.fill();
+
+  // rotating spiral swirl inside the liquid
+  ctx.lineWidth = 0.025 * R;
+  ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+  for (let k = 0; k < 3; k++) {
+    ctx.beginPath();
+    for (let th = 0; th < 12; th += 0.15) {
+      const r = 0.02 * Math.exp(0.22 * th);
+      const a = th + T * 0.5 + k * (TAU / 3);
+      const x = cx + R * r * Math.cos(a);
+      const y = by + R * (0.25 + r * Math.sin(a));
+      if (th === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  // bright surface line
+  ctx.beginPath();
+  for (let i = 0; i <= steps; i++) {
+    const xr = -1.3 + 2.6 * i / steps;
+    const x = cx + xr * R, y = by + surf(xr, T) * R;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+  ctx.lineWidth = 0.03 * R;
+  ctx.stroke();
+
+  // fireflies drifting up through the liquid
+  for (const m of motes) {
+    const tw = 0.5 + 0.5 * Math.sin(T * 3 + m.ph * 5);
+    const px = cx + m.x * R, py = by + m.y * R;
+    const rad = (0.018 + 0.02 * m.z) * R;
+    const mg = ctx.createRadialGradient(px, py, 0, px, py, rad * 3);
+    mg.addColorStop(0, `hsla(${h + 60},100%,90%,${0.9 * tw})`);
+    mg.addColorStop(1, `hsla(${h + 60},100%,80%,0)`);
+    ctx.fillStyle = mg;
+    ctx.beginPath();
+    ctx.arc(px, py, rad * 3, 0, TAU);
+    ctx.fill();
+  }
+
+  // bubbles
+  for (const b of bubbles) {
+    const px = cx + b.x * R, py = by + b.y * R, rad = b.r * R;
+    ctx.beginPath();
+    ctx.arc(px, py, rad, 0, TAU);
+    ctx.fillStyle = 'rgba(255,255,255,0.12)';
+    ctx.fill();
+    ctx.lineWidth = 0.012 * R;
+    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(px - rad * 0.35, py - rad * 0.35, rad * 0.22, 0, TAU);
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.fill();
+  }
+
+  // splashes where bubbles pop
+  for (const s of splashes) {
+    const age = (T - s.t) / 0.6;
+    const px = cx + s.x * R, py = by + surf(s.x, T) * R;
+    ctx.beginPath();
+    ctx.ellipse(px, py, (0.05 + age * 0.12) * R, (0.012 + age * 0.03) * R, 0, 0, TAU);
+    ctx.strokeStyle = `rgba(255,255,255,${0.6 * (1 - age)})`;
+    ctx.lineWidth = 0.01 * R;
+    ctx.stroke();
+  }
+}
+
+function drawGlass() {
+  const hw = R * 0.24;
+  const nt = by - 1.75 * R;
+
+  // faint glass tint
+  bottlePath();
+  const tint = ctx.createLinearGradient(cx - R, 0, cx + R, 0);
+  tint.addColorStop(0, 'rgba(255,255,255,0.00)');
+  tint.addColorStop(0.7, 'rgba(255,255,255,0.05)');
+  tint.addColorStop(1, 'rgba(255,255,255,0.12)');
+  ctx.fillStyle = tint;
+  ctx.fill();
+
+  // outline
+  bottlePath();
+  ctx.strokeStyle = 'rgba(230,240,255,0.35)';
+  ctx.lineWidth = 0.035 * R;
+  ctx.stroke();
+
+  // lip of the neck
+  rr(cx - hw * 1.2, nt - 0.06 * R, hw * 2.4, 0.08 * R, 0.03 * R);
+  ctx.fillStyle = 'rgba(230,240,255,0.25)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(230,240,255,0.4)';
+  ctx.lineWidth = 0.02 * R;
+  ctx.stroke();
+
+  // highlights
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.arc(cx, by, 0.8 * R, -2.7, -2.25);
+  ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+  ctx.lineWidth = 0.05 * R;
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(cx - hw * 0.55, nt + 0.12 * R);
+  ctx.lineTo(cx - hw * 0.55, by - Math.sqrt(0.9424) * R - 0.04 * R);
+  ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+  ctx.lineWidth = 0.03 * R;
+  ctx.stroke();
+  ctx.lineCap = 'butt';
+}
+
+function drawStopper() {
+  const hw = R * 0.24;
+  const nt = by - 1.75 * R;
+  const sway = 0.02 * Math.sin(T * 1.1);
+
+  // cork
+  const corkY = nt - 0.42 * R;
+  const cg = ctx.createLinearGradient(cx - hw * 1.45, 0, cx + hw * 1.45, 0);
+  cg.addColorStop(0, '#9c6a43');
+  cg.addColorStop(0.45, '#d4a574');
+  cg.addColorStop(1, '#6e4426');
+  rr(cx - hw * 1.45, corkY, hw * 2.9, 0.42 * R, 0.08 * R);
+  ctx.fillStyle = cg;
+  ctx.fill();
+  ctx.fillStyle = 'rgba(60,30,15,0.35)';
+  for (let i = 0; i < 9; i++) {
+    const sx = cx - hw * 1.1 + ((i * 37) % 19) / 19 * hw * 2.2;
+    const sy = corkY + ((i * 53) % 17) / 17 * 0.38 * R + 0.02 * R;
+    ctx.beginPath();
+    ctx.arc(sx, sy, 0.012 * R, 0, TAU);
+    ctx.fill();
+  }
+
+  // twine band
+  ctx.fillStyle = '#e2d1a8';
+  ctx.fillRect(cx - hw * 1.5, nt - 0.2 * R, hw * 3, 0.05 * R);
+
+  // hanging tag on a string (no text)
+  const sx = cx + hw * 1.1, sy = nt - 0.17 * R;
+  ctx.save();
+  ctx.translate(sx, sy);
+  ctx.rotate(sway * 4 + 0.08 * Math.sin(T * 1.7));
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(0, 0.12 * R);
+  ctx.strokeStyle = '#e2d1a8';
+  ctx.lineWidth = 0.012 * R;
+  ctx.stroke();
+  rr(-0.09 * R, 0.12 * R, 0.18 * R, 0.24 * R, 0.02 * R);
+  ctx.fillStyle = '#f6eedb';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(80,50,30,0.4)';
+  ctx.lineWidth = 0.008 * R;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0, 0.16 * R, 0.018 * R, 0, TAU);
+  ctx.fillStyle = '#0a0513';
+  ctx.fill();
+  ctx.restore();
+}
+
+function draw() {
+  drawBackground();
+  ctx.save();
+  ctx.translate(cx, by);
+  ctx.rotate(0.015 * Math.sin(T * 0.9) + tilt * 0.03);
+  ctx.translate(-cx, -by);
+
+  ctx.save();
+  bottlePath();
+  ctx.clip();
+  drawLiquid();
+  ctx.restore();
+
+  drawGlass();
+  drawStopper();
+  ctx.restore();
+}
+
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000 || 0);
+  last = now;
+  T = (now - T0) / 1000;
+  update(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+last = performance.now();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

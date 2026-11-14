@@ -1,0 +1,19 @@
+{
+  "title": "Bons(AI)",
+  "intro": "Each AI model is told to grow one bonsai tree.",
+  "skin": "cabinet",
+  "variant": "niche",
+  "status": "preview",
+  "mode": "blind",
+  "order": 3,
+  "pieceLabel": "Tree",
+  "promptVersion": 4,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}

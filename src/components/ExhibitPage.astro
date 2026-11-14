@@ -21,9 +21,10 @@ const blind = exhibit.mode === 'blind';
 <Base skin={exhibit.skin} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
   <Fragment slot="header">
     <ResetVote exhibit={exhibit} />
+    {/* Every exhibit gets the "?" modal; only one whose skin has a Welcome (the aquarium) opens it on a first visit. */}
     {
       Welcome ? (
-        <About exhibit={exhibit}>
+        <About exhibit={exhibit} autoOpen>
           <Welcome exhibit={exhibit} />
         </About>
       ) : (

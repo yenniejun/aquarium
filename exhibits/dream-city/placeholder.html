@@ -1,0 +1,21 @@
+<!doctype html>
+<!-- Shown for any entry with no piece.html yet: a soft, slowly breathing glow. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awaiting arrival</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body { background: radial-gradient(circle at 50% 60%, #3a4a44, #151b19 70%); }
+  .glow {
+    position: absolute; left: 50%; top: 58%; width: 30vmin; height: 30vmin; border-radius: 50%;
+    background: radial-gradient(circle, rgba(220, 240, 220, .35), transparent 70%);
+    translate: -50% -50%; animation: breathe 4s ease-in-out infinite alternate;
+  }
+  @keyframes breathe { to { scale: 1.35; opacity: .5; } }
+  @media (prefers-reduced-motion: reduce) { .glow { animation: none; } }
+</style>
+</head>
+<body><div class="glow"></div></body>
+</html>

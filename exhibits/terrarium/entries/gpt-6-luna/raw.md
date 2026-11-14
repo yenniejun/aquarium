@@ -1,0 +1,277 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<style>
+  * { box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: transparent; }
+  svg { display: block; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+<svg id="garden" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet" aria-label="A luminous plant growing in a terrarium">
+  <defs>
+    <radialGradient id="air">
+      <stop offset="0" stop-color="#17494b" stop-opacity=".42"/>
+      <stop offset=".55" stop-color="#133840" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#071c2b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#83f2c5"/>
+      <stop offset=".48" stop-color="#44b99d"/>
+      <stop offset="1" stop-color="#c1ef9c"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#a9ffe0" stop-opacity=".94"/>
+      <stop offset=".38" stop-color="#57d8b8" stop-opacity=".82"/>
+      <stop offset="1" stop-color="#6ca8d3" stop-opacity=".82"/>
+    </linearGradient>
+    <linearGradient id="petal" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fff4b0"/>
+      <stop offset=".42" stop-color="#f9bd74"/>
+      <stop offset="1" stop-color="#ed78a6"/>
+    </linearGradient>
+    <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#29483f"/>
+      <stop offset="1" stop-color="#102a32"/>
+    </linearGradient>
+    <radialGradient id="seed">
+      <stop stop-color="#ffe9a1"/>
+      <stop offset=".65" stop-color="#e9a66d"/>
+      <stop offset="1" stop-color="#995e66"/>
+    </radialGradient>
+    <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="tinyGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <ellipse cx="300" cy="430" rx="270" ry="365" fill="url(#air)"/>
+  <g id="atmosphere"></g>
+
+  <g opacity=".36" fill="none" stroke="#8ee6c3">
+    <path d="M108 620 Q300 603 492 620" stroke-width="1"/>
+    <path d="M142 630 Q300 616 458 630" stroke-width=".7" opacity=".55"/>
+  </g>
+  <path d="M48 643 Q102 625 159 638 Q226 647 300 635 Q379 625 447 640 Q500 626 552 644 L552 715 L48 715Z" fill="url(#soil)"/>
+  <path d="M48 643 Q102 625 159 638 Q226 647 300 635 Q379 625 447 640 Q500 626 552 644" fill="none" stroke="#a6d98e" stroke-opacity=".72" stroke-width="2"/>
+  <g id="soilLights" fill="#b8e994" filter="url(#tinyGlow)"></g>
+  <g id="roots" fill="none" stroke="#9ce5af" stroke-linecap="round" opacity=".75"></g>
+
+  <g id="plant">
+    <g id="stemGroup">
+      <path id="mainStem" d="M300 644 C271 573 321 523 294 465 C275 421 306 378 300 337" fill="none" stroke="url(#stem)" stroke-width="6" stroke-linecap="round" filter="url(#tinyGlow)"/>
+      <g id="branches"></g>
+    </g>
+    <g id="flower" opacity="0">
+      <circle r="82" fill="#ffc77d" opacity=".1" filter="url(#softGlow)"/>
+      <g id="orbit" fill="none" stroke="#d8f6c6" stroke-opacity=".72">
+        <ellipse rx="76" ry="30" stroke-width="1.3"/>
+        <ellipse rx="66" ry="24" stroke-width=".8" transform="rotate(62)"/>
+      </g>
+      <g id="petals" filter="url(#tinyGlow)"></g>
+      <circle r="17" fill="#ffe79a" filter="url(#softGlow)"/>
+      <circle r="7" fill="#fff9d2"/>
+      <circle id="satellite" cx="76" cy="0" r="5" fill="#b8f6e0" filter="url(#tinyGlow)"/>
+    </g>
+    <g id="seed">
+      <ellipse cx="300" cy="637" rx="15" ry="20" fill="url(#seed)" transform="rotate(18 300 637)"/>
+      <path d="M298 620 Q304 634 300 650" fill="none" stroke="#fff0b6" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="295" cy="632" r="2" fill="#fff3ce" opacity=".8"/>
+    </g>
+  </g>
+</svg>
+
+<script>
+(() => {
+  const svg = document.getElementById("garden");
+  const NS = "http://www.w3.org/2000/svg";
+  const make = (tag, attrs = {}) => {
+    const el = document.createElementNS(NS, tag);
+    for (const [key, value] of Object.entries(attrs)) el.setAttribute(key, value);
+    return el;
+  };
+  const clamp = n => Math.max(0, Math.min(1, n));
+  const ease = n => { n = clamp(n); return n * n * (3 - 2 * n); };
+
+  const atmosphere = document.getElementById("atmosphere");
+  for (let i = 0; i < 23; i++) {
+    const x = 104 + ((i * 83) % 392);
+    const y = 195 + ((i * 67) % 405);
+    const r = 1 + (i % 3) * .55;
+    atmosphere.appendChild(make("circle", {
+      cx: x, cy: y, r,
+      fill: i % 4 === 0 ? "#ffd99a" : "#a9efd6",
+      opacity: ".55",
+      "data-mote": i
+    }));
+  }
+
+  const soilLights = document.getElementById("soilLights");
+  for (let i = 0; i < 27; i++) {
+    const x = 74 + ((i * 71) % 452);
+    const y = 651 + ((i * 19) % 43);
+    soilLights.appendChild(make("circle", {
+      cx: x, cy: y, r: i % 5 === 0 ? 2.1 : 1.1,
+      opacity: i % 3 === 0 ? ".75" : ".38"
+    }));
+  }
+
+  const roots = document.getElementById("roots");
+  const rootPaths = [
+    "M300 640 C282 658 274 672 259 689",
+    "M301 642 C317 659 327 675 343 692",
+    "M297 649 C291 670 294 683 287 699",
+    "M305 651 C321 664 346 668 360 684"
+  ];
+  rootPaths.forEach((d, i) => {
+    const p = make("path", { d, "stroke-width": i % 2 ? "2" : "1.4" });
+    roots.appendChild(p);
+  });
+
+  const leaves = [
+    { x: 365, y: 560, sx: 1, angle: -12, size: 1.00, start: 9 },
+    { x: 228, y: 527, sx: -1, angle: 8, size: .94, start: 14 },
+    { x: 371, y: 499, sx: 1, angle: -15, size: .90, start: 19 },
+    { x: 228, y: 469, sx: -1, angle: 6, size: .88, start: 24 },
+    { x: 357, y: 438, sx: 1, angle: -17, size: .82, start: 29 },
+    { x: 226, y: 418, sx: -1, angle: 5, size: .78, start: 34 },
+    { x: 349, y: 389, sx: 1, angle: -24, size: .70, start: 39 },
+    { x: 258, y: 366, sx: -1, angle: -7, size: .62, start: 44 }
+  ];
+  const branches = document.getElementById("branches");
+  const growthParts = [];
+  const leafPath = "M0 0 C23 -29 68 -31 103 -4 C76 23 33 29 0 0Z";
+
+  leaves.forEach((leaf, i) => {
+    const baseY = [575, 548, 520, 490, 465, 440, 415, 390][i];
+    const baseX = [300, 290, 301, 295, 293, 290, 298, 300][i];
+    const curve = `M${baseX} ${baseY} Q${(baseX + leaf.x) / 2} ${leaf.y - 18} ${leaf.x} ${leaf.y}`;
+    const branch = make("path", {
+      d: curve, fill: "none", stroke: "url(#stem)",
+      "stroke-width": i < 4 ? "3.5" : "3",
+      "stroke-linecap": "round", filter: "url(#tinyGlow)"
+    });
+    branches.appendChild(branch);
+
+    const group = make("g", { opacity: "0" });
+    group.appendChild(make("path", {
+      d: leafPath, fill: "url(#leaf)", stroke: "#c5ffe4",
+      "stroke-width": "1.3", "stroke-opacity": ".8"
+    }));
+    group.appendChild(make("path", {
+      d: "M2 0 Q48 -2 99 -4", fill: "none",
+      stroke: "#dcffe7", "stroke-width": "1.5", "stroke-opacity": ".9"
+    }));
+    group.appendChild(make("path", {
+      d: "M31 -2 Q39 -14 47 -20 M52 -3 Q62 -15 71 -20 M36 2 Q46 13 54 17 M60 0 Q72 10 81 11",
+      fill: "none", stroke: "#d0ffe5", "stroke-width": ".8", "stroke-opacity": ".55"
+    }));
+    group.appendChild(make("path", {
+      d: "M16 -7 L45 -20 L65 -14 L43 -2Z",
+      fill: "#fff4c2", opacity: ".18"
+    }));
+    branches.appendChild(group);
+
+    growthParts.push({
+      branch, group, start: leaf.start, duration: 7,
+      transform: `translate(${leaf.x} ${leaf.y}) rotate(${leaf.angle}) scale(${leaf.sx * leaf.size} ${leaf.size})`
+    });
+  });
+
+  const mainStem = document.getElementById("mainStem");
+  const stemLength = mainStem.getTotalLength();
+  mainStem.style.strokeDasharray = stemLength;
+  mainStem.style.strokeDashoffset = stemLength;
+
+  growthParts.forEach(part => {
+    const length = part.branch.getTotalLength();
+    part.branch.style.strokeDasharray = length;
+    part.branch.style.strokeDashoffset = length;
+  });
+
+  const rootEls = [...roots.querySelectorAll("path")];
+  rootEls.forEach(path => {
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+  });
+
+  const petals = document.getElementById("petals");
+  for (let i = 0; i < 11; i++) {
+    const petal = make("path", {
+      d: "M0 -7 C-17 -23 -17 -45 0 -61 C17 -45 17 -23 0 -7Z",
+      fill: "url(#petal)", stroke: "#fff1ba", "stroke-width": "1",
+      transform: `rotate(${i * (360 / 11)})`
+    });
+    petals.appendChild(petal);
+  }
+
+  const started = performance.now();
+  const flower = document.getElementById("flower");
+  const seed = document.getElementById("seed");
+  const orbit = document.getElementById("orbit");
+  const satellite = document.getElementById("satellite");
+
+  function frame(now) {
+    const t = (now - started) / 1000;
+
+    const main = ease((t - 3) / 48);
+    mainStem.style.strokeDashoffset = stemLength * (1 - main);
+
+    growthParts.forEach((part, i) => {
+      const p = ease((t - part.start) / part.duration);
+      const length = part.branch.getTotalLength();
+      part.branch.style.strokeDashoffset = length * (1 - p);
+      const pop = .08 + .92 * p;
+      part.group.setAttribute("opacity", p.toFixed(3));
+      part.group.setAttribute("transform", `${part.transform} scale(${pop})`);
+      part.group.style.transformBox = "fill-box";
+      part.group.style.transformOrigin = "0px 0px";
+    });
+
+    const rootProgress = ease((t - 12) / 30);
+    rootEls.forEach((path, i) => {
+      const length = path.getTotalLength();
+      path.style.strokeDashoffset = length * (1 - rootProgress);
+    });
+
+    seed.setAttribute("opacity", (1 - ease((t - 7) / 10)).toFixed(3));
+
+    const bloom = ease((t - 46) / 12);
+    flower.setAttribute("opacity", bloom.toFixed(3));
+    flower.setAttribute("transform", `translate(300 334) scale(${.16 + .84 * bloom})`);
+    petals.setAttribute("transform", `rotate(${t * 5})`);
+    orbit.setAttribute("transform", `rotate(${t * 13})`);
+    satellite.setAttribute("transform", `rotate(${t * 13})`);
+
+    atmosphere.querySelectorAll("[data-mote]").forEach((mote, i) => {
+      const phase = t * (.55 + (i % 5) * .09) + i * 1.7;
+      const x = 104 + ((i * 83) % 392) + Math.sin(phase) * 8;
+      const y = 195 + ((i * 67) % 405) + Math.cos(phase * .8) * 9;
+      mote.setAttribute("cx", x);
+      mote.setAttribute("cy", y);
+      mote.setAttribute("opacity", (.2 + .48 * (0.5 + 0.5 * Math.sin(phase * 1.3))).toFixed(2));
+    });
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Murmur Moon-Mint",
+  "statement": "A patient little moon-mint grows glass-bright leaves, then opens a solar bloom that keeps softly turning. Its floating motes are tomorrow’s pollinators, following whatever makes the garden feel alive."
+}
+```

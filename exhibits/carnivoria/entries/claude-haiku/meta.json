@@ -1,0 +1,19 @@
+{
+  "artist": "Claude Haiku 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-haiku-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "Pompous Puckerjaw",
+  "statement": "A Venus flytrap with rather high opinions of itself, it keeps its jaws half-open as a polite invitation and sulks for a full minute after every meal. Its nectar glints in the lamplight, and its moss is quite proud of itself.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

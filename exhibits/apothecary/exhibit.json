@@ -1,0 +1,19 @@
+{
+  "title": "A(pothecar)I",
+  "intro": "Each AI model is told to brew one potion and bottle it.",
+  "skin": "cabinet",
+  "variant": "shelf",
+  "status": "preview",
+  "mode": "blind",
+  "order": 5,
+  "pieceLabel": "Potion",
+  "promptVersion": 1,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}

@@ -1,0 +1,508 @@
+---
+/**
+ * One piece in its display. The variant sets the shape (via --ratio and the vessel's outline),
+ * what's drawn around it (glass, frame, crossbars, ring) and what it stands on. Everything is CSS.
+ *
+ *   belljar   glass dome with a knob, on a round wooden base             3:4
+ *   niche     no frame: a transparent page whose pot rests on a wooden stand 1:1
+ *   window    painted window frame with crossbars, over a sill           3:4
+ *   shelf     wooden shelf cubby, with a paper tag hanging below         2:3
+ *   terrarium glass case with a peaked roof (a Wardian case), brass frame 3:4
+ *   porthole  round window in a brass ring (the page is cropped round)   1:1
+ */
+import type { PieceView } from '../../lib/exhibits';
+import type { CabinetVariant } from '../names';
+
+interface Props {
+  piece: PieceView;
+  variant: CabinetVariant;
+}
+
+const { piece, variant } = Astro.props;
+const empty = piece.status === 'pending';
+---
+
+<div class:list={['display', variant, { empty }]} role="group" aria-label={piece.title}>
+  <div class="vessel">
+    <div class="glass">
+      <iframe
+        src={piece.src}
+        title={piece.title}
+        sandbox="allow-scripts"
+        tabindex="-1"
+        loading={empty ? 'lazy' : 'eager'}
+        referrerpolicy="no-referrer"
+        onload="this.parentElement.dataset.loaded = ''"></iframe>
+    </div>
+    {
+      variant === 'terrarium' && (
+        <svg class="panes" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M2 88 150 2 298 88V398H2Z M2 88H298 M75 88V398 M225 88V398 M150 2V88" />
+        </svg>
+      )
+    }
+  </div>
+  <div class="base" aria-hidden="true"></div>
+  <button
+    class="label"
+    type="button"
+    data-vote
+    disabled={empty}
+    aria-label={empty ? 'Empty, awaiting arrival' : `Pick ${piece.title} as your favorite`}
+  >
+    <span class="name">{piece.title}</span>
+    <span class="who" data-artist>{piece.artist}</span>
+    {!empty && <span class="hint" aria-hidden="true">♥ pick this one</span>}
+  </button>
+</div>
+
+<style>
+  .display {
+    --ratio: 3 / 4;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vessel {
+    position: relative;
+    width: 100%;
+  }
+
+  .glass {
+    position: relative;
+    aspect-ratio: var(--ratio);
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+
+  .glass[data-loaded] iframe {
+    opacity: 1;
+  }
+
+  /* Overlays (glare, crossbars) never block the pointer. */
+  .glass::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* The label: a small plate under each piece; it's also the vote button. */
+  .label {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+    width: 86%;
+    min-height: 38px;
+    margin-top: 12px;
+    padding: 7px 12px 6px;
+    appearance: none;
+    border: 0;
+    border-radius: 3px;
+    color: #3a2709;
+    background: linear-gradient(160deg, #8c6424, #f1d27f 36%, #b78a36 52%, #e8c56c 72%, #8a6322);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+    font: inherit;
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+
+  .label:disabled,
+  :global([data-state='revealed']) .label {
+    cursor: default;
+  }
+
+  /* Labels are small, so long names wrap onto a second line rather than getting cut off. */
+  .name {
+    max-width: 100%;
+    font: 700 0.72rem/1.25 var(--plaque-font);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .who {
+    display: none;
+    font: 600 0.6rem/1.2 'IBM Plex Mono', monospace;
+  }
+
+  :global([data-state='revealed']) .who {
+    display: block;
+    animation: reveal 0.6s both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+  }
+
+  .hint {
+    font: 500 0.52rem/1 'IBM Plex Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  :global([data-state='voting']) .display:not(.empty):hover .label,
+  :global([data-state='voting']) .label:focus-visible {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 0 18px rgba(255, 215, 120, 0.55);
+    transform: translateY(-2px);
+    outline: none;
+  }
+
+  :global([data-state='voting']) .display:not(.empty):hover .hint,
+  :global([data-state='voting']) .label:focus-visible .hint {
+    opacity: 0.75;
+  }
+
+  :global([data-picked]) .label {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 0 0 2px rgba(255, 236, 170, 0.9),
+      0 0 22px rgba(255, 215, 120, 0.6);
+  }
+
+  /* ---------- Bell jar ---------- */
+  .belljar .glass {
+    border-radius: 50% 50% 8px 8px / 36% 36% 8px 8px;
+    background: rgba(220, 240, 230, 0.06);
+    box-shadow:
+      inset 0 0 0 2px rgba(235, 250, 245, 0.45),
+      inset 0 0 26px rgba(235, 250, 245, 0.12),
+      0 22px 40px -12px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Glass: a curved highlight down the left of the dome. */
+  .belljar .glass::after {
+    border-radius: inherit;
+    background:
+      radial-gradient(40% 60% at 22% 30%, rgba(255, 255, 255, 0.16), transparent 70%),
+      linear-gradient(100deg, transparent 0 14%, rgba(255, 255, 255, 0.1) 14% 18%, transparent 18%);
+  }
+
+  /* The knob on top. */
+  .belljar .vessel::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: -11px;
+    width: 26px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.85), rgba(200, 225, 215, 0.45) 60%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    translate: -50% 0;
+  }
+
+  .belljar .base {
+    width: 112%;
+    height: 20px;
+    margin-top: -6px;
+    border-radius: 50% / 45%;
+    background: linear-gradient(#a7754a, #6b4426 60%, #4a2d17);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.45);
+  }
+
+  /* ---------- Bonsai: no frame, the pot stands right on a low wooden stand ---------- */
+  .niche {
+    --ratio: 1;
+  }
+
+  /* Bonsai pages have a transparent background, so the tree sits against the paper wall. */
+  .niche .glass {
+    overflow: visible;
+    background: transparent;
+  }
+
+  .niche .base {
+    position: relative;
+    width: 76%;
+    height: 14px;
+    border-radius: 2px;
+    background: linear-gradient(#7a5338, #3f2a1c);
+    box-shadow: 0 8px 12px rgba(60, 40, 20, 0.3);
+  }
+
+  /* Two little feet under the stand. */
+  .niche .base::before,
+  .niche .base::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    width: 10%;
+    height: 7px;
+    background: #3f2a1c;
+  }
+
+  .niche .base::before {
+    left: 10%;
+  }
+
+  .niche .base::after {
+    right: 10%;
+  }
+
+  .niche .label {
+    color: #2b2620;
+    background: #fbf8f1;
+    box-shadow:
+      0 0 0 1px rgba(60, 40, 20, 0.15),
+      0 2px 4px rgba(60, 40, 20, 0.2);
+  }
+
+  /* A red seal on the card. */
+  .niche .label::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: #b5543c;
+    translate: 0 -50%;
+  }
+
+  /* ---------- Window (dream city) ---------- */
+  .window .vessel {
+    border: 13px solid #e9e1cf;
+    border-radius: 3px;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(0, 0, 0, 0.3),
+      0 0 60px -10px rgba(255, 200, 120, 0.35);
+  }
+
+  /* Crossbars and a sheet of glare. */
+  .window .glass::after {
+    background:
+      linear-gradient(90deg, transparent calc(50% - 4px), #e9e1cf calc(50% - 4px) calc(50% + 4px), transparent calc(50% + 4px)),
+      linear-gradient(transparent calc(50% - 4px), #e9e1cf calc(50% - 4px) calc(50% + 4px), transparent calc(50% + 4px)),
+      linear-gradient(125deg, transparent 0 30%, rgba(255, 255, 255, 0.08) 30% 42%, transparent 42%);
+  }
+
+  .window .base {
+    position: relative;
+    width: 116%;
+    height: 14px;
+    margin-top: -2px;
+    border-radius: 2px;
+    background: linear-gradient(#f1eadb, #c9bfa9);
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.5);
+  }
+
+  /* A tiny potted plant on the sill. */
+  .window .base::before {
+    content: '';
+    position: absolute;
+    right: 10%;
+    bottom: 100%;
+    width: 16px;
+    height: 13px;
+    border-radius: 0 0 4px 4px;
+    background: #c4673f;
+  }
+
+  .window .base::after {
+    content: '';
+    position: absolute;
+    right: calc(10% - 3px);
+    bottom: calc(100% + 11px);
+    width: 22px;
+    height: 16px;
+    border-radius: 50% 50% 40% 40%;
+    background:
+      radial-gradient(circle at 30% 60%, #5c9a55 0 40%, transparent 42%),
+      radial-gradient(circle at 70% 55%, #4e8a49 0 42%, transparent 44%),
+      radial-gradient(circle at 50% 30%, #69a861 0 38%, transparent 40%);
+  }
+
+  /* ---------- Shelf cubby (apothecary) ---------- */
+  .shelf {
+    --ratio: 2 / 3;
+  }
+
+  .shelf .vessel {
+    border: 12px solid #5c3b22;
+    border-bottom-width: 18px;
+    background: #140b06;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.5),
+      0 18px 30px -10px rgba(0, 0, 0, 0.6);
+  }
+
+  .shelf .glass {
+    box-shadow: inset 0 12px 24px rgba(0, 0, 0, 0.65);
+  }
+
+  .shelf .glass::after {
+    box-shadow: inset 0 14px 22px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Paper tag on a string. */
+  .shelf .label {
+    width: 72%;
+    margin-top: 22px;
+    border-radius: 3px 3px 10px 10px;
+    color: #3b2a16;
+    background: linear-gradient(#f3e3bf, #e3cc98);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    rotate: -2deg;
+  }
+
+  .shelf .label::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: 1px;
+    height: 20px;
+    background: rgba(240, 226, 196, 0.6);
+  }
+
+  /* ---------- Terrarium (a Wardian case) ---------- */
+  .terrarium .vessel {
+    filter: drop-shadow(0 18px 18px rgba(20, 50, 35, 0.4));
+  }
+
+  .terrarium .glass {
+    clip-path: polygon(50% 0, 100% 22%, 100% 100%, 0 100%, 0 22%);
+    background: rgba(240, 250, 244, 0.25);
+  }
+
+  /* Glare on the glass. */
+  .terrarium .glass::after {
+    background:
+      linear-gradient(115deg, transparent 0 18%, rgba(255, 255, 255, 0.14) 18% 23%, transparent 23% 27%, rgba(255, 255, 255, 0.08) 27% 29%, transparent 29%),
+      radial-gradient(60% 30% at 50% 18%, rgba(255, 255, 255, 0.16), transparent 70%);
+  }
+
+  /* The brass frame: outline, roofline, ridge and two side bars. */
+  .panes {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+    stroke: #c9a24c;
+    stroke-width: 3;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+  }
+
+  .panes path {
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* A little brass finial on the peak. */
+  .terrarium .vessel::before {
+    content: '';
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: -9px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff1c2, #b8892f 70%);
+    translate: -50% 0;
+  }
+
+  .terrarium .base {
+    width: 106%;
+    height: 16px;
+    border-radius: 3px;
+    background: linear-gradient(#d2ad5c, #8f6a28 60%, #5f4417);
+    box-shadow: 0 8px 14px rgba(20, 50, 35, 0.35);
+  }
+
+  .terrarium .label {
+    width: 60%;
+    color: #f2f6f3;
+    background: linear-gradient(#3f6b52, #2c4e3b);
+    box-shadow: 0 2px 4px rgba(20, 50, 35, 0.4);
+  }
+
+  /* A garden stake under the marker. */
+  .terrarium .label::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 4px;
+    height: 12px;
+    background: #2c4e3b;
+    translate: -50% 0;
+  }
+
+  /* ---------- Porthole (planetarium) ---------- */
+  .porthole {
+    --ratio: 1;
+  }
+
+  .porthole .glass {
+    border-radius: 50%;
+    background: #050816;
+    box-shadow:
+      0 0 0 9px #b5893d,
+      0 0 0 11px #6d4f1e,
+      0 0 0 13px rgba(255, 220, 150, 0.25),
+      0 0 40px 14px rgba(120, 140, 255, 0.18);
+  }
+
+  /* Bolts around the brass ring. */
+  .porthole .vessel::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    inset: -7px;
+    border-radius: 50%;
+    background: repeating-conic-gradient(#f6dc94 0 1.6deg, transparent 1.6deg 45deg);
+    -webkit-mask: radial-gradient(circle closest-side, transparent calc(100% - 7px), #000 calc(100% - 7px) calc(100% - 3px), transparent calc(100% - 3px));
+    mask: radial-gradient(circle closest-side, transparent calc(100% - 7px), #000 calc(100% - 7px) calc(100% - 3px), transparent calc(100% - 3px));
+    pointer-events: none;
+  }
+
+  .porthole .glass::after {
+    border-radius: 50%;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+  }
+
+  .porthole .label {
+    margin-top: 26px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global([data-state='revealed']) .who {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,19 @@
+{
+  "title": "(Terr)A(r)I(um)",
+  "intro": "Each AI model is told to grow one impossible plant from the future in a terrarium.",
+  "skin": "cabinet",
+  "variant": "terrarium",
+  "status": "preview",
+  "mode": "blind",
+  "order": 6,
+  "pieceLabel": "Plant",
+  "promptVersion": 3,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}

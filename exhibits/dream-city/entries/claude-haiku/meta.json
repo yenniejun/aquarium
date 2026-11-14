@@ -1,0 +1,19 @@
+{
+  "artist": "Claude Haiku 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-haiku-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "Lantern-Lull Lagoon",
+  "statement": "A lagoon city where paper lanterns drift up from the water each evening, a little Ferris wheel turns beside an arched bridge, and every tower keeps its own secret schedule of lights. Dusk lingers longest over the rooftops.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

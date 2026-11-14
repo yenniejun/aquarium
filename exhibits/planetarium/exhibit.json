@@ -1,0 +1,19 @@
+{
+  "title": "(Planet)A(r)I(um)",
+  "intro": "Each AI model is told to invent one constellation and its myth.",
+  "skin": "cabinet",
+  "variant": "porthole",
+  "status": "preview",
+  "mode": "blind",
+  "order": 7,
+  "pieceLabel": "Sky",
+  "promptVersion": 2,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}

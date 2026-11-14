@@ -1,5 +1,8 @@
 ---
-/** An exhibit title with its (parenthesized) parts in a softer tone, so "A(quar)I(um)" reads as AI. */
+/**
+ * An exhibit title that plays with "AI": parenthesized parts are softer, so "A(quar)I(um)" reads
+ * as AI, except a parenthesized "(AI)" itself, which is highlighted, as in "Bons(AI)".
+ */
 interface Props {
   title: string;
 }
@@ -7,10 +10,18 @@ interface Props {
 const parts = Astro.props.title.split(/(\([^)]*\))/).filter(Boolean);
 ---
 
-{parts.map((part) => (part.startsWith('(') ? <span class="aside">{part}</span> : part))}
+{
+  parts.map((part) =>
+    part === '(AI)' ? <span class="ai">{part}</span> : part.startsWith('(') ? <span class="aside">{part}</span> : part,
+  )
+}
 
 <style>
   .aside {
     opacity: 0.5;
+  }
+
+  .ai {
+    color: var(--accent, currentColor);
   }
 </style>

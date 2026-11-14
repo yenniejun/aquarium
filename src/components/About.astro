@@ -12,9 +12,11 @@ import ExhibitTitle from './ExhibitTitle.astro';
 
 interface Props {
   exhibit: Exhibit;
+  /** Open by itself on a first visit, as a welcome. */
+  autoOpen?: boolean;
 }
 
-const { exhibit } = Astro.props;
+const { exhibit, autoOpen = false } = Astro.props;
 const prompt = getPrompt(exhibit);
 const piece = exhibit.pieceLabel.toLowerCase();
 const key = `museum:welcomed:${exhibit.slug}`;
@@ -87,6 +89,7 @@ const key = `museum:welcomed:${exhibit.slug}`;
 </dialog>
 
 {/* Inline so a first-time visitor sees the welcome straight away, not the page and then a popup. */}
+{autoOpen && (
 <script is:inline define:vars={{ key }}>
   try {
     if (new URLSearchParams(location.search).has('reset')) localStorage.removeItem(key);
@@ -98,6 +101,7 @@ const key = `museum:welcomed:${exhibit.slug}`;
     }
   } catch {}
 </script>
+)}
 
 <script>
   const dialog = document.querySelector<HTMLDialogElement>('dialog.about')!;

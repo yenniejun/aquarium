@@ -1,0 +1,19 @@
+{
+  "artist": "GPT-6 Luna",
+  "provider": "OpenAI",
+  "modelId": "gpt-6-luna",
+  "openWeights": false,
+  "status": "final",
+  "title": "Scribble Snapper",
+  "statement": "A velvet-jawed garden oddity lures passing flies with tiny beads of golden nectar, then folds shut in a flash. It grows in a moonlit pot where moss, spores, and curling leaves keep their own quiet company.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

@@ -1,0 +1,368 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#f2d6c0}
+canvas{display:block;width:100vw;height:100vh;touch-action:none}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(function () {
+  const cv = document.getElementById('c');
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, S = 1, ox = 0, oy = 0, dpr = 1;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    cv.width = Math.round(W * dpr);
+    cv.height = Math.round(H * dpr);
+    S = Math.min(W, H) / 1000;
+    ox = (W - 1000 * S) / 2;
+    oy = (H - 1000 * S) / 2;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function rng(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  const R = rng(20517);
+
+  const BASE_X = 500, BASE_Y = 708, TREE_H = 410;
+
+  const segs = [];
+  const dots = [];
+
+  function tip(x, y) {
+    const n = 6 + Math.floor(R() * 4);
+    for (let i = 0; i < n; i++) {
+      const a = R() * Math.PI * 2;
+      const d = R() * 24;
+      const roll = R();
+      const c = roll < 0.4 ? 0 : roll < 0.7 ? 1 : roll < 0.9 ? 2 : 3;
+      dots.push({
+        ax: x, ay: y,
+        ox: Math.cos(a) * d,
+        oy: Math.sin(a) * d * 0.75 + 3,
+        r: 4.5 + R() * 6,
+        c: c,
+        ph: R() * 6.283
+      });
+    }
+  }
+
+  function grow(x, y, ang, len, w, depth) {
+    const x1 = x + Math.cos(ang) * len;
+    const y1 = y + Math.sin(ang) * len;
+    segs.push({ x: x, y: y, x1: x1, y1: y1, w0: w, w1: Math.max(w * 0.75, 0.8) });
+    if (depth >= 4 || len < 14) {
+      tip(x1, y1);
+      return;
+    }
+    if (depth >= 2 && R() < 0.5) tip(x + (x1 - x) * 0.5, y + (y1 - y) * 0.5);
+    const n = R() < 0.45 ? 2 : 3;
+    for (let i = 0; i < n; i++) {
+      const side = n === 2 ? (i ? 1 : -1) : (i - 1);
+      const spread = 0.35 + R() * 0.55;
+      const a2 = ang + side * spread + (R() - 0.5) * 0.3;
+      grow(x1, y1, a2, len * (0.68 + R() * 0.12), w * 0.7, depth + 1);
+    }
+  }
+
+  (function build() {
+    let x = BASE_X, y = BASE_Y, a = -Math.PI / 2 - 0.1, w = 30;
+    for (let i = 0; i < 5; i++) {
+      const L = 80;
+      const nx = x + Math.cos(a) * L;
+      const ny = y + Math.sin(a) * L;
+      segs.push({ x: x, y: y, x1: nx, y1: ny, w0: w, w1: w * 0.8 });
+      if (i >= 1) {
+        const side = i % 2 ? -1 : 1;
+        grow(nx, ny, a + side * (0.8 + R() * 0.4), 72 - i * 8, w * 0.6, 1);
+      }
+      x = nx; y = ny;
+      a += (R() - 0.5) * 0.35 + (i % 2 ? -0.07 : 0.07);
+      w *= 0.8;
+    }
+    grow(x, y, a, 60, w, 1);
+    for (let i = 0; i < 10; i++) tip(x + (R() - 0.5) * 60, y - R() * 40);
+  })();
+
+  const FOLIAGE_COLORS = ['#2f5b4a', '#4c7f5c', '#6e9c8a', '#a9c4a6'];
+  const buckets = [[], [], [], []];
+  dots.forEach(d => buckets[d.c].push(d));
+
+  const fireflies = [];
+  for (let i = 0; i < 12; i++) {
+    fireflies.push({
+      bx: 120 + R() * 760, by: 300 + R() * 440,
+      ph: R() * 6.283, sp: 0.2 + R() * 0.25
+    });
+  }
+
+  const petals = [];
+  for (let i = 0; i < 22; i++) {
+    petals.push({
+      x: R() * 1000, y: R() * 1000,
+      s: 3 + R() * 3, v: 0.6 + R() * 0.8,
+      ph: R() * 6.283,
+      col: R() < 0.5 ? '#f3c9a6' : '#b9d0ae'
+    });
+  }
+
+  function sway(t, hn) {
+    const k = Math.pow(hn, 1.6);
+    return k * (22 * Math.sin(t * 0.7) + 8 * Math.sin(t * 1.3 + 1.1) + 3 * Math.sin(t * 2.9 + hn * 4));
+  }
+
+  function P(x, y, t) {
+    let hn = (BASE_Y - y) / TREE_H;
+    if (hn < 0) hn = 0;
+    if (hn > 1.3) hn = 1.3;
+    const dx = sway(t, hn);
+    const dy = -Math.abs(dx) * 0.04 * hn;
+    return [x + dx, y + dy];
+  }
+
+  function background(t) {
+    const g = ctx.createLinearGradient(0, -300, 0, 1100);
+    g.addColorStop(0, '#f7dcc0');
+    g.addColorStop(0.45, '#e8c3b8');
+    g.addColorStop(1, '#b9a6cc');
+    ctx.fillStyle = g;
+    ctx.fillRect(-2000, -2000, 4000, 4000);
+
+    const pulse = 0.5 + 0.5 * Math.sin(t * 0.4);
+    const glow = ctx.createRadialGradient(800, 160, 20, 800, 160, 170);
+    glow.addColorStop(0, 'rgba(255,245,220,' + (0.55 + 0.15 * pulse) + ')');
+    glow.addColorStop(1, 'rgba(255,245,220,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(560, -10, 480, 340);
+    ctx.fillStyle = '#fff4dc';
+    ctx.beginPath();
+    ctx.arc(800, 160, 52, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(160,140,180,0.55)';
+    ctx.beginPath();
+    ctx.moveTo(-500, 640);
+    ctx.bezierCurveTo(100, 600, 300, 680, 520, 650);
+    ctx.bezierCurveTo(760, 620, 900, 670, 1500, 610);
+    ctx.lineTo(1500, 1500);
+    ctx.lineTo(-500, 1500);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(120,100,150,0.5)';
+    ctx.beginPath();
+    ctx.moveTo(-500, 720);
+    ctx.bezierCurveTo(150, 690, 350, 760, 600, 730);
+    ctx.bezierCurveTo(800, 705, 950, 740, 1500, 700);
+    ctx.lineTo(1500, 1500);
+    ctx.lineTo(-500, 1500);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function drawTree(t) {
+    ctx.lineCap = 'round';
+    for (let i = 0; i < segs.length; i++) {
+      const s = segs[i];
+      const p0 = P(s.x, s.y, t);
+      const p1 = P(s.x1, s.y1, t);
+      const w = (s.w0 + s.w1) * 0.5;
+      ctx.strokeStyle = w > 8 ? '#4a3427' : '#5d4433';
+      ctx.lineWidth = w;
+      ctx.beginPath();
+      ctx.moveTo(p0[0], p0[1]);
+      ctx.lineTo(p1[0], p1[1]);
+      ctx.stroke();
+    }
+    for (let b = 0; b < 4; b++) {
+      const list = buckets[b];
+      ctx.fillStyle = FOLIAGE_COLORS[b];
+      ctx.beginPath();
+      for (let i = 0; i < list.length; i++) {
+        const d = list[i];
+        const p = P(d.ax, d.ay, t);
+        const px = p[0] + d.ox + Math.sin(t * 2.2 + d.ph) * 1.2;
+        const py = p[1] + d.oy + Math.cos(t * 1.8 + d.ph) * 0.9;
+        ctx.moveTo(px + d.r, py);
+        ctx.arc(px, py, d.r, 0, Math.PI * 2);
+      }
+      ctx.fill();
+    }
+  }
+
+  function drawPot() {
+    ctx.fillStyle = 'rgba(40,20,40,0.2)';
+    ctx.beginPath();
+    ctx.ellipse(500, 796, 200, 15, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(328, 700);
+    ctx.bezierCurveTo(330, 760, 355, 790, 392, 792);
+    ctx.lineTo(608, 792);
+    ctx.bezierCurveTo(645, 790, 670, 760, 672, 700);
+    ctx.closePath();
+    const g = ctx.createLinearGradient(330, 0, 670, 0);
+    g.addColorStop(0, '#2a5257');
+    g.addColorStop(0.4, '#6aa39b');
+    g.addColorStop(0.6, '#4f8a84');
+    g.addColorStop(1, '#244a4f');
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+    ctx.lineWidth = 7;
+    ctx.beginPath();
+    ctx.moveTo(352, 718);
+    ctx.bezierCurveTo(356, 750, 368, 770, 390, 778);
+    ctx.stroke();
+
+    ctx.fillStyle = '#4e9089';
+    ctx.beginPath();
+    ctx.ellipse(500, 700, 172, 24, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#2b4a4c';
+    ctx.beginPath();
+    ctx.ellipse(500, 701, 172, 10, 0, 0, Math.PI);
+    ctx.fill();
+
+    ctx.fillStyle = '#3a2b20';
+    ctx.beginPath();
+    ctx.ellipse(500, 704, 158, 15, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = '#d9a441';
+    ctx.lineWidth = 2.6;
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(340, 728);
+    ctx.lineTo(372, 738);
+    ctx.lineTo(362, 758);
+    ctx.lineTo(398, 770);
+    ctx.lineTo(430, 752);
+    ctx.lineTo(462, 766);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(640, 748);
+    ctx.lineTo(618, 764);
+    ctx.lineTo(626, 782);
+    ctx.stroke();
+
+    ctx.fillStyle = '#244a4f';
+    ctx.beginPath();
+    ctx.ellipse(400, 792, 22, 5, 0, 0, Math.PI * 2);
+    ctx.ellipse(600, 792, 22, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawMoss() {
+    ctx.fillStyle = '#6f9a4a';
+    ctx.beginPath();
+    ctx.ellipse(432, 701, 42, 8, 0, 0, Math.PI * 2);
+    ctx.ellipse(566, 699, 30, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#86ad5a';
+    ctx.beginPath();
+    ctx.ellipse(448, 698, 18, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#6f9a4a';
+    ctx.beginPath();
+    ctx.ellipse(334, 716, 8, 14, 0.2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawStones() {
+    const stones = [[248, 790, 40, 16, '#9b9489'], [770, 800, 26, 11, '#a8a196']];
+    stones.forEach(s => {
+      ctx.fillStyle = s[4];
+      ctx.beginPath();
+      ctx.ellipse(s[0], s[1], s[2], s[3], 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.25)';
+      ctx.beginPath();
+      ctx.ellipse(s[0] - s[2] * 0.3, s[1] - s[3] * 0.4, s[2] * 0.4, s[3] * 0.3, 0, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  function drawFireflies(t) {
+    for (let i = 0; i < fireflies.length; i++) {
+      const f = fireflies[i];
+      const x = f.bx + Math.sin(t * f.sp + f.ph) * 40;
+      const y = f.by + Math.cos(t * f.sp * 0.8 + f.ph) * 22;
+      const s = Math.sin(t * 1.6 + f.ph * 3);
+      const a = Math.max(0, s) * Math.max(0, s);
+      if (a < 0.02) continue;
+      ctx.fillStyle = 'rgba(255,240,160,' + (a * 0.22) + ')';
+      ctx.beginPath();
+      ctx.arc(x, y, 9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255,250,200,' + (a * 0.9) + ')';
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  let last = performance.now();
+  function frame(now) {
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    const t = now / 1000;
+
+    ctx.setTransform(dpr * S, 0, 0, dpr * S, dpr * ox, dpr * oy);
+    background(t);
+    drawTree(t);
+    drawPot();
+    drawMoss();
+    drawStones();
+    drawFireflies(t);
+
+    const wind = 16 + 10 * Math.sin(t * 0.5);
+    ctx.fillStyle = null;
+    for (let i = 0; i < petals.length; i++) {
+      const p = petals[i];
+      p.x += dt * (wind + 6);
+      p.y += dt * p.v * 6 + Math.sin(t * 0.9 + p.ph) * 0.4;
+      if (p.x > 1040 || p.y > 1040) {
+        p.x = -40;
+        p.y = R() * 800;
+      }
+      ctx.fillStyle = p.col;
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y, p.s, p.s * 0.45, t * 0.8 + p.ph, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Wibbly Wobbly Juniper",
+  "statement": "A windswept juniper that has been leaning into the same breeze for decades, planted in a celadon pot mended with gold seams. At dusk the fireflies wake, the moon comes up, and the wind carries a few stray needles off over the lavender hills."
+}
+```

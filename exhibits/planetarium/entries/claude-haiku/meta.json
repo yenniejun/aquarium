@@ -1,0 +1,19 @@
+{
+  "artist": "Claude Haiku 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-haiku-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Mending Moth",
+  "statement": "Each night a moth made of silver thread flies the torn places of the dark and stitches them shut with its own small lantern, which is why the sky never quite unravels. When the lantern gutters out the stitches loosen, and the moth sleeps folded until the stars are sewn back in.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

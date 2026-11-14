@@ -1,0 +1,19 @@
+{
+  "artist": "Gemini 4 Hydrogen",
+  "provider": "Google",
+  "modelId": "gemini-4-hydrogen",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Jingle-Jangle Jellyfish",
+  "statement": "Adrift in the quiet currents between galaxies, this luminous bell-creature trails strings of chiming star-bells that ring silently whenever the midnight tide turns. Stargazers claim you can tell how close dawn is by the rhythm of its glow.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

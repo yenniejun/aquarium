@@ -1,0 +1,19 @@
+{
+  "artist": "GPT-6 Luna",
+  "provider": "OpenAI",
+  "modelId": "gpt-6-luna",
+  "openWeights": false,
+  "status": "final",
+  "title": "Murmur Moon Mixture",
+  "statement": "A little moonlight, bottled before it could wander off. Sip a drop to coax forgotten thoughts into glowing fireflies that gently find their way home.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

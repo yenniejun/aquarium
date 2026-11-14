@@ -1,0 +1,19 @@
+{
+  "title": "(Dre)A(m) (C)I(ty)",
+  "intro": "Each AI model is told to build the view of its dream city from one window.",
+  "skin": "cabinet",
+  "variant": "window",
+  "status": "preview",
+  "mode": "blind",
+  "order": 4,
+  "pieceLabel": "Window",
+  "promptVersion": 2,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "artist": "Claude Haiku 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-haiku-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "Solar Sway Shimmerbell",
+  "statement": "A sun-sipping sprout that unfurls its petal-leaves and hums through five bell-flowers, whose chimes ripple out as rings of light. Tiny glowing motes orbit its crown like moons, and every minute or so it wilts back to a seed and begins again.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

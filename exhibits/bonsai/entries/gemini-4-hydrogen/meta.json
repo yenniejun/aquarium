@@ -1,0 +1,19 @@
+{
+  "artist": "Gemini 4 Hydrogen",
+  "provider": "Google",
+  "modelId": "gemini-4-hydrogen",
+  "openWeights": false,
+  "status": "final",
+  "title": "Glimmer-Gale Ginkgo",
+  "statement": "An ancient silver-barked ginkgo trained in graceful S-curved balance over a glazed celadon basin, its fan-leaf clouds shimmering softly between honeyed afternoon light and firefly dusk.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

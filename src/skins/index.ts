@@ -16,10 +16,12 @@ import type { SkinName } from './names';
 import AquariumRoom from './aquarium/Room.astro';
 import AquariumWelcome from './aquarium/Welcome.astro';
 import GalleryRoom from './gallery/Room.astro';
+import CabinetRoom from './cabinet/Room.astro';
 
 type Component = (props: any) => any;
 
 export const skins: Record<SkinName, { Room: Component; Welcome?: Component }> = {
   aquarium: { Room: AquariumRoom, Welcome: AquariumWelcome },
   gallery: { Room: GalleryRoom },
+  cabinet: { Room: CabinetRoom },
 };

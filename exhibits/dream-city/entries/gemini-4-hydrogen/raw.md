@@ -1,0 +1,1029 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whisper-Wick Wharf</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0d1224;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<script>
+(() => {
+  const canvas = document.getElementById('scene');
+  const ctx = canvas.getContext('2d', { alpha: false });
+
+  // Deterministic PRNG for consistent procedural details across resizes
+  function makeRng(seed) {
+    let s = seed >>> 0;
+    return () => {
+      s = (s * 1664525 + 1013904223) >>> 0;
+      return s / 4294967296;
+    };
+  }
+
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const smoothstep = (e0, e1, x) => {
+    const t = clamp((x - e0) / (e1 - e0), 0, 1);
+    return t * t * (3 - 2 * t);
+  };
+
+  function lerpRGB(c1, c2, t) {
+    return [
+      Math.round(lerp(c1[0], c2[0], t)),
+      Math.round(lerp(c1[1], c2[1], t)),
+      Math.round(lerp(c1[2], c2[2], t))
+    ];
+  }
+
+  function rgbStr(c, a = 1) {
+    return a >= 0.999
+      ? `rgb(${c[0]},${c[1]},${c[2]})`
+      : `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(3)})`;
+  }
+
+  // Four-phase atmospheric palette: 0=Dawn, 0.25=Day, 0.5=Dusk, 0.75=Night
+  const PALETTES = [
+    { // Dawn
+      skyTop: [54, 72, 124],
+      skyMid: [158, 134, 168],
+      skyLow: [246, 184, 146],
+      cloud: [252, 218, 198],
+      ridgeFar: [108, 102, 138],
+      ridgeNear: [76, 76, 108],
+      wallLit: [176, 152, 154],
+      wallShade: [98, 92, 118],
+      roof: [122, 82, 86],
+      copper: [108, 152, 142],
+      waterTop: [124, 128, 158],
+      waterBot: [48, 62, 92],
+      foliage: [54, 86, 84],
+      mist: [248, 206, 182]
+    },
+    { // Day
+      skyTop: [62, 138, 198],
+      skyMid: [132, 196, 224],
+      skyLow: [216, 238, 236],
+      cloud: [252, 253, 250],
+      ridgeFar: [124, 162, 184],
+      ridgeNear: [86, 124, 142],
+      wallLit: [228, 214, 192],
+      wallShade: [148, 152, 164],
+      roof: [168, 96, 78],
+      copper: [96, 168, 150],
+      waterTop: [88, 162, 178],
+      waterBot: [42, 98, 118],
+      foliage: [66, 124, 92],
+      mist: [228, 244, 240]
+    },
+    { // Dusk
+      skyTop: [36, 42, 92],
+      skyMid: [128, 72, 116],
+      skyLow: [244, 136, 94],
+      cloud: [236, 146, 124],
+      ridgeFar: [74, 58, 94],
+      ridgeNear: [50, 44, 74],
+      wallLit: [142, 104, 112],
+      wallShade: [64, 56, 84],
+      roof: [94, 54, 64],
+      copper: [68, 108, 112],
+      waterTop: [104, 76, 112],
+      waterBot: [30, 36, 66],
+      foliage: [36, 56, 62],
+      mist: [236, 146, 112]
+    },
+    { // Night
+      skyTop: [12, 18, 44],
+      skyMid: [22, 36, 74],
+      skyLow: [42, 68, 106],
+      cloud: [52, 70, 108],
+      ridgeFar: [28, 42, 72],
+      ridgeNear: [20, 30, 56],
+      wallLit: [62, 74, 102],
+      wallShade: [28, 36, 58],
+      roof: [42, 40, 62],
+      copper: [44, 78, 86],
+      waterTop: [28, 48, 82],
+      waterBot: [10, 18, 38],
+      foliage: [20, 38, 48],
+      mist: [64, 92, 132]
+    }
+  ];
+
+  function samplePalette(cycle) {
+    const scaled = ((cycle % 1) + 1) % 1 * 4;
+    const idx = Math.floor(scaled);
+    const frac = scaled - idx;
+    const t = frac * frac * (3 - 2 * frac);
+    const p1 = PALETTES[idx % 4];
+    const p2 = PALETTES[(idx + 1) % 4];
+    const out = {};
+    for (const k in p1) {
+      out[k] = lerpRGB(p1[k], p2[k], t);
+    }
+    return out;
+  }
+
+  // Pre-seeded scene entities
+  const rng = makeRng(42819);
+
+  const stars = Array.from({ length: 85 }, () => ({
+    x: rng(),
+    y: rng() * 0.48,
+    r: 0.6 + rng() * 1.3,
+    phase: rng() * Math.PI * 2,
+    speed: 1.2 + rng() * 2.4
+  }));
+
+  const clouds = Array.from({ length: 7 }, (_, i) => ({
+    x: i / 7 + rng() * 0.1,
+    y: 0.08 + rng() * 0.25,
+    w: 0.16 + rng() * 0.14,
+    h: 0.035 + rng() * 0.025,
+    speed: 0.004 + rng() * 0.004,
+    puffs: Array.from({ length: 4 }, (__, j) => ({
+      ox: (j - 1.5) * 0.24 + (rng() - 0.5) * 0.08,
+      oy: (rng() - 0.5) * 0.25,
+      r: 0.32 + rng() * 0.22
+    }))
+  }));
+
+  const birds = Array.from({ length: 6 }, (_, i) => ({
+    x: 0.15 + rng() * 0.7,
+    y: 0.12 + rng() * 0.22,
+    speed: 0.016 + rng() * 0.012,
+    phase: i * 1.1 + rng(),
+    size: 0.7 + rng() * 0.5
+  }));
+
+  const skyLanterns = Array.from({ length: 14 }, () => ({
+    baseX: 0.56 + rng() * 0.36,
+    phase: rng(),
+    speed: 0.035 + rng() * 0.025,
+    swayAmp: 0.012 + rng() * 0.015,
+    swayFreq: 1.5 + rng() * 2,
+    size: 0.75 + rng() * 0.65
+  }));
+
+  const fireflies = Array.from({ length: 24 }, () => ({
+    x: 0.52 + rng() * 0.44,
+    y: 0.56 + rng() * 0.36,
+    rx: 0.015 + rng() * 0.025,
+    ry: 0.012 + rng() * 0.02,
+    px: rng() * Math.PI * 2,
+    py: rng() * Math.PI * 2,
+    sx: 0.6 + rng() * 0.8,
+    sy: 0.7 + rng() * 0.9,
+    glowPhase: rng() * Math.PI * 2
+  }));
+
+  const smokePuffs = Array.from({ length: 14 }, (_, i) => ({
+    chimney: i % 2,
+    offset: (i / 14)
+  }));
+
+  // Building window definitions with organic turn-on thresholds
+  function makeWindows(count, cols, rows) {
+    const list = [];
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if (list.length >= count) break;
+        list.push({
+          col: c,
+          row: r,
+          cols,
+          rows,
+          threshold: 0.18 + rng() * 0.55,
+          flickerPhase: rng() * Math.PI * 2,
+          warmth: rng()
+        });
+      }
+    }
+    return list;
+  }
+
+  const leftHouses = [
+    { x: 0.02, w: 0.11, h: 0.16, roofH: 0.06, gable: 'peak', wins: makeWindows(6, 2, 3) },
+    { x: 0.12, w: 0.10, h: 0.21, roofH: 0.055, gable: 'hip', wins: makeWindows(8, 2, 4) },
+    { x: 0.21, w: 0.09, h: 0.14, roofH: 0.05, gable: 'peak', wins: makeWindows(4, 2, 2) },
+    { x: 0.31, w: 0.095, h: 0.17, roofH: 0.05, gable: 'step', wins: makeWindows(6, 2, 3) }
+  ];
+
+  const rightHouses = [
+    { x: 0.56, w: 0.09, h: 0.14, roofH: 0.045, gable: 'peak', wins: makeWindows(4, 2, 2) },
+    { x: 0.83, w: 0.12, h: 0.20, roofH: 0.065, gable: 'peak', wins: makeWindows(8, 2, 4) },
+    { x: 0.92, w: 0.09, h: 0.16, roofH: 0.05, gable: 'hip', wins: makeWindows(6, 2, 3) }
+  ];
+
+  const cafeWindows = makeWindows(6, 3, 2);
+
+  let W = 0, H = 0, U = 1, dpr = 1;
+  let pointerX = 0.5, pointerY = 0.5;
+  let smoothPX = 0.5, smoothPY = 0.5;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.max(1, Math.floor(W * dpr));
+    canvas.height = Math.max(1, Math.floor(H * dpr));
+    U = Math.min(W * 1.15, H * 0.86);
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('pointermove', (e) => {
+    if (W > 0 && H > 0) {
+      pointerX = clamp(e.clientX / W, 0, 1);
+      pointerY = clamp(e.clientY / H, 0, 1);
+    }
+  }, { passive: true });
+
+  resize();
+
+  function drawGlowingOrb(x, y, r, innerCol, outerCol, alpha) {
+    if (alpha <= 0.01) return;
+    const g = ctx.createRadialGradient(x, y, r * 0.15, x, y, r);
+    g.addColorStop(0, rgbStr(innerCol, alpha));
+    g.addColorStop(0.35, rgbStr(outerCol, alpha * 0.45));
+    g.addColorStop(1, rgbStr(outerCol, 0));
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawWindowGrid(bx, by, bw, bh, wins, nightness, time, arch = false) {
+    const padX = bw * 0.18;
+    const padY = bh * 0.16;
+    const usableW = bw - padX * 2;
+    const usableH = bh - padY * 2;
+    for (const w of wins) {
+      const cellW = usableW / w.cols;
+      const cellH = usableH / w.rows;
+      const wx = bx + padX + w.col * cellW + cellW * 0.22;
+      const wy = by + padY + w.row * cellH + cellH * 0.18;
+      const ww = cellW * 0.56;
+      const wh = cellH * 0.62;
+
+      const isLit = nightness > w.threshold;
+      const litStrength = isLit
+        ? clamp((nightness - w.threshold) * 5, 0, 1) * (0.9 + 0.1 * Math.sin(time * 3 + w.flickerPhase))
+        : 0;
+
+      if (litStrength > 0.05) {
+        const winCol = w.warmth > 0.22
+          ? lerpRGB([255, 198, 108], [255, 232, 164], w.warmth)
+          : [176, 224, 212];
+        ctx.fillStyle = rgbStr(winCol, 0.92 * litStrength + 0.08);
+      } else {
+        ctx.fillStyle = 'rgba(34, 48, 72, 0.55)';
+      }
+
+      ctx.beginPath();
+      if (arch) {
+        const r = ww * 0.5;
+        ctx.moveTo(wx, wy + wh);
+        ctx.lineTo(wx, wy + r);
+        ctx.arc(wx + r, wy + r, r, Math.PI, 0, false);
+        ctx.lineTo(wx + ww, wy + wh);
+        ctx.closePath();
+      } else {
+        ctx.rect(wx, wy, ww, wh);
+      }
+      ctx.fill();
+
+      if (litStrength > 0.3) {
+        drawGlowingOrb(wx + ww * 0.5, wy + wh * 0.5, Math.max(ww, wh) * 1.7, [255, 218, 140], [255, 168, 86], 0.18 * litStrength);
+      }
+    }
+  }
+
+  function drawHouse(h, baseY, pal, nightness, time) {
+    const bx = h.x * W;
+    const bw = h.w * W;
+    const bh = h.h * H;
+    const by = baseY - bh;
+    const rh = h.roofH * H;
+
+    // Body
+    ctx.fillStyle = rgbStr(pal.wallShade);
+    ctx.fillRect(bx, by, bw, bh);
+    ctx.fillStyle = rgbStr(pal.wallLit, 0.72);
+    ctx.fillRect(bx, by, bw * 0.68, bh);
+
+    // Roof
+    ctx.fillStyle = rgbStr(pal.roof);
+    ctx.beginPath();
+    if (h.gable === 'peak') {
+      ctx.moveTo(bx - bw * 0.06, by + 1);
+      ctx.lineTo(bx + bw * 0.5, by - rh);
+      ctx.lineTo(bx + bw * 1.06, by + 1);
+    } else if (h.gable === 'hip') {
+      ctx.moveTo(bx - bw * 0.04, by + 1);
+      ctx.lineTo(bx + bw * 0.22, by - rh);
+      ctx.lineTo(bx + bw * 0.78, by - rh);
+      ctx.lineTo(bx + bw * 1.04, by + 1);
+    } else {
+      ctx.moveTo(bx, by + 1);
+      ctx.lineTo(bx, by - rh * 0.6);
+      ctx.lineTo(bx + bw * 0.25, by - rh * 0.6);
+      ctx.lineTo(bx + bw * 0.25, by - rh);
+      ctx.lineTo(bx + bw * 0.75, by - rh);
+      ctx.lineTo(bx + bw * 0.75, by - rh * 0.6);
+      ctx.lineTo(bx + bw, by - rh * 0.6);
+      ctx.lineTo(bx + bw, by + 1);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    drawWindowGrid(bx, by, bw, bh, h.wins, nightness, time, true);
+  }
+
+  function render(nowMs) {
+    const time = nowMs * 0.001;
+    // Smooth 36-second continuous loop
+    const cycle = (time / 36) % 1;
+    const pal = samplePalette(cycle);
+    const nightness = 0.5 - 0.5 * Math.sin(cycle * Math.PI * 2);
+
+    smoothPX += (pointerX - smoothPX) * 0.04;
+    smoothPY += (pointerY - smoothPY) * 0.04;
+    const px = (smoothPX - 0.5) * W * 0.018;
+    const py = (smoothPY - 0.5) * H * 0.012;
+
+    ctx.save();
+    ctx.scale(dpr, dpr);
+
+    // 1. Sky Gradient
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, H * 0.62);
+    skyGrad.addColorStop(0, rgbStr(pal.skyTop));
+    skyGrad.addColorStop(0.55, rgbStr(pal.skyMid));
+    skyGrad.addColorStop(1, rgbStr(pal.skyLow));
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, W, H * 0.65);
+
+    // 2. Stars (fade in at dusk/night)
+    const starVis = smoothstep(0.32, 0.85, nightness);
+    if (starVis > 0.01) {
+      for (const s of stars) {
+        const tw = 0.45 + 0.55 * Math.sin(time * s.speed + s.phase);
+        ctx.fillStyle = `rgba(246, 248, 255, ${(starVis * tw * 0.88).toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(s.x * W + px * 0.15, s.y * H + py * 0.15, s.r * (U / 500 + 0.55), 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // Periodic gentle shooting star in upper sky
+      const shootT = (time * 0.09) % 1;
+      if (shootT < 0.12) {
+        const st = shootT / 0.12;
+        const sx = lerp(0.56 * W, 0.88 * W, st);
+        const sy = lerp(0.08 * H, 0.22 * H, st);
+        const tail = 0.07 * U;
+        const sg = ctx.createLinearGradient(sx, sy, sx - tail, sy - tail * 0.45);
+        sg.addColorStop(0, `rgba(255, 252, 235, ${(starVis * Math.sin(st * Math.PI) * 0.85).toFixed(3)})`);
+        sg.addColorStop(1, 'rgba(255, 252, 235, 0)');
+        ctx.strokeStyle = sg;
+        ctx.lineWidth = Math.max(1, U * 0.003);
+        ctx.beginPath();
+        ctx.moveTo(sx, sy);
+        ctx.lineTo(sx - tail, sy - tail * 0.45);
+        ctx.stroke();
+      }
+    }
+
+    // 3. Sun (Upper-Right Pane) & Crescent Moon (Upper-Left Pane)
+    const dayVis = smoothstep(0.58, 0.12, nightness);
+    const sunX = W * 0.72 + Math.sin(cycle * Math.PI * 2) * W * 0.06 + px * 0.2;
+    const sunY = H * (0.16 + 0.14 * nightness) + py * 0.2;
+    if (dayVis > 0.02) {
+      drawGlowingOrb(sunX, sunY, U * 0.22, [255, 246, 210], [255, 200, 130], dayVis * 0.75);
+      ctx.fillStyle = `rgba(255, 248, 224, ${dayVis.toFixed(3)})`;
+      ctx.beginPath();
+      ctx.arc(sunX, sunY, U * 0.042, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    const moonVis = smoothstep(0.32, 0.78, nightness);
+    const moonX = W * 0.26 + px * 0.2;
+    const moonY = H * (0.17 + (1 - moonVis) * 0.08) + py * 0.2;
+    const moonR = U * 0.044;
+    if (moonVis > 0.02) {
+      drawGlowingOrb(moonX, moonY, U * 0.21, [238, 244, 255], [148, 178, 232], moonVis * 0.55);
+      // Draw crescent using offscreen-free clipping path: outer arc + inner shadow arc
+      ctx.save();
+      ctx.globalAlpha = moonVis;
+      ctx.fillStyle = '#f6f3df';
+      ctx.beginPath();
+      ctx.arc(moonX, moonY, moonR, -Math.PI * 0.48, Math.PI * 0.52, true);
+      ctx.arc(moonX + moonR * 0.42, moonY - moonR * 0.06, moonR * 0.86, Math.PI * 0.48, -Math.PI * 0.46, false);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // 4. Soft Drifting Clouds
+    for (const c of clouds) {
+      const cx = (((c.x + time * c.speed) % 1.35) - 0.18) * W + px * 0.35;
+      const cy = c.y * H + py * 0.25;
+      const cw = c.w * W;
+      const ch = c.h * H;
+      ctx.fillStyle = rgbStr(pal.cloud, 0.52 - nightness * 0.2);
+      ctx.beginPath();
+      for (const p of c.puffs) {
+        const rx = cx + p.ox * cw;
+        const ry = cy + p.oy * ch;
+        const rr = p.r * Math.min(cw * 0.65, ch * 1.5);
+        ctx.moveTo(rx + rr, ry);
+        ctx.arc(rx, ry, rr, 0, Math.PI * 2);
+      }
+      ctx.fill();
+    }
+
+    // 5. Distant Mountain Ridges
+    const horizonY = H * 0.52;
+    ctx.fillStyle = rgbStr(pal.ridgeFar);
+    ctx.beginPath();
+    ctx.moveTo(0, horizonY);
+    ctx.lineTo(0, H * 0.42);
+    ctx.quadraticCurveTo(W * 0.16, H * 0.33, W * 0.34, H * 0.41);
+    ctx.quadraticCurveTo(W * 0.50, H * 0.45, W * 0.66, H * 0.36);
+    ctx.quadraticCurveTo(W * 0.84, H * 0.29, W, H * 0.38);
+    ctx.lineTo(W, horizonY);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = rgbStr(pal.ridgeNear);
+    ctx.beginPath();
+    ctx.moveTo(0, horizonY);
+    ctx.lineTo(0, H * 0.45);
+    ctx.quadraticCurveTo(W * 0.22, H * 0.37, W * 0.45, H * 0.46);
+    ctx.quadraticCurveTo(W * 0.68, H * 0.43, W * 0.86, H * 0.36);
+    ctx.lineTo(W, H * 0.42);
+    ctx.lineTo(W, horizonY);
+    ctx.closePath();
+    ctx.fill();
+
+    // 6. Distant Valley Viaduct Arches (tucked gently near horizon)
+    const viaY = H * 0.465;
+    const viaH = H * 0.055;
+    ctx.fillStyle = rgbStr(pal.wallShade, 0.85);
+    const archCount = 9;
+    const archStart = W * 0.32;
+    const archSpan = W * 0.36;
+    const archStep = archSpan / archCount;
+    ctx.beginPath();
+    ctx.moveTo(archStart, viaY);
+    ctx.lineTo(archStart + archSpan, viaY);
+    ctx.lineTo(archStart + archSpan, viaY + viaH);
+    for (let i = archCount - 1; i >= 0; i--) {
+      const ax = archStart + i * archStep;
+      ctx.lineTo(ax + archStep * 0.82, viaY + viaH);
+      ctx.arc(ax + archStep * 0.5, viaY + viaH * 0.45, archStep * 0.32, 0, Math.PI, true);
+      ctx.lineTo(ax, viaY + viaH);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // Tiny viaduct deck lamps
+    if (nightness > 0.25) {
+      const lAlpha = smoothstep(0.25, 0.7, nightness);
+      for (let i = 1; i < archCount; i += 2) {
+        const lx = archStart + i * archStep;
+        drawGlowingOrb(lx, viaY - 2, U * 0.016, [255, 224, 150], [255, 175, 90], lAlpha * 0.85);
+      }
+    }
+
+    // 7. Drifting Lantern Dirigible (cruising smoothly across upper sky)
+    const shipProg = (time * 0.022) % 1.24 - 0.12;
+    const shipX = shipProg * W + px * 0.5;
+    const shipY = H * 0.19 + Math.sin(time * 0.9) * H * 0.015 + py * 0.4;
+    const shipS = U * 0.068;
+    ctx.save();
+    ctx.translate(shipX, shipY);
+    // Rigging strings
+    ctx.strokeStyle = rgbStr(pal.wallShade, 0.7);
+    ctx.lineWidth = Math.max(0.7, U * 0.002);
+    ctx.beginPath();
+    ctx.moveTo(-shipS * 0.45, shipS * 0.18);
+    ctx.lineTo(-shipS * 0.22, shipS * 0.55);
+    ctx.moveTo(shipS * 0.45, shipS * 0.18);
+    ctx.lineTo(shipS * 0.22, shipS * 0.55);
+    ctx.stroke();
+    // Balloon envelope
+    const envGrad = ctx.createLinearGradient(0, -shipS * 0.48, 0, shipS * 0.38);
+    envGrad.addColorStop(0, rgbStr(lerpRGB([236, 134, 106], [190, 96, 86], nightness)));
+    envGrad.addColorStop(0.5, rgbStr(lerpRGB([248, 212, 162], [222, 166, 112], nightness)));
+    envGrad.addColorStop(1, rgbStr(lerpRGB([164, 96, 98], [94, 58, 76], nightness)));
+    ctx.fillStyle = envGrad;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, shipS * 0.82, shipS * 0.46, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Tail fin
+    ctx.fillStyle = rgbStr(pal.copper);
+    ctx.beginPath();
+    ctx.moveTo(-shipS * 0.78, 0);
+    ctx.lineTo(-shipS * 1.05, -shipS * 0.22);
+    ctx.lineTo(-shipS * 0.95, shipS * 0.2);
+    ctx.closePath();
+    ctx.fill();
+    // Gondola cabin
+    ctx.fillStyle = rgbStr(pal.roof);
+    ctx.fillRect(-shipS * 0.26, shipS * 0.52, shipS * 0.52, shipS * 0.18);
+    // Warm cabin glow & dangling bow lantern
+    if (nightness > 0.2) {
+      ctx.fillStyle = `rgba(255, 222, 140, ${(0.4 + nightness * 0.6).toFixed(2)})`;
+      ctx.fillRect(-shipS * 0.16, shipS * 0.56, shipS * 0.12, shipS * 0.08);
+      ctx.fillRect(shipS * 0.04, shipS * 0.56, shipS * 0.12, shipS * 0.08);
+      drawGlowingOrb(shipS * 0.32, shipS * 0.66, shipS * 0.45, [255, 224, 148], [255, 164, 78], 0.5 + nightness * 0.45);
+    }
+    ctx.restore();
+
+    // 8. Wheeling Birds (active during dawn/day/dusk)
+    const birdVis = smoothstep(0.88, 0.35, nightness);
+    if (birdVis > 0.02) {
+      ctx.strokeStyle = rgbStr(pal.ridgeNear, birdVis * 0.75);
+      ctx.lineWidth = Math.max(0.8, U * 0.0024);
+      for (const b of birds) {
+        const bx = (((b.x + time * b.speed) % 1.2) - 0.1) * W;
+        const by = b.y * H + Math.sin(time * 1.6 + b.phase) * H * 0.015;
+        const flap = Math.sin(time * 7.5 + b.phase) * 0.45;
+        const bs = U * 0.012 * b.size;
+        ctx.beginPath();
+        ctx.moveTo(bx - bs, by - bs * flap);
+        ctx.quadraticCurveTo(bx - bs * 0.4, by - bs * (0.4 + flap * 0.4), bx, by);
+        ctx.quadraticCurveTo(bx + bs * 0.4, by - bs * (0.4 + flap * 0.4), bx + bs, by - bs * flap);
+        ctx.stroke();
+      }
+    }
+
+    // 9. Left Hillside Observatory & Village (Upper-Left Pane)
+    const leftBankY = H * 0.54;
+    ctx.fillStyle = rgbStr(pal.foliage);
+    ctx.beginPath();
+    ctx.moveTo(0, leftBankY);
+    ctx.lineTo(0, H * 0.41);
+    ctx.quadraticCurveTo(W * 0.22, H * 0.36, W * 0.44, leftBankY);
+    ctx.closePath();
+    ctx.fill();
+
+    // Observatory Drum & Copper Dome (Upper-Left Centerpiece)
+    const obsX = W * 0.22;
+    const obsY = H * 0.39;
+    const obsW = W * 0.12;
+    const obsH = H * 0.11;
+    ctx.fillStyle = rgbStr(pal.wallLit);
+    ctx.fillRect(obsX - obsW * 0.5, obsY, obsW, obsH);
+    ctx.fillStyle = rgbStr(pal.wallShade, 0.55);
+    ctx.fillRect(obsX + obsW * 0.1, obsY, obsW * 0.4, obsH);
+    // Dome
+    ctx.fillStyle = rgbStr(pal.copper);
+    ctx.beginPath();
+    ctx.arc(obsX, obsY, obsW * 0.52, Math.PI, 0, false);
+    ctx.closePath();
+    ctx.fill();
+    // Telescope peeking out
+    ctx.strokeStyle = rgbStr(pal.roof);
+    ctx.lineWidth = Math.max(1.5, U * 0.009);
+    ctx.beginPath();
+    ctx.moveTo(obsX + obsW * 0.1, obsY - obsW * 0.22);
+    ctx.lineTo(obsX + obsW * 0.52, obsY - obsW * 0.56);
+    ctx.stroke();
+    // Warm observatory slit glow
+    if (nightness > 0.2) {
+      drawGlowingOrb(obsX, obsY + obsH * 0.35, obsW * 0.85, [255, 224, 150], [255, 178, 92], nightness * 0.45);
+    }
+    drawWindowGrid(obsX - obsW * 0.45, obsY + obsH * 0.1, obsW * 0.9, obsH * 0.7, makeWindows(3, 3, 1), nightness, time, true);
+
+    // Chimney Smoke (from two cozy village houses)
+    const chimneys = [
+      { x: W * 0.15, y: H * 0.36 },
+      { x: W * 0.33, y: H * 0.39 }
+    ];
+    for (const p of smokePuffs) {
+      const ch = chimneys[p.chimney];
+      const life = (time * 0.16 + p.offset) % 1;
+      const sx = ch.x + Math.sin(life * 5 + p.offset * 6) * U * 0.015 + life * U * 0.035;
+      const sy = ch.y - life * H * 0.075;
+      const sr = U * (0.006 + life * 0.018);
+      ctx.fillStyle = rgbStr(pal.mist, (1 - life) * 0.38);
+      ctx.beginPath();
+      ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    for (const h of leftHouses) {
+      drawHouse(h, leftBankY, pal, nightness, time);
+    }
+
+    // 10. Right Hillside Bell-Tower & Glass Conservatory (Upper-Right Pane)
+    const rightBankY = H * 0.54;
+    ctx.fillStyle = rgbStr(pal.foliage);
+    ctx.beginPath();
+    ctx.moveTo(W * 0.54, rightBankY);
+    ctx.quadraticCurveTo(W * 0.78, H * 0.38, W, H * 0.40);
+    ctx.lineTo(W, rightBankY);
+    ctx.closePath();
+    ctx.fill();
+
+    // Tall Botanical Bell-Tower
+    const twX = W * 0.74;
+    const twW = W * 0.088;
+    const twBaseY = rightBankY;
+    const twTopY = H * 0.22;
+    ctx.fillStyle = rgbStr(pal.wallShade);
+    ctx.fillRect(twX - twW * 0.5, twTopY, twW, twBaseY - twTopY);
+    ctx.fillStyle = rgbStr(pal.wallLit, 0.75);
+    ctx.fillRect(twX - twW * 0.5, twTopY, twW * 0.62, twBaseY - twTopY);
+    // Belfry arch opening
+    const belfryY = twTopY + (twBaseY - twTopY) * 0.14;
+    ctx.fillStyle = nightness > 0.25 ? 'rgba(255, 206, 122, 0.85)' : rgbStr(pal.skyLow, 0.8);
+    ctx.beginPath();
+    ctx.arc(twX, belfryY, twW * 0.26, Math.PI, 0, false);
+    ctx.lineTo(twX + twW * 0.26, belfryY + twW * 0.34);
+    ctx.lineTo(twX - twW * 0.26, belfryY + twW * 0.34);
+    ctx.closePath();
+    ctx.fill();
+    if (nightness > 0.25) {
+      drawGlowingOrb(twX, belfryY + twW * 0.1, twW * 1.4, [255, 224, 146], [255, 168, 86], nightness * 0.55);
+    }
+    // Tower spire
+    ctx.fillStyle = rgbStr(pal.copper);
+    ctx.beginPath();
+    ctx.moveTo(twX - twW * 0.58, twTopY);
+    ctx.lineTo(twX, twTopY - H * 0.105);
+    ctx.lineTo(twX + twW * 0.58, twTopY);
+    ctx.closePath();
+    ctx.fill();
+    // Spinning wind-vane finial
+    const spireTipY = twTopY - H * 0.115;
+    ctx.strokeStyle = rgbStr(pal.wallLit);
+    ctx.lineWidth = Math.max(1, U * 0.0025);
+    ctx.beginPath();
+    ctx.moveTo(twX, twTopY - H * 0.105);
+    ctx.lineTo(twX, spireTipY - U * 0.015);
+    ctx.stroke();
+    const spin = Math.cos(time * 2.2) * U * 0.016;
+    ctx.beginPath();
+    ctx.moveTo(twX - spin, spireTipY - U * 0.01);
+    ctx.lineTo(twX + spin, spireTipY - U * 0.01);
+    ctx.stroke();
+
+    // Illuminated Clock-Rose Window on Tower
+    const clkY = twTopY + (twBaseY - twTopY) * 0.36;
+    ctx.fillStyle = nightness > 0.2 ? 'rgba(255, 226, 156, 0.92)' : 'rgba(220, 236, 238, 0.85)';
+    ctx.beginPath();
+    ctx.arc(twX, clkY, twW * 0.24, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Glass-Ribbed Conservatory Dome (nestled beside tower)
+    const consX = W * 0.64;
+    const consY = rightBankY - H * 0.04;
+    const consR = W * 0.085;
+    const glassCol = nightness > 0.25
+      ? lerpRGB([136, 206, 194], [255, 212, 138], nightness * 0.85)
+      : [174, 224, 218];
+    ctx.fillStyle = rgbStr(glassCol, 0.72);
+    ctx.beginPath();
+    ctx.arc(consX, consY, consR, Math.PI, 0, false);
+    ctx.lineTo(consX + consR, rightBankY);
+    ctx.lineTo(consX - consR, rightBankY);
+    ctx.closePath();
+    ctx.fill();
+    // Conservatory ribs
+    ctx.strokeStyle = rgbStr(pal.wallShade, 0.55);
+    ctx.lineWidth = Math.max(0.8, U * 0.002);
+    for (let r = -0.5; r <= 0.5; r += 0.5) {
+      ctx.beginPath();
+      ctx.ellipse(consX, consY, Math.abs(r) * consR * 1.1 + 1, consR, 0, Math.PI, 0, false);
+      ctx.stroke();
+    }
+    if (nightness > 0.2) {
+      drawGlowingOrb(consX, consY, consR * 1.6, [255, 224, 150], [180, 232, 190], nightness * 0.42);
+    }
+
+    for (const h of rightHouses) {
+      drawHouse(h, rightBankY, pal, nightness, time);
+    }
+
+    // 11. Canal Water Surface & Shimmering Reflections (Bottom Half)
+    const waterTopY = H * 0.535;
+    const waterGrad = ctx.createLinearGradient(0, waterTopY, 0, H);
+    waterGrad.addColorStop(0, rgbStr(pal.waterTop));
+    waterGrad.addColorStop(1, rgbStr(pal.waterBot));
+    ctx.fillStyle = waterGrad;
+    ctx.fillRect(0, waterTopY, W, H - waterTopY);
+
+    // Horizon mist band
+    const mistGrad = ctx.createLinearGradient(0, waterTopY - H * 0.03, 0, waterTopY + H * 0.05);
+    mistGrad.addColorStop(0, rgbStr(pal.mist, 0));
+    mistGrad.addColorStop(0.5, rgbStr(pal.mist, 0.34));
+    mistGrad.addColorStop(1, rgbStr(pal.mist, 0));
+    ctx.fillStyle = mistGrad;
+    ctx.fillRect(0, waterTopY - H * 0.03, W, H * 0.08);
+
+    // Inverted vertical reflection ribbons (moon, sun, bell-tower, conservatory)
+    function drawWaterReflection(rx, width, topY, botY, col, alpha) {
+      if (alpha <= 0.02) return;
+      const slices = 18;
+      for (let i = 0; i < slices; i++) {
+        const f = i / slices;
+        const y = lerp(topY, botY, f);
+        const sh = (botY - topY) / slices * 0.65;
+        const waveX = Math.sin(time * 2.3 + f * 12 + rx * 0.02) * U * (0.004 + f * 0.012);
+        const w = width * (0.6 + f * 0.7) * (0.75 + 0.25 * Math.sin(time * 3.2 + i));
+        ctx.fillStyle = rgbStr(col, alpha * (1 - f * 0.75));
+        ctx.fillRect(rx - w * 0.5 + waveX, y, w, sh);
+      }
+    }
+
+    if (moonVis > 0.1) {
+      drawWaterReflection(moonX, U * 0.055, waterTopY + H * 0.03, H * 0.96, [238, 240, 210], moonVis * 0.32);
+    }
+    if (dayVis > 0.1) {
+      drawWaterReflection(sunX, U * 0.075, waterTopY + H * 0.02, H * 0.88, [255, 240, 195], dayVis * 0.25);
+    }
+    if (nightness > 0.2) {
+      drawWaterReflection(twX, twW * 0.7, waterTopY + H * 0.02, H * 0.88, [255, 206, 128], nightness * 0.32);
+      drawWaterReflection(consX, consR * 1.1, waterTopY + H * 0.02, H * 0.84, [220, 238, 184], nightness * 0.26);
+    }
+
+    // Subtle horizontal water shimmer strokes
+    ctx.strokeStyle = rgbStr(pal.mist, 0.18);
+    ctx.lineWidth = Math.max(0.7, U * 0.0018);
+    for (let i = 0; i < 24; i++) {
+      const f = i / 24;
+      const ry = lerp(waterTopY + H * 0.02, H * 0.98, f * f * 0.6 + f * 0.4);
+      const rx = ((Math.sin(i * 19.7) * 0.5 + 0.5) * 0.85 + 0.05) * W + Math.sin(time * 1.4 + i) * U * 0.02;
+      const rw = U * (0.03 + 0.05 * f);
+      ctx.beginPath();
+      ctx.moveTo(rx, ry);
+      ctx.lineTo(rx + rw, ry);
+      ctx.stroke();
+    }
+
+    // 12. Moving Canal Lantern Boat (gliding smoothly across the middle canal)
+    const boatProg = (time * 0.032 + 0.35) % 1.24 - 0.12;
+    const boatX = boatProg * W;
+    const boatY = H * 0.64 + Math.sin(boatProg * Math.PI) * H * 0.035 + Math.sin(time * 2.4) * 1.5;
+    const boatS = U * 0.048;
+
+    // Wake ripples behind boat
+    ctx.strokeStyle = rgbStr(pal.mist, 0.32);
+    ctx.lineWidth = Math.max(0.7, U * 0.0018);
+    ctx.beginPath();
+    ctx.moveTo(boatX - boatS * 0.6, boatY + boatS * 0.1);
+    ctx.lineTo(boatX - boatS * 2.2, boatY - boatS * 0.15);
+    ctx.moveTo(boatX - boatS * 0.6, boatY + boatS * 0.1);
+    ctx.lineTo(boatX - boatS * 2.2, boatY + boatS * 0.32);
+    ctx.stroke();
+
+    // Boat hull
+    ctx.fillStyle = rgbStr(pal.roof);
+    ctx.beginPath();
+    ctx.moveTo(boatX - boatS, boatY - boatS * 0.08);
+    ctx.quadraticCurveTo(boatX, boatY + boatS * 0.32, boatX + boatS * 1.05, boatY - boatS * 0.12);
+    ctx.lineTo(boatX + boatS * 0.65, boatY + boatS * 0.06);
+    ctx.lineTo(boatX - boatS * 0.65, boatY + boatS * 0.06);
+    ctx.closePath();
+    ctx.fill();
+    // Canopy & glowing lantern
+    ctx.fillStyle = rgbStr(pal.copper);
+    ctx.beginPath();
+    ctx.arc(boatX - boatS * 0.1, boatY - boatS * 0.04, boatS * 0.36, Math.PI, 0, false);
+    ctx.fill();
+    drawGlowingOrb(boatX + boatS * 0.62, boatY - boatS * 0.18, boatS * 0.85, [255, 224, 140], [255, 168, 82], 0.55 + nightness * 0.45);
+    ctx.fillStyle = '#ffe59c';
+    ctx.beginPath();
+    ctx.arc(boatX + boatS * 0.62, boatY - boatS * 0.18, boatS * 0.09, 0, Math.PI * 2);
+    ctx.fill();
+    drawWaterReflection(boatX + boatS * 0.5, boatS * 0.4, boatY + boatS * 0.14, boatY + boatS * 1.2, [255, 206, 128], 0.35 + nightness * 0.35);
+
+    // 13. Foreground Bottom-Left: Cozy Waterfront Café & Arched Stone Footbridge
+    const quayLY = H * 0.78;
+    // Left quay stone wall
+    ctx.fillStyle = rgbStr(pal.wallShade);
+    ctx.beginPath();
+    ctx.moveTo(0, quayLY);
+    ctx.lineTo(W * 0.22, quayLY);
+    ctx.lineTo(W * 0.18, H);
+    ctx.lineTo(0, H);
+    ctx.closePath();
+    ctx.fill();
+
+    // Waterfront Book-Café Building
+    const cafeX = 0;
+    const cafeW = W * 0.18;
+    const cafeH = H * 0.19;
+    const cafeY = quayLY - cafeH;
+    ctx.fillStyle = rgbStr(pal.wallLit);
+    ctx.fillRect(cafeX, cafeY, cafeW, cafeH);
+    ctx.fillStyle = rgbStr(pal.roof);
+    ctx.beginPath();
+    ctx.moveTo(0, cafeY);
+    ctx.lineTo(cafeW * 1.06, cafeY);
+    ctx.lineTo(cafeW * 0.88, cafeY - H * 0.05);
+    ctx.lineTo(0, cafeY - H * 0.05);
+    ctx.closePath();
+    ctx.fill();
+    drawWindowGrid(cafeX, cafeY, cafeW, cafeH, cafeWindows, nightness, time, true);
+
+    // Arched Stone Footbridge (spanning Lower-Left Pane cleanly)
+    const brL = W * 0.14;
+    const brR = W * 0.46;
+    const brMid = (brL + brR) * 0.5;
+    const brDeckY = H * 0.77;
+    const brBaseY = H * 0.89;
+    ctx.fillStyle = rgbStr(pal.wallLit);
+    ctx.beginPath();
+    ctx.moveTo(brL, brBaseY);
+    ctx.lineTo(brL, brDeckY);
+    ctx.quadraticCurveTo(brMid, brDeckY - H * 0.045, brR, brDeckY);
+    ctx.lineTo(brR, brBaseY);
+    ctx.lineTo(brR - W * 0.04, brBaseY);
+    ctx.arc(brMid, brBaseY, (brR - brL) * 0.36, 0, Math.PI, true);
+    ctx.lineTo(brL, brBaseY);
+    ctx.closePath();
+    ctx.fill();
+
+    // Bridge parapet rim
+    ctx.strokeStyle = rgbStr(pal.wallShade);
+    ctx.lineWidth = Math.max(1.2, U * 0.005);
+    ctx.beginPath();
+    ctx.moveTo(brL, brDeckY);
+    ctx.quadraticCurveTo(brMid, brDeckY - H * 0.045, brR, brDeckY);
+    ctx.stroke();
+
+    // Glowing Streetlamp at Bridge Crest
+    const lampX = brMid;
+    const lampBaseY = brDeckY - H * 0.024;
+    const lampTopY = lampBaseY - H * 0.068;
+    ctx.strokeStyle = rgbStr(pal.ridgeNear);
+    ctx.lineWidth = Math.max(1.2, U * 0.004);
+    ctx.beginPath();
+    ctx.moveTo(lampX, lampBaseY);
+    ctx.lineTo(lampX, lampTopY);
+    ctx.stroke();
+    const lampGlow = 0.35 + nightness * 0.65;
+    drawGlowingOrb(lampX, lampTopY, U * 0.09, [255, 232, 166], [255, 174, 88], lampGlow * 0.8);
+    ctx.fillStyle = `rgba(255, 240, 190, ${lampGlow.toFixed(2)})`;
+    ctx.beginPath();
+    ctx.arc(lampX, lampTopY, U * 0.008, 0, Math.PI * 2);
+    ctx.fill();
+    drawWaterReflection(lampX, U * 0.03, H * 0.89, H * 0.99, [255, 206, 128], lampGlow * 0.45);
+
+    // 14. Foreground Bottom-Right: Stone Promenade, Moored Skiff & Weeping Willow
+    const quayRY = H * 0.80;
+    ctx.fillStyle = rgbStr(pal.wallShade);
+    ctx.beginPath();
+    ctx.moveTo(W * 0.62, H);
+    ctx.lineTo(W * 0.68, quayRY);
+    ctx.lineTo(W, quayRY - H * 0.03);
+    ctx.lineTo(W, H);
+    ctx.closePath();
+    ctx.fill();
+
+    // Promenade stone steps & lit lantern posts
+    ctx.fillStyle = rgbStr(pal.wallLit, 0.7);
+    ctx.fillRect(W * 0.68, quayRY, W * 0.32, H * 0.018);
+
+    const post1X = W * 0.70, post1Y = quayRY - H * 0.065;
+    const post2X = W * 0.88, post2Y = quayRY - H * 0.085;
+    ctx.strokeStyle = rgbStr(pal.ridgeNear);
+    ctx.lineWidth = Math.max(1.2, U * 0.004);
+    ctx.beginPath();
+    ctx.moveTo(post1X, quayRY); ctx.lineTo(post1X, post1Y);
+    ctx.moveTo(post2X, quayRY - H * 0.02); ctx.lineTo(post2X, post2Y);
+    ctx.stroke();
+
+    // Festive catenary string of tiny warm lanterns
+    ctx.strokeStyle = rgbStr(pal.ridgeNear, 0.7);
+    ctx.lineWidth = Math.max(0.7, U * 0.0018);
+    ctx.beginPath();
+    ctx.moveTo(post1X, post1Y);
+    ctx.quadraticCurveTo((post1X + post2X) * 0.5, (post1Y + post2Y) * 0.5 + H * 0.028, post2X, post2Y);
+    ctx.stroke();
+
+    for (let i = 0; i <= 4; i++) {
+      const f = i / 4;
+      const lx = lerp(post1X, post2X, f);
+      const sag = 4 * f * (1 - f) * H * 0.014;
+      const ly = lerp(post1Y, post2Y, f) + sag;
+      drawGlowingOrb(lx, ly, U * 0.035, [255, 224, 150], [255, 160, 82], (0.35 + nightness * 0.65) * 0.7);
+      ctx.fillStyle = '#ffe6a8';
+      ctx.beginPath();
+      ctx.arc(lx, ly, U * 0.0045, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Moored wooden skiff bobbing gently near bottom-right quay
+    const skiffX = W * 0.60;
+    const skiffY = H * 0.90 + Math.sin(time * 2.1 + 1) * 2.2;
+    const skiffTilt = Math.sin(time * 1.8) * 0.04;
+    const skS = U * 0.042;
+    ctx.save();
+    ctx.translate(skiffX, skiffY);
+    ctx.rotate(skiffTilt);
+    ctx.fillStyle = rgbStr(pal.roof);
+    ctx.beginPath();
+    ctx.moveTo(-skS, -skS * 0.1);
+    ctx.quadraticCurveTo(0, skS * 0.34, skS, -skS * 0.12);
+    ctx.lineTo(skS * 0.65, skS * 0.05);
+    ctx.lineTo(-skS * 0.65, skS * 0.05);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // Swaying Weeping Willow on far right bank
+    const wilX = W * 0.94;
+    const wilY = quayRY - H * 0.03;
+    ctx.strokeStyle = rgbStr(pal.roof);
+    ctx.lineWidth = Math.max(2, U * 0.014);
+    ctx.beginPath();
+    ctx.moveTo(wilX, wilY);
+    ctx.quadraticCurveTo(wilX - W * 0.04, wilY - H * 0.11, wilX - W * 0.08, wilY - H * 0.17);
+    ctx.stroke();
+
+    ctx.fillStyle = rgbStr(pal.foliage, 0.92);
+    ctx.beginPath();
+    ctx.arc(wilX - W * 0.07, wilY - H * 0.18, U * 0.085, 0, Math.PI * 2);
+    ctx.arc(wilX - W * 0.02, wilY - H * 0.16, U * 0.075, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cascading willow tendrils gently swaying
+    ctx.strokeStyle = rgbStr(pal.foliage, 0.85);
+    ctx.lineWidth = Math.max(1, U * 0.004);
+    for (let i = 0; i < 9; i++) {
+      const tx = wilX - W * (0.14 - i * 0.016);
+      const ty = wilY - H * 0.17 + Math.abs(i - 4) * H * 0.008;
+      const sway = Math.sin(time * 1.3 + i * 0.7) * U * 0.012;
+      ctx.beginPath();
+      ctx.moveTo(tx, ty);
+      ctx.quadraticCurveTo(tx + sway * 0.5, ty + H * 0.08, tx + sway, ty + H * 0.15);
+      ctx.stroke();
+    }
+
+    // 15. Rising Floating Sky-Lanterns (dusk & night magic)
+    const lanternVis = smoothstep(0.38, 0.82, nightness);
+    if (lanternVis > 0.02) {
+      for (const l of skyLanterns) {
+        const life = (time * l.speed + l.phase) % 1;
+        const lx = (l.baseX + Math.sin(time * l.swayFreq + l.phase * 10) * l.swayAmp) * W;
+        const ly = lerp(H * 0.74, H * 0.04, life);
+        const fade = Math.sin(life * Math.PI) * lanternVis;
+        const ls = U * 0.011 * l.size * (1 - life * 0.35);
+        drawGlowingOrb(lx, ly, ls * 3.8, [255, 224, 148], [255, 142, 68], fade * 0.55);
+        ctx.fillStyle = `rgba(255, 228, 158, ${(fade * 0.92).toFixed(3)})`;
+        ctx.fillRect(lx - ls * 0.45, ly - ls * 0.6, ls * 0.9, ls * 1.15);
+      }
+    }
+
+    // 16. Bioluminescent Firefly Motes around Willow & Promenade
+    if (lanternVis > 0.02) {
+      for (const f of fireflies) {
+        const fx = (f.x + Math.sin(time * f.sx + f.px) * f.rx) * W;
+        const fy = (f.y + Math.cos(time * f.sy + f.py) * f.ry) * H;
+        const pulse = (0.3 + 0.7 * (0.5 + 0.5 * Math.sin(time * 2.8 + f.glowPhase))) * lanternVis;
+        drawGlowingOrb(fx, fy, U * 0.018, [226, 255, 170], [156, 232, 132], pulse * 0.65);
+        ctx.fillStyle = `rgba(238, 255, 186, ${pulse.toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(fx, fy, Math.max(0.8, U * 0.0022), 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    ctx.restore();
+    requestAnimationFrame(render);
+  }
+
+  requestAnimationFrame(render);
+})();
+</script>
+</body>
+</html>
+```
+
+```json
+{
+  "title": "Whisper-Wick Wharf",
+  "statement": "Where brass observatories, glass-ribbed conservatories, and lantern-lit canal bridges trade soft reflections from dawn to starry midnight."
+}
+```

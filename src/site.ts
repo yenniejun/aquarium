@@ -3,10 +3,7 @@ export const site = {
   blurb:
     'Every exhibit gives several AI models the same brief. Every piece is pure code the model wrote: no images, no assets.',
   /** Shown in the lobby directory before they have an exhibit folder. */
-  upcoming: [
-    { title: 'Modern Art', note: 'Coming soon' },
-    { title: 'Portraits', note: 'Coming soon' },
-  ],
+  upcoming: [] as { title: string; note: string }[],
   /**
    * Umami Cloud (umami.is): cookieless, privacy-friendly counts of page views and of which piece
    * each visitor picks. Paste the website ID from Umami's tracking code; empty turns it off.

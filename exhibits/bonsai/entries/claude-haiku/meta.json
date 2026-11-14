@@ -1,0 +1,19 @@
+{
+  "artist": "Claude Haiku 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-haiku-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "Wibbly Wobbly Juniper",
+  "statement": "A windswept juniper that has been leaning into the same breeze for decades, planted in a celadon pot mended with gold seams. At dusk the fireflies wake, the moon comes up, and the wind carries a few stray needles off over the lavender hills.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 2
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}
