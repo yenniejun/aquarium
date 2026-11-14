@@ -126,8 +126,10 @@ const empty = piece.status === 'pending';
   }
 
   /* The label: a small plate under each piece; it's also the vote button. */
+  /* Above the display's own overlays (rings, bolts, glare), so its hover card isn't drawn under them. */
   .label {
     position: relative;
+    z-index: 3;
     display: grid;
     justify-items: center;
     gap: 2px;
