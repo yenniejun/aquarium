@@ -84,8 +84,9 @@ async function generate(slug) {
     } catch (err) {
       // A dropped connection (a host going quiet for minutes mid-thought) is worth another try;
       // API errors (no credits, a bad model id…) aren't.
-      if (err.message !== 'terminated' || attempt >= ATTEMPTS) throw err;
-      console.log(`  ↻ ${slug}: the connection dropped (${err.cause?.code ?? 'terminated'}); asking again`);
+      const dropped = err.message === 'terminated' || err.message === 'fetch failed';
+      if (!dropped || attempt >= ATTEMPTS) throw err;
+      console.log(`  ↻ ${slug}: the connection dropped (${err.cause?.code ?? err.message}); asking again`);
       continue;
     }
     seconds = Math.round((Date.now() - started) / 1000);
