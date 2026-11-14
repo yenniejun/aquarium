@@ -4,14 +4,14 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "Marrow Heron",
-  "statement": "Waits in flooded bogs at dusk. Wears your reflection. Never follow its lantern.",
+  "title": "Sleepless Feedcrow",
+  "statement": "Roosts on bare branches above sleeping towns. Its lenses never close. It remembers every glance.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 3
+      "promptVersion": 5
     },
     "attempts": 1,
     "edits": "none"
