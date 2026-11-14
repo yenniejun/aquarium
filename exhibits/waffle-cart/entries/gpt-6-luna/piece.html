@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  svg {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    overflow: visible;
+  }
+  .plate {
+    animation: plate-breathe 5s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .waffle {
+    animation: waffle-wobble 4.8s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .steam {
+    animation: steam-rise 3.4s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .steam:nth-child(2) { animation-delay: -1.1s; }
+  .steam:nth-child(3) { animation-delay: -2.2s; }
+  .orbit-berry {
+    animation: berry-float 4s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .orbit-berry.delay { animation-delay: -2s; }
+
+  @keyframes plate-breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.012); }
+  }
+  @keyframes waffle-wobble {
+    0%, 100% { transform: rotate(-7deg) translateY(0); }
+    50% { transform: rotate(-5.8deg) translateY(-3px); }
+  }
+  @keyframes steam-rise {
+    0% { opacity: 0; transform: translateY(9px) scale(.86); }
+    25% { opacity: .7; }
+    80% { opacity: .42; }
+    100% { opacity: 0; transform: translateY(-22px) scale(1.08); }
+  }
+  @keyframes berry-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet" aria-label="A star-shaped waffle with berries and syrup">
+  <defs>
+    <radialGradient id="plateFill" cx="42%" cy="35%" r="75%">
+      <stop offset="0" stop-color="#fff9ed"/>
+      <stop offset=".72" stop-color="#f2e8d7"/>
+      <stop offset="1" stop-color="#d6c4a8"/>
+    </radialGradient>
+    <linearGradient id="plateRim" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fffdf6"/>
+      <stop offset=".55" stop-color="#eadcc7"/>
+      <stop offset="1" stop-color="#cbb99c"/>
+    </linearGradient>
+    <linearGradient id="waffleFace" x1=".15" y1="0" x2=".8" y2="1">
+      <stop stop-color="#ffd779"/>
+      <stop offset=".45" stop-color="#e9a83f"/>
+      <stop offset="1" stop-color="#bf7026"/>
+    </linearGradient>
+    <linearGradient id="waffleSide" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#b86b28"/>
+      <stop offset="1" stop-color="#80451e"/>
+    </linearGradient>
+    <linearGradient id="syrup" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffd875"/>
+      <stop offset=".36" stop-color="#c97820"/>
+      <stop offset=".75" stop-color="#8d4514"/>
+      <stop offset="1" stop-color="#e8a544"/>
+    </linearGradient>
+    <radialGradient id="blueberry" cx="32%" cy="25%" r="75%">
+      <stop stop-color="#a9c7ed"/>
+      <stop offset=".2" stop-color="#526fa8"/>
+      <stop offset=".65" stop-color="#283e75"/>
+      <stop offset="1" stop-color="#17274e"/>
+    </radialGradient>
+    <radialGradient id="berryRed" cx="32%" cy="22%" r="80%">
+      <stop stop-color="#ff9a78"/>
+      <stop offset=".42" stop-color="#dc4050"/>
+      <stop offset="1" stop-color="#8e2038"/>
+    </radialGradient>
+    <radialGradient id="cream" cx="35%" cy="25%" r="80%">
+      <stop stop-color="#fffef8"/>
+      <stop offset=".68" stop-color="#f3e9d6"/>
+      <stop offset="1" stop-color="#d7c5a8"/>
+    </radialGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <clipPath id="starClip">
+      <path d="M400 126
+        C416 163 435 180 469 187
+        L451 222
+        C484 231 505 245 533 260
+        C498 274 478 290 470 324
+        L432 311
+        C425 346 414 371 400 398
+        C383 361 365 341 333 334
+        L345 298
+        C310 291 284 276 257 260
+        C294 245 313 229 320 197
+        L354 207
+        C362 173 379 149 400 126 Z"/>
+    </clipPath>
+    <g id="blue">
+      <circle r="22" fill="#18294e" opacity=".24" transform="translate(2 4)"/>
+      <circle r="21" fill="url(#blueberry)"/>
+      <path d="M-7 -2 Q0 -11 8 -4 M-4 7 Q0 11 5 7" fill="none" stroke="#172750" stroke-width="2.3" stroke-linecap="round" opacity=".78"/>
+      <ellipse cx="-7" cy="-9" rx="5" ry="3" fill="#e3edff" opacity=".63" transform="rotate(-28 -7 -9)"/>
+    </g>
+  </defs>
+
+  <g class="plate">
+    <ellipse cx="400" cy="371" rx="286" ry="153" fill="#4c301a" opacity=".16" filter="url(#softShadow)"/>
+    <ellipse cx="400" cy="357" rx="287" ry="152" fill="url(#plateRim)"/>
+    <ellipse cx="400" cy="350" rx="273" ry="138" fill="url(#plateFill)" stroke="#fffdf6" stroke-width="5"/>
+    <ellipse cx="400" cy="350" rx="246" ry="116" fill="none" stroke="#d7c7af" stroke-width="2" opacity=".65"/>
+    <path d="M174 349 C203 281 292 239 378 236" fill="none" stroke="#fffdf8" stroke-width="5" stroke-linecap="round" opacity=".68"/>
+    <path d="M630 360 C603 415 532 448 474 458" fill="none" stroke="#c8b69c" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+  </g>
+
+  <g fill="none" stroke="#f7ead4" stroke-width="5" stroke-linecap="round" opacity=".72">
+    <path class="steam" d="M349 174 C330 152 366 143 350 120 C340 106 350 97 358 90"/>
+    <path class="steam" d="M397 145 C379 124 412 112 399 91 C390 77 399 66 407 59"/>
+    <path class="steam" d="M447 174 C432 153 463 143 451 123 C442 108 450 99 460 93"/>
+  </g>
+
+  <g opacity=".34" fill="none" stroke="#a76b2d" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round">
+    <path d="M228 332 C252 251 330 212 393 216 C492 222 561 274 567 344 C573 403 515 436 455 437"/>
+  </g>
+  <g class="orbit-berry" transform="translate(245 285)">
+    <use href="#blue"/>
+  </g>
+  <g class="orbit-berry delay" transform="translate(551 388) scale(.82)">
+    <use href="#blue"/>
+  </g>
+
+  <g class="waffle" transform="rotate(-7 400 270)">
+    <path d="M400 139
+      C416 176 435 193 469 200
+      L451 235
+      C484 244 505 258 533 273
+      C498 287 478 303 470 337
+      L432 324
+      C425 359 414 384 400 411
+      C383 374 365 354 333 347
+      L345 311
+      C310 304 284 289 257 273
+      C294 258 313 242 320 210
+      L354 220
+      C362 186 379 162 400 139 Z"
+      fill="url(#waffleSide)" transform="translate(0 10)"/>
+    <path d="M400 126
+      C416 163 435 180 469 187
+      L451 222
+      C484 231 505 245 533 260
+      C498 274 478 290 470 324
+      L432 311
+      C425 346 414 371 400 398
+      C383 361 365 341 333 334
+      L345 298
+      C310 291 284 276 257 260
+      C294 245 313 229 320 197
+      L354 207
+      C362 173 379 149 400 126 Z"
+      fill="url(#waffleFace)" stroke="#9e5d24" stroke-width="5" stroke-linejoin="round"/>
+
+    <g clip-path="url(#starClip)">
+      <rect x="250" y="120" width="300" height="290" fill="#e9aa4c" opacity=".18"/>
+      <g stroke="#a45e22" stroke-width="8" opacity=".68">
+        <path d="M278 173 V400 M309 150 V405 M340 139 V410 M371 129 V410 M402 120 V410 M433 129 V410 M464 140 V410 M495 160 V400 M526 190 V390"/>
+        <path d="M245 170 H552 M240 201 H556 M235 232 H560 M230 263 H565 M235 294 H558 M247 325 H545 M266 356 H526 M294 387 H500"/>
+      </g>
+      <g stroke="#ffe09a" stroke-width="2.5" opacity=".72">
+        <path d="M282 173 V397 M313 151 V400 M344 140 V404 M375 130 V404 M406 121 V404 M437 130 V404 M468 141 V404 M499 161 V397"/>
+        <path d="M246 174 H551 M241 205 H555 M236 236 H559 M232 267 H562 M237 298 H555 M250 329 H542 M269 360 H522"/>
+      </g>
+      <path d="M333 186 C364 205 382 196 400 208 C423 222 430 244 459 248
+        C479 251 493 264 483 280 C473 296 451 282 438 293
+        C421 308 433 327 416 340 C398 353 384 334 390 316
+        C396 296 415 284 398 269 C381 254 363 272 348 258
+        C330 241 350 228 365 230 C384 232 397 249 413 239
+        C430 228 412 211 391 210"
+        fill="none" stroke="url(#syrup)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M342 188 C369 207 384 201 400 212 C419 225 428 245 456 251"
+        fill="none" stroke="#ffe39a" stroke-width="3.5" stroke-linecap="round" opacity=".8"/>
+      <ellipse cx="423" cy="279" rx="8" ry="4" fill="#ffe8ae" opacity=".7" transform="rotate(-30 423 279)"/>
+    </g>
+    <path d="M400 126 C416 163 435 180 469 187" fill="none" stroke="#ffe5a0" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+    <path d="M257 260 C294 245 313 229 320 197" fill="none" stroke="#fff0bd" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+  </g>
+
+  <g transform="translate(377 284)">
+    <path d="M-35 13 C-39 0 -26 -7 -17 -2 C-22 -17 -7 -25 2 -15
+      C5 -31 25 -30 27 -13 C42 -19 51 -5 40 5
+      C52 14 42 29 29 27 C24 43 5 40 2 26
+      C-9 38 -26 30 -22 17 C-30 21 -37 20 -35 13Z"
+      fill="url(#cream)" stroke="#d8c5a5" stroke-width="2"/>
+    <path d="M-18 8 C-18 -1 -7 -3 -2 4 C-7 -7 6 -15 12 -5 C19 -13 30 -7 25 1
+      C35 3 32 14 22 14 C18 24 7 23 4 15 C-2 23 -13 18 -10 11"
+      fill="none" stroke="#fffdf5" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="-1" cy="3" r="3" fill="#fff"/>
+  </g>
+
+  <g transform="translate(470 235) scale(.76)">
+    <use href="#blue"/>
+  </g>
+  <g transform="translate(329 305) scale(.62)">
+    <use href="#blue"/>
+  </g>
+  <g transform="translate(445 337) scale(.54)">
+    <use href="#blue"/>
+  </g>
+
+  <g transform="translate(479 300) rotate(18)">
+    <path d="M0 4 C-23 -5 -27 -24 -12 -30 C-1 -34 5 -23 4 -14
+      C13 -28 29 -23 29 -10 C29 1 14 11 0 18 C-14 10 -20 5 -22 -2"
+      fill="url(#berryRed)" stroke="#8e3540" stroke-width="2"/>
+    <path d="M0 -27 C-12 -37 -20 -34 -24 -29 C-14 -28 -10 -22 -7 -17
+      C-20 -22 -25 -16 -27 -11 C-17 -15 -10 -10 -4 -5
+      C-12 -18 -7 -24 0 -27Z"
+      fill="#577f49" stroke="#40623c" stroke-width="1.5"/>
+    <ellipse cx="-10" cy="-16" rx="3" ry="6" fill="#ffd3a4" opacity=".48" transform="rotate(-30 -10 -16)"/>
+  </g>
+
+  <g transform="translate(322 250) scale(.55) rotate(-15)">
+    <path d="M0 4 C-23 -5 -27 -24 -12 -30 C-1 -34 5 -23 4 -14
+      C13 -28 29 -23 29 -10 C29 1 14 11 0 18 C-14 10 -20 5 -22 -2"
+      fill="url(#berryRed)" stroke="#8e3540" stroke-width="2"/>
+    <path d="M0 -27 C-12 -37 -20 -34 -24 -29 C-14 -28 -10 -22 -7 -17
+      C-20 -22 -25 -16 -27 -11 C-17 -15 -10 -10 -4 -5
+      C-12 -18 -7 -24 0 -27Z"
+      fill="#577f49" stroke="#40623c" stroke-width="1.5"/>
+    <ellipse cx="-10" cy="-16" rx="3" ry="6" fill="#ffd3a4" opacity=".48" transform="rotate(-30 -10 -16)"/>
+  </g>
+
+  <g fill="#fff0c7" opacity=".75">
+    <circle cx="297" cy="360" r="3"/>
+    <circle cx="508" cy="353" r="2.5"/>
+    <circle cx="373" cy="401" r="2"/>
+    <circle cx="524" cy="279" r="2"/>
+  </g>
+</svg>
+</body>
+</html>

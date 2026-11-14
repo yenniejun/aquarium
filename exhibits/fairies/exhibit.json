@@ -1,0 +1,19 @@
+{
+  "title": "f(AI)ries",
+  "intro": "Each AI model is told to draw one fairy as a tarot card.",
+  "skin": "cabinet",
+  "variant": "tarot",
+  "status": "preview",
+  "mode": "blind",
+  "order": 11,
+  "pieceLabel": "Card",
+  "promptVersion": 1,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}

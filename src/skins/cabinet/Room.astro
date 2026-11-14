@@ -16,17 +16,32 @@ interface Props {
 
 const { exhibit, pieces } = Astro.props;
 const variant = exhibit.variant ?? 'niche';
+
+// Terrarium night sky: stars scattered once at build time (seeded, so every build matches).
+let seed = 7;
+const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+const stars = Array.from({ length: 140 }, () => {
+  const size = rand() < 0.15 ? 2 : 1;
+  return `${(rand() * 100).toFixed(2)}vw ${(rand() * 100).toFixed(2)}vh 0 ${size - 1}px rgba(255, 255, 255, ${(0.35 + rand() * 0.6).toFixed(2)})`;
+}).join(', ');
+const fireflies = Array.from({ length: 46 }, () =>
+  `${(rand() * 100).toFixed(2)}vw ${(30 + rand() * 70).toFixed(2)}vh ${(2 + rand() * 4).toFixed(1)}px ${(rand() * 1.5).toFixed(1)}px rgba(255, ${Math.round(200 + rand() * 40)}, 140, ${(0.4 + rand() * 0.5).toFixed(2)})`,
+).join(', ');
 ---
 
 <div class="room" data-variant={variant}>
   {
     variant === 'terrarium' && (
       <>
-        <div class="night" aria-hidden="true" />
+        <div class="night" aria-hidden="true">
+          <i class="stars" style={`box-shadow: ${stars}`} />
+        </div>
         <div class="sun" aria-hidden="true" />
+        <div class="moon" aria-hidden="true" />
       </>
     )
   }
+  {variant === 'tarot' && <i class="fireflies" aria-hidden="true" style={`box-shadow: ${fireflies}`} />}
   <section class="screen">
     <h1><ExhibitTitle title={exhibit.title} /></h1>
     <ol class="pieces" data-pieces>
@@ -42,7 +57,7 @@ const variant = exhibit.variant ?? 'niche';
 </div>
 
 <script>
-  import { daylight, sunArc, timeOfDay } from './day';
+  import { daylight, moonArc, sunArc, timeOfDay } from './day';
 
   // Terrarium: the sky follows the shared day, the same clock every piece is told to use.
   const room = document.querySelector<HTMLElement>('.room[data-variant="terrarium"]');
@@ -51,6 +66,7 @@ const variant = exhibit.variant ?? 'niche';
       const t = timeOfDay();
       room.style.setProperty('--light', daylight(t).toFixed(3));
       room.style.setProperty('--sun', sunArc(t).toFixed(4));
+      room.style.setProperty('--moon', moonArc(t).toFixed(4));
       requestAnimationFrame(tick);
     };
     tick();
@@ -177,6 +193,7 @@ const variant = exhibit.variant ?? 'niche';
   [data-variant='terrarium'] {
     --light: 1;
     --sun: 0.5;
+    --moon: -1;
     --ink: color-mix(in srgb, #12261b calc(var(--light) * 100%), #e6f1ea);
     --accent: #2e7d4f;
     --wall:
@@ -202,17 +219,106 @@ const variant = exhibit.variant ?? 'niche';
     padding-top: 24px;
   }
 
+  /* Waffle cart: one big chalkboard menu, chalk dust and all. */
+  [data-variant='menu'] {
+    --ink: #f4f1e8;
+    --accent: #f2c86b;
+    --wall:
+      radial-gradient(40% 30% at 20% 30%, rgba(255, 255, 255, 0.05), transparent 70%),
+      radial-gradient(35% 25% at 80% 70%, rgba(255, 255, 255, 0.04), transparent 70%),
+      radial-gradient(circle, rgba(255, 255, 255, 0.05) 0 1px, transparent 1.5px) 0 0 / 7px 9px,
+      linear-gradient(#2f3833, #232a26);
+  }
+
+  [data-variant='menu'] h1 {
+    font: 700 clamp(2.2rem, 4.4vw, 3.2rem) / 1 'Caveat', cursive;
+  }
+
+  [data-variant='menu'] .pieces {
+    --w: 250px;
+    row-gap: clamp(1.5rem, 4vh, 2.5rem);
+  }
+
+  /* Fairies: tarot cards on a fortune-teller's velvet table, gold dust in the air. */
+  [data-variant='tarot'] {
+    --ink: #f1e4c3;
+    --accent: #e6c478;
+    --wall:
+      radial-gradient(55% 45% at 50% 35%, rgba(255, 190, 110, 0.12), transparent 75%),
+      repeating-radial-gradient(circle at 50% 120%, rgba(255, 255, 255, 0.015) 0 2px, transparent 2px 6px),
+      radial-gradient(120% 90% at 50% 40%, #3a1a3e, #1a0b1f 70%);
+  }
+
+  [data-variant='tarot'] h1 {
+    font: 400 clamp(2rem, 4vw, 3rem) / 1.05 'IM Fell English', serif;
+    letter-spacing: 0.04em;
+  }
+
+  [data-variant='tarot'] .pieces {
+    --w: 220px;
+  }
+
+  .fireflies {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    animation: fireflies 4s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  @keyframes fireflies {
+    to {
+      opacity: 0.45;
+      translate: 6px -10px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fireflies {
+      animation: none;
+    }
+  }
+
+  /* Nightmare: field-guide pages on a dark desk under lamplight. */
+  [data-variant='fieldguide'] {
+    --ink: #e8dcc6;
+    --accent: #c2413a;
+    --wall:
+      radial-gradient(55% 45% at 50% 30%, rgba(255, 170, 80, 0.16), transparent 75%),
+      repeating-linear-gradient(176deg, rgba(0, 0, 0, 0.12) 0 2px, transparent 2px 9px),
+      linear-gradient(#2b1a12, #140c08);
+  }
+
+  [data-variant='fieldguide'] h1 {
+    font: italic 400 clamp(2rem, 4vw, 3rem) / 1.05 'IM Fell English', serif;
+  }
+
+  [data-variant='fieldguide'] .pieces {
+    --w: 230px;
+  }
+
   /* Night falls over the glasshouse as the light goes. */
   .night {
     position: fixed;
     inset: 0;
     z-index: -1;
     opacity: calc(1 - var(--light));
-    background:
-      radial-gradient(circle, rgba(255, 255, 255, 0.8) 0 1px, transparent 1.6px) 0 0 / 103px 91px,
-      radial-gradient(circle, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.6px) 50px 40px / 137px 119px,
-      linear-gradient(#0a1428, #16283a 70%, #1d3a33);
+    background: linear-gradient(#0a1428, #16283a 70%, #1d3a33);
     pointer-events: none;
+  }
+
+  /* One tiny dot whose box-shadows are the scattered stars. */
+  .stars {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
   }
 
   /* The sun rises on the left, arcs over the room and sets on the right. */
@@ -231,7 +337,25 @@ const variant = exhibit.variant ?? 'niche';
     pointer-events: none;
   }
 
-  [data-variant='terrarium']:not([style*='--sun']) .sun {
+  /* The moon follows the same arc through the night. */
+  .moon {
+    position: fixed;
+    z-index: -1;
+    left: calc(8% + var(--moon) * 84%);
+    top: calc(82% - sin(var(--moon) * 180deg) * 60%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 36%, #fbfaf2, #dcdccf 60%, #b9bcb4);
+    box-shadow:
+      inset -9px -6px 0 rgba(150, 160, 170, 0.35),
+      0 0 50px 14px rgba(200, 215, 255, 0.22);
+    opacity: clamp(0, min(var(--moon), 1 - var(--moon)) * 20, 1);
+    translate: -50% -50%;
+    pointer-events: none;
+  }
+
+  [data-variant='terrarium']:not([style*='--sun']) :is(.sun, .moon) {
     opacity: 0;
   }
 

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    touch-action: pan-y;
+  }
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<script>
+(() => {
+  const canvas = document.getElementById('scene');
+  const ctx = canvas.getContext('2d');
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let scale = 1;
+
+  const offscreen = document.createElement('canvas');
+  const octx = offscreen.getContext('2d');
+
+  let pointerX = 0;
+  let pointerY = 0;
+  let targetPointerX = 0;
+  let targetPointerY = 0;
+
+  // Deterministic PRNG for crumb, sugar dust, and star placement
+  function makeRng(seed) {
+    let s = seed >>> 0;
+    return () => {
+      s = (s * 1664525 + 1013904223) >>> 0;
+      return s / 4294967296;
+    };
+  }
+
+  function roundRectPath(c, x, y, w, h, r) {
+    const rr = Math.min(r, w * 0.5, h * 0.5);
+    c.beginPath();
+    c.moveTo(x + rr, y);
+    c.lineTo(x + w - rr, y);
+    c.quadraticCurveTo(x + w, y, x + w, y + rr);
+    c.lineTo(x + w, y + h - rr);
+    c.quadraticCurveTo(x + w, y + h, x + w - rr, y + h);
+    c.lineTo(x + rr, y + h);
+    c.quadraticCurveTo(x, y + h, x, y + h - rr);
+    c.lineTo(x, y + rr);
+    c.quadraticCurveTo(x, y, x + rr, y);
+    c.closePath();
+  }
+
+  function drawPlate(c) {
+    // Soft ambient shadow directly beneath the plate
+    c.save();
+    const shadowGrad = c.createRadialGradient(4, 30, 70, 4, 30, 166);
+    shadowGrad.addColorStop(0, 'rgba(10, 6, 4, 0.55)');
+    shadowGrad.addColorStop(0.75, 'rgba(10, 6, 4, 0.28)');
+    shadowGrad.addColorStop(1, 'rgba(10, 6, 4, 0)');
+    c.fillStyle = shadowGrad;
+    c.beginPath();
+    c.ellipse(4, 28, 164, 110, 0, 0, Math.PI * 2);
+    c.fill();
+    c.restore();
+
+    // Plate base thickness / lower lip
+    c.save();
+    const underGrad = c.createLinearGradient(0, -80, 0, 126);
+    underGrad.addColorStop(0, '#ddd4c8');
+    underGrad.addColorStop(0.6, '#c7bcb0');
+    underGrad.addColorStop(1, '#9e9285');
+    c.fillStyle = underGrad;
+    c.beginPath();
+    c.ellipse(0, 22, 152, 102, 0, 0, Math.PI * 2);
+    c.fill();
+
+    // Main ceramic plate top
+    const plateGrad = c.createRadialGradient(-36, -14, 15, 0, 18, 155);
+    plateGrad.addColorStop(0, '#fffdf9');
+    plateGrad.addColorStop(0.62, '#f5efe6');
+    plateGrad.addColorStop(0.88, '#e8dfd3');
+    plateGrad.addColorStop(1, '#d6cabd');
+    c.fillStyle = plateGrad;
+    c.beginPath();
+    c.ellipse(0, 17, 151, 100, 0, 0, Math.PI * 2);
+    c.fill();
+
+    // Delicate gold-speckled rim accent
+    c.strokeStyle = 'rgba(196, 154, 78, 0.42)';
+    c.lineWidth = 1.4;
+    c.beginPath();
+    c.ellipse(0, 17, 145, 95, 0, 0, Math.PI * 2);
+    c.stroke();
+
+    // Recessed inner well shadow
+    const wellGrad = c.createRadialGradient(-10, 8, 25, 0, 18, 122);
+    wellGrad.addColorStop(0, '#f4ece1');
+    wellGrad.addColorStop(0.82, '#e8ddd0');
+    wellGrad.addColorStop(0.95, '#d9cbbd');
+    wellGrad.addColorStop(1, '#efe7dc');
+    c.fillStyle = wellGrad;
+    c.beginPath();
+    c.ellipse(0, 18, 122, 79, 0, 0, Math.PI * 2);
+    c.fill();
+
+    // Subtle ceramic specular highlight on upper-left rim
+    c.strokeStyle = 'rgba(255, 255, 255, 0.72)';
+    c.lineWidth = 2.4;
+    c.beginPath();
+    c.ellipse(0, 17, 147, 97, 0, Math.PI * 1.08, Math.PI * 1.62);
+    c.stroke();
+    c.restore();
+  }
+
+  function drawSaucePool(c) {
+    const rng = makeRng(4207);
+    c.save();
+
+    // Organic dark blackberry-espresso glaze pool
+    c.beginPath();
+    const steps = 64;
+    for (let i = 0; i <= steps; i++) {
+      const a = (i / steps) * Math.PI * 2;
+      const wobble = 1 + 0.03 * Math.sin(a * 3 + 0.8) + 0.018 * Math.cos(a * 5 - 1.2);
+      const px = Math.cos(a) * 110 * wobble;
+      const py = 18 + Math.sin(a) * 71 * wobble;
+      if (i === 0) c.moveTo(px, py);
+      else c.lineTo(px, py);
+    }
+    c.closePath();
+
+    const sauceGrad = c.createRadialGradient(-15, 10, 12, 0, 18, 112);
+    sauceGrad.addColorStop(0, '#2a1122');
+    sauceGrad.addColorStop(0.55, '#1e0b18');
+    sauceGrad.addColorStop(0.88, '#361327');
+    sauceGrad.addColorStop(1, '#4c1b35');
+    c.fillStyle = sauceGrad;
+    c.fill();
+
+    // Inner sauce depth & rim sheen
+    c.strokeStyle = 'rgba(255, 215, 235, 0.16)';
+    c.lineWidth = 1.2;
+    c.stroke();
+
+    // Golden honey-caramel orbital swirl inside the dark glaze
+    c.save();
+    c.clip();
+    for (let s = 0; s < 3; s++) {
+      c.beginPath();
+      const rOff = s * 9;
+      for (let t = 0; t <= 50; t++) {
+        const a = -2.6 + (t / 50) * 4.4 + s * 0.4;
+        const rx = 86 + rOff + Math.sin(a * 2.5) * 4;
+        const ry = 54 + rOff * 0.6 + Math.cos(a * 2) * 3;
+        const x = Math.cos(a) * rx - 6;
+        const y = 16 + Math.sin(a) * ry;
+        if (t === 0) c.moveTo(x, y);
+        else c.lineTo(x, y);
+      }
+      c.strokeStyle = s === 0
+        ? 'rgba(244, 178, 56, 0.55)'
+        : s === 1
+          ? 'rgba(255, 212, 102, 0.32)'
+          : 'rgba(218, 130, 32, 0.25)';
+      c.lineWidth = 2.6 - s * 0.6;
+      c.lineCap = 'round';
+      c.stroke();
+    }
+
+    // Little satellite droplets of golden honey around the glaze
+    for (let d = 0; d < 14; d++) {
+      const a = rng() * Math.PI * 2;
+      const dist = 0.62 + rng() * 0.32;
+      const dx = Math.cos(a) * 102 * dist;
+      const dy = 18 + Math.sin(a) * 64 * dist;
+      const dr = 1.3 + rng() * 2.4;
+      const dg = c.createRadialGradient(dx - dr * 0.3, dy - dr * 0.3, 0, dx, dy, dr);
+      dg.addColorStop(0, '#ffe89a');
+      dg.addColorStop(0.6, '#e39624');
+      dg.addColorStop(1, 'rgba(180, 95, 15, 0.3)');
+      c.fillStyle = dg;
+      c.beginPath();
+      c.ellipse(dx, dy, dr, dr * 0.72, 0, 0, Math.PI * 2);
+      c.fill();
+    }
+    c.restore();
+
+    c.restore();
+  }
+
+  function drawSpunSugarCorona(c) {
+    // Delicate spun-sugar caramel corona rays radiating from behind the eclipsed waffles
+    const rng = makeRng(8813);
+    c.save();
+    const cx = -16;
+    const cy = 0;
+
+    // Soft warm amber aura around the eclipse rim
+    const aura = c.createRadialGradient(cx - 10, cy - 8, 42, cx, cy, 104);
+    aura.addColorStop(0, 'rgba(255, 200, 72, 0.42)');
+    aura.addColorStop(0.55, 'rgba(245, 160, 42, 0.16)');
+    aura.addColorStop(1, 'rgba(245, 160, 42, 0)');
+    c.fillStyle = aura;
+    c.beginPath();
+    c.ellipse(cx, cy + 4, 108, 78, -0.1, 0, Math.PI * 2);
+    c.fill();
+
+    // Fine caramelized spun-sugar filaments
+    for (let i = 0; i < 48; i++) {
+      const a = (i / 48) * Math.PI * 2 + (rng() - 0.5) * 0.08;
+      // Stronger on the upper-left crescent
+      const crescentBoost = Math.cos(a + 2.35) * 0.5 + 0.5;
+      const innerR = 54 + rng() * 8;
+      const outerR = innerR + 14 + crescentBoost * 24 + rng() * 14;
+      const sx = cx + Math.cos(a) * innerR;
+      const sy = cy + Math.sin(a) * innerR * 0.76;
+      const ex = cx + Math.cos(a + (rng() - 0.5) * 0.16) * outerR;
+      const ey = cy + Math.sin(a + (rng() - 0.5) * 0.16) * outerR * 0.76;
+      const mx = (sx + ex) * 0.5 + (rng() - 0.5) * 8;
+      const my = (sy + ey) * 0.5 + (rng() - 0.5) * 6;
+
+      c.beginPath();
+      c.moveTo(sx, sy);
+      c.quadraticCurveTo(mx, my, ex, ey);
+      c.strokeStyle = `rgba(255, ${Math.floor(195 + rng() * 45)}, ${Math.floor(85 + rng() * 50)}, ${(0.28 + crescentBoost * 0.46).toFixed(2)})`;
+      c.lineWidth = 0.7 + rng() * 1.1;
+      c.lineCap = 'round';
+      c.stroke();
+    }
+    c.restore();
+  }
+
+  function drawWaffle(c, opts) {
+    const {
+      cx, cy, radius, tilt, thickness, angle,
+      seed, isDark
+    } = opts;
+    const rng = makeRng(seed);
+
+    // Contact shadow on surface below
+    c.save();
+    const shGrad = c.createRadialGradient(cx + 4, cy + thickness + 3, radius * 0.35, cx + 4, cy + thickness + 3, radius * 1.12);
+    shGrad.addColorStop(0, 'rgba(15, 6, 4, 0.56)');
+    shGrad.addColorStop(0.78, 'rgba(15, 6, 4, 0.25)');
+    shGrad.addColorStop(1, 'rgba(15, 6, 4, 0)');
+    c.fillStyle = shGrad;
+    c.beginPath();
+    c.ellipse(cx + 4, cy + thickness + 3, radius * 1.1, radius * tilt * 1.1, 0, 0, Math.PI * 2);
+    c.fill();
+    c.restore();
+
+    // Extruded crusty 3D side wall
+    c.save();
+    const wallGrad = c.createLinearGradient(cx - radius, cy, cx + radius, cy);
+    if (isDark) {
+      wallGrad.addColorStop(0, '#4d2b1c');
+      wallGrad.addColorStop(0.35, '#3b1f13');
+      wallGrad.addColorStop(0.75, '#28130b');
+      wallGrad.addColorStop(1, '#1d0d07');
+    } else {
+      wallGrad.addColorStop(0, '#f2b857');
+      wallGrad.addColorStop(0.35, '#da922c');
+      wallGrad.addColorStop(0.75, '#b86d16');
+      wallGrad.addColorStop(1, '#8f4f0d');
+    }
+    c.fillStyle = wallGrad;
+
+    // Scalloped crusty edge path for the side wall
+    c.beginPath();
+    const segs = 72;
+    for (let i = 0; i <= segs; i++) {
+      const a = (i / segs) * Math.PI; // bottom front half (0 to PI)
+      const bump = 1 + Math.sin(a * 18) * 0.014;
+      const x = cx + Math.cos(a) * radius * bump;
+      const y = cy + Math.sin(a) * radius * tilt * bump;
+      if (i === 0) c.moveTo(x, y);
+      else c.lineTo(x, y);
+    }
+    for (let i = segs; i >= 0; i--) {
+      const a = (i / segs) * Math.PI;
+      const bump = 1 + Math.sin(a * 18) * 0.014;
+      const x = cx + Math.cos(a) * radius * bump;
+      const y = cy + thickness + Math.sin(a) * radius * tilt * bump;
+      c.lineTo(x, y);
+    }
+    c.closePath();
+    c.fill();
+
+    // Subtle crisp vertical groove texture on side wall
+    c.strokeStyle = isDark ? 'rgba(20, 8, 5, 0.35)' : 'rgba(130, 62, 10, 0.25)';
+    c.lineWidth = 1;
+    for (let i = 3; i < 24; i++) {
+      const a = (i / 27) * Math.PI;
+      const x = cx + Math.cos(a) * (radius - 0.5);
+      const y = cy + Math.sin(a) * (radius * tilt - 0.5);
+      c.beginPath();
+      c.moveTo(x, y + 1);
+      c.lineTo(x, y + thickness - 1);
+      c.stroke();
+    }
+    c.restore();
+
+    // Top waffle face (in tilted & rotated local coordinates)
+    c.save();
+    c.translate(cx, cy);
+    c.scale(1, tilt);
+    c.rotate(angle);
+
+    // Scalloped circular clip
+    c.beginPath();
+    for (let i = 0; i <= 80; i++) {
+      const a = (i / 80) * Math.PI * 2;
+      const bump = 1 + Math.sin(a * 18) * 0.014;
+      const x = Math.cos(a) * radius * bump;
+      const y = Math.sin(a) * radius * bump;
+      if (i === 0) c.moveTo(x, y);
+      else c.lineTo(x, y);
+    }
+    c.closePath();
+    c.clip();
+
+    // Base top batter gradient
+    const topGrad = c.createRadialGradient(-radius * 0.25, -radius * 0.25, radius * 0.1, 0, 0, radius);
+    if (isDark) {
+      topGrad.addColorStop(0, '#5a3322');
+      topGrad.addColorStop(0.65, '#432215');
+      topGrad.addColorStop(0.92, '#2d150c');
+      topGrad.addColorStop(1, '#210e07');
+    } else {
+      topGrad.addColorStop(0, '#ffd978');
+      topGrad.addColorStop(0.58, '#f0b248');
+      topGrad.addColorStop(0.9, '#cf7f1e');
+      topGrad.addColorStop(1, '#a95d10');
+    }
+    c.fillStyle = topGrad;
+    c.fillRect(-radius - 4, -radius - 4, radius * 2 + 8, radius * 2 + 8);
+
+    // Crisp waffle grid pockets
+    const step = 18.5;
+    const pocket = 12.6;
+    const half = pocket * 0.5;
+    const gridLimit = Math.ceil(radius / step) * step;
+
+    // Light direction in local rotated space (world light from upper-left)
+    const lx = Math.cos(-angle) * -0.7 - Math.sin(-angle) * -0.7;
+    const ly = Math.sin(-angle) * -0.7 + Math.cos(-angle) * -0.7;
+
+    for (let gx = -gridLimit; gx <= gridLimit; gx += step) {
+      for (let gy = -gridLimit; gy <= gridLimit; gy += step) {
+        if (Math.hypot(gx, gy) > radius + 6) continue;
+
+        const px = gx - half;
+        const py = gy - half;
+
+        // Raised crispy ridge highlight around pocket
+        roundRectPath(c, px - 1.2, py - 1.2, pocket + 2.4, pocket + 2.4, 3);
+        c.fillStyle = isDark
+          ? 'rgba(135, 82, 56, 0.28)'
+          : 'rgba(255, 240, 175, 0.45)';
+        c.fill();
+
+        // Pocket outer wall shadow
+        roundRectPath(c, px, py, pocket, pocket, 2.4);
+        c.fillStyle = isDark ? '#1e0c06' : '#9c5412';
+        c.fill();
+
+        // Pocket inner base (offset away from light)
+        roundRectPath(c, px + lx * 1.1 + 1.2, py + ly * 1.1 + 1.2, pocket - 2.4, pocket - 2.4, 2);
+        c.fillStyle = isDark ? '#32180e' : '#c97c1d';
+        c.fill();
+
+        // Melted honey-butter / dark-chocolate ganache pool in each pocket
+        const fillChance = rng();
+        if (isDark) {
+          if (fillChance > 0.28) {
+            roundRectPath(c, px + 2, py + 2.2, pocket - 4, pocket - 4.2, 1.8);
+            const gGrad = c.createLinearGradient(px, py, px + pocket, py + pocket);
+            gGrad.addColorStop(0, '#3a1b10');
+            gGrad.addColorStop(1, '#190a05');
+            c.fillStyle = gGrad;
+            c.fill();
+
+            // Glossy ganache catchlight
+            c.fillStyle = 'rgba(255, 220, 195, 0.2)';
+            c.beginPath();
+            c.ellipse(px + 4.2, py + 4, 1.8, 0.9, -0.5, 0, Math.PI * 2);
+            c.fill();
+          }
+        } else {
+          if (fillChance > 0.18) {
+            roundRectPath(c, px + 1.8, py + 2, pocket - 3.6, pocket - 3.8, 1.8);
+            const hGrad = c.createLinearGradient(px, py, px + pocket, py + pocket);
+            hGrad.addColorStop(0, '#ffdf6e');
+            hGrad.addColorStop(0.6, '#f4a928');
+            hGrad.addColorStop(1, '#d17812');
+            c.fillStyle = hGrad;
+            c.fill();
+
+            // Honey-butter gleam
+            c.fillStyle = 'rgba(255, 252, 225, 0.55)';
+            c.beginPath();
+            c.ellipse(px + 4.4, py + 4, 2.0, 1.0, -0.5, 0, Math.PI * 2);
+            c.fill();
+          }
+        }
+      }
+    }
+
+    // Toasted outer bevel rim highlight
+    c.strokeStyle = isDark
+      ? 'rgba(165, 108, 78, 0.35)'
+      : 'rgba(255, 244, 196, 0.65)';
+    c.lineWidth = 2.6;
+    c.beginPath();
+    c.arc(0, 0, radius - 1.5, Math.PI * 0.9, Math.PI * 1.75);
+    c.stroke();
+
+    // Subtle sugar / cocoa dust specks on top
+    const specks = isDark ? 65 : 35;
+    for (let i = 0; i < specks; i++) {
+      const a = rng() * Math.PI * 2;
+      const r = Math.sqrt(rng()) * (radius - 4);
+      const sx = Math.cos(a) * r;
+      const sy = Math.sin(a) * r;
+      const sr = 0.5 + rng() * 1.1;
+      if (isDark) {
+        // Fine powdered "lunar" sugar & tiny gold flakes
+        const isGold = rng() > 0.82;
+        c.fillStyle = isGold
+          ? `rgba(255, 214, 98, ${(0.55 + rng() * 0.4).toFixed(2)})`
+          : `rgba(255, 245, 232, ${(0.22 + rng() * 0.35).toFixed(2)})`;
+      } else {
+        c.fillStyle = `rgba(255, 248, 220, ${(0.25 + rng() * 0.35).toFixed(2)})`;
+      }
+      c.beginPath();
+      c.arc(sx, sy, sr, 0, Math.PI * 2);
+      c.fill();
+    }
+
+    c.restore();
+  }
+
+  function drawChocolateGlazeDrip(c) {
+    // Rich dark chocolate + caramel glaze ribbon along the lower-front edge of the moon waffle
+    c.save();
+    const cx = 18;
+    const cy = 10;
+    const r = 66;
+    const tilt = 0.76;
+
+    // Glossy chocolate glaze pooling near the lower edge
+    c.beginPath();
+    c.moveTo(cx - 26, cy + 36);
+    c.bezierCurveTo(cx - 14, cy + 44, cx - 8, cy + 56, cx - 2, cy + 58);
+    c.bezierCurveTo(cx + 4, cy + 60, cx + 8, cy + 48, cx + 16, cy + 47);
+    c.bezierCurveTo(cx + 24, cy + 46, cx + 32, cy + 40, cx + 42, cy + 32);
+    c.bezierCurveTo(cx + 22, cy + 43, cx - 2, cy + 46, cx - 26, cy + 36);
+    c.closePath();
+    const gGrad = c.createLinearGradient(cx - 20, cy + 35, cx + 30, cy + 60);
+    gGrad.addColorStop(0, '#3e1a10');
+    gGrad.addColorStop(0.5, '#250e07');
+    gGrad.addColorStop(1, '#140603');
+    c.fillStyle = gGrad;
+    c.fill();
+
+    // Specular shine on the glaze
+    c.strokeStyle = 'rgba(255, 225, 200, 0.35)';
+    c.lineWidth = 1.4;
+    c.lineCap = 'round';
+    c.beginPath();
+    c.moveTo(cx - 10, cy + 48);
+    c.quadraticCurveTo(cx - 2, cy + 54, cx + 4, cy + 50);
+    c.stroke();
+
+    // Honey-gold eclipse rim highlight on the upper-left edge of the dark waffle
+    c.beginPath();
+    c.ellipse(cx, cy, r - 0.5, (r - 0.5) * tilt, 0, Math.PI * 0.92, Math.PI * 1.68);
+    c.strokeStyle = 'rgba(255, 208, 88, 0.52)';
+    c.lineWidth = 2.0;
+    c.stroke();
+    c.restore();
+  }
+
+  function drawDiamondRing(c) {
+    // Swirled mascarpone cream dollop + amber honeycomb jewel at the eclipse crescent intersection
+    const x = -33;
+    const y = -28;
+    c.save();
+
+    // Soft cream shadow
+    c.fillStyle = 'rgba(30, 12, 6, 0.32)';
+    c.beginPath();
+    c.ellipse(x + 2, y + 7, 17, 10, -0.2, 0, Math.PI * 2);
+    c.fill();
+
+    // Whipped mascarpone swirl base
+    const tiers = [
+      { ox: 0, oy: 3, rx: 16, ry: 10.5 },
+      { ox: -1, oy: -1.5, rx: 12.2, ry: 8.2 },
+      { ox: -1.5, oy: -5.5, rx: 8.2, ry: 5.8 },
+      { ox: -1, oy: -8.5, rx: 4.5, ry: 3.8 }
+    ];
+
+    tiers.forEach((t, idx) => {
+      const cg = c.createRadialGradient(x + t.ox - 3, y + t.oy - 2, 1, x + t.ox, y + t.oy, t.rx);
+      cg.addColorStop(0, '#ffffff');
+      cg.addColorStop(0.65, '#fcf4e6');
+      cg.addColorStop(1, idx === 0 ? '#dfd0bd' : '#e8dac7');
+      c.fillStyle = cg;
+      c.beginPath();
+      c.ellipse(x + t.ox, y + t.oy, t.rx, t.ry, -0.15, 0, Math.PI * 2);
+      c.fill();
+    });
+
+    // Translucent golden honeycomb crystal ("the diamond") nested on top
+    const hx = x - 1;
+    const hy = y - 10;
+    c.beginPath();
+    c.moveTo(hx - 6, hy + 2);
+    c.lineTo(hx - 3, hy - 5);
+    c.lineTo(hx + 4, hy - 6);
+    c.lineTo(hx + 7, hy + 1);
+    c.lineTo(hx + 2, hy + 5);
+    c.closePath();
+
+    const hcGrad = c.createLinearGradient(hx - 6, hy - 6, hx + 6, hy + 5);
+    hcGrad.addColorStop(0, '#fff2a6');
+    hcGrad.addColorStop(0.45, '#f6b733');
+    hcGrad.addColorStop(1, '#c96f0e');
+    c.fillStyle = hcGrad;
+    c.fill();
+    c.strokeStyle = 'rgba(255, 250, 215, 0.85)';
+    c.lineWidth = 0.8;
+    c.stroke();
+
+    // Honey drizzle trailing down the mascarpone folds
+    c.beginPath();
+    c.moveTo(hx + 2, hy + 4);
+    c.quadraticCurveTo(x + 9, y - 3, x + 7, y + 5);
+    c.quadraticCurveTo(x + 12, y + 8, x + 15, y + 10);
+    c.strokeStyle = 'rgba(244, 168, 36, 0.82)';
+    c.lineWidth = 2.0;
+    c.lineCap = 'round';
+    c.stroke();
+
+    c.restore();
+  }
+
+  function renderStatic() {
+    if (!width || !height) return;
+    offscreen.width = Math.max(1, Math.round(width * dpr));
+    offscreen.height = Math.max(1, Math.round(height * dpr));
+    octx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    octx.clearRect(0, 0, width, height);
+
+    octx.save();
+    octx.translate(width * 0.5, height * 0.5);
+    octx.scale(scale, scale);
+
+    drawPlate(octx);
+    drawSaucePool(octx);
+    drawSpunSugarCorona(octx);
+
+    // Golden Sun Waffle (peeking crescent on upper-left)
+    drawWaffle(octx, {
+      cx: -23,
+      cy: -3,
+      radius: 70,
+      tilt: 0.76,
+      thickness: 12.5,
+      angle: 0.32,
+      seed: 1337,
+      isDark: false
+    });
+
+    // Dark Cocoa Moon Waffle (eclipsing on lower-right)
+    drawWaffle(octx, {
+      cx: 18,
+      cy: 10,
+      radius: 66,
+      tilt: 0.76,
+      thickness: 13.5,
+      angle: -0.24,
+      seed: 9001,
+      isDark: true
+    });
+
+    drawChocolateGlazeDrip(octx);
+    drawDiamondRing(octx);
+
+    octx.restore();
+  }
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    width = rect.width || window.innerWidth;
+    height = rect.height || window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    scale = Math.min(width / 356, height / 267);
+
+    canvas.width = Math.max(1, Math.round(width * dpr));
+    canvas.height = Math.max(1, Math.round(height * dpr));
+    renderStatic();
+  }
+
+  // Animated star sparkles & gold leaf specks in the dark glaze
+  const stars = [
+    { x: -94, y: 24, r: 2.2, phase: 0.2, speed: 1.8 },
+    { x: -78, y: 52, r: 1.7, phase: 1.4, speed: 2.3 },
+    { x: -56, y: 66, r: 2.4, phase: 2.6, speed: 1.5 },
+    { x: 66, y: 62, r: 1.9, phase: 0.9, speed: 2.1 },
+    { x: 88, y: 34, r: 2.5, phase: 3.1, speed: 1.7 },
+    { x: 86, y: -6, r: 1.8, phase: 4.0, speed: 2.4 },
+    { x: -86, y: -12, r: 1.6, phase: 2.1, speed: 2.0 },
+    { x: 46, y: -42, r: 1.5, phase: 5.0, speed: 1.9 }
+  ];
+
+  function drawStarGlint(c, x, y, size, alpha) {
+    c.save();
+    c.translate(x, y);
+    c.fillStyle = `rgba(255, 240, 170, ${alpha.toFixed(3)})`;
+    c.beginPath();
+    c.moveTo(0, -size);
+    c.quadraticCurveTo(0, 0, size, 0);
+    c.quadraticCurveTo(0, 0, 0, size);
+    c.quadraticCurveTo(0, 0, -size, 0);
+    c.quadraticCurveTo(0, 0, 0, -size);
+    c.closePath();
+    c.fill();
+    c.restore();
+  }
+
+  function drawAnimatedSteam(c, t) {
+    const wisps = [
+      { bx: -38, by: -36, h: 74, amp: 6.5, freq: 1.1, speed: 0.55, phase: 0.0, w: 6.5 },
+      { bx: -10, by: -44, h: 82, amp: 7.5, freq: 1.25, speed: 0.48, phase: 1.7, w: 7.5 },
+      { bx: 18, by: -32, h: 70, amp: 6.0, freq: 1.3, speed: 0.62, phase: 3.2, w: 6.0 },
+      { bx: 42, by: -18, h: 64, amp: 5.5, freq: 1.15, speed: 0.52, phase: 4.5, w: 5.5 }
+    ];
+
+    c.save();
+    c.lineCap = 'round';
+    wisps.forEach((w) => {
+      // Smooth continuous phase progression
+      const drift = t * w.speed + w.phase;
+      const steps = 16;
+      for (let i = 0; i < steps; i++) {
+        const u0 = i / steps;
+        const u1 = (i + 1) / steps;
+        const y0 = w.by - u0 * w.h;
+        const y1 = w.by - u1 * w.h;
+        const x0 = w.bx + Math.sin(u0 * Math.PI * 2 * w.freq - drift) * w.amp * (0.3 + u0 * 0.9) + pointerX * 5 * u0;
+        const x1 = w.bx + Math.sin(u1 * Math.PI * 2 * w.freq - drift) * w.amp * (0.3 + u1 * 0.9) + pointerX * 5 * u1;
+
+        // Fade smoothly in at base and out at top
+        const env = Math.sin(u0 * Math.PI) * (1 - u0 * 0.35);
+        const alpha = 0.16 * env;
+        if (alpha <= 0.005) continue;
+
+        c.beginPath();
+        c.moveTo(x0, y0);
+        c.lineTo(x1, y1);
+        c.strokeStyle = `rgba(255, 248, 236, ${alpha.toFixed(3)})`;
+        c.lineWidth = w.w * (0.65 + u0 * 0.95);
+        c.stroke();
+      }
+    });
+    c.restore();
+  }
+
+  function drawAnimatedHoneyDrip(c, t) {
+    // Periodic 5.6-second loop: swelling bead -> stretch -> fall -> glaze ripple
+    const period = 5.6;
+    const p = (t % period) / period;
+    const sx = 16;
+    const sy = 57;
+    const poolY = 79;
+
+    c.save();
+    if (p < 0.55) {
+      // Bead swells at glaze rim
+      const grow = p / 0.55;
+      const r = 1.2 + Math.pow(grow, 0.7) * 2.8;
+      const hang = grow * 3.8;
+      const dg = c.createRadialGradient(sx - 0.8, sy + hang - 1, 0.2, sx, sy + hang, r);
+      dg.addColorStop(0, '#fff2a8');
+      dg.addColorStop(0.55, '#f2a424');
+      dg.addColorStop(1, '#b85e0a');
+      c.fillStyle = dg;
+      c.beginPath();
+      c.moveTo(sx - 2, sy - 1);
+      c.quadraticCurveTo(sx - r, sy + hang, sx, sy + hang + r);
+      c.quadraticCurveTo(sx + r, sy + hang, sx + 2, sy - 1);
+      c.closePath();
+      c.fill();
+    } else if (p < 0.72) {
+      // Falling golden droplet
+      const f = (p - 0.55) / 0.17;
+      const eased = f * f;
+      const dy = sy + 3.8 + eased * (poolY - sy - 3.8);
+      const r = 3.6;
+
+      // Thin trailing filament
+      if (f < 0.45) {
+        c.strokeStyle = `rgba(244, 172, 42, ${(0.55 * (1 - f / 0.45)).toFixed(2)})`;
+        c.lineWidth = 1.1;
+        c.beginPath();
+        c.moveTo(sx, sy);
+        c.lineTo(sx, dy - r);
+        c.stroke();
+      }
+
+      const dg = c.createRadialGradient(sx - 0.8, dy - 1, 0.2, sx, dy, r * 1.1);
+      dg.addColorStop(0, '#fff4b8');
+      dg.addColorStop(0.6, '#f2a424');
+      dg.addColorStop(1, '#ba600a');
+      c.fillStyle = dg;
+      c.beginPath();
+      c.ellipse(sx, dy, r * 0.85, r * 1.2, 0, 0, Math.PI * 2);
+      c.fill();
+    } else {
+      // Expanding golden ripple ring on the dark berry glaze
+      const rPhase = (p - 0.72) / 0.28;
+      const rx = 2.5 + rPhase * 15;
+      const ry = 1.6 + rPhase * 9.5;
+      const alpha = (1 - rPhase) * 0.52;
+      c.strokeStyle = `rgba(255, 212, 108, ${alpha.toFixed(3)})`;
+      c.lineWidth = 1.4 * (1 - rPhase * 0.5);
+      c.beginPath();
+      c.ellipse(sx, poolY, rx, ry, 0, 0, Math.PI * 2);
+      c.stroke();
+    }
+    c.restore();
+  }
+
+  function drawDynamicEffects(t) {
+    ctx.save();
+    ctx.translate(width * 0.5, height * 0.5);
+    ctx.scale(scale, scale);
+
+    // Subtle pointer-reactive sheen on the dark glaze pool
+    const sheenX = -46 + pointerX * 16;
+    const sheenY = 48 + pointerY * 8;
+    const sheen = ctx.createRadialGradient(sheenX, sheenY, 1, sheenX, sheenY, 34);
+    sheen.addColorStop(0, 'rgba(255, 232, 245, 0.13)');
+    sheen.addColorStop(1, 'rgba(255, 232, 245, 0)');
+    ctx.fillStyle = sheen;
+    ctx.beginPath();
+    ctx.ellipse(sheenX, sheenY, 34, 16, -0.25, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Gentle breathing glow behind the eclipsed crescent
+    const glowPulse = 0.5 + 0.5 * Math.sin(t * 1.6);
+    const coronaGlow = ctx.createRadialGradient(-34, -18, 8, -34, -18, 72);
+    coronaGlow.addColorStop(0, `rgba(255, 218, 102, ${(0.12 + glowPulse * 0.1).toFixed(3)})`);
+    coronaGlow.addColorStop(1, 'rgba(255, 190, 60, 0)');
+    ctx.fillStyle = coronaGlow;
+    ctx.beginPath();
+    ctx.ellipse(-34, -18, 74, 54, -0.35, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Twinkling golden star specks in the blackberry glaze
+    stars.forEach((st) => {
+      const tw = 0.5 + 0.5 * Math.sin(t * st.speed + st.phase);
+      const size = st.r * (0.9 + tw * 1.6);
+      drawStarGlint(ctx, st.x, st.y, size, 0.3 + tw * 0.65);
+    });
+
+    // Diamond-ring sparkle flare on the honeycomb crystal
+    const dTw = 0.5 + 0.5 * Math.sin(t * 2.1 + 0.4);
+    const dx = -34 + pointerX * 1.5;
+    const dy = -39 + pointerY * 1.5;
+    const flare = ctx.createRadialGradient(dx, dy, 0.5, dx, dy, 12 + dTw * 6);
+    flare.addColorStop(0, `rgba(255, 252, 224, ${(0.55 + dTw * 0.35).toFixed(3)})`);
+    flare.addColorStop(0.5, `rgba(255, 212, 92, ${(0.18 + dTw * 0.14).toFixed(3)})`);
+    flare.addColorStop(1, 'rgba(255, 212, 92, 0)');
+    ctx.fillStyle = flare;
+    ctx.beginPath();
+    ctx.arc(dx, dy, 18, 0, Math.PI * 2);
+    ctx.fill();
+    drawStarGlint(ctx, dx, dy, 6.5 + dTw * 4.5, 0.65 + dTw * 0.35);
+
+    // Animated honey drip & ripple
+    drawAnimatedHoneyDrip(ctx, t);
+
+    // Rising warm steam wisps
+    drawAnimatedSteam(ctx, t);
+
+    ctx.restore();
+  }
+
+  function frame(now) {
+    const t = now * 0.001;
+    pointerX += (targetPointerX - pointerX) * 0.08;
+    pointerY += (targetPointerY - pointerY) * 0.08;
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw cached static illustration
+    if (offscreen.width > 0 && offscreen.height > 0) {
+      ctx.drawImage(offscreen, 0, 0);
+    }
+
+    // Draw animated overlays in logical coordinates
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawDynamicEffects(t);
+
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    if (!width || !height) return;
+    targetPointerX = (e.clientX / width - 0.5) * 2;
+    targetPointerY = (e.clientY / height - 0.5) * 2;
+  }, { passive: true });
+
+  window.addEventListener('pointerleave', () => {
+    targetPointerX = 0;
+    targetPointerY = 0;
+  }, { passive: true });
+
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(resize).observe(document.documentElement);
+  } else {
+    window.addEventListener('resize', resize);
+  }
+
+  resize();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

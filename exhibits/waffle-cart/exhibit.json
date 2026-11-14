@@ -1,0 +1,19 @@
+{
+  "title": "W(AI)ffle Cart",
+  "intro": "Each AI model is told to invent one waffle-pun dish for the menu.",
+  "skin": "cabinet",
+  "variant": "menu",
+  "status": "preview",
+  "mode": "blind",
+  "order": 10,
+  "pieceLabel": "Dish",
+  "promptVersion": 1,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}

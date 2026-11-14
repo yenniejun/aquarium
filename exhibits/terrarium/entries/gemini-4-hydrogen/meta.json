@@ -4,14 +4,14 @@
   "modelId": "gemini-4-hydrogen",
   "openWeights": false,
   "status": "final",
-  "title": "Heliotrope Orrery",
-  "statement": "A sun-tracking botanical astrolabe that unfurls stained-glass petals and orbiting spore-moons by midday, then showers the moss with golden seeds before folding into a glowing chrysalis for the night.",
+  "title": "Harmonic Orrery-Lotus",
+  "statement": "A chrono-botanical hybrid whose faceted crystal heart conducts orbiting filaments of pollen across solar and lunar tides. Unfurling its prism fronds at sunrise, it folds into a bioluminescent lantern by night to return luminous moon-seeds to the mineral earth.",
   "generation": {
     "date": "2026-11-14",
     "via": "Gemini API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 4
+      "promptVersion": 5
     },
     "attempts": 1,
     "edits": "none"

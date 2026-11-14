@@ -1,26 +1,34 @@
 /**
- * The terrarium's shared 60-second day. Every piece is told to compute the time of day the same
- * way from the clock (see exhibits/terrarium/prompt.md), so they stay in sync with each other and
- * with the sky on the page, without talking to it.
+ * The terrarium's shared day: a 40-second loop of sun then moon. Every piece is told to compute
+ * the time of day the same way from the clock (see exhibits/terrarium/prompt.md), so they stay in
+ * sync with each other and with the sky on the page without talking to it.
+ *
+ *    0-20  day: the sun rises at 0, is highest at 10, sets at 20 (dawn 0-3, dusk 17-20)
+ *   20-40  night: the moon rises at 20, is highest at 30, sets at 40, and the sun rises again
  */
-export const DAY = 60;
-export const SUNRISE = [8, 14] as const;
-export const SUNSET = [46, 52] as const;
+export const DAY = 40;
+export const HALF = DAY / 2;
+const TWILIGHT = 3;
 
 /** Seconds into the current day. */
 export function timeOfDay(now = Date.now()): number {
   return (now / 1000) % DAY;
 }
 
-/** 0 at night, 1 in full daylight, easing through sunrise and sunset. */
+/** 0 at night, 1 in full daylight, easing through dawn and dusk. */
 export function daylight(t: number): number {
-  if (t < SUNRISE[0] || t >= SUNSET[1]) return 0;
-  if (t < SUNRISE[1]) return (t - SUNRISE[0]) / (SUNRISE[1] - SUNRISE[0]);
-  if (t < SUNSET[0]) return 1;
-  return 1 - (t - SUNSET[0]) / (SUNSET[1] - SUNSET[0]);
+  if (t >= HALF) return 0;
+  if (t < TWILIGHT) return t / TWILIGHT;
+  if (t > HALF - TWILIGHT) return (HALF - t) / TWILIGHT;
+  return 1;
 }
 
-/** Where the sun is on its arc: 0 as it rises, 1 as it sets; outside 0..1 it's below the horizon. */
+/** How far the sun is across the sky, 0 (rising) to 1 (setting); outside that it's down. */
 export function sunArc(t: number): number {
-  return (t - SUNRISE[0]) / (SUNSET[1] - SUNRISE[0]);
+  return t / HALF;
+}
+
+/** The same for the moon, which rises as the sun sets. */
+export function moonArc(t: number): number {
+  return (t - HALF) / HALF;
 }

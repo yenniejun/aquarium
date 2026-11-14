@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  * { box-sizing: border-box; }
   html, body {
     width: 100%;
     height: 100%;
@@ -13,244 +12,360 @@
     overflow: hidden;
     background: transparent;
   }
-  body { position: fixed; inset: 0; }
-  svg {
+  canvas {
     display: block;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    background: transparent;
     pointer-events: none;
   }
 </style>
 </head>
 <body>
-<svg id="scene" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-  <defs>
-    <clipPath id="inside">
-      <path d="M300 72 L548 208 L548 766 L52 766 L52 208 Z"/>
-    </clipPath>
-    <radialGradient id="air" cx="50%" cy="42%" r="68%">
-      <stop offset="0" stop-color="#304a62"/>
-      <stop offset="1" stop-color="#101b31"/>
-    </radialGradient>
-    <radialGradient id="dayAir" cx="50%" cy="37%" r="75%">
-      <stop offset="0" stop-color="#ffdfa0"/>
-      <stop offset=".55" stop-color="#9cc5bd"/>
-      <stop offset="1" stop-color="#527c89"/>
-    </radialGradient>
-    <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0">
-      <stop stop-color="#668d79"/>
-      <stop offset=".48" stop-color="#b4d49c"/>
-      <stop offset="1" stop-color="#557c77"/>
-    </linearGradient>
-    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#c7edbb" stop-opacity=".76"/>
-      <stop offset=".48" stop-color="#78c8b6" stop-opacity=".54"/>
-      <stop offset="1" stop-color="#4d8b91" stop-opacity=".42"/>
-    </linearGradient>
-    <linearGradient id="petal" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#fff8c7"/>
-      <stop offset=".38" stop-color="#f8d980"/>
-      <stop offset=".78" stop-color="#e9a6b4"/>
-      <stop offset="1" stop-color="#8bd9d1"/>
-    </linearGradient>
-    <radialGradient id="heart">
-      <stop stop-color="#fffde3"/>
-      <stop offset=".42" stop-color="#ffd66f"/>
-      <stop offset="1" stop-color="#ec9b60"/>
-    </radialGradient>
-    <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#685b59"/>
-      <stop offset="1" stop-color="#262b39"/>
-    </linearGradient>
-    <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="12" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="smallGlow" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-
-  <g clip-path="url(#inside)">
-    <rect x="40" y="65" width="520" height="710" fill="url(#air)" id="airFill"/>
-    <rect x="40" y="65" width="520" height="710" fill="url(#dayAir)" id="dayWash" opacity="0"/>
-    <ellipse id="sunlight" cx="300" cy="180" rx="245" ry="220" fill="#ffe8ae" opacity="0" filter="url(#softGlow)"/>
-
-    <g opacity=".3" fill="#d9e6d8">
-      <circle cx="149" cy="310" r="1.4"/><circle cx="435" cy="282" r="1.2"/>
-      <circle cx="190" cy="448" r="1.1"/><circle cx="407" cy="474" r="1.5"/>
-      <circle cx="128" cy="540" r="1"/><circle cx="462" cy="390" r="1"/>
-    </g>
-
-    <path d="M52 682 Q120 661 180 680 T305 677 T430 677 T548 680 L548 770 L52 770Z" fill="url(#soil)"/>
-    <path d="M52 682 Q120 661 180 680 T305 677 T430 677 T548 680" fill="none" stroke="#b1a184" stroke-opacity=".58" stroke-width="2"/>
-    <g fill="#d4bd91" opacity=".55">
-      <ellipse cx="113" cy="704" rx="2.2" ry="1.2"/><ellipse cx="176" cy="690" rx="1.5" ry="1"/>
-      <ellipse cx="420" cy="698" rx="2" ry="1.2"/><ellipse cx="483" cy="686" rx="1.4" ry="1"/>
-      <ellipse cx="372" cy="724" rx="2.5" ry="1.2"/><ellipse cx="221" cy="730" rx="1.8" ry="1"/>
-    </g>
-
-    <g id="plant">
-      <path id="mainStem" d="M300 680 C278 615 321 555 300 497 C281 450 315 408 300 361"
-            fill="none" stroke="url(#stem)" stroke-width="8" stroke-linecap="round"/>
-      <path d="M300 672 Q285 690 267 696 M302 672 Q321 689 338 696 M298 674 Q297 694 296 704"
-            fill="none" stroke="#8caa83" stroke-width="3" stroke-linecap="round" opacity=".7"/>
-
-      <g class="sprout" data-at=".12" data-x="290" data-y="604">
-        <path d="M0 0 C-26 -31 -58 -52 -93 -51 C-76 -22 -40 1 0 0Z" fill="url(#leaf)" stroke="#c6e4bf" stroke-opacity=".8" stroke-width="1.6"/>
-        <path d="M0 0 C25 -38 57 -63 87 -62 C74 -30 38 -5 0 0Z" fill="url(#leaf)" stroke="#c6e4bf" stroke-opacity=".8" stroke-width="1.6"/>
-        <path d="M0 0 Q-45 -28 -83 -48 M0 0 Q42 -36 78 -58" fill="none" stroke="#e1edbd" stroke-opacity=".72" stroke-width="1.2"/>
-        <path d="M-49 -27 l-13 -11 M-33 -17 l-9 -12 M44 -26 l13 -14 M29 -16 l9 -12" fill="none" stroke="#e1edbd" stroke-opacity=".48"/>
-      </g>
-
-      <g class="sprout" data-at=".31" data-x="307" data-y="535">
-        <path d="M0 0 C-25 -32 -59 -46 -89 -40 C-69 -13 -34 5 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.6"/>
-        <path d="M0 0 C29 -35 61 -54 91 -48 C69 -17 35 1 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.6"/>
-        <path d="M0 0 Q-46 -26 -81 -38 M0 0 Q46 -31 82 -45" fill="none" stroke="#e1edbd" stroke-opacity=".72" stroke-width="1.2"/>
-        <path d="M-48 -22 l-12 -12 M-29 -12 l-10 -12 M45 -25 l13 -12 M29 -15 l10 -12" fill="none" stroke="#e1edbd" stroke-opacity=".5"/>
-      </g>
-
-      <g class="sprout" data-at=".49" data-x="294" data-y="469">
-        <path d="M0 0 C-23 -30 -49 -46 -77 -48 C-63 -19 -33 1 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.5"/>
-        <path d="M0 0 C24 -34 51 -54 79 -53 C63 -23 34 -2 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.5"/>
-        <path d="M0 0 Q-42 -28 -71 -45 M0 0 Q43 -34 72 -49" fill="none" stroke="#e1edbd" stroke-opacity=".7" stroke-width="1.2"/>
-      </g>
-
-      <g class="sprout" data-at=".65" data-x="305" data-y="410">
-        <path d="M0 0 C-19 -27 -42 -40 -67 -42 C-53 -16 -28 1 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.5"/>
-        <path d="M0 0 C21 -30 43 -44 69 -42 C54 -17 28 -1 0 0Z" fill="url(#leaf)" stroke="#d1ecc4" stroke-opacity=".8" stroke-width="1.5"/>
-        <path d="M0 0 Q-36 -25 -61 -39 M0 0 Q37 -29 63 -39" fill="none" stroke="#e1edbd" stroke-opacity=".7" stroke-width="1.1"/>
-      </g>
-
-      <g id="bloom" transform="translate(300 350)">
-        <circle cx="0" cy="0" r="61" fill="#ffe7a1" opacity=".18" filter="url(#softGlow)"/>
-        <g id="petals">
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(30)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(60)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(90)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(120)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(150)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(180)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(210)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(240)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(270)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(300)"/>
-          <path d="M0 5 C-23 -17 -25 -58 0 -93 C25 -58 23 -17 0 5Z" fill="url(#petal)" stroke="#fff2c4" stroke-opacity=".8" stroke-width="1.5" transform="rotate(330)"/>
-          <g stroke="#fff9d9" stroke-opacity=".58" stroke-width="1">
-            <path d="M0 0 L0 -77"/><path d="M0 0 L39 -66"/><path d="M0 0 L68 -39"/>
-            <path d="M0 0 L77 0"/><path d="M0 0 L68 39"/><path d="M0 0 L39 66"/>
-          </g>
-        </g>
-        <ellipse cx="0" cy="0" rx="30" ry="13" fill="none" stroke="#f9e4a0" stroke-opacity=".65" stroke-width="1.4" transform="rotate(-27)"/>
-        <ellipse cx="0" cy="0" rx="30" ry="13" fill="none" stroke="#c5f1e1" stroke-opacity=".68" stroke-width="1.4" transform="rotate(33)"/>
-        <circle cx="0" cy="0" r="21" fill="url(#heart)" stroke="#fff5c6" stroke-width="1.5" filter="url(#smallGlow)"/>
-        <circle cx="0" cy="0" r="7" fill="#fffde6"/>
-        <g fill="#fff5bd">
-          <circle cx="-12" cy="-4" r="1.8"/><circle cx="11" cy="-8" r="1.5"/>
-          <circle cx="8" cy="11" r="1.6"/><circle cx="-9" cy="10" r="1.3"/>
-        </g>
-      </g>
-
-      <g id="orbit" fill="none" stroke="#bdebe0" stroke-width="1.6" stroke-opacity=".8">
-        <ellipse cx="300" cy="350" rx="102" ry="36" transform="rotate(-25 300 350)" stroke-dasharray="2 7"/>
-        <ellipse cx="300" cy="350" rx="80" ry="28" transform="rotate(58 300 350)" stroke="#f5d88d" stroke-opacity=".7" stroke-dasharray="1 8"/>
-      </g>
-      <g id="moons" filter="url(#smallGlow)">
-        <circle cx="399" cy="307" r="4" fill="#fff2b2"/>
-        <path d="M367 423 l5 -7 5 7 -5 7Z" fill="#a6ece1"/>
-        <circle cx="220" cy="321" r="3" fill="#f4c5bf"/>
-      </g>
-    </g>
-
-    <g id="seed" transform="translate(300 667)">
-      <path d="M0 -17 C18 -13 22 5 0 18 C-22 5 -18 -13 0 -17Z" fill="#b8d7a4" stroke="#e8edba" stroke-width="1.5"/>
-      <path d="M0 -12 Q-2 1 0 13" fill="none" stroke="#648c78" stroke-width="2"/>
-      <circle cx="0" cy="-19" r="3" fill="#f7dc91"/>
-    </g>
-
-    <g id="pollen" fill="#fff1bd" filter="url(#smallGlow)">
-      <circle cx="214" cy="382" r="2.1"/><circle cx="390" cy="446" r="1.8"/>
-      <circle cx="236" cy="510" r="1.6"/><circle cx="371" cy="535" r="2"/>
-      <circle cx="336" cy="281" r="1.5"/><circle cx="190" cy="472" r="1.4"/>
-    </g>
-  </g>
-</svg>
-
+<canvas id="garden"></canvas>
 <script>
 (() => {
-  const stem = document.getElementById('mainStem');
-  const stemLength = stem.getTotalLength();
-  stem.style.strokeDasharray = stemLength;
-  stem.style.strokeDashoffset = stemLength;
+  const canvas = document.getElementById("garden");
+  const ctx = canvas.getContext("2d");
+  const W = 600, H = 800;
+  let scale = 1, offsetX = 0, offsetY = 0;
 
-  const sprouts = [...document.querySelectorAll('.sprout')].map(el => ({
-    el, at: Number(el.dataset.at), x: Number(el.dataset.x), y: Number(el.dataset.y)
-  }));
-  const bloom = document.getElementById('bloom');
-  const petals = document.getElementById('petals');
-  const orbit = document.getElementById('orbit');
-  const moons = document.getElementById('moons');
-  const plant = document.getElementById('plant');
-  const seed = document.getElementById('seed');
-  const pollen = document.getElementById('pollen');
-  const dayWash = document.getElementById('dayWash');
-  const sunlight = document.getElementById('sunlight');
-  const airFill = document.getElementById('airFill');
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(innerWidth * dpr);
+    canvas.height = Math.round(innerHeight * dpr);
+    scale = Math.min(innerWidth / W, innerHeight / H);
+    offsetX = (innerWidth - W * scale) / 2;
+    offsetY = (innerHeight - H * scale) / 2;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  addEventListener("resize", resize);
+  resize();
 
-  const smooth = x => {
-    x = Math.max(0, Math.min(1, x));
-    return x * x * (3 - 2 * x);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const smooth = v => {
+    v = clamp(v, 0, 1);
+    return v * v * (3 - 2 * v);
+  };
+  const mix = (a, b, f) => Math.round(a + (b - a) * f);
+  function color(day, night, f) {
+    return `rgb(${mix(day[0], night[0], f)},${mix(day[1], night[1], f)},${mix(day[2], night[2], f)})`;
+  }
+
+  const palette = {
+    stem: [[63, 145, 113], [80, 171, 193]],
+    leaf: [[42, 126, 98], [62, 164, 185]],
+    leafLight: [[147, 213, 151], [155, 220, 224]],
+    vein: [[188, 230, 163], [184, 234, 242]],
+    petal: [[244, 183, 91], [134, 185, 220]],
+    petalLight: [[255, 225, 147], [199, 228, 246]],
+    soil: [[76, 54, 48], [54, 52, 75]]
   };
 
-  function frame() {
-    const t = (Date.now() / 1000) % 60;
-    let growth = 0, light = 0.16;
+  function drawSoil(nightMix, glow) {
+    const soil = color(palette.soil[0], palette.soil[1], nightMix);
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(98, 712);
+    ctx.quadraticCurveTo(190, 686, 300, 699);
+    ctx.quadraticCurveTo(420, 684, 502, 711);
+    ctx.lineTo(510, 772);
+    ctx.quadraticCurveTo(300, 788, 90, 772);
+    ctx.closePath();
+    ctx.fillStyle = soil;
+    ctx.fill();
 
-    if (t >= 8 && t < 14) {
-      growth = smooth((t - 8) / 6);
-      light = 0.16 + 0.84 * smooth((t - 8) / 6);
-    } else if (t >= 14 && t < 46) {
-      growth = 1;
-      light = 1;
-    } else if (t >= 46 && t < 52) {
-      growth = 1 - smooth((t - 46) / 6);
-      light = 1 - 0.84 * smooth((t - 46) / 6);
+    ctx.beginPath();
+    ctx.moveTo(100, 711);
+    ctx.quadraticCurveTo(195, 686, 300, 699);
+    ctx.quadraticCurveTo(420, 685, 500, 711);
+    ctx.strokeStyle = `rgba(191,174,126,${0.48 - nightMix * 0.19})`;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.globalAlpha = 0.33;
+    ctx.lineWidth = 1;
+    for (let i = 0; i < 5; i++) {
+      const x = 133 + i * 79;
+      ctx.beginPath();
+      ctx.moveTo(x, 726 + (i % 2) * 7);
+      ctx.quadraticCurveTo(x + 24, 746, x + 6, 768);
+      ctx.strokeStyle = color([167, 118, 91], [111, 132, 171], nightMix);
+      ctx.stroke();
     }
 
-    const now = Date.now() / 1000;
-    const sway = Math.sin(now * 0.72) * (1.1 + growth * 1.5);
-    plant.setAttribute('transform', `translate(300 680) rotate(${sway}) translate(-300 -680)`);
+    const flecks = [
+      [145, 738, 2], [187, 753, 1.5], [236, 727, 2],
+      [353, 744, 1.5], [405, 729, 2], [463, 752, 1.5],
+      [288, 760, 1.5], [320, 721, 1.5]
+    ];
+    ctx.globalAlpha = 0.28 + glow * 0.22;
+    for (let i = 0; i < flecks.length; i++) {
+      const [x, y, r] = flecks[i];
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = i % 2 ? "#e9c982" : "#a8d9cb";
+      ctx.fill();
+    }
+    ctx.restore();
+  }
 
-    stem.style.strokeDashoffset = stemLength * (1 - growth);
-    dayWash.setAttribute('opacity', (light * 0.64).toFixed(3));
-    sunlight.setAttribute('opacity', (light * 0.20).toFixed(3));
-    airFill.setAttribute('opacity', (0.52 + light * 0.48).toFixed(3));
+  function stemPoint(u, stemH, sway) {
+    const p0 = [300, 704];
+    const p1 = [282 + sway, 704 - stemH * 0.36];
+    const p2 = [319 + sway * 0.7, 704 - stemH * 0.72];
+    const p3 = [300 + sway * 0.42, 704 - stemH];
+    const v = 1 - u;
+    return [
+      v*v*v*p0[0] + 3*v*v*u*p1[0] + 3*v*u*u*p2[0] + u*u*u*p3[0],
+      v*v*v*p0[1] + 3*v*v*u*p1[1] + 3*v*u*u*p2[1] + u*u*u*p3[1]
+    ];
+  }
 
-    sprouts.forEach(({el, at, x, y}) => {
-      const p = smooth((growth - at) / 0.2);
-      el.setAttribute('transform', `translate(${x} ${y}) scale(${p})`);
-      el.setAttribute('opacity', p.toFixed(3));
-    });
+  function drawLeaf(x, y, angle, len, width, nightMix, alpha) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    const base = color(palette.leaf[0], palette.leaf[1], nightMix);
+    const light = color(palette.leafLight[0], palette.leafLight[1], nightMix);
+    const vein = color(palette.vein[0], palette.vein[1], nightMix);
 
-    const bloomScale = smooth((growth - 0.56) / 0.36);
-    bloom.setAttribute('transform', `translate(300 350) rotate(${Math.sin(now * 0.4) * 2}) scale(${bloomScale})`);
-    petals.setAttribute('transform', `rotate(${now * 5})`);
-    orbit.setAttribute('transform', `rotate(${now * 8} 300 350)`);
-    moons.setAttribute('transform', `rotate(${now * 14} 300 350)`);
-    orbit.setAttribute('opacity', (growth * 0.88).toFixed(3));
-    moons.setAttribute('opacity', (growth * 0.95).toFixed(3));
+    ctx.globalAlpha = alpha;
+    const grad = ctx.createLinearGradient(0, -width, len, width);
+    grad.addColorStop(0, light);
+    grad.addColorStop(0.52, base);
+    grad.addColorStop(1, color([28, 92, 79], [52, 119, 155], nightMix));
 
-    const seedScale = Math.max(0.001, 1 - smooth((growth - 0.02) / 0.28));
-    seed.setAttribute('transform', `translate(300 667) scale(${seedScale})`);
-    pollen.setAttribute('opacity', (growth * light * (0.58 + 0.28 * Math.sin(now * 2))).toFixed(3));
-    pollen.setAttribute('transform', `translate(0 ${Math.sin(now * 0.8) * 5})`);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.bezierCurveTo(len * 0.23, -width * 0.86, len * 0.69, -width * 0.88, len, 0);
+    ctx.bezierCurveTo(len * 0.69, width * 0.76, len * 0.28, width * 0.72, 0, 0);
+    ctx.fillStyle = grad;
+    ctx.fill();
 
+    ctx.globalAlpha = alpha * 0.9;
+    ctx.beginPath();
+    ctx.moveTo(4, 0);
+    ctx.quadraticCurveTo(len * 0.48, 1, len * 0.96, 0);
+    ctx.strokeStyle = vein;
+    ctx.lineWidth = 1.15;
+    ctx.stroke();
+
+    for (let i = 1; i <= 3; i++) {
+      const u = i * 0.2;
+      ctx.beginPath();
+      ctx.moveTo(len * u, 0);
+      ctx.quadraticCurveTo(len * (u + 0.08), -width * 0.36, len * (u + 0.17), -width * 0.52);
+      ctx.moveTo(len * u, 0);
+      ctx.quadraticCurveTo(len * (u + 0.08), width * 0.28, len * (u + 0.17), width * 0.46);
+      ctx.strokeStyle = vein;
+      ctx.lineWidth = 0.65;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawBloom(x, y, size, open, time, nightMix, glow) {
+    if (size < 0.5) return;
+    ctx.save();
+    ctx.translate(x, y);
+    const petal = color(palette.petal[0], palette.petal[1], nightMix);
+    const petalLight = color(palette.petalLight[0], palette.petalLight[1], nightMix);
+    const bright = 0.24 + glow * 0.55;
+
+    ctx.save();
+    ctx.rotate(time * 0.12);
+    ctx.globalAlpha = 0.18 + glow * 0.34;
+    ctx.strokeStyle = petalLight;
+    ctx.lineWidth = 1.25;
+    ctx.setLineDash([3, 5]);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, size * 1.38, size * 0.53, 0.22, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    for (let ring = 0; ring < 2; ring++) {
+      ctx.save();
+      ctx.rotate(time * (ring ? -0.17 : 0.11) + ring * 0.7);
+      ctx.globalAlpha = 0.34 + glow * 0.38;
+      ctx.strokeStyle = ring ? petalLight : color([172, 211, 158], [144, 208, 226], nightMix);
+      ctx.lineWidth = ring ? 1.1 : 1.5;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, size * (ring ? 1.22 : 1.02), size * (ring ? 0.4 : 0.28), ring ? -0.42 : 0.34, 0, Math.PI * 2);
+      ctx.stroke();
+
+      const a = time * (ring ? -0.17 : 0.11) + ring * 0.7;
+      const ex = Math.cos(a + 0.9) * size * (ring ? 1.22 : 1.02);
+      const ey = Math.sin(a + 0.9) * size * (ring ? 0.4 : 0.28);
+      ctx.shadowColor = petalLight;
+      ctx.shadowBlur = 7 + glow * 8;
+      ctx.beginPath();
+      ctx.arc(ex, ey, 2.1 + size * 0.018, 0, Math.PI * 2);
+      ctx.fillStyle = petalLight;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    const petalCount = 9;
+    const petalLen = size * (0.66 * open + 0.15);
+    const petalWidth = size * (0.18 * open + 0.08);
+    for (let i = 0; i < petalCount; i++) {
+      const a = (i / petalCount) * Math.PI * 2 + time * 0.025;
+      ctx.save();
+      ctx.rotate(a);
+      ctx.globalAlpha = 0.75 + bright * 0.25;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(petalLen * 0.25, -petalWidth, petalLen * 0.72, -petalWidth * 0.83, petalLen, 0);
+      ctx.bezierCurveTo(petalLen * 0.7, petalWidth * 0.8, petalLen * 0.23, petalWidth, 0, 0);
+      const grad = ctx.createLinearGradient(0, 0, petalLen, 0);
+      grad.addColorStop(0, petal);
+      grad.addColorStop(1, petalLight);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    ctx.globalAlpha = 0.9;
+    ctx.shadowColor = petalLight;
+    ctx.shadowBlur = 8 + glow * 13;
+    ctx.beginPath();
+    ctx.arc(0, 0, Math.max(2, size * 0.17), 0, Math.PI * 2);
+    ctx.fillStyle = petalLight;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 0.68;
+    ctx.beginPath();
+    ctx.arc(-size * 0.035, -size * 0.035, Math.max(1, size * 0.07), 0, Math.PI * 2);
+    ctx.fillStyle = "#fff4cf";
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function draw(t) {
+    const day = t < 3 ? smooth(t / 3)
+      : t < 17 ? 1
+      : t < 20 ? 1 - smooth((t - 17) / 3)
+      : 0;
+    const moon = t >= 20 ? Math.sin(Math.PI * (t - 20) / 20) : 0;
+    const nightMix = clamp(1 - day * 0.88, 0, 1);
+    const glow = clamp(day * 0.45 + moon * 0.55, 0, 1);
+    const growth = smooth(t / 10);
+    const nightFold = t >= 20 ? smooth((t - 20) / 3) : 0;
+    const structure = growth * (1 - nightFold * 0.86);
+    const duskFold = t >= 17 ? smooth((t - 17) / 3) : 0;
+    const openness = 1 - duskFold;
+    const stemH = 425 * structure;
+    const sway = Math.sin(t * Math.PI / 10) * 12;
+
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ctx.save();
+    ctx.translate(offsetX, offsetY);
+    ctx.scale(scale, scale);
+
+    drawSoil(nightMix, glow);
+
+    const rootColor = color([148, 111, 84], [115, 135, 178], nightMix);
+    ctx.save();
+    ctx.globalAlpha = 0.42 + moon * 0.15;
+    ctx.strokeStyle = rootColor;
+    ctx.lineWidth = 1.4;
+    ctx.lineCap = "round";
+    for (let i = -2; i <= 2; i++) {
+      ctx.beginPath();
+      ctx.moveTo(300 + i * 3, 701);
+      ctx.bezierCurveTo(294 + i * 15, 717, 306 + i * 22, 737, 300 + i * 33, 760 - (i % 2) * 8);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    const seedPulse = 1 + Math.sin(t * Math.PI / 5) * 0.08;
+    ctx.save();
+    ctx.translate(300, 696);
+    ctx.rotate(-0.45);
+    ctx.globalAlpha = 0.72 + moon * 0.2;
+    ctx.shadowColor = color([232, 190, 107], [139, 203, 225], nightMix);
+    ctx.shadowBlur = 3 + moon * 5;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 5 * seedPulse, 3.2 * seedPulse, 0, 0, Math.PI * 2);
+    ctx.fillStyle = color([191, 139, 75], [102, 157, 187], nightMix);
+    ctx.fill();
+    ctx.restore();
+
+    if (structure > 0.012) {
+      const stem = color(palette.stem[0], palette.stem[1], nightMix);
+      const tip = stemPoint(1, stemH, sway);
+      ctx.save();
+      ctx.globalAlpha = 0.56 + day * 0.36 + moon * 0.12;
+      ctx.lineCap = "round";
+      ctx.lineWidth = 5 * Math.sqrt(structure);
+      ctx.beginPath();
+      ctx.moveTo(300, 704);
+      ctx.bezierCurveTo(282 + sway, 704 - stemH * 0.36, 319 + sway * 0.7, 704 - stemH * 0.72, tip[0], tip[1]);
+      ctx.strokeStyle = stem;
+      ctx.stroke();
+
+      ctx.globalAlpha = 0.4 + glow * 0.32;
+      ctx.lineWidth = 1.1;
+      ctx.strokeStyle = color(palette.vein[0], palette.vein[1], nightMix);
+      ctx.beginPath();
+      for (let i = 0; i <= 70; i++) {
+        const u = i / 70;
+        const p = stemPoint(u, stemH, sway);
+        const x = p[0] + Math.sin(u * Math.PI * 10 - t * 0.4) * 3.4;
+        if (i === 0) ctx.moveTo(x, p[1]);
+        else ctx.lineTo(x, p[1]);
+      }
+      ctx.stroke();
+
+      for (let i = 0; i < 5; i++) {
+        const u = 0.2 + i * 0.145;
+        const [x, y] = stemPoint(u, stemH, sway);
+        const len = (67 + (i % 2) * 12) * structure;
+        const drift = Math.sin(t * 0.28 + i) * 0.07;
+        drawLeaf(x, y, -Math.PI / 2 - 0.56 + drift, len, len * 0.22, nightMix, 0.82);
+        drawLeaf(x + 1, y + 2, -Math.PI / 2 + 0.59 - drift, len * 0.91, len * 0.2, nightMix, 0.78);
+        ctx.globalAlpha = 0.55;
+        ctx.beginPath();
+        ctx.arc(x, y, 2.1 * structure, 0, Math.PI * 2);
+        ctx.fillStyle = color(palette.petalLight[0], palette.petalLight[1], nightMix);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      const bloomSize = 47 * structure;
+      drawBloom(tip[0], tip[1], bloomSize, openness, t, nightMix, glow);
+
+      if (growth > 0.45 && t < 20) {
+        for (let i = 0; i < 7; i++) {
+          const a = i * 2.399 + t * 0.09;
+          const r = 28 + (i % 3) * 16;
+          const x = tip[0] + Math.cos(a) * r;
+          const y = tip[1] + Math.sin(a) * r * 0.66;
+          const pulse = 1.2 + (1 + Math.sin(t * 0.7 + i)) * 0.7;
+          ctx.save();
+          ctx.globalAlpha = (0.2 + day * 0.5) * (0.65 + 0.35 * Math.sin(t * 0.45 + i));
+          ctx.shadowColor = "#d6edbb";
+          ctx.shadowBlur = 7;
+          ctx.beginPath();
+          ctx.arc(x, y, pulse, 0, Math.PI * 2);
+          ctx.fillStyle = i % 2 ? "#f6d990" : "#b8e7cf";
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+    }
+
+    ctx.restore();
+  }
+
+  function frame() {
+    const t = (Date.now() / 1000) % 40;
+    draw(t);
     requestAnimationFrame(frame);
   }
-  requestAnimationFrame(frame);
+  frame();
 })();
 </script>
 </body>
@@ -259,7 +374,7 @@
 
 ```json
 {
-  "title": "Sunlace Orbit Lily",
-  "statement": "At sunrise, this patient little lily unfurls a constellation of translucent petals and sets its pollen into slow orbit. By night it folds its light back into a seed, keeping one bright idea for tomorrow."
+  "title": "Daythread Orrery",
+  "statement": "A patient sun-seeker braids its leaves around a tiny living orrery, opening by noon to follow the day. At night it folds back to its seed, keeping a little moonlight for tomorrow."
 }
 ```

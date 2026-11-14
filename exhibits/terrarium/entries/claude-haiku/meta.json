@@ -4,14 +4,14 @@
   "modelId": "claude-haiku-5-5",
   "openWeights": false,
   "status": "final",
-  "title": "Lantern Glassbell",
-  "statement": "A bell-flowered crystal bloom that unfolds with the sunrise, scatters prismatic light across the soil at noon, and folds shut at dusk to release its glowing seeds into the dark. By morning it has sunk back into a single warm ember, ready to begin again.",
+  "title": "The Patient Lanternbloom",
+  "statement": "A fern that unrolls from a seed at dawn, blooms at noon, and folds around a glowing lantern at dusk. At night it releases drifting seed-motes into the moonlight, then curls back into a seed before the sun returns.",
   "generation": {
     "date": "2026-11-14",
     "via": "Anthropic Messages API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 4
+      "promptVersion": 5
     },
     "attempts": 1,
     "edits": "none"

@@ -10,6 +10,9 @@
  *   terrarium glass case with a peaked roof (a Wardian case), brass frame 3:4
  *   porthole  round window in a brass ring (the page is cropped round)   1:1
  *   specimen  ornate museum vitrine: brass-edged glass, gilt crest, plinth 3:4
+ *   fieldguide  a plate on an aged page of a field guide, notes in ink   3:4
+ *   menu      a dish drawn on a chalkboard menu, name and blurb in chalk 4:3
+ *   tarot     a tarot card: gold-framed artwork, title and blurb on it   2:3
  */
 import type { PieceView } from '../../lib/exhibits';
 import type { CabinetVariant } from '../names';
@@ -70,9 +73,10 @@ const empty = piece.status === 'pending';
     aria-label={empty ? 'Empty, awaiting arrival' : `Pick ${piece.title} as your favorite`}
   >
     <span class="name">{piece.title}</span>
+    {(variant === 'menu' || variant === 'fieldguide' || variant === 'tarot') && piece.statement && <span class="blurb">{piece.statement}</span>}
     <span class="who" data-artist>{piece.artist}</span>
     {!empty && <span class="hint" aria-hidden="true">♥ pick this one</span>}
-    {piece.statement && <span class="card" aria-hidden="true">{piece.statement}</span>}
+    {!['menu', 'fieldguide', 'tarot'].includes(variant) && piece.statement && <span class="card" aria-hidden="true">{piece.statement}</span>}
   </button>
 </div>
 
@@ -452,9 +456,10 @@ const empty = piece.status === 'pending';
     filter: drop-shadow(0 18px 18px rgba(20, 50, 35, 0.4));
   }
 
+  /* Pieces are transparent, so the room's sky (and the sun and moon) show through the glass. */
   .terrarium .glass {
     clip-path: polygon(50% 0, 100% 22%, 100% 100%, 0 100%, 0 22%);
-    background: rgba(240, 250, 244, 0.25);
+    background: rgba(240, 250, 244, 0.08);
   }
 
   /* Glare on the glass. */
@@ -685,6 +690,245 @@ const empty = piece.status === 'pending';
   .specimen .label {
     width: 70%;
     margin-top: 18px;
+  }
+
+  /* ---------- Field guide (nightmare) ---------- */
+  /* Each piece is a plate on an aged page: the drawing (transparent) on paper, notes below. */
+  .fieldguide {
+    padding: 16px 16px 14px;
+    background:
+      radial-gradient(60% 40% at 80% 85%, rgba(120, 80, 30, 0.16), transparent 70%),
+      radial-gradient(40% 30% at 15% 10%, rgba(120, 80, 30, 0.12), transparent 70%),
+      radial-gradient(120% 90% at 50% 45%, #efe2c3 55%, #d9c49a 100%);
+    box-shadow:
+      0 0 0 1px rgba(90, 60, 25, 0.25),
+      0 14px 28px -8px rgba(0, 0, 0, 0.7);
+    rotate: -1.2deg;
+  }
+
+  :global([data-piece]:nth-child(even)) .fieldguide {
+    rotate: 1deg;
+  }
+
+  .fieldguide .glass {
+    background: transparent;
+  }
+
+  /* A faint ruled border, the way old plates are printed. */
+  .fieldguide .vessel {
+    outline: 1px solid rgba(90, 60, 25, 0.35);
+    outline-offset: 4px;
+  }
+
+  .fieldguide .base {
+    display: none;
+  }
+
+  .fieldguide .label {
+    width: 100%;
+    margin-top: 12px;
+    padding: 0;
+    color: #3b2614;
+    background: none;
+    box-shadow: none;
+  }
+
+  .fieldguide .name {
+    font: italic 400 1.15rem/1.1 'IM Fell English', serif;
+    letter-spacing: 0.01em;
+    text-transform: none;
+  }
+
+  .fieldguide .blurb {
+    font: 500 1rem/1.15 'Caveat', cursive;
+    color: rgba(59, 38, 20, 0.82);
+  }
+
+  .fieldguide .who {
+    font: 500 0.95rem/1.2 'Caveat', cursive;
+    color: #8a2a1e;
+  }
+
+  .fieldguide .hint {
+    font: 500 0.9rem/1 'Caveat', cursive;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  :global([data-state='voting']) .fieldguide:not(.empty):hover .label,
+  :global([data-state='voting']) .fieldguide .label:focus-visible {
+    box-shadow: none;
+    transform: none;
+  }
+
+  :global([data-state='voting']) .fieldguide:not(.empty):hover {
+    rotate: 0deg;
+    translate: 0 -3px;
+  }
+
+  :global([data-picked]) .fieldguide .label {
+    box-shadow: none;
+  }
+
+  /* A red ink circle around the one you picked. */
+  :global([data-picked]) .fieldguide {
+    box-shadow:
+      0 0 0 1px rgba(90, 60, 25, 0.25),
+      0 0 0 3px rgba(150, 40, 30, 0.6),
+      0 14px 28px -8px rgba(0, 0, 0, 0.7);
+  }
+
+  /* ---------- Tarot card (fairies) ---------- */
+  .tarot {
+    --ratio: 2 / 3;
+    padding: 14px 14px 12px;
+    border-radius: 12px;
+    background:
+      radial-gradient(80% 60% at 50% 0%, rgba(240, 200, 120, 0.12), transparent 70%),
+      linear-gradient(#1d1630, #120d20);
+    box-shadow:
+      inset 0 0 0 1px rgba(230, 196, 120, 0.7),
+      inset 0 0 0 5px #1a1329,
+      inset 0 0 0 6px rgba(230, 196, 120, 0.4),
+      0 18px 30px -10px rgba(0, 0, 0, 0.75);
+    transition:
+      translate 0.25s,
+      box-shadow 0.25s;
+  }
+
+  /* A little star above the artwork. */
+  .tarot::before {
+    content: '✦';
+    display: block;
+    margin: -4px 0 6px;
+    font-size: 0.8rem;
+    line-height: 1;
+    color: #e6c478;
+  }
+
+  /* The artwork window, framed in gold. */
+  .tarot .glass {
+    border-radius: 6px 6px 50% 50% / 6px 6px 8% 8%;
+    background: #0b0816;
+    box-shadow: 0 0 0 2px #e6c478;
+  }
+
+  .tarot .base {
+    display: none;
+  }
+
+  /* Title and blurb sit on the card itself. */
+  .tarot .label {
+    width: 100%;
+    margin-top: 10px;
+    padding: 0;
+    color: #f1e4c3;
+    background: none;
+    box-shadow: none;
+  }
+
+  .tarot .name {
+    font: 400 1rem/1.15 'IM Fell English', serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #e6c478;
+  }
+
+  .tarot .blurb {
+    max-width: 94%;
+    font: italic 400 0.86rem/1.3 'IM Fell English', serif;
+    color: rgba(241, 228, 195, 0.82);
+  }
+
+  .tarot .who {
+    color: #e6c478;
+  }
+
+  .tarot .hint {
+    color: rgba(241, 228, 195, 0.7);
+  }
+
+  :global([data-state='voting']) .tarot:not(.empty):hover {
+    translate: 0 -6px;
+  }
+
+  :global([data-state='voting']) .tarot:not(.empty):hover .label,
+  :global([data-state='voting']) .tarot .label:focus-visible {
+    box-shadow: none;
+    transform: none;
+  }
+
+  :global([data-picked]) .tarot {
+    box-shadow:
+      inset 0 0 0 1px rgba(230, 196, 120, 0.9),
+      inset 0 0 0 5px #1a1329,
+      inset 0 0 0 6px rgba(230, 196, 120, 0.6),
+      0 0 32px rgba(240, 200, 120, 0.45),
+      0 18px 30px -10px rgba(0, 0, 0, 0.75);
+  }
+
+  :global([data-picked]) .tarot .label {
+    box-shadow: none;
+  }
+
+  /* ---------- Chalkboard menu (waffle cart) ---------- */
+  .menu {
+    --ratio: 4 / 3;
+  }
+
+  /* The dish is drawn right on the board: no frame, no backdrop. */
+  .menu .glass {
+    background: transparent;
+  }
+
+  .menu .base {
+    display: none;
+  }
+
+  /* The label is chalk writing: the pun, then a tiny description. */
+  .menu .label {
+    width: 100%;
+    margin-top: 4px;
+    padding: 2px 4px;
+    color: #f4f1e8;
+    background: none;
+    box-shadow: none;
+    font-family: 'Caveat', cursive;
+  }
+
+  .menu .name {
+    font: 700 1.55rem/1.05 'Caveat', cursive;
+    letter-spacing: 0.01em;
+    text-transform: none;
+  }
+
+  .menu .blurb {
+    max-width: 92%;
+    font: 500 1.08rem/1.2 'Caveat', cursive;
+    color: rgba(244, 241, 232, 0.78);
+  }
+
+  .menu .who {
+    font: 500 0.95rem/1.2 'Caveat', cursive;
+    color: #f2c86b;
+  }
+
+  .menu .hint {
+    font: 500 0.95rem/1 'Caveat', cursive;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  :global([data-state='voting']) .menu:not(.empty):hover .label,
+  :global([data-state='voting']) .menu .label:focus-visible {
+    box-shadow: none;
+    transform: rotate(-1deg);
+  }
+
+  :global([data-picked]) .menu .label {
+    box-shadow: none;
+    text-decoration: underline wavy #f2c86b 2px;
+    text-underline-offset: 6px;
   }
 
   @media (prefers-reduced-motion: reduce) {

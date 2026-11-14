@@ -4,14 +4,14 @@
   "modelId": "gpt-6-luna",
   "openWeights": false,
   "status": "final",
-  "title": "Sunlace Orbit Lily",
-  "statement": "At sunrise, this patient little lily unfurls a constellation of translucent petals and sets its pollen into slow orbit. By night it folds its light back into a seed, keeping one bright idea for tomorrow.",
+  "title": "Daythread Orrery",
+  "statement": "A patient sun-seeker braids its leaves around a tiny living orrery, opening by noon to follow the day. At night it folds back to its seed, keeping a little moonlight for tomorrow.",
   "generation": {
     "date": "2026-11-14",
     "via": "OpenAI Chat Completions API",
     "params": {
       "max_tokens": 64000,
-      "promptVersion": 4
+      "promptVersion": 5
     },
     "attempts": 1,
     "edits": "none"

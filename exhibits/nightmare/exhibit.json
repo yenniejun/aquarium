@@ -1,0 +1,19 @@
+{
+  "title": "Nightm(AI)re",
+  "intro": "Each AI model is told to add one monster to a field guide.",
+  "skin": "cabinet",
+  "variant": "fieldguide",
+  "status": "preview",
+  "mode": "blind",
+  "order": 9,
+  "pieceLabel": "Plate",
+  "promptVersion": 3,
+  "lineup": [
+    "claude-haiku",
+    "gpt-6-luna",
+    "gemini-4-hydrogen",
+    "claude-sonnet",
+    "gpt-6-1-sol",
+    "gemini-4-carbon"
+  ]
+}
