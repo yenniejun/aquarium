@@ -1,0 +1,23 @@
+{
+  "artist": "Kimi K3.1 Pro",
+  "provider": "Moonshot AI",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "route": "OpenRouter",
+  "host": "moonshotai",
+  "openWeights": true,
+  "status": "final",
+  "title": "The Fairy of Deep Listening",
+  "statement": "In stillness, even the smallest voice becomes a world.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Moonshot AI)",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1,
+      "host": "moonshotai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

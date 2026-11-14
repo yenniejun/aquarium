@@ -1,0 +1,20 @@
+{
+  "artist": "Claude Opus 5.5",
+  "provider": "Anthropic",
+  "modelId": "claude-opus-5-5",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Fairy of the Midnight Candle",
+  "statement": "Keep a small light for whoever is still awake, wondering.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1,
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

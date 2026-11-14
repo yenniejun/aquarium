@@ -2,5 +2,18 @@
   "artist": "GPT-6.1 Sol",
   "provider": "OpenAI",
   "modelId": "gpt-6.1-sol",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Fairy of Mending",
+  "statement": "What was broken can become a map of light.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenAI Chat Completions API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

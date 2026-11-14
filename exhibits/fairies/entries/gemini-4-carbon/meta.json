@@ -2,5 +2,18 @@
   "artist": "Gemini 4 Carbon",
   "provider": "Google",
   "modelId": "gemini-4-carbon",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Fairy of Stopped Clocks",
+  "statement": "A quiet sanctuary outside time; rest, release, and unhurried grace.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Gemini API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }

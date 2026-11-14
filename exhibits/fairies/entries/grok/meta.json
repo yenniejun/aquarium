@@ -1,0 +1,23 @@
+{
+  "artist": "Grok 4.7",
+  "provider": "xAI",
+  "modelId": "x-ai/grok-4.7",
+  "route": "OpenRouter",
+  "host": "xai",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Fairy of Silent Foxfire",
+  "statement": "Not all light is offered. Some of it simply remains.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by xAI)",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1,
+      "host": "xai",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "artist": "GLM 5.3 Prime",
+  "provider": "Z.ai",
+  "modelId": "z-ai/glm-5.3-prime",
+  "route": "OpenRouter",
+  "host": "alibaba",
+  "openWeights": false,
+  "status": "final",
+  "title": "The Fairy of Last Light",
+  "statement": "What remains when day lets go. Hold it gently; it answers care.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "OpenRouter (served by Alibaba)",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1,
+      "host": "alibaba",
+      "reasoning": "medium"
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
+}

@@ -2,5 +2,18 @@
   "artist": "Claude Sonnet 5.5",
   "provider": "Anthropic",
   "modelId": "claude-sonnet-5-5",
-  "openWeights": false
+  "openWeights": false,
+  "status": "final",
+  "title": "The Fairy of Unsent Letters",
+  "statement": "What was felt but never mailed still flutters, seeking a reader.",
+  "generation": {
+    "date": "2026-11-14",
+    "via": "Anthropic Messages API",
+    "params": {
+      "max_tokens": 64000,
+      "promptVersion": 1
+    },
+    "attempts": 1,
+    "edits": "none"
+  }
 }
