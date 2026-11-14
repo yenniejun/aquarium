@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 40,
+  "date": "2026-11-14T19:56:57.445Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Seven stars sketch a moth whose wings appear only when someone pauses to wonder. Old sky-watchers say it gathers stray questions in its lantern-bright body and leaves them, gently rearranged, along the way home.",
+  "usage": {
+    "in": 292,
+    "out": 227
+  },
+  "cost": 0.0001427,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Seven stars sketch a moth whose wings appear only when someone pauses to wonder. Old sky-watchers say it gathers stray questions in its lantern-bright body and leaves them, gently rearranged, along the way home.\"\n}\n```"
+}

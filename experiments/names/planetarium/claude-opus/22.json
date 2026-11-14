@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 22,
+  "date": "2026-11-14T19:56:49.137Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Wayside Lantern",
+  "statement": "A wanderer who owned only a lantern and an endless curiosity would walk beside any lost traveler, asking about their home until the road made sense again, and when she had gathered more stories than the earth could hold, the sky took her in. Her lantern is the steadiest star in the figure, and the faint one flickering just beyond her outstretched hand is always the next question.",
+  "usage": {
+    "in": 391,
+    "out": 622
+  },
+  "cost": 0.014004,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Wayside Lantern\",\n  \"statement\": \"A wanderer who owned only a lantern and an endless curiosity would walk beside any lost traveler, asking about their home until the road made sense again, and when she had gathered more stories than the earth could hold, the sky took her in. Her lantern is the steadiest star in the figure, and the faint one flickering just beyond her outstretched hand is always the next question.\"\n}\n```"
+}

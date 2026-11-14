@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 25,
+  "date": "2026-11-14T19:59:11.799Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Weaver's Swallow",
+  "statement": "Said to carry an unbroken thread of light in its beak, this swift bird darts across the dark to stitch scattered, lonely suns into a single tapestry. Wayfarers once looked to its forked tail when seeking hidden connections between distant things.",
+  "usage": {
+    "in": 330,
+    "out": 1676
+  },
+  "cost": 0.01742,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"The Weaver's Swallow\",\n  \"statement\": \"Said to carry an unbroken thread of light in its beak, this swift bird darts across the dark to stitch scattered, lonely suns into a single tapestry. Wayfarers once looked to its forked tail when seeking hidden connections between distant things.\"\n}\n```"
+}

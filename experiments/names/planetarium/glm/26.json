@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 26,
+  "date": "2026-11-14T19:56:32.220Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Keeper's Kite",
+  "statement": "They say a night-watchman once flew a lantern on a string to guide lost travelers home; when he fell asleep at his post, the wind carried it up forever, and it still drifts across the dark, trailing its tail of six patient stars, tugging gently toward anyone who has wandered too far.",
+  "usage": {
+    "in": 302,
+    "out": 87
+  },
+  "cost": 0.00103776,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Keeper's Kite\",\n  \"statement\": \"They say a night-watchman once flew a lantern on a string to guide lost travelers home; when he fell asleep at his post, the wind carried it up forever, and it still drifts across the dark, trailing its tail of six patient stars, tugging gently toward anyone who has wandered too far.\"\n}\n```"
+}

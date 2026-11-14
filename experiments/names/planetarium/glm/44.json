@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 44,
+  "date": "2026-11-14T20:04:05.455Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "When the first winter grew too dark for the stars to find their way home, a small fox caught the last ember of a dying campfire and carried it across the sky on the tip of her tail. The gods, charmed by her audacity, set her there forever — a flickering lantern trotting along the horizon, so that no traveler need ever lose the path entirely.",
+  "usage": {
+    "in": 302,
+    "out": 100
+  },
+  "cost": 0.00115216,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"When the first winter grew too dark for the stars to find their way home, a small fox caught the last ember of a dying campfire and carried it across the sky on the tip of her tail. The gods, charmed by her audacity, set her there forever — a flickering lantern trotting along the horizon, so that no traveler need ever lose the path entirely.\"\n}\n```"
+}

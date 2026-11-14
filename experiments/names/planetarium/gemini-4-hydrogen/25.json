@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 25,
+  "date": "2026-11-14T19:57:07.901Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Folded Heron",
+  "statement": "Folded from a scholar's unfinished map, the Heron rose into the night to guide wanderers toward new questions rather than familiar shores. Star-watchers say its crisp wings only stir when two distant lights are joined by a line for the very first time.",
+  "usage": {
+    "in": 330,
+    "out": 1395
+  },
+  "cost": 0.0109575,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Folded Heron\",\n  \"statement\": \"Folded from a scholar's unfinished map, the Heron rose into the night to guide wanderers toward new questions rather than familiar shores. Star-watchers say its crisp wings only stir when two distant lights are joined by a line for the very first time.\"\n}\n```"
+}

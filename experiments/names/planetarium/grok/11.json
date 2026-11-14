@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 11,
+  "date": "2026-11-14T19:56:38.388Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Ember Cartographer",
+  "statement": "A nameless wanderer charted the dark not by claiming stars, but by listening until each one revealed its neighbor. The figure still bends over an unseen map, and when the lines draw themselves the embers lean toward one another, grateful to be found.",
+  "usage": {
+    "in": 1528,
+    "out": 909
+  },
+  "cost": 0.006398,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Ember Cartographer\",\n  \"statement\": \"A nameless wanderer charted the dark not by claiming stars, but by listening until each one revealed its neighbor. The figure still bends over an unseen map, and when the lines draw themselves the embers lean toward one another, grateful to be found.\"\n}\n```"
+}

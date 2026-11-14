@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 14,
+  "date": "2026-11-14T19:56:42.755Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Loom",
+  "statement": "Four blue stars hold the loom’s corners, and a small amber shuttle is said to weave the questions people whisper when they think no one is listening. Each winter it adds one silver thread to the heavens, but leaves the end untied so that a stranger may carry the pattern somewhere unexpected.",
+  "usage": {
+    "in": 292,
+    "out": 361
+  },
+  "cost": 0.004194,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Loom\",\n  \"statement\": \"Four blue stars hold the loom’s corners, and a small amber shuttle is said to weave the questions people whisper when they think no one is listening. Each winter it adds one silver thread to the heavens, but leaves the end untied so that a stranger may carry the pattern somewhere unexpected.\"\n}\n```"
+}

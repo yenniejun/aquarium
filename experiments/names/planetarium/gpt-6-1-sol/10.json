@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 10,
+  "date": "2026-11-14T19:48:57.013Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Snail",
+  "statement": "Seven blue stars curl into the shell of the Lantern Snail, who carries a small borrowed sun along the underside of night. The old skykeepers say it stops beside every lost traveler—not to choose their road, but to light the fork until they can.",
+  "usage": {
+    "in": 292,
+    "out": 449
+  },
+  "cost": 0.005074,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Snail\",\n  \"statement\": \"Seven blue stars curl into the shell of the Lantern Snail, who carries a small borrowed sun along the underside of night. The old skykeepers say it stops beside every lost traveler—not to choose their road, but to light the fork until they can.\"\n}\n```"
+}

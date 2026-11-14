@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 17,
+  "date": "2026-11-14T19:56:54.733Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "Seven stars outline the lantern of a skyward wanderer who collected questions instead of answers; an eighth drifts like a moth through its unclosed door. They say the wanderer leaves that last line undrawn so the lantern will always have room for something unexpected.",
+  "usage": {
+    "in": 292,
+    "out": 327
+  },
+  "cost": 0.003854,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"Seven stars outline the lantern of a skyward wanderer who collected questions instead of answers; an eighth drifts like a moth through its unclosed door. They say the wanderer leaves that last line undrawn so the lantern will always have room for something unexpected.\"\n}\n```"
+}

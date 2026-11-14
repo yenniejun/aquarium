@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 35,
+  "date": "2026-11-14T20:45:28.453Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer of Almost",
+  "statement": "He sketches the constellations that nearly were—shapes half-drawn in starlight before the dawn dissolves them. His map is a reminder that the sky keeps a gentle record of every beautiful thing that almost happened.",
+  "usage": {
+    "in": 310,
+    "out": 4987
+  },
+  "cost": 0.01052842,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 70,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer of Almost\",\n  \"statement\": \"He sketches the constellations that nearly were—shapes half-drawn in starlight before the dawn dissolves them. His map is a reminder that the sky keeps a gentle record of every beautiful thing that almost happened.\"\n}\n```"
+}

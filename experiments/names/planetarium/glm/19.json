@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 19,
+  "date": "2026-11-14T19:56:25.705Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cartographer's Lantern",
+  "statement": "A wandering mapmaker who tried to chart every star in the sky, until the sky, charmed by such devotion, took her in — lantern still lit, lines still being drawn. Sailors say when her lantern flares, somewhere a lost traveler finds the way home.",
+  "usage": {
+    "in": 302,
+    "out": 78
+  },
+  "cost": 0.00095856,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Lantern\",\n  \"statement\": \"A wandering mapmaker who tried to chart every star in the sky, until the sky, charmed by such devotion, took her in — lantern still lit, lines still being drawn. Sailors say when her lantern flares, somewhere a lost traveler finds the way home.\"\n}\n```"
+}

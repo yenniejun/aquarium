@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 44,
+  "date": "2026-11-14T20:08:54.576Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Firefly Cartographer",
+  "statement": "He set out to map the heavens by visiting every star, but kept stopping to make friends with them instead. So his chart remains forever unfinished — a dotted trail of greetings across the night.",
+  "usage": {
+    "in": 292,
+    "out": 1632
+  },
+  "cost": 0.032934,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Firefly Cartographer\",\n  \"statement\": \"He set out to map the heavens by visiting every star, but kept stopping to make friends with them instead. So his chart remains forever unfinished — a dotted trail of greetings across the night.\"\n}\n```"
+}

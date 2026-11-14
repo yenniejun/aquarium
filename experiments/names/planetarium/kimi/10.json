@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 10,
+  "date": "2026-11-14T19:48:48.844Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Cartographer’s Moth",
+  "statement": "Born from the last spark of an unfinished thought, the Moth stitches wandering stars into maps for journeys no one has imagined yet. Whenever two distant questions recognize each other, its silver wings briefly unfold across the dark.",
+  "usage": {
+    "in": 369,
+    "out": 305
+  },
+  "cost": 0.0033272,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer’s Moth\",\n  \"statement\": \"Born from the last spark of an unfinished thought, the Moth stitches wandering stars into maps for journeys no one has imagined yet. Whenever two distant questions recognize each other, its silver wings briefly unfold across the dark.\"\n}\n```"
+}

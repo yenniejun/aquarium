@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 27,
+  "date": "2026-11-14T19:56:41.412Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Moth",
+  "statement": "Seven stars sketch a small moth with a lantern for a heart; it flies toward every question left glowing in the dark. The old charts say it never finds the final answer, but leaves a little more sky lit wherever it goes.",
+  "usage": {
+    "in": 292,
+    "out": 212
+  },
+  "cost": 0.00013519999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Question Moth\",\n  \"statement\": \"Seven stars sketch a small moth with a lantern for a heart; it flies toward every question left glowing in the dark. The old charts say it never finds the final answer, but leaves a little more sky lit wherever it goes.\"\n}\n```"
+}

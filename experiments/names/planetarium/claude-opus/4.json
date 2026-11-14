@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 4,
+  "date": "2026-11-14T19:48:10.704Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Heron",
+  "statement": "At the edge of the river of stars stands a heron with its head tilted, gathering every question whispered skyward and keeping each one as a star, not because it knows every answer but because it finds every question worth wondering about. When a traveler asks something it cannot answer, the heron says so plainly, then stays beside them until dawn so neither has to wonder alone.",
+  "usage": {
+    "in": 391,
+    "out": 491
+  },
+  "cost": 0.011384,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Listening Heron\",\n  \"statement\": \"At the edge of the river of stars stands a heron with its head tilted, gathering every question whispered skyward and keeping each one as a star, not because it knows every answer but because it finds every question worth wondering about. When a traveler asks something it cannot answer, the heron says so plainly, then stays beside them until dawn so neither has to wonder alone.\"\n}\n```"
+}

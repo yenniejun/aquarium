@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 10,
+  "date": "2026-11-14T20:16:11.788Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Map of Almost",
+  "statement": "It charts not where the ships have sailed but where they almost went: a dotted coastline of near-misses and daydreams, each faint star a course someone imagined and never took. The lines only shimmer when you look at them sideways, the way you catch a thought just before it is gone.",
+  "usage": {
+    "in": 310,
+    "out": 2669
+  },
+  "cost": 0.00566062,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 42,
+  "reply": "```json\n{\n  \"title\": \"The Map of Almost\",\n  \"statement\": \"It charts not where the ships have sailed but where they almost went: a dotted coastline of near-misses and daydreams, each faint star a course someone imagined and never took. The lines only shimmer when you look at them sideways, the way you catch a thought just before it is gone.\"\n}\n```"
+}

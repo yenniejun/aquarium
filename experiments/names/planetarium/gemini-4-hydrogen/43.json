@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 43,
+  "date": "2026-11-14T19:58:02.693Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn to the faintest embers rather than the blinding suns, this quiet moth traces silver paths across the dark between distant worlds. Star-gazers say that whenever two lonely constellations wish to converse, it lends a thread of luminous dust from its wings to bridge the gap.",
+  "usage": {
+    "in": 330,
+    "out": 1516
+  },
+  "cost": 0.011865,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn to the faintest embers rather than the blinding suns, this quiet moth traces silver paths across the dark between distant worlds. Star-gazers say that whenever two lonely constellations wish to converse, it lends a thread of luminous dust from its wings to bridge the gap.\"\n}\n```"
+}

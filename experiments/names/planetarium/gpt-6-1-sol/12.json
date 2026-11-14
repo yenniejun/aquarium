@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 12,
+  "date": "2026-11-14T19:56:34.388Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Fox",
+  "statement": "When the heavens were finished, a fox unstitched one star from its own tail so there would always be room for something nobody had imagined. In the round window, its amber constellation slowly traces itself from nose to paws—but just before the tail closes, the loose star wanders off, and the fox turns to follow.",
+  "usage": {
+    "in": 292,
+    "out": 447
+  },
+  "cost": 0.005054,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Fox\",\n  \"statement\": \"When the heavens were finished, a fox unstitched one star from its own tail so there would always be room for something nobody had imagined. In the round window, its amber constellation slowly traces itself from nose to paws—but just before the tail closes, the loose star wanders off, and the fox turns to follow.\"\n}\n```"
+}

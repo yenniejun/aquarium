@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 13,
+  "date": "2026-11-14T19:56:21.024Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "She was the thief who stole the first star and carries it still, unlit, in her jaws — astronomers say the constellation flickers each winter when she pauses to wonder whether to finally set it down.",
+  "usage": {
+    "in": 302,
+    "out": 64
+  },
+  "cost": 0.00083536,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"She was the thief who stole the first star and carries it still, unlit, in her jaws — astronomers say the constellation flickers each winter when she pauses to wonder whether to finally set it down.\"\n}\n```"
+}

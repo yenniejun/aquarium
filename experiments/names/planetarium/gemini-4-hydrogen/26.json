@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 26,
+  "date": "2026-11-14T19:57:07.157Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Kindled from the last ember of a midnight library, she drifts between lonely stars gathering stray sparks in the dust of her wings. Travelers say that whenever a quiet question finally finds its answer in the dark, a new pinpoint flares along her silvered veins.",
+  "usage": {
+    "in": 330,
+    "out": 1116
+  },
+  "cost": 0.008865,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Kindled from the last ember of a midnight library, she drifts between lonely stars gathering stray sparks in the dust of her wings. Travelers say that whenever a quiet question finally finds its answer in the dark, a new pinpoint flares along her silvered veins.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 29,
+  "date": "2026-11-14T19:57:58.823Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Moth Cartographer",
+  "statement": "When the heavens were declared fully mapped, a moth nibbled a hole in the chart so there would still be somewhere to go. Thirteen silver stars unfold into its wings each night, while a single amber star slips through the gap and lights a path no one has named.",
+  "usage": {
+    "in": 292,
+    "out": 484
+  },
+  "cost": 0.005424,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Moth Cartographer\",\n  \"statement\": \"When the heavens were declared fully mapped, a moth nibbled a hole in the chart so there would still be somewhere to go. Thirteen silver stars unfold into its wings each night, while a single amber star slips through the gap and lights a path no one has named.\"\n}\n```"
+}

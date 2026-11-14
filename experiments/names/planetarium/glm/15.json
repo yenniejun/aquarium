@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 15,
+  "date": "2026-11-14T19:56:23.505Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lanternbearer's Fox",
+  "statement": "They say when the first star-maker finished lighting the sky, a small fox ran off with the last unplaced star, carrying it in her mouth like a glowing coal. The star-maker, charmed, let her keep it — and now she trots forever just ahead of dawn, her lantern-tail low, dropping one stray sparkle at each constellation she passes so no one's sky is ever entirely dark.",
+  "usage": {
+    "in": 302,
+    "out": 105
+  },
+  "cost": 0.00119616,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lanternbearer's Fox\",\n  \"statement\": \"They say when the first star-maker finished lighting the sky, a small fox ran off with the last unplaced star, carrying it in her mouth like a glowing coal. The star-maker, charmed, let her keep it — and now she trots forever just ahead of dawn, her lantern-tail low, dropping one stray sparkle at each constellation she passes so no one's sky is ever entirely dark.\"\n}\n```"
+}

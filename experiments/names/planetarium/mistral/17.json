@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 17,
+  "date": "2026-11-14T20:23:45.368Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago the first moth to see a flame loved it so much it never looked away, and its wings settled into the sky as two slow-breathing stars. When the night is clearest, those wings drift open and shut just once — a small sign that some light in the dark is still worth circling.",
+  "usage": {
+    "in": 310,
+    "out": 3093
+  },
+  "cost": 0.00655102,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 47,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago the first moth to see a flame loved it so much it never looked away, and its wings settled into the sky as two slow-breathing stars. When the night is clearest, those wings drift open and shut just once — a small sign that some light in the dark is still worth circling.\"\n}\n```"
+}

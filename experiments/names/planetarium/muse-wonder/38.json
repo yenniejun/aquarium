@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 38,
+  "date": "2026-11-14T20:07:28.543Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Keeper of Almosts",
+  "statement": "They gather unfinished songs, unsent letters, and half-made wishes, hanging them among the stars so nothing hopeful is ever truly lost. If one flickers while you watch, it is an almost that has been waiting for you to finish it.",
+  "usage": {
+    "in": 292,
+    "out": 1943
+  },
+  "cost": 0.039154,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 23,
+  "reply": "```json\n{\n  \"title\": \"The Keeper of Almosts\",\n  \"statement\": \"They gather unfinished songs, unsent letters, and half-made wishes, hanging them among the stars so nothing hopeful is ever truly lost. If one flickers while you watch, it is an almost that has been waiting for you to finish it.\"\n}\n```"
+}

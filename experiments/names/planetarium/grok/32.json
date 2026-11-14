@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 32,
+  "date": "2026-11-14T19:58:12.276Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox once gathered the embers the dark had dropped and stitched them into a path; the sky kept the fox so wanderers might follow its steady glow from one star to the next.",
+  "usage": {
+    "in": 1528,
+    "out": 752
+  },
+  "cost": 0.005456,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox once gathered the embers the dark had dropped and stitched them into a path; the sky kept the fox so wanderers might follow its steady glow from one star to the next.\"\n}\n```"
+}

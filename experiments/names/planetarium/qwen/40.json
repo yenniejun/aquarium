@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 40,
+  "date": "2026-11-14T19:58:18.742Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Moth Cartographer",
+  "statement": "A small moth who, rather than flying into the flame, chose to chart its edges—tracing the boundary of the light night after night until its patient orbit was written into the sky. It maps not what burns, but where warmth begins.",
+  "usage": {
+    "in": 320,
+    "out": 1309
+  },
+  "cost": 0.016988,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Moth Cartographer\",\n  \"statement\": \"A small moth who, rather than flying into the flame, chose to chart its edges—tracing the boundary of the light night after night until its patient orbit was written into the sky. It maps not what burns, but where warmth begins.\"\n}\n```"
+}

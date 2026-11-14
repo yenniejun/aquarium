@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 11,
+  "date": "2026-11-14T19:56:59.580Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Paper Astrolabe",
+  "statement": "Folded by a sleepless scholar from a single sheet of poems and equations, this fragile instrument was charmed to measure the hidden kinship between any two things. Carried aloft by a midnight wind, its luminous creases still turn overhead as a compass for the endlessly curious.",
+  "usage": {
+    "in": 330,
+    "out": 2121
+  },
+  "cost": 0.02187,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 41,
+  "reply": "```json\n{\n  \"title\": \"The Paper Astrolabe\",\n  \"statement\": \"Folded by a sleepless scholar from a single sheet of poems and equations, this fragile instrument was charmed to measure the hidden kinship between any two things. Carried aloft by a midnight wind, its luminous creases still turn overhead as a compass for the endlessly curious.\"\n}\n```"
+}

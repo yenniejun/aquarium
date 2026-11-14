@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 6,
+  "date": "2026-11-14T19:49:30.321Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Unable to choose just one light to love, this restless creature fluttered from spark to lonely spark in the first darkness, leaving trails of silver dust that bound the scattered stars into stories. Sky-watchers say it still wakes to trace hidden symmetries across the void, uniting distant wonders that thought themselves alone.",
+  "usage": {
+    "in": 330,
+    "out": 2399
+  },
+  "cost": 0.02465,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 43,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Unable to choose just one light to love, this restless creature fluttered from spark to lonely spark in the first darkness, leaving trails of silver dust that bound the scattered stars into stories. Sky-watchers say it still wakes to trace hidden symmetries across the void, uniting distant wonders that thought themselves alone.\"\n}\n```"
+}

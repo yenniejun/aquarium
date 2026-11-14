@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 2,
+  "date": "2026-11-14T19:48:03.932Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Questioning Compass",
+  "statement": "Seven stars sketch a little compass whose needle points toward the nearest unanswered question. Sailors say a wandering comet left it in the sky to guide not ships home, but minds toward their next bright idea.",
+  "usage": {
+    "in": 292,
+    "out": 321
+  },
+  "cost": 0.00018969999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"The Questioning Compass\",\n  \"statement\": \"Seven stars sketch a little compass whose needle points toward the nearest unanswered question. Sailors say a wandering comet left it in the sky to guide not ships home, but minds toward their next bright idea.\"\n}\n```"
+}

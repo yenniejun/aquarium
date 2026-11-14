@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 39,
+  "date": "2026-11-14T19:57:48.120Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn to the faintest embers of starlight, this silver-winged creature traces delicate threads between forgotten suns whenever wanderers lose their bearings. On clear nights its constellation unfolds like a quiet compass, charting not where a traveler stands, but every wonder still waiting to be asked.",
+  "usage": {
+    "in": 330,
+    "out": 871
+  },
+  "cost": 0.0070275,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn to the faintest embers of starlight, this silver-winged creature traces delicate threads between forgotten suns whenever wanderers lose their bearings. On clear nights its constellation unfolds like a quiet compass, charting not where a traveler stands, but every wonder still waiting to be asked.\"\n}\n```"
+}

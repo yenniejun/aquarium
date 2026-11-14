@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 49,
+  "date": "2026-11-14T19:59:51.717Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Fox",
+  "statement": "The fox stitched itself from nine forgotten stars, but gave the tip of its tail to a traveler who had lost the road home. Now it trots around the dark with one loose thread of light, pausing whenever someone below begins to wonder.",
+  "usage": {
+    "in": 292,
+    "out": 498
+  },
+  "cost": 0.005564,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Fox\",\n  \"statement\": \"The fox stitched itself from nine forgotten stars, but gave the tip of its tail to a traveler who had lost the road home. Now it trots around the dark with one loose thread of light, pausing whenever someone below begins to wonder.\"\n}\n```"
+}

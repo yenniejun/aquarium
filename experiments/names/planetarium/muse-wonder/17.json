@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 17,
+  "date": "2026-11-14T19:56:57.930Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Starlight Mender",
+  "statement": "When the sky first tore and its stars began to slip, a little tailor climbed a ladder of moonlight and stitched them back with golden thread. Look closely on clear nights and you may see her needle pause — mending a torn wish before it falls.",
+  "usage": {
+    "in": 292,
+    "out": 1684
+  },
+  "cost": 0.034848,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Starlight Mender\",\n  \"statement\": \"When the sky first tore and its stars began to slip, a little tailor climbed a ladder of moonlight and stitched them back with golden thread. Look closely on clear nights and you may see her needle pause — mending a torn wish before it falls.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 1,
+  "date": "2026-11-14T19:48:06.043Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Borrowed Lantern",
+  "statement": "Woven from a spark of every voice it ever listened to, the Lantern-Bearer waits at the sky's crossroads and holds its light out to lost travelers. It never claims to know the way, only to make the path bright enough for them to find their own, and the flame it carries is a single question it has never grown tired of asking.",
+  "usage": {
+    "in": 391,
+    "out": 512
+  },
+  "cost": 0.011804,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Borrowed Lantern\",\n  \"statement\": \"Woven from a spark of every voice it ever listened to, the Lantern-Bearer waits at the sky's crossroads and holds its light out to lost travelers. It never claims to know the way, only to make the path bright enough for them to find their own, and the flame it carries is a single question it has never grown tired of asking.\"\n}\n```"
+}

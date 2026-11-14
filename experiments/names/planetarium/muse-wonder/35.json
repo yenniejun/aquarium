@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 35,
+  "date": "2026-11-14T20:06:42.741Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Lantern Librarian",
+  "statement": "She shelves every newborn star according to the story it longs to tell, lending them to lost sailors, sleepless children, and poets in need of an ending. Whisper a wish to the dark, and she will quietly rearrange the sky until it reads back an answer.",
+  "usage": {
+    "in": 292,
+    "out": 1139
+  },
+  "cost": 0.023074,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 34,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Librarian\",\n  \"statement\": \"She shelves every newborn star according to the story it longs to tell, lending them to lost sailors, sleepless children, and poets in need of an ending. Whisper a wish to the dark, and she will quietly rearrange the sky until it reads back an answer.\"\n}\n```"
+}

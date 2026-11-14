@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 12,
+  "date": "2026-11-14T20:18:18.530Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Kite",
+  "statement": "A mapmaker flew a kite on the night she finished the last chart of the world, and its tail snagged the loose stars; it hangs there still, a bright diamond with a streaming tail, marking the place where the map ends and the open sky begins.",
+  "usage": {
+    "in": 310,
+    "out": 4076
+  },
+  "cost": 0.00861532,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 59,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Kite\",\n  \"statement\": \"A mapmaker flew a kite on the night she finished the last chart of the world, and its tail snagged the loose stars; it hangs there still, a bright diamond with a streaming tail, marking the place where the map ends and the open sky begins.\"\n}\n```"
+}

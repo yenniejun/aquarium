@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 36,
+  "date": "2026-11-14T20:01:24.040Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Kite",
+  "statement": "Loosed from a curious scholar's hand in the world's first gale, this diamond of bright stars rides the upper dark to chart the unseen currents of the cosmos. Night wanderers watch its trailing tail of knotted sparks, which is said to swing gently toward whatever wonder lies hidden just beyond the horizon.",
+  "usage": {
+    "in": 330,
+    "out": 1506
+  },
+  "cost": 0.01572,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 27,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Kite\",\n  \"statement\": \"Loosed from a curious scholar's hand in the world's first gale, this diamond of bright stars rides the upper dark to chart the unseen currents of the cosmos. Night wanderers watch its trailing tail of knotted sparks, which is said to swing gently toward whatever wonder lies hidden just beyond the horizon.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 49,
+  "date": "2026-11-14T20:10:06.417Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Mending Astronomer",
+  "statement": "Each night she stitches the torn dark with silver thread, and the stars are the light shining through her seams. Her needle always points toward lost things that are ready to be found again.",
+  "usage": {
+    "in": 292,
+    "out": 1261
+  },
+  "cost": 0.025514,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Mending Astronomer\",\n  \"statement\": \"Each night she stitches the torn dark with silver thread, and the stars are the light shining through her seams. Her needle always points toward lost things that are ready to be found again.\"\n}\n```"
+}

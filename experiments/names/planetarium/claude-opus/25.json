@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 25,
+  "date": "2026-11-14T19:56:55.949Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Unfinished Map",
+  "statement": "A wandering cartographer refused to fill her map's blank edges with dragons, writing instead in tiny careful letters, \"not yet known, come and see.\" Charmed, the gods hung her map among the stars with one line forever left undrawn, so every curious traveler who looks up may add a little more.",
+  "usage": {
+    "in": 391,
+    "out": 545
+  },
+  "cost": 0.012464,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Map\",\n  \"statement\": \"A wandering cartographer refused to fill her map's blank edges with dragons, writing instead in tiny careful letters, \\\"not yet known, come and see.\\\" Charmed, the gods hung her map among the stars with one line forever left undrawn, so every curious traveler who looks up may add a little more.\"\n}\n```"
+}

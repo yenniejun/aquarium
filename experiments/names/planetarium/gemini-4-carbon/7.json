@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 7,
+  "date": "2026-11-14T19:49:08.804Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Mistaking the scattered stars for reading lamps, a curious moth fluttered from light to distant light, leaving trails of silver wing-dust that bound the lonely fires into patterns. Night-watchers still look for the faint shimmer of its wings whenever they seek the hidden thread between two distant truths.",
+  "usage": {
+    "in": 330,
+    "out": 1293
+  },
+  "cost": 0.01359,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Mistaking the scattered stars for reading lamps, a curious moth fluttered from light to distant light, leaving trails of silver wing-dust that bound the lonely fires into patterns. Night-watchers still look for the faint shimmer of its wings whenever they seek the hidden thread between two distant truths.\"\n}\n```"
+}

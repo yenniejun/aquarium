@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 30,
+  "date": "2026-11-14T19:56:44.890Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Mender",
+  "statement": "A small fox once found a tear in the night and stitched it closed with a thread of starlight, tying a bright knot wherever a lost traveler needed courage. The knots still glow, though the fox keeps wandering, looking for the next dark place that could use a little mending.",
+  "usage": {
+    "in": 292,
+    "out": 233
+  },
+  "cost": 0.0001457,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Mender\",\n  \"statement\": \"A small fox once found a tear in the night and stitched it closed with a thread of starlight, tying a bright knot wherever a lost traveler needed courage. The knots still glow, though the fox keeps wandering, looking for the next dark place that could use a little mending.\"\n}\n```"
+}

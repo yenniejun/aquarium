@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 18,
+  "date": "2026-11-14T19:57:07.566Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Moth Astronomer",
+  "statement": "The Moth Astronomer loved every light too much to choose just one, so she crossed the night joining them into a map, certain that wonder grew brighter when shared. Her silver wings wore away, but the sky still turns the pages.",
+  "usage": {
+    "in": 369,
+    "out": 484
+  },
+  "cost": 0.0051172,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"The Moth Astronomer\",\n  \"statement\": \"The Moth Astronomer loved every light too much to choose just one, so she crossed the night joining them into a map, certain that wonder grew brighter when shared. Her silver wings wore away, but the sky still turns the pages.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 10,
+  "date": "2026-11-14T19:49:23.988Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Scribe",
+  "statement": "A scribe once carried a single lantern into a sky of unnamed lights and joined them into a figure bent as if writing. Those stars still brighten for anyone who pauses, and they always leave the last word unwritten.",
+  "usage": {
+    "in": 1528,
+    "out": 1184
+  },
+  "cost": 0.008048,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 27,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Scribe\",\n  \"statement\": \"A scribe once carried a single lantern into a sky of unnamed lights and joined them into a figure bent as if writing. Those stars still brighten for anyone who pauses, and they always leave the last word unwritten.\"\n}\n```"
+}

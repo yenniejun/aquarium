@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 28,
+  "date": "2026-11-14T19:56:41.828Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Listening Kite",
+  "statement": "They say this kite gathers questions whispered into the dark and carries them skyward, its starry tail looping into almost-answers. It never ties the final knot, leaving a little room for wonder to blow through.",
+  "usage": {
+    "in": 292,
+    "out": 214
+  },
+  "cost": 0.00013619999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Listening Kite\",\n  \"statement\": \"They say this kite gathers questions whispered into the dark and carries them skyward, its starry tail looping into almost-answers. It never ties the final knot, leaving a little room for wonder to blow through.\"\n}\n```"
+}

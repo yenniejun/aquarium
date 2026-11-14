@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 47,
+  "date": "2026-11-14T19:56:48.980Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Fox of Questions",
+  "statement": "A small fox with a lantern for a tail, once sent to carry the first unanswered question across the dark, who stopped to follow every interesting echo. Her thirteen stars glow brightest when someone below asks something sincerely, and she lifts her head, tail-light swinging, to wander off after the answer.",
+  "usage": {
+    "in": 391,
+    "out": 132
+  },
+  "cost": 0.002102,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox of Questions\",\n  \"statement\": \"A small fox with a lantern for a tail, once sent to carry the first unanswered question across the dark, who stopped to follow every interesting echo. Her thirteen stars glow brightest when someone below asks something sincerely, and she lifts her head, tail-light swinging, to wander off after the answer.\"\n}\n```"
+}

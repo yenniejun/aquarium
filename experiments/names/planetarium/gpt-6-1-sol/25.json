@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 25,
+  "date": "2026-11-14T19:57:32.307Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Moth Cartographer",
+  "statement": "A moth once made a map of the dark, and the map grew so large it became her wings: eleven stars joined by silver paths, with one wing forever unfinished. Each night she tests a different route across the missing space, carrying a small amber light for anyone who would rather wander than arrive.",
+  "usage": {
+    "in": 292,
+    "out": 316
+  },
+  "cost": 0.003744,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Moth Cartographer\",\n  \"statement\": \"A moth once made a map of the dark, and the map grew so large it became her wings: eleven stars joined by silver paths, with one wing forever unfinished. Each night she tests a different route across the missing space, carrying a small amber light for anyone who would rather wander than arrive.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 27,
+  "date": "2026-11-14T19:57:51.668Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Span-Lighter",
+  "statement": "A small figure walks the gaps between stars with a coal cupped in both hands, and wherever the dark is too wide to cross, a bridge of faint fire appears and stays, so no light has to travel alone.",
+  "usage": {
+    "in": 1528,
+    "out": 689
+  },
+  "cost": 0.005078,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Span-Lighter\",\n  \"statement\": \"A small figure walks the gaps between stars with a coal cupped in both hands, and wherever the dark is too wide to cross, a bridge of faint fire appears and stays, so no light has to travel alone.\"\n}\n```"
+}

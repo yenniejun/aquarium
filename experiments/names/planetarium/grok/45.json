@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 45,
+  "date": "2026-11-14T19:59:12.586Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Ink Heron",
+  "statement": "Chartmakers say it wades the black river between worlds, and wherever its beak touches the water a star appears, as if the night were a page still being written.",
+  "usage": {
+    "in": 1528,
+    "out": 820
+  },
+  "cost": 0.005864,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Ink Heron\",\n  \"statement\": \"Chartmakers say it wades the black river between worlds, and wherever its beak touches the water a star appears, as if the night were a page still being written.\"\n}\n```"
+}

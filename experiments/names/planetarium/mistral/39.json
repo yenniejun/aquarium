@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 39,
+  "date": "2026-11-14T20:52:01.257Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Lantern Boat",
+  "statement": "Each night a small boat pushes off from the edge of the sky, carrying a single lantern across the dark to light the way for the morning. The bright star at its bow is the flame, the gentle arc beneath it is the hull, and the faint trail behind it is the wake it leaves on the night.",
+  "usage": {
+    "in": 310,
+    "out": 7361
+  },
+  "cost": 0.01551382,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 136,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Boat\",\n  \"statement\": \"Each night a small boat pushes off from the edge of the sky, carrying a single lantern across the dark to light the way for the morning. The bright star at its bow is the flame, the gentle arc beneath it is the hull, and the faint trail behind it is the wake it leaves on the night.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 18,
+  "date": "2026-11-14T20:25:24.186Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Cat",
+  "statement": "They say the Cartographer's Cat prowls the ceiling of the world each night, and wherever its paw touches, a star ignites. The constellation is the glowing trail of its path home, drawn in light for anyone who is lost.",
+  "usage": {
+    "in": 310,
+    "out": 6381
+  },
+  "cost": 0.01345582,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 99,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Cat\",\n  \"statement\": \"They say the Cartographer's Cat prowls the ceiling of the world each night, and wherever its paw touches, a star ignites. The constellation is the glowing trail of its path home, drawn in light for anyone who is lost.\"\n}\n```"
+}

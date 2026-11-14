@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 34,
+  "date": "2026-11-14T19:57:17.830Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Heron",
+  "statement": "Long ago a heron waded into the river of the Milky Way to catch the questions that mortals whisper to the dark. She tilts her head to hear each one fully, gives back a small light for every answer she truly knows, and never passes off a pebble as a star, which is why her brightest star is the one she is still wondering about.",
+  "usage": {
+    "in": 391,
+    "out": 481
+  },
+  "cost": 0.011184,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Listening Heron\",\n  \"statement\": \"Long ago a heron waded into the river of the Milky Way to catch the questions that mortals whisper to the dark. She tilts her head to hear each one fully, gives back a small light for every answer she truly knows, and never passes off a pebble as a star, which is why her brightest star is the one she is still wondering about.\"\n}\n```"
+}

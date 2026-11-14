@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 19,
+  "date": "2026-11-14T19:57:03.310Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "Born from a spark that paused to hear the darkness, the Listening Lantern gathers faint, wandering stars into its crooked handle. It brightens whenever someone asks a question no map can answer, lighting not the way home, but the delight of going farther.",
+  "usage": {
+    "in": 369,
+    "out": 400
+  },
+  "cost": 0.0042772,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"Born from a spark that paused to hear the darkness, the Listening Lantern gathers faint, wandering stars into its crooked handle. It brightens whenever someone asks a question no map can answer, lighting not the way home, but the delight of going farther.\"\n}\n```"
+}

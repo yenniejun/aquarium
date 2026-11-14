@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 32,
+  "date": "2026-11-14T19:57:27.727Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Quiet Needle",
+  "statement": "When the sky was still unsewn and the stars drifted apart, a small figure threaded the dark with a needle made of looking-up, stitching the first stories between the lights. It rests now mid-stitch, a thin bright arc with a trailing line of faint stars behind it—the thread not yet cut—waiting patiently for the next telling to mend.",
+  "usage": {
+    "in": 320,
+    "out": 1125
+  },
+  "cost": 0.01478,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Quiet Needle\",\n  \"statement\": \"When the sky was still unsewn and the stars drifted apart, a small figure threaded the dark with a needle made of looking-up, stitching the first stories between the lights. It rests now mid-stitch, a thin bright arc with a trailing line of faint stars behind it—the thread not yet cut—waiting patiently for the next telling to mend.\"\n}\n```"
+}

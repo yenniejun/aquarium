@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 32,
+  "date": "2026-11-14T19:56:37.557Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the old sky-keeper lit the last star and went to sleep, a small moth mistook the dark between the stars for unfinished work and began carrying light from one dim point to the next, never resting, never certain. She is drawn in eleven stars, her wings open wide and her body a thin trail of faint ones, and on quiet nights her lines glow in sequence, as if she is still stitching the sky together and hoping someone will notice.",
+  "usage": {
+    "in": 391,
+    "out": 167
+  },
+  "cost": 0.002452,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the old sky-keeper lit the last star and went to sleep, a small moth mistook the dark between the stars for unfinished work and began carrying light from one dim point to the next, never resting, never certain. She is drawn in eleven stars, her wings open wide and her body a thin trail of faint ones, and on quiet nights her lines glow in sequence, as if she is still stitching the sky together and hoping someone will notice.\"\n}\n```"
+}

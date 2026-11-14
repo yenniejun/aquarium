@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 45,
+  "date": "2026-11-14T20:04:07.775Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "When the first winter threatened to swallow all light, a small fox stole a single ember from the extinguishing stars and carried it across the sky in her tail. The bright star at her nose is the ember itself — still warm, still moving — and travelers say that if you follow her lines long enough, she winks, and the night feels a little less alone.",
+  "usage": {
+    "in": 302,
+    "out": 97
+  },
+  "cost": 0.00112576,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"When the first winter threatened to swallow all light, a small fox stole a single ember from the extinguishing stars and carried it across the sky in her tail. The bright star at her nose is the ember itself — still warm, still moving — and travelers say that if you follow her lines long enough, she winks, and the night feels a little less alone.\"\n}\n```"
+}

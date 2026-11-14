@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 25,
+  "date": "2026-11-14T19:56:30.733Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearer's Fox",
+  "statement": "The first light ever carried across the dark was by a small fox who stole a single star in her jaws and ran, tail streaming sparks, to bring it to whoever needed it most. She never arrived — and never stopped running — which is why travelers say the faintest star in her lantern is still lit, and still looking for its home.",
+  "usage": {
+    "in": 302,
+    "out": 93
+  },
+  "cost": 0.00109056,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearer's Fox\",\n  \"statement\": \"The first light ever carried across the dark was by a small fox who stole a single star in her jaws and ran, tail streaming sparks, to bring it to whoever needed it most. She never arrived — and never stopped running — which is why travelers say the faintest star in her lantern is still lit, and still looking for its home.\"\n}\n```"
+}

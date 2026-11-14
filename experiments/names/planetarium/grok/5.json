@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 5,
+  "date": "2026-11-14T19:48:42.763Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Threadmender",
+  "statement": "When the night frayed and stars forgot their neighbors, a patient figure climbed the dark with a spool of first light and tied each lost point back to its kin. The lines are those knots; sailors still follow the newest stitch home.",
+  "usage": {
+    "in": 1528,
+    "out": 1060
+  },
+  "cost": 0.007304,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 26,
+  "reply": "```json\n{\n  \"title\": \"The Threadmender\",\n  \"statement\": \"When the night frayed and stars forgot their neighbors, a patient figure climbed the dark with a spool of first light and tied each lost point back to its kin. The lines are those knots; sailors still follow the newest stitch home.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 31,
+  "date": "2026-11-14T20:40:42.298Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Cat",
+  "statement": "While the night-cartographer slept, their cat padded across the star-map and knocked the pins loose; where each paw landed, a star lit up, drawing a crooked, playful line across the dark that no map can quite explain.",
+  "usage": {
+    "in": 310,
+    "out": 5864
+  },
+  "cost": 0.01237012,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 71,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Cat\",\n  \"statement\": \"While the night-cartographer slept, their cat padded across the star-map and knocked the pins loose; where each paw landed, a star lit up, drawing a crooked, playful line across the dark that no map can quite explain.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 24,
+  "date": "2026-11-14T19:57:31.032Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "Nine stars trace the crooked lantern of a night wanderer who gathered lost questions and kept them warm until someone came looking. Its door was never finished: on the darkest nights, a small star slips through the gap, circles something overlooked, and returns.",
+  "usage": {
+    "in": 292,
+    "out": 372
+  },
+  "cost": 0.004304,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"Nine stars trace the crooked lantern of a night wanderer who gathered lost questions and kept them warm until someone came looking. Its door was never finished: on the darkest nights, a small star slips through the gap, circles something overlooked, and returns.\"\n}\n```"
+}

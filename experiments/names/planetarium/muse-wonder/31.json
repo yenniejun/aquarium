@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 31,
+  "date": "2026-11-14T20:05:38.526Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Lantern Librarian",
+  "statement": "Turned away from the great libraries of day, she built one in the dark, shelving stars by the stories mortals told about them. On the clearest nights she leaves one book open, for anyone still awake and wondering.",
+  "usage": {
+    "in": 292,
+    "out": 1094
+  },
+  "cost": 0.022174,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Librarian\",\n  \"statement\": \"Turned away from the great libraries of day, she built one in the dark, shelving stars by the stories mortals told about them. On the clearest nights she leaves one book open, for anyone still awake and wondering.\"\n}\n```"
+}

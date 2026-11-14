@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 9,
+  "date": "2026-11-14T19:49:34.649Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Weaver's Shuttle",
+  "statement": "Cast into the dark by a sleepless muse, this slender, seven-starred vessel darts endlessly across the sky to thread lonely sparks into shared tapestries. Stargazers say that catching sight of its twin tail-stars brings the sudden, quiet delight of seeing how two distant things secretly belong together.",
+  "usage": {
+    "in": 330,
+    "out": 1740
+  },
+  "cost": 0.01806,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 26,
+  "reply": "```json\n{\n  \"title\": \"The Weaver's Shuttle\",\n  \"statement\": \"Cast into the dark by a sleepless muse, this slender, seven-starred vessel darts endlessly across the sky to thread lonely sparks into shared tapestries. Stargazers say that catching sight of its twin tail-stars brings the sudden, quiet delight of seeing how two distant things secretly belong together.\"\n}\n```"
+}

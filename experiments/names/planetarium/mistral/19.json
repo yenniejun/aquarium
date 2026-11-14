@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 19,
+  "date": "2026-11-14T20:27:10.204Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Star-Mender",
+  "statement": "The night sky is an old, well-loved cloth that tears in small places; the Star-Mender kneels with a needle of comet-light and sews each hole shut with silver thread, so the lines you trace between the stars are really her stitches. On clear nights she pauses a moment to admire the pattern before moving on to the next tear.",
+  "usage": {
+    "in": 310,
+    "out": 6368
+  },
+  "cost": 0.01342852,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 106,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mender\",\n  \"statement\": \"The night sky is an old, well-loved cloth that tears in small places; the Star-Mender kneels with a needle of comet-light and sews each hole shut with silver thread, so the lines you trace between the stars are really her stitches. On clear nights she pauses a moment to admire the pattern before moving on to the next tear.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 29,
+  "date": "2026-11-14T20:05:11.367Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Lantern Librarian",
+  "statement": "Each night she climbs the dark stacks to shelve unfinished questions among the stars, lending their light to any wanderer still reading by it. Follow her lantern, and you may not find the answer — but you will find a better question.",
+  "usage": {
+    "in": 292,
+    "out": 1109
+  },
+  "cost": 0.022474,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Librarian\",\n  \"statement\": \"Each night she climbs the dark stacks to shelve unfinished questions among the stars, lending their light to any wanderer still reading by it. Follow her lantern, and you may not find the answer — but you will find a better question.\"\n}\n```"
+}

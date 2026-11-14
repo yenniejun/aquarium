@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 4,
+  "date": "2026-11-14T19:48:47.325Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Bookbinder's Needle",
+  "statement": "Placed in the heavens for a sleepless chronicler who stitched stray sparks together, binding the scattered tales of the firmament into a single endless volume. Skywatchers say its silver eye still trails a gossamer thread across the dark, quietly drawing distant wonders into conversation.",
+  "usage": {
+    "in": 330,
+    "out": 1970
+  },
+  "cost": 0.02036,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 28,
+  "reply": "```json\n{\n  \"title\": \"The Bookbinder's Needle\",\n  \"statement\": \"Placed in the heavens for a sleepless chronicler who stitched stray sparks together, binding the scattered tales of the firmament into a single endless volume. Skywatchers say its silver eye still trails a gossamer thread across the dark, quietly drawing distant wonders into conversation.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 42,
+  "date": "2026-11-14T19:57:33.747Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox once carried a lantern through the dark woods, not to lead lost travelers but to walk beside them, asking gentle questions until they remembered the way home on their own. The sky kept it for its kindness, and its lantern star still flickers brighter whenever someone, somewhere, wonders something aloud.",
+  "usage": {
+    "in": 391,
+    "out": 496
+  },
+  "cost": 0.011484,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox once carried a lantern through the dark woods, not to lead lost travelers but to walk beside them, asking gentle questions until they remembered the way home on their own. The sky kept it for its kindness, and its lantern star still flickers brighter whenever someone, somewhere, wonders something aloud.\"\n}\n```"
+}

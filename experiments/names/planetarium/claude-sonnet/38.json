@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 38,
+  "date": "2026-11-14T19:56:42.087Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the first night grew so dark that even the gods lost their way home, a small moth swallowed a spark from a dying comet and has circled the sky ever since, trailing seven stars that still flicker whenever someone down below asks a good question. Her wings are drawn open, and she will land on the shoulder of anyone who stays up late enough to wonder.",
+  "usage": {
+    "in": 391,
+    "out": 141
+  },
+  "cost": 0.002192,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the first night grew so dark that even the gods lost their way home, a small moth swallowed a spark from a dying comet and has circled the sky ever since, trailing seven stars that still flicker whenever someone down below asks a good question. Her wings are drawn open, and she will land on the shoulder of anyone who stays up late enough to wonder.\"\n}\n```"
+}

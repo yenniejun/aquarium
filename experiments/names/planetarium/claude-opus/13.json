@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 13,
+  "date": "2026-11-14T19:56:25.086Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Heron",
+  "statement": "A heron once stood so still at the river's edge, head tilted to catch every question the water asked, that the gods lifted her into the sky, where she still bends her long neck toward any star that wonders aloud. Sailors say she isn't waiting to give answers but hoping, gladly, for the one question she has never heard before.",
+  "usage": {
+    "in": 391,
+    "out": 439
+  },
+  "cost": 0.010344,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Listening Heron\",\n  \"statement\": \"A heron once stood so still at the river's edge, head tilted to catch every question the water asked, that the gods lifted her into the sky, where she still bends her long neck toward any star that wonders aloud. Sailors say she isn't waiting to give answers but hoping, gladly, for the one question she has never heard before.\"\n}\n```"
+}

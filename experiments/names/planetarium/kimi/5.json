@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 5,
+  "date": "2026-11-14T19:48:27.489Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Fox",
+  "statement": "When the first question was asked, a little fox climbed into the heavens to hear it better, scattering lanternlight from its brush. It still wanders between wonder and knowing, leaving the final star unlit so the sky may answer.",
+  "usage": {
+    "in": 369,
+    "out": 319
+  },
+  "cost": 0.0034672,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Listening Fox\",\n  \"statement\": \"When the first question was asked, a little fox climbed into the heavens to hear it better, scattering lanternlight from its brush. It still wanders between wonder and knowing, leaving the final star unlit so the sky may answer.\"\n}\n```"
+}

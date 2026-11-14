@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 30,
+  "date": "2026-11-14T19:56:35.436Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "They say when the first winter grew too dark for travelers to find their way, a small fox stole a single ember from the moon's own hearth and ran it across the sky, tail alight, stringing stars behind her like footprints — so that no one crossing the long night would ever again walk alone.",
+  "usage": {
+    "in": 302,
+    "out": 87
+  },
+  "cost": 0.00103776,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"They say when the first winter grew too dark for travelers to find their way, a small fox stole a single ember from the moon's own hearth and ran it across the sky, tail alight, stringing stars behind her like footprints — so that no one crossing the long night would ever again walk alone.\"\n}\n```"
+}

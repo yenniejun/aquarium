@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 5,
+  "date": "2026-11-14T19:48:03.230Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cartographer's Lantern",
+  "statement": "They say a lost mapmaker wandered too deep into the dark between constellations, so the night itself took pity and hung a lantern where he fell — and if you follow its flicker star by star, you can still trace the roads he drew across a sky no one else could see.",
+  "usage": {
+    "in": 302,
+    "out": 82
+  },
+  "cost": 0.00099376,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Lantern\",\n  \"statement\": \"They say a lost mapmaker wandered too deep into the dark between constellations, so the night itself took pity and hung a lantern where he fell — and if you follow its flicker star by star, you can still trace the roads he drew across a sky no one else could see.\"\n}\n```"
+}

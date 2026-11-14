@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 30,
+  "date": "2026-11-14T20:39:30.838Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Cat",
+  "statement": "A cat once walked across the old astronomer's star chart at midnight and, with one sweeping arc of its tail, connected the scattered points into a leaping shape. Now it arches across the night forever, chasing the brightest point of light as if it were the last warm thing in the dark.",
+  "usage": {
+    "in": 310,
+    "out": 5098
+  },
+  "cost": 0.01076152,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 85,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Cat\",\n  \"statement\": \"A cat once walked across the old astronomer's star chart at midnight and, with one sweeping arc of its tail, connected the scattered points into a leaping shape. Now it arches across the night forever, chasing the brightest point of light as if it were the last warm thing in the dark.\"\n}\n```"
+}

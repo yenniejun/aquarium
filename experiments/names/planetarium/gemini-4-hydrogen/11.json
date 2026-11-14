@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 11,
+  "date": "2026-11-14T19:56:35.240Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Folded Crane",
+  "statement": "According to star-lore, a curious cartographer once folded a map of the heavens into a bird so it might visit the distant worlds only glimpsed from below. Forever aloft, the Folded Crane traces delicate threads between scattered stars, turning the quiet dark into a readable story.",
+  "usage": {
+    "in": 330,
+    "out": 2440
+  },
+  "cost": 0.018795,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Folded Crane\",\n  \"statement\": \"According to star-lore, a curious cartographer once folded a map of the heavens into a bird so it might visit the distant worlds only glimpsed from below. Forever aloft, the Folded Crane traces delicate threads between scattered stars, turning the quiet dark into a readable story.\"\n}\n```"
+}

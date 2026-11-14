@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 35,
+  "date": "2026-11-14T19:56:40.087Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, when the sky was only dark and had not yet learned any questions, a small moth mistook the first unlit star for a lamp and flew toward it for ten thousand years. Each time she tired, she left a spark of herself behind, and now those sparks trace her wings, so that anyone who wonders about something faraway will find her slowly beating over the horizon, still curious and still on her way.",
+  "usage": {
+    "in": 391,
+    "out": 155
+  },
+  "cost": 0.002332,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, when the sky was only dark and had not yet learned any questions, a small moth mistook the first unlit star for a lamp and flew toward it for ten thousand years. Each time she tired, she left a spark of herself behind, and now those sparks trace her wings, so that anyone who wonders about something faraway will find her slowly beating over the horizon, still curious and still on her way.\"\n}\n```"
+}

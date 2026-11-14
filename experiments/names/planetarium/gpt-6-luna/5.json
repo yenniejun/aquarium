@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 5,
+  "date": "2026-11-14T19:48:07.121Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer Moth",
+  "statement": "Seven stars sketch a moth whose wings are maps of paths not yet taken. Legend says it leaves one star unconnected, so every traveler can find a place for their own bright question.",
+  "usage": {
+    "in": 292,
+    "out": 209
+  },
+  "cost": 0.0001337,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer Moth\",\n  \"statement\": \"Seven stars sketch a moth whose wings are maps of paths not yet taken. Legend says it leaves one star unconnected, so every traveler can find a place for their own bright question.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 14,
+  "date": "2026-11-14T19:56:26.009Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Moth",
+  "statement": "A star-moth gathers the quiet questions drifting between worlds and stitches them into a bright path across the dark. It appears whenever a traveler discovers that far-apart lights can make a pattern together.",
+  "usage": {
+    "in": 292,
+    "out": 307
+  },
+  "cost": 0.0001827,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Question Moth\",\n  \"statement\": \"A star-moth gathers the quiet questions drifting between worlds and stitches them into a bright path across the dark. It appears whenever a traveler discovers that far-apart lights can make a pattern together.\"\n}\n```"
+}

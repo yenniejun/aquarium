@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 3,
+  "date": "2026-11-14T19:48:15.765Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Mapmaker’s Moth",
+  "statement": "When the first mapmaker declared the heavens finished, a moth nibbled a hole in the parchment and let another sky shine through. Its seven-star wings still open around one unconnected star, preserving a place for whatever the mapmaker might have missed.",
+  "usage": {
+    "in": 292,
+    "out": 491
+  },
+  "cost": 0.005494,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Mapmaker’s Moth\",\n  \"statement\": \"When the first mapmaker declared the heavens finished, a moth nibbled a hole in the parchment and let another sky shine through. Its seven-star wings still open around one unconnected star, preserving a place for whatever the mapmaker might have missed.\"\n}\n```"
+}

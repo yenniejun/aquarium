@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 27,
+  "date": "2026-11-14T19:56:33.142Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearer's Fox",
+  "statement": "They say a small fox once carried a stolen ember across the whole of the dark winter sky, pausing at each star to let it warm before moving on; when the ember finally guttered out, the stars she had touched agreed to take up her route, so no traveler would find the night entirely cold. Look for her in the hour after the lamps go out: the lines of her constellation trace themselves one by one, as if she were still deciding which way home.",
+  "usage": {
+    "in": 302,
+    "out": 119
+  },
+  "cost": 0.00131936,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearer's Fox\",\n  \"statement\": \"They say a small fox once carried a stolen ember across the whole of the dark winter sky, pausing at each star to let it warm before moving on; when the ember finally guttered out, the stars she had touched agreed to take up her route, so no traveler would find the night entirely cold. Look for her in the hour after the lamps go out: the lines of her constellation trace themselves one by one, as if she were still deciding which way home.\"\n}\n```"
+}

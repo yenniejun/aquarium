@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 37,
+  "date": "2026-11-14T19:58:02.726Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Inkwell Moth",
+  "statement": "They say the Inkwell Moth dips its wings in the brightest star and shakes loose words into the dark below, so that no story told beneath the sky is ever truly lost. It flies still—filling and emptying, filling and emptying—patient as ink.",
+  "usage": {
+    "in": 320,
+    "out": 1701
+  },
+  "cost": 0.021692,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"The Inkwell Moth\",\n  \"statement\": \"They say the Inkwell Moth dips its wings in the brightest star and shakes loose words into the dark below, so that no story told beneath the sky is ever truly lost. It flies still—filling and emptying, filling and emptying—patient as ink.\"\n}\n```"
+}

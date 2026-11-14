@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 17,
+  "date": "2026-11-14T19:57:13.256Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mender's Stitch",
+  "statement": "The sky wore thin where too many eyes had looked up through it, so a quiet mender began to stitch it shut with thread of starlight. One stitch per night; the tear never closes; the mending is the whole of the story.",
+  "usage": {
+    "in": 320,
+    "out": 1653
+  },
+  "cost": 0.021116,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Stitch\",\n  \"statement\": \"The sky wore thin where too many eyes had looked up through it, so a quiet mender began to stitch it shut with thread of starlight. One stitch per night; the tear never closes; the mending is the whole of the story.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 6,
+  "date": "2026-11-14T19:48:16.047Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Star-Mender's Loom",
+  "statement": "Said to appear when scattered stars drift too far apart, this delicate loom gathers stray threads of light and knots them into quiet patterns. Travelers look to its bright shuttle when searching for the hidden bridge between a question and its answer.",
+  "usage": {
+    "in": 330,
+    "out": 1533
+  },
+  "cost": 0.0119925,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mender's Loom\",\n  \"statement\": \"Said to appear when scattered stars drift too far apart, this delicate loom gathers stray threads of light and knots them into quiet patterns. Travelers look to its bright shuttle when searching for the hidden bridge between a question and its answer.\"\n}\n```"
+}

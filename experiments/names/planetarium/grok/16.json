@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 16,
+  "date": "2026-11-14T19:56:57.261Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Borrowed Glow",
+  "statement": "A traveler once gave away their last spark and found the dark had given two back; the sky still keeps that small figure, open hand lifted, offering a light it does not own.",
+  "usage": {
+    "in": 1528,
+    "out": 877
+  },
+  "cost": 0.00659,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Borrowed Glow\",\n  \"statement\": \"A traveler once gave away their last spark and found the dark had given two back; the sky still keeps that small figure, open hand lifted, offering a light it does not own.\"\n}\n```"
+}

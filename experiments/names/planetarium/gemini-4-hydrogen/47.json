@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 47,
+  "date": "2026-11-14T19:58:21.020Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Born from a stray ember of curiosity, this celestial moth drifts between distant stars, gathering unspoken questions on its silver-dusted wings. On clear nights, its seven faint stars flicker awake in sequence, tracing a quiet path from wandering wonder to sudden clarity.",
+  "usage": {
+    "in": 330,
+    "out": 1150
+  },
+  "cost": 0.00912,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Born from a stray ember of curiosity, this celestial moth drifts between distant stars, gathering unspoken questions on its silver-dusted wings. On clear nights, its seven faint stars flicker awake in sequence, tracing a quiet path from wandering wonder to sudden clarity.\"\n}\n```"
+}

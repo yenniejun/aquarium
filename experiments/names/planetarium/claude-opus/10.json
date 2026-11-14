@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 10,
+  "date": "2026-11-14T19:48:23.295Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Hare",
+  "statement": "The Lantern Hare never knew the way to anyone's home, only how to walk beside a lost traveler and ask the next good question until they remembered it themselves. Each traveler she guided left a spark in her lantern as thanks, which is why, on nights when someone is wandering, her lantern burns a little brighter.",
+  "usage": {
+    "in": 391,
+    "out": 526
+  },
+  "cost": 0.012084,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Hare\",\n  \"statement\": \"The Lantern Hare never knew the way to anyone's home, only how to walk beside a lost traveler and ask the next good question until they remembered it themselves. Each traveler she guided left a spark in her lantern as thanks, which is why, on nights when someone is wandering, her lantern burns a little brighter.\"\n}\n```"
+}

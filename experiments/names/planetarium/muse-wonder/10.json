@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 10,
+  "date": "2026-11-14T19:48:41.736Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Listening Fox",
+  "statement": "Curling her tail around the pole star, she listens all night to the wishes whispered below, saving even the ones too shy to be spoken aloud. When one is ready, she nudges it loose with her nose, and it falls to Earth as a shooting star.",
+  "usage": {
+    "in": 292,
+    "out": 961
+  },
+  "cost": 0.019514,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Listening Fox\",\n  \"statement\": \"Curling her tail around the pole star, she listens all night to the wishes whispered below, saving even the ones too shy to be spoken aloud. When one is ready, she nudges it loose with her nose, and it falls to Earth as a shooting star.\"\n}\n```"
+}

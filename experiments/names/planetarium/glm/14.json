@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 14,
+  "date": "2026-11-14T19:56:23.061Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "When the first winter stole all the fire from the world, a small fox carried the last ember across the sky in a paper lantern, walking so carefully that not a single star shook loose—and she is still up there, walking, which is why the horizon always glows just before dawn.",
+  "usage": {
+    "in": 302,
+    "out": 81
+  },
+  "cost": 0.00098496,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"When the first winter stole all the fire from the world, a small fox carried the last ember across the sky in a paper lantern, walking so carefully that not a single star shook loose—and she is still up there, walking, which is why the horizon always glows just before dawn.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 20,
+  "date": "2026-11-14T19:57:09.764Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Fox",
+  "statement": "Nine amber stars sketch a fox listening at the rim of the dark, its curling tail stopping one star short of completion. The old charts say it was offered a place among the fixed stars but left its tail unfastened; on clear nights, the loose thread reaches toward something nobody has noticed yet.",
+  "usage": {
+    "in": 292,
+    "out": 380
+  },
+  "cost": 0.004384,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Fox\",\n  \"statement\": \"Nine amber stars sketch a fox listening at the rim of the dark, its curling tail stopping one star short of completion. The old charts say it was offered a place among the fixed stars but left its tail unfastened; on clear nights, the loose thread reaches toward something nobody has noticed yet.\"\n}\n```"
+}

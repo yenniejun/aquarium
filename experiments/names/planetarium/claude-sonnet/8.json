@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 8,
+  "date": "2026-11-14T19:48:05.935Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Curious Lantern-Moth",
+  "statement": "When the first night grew so dark that even the gods misplaced their questions, a small moth carried a single ember in her wings and asked every sleeping thing, 'But why?' Each answer lit one more star along her path, and she still hovers in the sky, her wings tracing seven bright lines, the pale spot at her heart marking the one question nobody has answered yet.",
+  "usage": {
+    "in": 391,
+    "out": 149
+  },
+  "cost": 0.002272,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Curious Lantern-Moth\",\n  \"statement\": \"When the first night grew so dark that even the gods misplaced their questions, a small moth carried a single ember in her wings and asked every sleeping thing, 'But why?' Each answer lit one more star along her path, and she still hovers in the sky, her wings tracing seven bright lines, the pale spot at her heart marking the one question nobody has answered yet.\"\n}\n```"
+}

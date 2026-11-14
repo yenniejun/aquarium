@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 33,
+  "date": "2026-11-14T19:56:37.488Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the first night grew so dark that the stars forgot their names, a small moth mistook the gap between them for a doorway and flew in carrying a single borrowed ember. Wherever she paused to ask a star its name, a line of light remained, and she still retraces her wings each dusk, a little unsure but never stopping, to be sure no one goes unremembered.",
+  "usage": {
+    "in": 391,
+    "out": 144
+  },
+  "cost": 0.002222,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the first night grew so dark that the stars forgot their names, a small moth mistook the gap between them for a doorway and flew in carrying a single borrowed ember. Wherever she paused to ask a star its name, a line of light remained, and she still retraces her wings each dusk, a little unsure but never stopping, to be sure no one goes unremembered.\"\n}\n```"
+}

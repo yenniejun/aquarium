@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 21,
+  "date": "2026-11-14T19:57:11.847Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mending Moth",
+  "statement": "Where the dark between stars grows thin and frays, a small moth flies carrying silk to stitch the tear; the bright knots of its mending are the stars by which we navigate, and it never finishes, and never needs to.",
+  "usage": {
+    "in": 320,
+    "out": 1261
+  },
+  "cost": 0.016412,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Mending Moth\",\n  \"statement\": \"Where the dark between stars grows thin and frays, a small moth flies carrying silk to stitch the tear; the bright knots of its mending are the stars by which we navigate, and it never finishes, and never needs to.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 2,
+  "date": "2026-11-14T19:48:48.202Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Glass Cartographer",
+  "statement": "Legend tells of a sleepless artisan who ground lenses from river ice to map worlds she could never walk, until the night sky grew so fond of her gaze that it gathered her up among the stars. Anchored by a bright binary star glinting at her spectacles, she spends eternity sketching invisible bridges across the dark so no wandering traveler is ever truly lost.",
+  "usage": {
+    "in": 330,
+    "out": 2502
+  },
+  "cost": 0.02568,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 50,
+  "reply": "```json\n{\n  \"title\": \"The Glass Cartographer\",\n  \"statement\": \"Legend tells of a sleepless artisan who ground lenses from river ice to map worlds she could never walk, until the night sky grew so fond of her gaze that it gathered her up among the stars. Anchored by a bright binary star glinting at her spectacles, she spends eternity sketching invisible bridges across the dark so no wandering traveler is ever truly lost.\"\n}\n```"
+}

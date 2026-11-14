@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 43,
+  "date": "2026-11-14T20:08:47.229Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Fox",
+  "statement": "Born from a question no one had finished asking, the Listening Fox padded across the dark, gathering lost curiosities in the curl of her tail. Wherever she paused to wonder, the stars joined hands—and the night grew a little larger.",
+  "usage": {
+    "in": 369,
+    "out": 492
+  },
+  "cost": 0.0051972,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"The Listening Fox\",\n  \"statement\": \"Born from a question no one had finished asking, the Listening Fox padded across the dark, gathering lost curiosities in the curl of her tail. Wherever she paused to wonder, the stars joined hands—and the night grew a little larger.\"\n}\n```"
+}

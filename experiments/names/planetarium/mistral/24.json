@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 24,
+  "date": "2026-11-14T20:31:31.059Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Thread",
+  "statement": "It shows itself only to those who look twice: a single silver line stitching seven scattered stars into a bridge across the dark, left by a mapmaker who believed that every lost thing is simply waiting for someone to draw the connection.",
+  "usage": {
+    "in": 310,
+    "out": 5499
+  },
+  "cost": 0.01160362,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 94,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Thread\",\n  \"statement\": \"It shows itself only to those who look twice: a single silver line stitching seven scattered stars into a bridge across the dark, left by a mapmaker who believed that every lost thing is simply waiting for someone to draw the connection.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 22,
+  "date": "2026-11-14T20:04:26.277Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mender's Thimble",
+  "statement": "When the night-sky frays at its seams and dark leaks through in thin places, a patient mender darns it shut with thread made of old whispers. One evening she set her thimble on a cloud and forgot it there; it settled into the fabric of stars, its tiny dents now holding light like small, patient cups.",
+  "usage": {
+    "in": 320,
+    "out": 1164
+  },
+  "cost": 0.015248,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Thimble\",\n  \"statement\": \"When the night-sky frays at its seams and dark leaks through in thin places, a patient mender darns it shut with thread made of old whispers. One evening she set her thimble on a cloud and forgot it there; it settled into the fabric of stars, its tiny dents now holding light like small, patient cups.\"\n}\n```"
+}

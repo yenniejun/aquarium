@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 1,
+  "date": "2026-11-14T19:48:13.922Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Lantern-Bearing Moth",
+  "statement": "Too small to carry the sun, she stole a single kind spark and ferries it each night to windows where someone is still awake and wondering. Follow her flutter when you are lost — she never leads to an answer, only to a better question.",
+  "usage": {
+    "in": 292,
+    "out": 1313
+  },
+  "cost": 0.027428,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Moth\",\n  \"statement\": \"Too small to carry the sun, she stole a single kind spark and ferries it each night to windows where someone is still awake and wondering. Follow her flutter when you are lost — she never leads to an answer, only to a better question.\"\n}\n```"
+}

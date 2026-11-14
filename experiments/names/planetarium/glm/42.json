@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 42,
+  "date": "2026-11-14T20:04:00.814Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "They say when the first winter grew too dark for travelers to find their way, a small fox stole a fallen star and carried it in her jaws, tail streaming behind like a comet, laying down a path of light for whoever came after. She never stopped walking — and on clear nights you can still see her midway across the sky, lantern held high, offering her stolen star to anyone lost enough to look up.",
+  "usage": {
+    "in": 302,
+    "out": 106
+  },
+  "cost": 0.00120496,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"They say when the first winter grew too dark for travelers to find their way, a small fox stole a fallen star and carried it in her jaws, tail streaming behind like a comet, laying down a path of light for whoever came after. She never stopped walking — and on clear nights you can still see her midway across the sky, lantern held high, offering her stolen star to anyone lost enough to look up.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 28,
+  "date": "2026-11-14T20:37:40.426Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Keeper of Small Lights",
+  "statement": "Where the sky is darkest, a small figure kneels with an open basket, gathering the faint stars that the brighter constellations overlook; the chain they string from them glows only for those who look twice.",
+  "usage": {
+    "in": 310,
+    "out": 4118
+  },
+  "cost": 0.00870352,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 64,
+  "reply": "```json\n{\n  \"title\": \"Keeper of Small Lights\",\n  \"statement\": \"Where the sky is darkest, a small figure kneels with an open basket, gathering the faint stars that the brighter constellations overlook; the chain they string from them glows only for those who look twice.\"\n}\n```"
+}

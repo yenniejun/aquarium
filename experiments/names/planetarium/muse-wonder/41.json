@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 41,
+  "date": "2026-11-14T20:08:15.480Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Muse of Borrowed Light",
+  "statement": "She collects the light of long-gone stars and lends it to anyone beginning something in the dark. That is why first poems, first voyages, and first questions always find a way to shine.",
+  "usage": {
+    "in": 292,
+    "out": 1496
+  },
+  "cost": 0.031088,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Muse of Borrowed Light\",\n  \"statement\": \"She collects the light of long-gone stars and lends it to anyone beginning something in the dark. That is why first poems, first voyages, and first questions always find a way to shine.\"\n}\n```"
+}

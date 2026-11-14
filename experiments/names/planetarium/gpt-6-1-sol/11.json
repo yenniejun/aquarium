@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 11,
+  "date": "2026-11-14T19:56:31.232Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "At the edge of the known sky, a mapmaker hung a lantern made of nine stars, but could never find a tenth to close its crooked frame. Then an unnamed little light drifted through the gap to warm itself, and she decided the lantern was finished after all.",
+  "usage": {
+    "in": 292,
+    "out": 429
+  },
+  "cost": 0.004874,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"At the edge of the known sky, a mapmaker hung a lantern made of nine stars, but could never find a tenth to close its crooked frame. Then an unnamed little light drifted through the gap to warm itself, and she decided the lantern was finished after all.\"\n}\n```"
+}

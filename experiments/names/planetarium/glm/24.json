@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 24,
+  "date": "2026-11-14T19:56:30.561Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Eyed Fox",
+  "statement": "They say a fox stole the last ember of the dying sun and, chased across the winter sky by the Long Dark, let it burn through her own eyes to light the way home for everyone lost below; find her rising highest on the coldest clear nights, when her lantern-eyes glow a soft amber while every other star burns white.",
+  "usage": {
+    "in": 302,
+    "out": 92
+  },
+  "cost": 0.00108176,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Eyed Fox\",\n  \"statement\": \"They say a fox stole the last ember of the dying sun and, chased across the winter sky by the Long Dark, let it burn through her own eyes to light the way home for everyone lost below; find her rising highest on the coldest clear nights, when her lantern-eyes glow a soft amber while every other star burns white.\"\n}\n```"
+}

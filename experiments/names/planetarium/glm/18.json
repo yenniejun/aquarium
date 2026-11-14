@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 18,
+  "date": "2026-11-14T19:56:25.632Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "When the first winter stole all the light from the world, a small fox stole a lantern from the moon and ran it across the sky so the lost could find their way home. The moon still chases her, which is why her brightest star flickers — the lantern's flame guttering as she glances back.",
+  "usage": {
+    "in": 302,
+    "out": 87
+  },
+  "cost": 0.00103776,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"When the first winter stole all the light from the world, a small fox stole a lantern from the moon and ran it across the sky so the lost could find their way home. The moon still chases her, which is why her brightest star flickers — the lantern's flame guttering as she glances back.\"\n}\n```"
+}

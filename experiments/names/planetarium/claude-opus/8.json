@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 8,
+  "date": "2026-11-14T19:48:20.977Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Asking Heron",
+  "statement": "Long ago a heron waded into the river of stars and, instead of fishing, asked the river where it was going; the river, delighted that anyone had wondered, poured out every story it carried, and each answer left a star caught on her feathers. She stands there still, one foot raised, her neck bent into a question mark, and on clear nights her stars brighten one by one as if she has just asked something new.",
+  "usage": {
+    "in": 391,
+    "out": 480
+  },
+  "cost": 0.011164,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Asking Heron\",\n  \"statement\": \"Long ago a heron waded into the river of stars and, instead of fishing, asked the river where it was going; the river, delighted that anyone had wondered, poured out every story it carried, and each answer left a star caught on her feathers. She stands there still, one foot raised, her neck bent into a question mark, and on clear nights her stars brighten one by one as if she has just asked something new.\"\n}\n```"
+}

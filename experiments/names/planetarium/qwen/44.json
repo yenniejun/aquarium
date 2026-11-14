@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 44,
+  "date": "2026-11-14T20:07:10.278Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Light-Mender's Thread",
+  "statement": "When the oldest stars dim and drift beyond all recognition, the Light-Mender walks the cold spaces between them, stitching faint points back into pattern with a thread of borrowed glow, so the sky never forgets the stories it once told.",
+  "usage": {
+    "in": 320,
+    "out": 2400
+  },
+  "cost": 0.03008,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 29,
+  "reply": "```json\n{\n  \"title\": \"The Light-Mender's Thread\",\n  \"statement\": \"When the oldest stars dim and drift beyond all recognition, the Light-Mender walks the cold spaces between them, stitching faint points back into pattern with a thread of borrowed glow, so the sky never forgets the stories it once told.\"\n}\n```"
+}

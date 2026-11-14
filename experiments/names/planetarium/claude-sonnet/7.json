@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 7,
+  "date": "2026-11-14T19:48:05.504Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth of Questions",
+  "statement": "A pale moth made of eleven stars, its wings still half-open, was said to have mistaken the first unanswered question for a lamp and circled it until the dark grew curious. Each night it traces its wings in slow silver lines, and the faint star at its heart flickers whenever someone below wonders why.",
+  "usage": {
+    "in": 391,
+    "out": 130
+  },
+  "cost": 0.002082,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth of Questions\",\n  \"statement\": \"A pale moth made of eleven stars, its wings still half-open, was said to have mistaken the first unanswered question for a lamp and circled it until the dark grew curious. Each night it traces its wings in slow silver lines, and the faint star at its heart flickers whenever someone below wonders why.\"\n}\n```"
+}

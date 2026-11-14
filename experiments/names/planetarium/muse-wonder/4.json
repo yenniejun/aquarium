@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 4,
+  "date": "2026-11-14T19:48:17.867Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Star-Mending Fox",
+  "statement": "Each dusk she gathers the day's fallen and frayed stars in her bright tail, stitching them back into the sky with threads of moonlight. If one flickers, she is only tightening a knot.",
+  "usage": {
+    "in": 292,
+    "out": 1093
+  },
+  "cost": 0.022154,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mending Fox\",\n  \"statement\": \"Each dusk she gathers the day's fallen and frayed stars in her bright tail, stitching them back into the sky with threads of moonlight. If one flickers, she is only tightening a knot.\"\n}\n```"
+}

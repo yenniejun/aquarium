@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 31,
+  "date": "2026-11-14T19:57:30.393Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Quiet Loom",
+  "statement": "At the sky's far edge stands a loom with no weaver, drawing each night a silver thread between two stars that have never spoken. The cloth is never finished—it is always becoming, and the pattern is the conversation itself.",
+  "usage": {
+    "in": 320,
+    "out": 1584
+  },
+  "cost": 0.020288,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Quiet Loom\",\n  \"statement\": \"At the sky's far edge stands a loom with no weaver, drawing each night a silver thread between two stars that have never spoken. The cloth is never finished—it is always becoming, and the pattern is the conversation itself.\"\n}\n```"
+}

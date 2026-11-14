@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 28,
+  "date": "2026-11-14T19:57:57.752Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Kindling Fox",
+  "statement": "A small fox once stole a single ember from the first fire and ran it across the dark, leaving a trail of careful stars so no one would have to cross the night alone.",
+  "usage": {
+    "in": 1528,
+    "out": 709
+  },
+  "cost": 0.005198,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Kindling Fox\",\n  \"statement\": \"A small fox once stole a single ember from the first fire and ran it across the dark, leaving a trail of careful stars so no one would have to cross the night alone.\"\n}\n```"
+}

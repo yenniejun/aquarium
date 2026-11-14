@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 21,
+  "date": "2026-11-14T20:28:32.678Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Paper Crane",
+  "statement": "Folded from a single sheet of star chart and launched on the first night of winter, the crane still circles the sky — a long neck of faint stars, one bright eye, and wings that only unfold when you glance away and look back.",
+  "usage": {
+    "in": 310,
+    "out": 2190
+  },
+  "cost": 0.00465472,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 36,
+  "reply": "```json\n{\n  \"title\": \"The Paper Crane\",\n  \"statement\": \"Folded from a single sheet of star chart and launched on the first night of winter, the crane still circles the sky — a long neck of faint stars, one bright eye, and wings that only unfold when you glance away and look back.\"\n}\n```"
+}

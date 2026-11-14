@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 9,
+  "date": "2026-11-14T19:48:51.365Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "Seven stars outline a lantern whose door will not quite close; an eighth drifts through the gap, lighting first one forgotten corner of heaven, then another. The old chartmakers say its keeper refused to finish it, having discovered that a little darkness left inside gives new wonders somewhere to arrive.",
+  "usage": {
+    "in": 292,
+    "out": 439
+  },
+  "cost": 0.004974,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"Seven stars outline a lantern whose door will not quite close; an eighth drifts through the gap, lighting first one forgotten corner of heaven, then another. The old chartmakers say its keeper refused to finish it, having discovered that a little darkness left inside gives new wonders somewhere to arrive.\"\n}\n```"
+}

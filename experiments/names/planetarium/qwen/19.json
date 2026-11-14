@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 19,
+  "date": "2026-11-14T19:57:06.607Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Listening Thread",
+  "statement": "Spun from the first question ever asked into the dark, it curves like an ear at the sky's edge, leaning close. It has listened for ten thousand years and never once grown tired of the answer it has not yet heard.",
+  "usage": {
+    "in": 320,
+    "out": 1089
+  },
+  "cost": 0.014348,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Listening Thread\",\n  \"statement\": \"Spun from the first question ever asked into the dark, it curves like an ear at the sky's edge, leaning close. It has listened for ten thousand years and never once grown tired of the answer it has not yet heard.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 1,
+  "date": "2026-11-14T19:48:05.113Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Born from the margins of an unfinished star chart, this nocturnal creature flutters between distant suns, dusting forgotten sky-roads with silver pollen. Travelers say that whenever two stray ideas finally meet across the dark, its quiet wings have bridged the gap.",
+  "usage": {
+    "in": 330,
+    "out": 965
+  },
+  "cost": 0.0077325,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Born from the margins of an unfinished star chart, this nocturnal creature flutters between distant suns, dusting forgotten sky-roads with silver pollen. Travelers say that whenever two stray ideas finally meet across the dark, its quiet wings have bridged the gap.\"\n}\n```"
+}

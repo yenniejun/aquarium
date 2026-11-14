@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 27,
+  "date": "2026-11-14T20:36:36.063Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Borrowed Wing",
+  "statement": "The night borrows a single wing from the small stars whenever the dome goes dark and someone is still looking up. Above the round window it unfolds slowly, holds for one breath, and—if you blink—returns to them, star by star.",
+  "usage": {
+    "in": 310,
+    "out": 7161
+  },
+  "cost": 0.01509382,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 125,
+  "reply": "```json\n{\n  \"title\": \"The Borrowed Wing\",\n  \"statement\": \"The night borrows a single wing from the small stars whenever the dome goes dark and someone is still looking up. Above the round window it unfolds slowly, holds for one breath, and—if you blink—returns to them, star by star.\"\n}\n```"
+}

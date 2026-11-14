@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 9,
+  "date": "2026-11-14T19:49:19.272Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Margin Fox",
+  "statement": "Between the named stars runs a small fox made of unused dark, carrying lost words from one bright point to the next and setting them down only where someone is still willing to read slowly.",
+  "usage": {
+    "in": 1528,
+    "out": 1062
+  },
+  "cost": 0.007316,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 28,
+  "reply": "```json\n{\n  \"title\": \"The Margin Fox\",\n  \"statement\": \"Between the named stars runs a small fox made of unused dark, carrying lost words from one bright point to the next and setting them down only where someone is still willing to read slowly.\"\n}\n```"
+}

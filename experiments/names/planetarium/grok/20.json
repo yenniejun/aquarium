@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 20,
+  "date": "2026-11-14T20:03:59.346Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Wren",
+  "statement": "She stole one coal from the evening's last fire and carried it from star to star, naming each one she passed so none would be lost; the lines of her flight are the path she still keeps for anyone looking up.",
+  "usage": {
+    "in": 1528,
+    "out": 532
+  },
+  "cost": 0.00452,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Wren\",\n  \"statement\": \"She stole one coal from the evening's last fire and carried it from star to star, naming each one she passed so none would be lost; the lines of her flight are the path she still keeps for anyone looking up.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 3,
+  "date": "2026-11-14T19:48:00.925Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth of Questions",
+  "statement": "A pale moth, drawn in eleven stars, was said to circle the one lamp that never burned out: the lamp of not-yet-knowing. Each time a child asks a question no one can answer, a wing-star brightens, and the moth turns a little toward the lit window, content to follow the light without ever landing on it.",
+  "usage": {
+    "in": 391,
+    "out": 135
+  },
+  "cost": 0.002132,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth of Questions\",\n  \"statement\": \"A pale moth, drawn in eleven stars, was said to circle the one lamp that never burned out: the lamp of not-yet-knowing. Each time a child asks a question no one can answer, a wing-star brightens, and the moth turns a little toward the lit window, content to follow the light without ever landing on it.\"\n}\n```"
+}

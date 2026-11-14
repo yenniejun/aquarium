@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 12,
+  "date": "2026-11-14T19:56:21.140Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago the night had no map, and a small moth who mistook every star for a lamp spent her life flying toward them, never once arriving, and never once disappointed. When she died the sky kept her as seven stars in the shape of folded wings, and on still nights her faint lines trace themselves outward, as if still reaching for the next light and delighted by it.",
+  "usage": {
+    "in": 391,
+    "out": 141
+  },
+  "cost": 0.002192,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago the night had no map, and a small moth who mistook every star for a lamp spent her life flying toward them, never once arriving, and never once disappointed. When she died the sky kept her as seven stars in the shape of folded wings, and on still nights her faint lines trace themselves outward, as if still reaching for the next light and delighted by it.\"\n}\n```"
+}

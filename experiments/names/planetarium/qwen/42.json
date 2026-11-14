@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 42,
+  "date": "2026-11-14T19:58:34.191Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Half-Written Bird",
+  "statement": "It is said the bird was set into the sky mid-flight, its far wing still being composed by the hand that first invented questions. Sailors who trace its seven stars report that the missing feathers fill in briefly, just long enough to read the next word they needed.",
+  "usage": {
+    "in": 320,
+    "out": 1350
+  },
+  "cost": 0.01748,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Half-Written Bird\",\n  \"statement\": \"It is said the bird was set into the sky mid-flight, its far wing still being composed by the hand that first invented questions. Sailors who trace its seven stars report that the missing feathers fill in briefly, just long enough to read the next word they needed.\"\n}\n```"
+}

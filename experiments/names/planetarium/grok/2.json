@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 2,
+  "date": "2026-11-14T19:48:17.142Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox once carried a single coal across the unfinished night so no traveler would lose the path; the stars are embers shaken from its tail, and the lines are the route it still runs.",
+  "usage": {
+    "in": 1528,
+    "out": 813
+  },
+  "cost": 0.006206,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox once carried a single coal across the unfinished night so no traveler would lose the path; the stars are embers shaken from its tail, and the lines are the route it still runs.\"\n}\n```"
+}

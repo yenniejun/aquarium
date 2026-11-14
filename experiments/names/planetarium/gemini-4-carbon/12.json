@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 12,
+  "date": "2026-11-14T19:56:39.021Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Two-Headed Magpie",
+  "statement": "Set among the stars for pilfering bright scraps of forgotten lore, one head gazes backward to recall every story ever told while the other looks ahead to guess what comes next. The variable star gleaming in their shared beak flares silver whenever two distant strangers happen to wonder the exact same thing at once.",
+  "usage": {
+    "in": 330,
+    "out": 972
+  },
+  "cost": 0.01038,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Two-Headed Magpie\",\n  \"statement\": \"Set among the stars for pilfering bright scraps of forgotten lore, one head gazes backward to recall every story ever told while the other looks ahead to guess what comes next. The variable star gleaming in their shared beak flares silver whenever two distant strangers happen to wonder the exact same thing at once.\"\n}\n```"
+}

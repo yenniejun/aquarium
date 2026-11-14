@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 35,
+  "date": "2026-11-14T19:56:52.017Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Hushwing Moth",
+  "statement": "Seven stars shape a moth carrying a lantern no bigger than a question. It appears when the sky grows quiet, gathering stray thoughts beneath its wings until they shine.",
+  "usage": {
+    "in": 292,
+    "out": 287
+  },
+  "cost": 0.0001727,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Hushwing Moth\",\n  \"statement\": \"Seven stars shape a moth carrying a lantern no bigger than a question. It appears when the sky grows quiet, gathering stray thoughts beneath its wings until they shine.\"\n}\n```"
+}

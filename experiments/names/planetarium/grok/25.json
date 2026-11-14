@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 25,
+  "date": "2026-11-14T19:57:46.121Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Ember Wren",
+  "statement": "Legend says a wren once borrowed a coal from the sun and, too gentle to keep it, laid the ember down as stars. Travelers still find the small warm figure in the round dark, its path kindling only for those who look without hurry.",
+  "usage": {
+    "in": 1528,
+    "out": 1585
+  },
+  "cost": 0.010454,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 29,
+  "reply": "```json\n{\n  \"title\": \"The Ember Wren\",\n  \"statement\": \"Legend says a wren once borrowed a coal from the sun and, too gentle to keep it, laid the ember down as stars. Travelers still find the small warm figure in the round dark, its path kindling only for those who look without hurry.\"\n}\n```"
+}

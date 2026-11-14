@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 26,
+  "date": "2026-11-14T19:57:43.084Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Listening Fox",
+  "statement": "Long ago a fox lay down in the dark and listened until forgotten words cooled into stars. Those who find her say the night tilts nearer, waiting to hear how the story ends.",
+  "usage": {
+    "in": 1528,
+    "out": 818
+  },
+  "cost": 0.005852,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Listening Fox\",\n  \"statement\": \"Long ago a fox lay down in the dark and listened until forgotten words cooled into stars. Those who find her say the night tilts nearer, waiting to hear how the story ends.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 13,
+  "date": "2026-11-14T19:57:17.118Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Glass Nautilus",
+  "statement": "Fabled to sail the ink-dark currents of the firmament in a spiral shell of faint stars, this translucent voyager raises a pair of bright stars like sails to catch every passing breeze of curiosity. Old sky-lore holds that it surfaces only on calm nights, ferrying stray questions from one horizon to the other until their light refracts into answers.",
+  "usage": {
+    "in": 330,
+    "out": 3598
+  },
+  "cost": 0.03664,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 59,
+  "reply": "```json\n{\n  \"title\": \"The Glass Nautilus\",\n  \"statement\": \"Fabled to sail the ink-dark currents of the firmament in a spiral shell of faint stars, this translucent voyager raises a pair of bright stars like sails to catch every passing breeze of curiosity. Old sky-lore holds that it surfaces only on calm nights, ferrying stray questions from one horizon to the other until their light refracts into answers.\"\n}\n```"
+}

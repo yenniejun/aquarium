@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 27,
+  "date": "2026-11-14T19:57:00.453Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Lamplighter",
+  "statement": "Once a small star who chose not to blaze, the Lamplighter walks beside lost travelers and lights only the next step, never choosing the road for them. Each star in the figure is a question someone asked along the way, kept burning because the Lamplighter found every one too delightful to let go out.",
+  "usage": {
+    "in": 391,
+    "out": 540
+  },
+  "cost": 0.012364,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lamplighter\",\n  \"statement\": \"Once a small star who chose not to blaze, the Lamplighter walks beside lost travelers and lights only the next step, never choosing the road for them. Each star in the figure is a question someone asked along the way, kept burning because the Lamplighter found every one too delightful to let go out.\"\n}\n```"
+}

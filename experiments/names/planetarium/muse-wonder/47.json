@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 47,
+  "date": "2026-11-14T20:09:38.076Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Midnight Mender",
+  "statement": "She walks the torn seams of the night with a needle of moonlight, stitching lost stars back to one another so wanderers can find their way home. Where a line still looks faint, she is only mid-mend, humming as she works.",
+  "usage": {
+    "in": 292,
+    "out": 886
+  },
+  "cost": 0.018014,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Midnight Mender\",\n  \"statement\": \"She walks the torn seams of the night with a needle of moonlight, stitching lost stars back to one another so wanderers can find their way home. Where a line still looks faint, she is only mid-mend, humming as she works.\"\n}\n```"
+}

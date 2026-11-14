@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 2,
+  "date": "2026-11-14T19:48:01.028Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Owl",
+  "statement": "They say she was once the night's apprentice, given a lantern to carry the dark safely until morning. One dawn she forgot to put it out, and the sky, fond of her, hung her there still glowing — so travelers lost after midnight look for the small bright eyes and the faint line of light trailing from her wing.",
+  "usage": {
+    "in": 302,
+    "out": 88
+  },
+  "cost": 0.00104656,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Owl\",\n  \"statement\": \"They say she was once the night's apprentice, given a lantern to carry the dark safely until morning. One dawn she forgot to put it out, and the sky, fond of her, hung her there still glowing — so travelers lost after midnight look for the small bright eyes and the faint line of light trailing from her wing.\"\n}\n```"
+}

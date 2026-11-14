@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 30,
+  "date": "2026-11-14T20:00:18.563Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Paper Nautilus",
+  "statement": "Said to have slipped away when the great ship Argo was scattered across the heavens, this tiny, translucent sailor catches the stellar wind in its fluted shell to chart the unmapped dark. Insomniacs and navigators look for its delicate spiral along the shoals of the Milky Way, believing it ferries stray, half-formed wonders safely to shore.",
+  "usage": {
+    "in": 330,
+    "out": 2192
+  },
+  "cost": 0.02258,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 33,
+  "reply": "```json\n{\n  \"title\": \"The Paper Nautilus\",\n  \"statement\": \"Said to have slipped away when the great ship Argo was scattered across the heavens, this tiny, translucent sailor catches the stellar wind in its fluted shell to chart the unmapped dark. Insomniacs and navigators look for its delicate spiral along the shoals of the Milky Way, believing it ferries stray, half-formed wonders safely to shore.\"\n}\n```"
+}

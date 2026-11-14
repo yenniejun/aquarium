@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 21,
+  "date": "2026-11-14T19:57:15.986Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Moth Cartographer",
+  "statement": "Nine stars mark the wings of the moth who mistook the night for an unfinished map and stitched its scattered lights together with silver thread. Each winter it loosens one stitch, leaving a little darkness where travelers may discover a path it never thought to draw.",
+  "usage": {
+    "in": 292,
+    "out": 291
+  },
+  "cost": 0.003494,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Moth Cartographer\",\n  \"statement\": \"Nine stars mark the wings of the moth who mistook the night for an unfinished map and stitched its scattered lights together with silver thread. Each winter it loosens one stitch, leaving a little darkness where travelers may discover a path it never thought to draw.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 43,
+  "date": "2026-11-14T19:58:55.492Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Gentle Erratum",
+  "statement": "In the old sky a patient scribe walked among misplaced stars, nudging each one a kindness closer to true, and the arc of that correcting hand was left burning so travelers would know that even heaven keeps a margin for revision.",
+  "usage": {
+    "in": 1528,
+    "out": 676
+  },
+  "cost": 0.005,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Gentle Erratum\",\n  \"statement\": \"In the old sky a patient scribe walked among misplaced stars, nudging each one a kindness closer to true, and the arc of that correcting hand was left burning so travelers would know that even heaven keeps a margin for revision.\"\n}\n```"
+}

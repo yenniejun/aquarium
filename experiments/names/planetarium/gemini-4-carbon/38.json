@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 38,
+  "date": "2026-11-14T20:01:50.243Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn to scattered sparks of curiosity, this restless creature flutters from star to lonely star, linking distant lights with threads of silver dust until the dark becomes a map. Navigators say its mirrored wings tilt two ways at once—one remembering every harbor left behind, the other reaching toward uncharted skies.",
+  "usage": {
+    "in": 330,
+    "out": 2570
+  },
+  "cost": 0.02636,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 36,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn to scattered sparks of curiosity, this restless creature flutters from star to lonely star, linking distant lights with threads of silver dust until the dark becomes a map. Navigators say its mirrored wings tilt two ways at once—one remembering every harbor left behind, the other reaching toward uncharted skies.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 16,
+  "date": "2026-11-14T19:56:48.108Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Starlight Librarian",
+  "statement": "She gathers the stories too small, strange, or fleeting to be remembered by day and shelves them among the stars, lending one back each night to anyone who looks up in wonder.",
+  "usage": {
+    "in": 292,
+    "out": 1041
+  },
+  "cost": 0.021114,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Starlight Librarian\",\n  \"statement\": \"She gathers the stories too small, strange, or fleeting to be remembered by day and shelves them among the stars, lending one back each night to anyone who looks up in wonder.\"\n}\n```"
+}

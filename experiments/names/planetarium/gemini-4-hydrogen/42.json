@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 42,
+  "date": "2026-11-14T19:58:03.986Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Born from a spark that drifted out of an ancient scholar's lamp, this small constellation flutters along the edge of the Milky Way, gathering unspoken questions like pollen. Stargazers say its faint silver wings glow brightest in the quiet hour just before a tangled thought settles into clarity.",
+  "usage": {
+    "in": 330,
+    "out": 1631
+  },
+  "cost": 0.0127275,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Born from a spark that drifted out of an ancient scholar's lamp, this small constellation flutters along the edge of the Milky Way, gathering unspoken questions like pollen. Stargazers say its faint silver wings glow brightest in the quiet hour just before a tangled thought settles into clarity.\"\n}\n```"
+}

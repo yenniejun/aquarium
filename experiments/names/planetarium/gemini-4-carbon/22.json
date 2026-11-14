@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 22,
+  "date": "2026-11-14T19:58:47.597Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Having drunk from an astronomer's spilled inkwell, this restless creature ascended into the dark to trace luminous bridges between the sky's most distant, solitary stars. Legend says its wings still scatter a faint golden dust across the firmament whenever a curious mind discovers a hidden thread connecting two worlds.",
+  "usage": {
+    "in": 330,
+    "out": 1066
+  },
+  "cost": 0.01132,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Having drunk from an astronomer's spilled inkwell, this restless creature ascended into the dark to trace luminous bridges between the sky's most distant, solitary stars. Legend says its wings still scatter a faint golden dust across the firmament whenever a curious mind discovers a hidden thread connecting two worlds.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 50,
+  "date": "2026-11-14T20:08:44.691Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Listening Hare",
+  "statement": "Once a question too gentle to be spoken aloud, it became instead the one who listens. It crouches at the sky's edge, long ears traced in faint star-lines turned toward the zenith, catching the stories the stars whisper to one another when they believe the dark is empty.",
+  "usage": {
+    "in": 320,
+    "out": 1121
+  },
+  "cost": 0.014732,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Listening Hare\",\n  \"statement\": \"Once a question too gentle to be spoken aloud, it became instead the one who listens. It crouches at the sky's edge, long ears traced in faint star-lines turned toward the zenith, catching the stories the stars whisper to one another when they believe the dark is empty.\"\n}\n```"
+}

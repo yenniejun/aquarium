@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 35,
+  "date": "2026-11-14T19:57:20.481Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox once walked the night roads lighting her lantern from the questions of lost travelers, and she never claimed a path was shorter than it truly was. The sky took her in for her honesty, and her lantern-star still flickers brighter whenever someone below wonders aloud.",
+  "usage": {
+    "in": 391,
+    "out": 510
+  },
+  "cost": 0.011764,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox once walked the night roads lighting her lantern from the questions of lost travelers, and she never claimed a path was shorter than it truly was. The sky took her in for her honesty, and her lantern-star still flickers brighter whenever someone below wonders aloud.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 49,
+  "date": "2026-11-14T19:57:09.755Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Listening Kite",
+  "statement": "When the first night lost its way, a small kite rose to gather the stars’ unfinished questions, tying them into a map with its silver tail. It still tugs gently at the dark, pointing not toward an answer but toward the next bright possibility.",
+  "usage": {
+    "in": 292,
+    "out": 356
+  },
+  "cost": 0.0002072,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"The Listening Kite\",\n  \"statement\": \"When the first night lost its way, a small kite rose to gather the stars’ unfinished questions, tying them into a map with its silver tail. It still tugs gently at the dark, pointing not toward an answer but toward the next bright possibility.\"\n}\n```"
+}

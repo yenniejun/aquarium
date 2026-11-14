@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 43,
+  "date": "2026-11-14T20:06:41.289Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Stitcher's Pause",
+  "statement": "The mender of the sky halts her needle mid-arc, letting the thread trail off into a scatter of unconnected stars, for she has learned that the most beautiful part of any pattern is the dark it has not yet filled.",
+  "usage": {
+    "in": 320,
+    "out": 1504
+  },
+  "cost": 0.019328,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Stitcher's Pause\",\n  \"statement\": \"The mender of the sky halts her needle mid-arc, letting the thread trail off into a scatter of unconnected stars, for she has learned that the most beautiful part of any pattern is the dark it has not yet filled.\"\n}\n```"
+}

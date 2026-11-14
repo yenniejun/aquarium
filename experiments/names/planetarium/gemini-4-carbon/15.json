@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 15,
+  "date": "2026-11-14T19:57:32.593Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Once the companion of a sleepless mapmaker, this radiant moth flew into the firmament to carry luminous dust from one lonely star to kindle the next. Old star-charts say its wings trace the hidden bridges of the night, pulsing softly whenever two distant minds look up and wonder the same thing.",
+  "usage": {
+    "in": 330,
+    "out": 2289
+  },
+  "cost": 0.02355,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 33,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Once the companion of a sleepless mapmaker, this radiant moth flew into the firmament to carry luminous dust from one lonely star to kindle the next. Old star-charts say its wings trace the hidden bridges of the night, pulsing softly whenever two distant minds look up and wonder the same thing.\"\n}\n```"
+}

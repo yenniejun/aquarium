@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 1,
+  "date": "2026-11-14T19:48:22.454Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Quiet Mender",
+  "statement": "When the firmament tore in the first storm, a small figure climbed the dark and sewed it shut with thread of light; the stars are where her needle pierced through, and she is still stitching, still mending, patient and unhurried, at the very edge of what we can see.",
+  "usage": {
+    "in": 320,
+    "out": 1769
+  },
+  "cost": 0.022508,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"The Quiet Mender\",\n  \"statement\": \"When the firmament tore in the first storm, a small figure climbed the dark and sewed it shut with thread of light; the stars are where her needle pierced through, and she is still stitching, still mending, patient and unhurried, at the very edge of what we can see.\"\n}\n```"
+}

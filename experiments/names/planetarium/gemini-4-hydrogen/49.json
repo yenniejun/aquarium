@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 49,
+  "date": "2026-11-14T19:58:24.202Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Wren",
+  "statement": "Too small to cross the void in a single flight, the Lantern Wren hops from star to star carrying a borrowed ember in its beak. Wherever it pauses to catch its breath, distant lights recognize one another and trace a brief bridge across the dark.",
+  "usage": {
+    "in": 330,
+    "out": 1511
+  },
+  "cost": 0.0118275,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Wren\",\n  \"statement\": \"Too small to cross the void in a single flight, the Lantern Wren hops from star to star carrying a borrowed ember in its beak. Wherever it pauses to catch its breath, distant lights recognize one another and trace a brief bridge across the dark.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 18,
+  "date": "2026-11-14T19:56:52.243Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Weaver of Small Wonders",
+  "statement": "She gathers starlight too faint for grander constellations and braids it into fireflies, moth-wings, and sudden ideas. Watch her thread long enough, and it will lead you not home, but to something you had forgotten to wonder at.",
+  "usage": {
+    "in": 292,
+    "out": 1259
+  },
+  "cost": 0.025474,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Weaver of Small Wonders\",\n  \"statement\": \"She gathers starlight too faint for grander constellations and braids it into fireflies, moth-wings, and sudden ideas. Watch her thread long enough, and it will lead you not home, but to something you had forgotten to wonder at.\"\n}\n```"
+}

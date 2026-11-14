@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 6,
+  "date": "2026-11-14T19:48:07.664Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "Moth of Elsewhere",
+  "statement": "Its stars sketch a moth with wide, map-veined wings, forever circling a small blue flame. The old charts say it drank moonlight from blank maps, then stitched scattered stars together to guide wanderers not to a destination, but to their next question.",
+  "usage": {
+    "in": 292,
+    "out": 289
+  },
+  "cost": 0.0001737,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"Moth of Elsewhere\",\n  \"statement\": \"Its stars sketch a moth with wide, map-veined wings, forever circling a small blue flame. The old charts say it drank moonlight from blank maps, then stitched scattered stars together to guide wanderers not to a destination, but to their next question.\"\n}\n```"
+}

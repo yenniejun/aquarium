@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 27,
+  "date": "2026-11-14T19:57:19.338Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Moth of Echoes",
+  "statement": "Drawn upward by the glow of ancient suns, this great moth circles the dark with wings dusted in every half-remembered melody ever hummed beneath the sky. Star-charts mark its delicate antennae tilting downward, forever listening for one more quiet voice to carry home.",
+  "usage": {
+    "in": 330,
+    "out": 1948
+  },
+  "cost": 0.015105,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Moth of Echoes\",\n  \"statement\": \"Drawn upward by the glow of ancient suns, this great moth circles the dark with wings dusted in every half-remembered melody ever hummed beneath the sky. Star-charts mark its delicate antennae tilting downward, forever listening for one more quiet voice to carry home.\"\n}\n```"
+}

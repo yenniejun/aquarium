@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 43,
+  "date": "2026-11-14T20:04:03.151Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "When the first winter nearly swallowed the world, a small fox stole a single coal from the Moon's own hearth and carried it across the dark sky in her jaws, leaving a trail of sparks that never went out. Find her still: ears pricked, tail curled like a question mark, the lantern-star at her nose burning amber — a reminder that even the smallest light, bravely carried, can outlast the longest night.",
+  "usage": {
+    "in": 302,
+    "out": 110
+  },
+  "cost": 0.00124016,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"When the first winter nearly swallowed the world, a small fox stole a single coal from the Moon's own hearth and carried it across the dark sky in her jaws, leaving a trail of sparks that never went out. Find her still: ears pricked, tail curled like a question mark, the lantern-star at her nose burning amber — a reminder that even the smallest light, bravely carried, can outlast the longest night.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 2,
+  "date": "2026-11-14T19:48:06.957Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Lantern Fox",
+  "statement": "She stole a lantern from the edge of dawn to guide lost travelers home, and now pads forever among the stars, pausing at each one to wonder at its light. Watch long enough, and she will look back — and wait for you to follow.",
+  "usage": {
+    "in": 292,
+    "out": 918
+  },
+  "cost": 0.019528,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"She stole a lantern from the edge of dawn to guide lost travelers home, and now pads forever among the stars, pausing at each one to wonder at its light. Watch long enough, and she will look back — and wait for you to follow.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 25,
+  "date": "2026-11-14T19:56:38.384Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Moth",
+  "statement": "The Question Moth is stitched from stars that appear whenever someone wonders aloud. It flutters from one bright thought to the next, leaving a little more light between them.",
+  "usage": {
+    "in": 292,
+    "out": 198
+  },
+  "cost": 0.0001282,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Question Moth\",\n  \"statement\": \"The Question Moth is stitched from stars that appear whenever someone wonders aloud. It flutters from one bright thought to the next, leaving a little more light between them.\"\n}\n```"
+}

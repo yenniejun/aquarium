@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 5,
+  "date": "2026-11-14T19:48:24.281Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Moon's Librarian",
+  "statement": "Each night she gathers the unfinished stories whispered below and shelves them among the stars, leaving a lantern lit so their tellers may one day return to finish them.",
+  "usage": {
+    "in": 292,
+    "out": 771
+  },
+  "cost": 0.015714,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Moon's Librarian\",\n  \"statement\": \"Each night she gathers the unfinished stories whispered below and shelves them among the stars, leaving a lantern lit so their tellers may one day return to finish them.\"\n}\n```"
+}

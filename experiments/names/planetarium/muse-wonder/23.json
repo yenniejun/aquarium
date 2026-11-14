@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 23,
+  "date": "2026-11-14T19:57:09.218Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Unfinished Atlas",
+  "statement": "A mapmaker charted every road but one, leaving the last path blank so no traveler would ever mistake the world for fully known. When she died, the stars kept her atlas open — and still add a new light whenever someone sets out bravely into the unknown.",
+  "usage": {
+    "in": 292,
+    "out": 1333
+  },
+  "cost": 0.026954,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Atlas\",\n  \"statement\": \"A mapmaker charted every road but one, leaving the last path blank so no traveler would ever mistake the world for fully known. When she died, the stars kept her atlas open — and still add a new light whenever someone sets out bravely into the unknown.\"\n}\n```"
+}

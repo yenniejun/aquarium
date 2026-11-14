@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 15,
+  "date": "2026-11-14T19:56:41.433Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Wondering Cartographer",
+  "statement": "She set out to map the heavens and, finding the stars too lonely, began drawing lines between them instead. On clear nights she still retraces her routes, turning stray lights into stories so every wanderer can find a way home.",
+  "usage": {
+    "in": 292,
+    "out": 1308
+  },
+  "cost": 0.026454,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Wondering Cartographer\",\n  \"statement\": \"She set out to map the heavens and, finding the stars too lonely, began drawing lines between them instead. On clear nights she still retraces her routes, turning stray lights into stories so every wanderer can find a way home.\"\n}\n```"
+}

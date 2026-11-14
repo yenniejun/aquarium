@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 4,
+  "date": "2026-11-14T19:48:15.060Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Whispering Astrolabe",
+  "statement": "Forged by a curious wanderer from spun starlight, this celestial instrument measures the unseen threads binding distant stories together. On clear nights, its delicate rings tilt toward anyone gazing upward with a question, tracing a quiet path through the dark.",
+  "usage": {
+    "in": 330,
+    "out": 1459
+  },
+  "cost": 0.0114375,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Whispering Astrolabe\",\n  \"statement\": \"Forged by a curious wanderer from spun starlight, this celestial instrument measures the unseen threads binding distant stories together. On clear nights, its delicate rings tilt toward anyone gazing upward with a question, tracing a quiet path through the dark.\"\n}\n```"
+}

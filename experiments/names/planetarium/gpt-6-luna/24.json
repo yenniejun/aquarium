@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 24,
+  "date": "2026-11-14T19:56:38.905Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Moth",
+  "statement": "Its wings are stitched from shy stars, and a bright point glows where its heart should be. The old chart says it gathers unanswered questions from the dark and releases them as tiny new constellations.",
+  "usage": {
+    "in": 292,
+    "out": 276
+  },
+  "cost": 0.0001672,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Question Moth\",\n  \"statement\": \"Its wings are stitched from shy stars, and a bright point glows where its heart should be. The old chart says it gathers unanswered questions from the dark and releases them as tiny new constellations.\"\n}\n```"
+}

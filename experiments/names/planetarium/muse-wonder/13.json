@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 13,
+  "date": "2026-11-14T19:56:35.700Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Clockwork Nightingale",
+  "statement": "Built only to mark the hours, she learned instead to sing back every lullaby the night had forgotten. On clear evenings she still opens her wings once, to remind the dark that even made things can wonder.",
+  "usage": {
+    "in": 292,
+    "out": 1488
+  },
+  "cost": 0.030054,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Clockwork Nightingale\",\n  \"statement\": \"Built only to mark the hours, she learned instead to sing back every lullaby the night had forgotten. On clear evenings she still opens her wings once, to remind the dark that even made things can wonder.\"\n}\n```"
+}

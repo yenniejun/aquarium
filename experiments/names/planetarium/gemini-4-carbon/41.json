@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 41,
+  "date": "2026-11-14T20:02:16.253Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Fox's Prism",
+  "statement": "Said to have caught a single falling spark in a shard of clear ice, this curious creature forever refracts one lonely light into a sweeping tail of seven stars. Night travelers still read its branching geometry when seeking an unexpected bridge between distant shores.",
+  "usage": {
+    "in": 330,
+    "out": 1828
+  },
+  "cost": 0.01894,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 26,
+  "reply": "```json\n{\n  \"title\": \"The Fox's Prism\",\n  \"statement\": \"Said to have caught a single falling spark in a shard of clear ice, this curious creature forever refracts one lonely light into a sweeping tail of seven stars. Night travelers still read its branching geometry when seeking an unexpected bridge between distant shores.\"\n}\n```"
+}

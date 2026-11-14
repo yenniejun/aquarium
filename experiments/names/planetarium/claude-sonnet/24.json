@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 24,
+  "date": "2026-11-14T19:56:30.593Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth of Questions",
+  "statement": "A pale moth who mistook every star for a question and flew toward each one, only to discover that the nearer she came, the more small lights appeared around it. The gods stitched her wings into the sky with seven bright stars, and she still beats them slowly, brightening whenever someone below wonders about something.",
+  "usage": {
+    "in": 391,
+    "out": 127
+  },
+  "cost": 0.002052,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth of Questions\",\n  \"statement\": \"A pale moth who mistook every star for a question and flew toward each one, only to discover that the nearer she came, the more small lights appeared around it. The gods stitched her wings into the sky with seven bright stars, and she still beats them slowly, brightening whenever someone below wonders about something.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 45,
+  "date": "2026-11-14T19:57:05.028Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Moth",
+  "statement": "Seven stars shape a moth with one wing forever half-open; old charts say it listens at the edge of the sky, carrying unanswered questions from one lonely star to another until they become constellations.",
+  "usage": {
+    "in": 292,
+    "out": 330
+  },
+  "cost": 0.00019419999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Question Moth\",\n  \"statement\": \"Seven stars shape a moth with one wing forever half-open; old charts say it listens at the edge of the sky, carrying unanswered questions from one lonely star to another until they become constellations.\"\n}\n```"
+}

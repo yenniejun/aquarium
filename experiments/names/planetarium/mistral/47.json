@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 47,
+  "date": "2026-11-14T20:59:37.569Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Star-Mender",
+  "statement": "Each night she walks the inside of the sky with a needle of cold light, stitching shut the small tears where the dark leaks through. Her silver thread is still up there, glinting — holding everything together, one careful stitch at a time.",
+  "usage": {
+    "in": 310,
+    "out": 2867
+  },
+  "cost": 0.00607642,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 52,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mender\",\n  \"statement\": \"Each night she walks the inside of the sky with a needle of cold light, stitching shut the small tears where the dark leaks through. Her silver thread is still up there, glinting — holding everything together, one careful stitch at a time.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 32,
+  "date": "2026-11-14T19:58:14.899Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "Seven stars form the crooked lantern of a keeper who sheltered questions that had nowhere else to go. An eighth sometimes kindles in its open frame, but the keeper never closes the door: every question, once bright enough, is allowed to leave as a star.",
+  "usage": {
+    "in": 292,
+    "out": 406
+  },
+  "cost": 0.004644,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"Seven stars form the crooked lantern of a keeper who sheltered questions that had nowhere else to go. An eighth sometimes kindles in its open frame, but the keeper never closes the door: every question, once bright enough, is allowed to leave as a star.\"\n}\n```"
+}

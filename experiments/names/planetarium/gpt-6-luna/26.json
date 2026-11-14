@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 26,
+  "date": "2026-11-14T19:56:42.119Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Moth",
+  "statement": "Seven stars sketch a moth whose bright wings curl around one small, dark star—the question it has not yet answered. The old chartmakers say it follows the curious, leaving a faint silver thread wherever wonder leads.",
+  "usage": {
+    "in": 292,
+    "out": 270
+  },
+  "cost": 0.00016419999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Question Moth\",\n  \"statement\": \"Seven stars sketch a moth whose bright wings curl around one small, dark star—the question it has not yet answered. The old chartmakers say it follows the curious, leaving a faint silver thread wherever wonder leads.\"\n}\n```"
+}

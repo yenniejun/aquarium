@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 23,
+  "date": "2026-11-14T19:56:59.984Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Astrolabe Moth",
+  "statement": "Born from a stray spark in the old sky-makers' workshop, it measures the hidden angles between distant suns with wings of fine brass starlight. Stargazers say its lines only finish tracing themselves when someone pauses in the dark to wonder how two unrelated things might belong together.",
+  "usage": {
+    "in": 330,
+    "out": 987
+  },
+  "cost": 0.0078975,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Astrolabe Moth\",\n  \"statement\": \"Born from a stray spark in the old sky-makers' workshop, it measures the hidden angles between distant suns with wings of fine brass starlight. Stargazers say its lines only finish tracing themselves when someone pauses in the dark to wonder how two unrelated things might belong together.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 42,
+  "date": "2026-11-14T19:56:44.367Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the first night grew too large to learn by heart, a small moth carried one borrowed spark from star to star, asking each what it was called and writing the answer in light on her wings. Now she rests in the sky with her seven brightest questions still glowing, and on clear nights she flutters once, as if she has just remembered something wonderful.",
+  "usage": {
+    "in": 391,
+    "out": 134
+  },
+  "cost": 0.002122,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the first night grew too large to learn by heart, a small moth carried one borrowed spark from star to star, asking each what it was called and writing the answer in light on her wings. Now she rests in the sky with her seven brightest questions still glowing, and on clear nights she flutters once, as if she has just remembered something wonderful.\"\n}\n```"
+}

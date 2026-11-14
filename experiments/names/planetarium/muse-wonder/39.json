@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 39,
+  "date": "2026-11-14T20:07:48.874Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Paper-Boat Sailor",
+  "statement": "She sailed a paper boat up the Milky Way to ferry lost stories home, and it has never sunk — for every tale told aboard adds a new fold to its hull. Look for her when you have a beginning but not yet an ending.",
+  "usage": {
+    "in": 292,
+    "out": 1775
+  },
+  "cost": 0.035794,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Paper-Boat Sailor\",\n  \"statement\": \"She sailed a paper boat up the Milky Way to ferry lost stories home, and it has never sunk — for every tale told aboard adds a new fold to its hull. Look for her when you have a beginning but not yet an ending.\"\n}\n```"
+}

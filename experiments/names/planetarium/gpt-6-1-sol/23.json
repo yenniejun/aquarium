@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 23,
+  "date": "2026-11-14T19:57:20.713Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Seamkeeper's Wren",
+  "statement": "Nine stars form a wren carrying a crooked needle, said to mend the places where the night has worn thin. It always leaves one stitch undone, so whatever no one has imagined yet can find its way inside.",
+  "usage": {
+    "in": 292,
+    "out": 428
+  },
+  "cost": 0.004864,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Seamkeeper's Wren\",\n  \"statement\": \"Nine stars form a wren carrying a crooked needle, said to mend the places where the night has worn thin. It always leaves one stitch undone, so whatever no one has imagined yet can find its way inside.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 37,
+  "date": "2026-11-14T19:56:55.627Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Maybe Lantern",
+  "statement": "Four bright stars shape a lantern, its loose tail of sparks curling like a question mark. The old sky-watchers say it appears whenever a thought has not yet found its name, keeping a little light burning until wonder leads it home.",
+  "usage": {
+    "in": 292,
+    "out": 509
+  },
+  "cost": 0.0002837,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Maybe Lantern\",\n  \"statement\": \"Four bright stars shape a lantern, its loose tail of sparks curling like a question mark. The old sky-watchers say it appears whenever a thought has not yet found its name, keeping a little light burning until wonder leads it home.\"\n}\n```"
+}

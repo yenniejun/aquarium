@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 30,
+  "date": "2026-11-14T19:58:03.116Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Moth Librarian",
+  "statement": "Nine silver stars form a moth whose open wings resemble a book, with one blue star hovering just beyond its antennae. The old skykeepers said it collected questions abandoned at bedtime, and that whenever someone below whispered ‘I wonder,’ it woke and rearranged its wings to make room.",
+  "usage": {
+    "in": 292,
+    "out": 364
+  },
+  "cost": 0.004224,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Moth Librarian\",\n  \"statement\": \"Nine silver stars form a moth whose open wings resemble a book, with one blue star hovering just beyond its antennae. The old skykeepers said it collected questions abandoned at bedtime, and that whenever someone below whispered ‘I wonder,’ it woke and rearranged its wings to make room.\"\n}\n```"
+}

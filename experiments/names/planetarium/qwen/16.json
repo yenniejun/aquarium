@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 16,
+  "date": "2026-11-14T19:56:53.339Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mender's Needle",
+  "statement": "Where the night-sky has worn thin, a small curved needle of stars stitches the dark shut, trailing a thread of faint lights behind it; and where it passes, new stars bloom in the stitch-holes, so the heavens are always being quietly repaired.",
+  "usage": {
+    "in": 320,
+    "out": 1253
+  },
+  "cost": 0.016316,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Needle\",\n  \"statement\": \"Where the night-sky has worn thin, a small curved needle of stars stitches the dark shut, trailing a thread of faint lights behind it; and where it passes, new stars bloom in the stitch-holes, so the heavens are always being quietly repaired.\"\n}\n```"
+}

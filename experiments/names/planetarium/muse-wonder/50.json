@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 50,
+  "date": "2026-11-14T20:10:18.159Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Question Keeper",
+  "statement": "She gathers every question asked just before sleep and carries it in her lantern, so none are lost to the dark. When the lantern grows too bright to hold, she hangs the questions among the stars, where they shine until a curious heart finds them again.",
+  "usage": {
+    "in": 292,
+    "out": 1216
+  },
+  "cost": 0.024614,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Question Keeper\",\n  \"statement\": \"She gathers every question asked just before sleep and carries it in her lantern, so none are lost to the dark. When the lantern grows too bright to hold, she hangs the questions among the stars, where they shine until a curious heart finds them again.\"\n}\n```"
+}

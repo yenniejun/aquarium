@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 3,
+  "date": "2026-11-14T19:48:14.771Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Moon's Librarian",
+  "statement": "She reshelves every fallen star into its proper story, but always leaves one a little out of place for the curious to discover. Look long enough, and that stray star will wink back.",
+  "usage": {
+    "in": 292,
+    "out": 1308
+  },
+  "cost": 0.027328,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Moon's Librarian\",\n  \"statement\": \"She reshelves every fallen star into its proper story, but always leaves one a little out of place for the curious to discover. Look long enough, and that stray star will wink back.\"\n}\n```"
+}

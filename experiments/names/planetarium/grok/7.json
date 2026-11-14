@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 7,
+  "date": "2026-11-14T19:48:56.977Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago a moth took the first star for a lantern and flew until its wings stitched the dark into a path; those who are lost still find it glowing, patient, just above the round rim of the night.",
+  "usage": {
+    "in": 1528,
+    "out": 615
+  },
+  "cost": 0.004634,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago a moth took the first star for a lantern and flew until its wings stitched the dark into a path; those who are lost still find it glowing, patient, just above the round rim of the night.\"\n}\n```"
+}

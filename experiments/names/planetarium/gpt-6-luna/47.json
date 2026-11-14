@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 47,
+  "date": "2026-11-14T19:57:06.158Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Star-Skein Fox",
+  "statement": "They say this fox gathers stray stars and stitches them into paths for lost travelers, then leaves one thread loose so the sky can keep becoming. When the planetarium grows quiet, its tail flicks—and the unfinished star briefly winks.",
+  "usage": {
+    "in": 292,
+    "out": 311
+  },
+  "cost": 0.0001847,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Star-Skein Fox\",\n  \"statement\": \"They say this fox gathers stray stars and stitches them into paths for lost travelers, then leaves one thread loose so the sky can keep becoming. When the planetarium grows quiet, its tail flicks—and the unfinished star briefly winks.\"\n}\n```"
+}

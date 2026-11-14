@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 32,
+  "date": "2026-11-14T19:56:48.391Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Star-Sewn Moth",
+  "statement": "Seven bright stars trace a moth with a silver needle, said to gather stray sparks and stitch them into the night. It always leaves one small gap in its pattern, so a wish can fly through.",
+  "usage": {
+    "in": 292,
+    "out": 277
+  },
+  "cost": 0.00016769999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Star-Sewn Moth\",\n  \"statement\": \"Seven bright stars trace a moth with a silver needle, said to gather stray sparks and stitch them into the night. It always leaves one small gap in its pattern, so a wish can fly through.\"\n}\n```"
+}

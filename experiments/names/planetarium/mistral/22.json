@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 22,
+  "date": "2026-11-14T20:29:27.723Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Moth's Question",
+  "statement": "Once a moth asked the brightest star why anyone would fly toward the dark. The star liked the question so much that it kept her circling there forever — one bright lantern with a small looping trail of light.",
+  "usage": {
+    "in": 310,
+    "out": 3545
+  },
+  "cost": 0.00750022,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 55,
+  "reply": "```json\n{\n  \"title\": \"The Moth's Question\",\n  \"statement\": \"Once a moth asked the brightest star why anyone would fly toward the dark. The star liked the question so much that it kept her circling there forever — one bright lantern with a small looping trail of light.\"\n}\n```"
+}

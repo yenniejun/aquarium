@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 10,
+  "date": "2026-11-14T19:48:33.020Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Loom of Echoes",
+  "statement": "Strung from the silver breath of half-asked questions and wandering songs, this celestial loom gathers scattered thoughts from the dark and weaves them into quiet patterns. Travelers watch its faintest cross-threads when they seek not the quickest harbor, but an unexpected truth.",
+  "usage": {
+    "in": 330,
+    "out": 2054
+  },
+  "cost": 0.0159,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Loom of Echoes\",\n  \"statement\": \"Strung from the silver breath of half-asked questions and wandering songs, this celestial loom gathers scattered thoughts from the dark and weaves them into quiet patterns. Travelers watch its faintest cross-threads when they seek not the quickest harbor, but an unexpected truth.\"\n}\n```"
+}

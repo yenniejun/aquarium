@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 13,
+  "date": "2026-11-14T19:56:31.326Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Wren",
+  "statement": "A small bird stole the first coal of dawn to light the dark between questions; her wingbeats still kindle whenever a traveler pauses, looks up, and wonders.",
+  "usage": {
+    "in": 1528,
+    "out": 615
+  },
+  "cost": 0.004634,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Wren\",\n  \"statement\": \"A small bird stole the first coal of dawn to light the dark between questions; her wingbeats still kindle whenever a traveler pauses, looks up, and wonders.\"\n}\n```"
+}

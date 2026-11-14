@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 37,
+  "date": "2026-11-14T19:56:40.234Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "A moth of seven pale stars once mistook the first dawn for a lamp and flew toward it so faithfully that the night, grateful to be remembered, hung her in the sky so she could keep wandering. Each autumn she briefly folds her wings and gives her one gold star a flicker, as if still deciding whether the light is worth the trip, and every time she decides it is.",
+  "usage": {
+    "in": 391,
+    "out": 149
+  },
+  "cost": 0.002272,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"A moth of seven pale stars once mistook the first dawn for a lamp and flew toward it so faithfully that the night, grateful to be remembered, hung her in the sky so she could keep wandering. Each autumn she briefly folds her wings and gives her one gold star a flicker, as if still deciding whether the light is worth the trip, and every time she decides it is.\"\n}\n```"
+}

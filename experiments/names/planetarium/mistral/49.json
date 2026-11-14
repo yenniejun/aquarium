@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 49,
+  "date": "2026-11-14T21:01:39.344Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Paper Crane",
+  "statement": "Folded from a single sheet of night by the first insomniac, the crane crosses the sky once each evening carrying one small lamp. It leaves the lamp burning at the window of whoever is still awake.",
+  "usage": {
+    "in": 310,
+    "out": 3948
+  },
+  "cost": 0.00834652,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 58,
+  "reply": "```json\n{\n  \"title\": \"The Paper Crane\",\n  \"statement\": \"Folded from a single sheet of night by the first insomniac, the crane crosses the sky once each evening carrying one small lamp. It leaves the lamp burning at the window of whoever is still awake.\"\n}\n```"
+}

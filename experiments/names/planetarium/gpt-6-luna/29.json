@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 29,
+  "date": "2026-11-14T19:56:46.008Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Listening Loom",
+  "statement": "When the first questions drifted through the dark, a sky-weaver tied them into stars and stretched a silver thread between them. The Loom still brightens whenever someone looks up, turning wandering thoughts into a path home.",
+  "usage": {
+    "in": 292,
+    "out": 355
+  },
+  "cost": 0.00020669999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"The Listening Loom\",\n  \"statement\": \"When the first questions drifted through the dark, a sky-weaver tied them into stars and stretched a silver thread between them. The Loom still brightens whenever someone looks up, turning wandering thoughts into a path home.\"\n}\n```"
+}

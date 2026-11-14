@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 9,
+  "date": "2026-11-14T19:48:11.962Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Fox",
+  "statement": "Seven stars sketch a fox curled around a tiny lantern, whose tail winds into a dotted path. Old sky-watchers say it gathers lost questions and carries them until their sparks lead someone home.",
+  "usage": {
+    "in": 292,
+    "out": 285
+  },
+  "cost": 0.0001717,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"Seven stars sketch a fox curled around a tiny lantern, whose tail winds into a dotted path. Old sky-watchers say it gathers lost questions and carries them until their sparks lead someone home.\"\n}\n```"
+}

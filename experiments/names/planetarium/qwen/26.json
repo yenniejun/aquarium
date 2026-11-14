@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 26,
+  "date": "2026-11-14T20:05:38.857Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Moth Cartographer",
+  "statement": "A small moth, unable to navigate by the old stars, drew its own map in silver thread across the dark; and the sky, moved by the effort, held those new lines in place forever. It is said the constellation still shifts a little each century, as the moth refines its route.",
+  "usage": {
+    "in": 320,
+    "out": 1512
+  },
+  "cost": 0.019424,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Moth Cartographer\",\n  \"statement\": \"A small moth, unable to navigate by the old stars, drew its own map in silver thread across the dark; and the sky, moved by the effort, held those new lines in place forever. It is said the constellation still shifts a little each century, as the moth refines its route.\"\n}\n```"
+}

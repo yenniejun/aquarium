@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 14,
+  "date": "2026-11-14T19:56:41.431Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "When the sky grew too vast for any single voice, a little lantern set out to gather the silences between stars. It still wanders the rim of night, kindling questions instead of answers, so that no distant light has to shine alone.",
+  "usage": {
+    "in": 369,
+    "out": 243
+  },
+  "cost": 0.0027072,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"When the sky grew too vast for any single voice, a little lantern set out to gather the silences between stars. It still wanders the rim of night, kindling questions instead of answers, so that no distant light has to shine alone.\"\n}\n```"
+}

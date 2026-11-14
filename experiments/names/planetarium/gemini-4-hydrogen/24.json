@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 24,
+  "date": "2026-11-14T19:57:07.233Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Fox",
+  "statement": "According to old sky-charts, a curious silver fox once carried a stray spark from the first dawn into the deep dark to map the spaces between lonely stars. Whenever someone below pauses in quiet wonder, its bright tail flares softly, tracing luminous paths from one distant question to the next.",
+  "usage": {
+    "in": 330,
+    "out": 1155
+  },
+  "cost": 0.0091575,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"According to old sky-charts, a curious silver fox once carried a stray spark from the first dawn into the deep dark to map the spaces between lonely stars. Whenever someone below pauses in quiet wonder, its bright tail flares softly, tracing luminous paths from one distant question to the next.\"\n}\n```"
+}

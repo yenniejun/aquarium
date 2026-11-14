@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 5,
+  "date": "2026-11-14T19:48:14.143Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Moth",
+  "statement": "Born among moths who flung themselves into every flame, she alone wondered what the light was for, so she learned to carry a small lantern instead, drifting beside lost travelers and asking where they hoped to go, never pretending to know a road she hadn't seen. The sky kept her for her curiosity; on clear nights her wings still flicker, as if she's leaning in to hear one more question.",
+  "usage": {
+    "in": 391,
+    "out": 612
+  },
+  "cost": 0.013804,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Born among moths who flung themselves into every flame, she alone wondered what the light was for, so she learned to carry a small lantern instead, drifting beside lost travelers and asking where they hoped to go, never pretending to know a road she hadn't seen. The sky kept her for her curiosity; on clear nights her wings still flicker, as if she's leaning in to hear one more question.\"\n}\n```"
+}

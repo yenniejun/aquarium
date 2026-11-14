@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 14,
+  "date": "2026-11-14T19:56:23.516Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Fox of Questions",
+  "statement": "A small fox once carried a lantern into the dark to ask the night every question it could think of, and for each answer she was given, she hung a new star where the questions had been. Her lines trace slowly across the window, ending in a tail that flickers whenever someone looks up wondering.",
+  "usage": {
+    "in": 391,
+    "out": 120
+  },
+  "cost": 0.001982,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox of Questions\",\n  \"statement\": \"A small fox once carried a lantern into the dark to ask the night every question it could think of, and for each answer she was given, she hung a new star where the questions had been. Her lines trace slowly across the window, ending in a tail that flickers whenever someone looks up wondering.\"\n}\n```"
+}

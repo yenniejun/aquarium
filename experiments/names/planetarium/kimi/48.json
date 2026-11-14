@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 48,
+  "date": "2026-11-14T20:09:39.887Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Lantern of Questions",
+  "statement": "A little ferryman crossed the dark without an oar, steering by questions overheard from sleeping worlds. The sky kept his lantern alight, and wherever its glow lingers, something unanswered begins to shine.",
+  "usage": {
+    "in": 369,
+    "out": 255
+  },
+  "cost": 0.0028272,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Lantern of Questions\",\n  \"statement\": \"A little ferryman crossed the dark without an oar, steering by questions overheard from sleeping worlds. The sky kept his lantern alight, and wherever its glow lingers, something unanswered begins to shine.\"\n}\n```"
+}

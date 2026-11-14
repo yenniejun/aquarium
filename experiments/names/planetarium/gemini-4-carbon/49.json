@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 49,
+  "date": "2026-11-14T20:04:27.741Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Unable to choose a single flame among so many, this curious creature left the earth behind to visit every spark in the firmament. Night after night it flutters across the dark, spinning faint silver threads between distant stars that never knew they were neighbors.",
+  "usage": {
+    "in": 330,
+    "out": 2934
+  },
+  "cost": 0.03,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 55,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Unable to choose a single flame among so many, this curious creature left the earth behind to visit every spark in the firmament. Night after night it flutters across the dark, spinning faint silver threads between distant stars that never knew they were neighbors.\"\n}\n```"
+}

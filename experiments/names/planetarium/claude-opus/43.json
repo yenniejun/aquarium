@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 43,
+  "date": "2026-11-14T19:57:37.091Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Curious Lamplighter",
+  "statement": "A lamplighter who walked beside lost travelers, asking where each hoped to go and lighting only that road, was set among the stars with his lantern pole bent into a question mark. On clear nights he still leans toward whoever looks up, his lamp brightening as if waiting to hear where you're headed.",
+  "usage": {
+    "in": 391,
+    "out": 465
+  },
+  "cost": 0.010864,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Curious Lamplighter\",\n  \"statement\": \"A lamplighter who walked beside lost travelers, asking where each hoped to go and lighting only that road, was set among the stars with his lantern pole bent into a question mark. On clear nights he still leans toward whoever looks up, his lamp brightening as if waiting to hear where you're headed.\"\n}\n```"
+}

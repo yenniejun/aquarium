@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 37,
+  "date": "2026-11-14T19:57:45.590Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Born from chalk dust brushed off an unfinished celestial atlas, the Moth drifts between brighter constellations, stitching faint, overlooked stars into quiet paths. Stargazers say its powdered wings only come into focus when you stop searching for a single answer and let the whole sky speak.",
+  "usage": {
+    "in": 330,
+    "out": 1351
+  },
+  "cost": 0.0106275,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Born from chalk dust brushed off an unfinished celestial atlas, the Moth drifts between brighter constellations, stitching faint, overlooked stars into quiet paths. Stargazers say its powdered wings only come into focus when you stop searching for a single answer and let the whole sky speak.\"\n}\n```"
+}

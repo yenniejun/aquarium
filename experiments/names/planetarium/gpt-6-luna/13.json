@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 13,
+  "date": "2026-11-14T19:56:21.552Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer Moth",
+  "statement": "Its wings are stitched from stars that never quite touch, and it was born from a question whispered into the dark. Each night it flutters between the gaps, mapping paths for anyone curious enough to follow.",
+  "usage": {
+    "in": 292,
+    "out": 194
+  },
+  "cost": 0.0001262,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer Moth\",\n  \"statement\": \"Its wings are stitched from stars that never quite touch, and it was born from a question whispered into the dark. Each night it flutters between the gaps, mapping paths for anyone curious enough to follow.\"\n}\n```"
+}

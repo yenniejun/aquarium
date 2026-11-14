@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 43,
+  "date": "2026-11-14T20:56:48.778Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer of Echoes",
+  "statement": "She maps the sky not where the stars are, but where they were when the light began its journey. The lines between them are letters from the past, delivered across the dark just now.",
+  "usage": {
+    "in": 310,
+    "out": 5381
+  },
+  "cost": 0.01135582,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 72,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer of Echoes\",\n  \"statement\": \"She maps the sky not where the stars are, but where they were when the light began its journey. The lines between them are letters from the past, delivered across the dark just now.\"\n}\n```"
+}

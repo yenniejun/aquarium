@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 21,
+  "date": "2026-11-14T20:03:51.739Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Star-Mending Fox",
+  "statement": "With a needle of moonlight, a small fox stitches fallen stars back into the sky, leaving one silver thread loose so that lost questions can find their way home.",
+  "usage": {
+    "in": 369,
+    "out": 377
+  },
+  "cost": 0.004508,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mending Fox\",\n  \"statement\": \"With a needle of moonlight, a small fox stitches fallen stars back into the sky, leaving one silver thread loose so that lost questions can find their way home.\"\n}\n```"
+}

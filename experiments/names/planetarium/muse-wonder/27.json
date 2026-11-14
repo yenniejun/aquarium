@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 27,
+  "date": "2026-11-14T20:04:37.464Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Weaver of Whys",
+  "statement": "Cast into the sky for asking one question too many, she now weaves the stars not into answers but into better questions, leaving one silver thread loose each night for the lost and curious to follow.",
+  "usage": {
+    "in": 292,
+    "out": 1448
+  },
+  "cost": 0.029254,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Weaver of Whys\",\n  \"statement\": \"Cast into the sky for asking one question too many, she now weaves the stars not into answers but into better questions, leaving one silver thread loose each night for the lost and curious to follow.\"\n}\n```"
+}

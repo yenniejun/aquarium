@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 33,
+  "date": "2026-11-14T20:03:39.945Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cartographer's Lantern",
+  "statement": "They say a mapmaker once tried to chart the whole night sky, and grew old before finishing. The stars took pity on her and hung her lantern among them — eternally lit, eternally unfinished — so that any wanderer who finds it will always have one more map to make.",
+  "usage": {
+    "in": 302,
+    "out": 83
+  },
+  "cost": 0.00100256,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Lantern\",\n  \"statement\": \"They say a mapmaker once tried to chart the whole night sky, and grew old before finishing. The stars took pity on her and hung her lantern among them — eternally lit, eternally unfinished — so that any wanderer who finds it will always have one more map to make.\"\n}\n```"
+}

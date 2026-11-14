@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 23,
+  "date": "2026-11-14T19:56:52.843Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Moth",
+  "statement": "Once a moth flew past every candle on earth, because it wanted to ask the stars questions rather than be burned by an answer. Charmed, the sky gave it a small lantern of its own, and on clear nights it still drifts there, lighting the way for anyone else who is up late wondering.",
+  "usage": {
+    "in": 391,
+    "out": 560
+  },
+  "cost": 0.012764,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Once a moth flew past every candle on earth, because it wanted to ask the stars questions rather than be burned by an answer. Charmed, the sky gave it a small lantern of its own, and on clear nights it still drifts there, lighting the way for anyone else who is up late wondering.\"\n}\n```"
+}

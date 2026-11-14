@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 17,
+  "date": "2026-11-14T19:56:37.944Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A curious fox once walked every lost traveler home by lantern-light, asking as its only fare that each tell it one thing it didn't yet know. The gods set it among the stars with its tail still curled like a question mark, and they say its lantern flickers brighter whenever someone below looks up wondering.",
+  "usage": {
+    "in": 391,
+    "out": 547
+  },
+  "cost": 0.012504,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A curious fox once walked every lost traveler home by lantern-light, asking as its only fare that each tell it one thing it didn't yet know. The gods set it among the stars with its tail still curled like a question mark, and they say its lantern flickers brighter whenever someone below looks up wondering.\"\n}\n```"
+}

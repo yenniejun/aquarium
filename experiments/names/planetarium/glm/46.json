@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 46,
+  "date": "2026-11-14T20:04:10.017Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "They say a curious fox stole a single spark from the first campfire ever lit, and fled with it into the dark—so the night would never be entirely without light. She still runs across the sky, tail streaming into starlight, carrying her little stolen ember at the tip of her nose.",
+  "usage": {
+    "in": 302,
+    "out": 83
+  },
+  "cost": 0.00100256,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"They say a curious fox stole a single spark from the first campfire ever lit, and fled with it into the dark—so the night would never be entirely without light. She still runs across the sky, tail streaming into starlight, carrying her little stolen ember at the tip of her nose.\"\n}\n```"
+}

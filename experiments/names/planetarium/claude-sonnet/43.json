@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 43,
+  "date": "2026-11-14T19:56:45.270Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, when the first night was still unlit, a small moth mistook the dark for a door and kept knocking until a lantern opened inside it. Each autumn she crosses the sky trailing seven stars. She pauses at the window to let the curious see that every question we ask carries a little light of its own.",
+  "usage": {
+    "in": 391,
+    "out": 125
+  },
+  "cost": 0.002032,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, when the first night was still unlit, a small moth mistook the dark for a door and kept knocking until a lantern opened inside it. Each autumn she crosses the sky trailing seven stars. She pauses at the window to let the curious see that every question we ask carries a little light of its own.\"\n}\n```"
+}

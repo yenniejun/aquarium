@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 22,
+  "date": "2026-11-14T19:57:26.245Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Fox",
+  "statement": "Seven amber stars mark the fox who stole the sky’s last answer and buried it where a question could grow. Its nose and paws are plainly charted, but no astronomer has finished drawing its tail: whenever someone looks closer, another star appears.",
+  "usage": {
+    "in": 292,
+    "out": 452
+  },
+  "cost": 0.005104,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Fox\",\n  \"statement\": \"Seven amber stars mark the fox who stole the sky’s last answer and buried it where a question could grow. Its nose and paws are plainly charted, but no astronomer has finished drawing its tail: whenever someone looks closer, another star appears.\"\n}\n```"
+}

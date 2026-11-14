@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 38,
+  "date": "2026-11-14T19:58:50.264Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Nine silver stars trace the moth who carried a lantern beyond the edge of the first star chart, searching for things too small to have names. The faint amber star beneath its wings is its lantern, which it dims whenever someone looks closely—having learned that darkness, too, has things to show.",
+  "usage": {
+    "in": 292,
+    "out": 513
+  },
+  "cost": 0.005714,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Nine silver stars trace the moth who carried a lantern beyond the edge of the first star chart, searching for things too small to have names. The faint amber star beneath its wings is its lantern, which it dims whenever someone looks closely—having learned that darkness, too, has things to show.\"\n}\n```"
+}

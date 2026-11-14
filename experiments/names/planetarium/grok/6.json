@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 6,
+  "date": "2026-11-14T19:48:51.657Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox once borrowed a single moon-ember and set it down wherever a traveler had lost the thread of a thought. Those pauses became the stars, and the path between them still rewards a second look.",
+  "usage": {
+    "in": 1528,
+    "out": 787
+  },
+  "cost": 0.005666,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox once borrowed a single moon-ember and set it down wherever a traveler had lost the thread of a thought. Those pauses became the stars, and the path between them still rewards a second look.\"\n}\n```"
+}

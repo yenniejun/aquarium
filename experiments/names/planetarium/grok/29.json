@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 29,
+  "date": "2026-11-14T19:57:56.536Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Threadmender",
+  "statement": "When stars slip their seams, a quiet figure walks the dark with a needle of frost, stitching the lost lights back into stories the sky has not finished telling.",
+  "usage": {
+    "in": 1528,
+    "out": 486
+  },
+  "cost": 0.00386,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Threadmender\",\n  \"statement\": \"When stars slip their seams, a quiet figure walks the dark with a needle of frost, stitching the lost lights back into stories the sky has not finished telling.\"\n}\n```"
+}

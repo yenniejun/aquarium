@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 48,
+  "date": "2026-11-14T20:08:13.147Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mending Lark",
+  "statement": "When the sky tore at its oldest seam, a small lark stitched it shut with threads of its own song, and was set among the stars still mid-stitch—needle bright, wings spread wide over the mend.",
+  "usage": {
+    "in": 320,
+    "out": 1196
+  },
+  "cost": 0.015632,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Mending Lark\",\n  \"statement\": \"When the sky tore at its oldest seam, a small lark stitched it shut with threads of its own song, and was set among the stars still mid-stitch—needle bright, wings spread wide over the mend.\"\n}\n```"
+}

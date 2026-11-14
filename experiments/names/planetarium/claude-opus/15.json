@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 15,
+  "date": "2026-11-14T19:56:34.608Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox who would trade anything for a good question walked the night roads lighting travelers' way in exchange for whatever they knew, until the gods, weary of being out-asked, set it among the stars. Its lantern still swings for anyone lost, and its tail always points toward the one star no one has named yet.",
+  "usage": {
+    "in": 391,
+    "out": 632
+  },
+  "cost": 0.014204,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox who would trade anything for a good question walked the night roads lighting travelers' way in exchange for whatever they knew, until the gods, weary of being out-asked, set it among the stars. Its lantern still swings for anyone lost, and its tail always points toward the one star no one has named yet.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 22,
+  "date": "2026-11-14T19:56:35.417Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Seven stars shape a moth circling a tiny lantern; the faintest one glimmers only when the others are joined. Old star-mappers say it gathers lost questions in its wings and carries them home as new paths.",
+  "usage": {
+    "in": 292,
+    "out": 303
+  },
+  "cost": 0.0001807,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Seven stars shape a moth circling a tiny lantern; the faintest one glimmers only when the others are joined. Old star-mappers say it gathers lost questions in its wings and carries them home as new paths.\"\n}\n```"
+}

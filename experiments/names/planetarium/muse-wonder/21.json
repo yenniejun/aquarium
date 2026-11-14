@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 21,
+  "date": "2026-11-14T20:03:50.429Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Star Mender",
+  "statement": "When stars drift loose and old stories fray, she walks the dark gathering their light and stitching it anew with silver thread. She always leaves the final stitch undone, in case a watcher below wishes to weave in a story of their own.",
+  "usage": {
+    "in": 292,
+    "out": 1168
+  },
+  "cost": 0.024528,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Star Mender\",\n  \"statement\": \"When stars drift loose and old stories fray, she walks the dark gathering their light and stitching it anew with silver thread. She always leaves the final stitch undone, in case a watcher below wishes to weave in a story of their own.\"\n}\n```"
+}

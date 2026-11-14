@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 14,
+  "date": "2026-11-14T19:57:03.182Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Spindle of Echoes",
+  "statement": "Hung in the vault of night by a sleepless listener, it gathers the stray questions of the world and spins them into a single, luminous thread. Old star charts claim its central jewel brightens whenever two distant minds arrive at the very same wonder.",
+  "usage": {
+    "in": 330,
+    "out": 1675
+  },
+  "cost": 0.01741,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"The Spindle of Echoes\",\n  \"statement\": \"Hung in the vault of night by a sleepless listener, it gathers the stray questions of the world and spins them into a single, luminous thread. Old star charts claim its central jewel brightens whenever two distant minds arrive at the very same wonder.\"\n}\n```"
+}

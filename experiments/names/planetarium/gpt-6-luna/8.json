@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 8,
+  "date": "2026-11-14T19:48:12.158Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Kite of Elsewhere",
+  "statement": "The night wind stitched this kite from stars that had drifted apart; its long, looping thread gathers stray questions as it sails. By dawn, each question has become a new spark for someone else to find.",
+  "usage": {
+    "in": 292,
+    "out": 314
+  },
+  "cost": 0.0001862,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Kite of Elsewhere\",\n  \"statement\": \"The night wind stitched this kite from stars that had drifted apart; its long, looping thread gathers stray questions as it sails. By dawn, each question has become a new spark for someone else to find.\"\n}\n```"
+}

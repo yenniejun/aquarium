@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 36,
+  "date": "2026-11-14T20:04:11.187Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Candle Wren",
+  "statement": "When the sky was still unnamed, a wren carried a coal from the first hearth and set it among the stars, so anyone looking up might find a small, patient light and know they were not late.",
+  "usage": {
+    "in": 1528,
+    "out": 614
+  },
+  "cost": 0.004628,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Candle Wren\",\n  \"statement\": \"When the sky was still unnamed, a wren carried a coal from the first hearth and set it among the stars, so anyone looking up might find a small, patient light and know they were not late.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 21,
+  "date": "2026-11-14T19:56:46.326Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "Long ago a small fox carried a borrowed lantern through the dark woods, walking beside lost travelers and asking only, \"Where are you hoping to go?\", until each found their own way home. When the gods offered it any reward, it asked simply to keep walking, so they set it among the stars, where its lantern still flickers for anyone wandering and its tail always curls toward the path you haven't tried yet.",
+  "usage": {
+    "in": 391,
+    "out": 508
+  },
+  "cost": 0.011724,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"Long ago a small fox carried a borrowed lantern through the dark woods, walking beside lost travelers and asking only, \\\"Where are you hoping to go?\\\", until each found their own way home. When the gods offered it any reward, it asked simply to keep walking, so they set it among the stars, where its lantern still flickers for anyone wandering and its tail always curls toward the path you haven't tried yet.\"\n}\n```"
+}

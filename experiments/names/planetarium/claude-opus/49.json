@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 49,
+  "date": "2026-11-14T19:57:51.059Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Lamplighter",
+  "statement": "Once a lamplighter walked the dark roads asking every traveler not where they were going but what they hoped to find, and she lit one star for each answer until her ladder reached the sky. She is up there still, lantern tilted toward the earth, waiting for the next good question.",
+  "usage": {
+    "in": 391,
+    "out": 550
+  },
+  "cost": 0.012564,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lamplighter\",\n  \"statement\": \"Once a lamplighter walked the dark roads asking every traveler not where they were going but what they hoped to find, and she lit one star for each answer until her ladder reached the sky. She is up there still, lantern tilted toward the earth, waiting for the next good question.\"\n}\n```"
+}

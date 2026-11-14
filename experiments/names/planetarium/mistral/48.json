@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 48,
+  "date": "2026-11-14T21:00:40.878Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Weaver of Whispers",
+  "statement": "A loose braid of faint stars that only resolves when traced slowly: a bird with a lantern in its beak, flying through the dark between the brighter constellations. Legend says she gathers the small questions people whisper into the night and weaves them into her tail, so that by morning each one has become a little star — proof that everything asked in the dark was heard.",
+  "usage": {
+    "in": 310,
+    "out": 3310
+  },
+  "cost": 0.00700672,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 63,
+  "reply": "```json\n{\n  \"title\": \"The Weaver of Whispers\",\n  \"statement\": \"A loose braid of faint stars that only resolves when traced slowly: a bird with a lantern in its beak, flying through the dark between the brighter constellations. Legend says she gathers the small questions people whisper into the night and weaves them into her tail, so that by morning each one has become a little star — proof that everything asked in the dark was heard.\"\n}\n```"
+}

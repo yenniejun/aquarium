@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 11,
+  "date": "2026-11-14T19:56:22.505Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Moth",
+  "statement": "Lost among the stars, a small moth learned to follow questions instead of light, stitching a silver path wherever curiosity wandered. When the constellation appears, its wings briefly open like a book—and every reader finds a different way through.",
+  "usage": {
+    "in": 292,
+    "out": 250
+  },
+  "cost": 0.00015419999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Question Moth\",\n  \"statement\": \"Lost among the stars, a small moth learned to follow questions instead of light, stitching a silver path wherever curiosity wandered. When the constellation appears, its wings briefly open like a book—and every reader finds a different way through.\"\n}\n```"
+}

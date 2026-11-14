@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 42,
+  "date": "2026-11-14T20:08:23.989Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Midnight Librarian",
+  "statement": "When the last library closed, she carried its unwritten books into the sky and shelved them as stars. On clear nights she still opens one, its pages flickering for anyone searching for the right story.",
+  "usage": {
+    "in": 292,
+    "out": 929
+  },
+  "cost": 0.018874,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Midnight Librarian\",\n  \"statement\": \"When the last library closed, she carried its unwritten books into the sky and shelved them as stars. On clear nights she still opens one, its pages flickering for anyone searching for the right story.\"\n}\n```"
+}

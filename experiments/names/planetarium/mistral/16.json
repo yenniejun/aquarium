@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 16,
+  "date": "2026-11-14T21:05:29.379Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 24000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Mender of Gaps",
+  "statement": "She is found only where the dark has split between the stars; with a needle of cold light she sews the edges together, so that nothing—no story, no question—slips through.",
+  "usage": {
+    "in": 310,
+    "out": 7066
+  },
+  "cost": 0.01489432,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 139,
+  "reply": "```json\n{\n  \"title\": \"The Mender of Gaps\",\n  \"statement\": \"She is found only where the dark has split between the stars; with a needle of cold light she sews the edges together, so that nothing—no story, no question—slips through.\"\n}\n```"
+}

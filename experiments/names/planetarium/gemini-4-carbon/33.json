@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 33,
+  "date": "2026-11-14T20:00:57.031Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn to every lonely spark in the firmament, this tireless moth fluttered from star to distant star until the silver dust of its wings traced the first hidden roads across the dark. Set high in the heavens for its devotion, it still guides the curious who gaze into a scatter of mysteries and delight in connecting one light to another.",
+  "usage": {
+    "in": 330,
+    "out": 1912
+  },
+  "cost": 0.01978,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 34,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn to every lonely spark in the firmament, this tireless moth fluttered from star to distant star until the silver dust of its wings traced the first hidden roads across the dark. Set high in the heavens for its devotion, it still guides the curious who gaze into a scatter of mysteries and delight in connecting one light to another.\"\n}\n```"
+}

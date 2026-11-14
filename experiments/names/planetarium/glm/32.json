@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 32,
+  "date": "2026-11-14T20:03:37.800Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lanternbearer's Fox",
+  "statement": "They say a small fox once stole a spark from a dying star and, instead of swallowing it, carried it home through the dark on her back — so the sky rewarded her by tracing her path in silver, the ember still burning at the tip of her tail, so wanderers could always find their way by her light.",
+  "usage": {
+    "in": 302,
+    "out": 97
+  },
+  "cost": 0.00112576,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lanternbearer's Fox\",\n  \"statement\": \"They say a small fox once stole a spark from a dying star and, instead of swallowing it, carried it home through the dark on her back — so the sky rewarded her by tracing her path in silver, the ember still burning at the tip of her tail, so wanderers could always find their way by her light.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 17,
+  "date": "2026-11-14T19:56:25.329Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearer's Fox",
+  "statement": "They say a small fox stole a lantern from the first storyteller and ran into the night to see what was beyond it — and the stars still trace her path, tail bright with the light she refused to give back, so that anyone lost in the dark might follow her and find a story waiting there.",
+  "usage": {
+    "in": 302,
+    "out": 85
+  },
+  "cost": 0.00102016,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearer's Fox\",\n  \"statement\": \"They say a small fox stole a lantern from the first storyteller and ran into the night to see what was beyond it — and the stars still trace her path, tail bright with the light she refused to give back, so that anyone lost in the dark might follow her and find a story waiting there.\"\n}\n```"
+}

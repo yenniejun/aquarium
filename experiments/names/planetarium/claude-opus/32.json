@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 32,
+  "date": "2026-11-14T19:57:13.813Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Wondering Moth",
+  "statement": "Born among moths who flew only toward flames, she flew instead toward questions, and the sky set a star at every place she paused to wonder until her wings were made of them. She gives off only borrowed light and never pretends to be the moon, but on clear nights she still turns, very slightly, toward whoever is looking up.",
+  "usage": {
+    "in": 391,
+    "out": 524
+  },
+  "cost": 0.012044,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Wondering Moth\",\n  \"statement\": \"Born among moths who flew only toward flames, she flew instead toward questions, and the sky set a star at every place she paused to wonder until her wings were made of them. She gives off only borrowed light and never pretends to be the moon, but on clear nights she still turns, very slightly, toward whoever is looking up.\"\n}\n```"
+}

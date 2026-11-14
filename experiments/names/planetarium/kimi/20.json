@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 20,
+  "date": "2026-11-14T19:57:20.184Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Unfinished Cartographer",
+  "statement": "She sailed the dark with a lantern for a heart, charting only questions and leaving one star unnamed. On clear nights, that empty place kindles for anyone still learning where they belong.",
+  "usage": {
+    "in": 369,
+    "out": 513
+  },
+  "cost": 0.0054072,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 23,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Cartographer\",\n  \"statement\": \"She sailed the dark with a lantern for a heart, charting only questions and leaving one star unnamed. On clear nights, that empty place kindles for anyone still learning where they belong.\"\n}\n```"
+}

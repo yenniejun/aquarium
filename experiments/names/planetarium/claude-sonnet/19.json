@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 19,
+  "date": "2026-11-14T19:56:25.906Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth of Questions",
+  "statement": "A moth of nine pale stars, drawn to a light it has never found, who keeps circling the dark and asking it things; each time she lands on a question, her wings flicker and a new star kindles where an answer might one day be. Look for her in the quiet hours, when the sky seems to lean in to listen.",
+  "usage": {
+    "in": 391,
+    "out": 130
+  },
+  "cost": 0.002082,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth of Questions\",\n  \"statement\": \"A moth of nine pale stars, drawn to a light it has never found, who keeps circling the dark and asking it things; each time she lands on a question, her wings flicker and a new star kindles where an answer might one day be. Look for her in the quiet hours, when the sky seems to lean in to listen.\"\n}\n```"
+}

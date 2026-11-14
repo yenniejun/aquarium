@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 3,
+  "date": "2026-11-14T19:48:34.603Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Magpie's Compass",
+  "statement": "Pieced together by a clever bird from stolen comet-shards and lost keys, its crooked needle swings never toward north, but toward the nearest unanswered question. Star-gazers say the restless binary star winking at its pivot is the magpie's own bright eye, forever tilting in curiosity at the dark.",
+  "usage": {
+    "in": 330,
+    "out": 2092
+  },
+  "cost": 0.02158,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 36,
+  "reply": "```json\n{\n  \"title\": \"The Magpie's Compass\",\n  \"statement\": \"Pieced together by a clever bird from stolen comet-shards and lost keys, its crooked needle swings never toward north, but toward the nearest unanswered question. Star-gazers say the restless binary star winking at its pivot is the magpie's own bright eye, forever tilting in curiosity at the dark.\"\n}\n```"
+}

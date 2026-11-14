@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 29,
+  "date": "2026-11-14T20:38:06.186Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Star Mender",
+  "statement": "Every fallen star is threaded back into the hem of the night by the Mender, who works only in the small hours. Her constellation is the seam itself: seven faint lights that wake one at a time, as if being sewn, and glint whole for a single breath before settling back into the dark.",
+  "usage": {
+    "in": 310,
+    "out": 1629
+  },
+  "cost": 0.00347662,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 26,
+  "reply": "```json\n{\n  \"title\": \"The Star Mender\",\n  \"statement\": \"Every fallen star is threaded back into the hem of the night by the Mender, who works only in the small hours. Her constellation is the seam itself: seven faint lights that wake one at a time, as if being sewn, and glint whole for a single breath before settling back into the dark.\"\n}\n```"
+}

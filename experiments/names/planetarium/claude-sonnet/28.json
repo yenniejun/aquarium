@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 28,
+  "date": "2026-11-14T19:56:32.962Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, when the first night was so dark that no one dared to travel, a small moth mistook the newborn stars for windows and flew from one to the next, knocking politely at each. Seven of them opened, and where she rested her wings the sky kept the glow, so that every wanderer since has had a lit door to aim for.",
+  "usage": {
+    "in": 391,
+    "out": 131
+  },
+  "cost": 0.002092,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, when the first night was so dark that no one dared to travel, a small moth mistook the newborn stars for windows and flew from one to the next, knocking politely at each. Seven of them opened, and where she rested her wings the sky kept the glow, so that every wanderer since has had a lit door to aim for.\"\n}\n```"
+}

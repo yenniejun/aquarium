@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 31,
+  "date": "2026-11-14T19:57:10.678Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago a moth flew toward the great fire like all its kind, but stopped just short and asked the flame what it was for, and the fire was so charmed by the question that it gave her a single spark to carry. Now she drifts across the winter sky, lending that small light to any lost traveler who asks, and, being endlessly curious, asking each of them in return where they are headed.",
+  "usage": {
+    "in": 391,
+    "out": 535
+  },
+  "cost": 0.012264,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago a moth flew toward the great fire like all its kind, but stopped just short and asked the flame what it was for, and the fire was so charmed by the question that it gave her a single spark to carry. Now she drifts across the winter sky, lending that small light to any lost traveler who asks, and, being endlessly curious, asking each of them in return where they are headed.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 6,
+  "date": "2026-11-14T19:48:30.314Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Hedgehog Astronomer",
+  "statement": "With quills tipped in starlight, he pricked tiny holes in the night so lonely travelers could peek through to morning. He still turns in slow circles, recounting his lights to make sure none of them feels forgotten.",
+  "usage": {
+    "in": 292,
+    "out": 1404
+  },
+  "cost": 0.028374,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Hedgehog Astronomer\",\n  \"statement\": \"With quills tipped in starlight, he pricked tiny holes in the night so lonely travelers could peek through to morning. He still turns in slow circles, recounting his lights to make sure none of them feels forgotten.\"\n}\n```"
+}

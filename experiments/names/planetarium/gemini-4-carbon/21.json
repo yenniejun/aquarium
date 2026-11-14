@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 21,
+  "date": "2026-11-14T19:58:29.135Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn to the faintest, loneliest sparks in the firmament, this winged wanderer flutters tirelessly from star to star, trailing luminous dust behind its wings. Sailors and dreamers alike look for its delicate silver threads, believing it weaves isolated lights into secret maps so no stray thought or traveler is ever truly lost in the dark.",
+  "usage": {
+    "in": 330,
+    "out": 1173
+  },
+  "cost": 0.01239,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn to the faintest, loneliest sparks in the firmament, this winged wanderer flutters tirelessly from star to star, trailing luminous dust behind its wings. Sailors and dreamers alike look for its delicate silver threads, believing it weaves isolated lights into secret maps so no stray thought or traveler is ever truly lost in the dark.\"\n}\n```"
+}

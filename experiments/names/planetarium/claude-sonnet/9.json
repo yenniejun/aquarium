@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 9,
+  "date": "2026-11-14T19:48:05.810Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the first night grew so dark that even the gods lost their way home, a small moth swallowed a fallen spark and has carried it ever since, its wings tracing in slow, unhurried lines across the sky. Wait long enough at the window and she will turn toward you, her heart-star flaring once, as if to say: you were never as lost as you thought.",
+  "usage": {
+    "in": 391,
+    "out": 140
+  },
+  "cost": 0.002182,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the first night grew so dark that even the gods lost their way home, a small moth swallowed a fallen spark and has carried it ever since, its wings tracing in slow, unhurried lines across the sky. Wait long enough at the window and she will turn toward you, her heart-star flaring once, as if to say: you were never as lost as you thought.\"\n}\n```"
+}

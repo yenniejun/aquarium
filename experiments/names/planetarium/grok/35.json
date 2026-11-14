@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 35,
+  "date": "2026-11-14T19:58:37.392Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Wren",
+  "statement": "A small wren once stole a coal from the first dawn and learned to carry it through the dark, lighting a path only as wide as kindness. Sky-watchers still trace her hop from star to star whenever someone is trying to find the way home.",
+  "usage": {
+    "in": 1528,
+    "out": 714
+  },
+  "cost": 0.005228,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Wren\",\n  \"statement\": \"A small wren once stole a coal from the first dawn and learned to carry it through the dark, lighting a path only as wide as kindness. Sky-watchers still trace her hop from star to star whenever someone is trying to find the way home.\"\n}\n```"
+}

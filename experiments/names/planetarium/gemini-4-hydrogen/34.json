@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 34,
+  "date": "2026-11-14T19:57:37.184Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Born from the stray sparks of unanswered questions, it drifts across the deep sky to stitch faint, overlooked stars into a single shimmering wing. Star-charts say its quiet glow appears whenever two far-flung worlds are waiting to be connected in the dark.",
+  "usage": {
+    "in": 330,
+    "out": 1364
+  },
+  "cost": 0.010725,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Born from the stray sparks of unanswered questions, it drifts across the deep sky to stitch faint, overlooked stars into a single shimmering wing. Star-charts say its quiet glow appears whenever two far-flung worlds are waiting to be connected in the dark.\"\n}\n```"
+}

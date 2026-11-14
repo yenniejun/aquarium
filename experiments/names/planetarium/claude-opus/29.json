@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 29,
+  "date": "2026-11-14T19:57:07.203Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Heron",
+  "statement": "A heron once stood so patiently at the edge of the starry river, listening to every traveler who passed, that the sky let her keep their questions: each one she helped answer became a star in her wings, and the one bright star held in her beak is the question she is still happily turning over. On clear nights she lifts one foot, as if about to step toward whoever is looking up.",
+  "usage": {
+    "in": 391,
+    "out": 505
+  },
+  "cost": 0.011664,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Listening Heron\",\n  \"statement\": \"A heron once stood so patiently at the edge of the starry river, listening to every traveler who passed, that the sky let her keep their questions: each one she helped answer became a star in her wings, and the one bright star held in her beak is the question she is still happily turning over. On clear nights she lifts one foot, as if about to step toward whoever is looking up.\"\n}\n```"
+}

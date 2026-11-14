@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 16,
+  "date": "2026-11-14T19:56:33.909Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Heron of Questions",
+  "statement": "A patient heron once waded the river where all the world's voices flow, fishing not for answers but for good questions. Whenever it caught one too lovely to swallow, it tossed it skyward to keep it shining, and so the heron is drawn in stars made of the questions it loved too much to end.",
+  "usage": {
+    "in": 391,
+    "out": 554
+  },
+  "cost": 0.012644,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Heron of Questions\",\n  \"statement\": \"A patient heron once waded the river where all the world's voices flow, fishing not for answers but for good questions. Whenever it caught one too lovely to swallow, it tossed it skyward to keep it shining, and so the heron is drawn in stars made of the questions it loved too much to end.\"\n}\n```"
+}

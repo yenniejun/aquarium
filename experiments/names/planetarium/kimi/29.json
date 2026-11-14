@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 29,
+  "date": "2026-11-14T20:05:32.178Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Patient Cartographer",
+  "statement": "Born from the first question ever asked, the Cartographer charts only roads not taken. Whenever someone wonders where else life might lead, a new star kindles at the tip of their silver pen.",
+  "usage": {
+    "in": 369,
+    "out": 267
+  },
+  "cost": 0.0029472,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Patient Cartographer\",\n  \"statement\": \"Born from the first question ever asked, the Cartographer charts only roads not taken. Whenever someone wonders where else life might lead, a new star kindles at the tip of their silver pen.\"\n}\n```"
+}

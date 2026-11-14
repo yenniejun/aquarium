@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 33,
+  "date": "2026-11-14T19:56:48.396Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Boat",
+  "statement": "Seven stars sketch a little boat whose sail is stitched from unanswered questions. The old sky says it ferries them through the dark, and wherever one finds its answer, a new star appears in the wake.",
+  "usage": {
+    "in": 292,
+    "out": 241
+  },
+  "cost": 0.00014969999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Question Boat\",\n  \"statement\": \"Seven stars sketch a little boat whose sail is stitched from unanswered questions. The old sky says it ferries them through the dark, and wherever one finds its answer, a new star appears in the wake.\"\n}\n```"
+}

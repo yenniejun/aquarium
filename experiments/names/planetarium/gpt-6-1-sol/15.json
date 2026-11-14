@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 15,
+  "date": "2026-11-14T19:56:51.029Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Needle Fox",
+  "statement": "When the sky tore, a fox stole a silver needle and stitched the scattered stars into paths for the lost. You can still see it carrying the needle in its teeth, leaving one small gap in every seam so the unexpected has somewhere to enter.",
+  "usage": {
+    "in": 292,
+    "out": 527
+  },
+  "cost": 0.005854,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Needle Fox\",\n  \"statement\": \"When the sky tore, a fox stole a silver needle and stitched the scattered stars into paths for the lost. You can still see it carrying the needle in its teeth, leaving one small gap in every seam so the unexpected has somewhere to enter.\"\n}\n```"
+}

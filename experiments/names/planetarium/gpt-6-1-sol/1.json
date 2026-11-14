@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 1,
+  "date": "2026-11-14T19:48:13.268Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unlatched Lantern",
+  "statement": "Nine stars trace the lantern of a sky-mender who collected sparks too small to be wished upon. Its door is always left open: on clear nights, you may see a little light slip out, ready at last to begin a constellation of its own.",
+  "usage": {
+    "in": 292,
+    "out": 450
+  },
+  "cost": 0.005084,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Unlatched Lantern\",\n  \"statement\": \"Nine stars trace the lantern of a sky-mender who collected sparks too small to be wished upon. Its door is always left open: on clear nights, you may see a little light slip out, ready at last to begin a constellation of its own.\"\n}\n```"
+}

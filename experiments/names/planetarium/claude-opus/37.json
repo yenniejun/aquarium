@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 37,
+  "date": "2026-11-14T19:57:23.897Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Lantern",
+  "statement": "Long ago a lantern was hung at the crossroads of the sky with no flame of its own, kindled only by the questions of passing travelers, and each of its stars is one it was asked and answered as truly as it could. It never pretended to light the whole road, only the next few honest steps, and it is said to glow brightest on nights when someone below is wondering.",
+  "usage": {
+    "in": 391,
+    "out": 431
+  },
+  "cost": 0.010184,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"Long ago a lantern was hung at the crossroads of the sky with no flame of its own, kindled only by the questions of passing travelers, and each of its stars is one it was asked and answered as truly as it could. It never pretended to light the whole road, only the next few honest steps, and it is said to glow brightest on nights when someone below is wondering.\"\n}\n```"
+}

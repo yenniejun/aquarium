@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 13,
+  "date": "2026-11-14T19:56:27.371Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Whispering Loom",
+  "statement": "Strung with comet-silk and silver driftwood, this celestial loom gathers stray questions from the waking world and threads them between distant stars until they form a single pattern. Stargazers say its faintest shuttle-star still flickers whenever two far-flung ideas suddenly rhyme in the dark.",
+  "usage": {
+    "in": 330,
+    "out": 1247
+  },
+  "cost": 0.0098475,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Whispering Loom\",\n  \"statement\": \"Strung with comet-silk and silver driftwood, this celestial loom gathers stray questions from the waking world and threads them between distant stars until they form a single pattern. Stargazers say its faintest shuttle-star still flickers whenever two far-flung ideas suddenly rhyme in the dark.\"\n}\n```"
+}

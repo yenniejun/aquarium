@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 28,
+  "date": "2026-11-14T19:57:53.475Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Fox",
+  "statement": "Nine stars mark the fox who was sent to find the last missing piece of the sky and returned with a question instead. It curls around a little pocket of darkness, its bright tail never quite closing the circle, keeping a place warm for whatever nobody has imagined yet.",
+  "usage": {
+    "in": 292,
+    "out": 538
+  },
+  "cost": 0.005964,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Fox\",\n  \"statement\": \"Nine stars mark the fox who was sent to find the last missing piece of the sky and returned with a question instead. It curls around a little pocket of darkness, its bright tail never quite closing the circle, keeping a place warm for whatever nobody has imagined yet.\"\n}\n```"
+}

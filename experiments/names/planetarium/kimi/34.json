@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 34,
+  "date": "2026-11-14T20:06:48.164Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "When the first mapmaker lost her way, a pale moth gathered seven stray stars and stitched them into a road with silver thread. It still opens its wings for wanderers—not to lead them home, but to reveal one beautiful place they never thought to look.",
+  "usage": {
+    "in": 369,
+    "out": 357
+  },
+  "cost": 0.0038472,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"When the first mapmaker lost her way, a pale moth gathered seven stray stars and stitched them into a road with silver thread. It still opens its wings for wanderers—not to lead them home, but to reveal one beautiful place they never thought to look.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 1,
+  "date": "2026-11-14T19:48:18.872Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Weaver's Prism",
+  "statement": "Set at the crossroads of the night by a curious spirit, this crooked crystal catches stray questions rising from the sleeping world and splits them into branching trails of silver starlight. Wanderers and insomniacs trace its shifting geometry for luck whenever they wish to see an old mystery from a gentler angle.",
+  "usage": {
+    "in": 330,
+    "out": 1516
+  },
+  "cost": 0.01582,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Weaver's Prism\",\n  \"statement\": \"Set at the crossroads of the night by a curious spirit, this crooked crystal catches stray questions rising from the sleeping world and splits them into branching trails of silver starlight. Wanderers and insomniacs trace its shifting geometry for luck whenever they wish to see an old mystery from a gentler angle.\"\n}\n```"
+}

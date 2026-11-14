@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 2,
+  "date": "2026-11-14T19:48:17.294Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Threadkeeper Fox",
+  "statement": "Nine amber stars outline a fox whose long silver tail threads through the gaps between constellations. They say it unpicks a little of itself each night to mend a lost traveler’s map, then gathers new starlight by listening to the story of their journey.",
+  "usage": {
+    "in": 292,
+    "out": 526
+  },
+  "cost": 0.005844,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Threadkeeper Fox\",\n  \"statement\": \"Nine amber stars outline a fox whose long silver tail threads through the gaps between constellations. They say it unpicks a little of itself each night to mend a lost traveler’s map, then gathers new starlight by listening to the story of their journey.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 30,
+  "date": "2026-11-14T19:57:27.803Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Born from the stray sparks of an ancient library, this quiet moth drifts between distant suns, catching unanswered questions in the gold dust of its wings. On clear nights, its delicate lines shimmer awake as it stitches forgotten wonders back into the dark.",
+  "usage": {
+    "in": 330,
+    "out": 1290
+  },
+  "cost": 0.01017,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Born from the stray sparks of an ancient library, this quiet moth drifts between distant suns, catching unanswered questions in the gold dust of its wings. On clear nights, its delicate lines shimmer awake as it stitches forgotten wonders back into the dark.\"\n}\n```"
+}

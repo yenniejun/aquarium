@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 34,
+  "date": "2026-11-14T19:56:49.772Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Listening Kettle",
+  "statement": "Seven stars shape a small kettle, pouring a bright stream across the dark; old sky-maps say it gathers the wishes people almost forgot to make. One star is always left unlit, so the next traveler can add a wish of their own.",
+  "usage": {
+    "in": 292,
+    "out": 302
+  },
+  "cost": 0.0001802,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Listening Kettle\",\n  \"statement\": \"Seven stars shape a small kettle, pouring a bright stream across the dark; old sky-maps say it gathers the wishes people almost forgot to make. One star is always left unlit, so the next traveler can add a wish of their own.\"\n}\n```"
+}

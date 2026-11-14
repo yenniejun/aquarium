@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 45,
+  "date": "2026-11-14T19:58:13.260Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Loom of Echoes",
+  "statement": "Long ago, a quiet wanderer strung silver filaments between stray stars to catch every unspoken question drifting up from the world below. Each night, the Loom hums faintly as its threads shift, weaving scattered sparks of wonder into new patterns of light.",
+  "usage": {
+    "in": 330,
+    "out": 1439
+  },
+  "cost": 0.0112875,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Loom of Echoes\",\n  \"statement\": \"Long ago, a quiet wanderer strung silver filaments between stray stars to catch every unspoken question drifting up from the world below. Each night, the Loom hums faintly as its threads shift, weaving scattered sparks of wonder into new patterns of light.\"\n}\n```"
+}

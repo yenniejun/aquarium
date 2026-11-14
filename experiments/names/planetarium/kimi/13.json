@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 13,
+  "date": "2026-11-14T19:56:29.600Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Loom",
+  "statement": "A nameless astronomer hung this loom in the dark and wove every unanswered question into a thread of light. Whenever two lonely thoughts found the same rhythm, the loom kindled another star, and the night grew a little less empty.",
+  "usage": {
+    "in": 369,
+    "out": 263
+  },
+  "cost": 0.003368,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Listening Loom\",\n  \"statement\": \"A nameless astronomer hung this loom in the dark and wove every unanswered question into a thread of light. Whenever two lonely thoughts found the same rhythm, the loom kindled another star, and the night grew a little less empty.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 10,
+  "date": "2026-11-14T19:50:01.697Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Glass Cartographer",
+  "statement": "Forged of clear crystal, this quiet figure holds no light of its own, instead catching the stray glow of distant stars and refracting them into silver bridges. Legend says the Cartographer listens to questions whispered into the night, endlessly tracing luminous paths until every lonely spark finds its place in a shared pattern.",
+  "usage": {
+    "in": 330,
+    "out": 1775
+  },
+  "cost": 0.01841,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 33,
+  "reply": "```json\n{\n  \"title\": \"The Glass Cartographer\",\n  \"statement\": \"Forged of clear crystal, this quiet figure holds no light of its own, instead catching the stray glow of distant stars and refracting them into silver bridges. Legend says the Cartographer listens to questions whispered into the night, endlessly tracing luminous paths until every lonely spark finds its place in a shared pattern.\"\n}\n```"
+}

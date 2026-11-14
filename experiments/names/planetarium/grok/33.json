@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 33,
+  "date": "2026-11-14T19:58:26.603Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Ember Tender",
+  "statement": "When the first night grew cold, a quiet figure cupped the last sparks and taught them to lean toward one another; travelers still find those stars by the faint lines where one wonder met another and did not go out.",
+  "usage": {
+    "in": 1528,
+    "out": 822
+  },
+  "cost": 0.005876,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Ember Tender\",\n  \"statement\": \"When the first night grew cold, a quiet figure cupped the last sparks and taught them to lean toward one another; travelers still find those stars by the faint lines where one wonder met another and did not go out.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 10,
+  "date": "2026-11-14T19:48:14.019Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Wonder Kite",
+  "statement": "The old sky-keepers fashioned this kite from seven stars and flew it wherever a question had been left unanswered. Its trailing lights are the bright little answers it gathered on the way.",
+  "usage": {
+    "in": 292,
+    "out": 273
+  },
+  "cost": 0.0001657,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Wonder Kite\",\n  \"statement\": \"The old sky-keepers fashioned this kite from seven stars and flew it wherever a question had been left unanswered. Its trailing lights are the bright little answers it gathered on the way.\"\n}\n```"
+}

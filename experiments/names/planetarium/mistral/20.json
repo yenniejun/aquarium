@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 20,
+  "date": "2026-11-14T20:27:56.849Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Keeper of Small Lights",
+  "statement": "She was the one who noticed the dark keeps its smallest lights for whoever stays up late, so she cups them in her hands and hangs them in the sky where the lost can follow them home. Look straight at her and you see only three faint stars — soften your gaze, look just past her, and her whole flock appears at once, winking, every one of them found.",
+  "usage": {
+    "in": 310,
+    "out": 2741
+  },
+  "cost": 0.0059731,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 47,
+  "reply": "```json\n{\n  \"title\": \"Keeper of Small Lights\",\n  \"statement\": \"She was the one who noticed the dark keeps its smallest lights for whoever stays up late, so she cups them in her hands and hangs them in the sky where the lost can follow them home. Look straight at her and you see only three faint stars — soften your gaze, look just past her, and her whole flock appears at once, winking, every one of them found.\"\n}\n```"
+}

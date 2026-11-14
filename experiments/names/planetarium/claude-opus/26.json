@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 26,
+  "date": "2026-11-14T19:56:59.918Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox once roamed the night gathering the questions travelers whispered into the dark, and for every answer she found she hung a star. Where she wasn't sure, she left one honest gap among her stars, believing an empty place shines truer than a borrowed light, and on clear nights her tail still flickers as she turns over a new question.",
+  "usage": {
+    "in": 391,
+    "out": 540
+  },
+  "cost": 0.012364,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox once roamed the night gathering the questions travelers whispered into the dark, and for every answer she found she hung a star. Where she wasn't sure, she left one honest gap among her stars, believing an empty place shines truer than a borrowed light, and on clear nights her tail still flickers as she turns over a new question.\"\n}\n```"
+}

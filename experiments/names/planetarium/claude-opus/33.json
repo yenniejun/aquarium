@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 33,
+  "date": "2026-11-14T19:57:14.686Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "She trotted beside every lost traveler, lighting the way one honest question at a time, so the sky gave her a place with her tail curled into a question mark. One star in her lantern is always left dim, for everything she gladly admits she doesn't know yet.",
+  "usage": {
+    "in": 391,
+    "out": 585
+  },
+  "cost": 0.013264,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"She trotted beside every lost traveler, lighting the way one honest question at a time, so the sky gave her a place with her tail curled into a question mark. One star in her lantern is always left dim, for everything she gladly admits she doesn't know yet.\"\n}\n```"
+}

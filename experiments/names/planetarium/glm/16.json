@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 16,
+  "date": "2026-11-14T19:56:23.424Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Eared Fox",
+  "statement": "When the first winter grew too dark for anything to find its way home, a small fox carried off a lantern in its teeth and never put it down; the flame became the brightest star in its jaw, and the stars along its ears are said to be snowflakes that paused mid-fall to listen.",
+  "usage": {
+    "in": 302,
+    "out": 85
+  },
+  "cost": 0.00102016,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Eared Fox\",\n  \"statement\": \"When the first winter grew too dark for anything to find its way home, a small fox carried off a lantern in its teeth and never put it down; the flame became the brightest star in its jaw, and the stars along its ears are said to be snowflakes that paused mid-fall to listen.\"\n}\n```"
+}

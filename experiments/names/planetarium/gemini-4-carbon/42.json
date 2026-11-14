@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 42,
+  "date": "2026-11-14T20:02:25.900Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn to every solitary spark, this tireless creature flutters from star to distant star, trailing luminous silk from its wings. Legend tells that the heavens were once only scattered, lonely fires, until the Moth wove its quiet threads between them so wanderers below could read the dark.",
+  "usage": {
+    "in": 330,
+    "out": 1293
+  },
+  "cost": 0.01359,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn to every solitary spark, this tireless creature flutters from star to distant star, trailing luminous silk from its wings. Legend tells that the heavens were once only scattered, lonely fires, until the Moth wove its quiet threads between them so wanderers below could read the dark.\"\n}\n```"
+}

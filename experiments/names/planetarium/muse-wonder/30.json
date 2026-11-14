@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 30,
+  "date": "2026-11-14T20:05:28.854Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Wandering Wonderer",
+  "statement": "She wandered from star to star asking each how it learned to shine, and never stayed long enough to hear the same answer twice. The gods set her footprints in light, so the curious might follow her forever — and never quite catch up.",
+  "usage": {
+    "in": 292,
+    "out": 1510
+  },
+  "cost": 0.030494,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Wandering Wonderer\",\n  \"statement\": \"She wandered from star to star asking each how it learned to shine, and never stayed long enough to hear the same answer twice. The gods set her footprints in light, so the curious might follow her forever — and never quite catch up.\"\n}\n```"
+}

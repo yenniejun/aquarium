@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 50,
+  "date": "2026-11-14T21:02:50.791Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Open Book",
+  "statement": "Once a night the stars lean together into the shape of an open book, its page written in the faintest silver light, holding the dreams of everyone sleeping below. Look up softly, and long enough, and you will feel the page turn — because the sky, too, is reading you.",
+  "usage": {
+    "in": 310,
+    "out": 1989
+  },
+  "cost": 0.00423262,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 71,
+  "reply": "```json\n{\n  \"title\": \"The Open Book\",\n  \"statement\": \"Once a night the stars lean together into the shape of an open book, its page written in the faintest silver light, holding the dreams of everyone sleeping below. Look up softly, and long enough, and you will feel the page turn — because the sky, too, is reading you.\"\n}\n```"
+}

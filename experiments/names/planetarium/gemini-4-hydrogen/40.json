@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 40,
+  "date": "2026-11-14T19:57:52.427Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Star-Mender's Needle",
+  "statement": "When ancient sky-maps grew frayed and lonely stars drifted out of reach, a quiet tailor stitched the night back into sense with a single silver needle. Its eye still glows faint blue near the zenith, trailing a shimmering loop of comet-thread that binds scattered wonders together.",
+  "usage": {
+    "in": 330,
+    "out": 950
+  },
+  "cost": 0.00762,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mender's Needle\",\n  \"statement\": \"When ancient sky-maps grew frayed and lonely stars drifted out of reach, a quiet tailor stitched the night back into sense with a single silver needle. Its eye still glows faint blue near the zenith, trailing a shimmering loop of comet-thread that binds scattered wonders together.\"\n}\n```"
+}

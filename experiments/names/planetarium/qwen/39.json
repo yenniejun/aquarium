@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 39,
+  "date": "2026-11-14T19:58:16.091Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mending Needle",
+  "statement": "When a careless word tore the night, the Mender came with a needle of light and a thread of small stars, stitching the dark shut one patient loop at a time — and is not yet finished, for a rushed stitch only tears again.",
+  "usage": {
+    "in": 320,
+    "out": 1816
+  },
+  "cost": 0.023072,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"The Mending Needle\",\n  \"statement\": \"When a careless word tore the night, the Mender came with a needle of light and a thread of small stars, stitching the dark shut one patient loop at a time — and is not yet finished, for a rushed stitch only tears again.\"\n}\n```"
+}

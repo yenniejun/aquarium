@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 44,
+  "date": "2026-11-14T19:57:42.306Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Heron Who Asks",
+  "statement": "Long ago a heron waded into the river of stars, fishing not for food but for questions; each one she caught, she turned over gently in her beak, wondered at aloud, and set free again a little brighter. The faint stars trailing downstream behind her are those questions, still swimming, still glad to have been asked.",
+  "usage": {
+    "in": 391,
+    "out": 613
+  },
+  "cost": 0.013824,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Heron Who Asks\",\n  \"statement\": \"Long ago a heron waded into the river of stars, fishing not for food but for questions; each one she caught, she turned over gently in her beak, wondered at aloud, and set free again a little brighter. The faint stars trailing downstream behind her are those questions, still swimming, still glad to have been asked.\"\n}\n```"
+}

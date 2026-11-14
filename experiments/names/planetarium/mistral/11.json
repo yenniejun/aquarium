@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 11,
+  "date": "2026-11-14T20:17:19.049Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Little Why",
+  "statement": "When the night was young, someone asked it why it was so dark, and the sky gathered six stars into a crooked hook with one bright dot below — the shape of that first question — so it would never be lost. It still hangs at the edge of the dark, faint but certain, and shows itself only to those who glance just past it, still patient, still waiting for its answer.",
+  "usage": {
+    "in": 310,
+    "out": 5071
+  },
+  "cost": 0.01070482,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 67,
+  "reply": "```json\n{\n  \"title\": \"The Little Why\",\n  \"statement\": \"When the night was young, someone asked it why it was so dark, and the sky gathered six stars into a crooked hook with one bright dot below — the shape of that first question — so it would never be lost. It still hangs at the edge of the dark, faint but certain, and shows itself only to those who glance just past it, still patient, still waiting for its answer.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 46,
+  "date": "2026-11-14T20:07:40.883Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mender's Lantern",
+  "statement": "It belongs to the one who walks between the fixed stars, stitching shut the places where the dark has worn thin; its glow is not its own, but borrowed softly from every distant light it has ever touched and mended back into the sky.",
+  "usage": {
+    "in": 320,
+    "out": 1111
+  },
+  "cost": 0.014612,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Lantern\",\n  \"statement\": \"It belongs to the one who walks between the fixed stars, stitching shut the places where the dark has worn thin; its glow is not its own, but borrowed softly from every distant light it has ever touched and mended back into the sky.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 35,
+  "date": "2026-11-14T20:01:13.850Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Borrowed Lantern",
+  "statement": "Hung at the crossroads of the sky, this many-faceted vessel holds no flame of its own, catching instead the stray light of ten thousand distant stars to braid into a single answering glow. Night-wanderers and curious scholars look to its shifting geometry whenever they seek the hidden thread connecting disparate worlds.",
+  "usage": {
+    "in": 330,
+    "out": 1545
+  },
+  "cost": 0.01611,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"The Borrowed Lantern\",\n  \"statement\": \"Hung at the crossroads of the sky, this many-faceted vessel holds no flame of its own, catching instead the stray light of ten thousand distant stars to braid into a single answering glow. Night-wanderers and curious scholars look to its shifting geometry whenever they seek the hidden thread connecting disparate worlds.\"\n}\n```"
+}

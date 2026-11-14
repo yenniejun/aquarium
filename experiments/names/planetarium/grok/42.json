@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 42,
+  "date": "2026-11-14T19:59:01.153Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "A lantern learned to brighten only when someone spoke, and the night, charmed by such attention, lifted it into the stars as a figure forever leaning toward the next voice.",
+  "usage": {
+    "in": 1528,
+    "out": 1119
+  },
+  "cost": 0.007658,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 23,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"A lantern learned to brighten only when someone spoke, and the night, charmed by such attention, lifted it into the stars as a figure forever leaning toward the next voice.\"\n}\n```"
+}

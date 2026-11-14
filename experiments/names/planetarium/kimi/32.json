@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 32,
+  "date": "2026-11-14T20:06:22.765Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Lantern Cartographer",
+  "statement": "A gentle wanderer who charts only roads not yet taken, kindling each star from a sleeper’s unanswered question. Follow its lantern, the old sky-keepers say, and you will arrive somewhere worth getting lost.",
+  "usage": {
+    "in": 369,
+    "out": 328
+  },
+  "cost": 0.0035572,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Cartographer\",\n  \"statement\": \"A gentle wanderer who charts only roads not yet taken, kindling each star from a sleeper’s unanswered question. Follow its lantern, the old sky-keepers say, and you will arrive somewhere worth getting lost.\"\n}\n```"
+}

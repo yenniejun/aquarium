@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 19,
+  "date": "2026-11-14T19:56:54.592Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Midnight Librarian",
+  "statement": "Once keeper of a library that vanished at dawn, she carried its last embers into the sky and shelved them as stars. On lonely nights she opens one bright volume, so wanderers can read their way home by its light.",
+  "usage": {
+    "in": 292,
+    "out": 820
+  },
+  "cost": 0.016694,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Midnight Librarian\",\n  \"statement\": \"Once keeper of a library that vanished at dawn, she carried its last embers into the sky and shelved them as stars. On lonely nights she opens one bright volume, so wanderers can read their way home by its light.\"\n}\n```"
+}

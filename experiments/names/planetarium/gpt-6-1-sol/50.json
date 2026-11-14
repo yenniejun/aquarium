@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 50,
+  "date": "2026-11-14T19:59:45.722Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "Seven silver stars trace a lantern with a crooked handle and one side left open, where a small amber star wanders in and out. The old sky-makers left it unfinished so that anything lost in the dark could borrow its light without being caught.",
+  "usage": {
+    "in": 292,
+    "out": 314
+  },
+  "cost": 0.003724,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"Seven silver stars trace a lantern with a crooked handle and one side left open, where a small amber star wanders in and out. The old sky-makers left it unfinished so that anything lost in the dark could borrow its light without being caught.\"\n}\n```"
+}

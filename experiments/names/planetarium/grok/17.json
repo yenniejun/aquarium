@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 17,
+  "date": "2026-11-14T19:57:11.958Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Weaver",
+  "statement": "Legend holds that a weaver caught the sky's stray sparks and bound them with silver thread into a lantern, so anyone lost with only a question for a compass could still find the way.",
+  "usage": {
+    "in": 1528,
+    "out": 1226
+  },
+  "cost": 0.008684,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 25,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Weaver\",\n  \"statement\": \"Legend holds that a weaver caught the sky's stray sparks and bound them with silver thread into a lantern, so anyone lost with only a question for a compass could still find the way.\"\n}\n```"
+}

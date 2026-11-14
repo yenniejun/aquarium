@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 20,
+  "date": "2026-11-14T19:56:58.647Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Celestial Bowerbird",
+  "statement": "Born from scattered embers, this curious sky-spirit gathers fallen starlight, stray questions, and half-remembered stories to weave into shimmering nests across the dark. Watchers say that whenever two distant thoughts suddenly rhyme, the Bowerbird has just tucked another bright pebble into place.",
+  "usage": {
+    "in": 330,
+    "out": 2325
+  },
+  "cost": 0.0179325,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Celestial Bowerbird\",\n  \"statement\": \"Born from scattered embers, this curious sky-spirit gathers fallen starlight, stray questions, and half-remembered stories to weave into shimmering nests across the dark. Watchers say that whenever two distant thoughts suddenly rhyme, the Bowerbird has just tucked another bright pebble into place.\"\n}\n```"
+}

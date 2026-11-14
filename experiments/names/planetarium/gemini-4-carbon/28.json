@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 28,
+  "date": "2026-11-14T19:59:53.051Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn not to flame, but to stray sparks of mortal curiosity, this winged wanderer tirelessly traces silver threads between distant, lonely stars. Legend holds that travelers who spot its dusted wings at midnight will suddenly see the hidden bridge connecting two seemingly unrelated truths.",
+  "usage": {
+    "in": 330,
+    "out": 1405
+  },
+  "cost": 0.01471,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn not to flame, but to stray sparks of mortal curiosity, this winged wanderer tirelessly traces silver threads between distant, lonely stars. Legend holds that travelers who spot its dusted wings at midnight will suddenly see the hidden bridge connecting two seemingly unrelated truths.\"\n}\n```"
+}

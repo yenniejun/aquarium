@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 23,
+  "date": "2026-11-14T19:59:45.707Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Paper Nautilus",
+  "statement": "Legend tells of a curious deep-sea creature who folded a delicate spiral shell from fallen moonlight, rising above the waves to sail the currents of the upper dark. With slender arms held aloft like sails to catch every stray question on the wind, she drifts between distant stars, trading riddles for wonders.",
+  "usage": {
+    "in": 330,
+    "out": 4568
+  },
+  "cost": 0.04634,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 65,
+  "reply": "```json\n{\n  \"title\": \"The Paper Nautilus\",\n  \"statement\": \"Legend tells of a curious deep-sea creature who folded a delicate spiral shell from fallen moonlight, rising above the waves to sail the currents of the upper dark. With slender arms held aloft like sails to catch every stray question on the wind, she drifts between distant stars, trading riddles for wonders.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 6,
+  "date": "2026-11-14T19:48:03.619Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the old sky-keeper let the last lamp burn down, a small moth carried one ember from star to star, and each one it touched began to glow. Its seven bright stars trace the wings, and on quiet nights the lines draw themselves slowly, as if someone were still asking the dark a question and getting an answer.",
+  "usage": {
+    "in": 391,
+    "out": 129
+  },
+  "cost": 0.002072,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the old sky-keeper let the last lamp burn down, a small moth carried one ember from star to star, and each one it touched began to glow. Its seven bright stars trace the wings, and on quiet nights the lines draw themselves slowly, as if someone were still asking the dark a question and getting an answer.\"\n}\n```"
+}

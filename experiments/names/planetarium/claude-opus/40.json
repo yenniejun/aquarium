@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 40,
+  "date": "2026-11-14T19:57:31.554Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Lender",
+  "statement": "A wanderer who owned a single lantern kept lending it to every lost traveler she met, asking each where they were headed and delighting in every answer, until she herself walked always in the dark. The night, charmed by such cheerful foolishness, gathered her up and made her of stars, so that she might shine without ever running out of light to give away.",
+  "usage": {
+    "in": 391,
+    "out": 526
+  },
+  "cost": 0.012084,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Lender\",\n  \"statement\": \"A wanderer who owned a single lantern kept lending it to every lost traveler she met, asking each where they were headed and delighting in every answer, until she herself walked always in the dark. The night, charmed by such cheerful foolishness, gathered her up and made her of stars, so that she might shine without ever running out of light to give away.\"\n}\n```"
+}

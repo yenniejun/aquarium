@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 11,
+  "date": "2026-11-14T19:56:21.284Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "They say when the first winter came, a small fox stole a ember from the moon's own hearth and carried it across the dark sky so the lost could find their way home. She still runs there, tail curled like a handle, lantern-star flickering in her jaws — bright enough to guide travelers, dim enough that only those who look for her will see.",
+  "usage": {
+    "in": 302,
+    "out": 97
+  },
+  "cost": 0.00112576,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"They say when the first winter came, a small fox stole a ember from the moon's own hearth and carried it across the dark sky so the lost could find their way home. She still runs there, tail curled like a handle, lantern-star flickering in her jaws — bright enough to guide travelers, dim enough that only those who look for her will see.\"\n}\n```"
+}

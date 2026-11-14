@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 39,
+  "date": "2026-11-14T19:56:42.285Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth of Questions",
+  "statement": "A moth of nine pale stars, its wings sketched in faint silver lines, once mistook the first unanswered question for the moon and circled it until dawn. Each clear night it still unfolds above the horizon, trailing a thread of dim stars behind it, and wherever it lands, someone looks up and starts wondering again.",
+  "usage": {
+    "in": 391,
+    "out": 138
+  },
+  "cost": 0.002162,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth of Questions\",\n  \"statement\": \"A moth of nine pale stars, its wings sketched in faint silver lines, once mistook the first unanswered question for the moon and circled it until dawn. Each clear night it still unfolds above the horizon, trailing a thread of dim stars behind it, and wherever it lands, someone looks up and starts wondering again.\"\n}\n```"
+}

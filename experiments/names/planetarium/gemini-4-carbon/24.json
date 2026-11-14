@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 24,
+  "date": "2026-11-14T19:59:14.295Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Weaver's Shuttle",
+  "statement": "Fashioned from a splinter of moonlight, this restless shuttle darts across the firmament, drawing silver threads between solitary stars until their scattered sparks form a shared tapestry. Night wanderers and scholars alike look to its crooked gleam when lost in a riddle, trusting it to join distant wonders that never knew they belonged together.",
+  "usage": {
+    "in": 330,
+    "out": 1880
+  },
+  "cost": 0.01946,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 32,
+  "reply": "```json\n{\n  \"title\": \"The Weaver's Shuttle\",\n  \"statement\": \"Fashioned from a splinter of moonlight, this restless shuttle darts across the firmament, drawing silver threads between solitary stars until their scattered sparks form a shared tapestry. Night wanderers and scholars alike look to its crooked gleam when lost in a riddle, trusting it to join distant wonders that never knew they belonged together.\"\n}\n```"
+}

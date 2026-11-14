@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 50,
+  "date": "2026-11-14T19:59:38.174Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Mender",
+  "statement": "Seven quiet stars kneel in the dark as a figure with a needle of light, restitching a torn seam of the sky so anyone who has lost the thread of a thought can follow the mended glow back into words.",
+  "usage": {
+    "in": 1528,
+    "out": 986
+  },
+  "cost": 0.00686,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Mender\",\n  \"statement\": \"Seven quiet stars kneel in the dark as a figure with a needle of light, restitching a torn seam of the sky so anyone who has lost the thread of a thought can follow the mended glow back into words.\"\n}\n```"
+}

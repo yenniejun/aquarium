@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 37,
+  "date": "2026-11-14T20:04:29.034Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Scribe",
+  "statement": "Seven quiet stars outline a bowed figure sheltering a small flame. Long ago the Scribe copied the night by hand, and when the ink ran out, held up a lantern so the unfinished letters could still be read.",
+  "usage": {
+    "in": 1528,
+    "out": 920
+  },
+  "cost": 0.006464,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Scribe\",\n  \"statement\": \"Seven quiet stars outline a bowed figure sheltering a small flame. Long ago the Scribe copied the night by hand, and when the ink ran out, held up a lantern so the unfinished letters could still be read.\"\n}\n```"
+}

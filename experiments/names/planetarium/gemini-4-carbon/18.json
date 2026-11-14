@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 18,
+  "date": "2026-11-14T19:57:47.618Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Magpie's Astrolabe",
+  "statement": "Pieced together by a clever bird from stray comet-sparks and half-remembered riddles, this celestial instrument maps the hidden bridges between distant worlds. Night-watchers say its twin central stars flare brightest whenever a wandering mind connects two mysteries once thought to be strangers.",
+  "usage": {
+    "in": 330,
+    "out": 1184
+  },
+  "cost": 0.0125,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Magpie's Astrolabe\",\n  \"statement\": \"Pieced together by a clever bird from stray comet-sparks and half-remembered riddles, this celestial instrument maps the hidden bridges between distant worlds. Night-watchers say its twin central stars flare brightest whenever a wandering mind connects two mysteries once thought to be strangers.\"\n}\n```"
+}

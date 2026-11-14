@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 2,
+  "date": "2026-11-14T19:48:04.578Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Lantern",
+  "statement": "A lantern belonging to no one once wandered the dark, asking every lost traveler where they hoped to go and lighting the path only after it had truly heard the answer; the sky kept it, still curious, which is why its brightest star flickers like a question before it shines.",
+  "usage": {
+    "in": 391,
+    "out": 461
+  },
+  "cost": 0.010784,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"A lantern belonging to no one once wandered the dark, asking every lost traveler where they hoped to go and lighting the path only after it had truly heard the answer; the sky kept it, still curious, which is why its brightest star flickers like a question before it shines.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 26,
+  "date": "2026-11-14T19:59:31.905Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Magpie's Lantern",
+  "statement": "Hung in the vault by a curious bird who gathered one stray spark from every earthly hearth, this crooked lamp swings gently where the great sky-roads cross. Legend says its stars burn with no fire of their own, yet together they cast enough borrowed light for night travelers to read any map in the dark.",
+  "usage": {
+    "in": 330,
+    "out": 1324
+  },
+  "cost": 0.0139,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Magpie's Lantern\",\n  \"statement\": \"Hung in the vault by a curious bird who gathered one stray spark from every earthly hearth, this crooked lamp swings gently where the great sky-roads cross. Legend says its stars burn with no fire of their own, yet together they cast enough borrowed light for night travelers to read any map in the dark.\"\n}\n```"
+}

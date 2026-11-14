@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 31,
+  "date": "2026-11-14T19:58:22.770Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Apprentice",
+  "statement": "A student of the dark once lifted a cup too small for the sky, and the stars leaned in to be named—leaving a kneeling figure whose lantern still gathers the lights that would otherwise go uncounted.",
+  "usage": {
+    "in": 1528,
+    "out": 1357
+  },
+  "cost": 0.009086,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 26,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Apprentice\",\n  \"statement\": \"A student of the dark once lifted a cup too small for the sky, and the stars leaned in to be named—leaving a kneeling figure whose lantern still gathers the lights that would otherwise go uncounted.\"\n}\n```"
+}

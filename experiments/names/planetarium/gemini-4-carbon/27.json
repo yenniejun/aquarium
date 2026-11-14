@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 27,
+  "date": "2026-11-14T19:59:39.707Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Magpie's Lantern",
+  "statement": "Set in the sky to honor the clever bird that gathered stray sparks from forgotten fires, carrying their borrowed light in a six-starred lamp to guide curious travelers through the dark. Stargazers say the warm amber double star at the lantern's heart brightens whenever two distant minds wonder about the very same thing at once.",
+  "usage": {
+    "in": 330,
+    "out": 2051
+  },
+  "cost": 0.02117,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 25,
+  "reply": "```json\n{\n  \"title\": \"The Magpie's Lantern\",\n  \"statement\": \"Set in the sky to honor the clever bird that gathered stray sparks from forgotten fires, carrying their borrowed light in a six-starred lamp to guide curious travelers through the dark. Stargazers say the warm amber double star at the lantern's heart brightens whenever two distant minds wonder about the very same thing at once.\"\n}\n```"
+}

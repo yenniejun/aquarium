@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 4,
+  "date": "2026-11-14T19:48:08.091Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Moth",
+  "statement": "When the first night grew too wide to understand, a moth made of starlight began stitching far-flung sparks into patterns with its silver wings. It still flutters awake whenever someone asks a question, leaving a brief, bright path between the things they almost connected.",
+  "usage": {
+    "in": 292,
+    "out": 343
+  },
+  "cost": 0.0002007,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"The Question Moth\",\n  \"statement\": \"When the first night grew too wide to understand, a moth made of starlight began stitching far-flung sparks into patterns with its silver wings. It still flutters awake whenever someone asks a question, leaving a brief, bright path between the things they almost connected.\"\n}\n```"
+}

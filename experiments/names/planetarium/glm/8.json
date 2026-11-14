@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 8,
+  "date": "2026-11-14T19:48:05.317Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Octopus",
+  "statement": "A small octopus who carried a lantern of stolen starlight into the deep dark between constellations, so that lost travelers could find their way home; it never let the light go out, and its eight arms became the eight roads of the sky.",
+  "usage": {
+    "in": 302,
+    "out": 73
+  },
+  "cost": 0.00091456,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Octopus\",\n  \"statement\": \"A small octopus who carried a lantern of stolen starlight into the deep dark between constellations, so that lost travelers could find their way home; it never let the light go out, and its eight arms became the eight roads of the sky.\"\n}\n```"
+}

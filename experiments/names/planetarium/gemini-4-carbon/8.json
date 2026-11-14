@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 8,
+  "date": "2026-11-14T19:49:28.553Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Unable to choose a single flame, this restless creature flutters from star to lonely star, trailing threads of silver dust that bind scattered lights into sudden neighbors. Night wanderers look to the quiet geometry of its wings to find hidden paths between distant things.",
+  "usage": {
+    "in": 330,
+    "out": 1339
+  },
+  "cost": 0.01405,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Unable to choose a single flame, this restless creature flutters from star to lonely star, trailing threads of silver dust that bind scattered lights into sudden neighbors. Night wanderers look to the quiet geometry of its wings to find hidden paths between distant things.\"\n}\n```"
+}

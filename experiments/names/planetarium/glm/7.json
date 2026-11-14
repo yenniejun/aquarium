@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 7,
+  "date": "2026-11-14T19:48:05.221Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Eared Fox",
+  "statement": "When the first winter grew too dark for the stars to find their way home, a small fox cupped her ears like lanterns and walked the sky's edge, catching stray light in them. The stars followed her glow to safety and, in gratitude, froze her mid-trot among them — ears still lit, forever listening for anyone lost enough to need her.",
+  "usage": {
+    "in": 302,
+    "out": 96
+  },
+  "cost": 0.00111696,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Eared Fox\",\n  \"statement\": \"When the first winter grew too dark for the stars to find their way home, a small fox cupped her ears like lanterns and walked the sky's edge, catching stray light in them. The stars followed her glow to safety and, in gratitude, froze her mid-trot among them — ears still lit, forever listening for anyone lost enough to need her.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 13,
+  "date": "2026-11-14T20:18:32.566Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Kettle",
+  "statement": "It appears only to those who are lost in a kindly way, tipped on its side to pour a thin silver stream of stars from one dark cup into another; whoever stays to watch it fill will wake to find they have been gently mapped.",
+  "usage": {
+    "in": 310,
+    "out": 1044
+  },
+  "cost": 0.00224812,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Kettle\",\n  \"statement\": \"It appears only to those who are lost in a kindly way, tipped on its side to pour a thin silver stream of stars from one dark cup into another; whoever stays to watch it fill will wake to find they have been gently mapped.\"\n}\n```"
+}

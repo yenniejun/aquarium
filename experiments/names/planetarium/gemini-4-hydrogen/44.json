@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 44,
+  "date": "2026-11-14T19:58:13.502Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Loom of Echoes",
+  "statement": "Long ago, a quiet spirit gathered every stray question whispered into the dark and spun them into silver threads stretched between distant suns. Whenever a traveler looks up in wonder, the loom shimmers awake, weaving scattered starlight into sudden, luminous patterns of meaning.",
+  "usage": {
+    "in": 330,
+    "out": 1836
+  },
+  "cost": 0.014265,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Loom of Echoes\",\n  \"statement\": \"Long ago, a quiet spirit gathered every stray question whispered into the dark and spun them into silver threads stretched between distant suns. Whenever a traveler looks up in wonder, the loom shimmers awake, weaving scattered starlight into sudden, luminous patterns of meaning.\"\n}\n```"
+}

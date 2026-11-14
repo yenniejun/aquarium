@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 18,
+  "date": "2026-11-14T19:56:29.864Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "When the sky forgets a road, the Cartographer's Moth unfolds its starry wings and traces a new one through the dark. Travelers who follow its dotted path always find something they weren't looking for.",
+  "usage": {
+    "in": 292,
+    "out": 290
+  },
+  "cost": 0.00017419999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"When the sky forgets a road, the Cartographer's Moth unfolds its starry wings and traces a new one through the dark. Travelers who follow its dotted path always find something they weren't looking for.\"\n}\n```"
+}

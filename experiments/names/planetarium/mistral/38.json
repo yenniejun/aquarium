@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 38,
+  "date": "2026-11-14T20:49:45.710Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Porthole Moth",
+  "statement": "Near the rim of the round window, seven pale stars gather into the shape of a moth, its wings dusted with light. The old charts say it has been beating softly against the dark since the first winter, and that whoever pauses long enough to truly see it brings it one wingbeat closer to the light.",
+  "usage": {
+    "in": 310,
+    "out": 4849
+  },
+  "cost": 0.01023862,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 86,
+  "reply": "```json\n{\n  \"title\": \"The Porthole Moth\",\n  \"statement\": \"Near the rim of the round window, seven pale stars gather into the shape of a moth, its wings dusted with light. The old charts say it has been beating softly against the dark since the first winter, and that whoever pauses long enough to truly see it brings it one wingbeat closer to the light.\"\n}\n```"
+}

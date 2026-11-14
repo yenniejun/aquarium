@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 25,
+  "date": "2026-11-14T20:05:21.138Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Listening Shell",
+  "statement": "When the first question was ever asked, the night sky curled around it the way a shell curls around the sea. The stars trace a slow spiral inward toward a single faint point at the center—the question itself, still waiting to be answered. On clear nights the spiral seems to tighten, as though the sky is leaning closer to hear.",
+  "usage": {
+    "in": 320,
+    "out": 1439
+  },
+  "cost": 0.018548,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Listening Shell\",\n  \"statement\": \"When the first question was ever asked, the night sky curled around it the way a shell curls around the sea. The stars trace a slow spiral inward toward a single faint point at the center—the question itself, still waiting to be answered. On clear nights the spiral seems to tighten, as though the sky is leaning closer to hear.\"\n}\n```"
+}

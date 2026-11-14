@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 22,
+  "date": "2026-11-14T19:57:03.546Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Unfinished Loom",
+  "statement": "A weaver set her loom among the stars and deliberately left the last thread loose, so anyone who looks up must finish the pattern for themselves. Each night the woven stars briefly stir, trying out a different ending.",
+  "usage": {
+    "in": 292,
+    "out": 1030
+  },
+  "cost": 0.021768,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Loom\",\n  \"statement\": \"A weaver set her loom among the stars and deliberately left the last thread loose, so anyone who looks up must finish the pattern for themselves. Each night the woven stars briefly stir, trying out a different ending.\"\n}\n```"
+}

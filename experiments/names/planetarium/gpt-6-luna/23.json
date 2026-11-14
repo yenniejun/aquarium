@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 23,
+  "date": "2026-11-14T19:56:38.359Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Threading Moth",
+  "statement": "The Threading Moth gathers stray stars on a silver filament and stitches them into shapes for anyone who has lost their way. When a traveler brings a question instead of a destination, it leaves the thread loose—so a new constellation can begin.",
+  "usage": {
+    "in": 292,
+    "out": 332
+  },
+  "cost": 0.0001952,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"The Threading Moth\",\n  \"statement\": \"The Threading Moth gathers stray stars on a silver filament and stitches them into shapes for anyone who has lost their way. When a traveler brings a question instead of a destination, it leaves the thread loose—so a new constellation can begin.\"\n}\n```"
+}

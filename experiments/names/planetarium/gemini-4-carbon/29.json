@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 29,
+  "date": "2026-11-14T20:00:40.749Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Glass Nautilus",
+  "statement": "Blown from molten starlight by a curious deity of the deep sky, this chambered shell swims backward through the Milky Way to marvel at the wake of everything that came before. Navigators say the twin pearl-bright stars within its spiral flare whenever a traveler sets out for a tidy answer and discovers a wider wonder instead.",
+  "usage": {
+    "in": 330,
+    "out": 4396
+  },
+  "cost": 0.04462,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 61,
+  "reply": "```json\n{\n  \"title\": \"The Glass Nautilus\",\n  \"statement\": \"Blown from molten starlight by a curious deity of the deep sky, this chambered shell swims backward through the Milky Way to marvel at the wake of everything that came before. Navigators say the twin pearl-bright stars within its spiral flare whenever a traveler sets out for a tidy answer and discovers a wider wonder instead.\"\n}\n```"
+}

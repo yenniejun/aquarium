@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 46,
+  "date": "2026-11-14T19:57:04.630Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Kite",
+  "statement": "Its stars sketch a little kite with a tail of bright dots: each night it catches one unasked question and lifts it until the dark looks less like an ending and more like a place to begin.",
+  "usage": {
+    "in": 292,
+    "out": 264
+  },
+  "cost": 0.0001612,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Question Kite\",\n  \"statement\": \"Its stars sketch a little kite with a tail of bright dots: each night it catches one unasked question and lifts it until the dark looks less like an ending and more like a place to begin.\"\n}\n```"
+}

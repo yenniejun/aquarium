@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 8,
+  "date": "2026-11-14T19:48:50.265Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Patient Needle",
+  "statement": "Each night it sews the worn places in the sky where too many whispered wishes have frayed the dark, threading star to star so the light behind does not spill through all at once.",
+  "usage": {
+    "in": 320,
+    "out": 1150
+  },
+  "cost": 0.01508,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Patient Needle\",\n  \"statement\": \"Each night it sews the worn places in the sky where too many whispered wishes have frayed the dark, threading star to star so the light behind does not spill through all at once.\"\n}\n```"
+}

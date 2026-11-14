@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 45,
+  "date": "2026-11-14T19:57:41.722Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Heron",
+  "statement": "Long ago a heron waded the river of night fishing not for fish but for questions, and every one she could not answer truly she set gently back into the current, until the river overflowed into the sky as the Milky Way. She stands there still at its bank, head tilted, one star in her eye flickering whenever someone below wonders something aloud.",
+  "usage": {
+    "in": 391,
+    "out": 588
+  },
+  "cost": 0.013324,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Listening Heron\",\n  \"statement\": \"Long ago a heron waded the river of night fishing not for fish but for questions, and every one she could not answer truly she set gently back into the current, until the river overflowed into the sky as the Milky Way. She stands there still at its bank, head tilted, one star in her eye flickering whenever someone below wonders something aloud.\"\n}\n```"
+}

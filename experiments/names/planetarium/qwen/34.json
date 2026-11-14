@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 34,
+  "date": "2026-11-14T19:57:40.285Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mender's Needle",
+  "statement": "They say the sky tore once, long ago, along a seam no one else could see. A quiet figure was set to stitch it shut with a single bright needle and a thread of smaller stars, working still, one point of light at a time, so the dark holds together.",
+  "usage": {
+    "in": 320,
+    "out": 1022
+  },
+  "cost": 0.013544,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Needle\",\n  \"statement\": \"They say the sky tore once, long ago, along a seam no one else could see. A quiet figure was set to stitch it shut with a single bright needle and a thread of smaller stars, working still, one point of light at a time, so the dark holds together.\"\n}\n```"
+}

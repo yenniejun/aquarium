@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 48,
+  "date": "2026-11-14T19:59:24.652Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Mender",
+  "statement": "A quiet smith once walked the dark between stars, gathering spent sparks and setting them alight again, so the lost could choose their own path home.",
+  "usage": {
+    "in": 1528,
+    "out": 585
+  },
+  "cost": 0.004454,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Mender\",\n  \"statement\": \"A quiet smith once walked the dark between stars, gathering spent sparks and setting them alight again, so the lost could choose their own path home.\"\n}\n```"
+}

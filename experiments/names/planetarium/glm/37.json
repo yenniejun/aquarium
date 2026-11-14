@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 37,
+  "date": "2026-11-14T20:03:49.316Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "Legend holds that when the first winter grew too dark for travelers to find their way home, a small fox lifted a fallen star onto its tail and walked the roads until dawn. Its lantern still burns at the constellation's heart—a single amber star the old charts say flickers whenever someone, somewhere, is on a long journey home.",
+  "usage": {
+    "in": 302,
+    "out": 89
+  },
+  "cost": 0.00105536,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"Legend holds that when the first winter grew too dark for travelers to find their way home, a small fox lifted a fallen star onto its tail and walked the roads until dawn. Its lantern still burns at the constellation's heart—a single amber star the old charts say flickers whenever someone, somewhere, is on a long journey home.\"\n}\n```"
+}

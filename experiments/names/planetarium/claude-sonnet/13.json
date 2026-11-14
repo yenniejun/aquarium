@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 13,
+  "date": "2026-11-14T19:56:21.073Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lamplighter's Question",
+  "statement": "Long after the old gods had gone to bed, one small lamplighter climbed the dark with a ladder and a taper, lighting seven stars in a crooked curve, like a question mark, because she could not stop wondering what lay past the last one. She is still up there, one hand raised, and on clear nights the final star flickers as though someone just answered.",
+  "usage": {
+    "in": 391,
+    "out": 141
+  },
+  "cost": 0.002192,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lamplighter's Question\",\n  \"statement\": \"Long after the old gods had gone to bed, one small lamplighter climbed the dark with a ladder and a taper, lighting seven stars in a crooked curve, like a question mark, because she could not stop wondering what lay past the last one. She is still up there, one hand raised, and on clear nights the final star flickers as though someone just answered.\"\n}\n```"
+}

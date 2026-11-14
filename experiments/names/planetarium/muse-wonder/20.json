@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 20,
+  "date": "2026-11-14T19:57:03.496Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Lantern Keeper's Fox",
+  "statement": "Sent out each night by the Keeper of Lost Lights, the fox carries a single warm lantern between the stars to guide stray wishes and half-remembered dreams safely home. Follow the curve of its tail, and you will find the way back to something you love.",
+  "usage": {
+    "in": 292,
+    "out": 1378
+  },
+  "cost": 0.027854,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Keeper's Fox\",\n  \"statement\": \"Sent out each night by the Keeper of Lost Lights, the fox carries a single warm lantern between the stars to guide stray wishes and half-remembered dreams safely home. Follow the curve of its tail, and you will find the way back to something you love.\"\n}\n```"
+}

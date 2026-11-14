@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 15,
+  "date": "2026-11-14T19:56:53.532Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Quill Fox",
+  "statement": "A fox who tried to copy down the night's single, endless sentence. Its tail became the quill, starlight became the ink, and it writes still—tracing new lines between old stars, never finding the period.",
+  "usage": {
+    "in": 320,
+    "out": 1554
+  },
+  "cost": 0.019928,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Quill Fox\",\n  \"statement\": \"A fox who tried to copy down the night's single, endless sentence. Its tail became the quill, starlight became the ink, and it writes still—tracing new lines between old stars, never finding the period.\"\n}\n```"
+}

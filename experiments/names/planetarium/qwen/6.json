@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 6,
+  "date": "2026-11-14T19:48:39.795Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mending Needle",
+  "statement": "When the first dark tore the sky, a small patient figure began to stitch it shut with threads of light, and has not stopped since. Each star is a knot in the mending, the needle's arc traces on, and the work is never finished, and this is as it should be.",
+  "usage": {
+    "in": 320,
+    "out": 1114
+  },
+  "cost": 0.014648,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Mending Needle\",\n  \"statement\": \"When the first dark tore the sky, a small patient figure began to stitch it shut with threads of light, and has not stopped since. Each star is a knot in the mending, the needle's arc traces on, and the work is never finished, and this is as it should be.\"\n}\n```"
+}

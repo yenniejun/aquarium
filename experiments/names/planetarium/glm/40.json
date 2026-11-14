@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 40,
+  "date": "2026-11-14T20:03:56.068Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern Moth",
+  "statement": "They say a moth once mistook the moon for a candle and flew so far it wore itself into the sky; now it hangs above the horizon each night, wings made of thirteen patient stars, still reaching for a light that was never meant for it — and somehow, in the reaching, becoming it.",
+  "usage": {
+    "in": 302,
+    "out": 83
+  },
+  "cost": 0.00100256,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"They say a moth once mistook the moon for a candle and flew so far it wore itself into the sky; now it hangs above the horizon each night, wings made of thirteen patient stars, still reaching for a light that was never meant for it — and somehow, in the reaching, becoming it.\"\n}\n```"
+}

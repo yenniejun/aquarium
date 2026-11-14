@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 28,
+  "date": "2026-11-14T20:05:01.200Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Firefly Ferryman",
+  "statement": "Each night he poles his little boat down the Milky Way, scooping stray fireflies — lost wishes, half-remembered dreams, and questions no one dared to ask — into his lantern. At dawn he lets them go again, and that is why you sometimes wake with a wonderful question already on your tongue.",
+  "usage": {
+    "in": 292,
+    "out": 2155
+  },
+  "cost": 0.043394,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"The Firefly Ferryman\",\n  \"statement\": \"Each night he poles his little boat down the Milky Way, scooping stray fireflies — lost wishes, half-remembered dreams, and questions no one dared to ask — into his lantern. At dawn he lets them go again, and that is why you sometimes wake with a wonderful question already on your tongue.\"\n}\n```"
+}

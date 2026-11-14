@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 48,
+  "date": "2026-11-14T20:04:02.167Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "The Magpie's Lantern",
+  "statement": "Placed in the heavens for a clever bird that gathered stray sparks from a thousand campfires, fitting their mismatched gleams into a single, faceted lamp. Navigators say it favors the curious, tilting its light toward anyone who spots a hidden thread between two distant things.",
+  "usage": {
+    "in": 330,
+    "out": 1797
+  },
+  "cost": 0.01863,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 29,
+  "reply": "```json\n{\n  \"title\": \"The Magpie's Lantern\",\n  \"statement\": \"Placed in the heavens for a clever bird that gathered stray sparks from a thousand campfires, fitting their mismatched gleams into a single, faceted lamp. Navigators say it favors the curious, tilting its light toward anyone who spots a hidden thread between two distant things.\"\n}\n```"
+}

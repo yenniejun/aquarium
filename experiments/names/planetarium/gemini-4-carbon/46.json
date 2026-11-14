@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 46,
+  "date": "2026-11-14T20:03:00.972Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn to every scattered spark of wonder, this luminous moth flutters across the night, spinning silver threads between distant stars that thought themselves alone. Legend holds that stargazers who trace its twin wings will suddenly glimpse the hidden bridge between a riddle and its answer.",
+  "usage": {
+    "in": 330,
+    "out": 1702
+  },
+  "cost": 0.01768,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 25,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn to every scattered spark of wonder, this luminous moth flutters across the night, spinning silver threads between distant stars that thought themselves alone. Legend holds that stargazers who trace its twin wings will suddenly glimpse the hidden bridge between a riddle and its answer.\"\n}\n```"
+}

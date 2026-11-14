@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 14,
+  "date": "2026-11-14T19:56:51.384Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Listening Moth",
+  "statement": "When the sky fell quiet and no one thought to ask it anything, a small moth flew up and pressed its broad soft wings against the dark, listening. It has held that posture ever since, turned wholly toward one bright star that will, someday, answer.",
+  "usage": {
+    "in": 320,
+    "out": 1353
+  },
+  "cost": 0.017516,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Listening Moth\",\n  \"statement\": \"When the sky fell quiet and no one thought to ask it anything, a small moth flew up and pressed its broad soft wings against the dark, listening. It has held that posture ever since, turned wholly toward one bright star that will, someday, answer.\"\n}\n```"
+}

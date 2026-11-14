@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 5,
+  "date": "2026-11-14T20:09:49.220Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Moth's Map",
+  "statement": "A moth who flew too close to the moon grew dizzy and traced a looping path through the stars. Now that silver trail hangs in the round window as a small, bright map for anyone who feels a little lost.",
+  "usage": {
+    "in": 310,
+    "out": 7330
+  },
+  "cost": 0.01561,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 93,
+  "reply": "```json\n{\n  \"title\": \"The Moth's Map\",\n  \"statement\": \"A moth who flew too close to the moon grew dizzy and traced a looping path through the stars. Now that silver trail hangs in the round window as a small, bright map for anyone who feels a little lost.\"\n}\n```"
+}

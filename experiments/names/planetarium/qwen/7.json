@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 7,
+  "date": "2026-11-14T19:48:51.497Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "A small moth that flew toward every new light it found, until the routes it traced burned themselves into its wings as maps. Now it rests in the sky, wings spread and faintly glowing, still leaning toward the next bright thing it will never reach.",
+  "usage": {
+    "in": 320,
+    "out": 1303
+  },
+  "cost": 0.016916,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"A small moth that flew toward every new light it found, until the routes it traced burned themselves into its wings as maps. Now it rests in the sky, wings spread and faintly glowing, still leaning toward the next bright thing it will never reach.\"\n}\n```"
+}

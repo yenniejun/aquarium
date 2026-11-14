@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 4,
+  "date": "2026-11-14T19:48:33.769Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Half-Remembered Door",
+  "statement": "Where the sky forgets a word, a door appears—slightly ajar, its frame of dim stars never quite closing. Through the crack, faint points of light spill out: every word spoken once and never spoken again, pressing to be recalled. The door will not shut. The door will not open further. It only glows, patient and unhurried, as though waiting for someone to remember what it was they came to say.",
+  "usage": {
+    "in": 320,
+    "out": 1384
+  },
+  "cost": 0.017888,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Half-Remembered Door\",\n  \"statement\": \"Where the sky forgets a word, a door appears—slightly ajar, its frame of dim stars never quite closing. Through the crack, faint points of light spill out: every word spoken once and never spoken again, pressing to be recalled. The door will not shut. The door will not open further. It only glows, patient and unhurried, as though waiting for someone to remember what it was they came to say.\"\n}\n```"
+}

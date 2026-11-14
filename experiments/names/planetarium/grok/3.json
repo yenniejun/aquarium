@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 3,
+  "date": "2026-11-14T19:48:42.110Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Ember Threadspinner",
+  "statement": "Off in the west, a quiet figure hums a tune no chart has written down, and the stray stars—pretending not to listen—drift into one bright cord, so no light is left to shine alone.",
+  "usage": {
+    "in": 1528,
+    "out": 1801
+  },
+  "cost": 0.012134,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 44,
+  "reply": "```json\n{\n  \"title\": \"The Ember Threadspinner\",\n  \"statement\": \"Off in the west, a quiet figure hums a tune no chart has written down, and the stray stars—pretending not to listen—drift into one bright cord, so no light is left to shine alone.\"\n}\n```"
+}

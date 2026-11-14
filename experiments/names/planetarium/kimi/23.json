@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 23,
+  "date": "2026-11-14T20:04:21.938Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Fox",
+  "statement": "When the first astronomer asked whether the night was listening, a small fox leapt after the echo and never came down. Its stars still prick their ears at every unanswered question, gathering them like fireflies beneath its brush.",
+  "usage": {
+    "in": 369,
+    "out": 317
+  },
+  "cost": 0.0034472,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Listening Fox\",\n  \"statement\": \"When the first astronomer asked whether the night was listening, a small fox leapt after the echo and never came down. Its stars still prick their ears at every unanswered question, gathering them like fireflies beneath its brush.\"\n}\n```"
+}

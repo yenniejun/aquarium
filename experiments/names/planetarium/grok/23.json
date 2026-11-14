@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 23,
+  "date": "2026-11-14T19:57:25.551Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Wren",
+  "statement": "A small wren once stole a coal from the first hearth and crossed the dark, dropping a spark wherever a traveler hesitated. The sky still keeps her route: a bright bird and a patient trail of borrowed light.",
+  "usage": {
+    "in": 1528,
+    "out": 609
+  },
+  "cost": 0.004598,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Wren\",\n  \"statement\": \"A small wren once stole a coal from the first hearth and crossed the dark, dropping a spark wherever a traveler hesitated. The sky still keeps her route: a bright bird and a patient trail of borrowed light.\"\n}\n```"
+}

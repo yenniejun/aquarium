@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 20,
+  "date": "2026-11-14T19:56:45.123Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lamplighter of Questions",
+  "statement": "A wandering lamplighter once vowed to kindle a new star for every honest question whispered beneath the night, and so the sky filled as people dared to wonder aloud. The brightest star, at the tip of her raised pole, is the one question no one has answered yet, and she keeps it burning gladly so that we will never stop looking up.",
+  "usage": {
+    "in": 391,
+    "out": 585
+  },
+  "cost": 0.013264,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lamplighter of Questions\",\n  \"statement\": \"A wandering lamplighter once vowed to kindle a new star for every honest question whispered beneath the night, and so the sky filled as people dared to wonder aloud. The brightest star, at the tip of her raised pole, is the one question no one has answered yet, and she keeps it burning gladly so that we will never stop looking up.\"\n}\n```"
+}

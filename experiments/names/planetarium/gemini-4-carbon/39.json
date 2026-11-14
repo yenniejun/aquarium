@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 39,
+  "date": "2026-11-14T20:02:04.845Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Kite",
+  "statement": "Sent aloft by a sleepless scholar to chart the hidden currents of the night, this diamond of bright stars slipped its earthly tether in a sudden twilight gale. Now it drifts forever across the vault of heaven, trailing a crooked tail of faint sparks—one tied to the string for every wonder the world has yet to name.",
+  "usage": {
+    "in": 330,
+    "out": 2414
+  },
+  "cost": 0.0248,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 41,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Kite\",\n  \"statement\": \"Sent aloft by a sleepless scholar to chart the hidden currents of the night, this diamond of bright stars slipped its earthly tether in a sudden twilight gale. Now it drifts forever across the vault of heaven, trailing a crooked tail of faint sparks—one tied to the string for every wonder the world has yet to name.\"\n}\n```"
+}

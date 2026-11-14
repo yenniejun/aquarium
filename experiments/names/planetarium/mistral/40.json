@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 40,
+  "date": "2026-11-14T20:54:26.119Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Fox",
+  "statement": "The mapmaker's fox once ran across the wet ink of the unfinished star chart, and where its paws touched, the paper lifted into the night. The constellation is that trail of paw-prints—still mid-stride, still drawing the line from one small light to the next.",
+  "usage": {
+    "in": 310,
+    "out": 6534
+  },
+  "cost": 0.01377712,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 145,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Fox\",\n  \"statement\": \"The mapmaker's fox once ran across the wet ink of the unfinished star chart, and where its paws touched, the paper lifted into the night. The constellation is that trail of paw-prints—still mid-stride, still drawing the line from one small light to the next.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 23,
+  "date": "2026-11-14T20:29:56.887Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Humming Kettle",
+  "statement": "On the longest night of the year, a kettle left singing on a windowsill hummed until its steam climbed out of the chimney and froze into a curling chain of small stars. It still hangs there now, tilted, pouring a slow warm river of light across the winter sky — visible only after midnight, when the world has gone quiet enough to hear it.",
+  "usage": {
+    "in": 310,
+    "out": 1539
+  },
+  "cost": 0.00328762,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 29,
+  "reply": "```json\n{\n  \"title\": \"The Humming Kettle\",\n  \"statement\": \"On the longest night of the year, a kettle left singing on a windowsill hummed until its steam climbed out of the chimney and froze into a curling chain of small stars. It still hangs there now, tilted, pouring a slow warm river of light across the winter sky — visible only after midnight, when the world has gone quiet enough to hear it.\"\n}\n```"
+}

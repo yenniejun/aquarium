@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 32,
+  "date": "2026-11-14T19:57:26.875Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Loom of Whispers",
+  "statement": "Born when a quiet spirit gathered stray sparks of unanswered questions and strung them across the dark, this shimmering frame weaves scattered starlight into patterns of meaning. Stargazers say that whenever a faint star brightens beside a distant neighbor, the Loom has tied another gentle thread between worlds.",
+  "usage": {
+    "in": 330,
+    "out": 1126
+  },
+  "cost": 0.00894,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Loom of Whispers\",\n  \"statement\": \"Born when a quiet spirit gathered stray sparks of unanswered questions and strung them across the dark, this shimmering frame weaves scattered starlight into patterns of meaning. Stargazers say that whenever a faint star brightens beside a distant neighbor, the Loom has tied another gentle thread between worlds.\"\n}\n```"
+}

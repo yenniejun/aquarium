@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 49,
+  "date": "2026-11-14T20:04:17.075Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "When the first long winter stole all the stars for itself, a small fox climbed the sky on her own tail and lit the darkness star by star, carried in a paper lantern that never quite went out — the faint amber one, at her nose, still flickering.",
+  "usage": {
+    "in": 302,
+    "out": 77
+  },
+  "cost": 0.00094976,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"When the first long winter stole all the stars for itself, a small fox climbed the sky on her own tail and lit the darkness star by star, carried in a paper lantern that never quite went out — the faint amber one, at her nose, still flickering.\"\n}\n```"
+}

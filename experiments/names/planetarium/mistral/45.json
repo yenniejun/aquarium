@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 45,
+  "date": "2026-11-14T20:58:22.867Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Unfinished Map",
+  "statement": "The first cartographer of the night drew every constellation she could find, but left one line of her map deliberately undrawn, so there would always be somewhere left to go. They say the missing figure is still being sketched, star by star, by everyone who looks up.",
+  "usage": {
+    "in": 310,
+    "out": 1871
+  },
+  "cost": 0.00398482,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 62,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Map\",\n  \"statement\": \"The first cartographer of the night drew every constellation she could find, but left one line of her map deliberately undrawn, so there would always be somewhere left to go. They say the missing figure is still being sketched, star by star, by everyone who looks up.\"\n}\n```"
+}

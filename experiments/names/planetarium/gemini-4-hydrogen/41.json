@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 41,
+  "date": "2026-11-14T19:58:00.499Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Star-Mender's Needle",
+  "statement": "When the early sky unraveled into nameless sparks, a quiet tailor stitched the drifting embers into meaning with a needle of pale starlight. Its long silver thread still loops between distant suns, binding stray wonders together so travelers can read the dark.",
+  "usage": {
+    "in": 330,
+    "out": 1663
+  },
+  "cost": 0.0129675,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mender's Needle\",\n  \"statement\": \"When the early sky unraveled into nameless sparks, a quiet tailor stitched the drifting embers into meaning with a needle of pale starlight. Its long silver thread still loops between distant suns, binding stray wonders together so travelers can read the dark.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 35,
+  "date": "2026-11-14T19:57:34.600Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Loom of Echoes",
+  "statement": "Hung above the horizon where forgotten voices drift, this celestial loom catches stray sparks of thought and braids them into silver light before they fade. Stargazers say that tracing its seven faintest stars reveals the hidden thread connecting two distant memories.",
+  "usage": {
+    "in": 330,
+    "out": 1108
+  },
+  "cost": 0.008805,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Loom of Echoes\",\n  \"statement\": \"Hung above the horizon where forgotten voices drift, this celestial loom catches stray sparks of thought and braids them into silver light before they fade. Stargazers say that tracing its seven faintest stars reveals the hidden thread connecting two distant memories.\"\n}\n```"
+}

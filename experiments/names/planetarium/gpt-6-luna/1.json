@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 1,
+  "date": "2026-11-14T19:48:03.868Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Its stars sketch a moth with bright, open wings, said to flutter toward every unanswered question. Wherever it goes, it leaves a thread of light between faraway stars, so no traveler crosses the dark alone.",
+  "usage": {
+    "in": 292,
+    "out": 348
+  },
+  "cost": 0.00020319999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Its stars sketch a moth with bright, open wings, said to flutter toward every unanswered question. Wherever it goes, it leaves a thread of light between faraway stars, so no traveler crosses the dark alone.\"\n}\n```"
+}

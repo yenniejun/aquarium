@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 1,
+  "date": "2026-11-14T19:48:01.326Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lanternfish",
+  "statement": "Once, a small fish swallowed a fallen star to keep it warm on its long swim home — and now it carries the light still, a patient spark crossing the dark between brighter constellations, tracing the same route every night so that no star making the crossing is ever lost.",
+  "usage": {
+    "in": 302,
+    "out": 83
+  },
+  "cost": 0.00100256,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lanternfish\",\n  \"statement\": \"Once, a small fish swallowed a fallen star to keep it warm on its long swim home — and now it carries the light still, a patient spark crossing the dark between brighter constellations, tracing the same route every night so that no star making the crossing is ever lost.\"\n}\n```"
+}

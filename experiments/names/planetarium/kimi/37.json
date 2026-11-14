@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 37,
+  "date": "2026-11-14T20:07:48.444Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "When the first wanderer asked the night a question, a little lantern opened its shutters, and every distant star leaned closer to hear. It wanders still, gathering stray lights into the outline of a door that has never quite closed.",
+  "usage": {
+    "in": 369,
+    "out": 242
+  },
+  "cost": 0.0026972,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"When the first wanderer asked the night a question, a little lantern opened its shutters, and every distant star leaned closer to hear. It wanders still, gathering stray lights into the outline of a door that has never quite closed.\"\n}\n```"
+}

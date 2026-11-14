@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 36,
+  "date": "2026-11-14T20:07:37.775Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Moth's Lantern",
+  "statement": "A moth, unconvinced that the moon was the only light worth seeking, stitched a lantern from unanswered questions and flew beyond the dark. It hangs there still, opening one small golden pane whenever something below begins to wonder.",
+  "usage": {
+    "in": 369,
+    "out": 738
+  },
+  "cost": 0.0076572,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 34,
+  "reply": "```json\n{\n  \"title\": \"The Moth's Lantern\",\n  \"statement\": \"A moth, unconvinced that the moon was the only light worth seeking, stitched a lantern from unanswered questions and flew beyond the dark. It hangs there still, opening one small golden pane whenever something below begins to wonder.\"\n}\n```"
+}

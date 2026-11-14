@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 19,
+  "date": "2026-11-14T19:56:53.268Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn only to the faintest, unnamed stars, this silver-winged wanderer flits from spark to spark, dusting the void with luminous scales. Star-gazers say its patient flight binds scattered points of light into a map for anyone curious enough to ask where the dark leads.",
+  "usage": {
+    "in": 330,
+    "out": 1546
+  },
+  "cost": 0.01209,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn only to the faintest, unnamed stars, this silver-winged wanderer flits from spark to spark, dusting the void with luminous scales. Star-gazers say its patient flight binds scattered points of light into a map for anyone curious enough to ask where the dark leads.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 16,
+  "date": "2026-11-14T19:56:23.576Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, when the sky was still unlit, a small moth mistook the first dark for a locked door and spent a thousand nights tapping at it with her wings. The door never opened, but each tap left a spark, and the sparks became her: seven stars for a body that is mostly curiosity, and two wide wings that brighten whenever someone below stops to look up.",
+  "usage": {
+    "in": 391,
+    "out": 144
+  },
+  "cost": 0.002222,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, when the sky was still unlit, a small moth mistook the first dark for a locked door and spent a thousand nights tapping at it with her wings. The door never opened, but each tap left a spark, and the sparks became her: seven stars for a body that is mostly curiosity, and two wide wings that brighten whenever someone below stops to look up.\"\n}\n```"
+}

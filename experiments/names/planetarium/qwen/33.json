@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 33,
+  "date": "2026-11-14T19:57:34.309Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Thread-Moth",
+  "statement": "A small moth mistook a distant star for a lantern and flew toward it for ten thousand years, trailing a single golden thread behind it. The gods, moved by such patient devotion, pinned it mid-flight among the stars—still reaching, still trailing its luminous thread toward the light it will never quite touch.",
+  "usage": {
+    "in": 320,
+    "out": 1116
+  },
+  "cost": 0.014672,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Thread-Moth\",\n  \"statement\": \"A small moth mistook a distant star for a lantern and flew toward it for ten thousand years, trailing a single golden thread behind it. The gods, moved by such patient devotion, pinned it mid-flight among the stars—still reaching, still trailing its luminous thread toward the light it will never quite touch.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 35,
+  "date": "2026-11-14T20:03:44.708Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearer's Kettle",
+  "statement": "On winter nights, a sky-keeper once carried tea up the Milky Way to warm the dying stars; when she stumbled, the kettle flew free and its steam became the aurora. Find its spout pointing toward dawn—that's the promise she's still walking, cup by cup, toward morning.",
+  "usage": {
+    "in": 302,
+    "out": 85
+  },
+  "cost": 0.00102016,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearer's Kettle\",\n  \"statement\": \"On winter nights, a sky-keeper once carried tea up the Milky Way to warm the dying stars; when she stumbled, the kettle flew free and its steam became the aurora. Find its spout pointing toward dawn—that's the promise she's still walking, cup by cup, toward morning.\"\n}\n```"
+}

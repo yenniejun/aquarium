@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 34,
+  "date": "2026-11-14T20:01:11.518Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Kite",
+  "statement": "Loosed by a sleepless mapmaker to sound the depth of the night, this diamond of four bright stars snapped its silk tether and caught fast in the upper airs, trailing a crooked tail of sparks. Night wanderers say its bow forever tilts toward whichever horizon holds an unanswered question.",
+  "usage": {
+    "in": 330,
+    "out": 1480
+  },
+  "cost": 0.01546,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 31,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Kite\",\n  \"statement\": \"Loosed by a sleepless mapmaker to sound the depth of the night, this diamond of four bright stars snapped its silk tether and caught fast in the upper airs, trailing a crooked tail of sparks. Night wanderers say its bow forever tilts toward whichever horizon holds an unanswered question.\"\n}\n```"
+}

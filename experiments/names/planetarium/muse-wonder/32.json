@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 32,
+  "date": "2026-11-14T20:05:48.571Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Midnight Librarian",
+  "statement": "She shelves every unfinished story and unasked question among the stars, keeping one small lamp lit for late wanderers. When her lines trace themselves across the dark, she is lending you the exact tale you need to find your way home.",
+  "usage": {
+    "in": 292,
+    "out": 1083
+  },
+  "cost": 0.021954,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Midnight Librarian\",\n  \"statement\": \"She shelves every unfinished story and unasked question among the stars, keeping one small lamp lit for late wanderers. When her lines trace themselves across the dark, she is lending you the exact tale you need to find your way home.\"\n}\n```"
+}

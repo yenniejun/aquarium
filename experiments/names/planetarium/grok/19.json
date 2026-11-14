@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 19,
+  "date": "2026-11-14T20:03:49.711Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Margin Fox",
+  "statement": "Between the great named figures, a fox of unused starlight still runs the blank margins of the sky, gathering lights no myth had room for and curling them into a den that brightens for anyone who looks twice.",
+  "usage": {
+    "in": 1528,
+    "out": 762
+  },
+  "cost": 0.005516,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Margin Fox\",\n  \"statement\": \"Between the great named figures, a fox of unused starlight still runs the blank margins of the sky, gathering lights no myth had room for and curling them into a den that brightens for anyone who looks twice.\"\n}\n```"
+}

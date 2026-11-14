@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 12,
+  "date": "2026-11-14T19:56:26.405Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "Stitched together from a single star borrowed from every other constellation, the Lantern Fox was never given a fixed place in the sky, so it wanders beside lost night-travelers, lighting the path one step ahead and asking curious questions until they remember the way home themselves. Sailors say its tail brightens whenever someone laughs in the dark.",
+  "usage": {
+    "in": 391,
+    "out": 559
+  },
+  "cost": 0.012744,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"Stitched together from a single star borrowed from every other constellation, the Lantern Fox was never given a fixed place in the sky, so it wanders beside lost night-travelers, lighting the path one step ahead and asking curious questions until they remember the way home themselves. Sailors say its tail brightens whenever someone laughs in the dark.\"\n}\n```"
+}

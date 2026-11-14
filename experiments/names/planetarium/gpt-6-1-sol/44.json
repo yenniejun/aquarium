@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 44,
+  "date": "2026-11-14T19:59:23.638Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "Seven stars outline the lantern of a mapmaker who left one side open, so that anything missing from her maps could find its own way in. On the darkest nights, a wandering eighth star slips through the gap, and for a moment the lantern casts the shadow of something no one has named.",
+  "usage": {
+    "in": 292,
+    "out": 474
+  },
+  "cost": 0.005324,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"Seven stars outline the lantern of a mapmaker who left one side open, so that anything missing from her maps could find its own way in. On the darkest nights, a wandering eighth star slips through the gap, and for a moment the lantern casts the shadow of something no one has named.\"\n}\n```"
+}

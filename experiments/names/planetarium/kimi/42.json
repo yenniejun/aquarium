@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 42,
+  "date": "2026-11-14T19:57:34.237Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "They say the Lantern was hung at the edge of night for travelers who had lost their questions, not their way, and that it brightens whenever someone wonders aloud. On quiet evenings, you can still see it leaning closer to the dark.",
+  "usage": {
+    "in": 369,
+    "out": 409
+  },
+  "cost": 0.0043672,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"They say the Lantern was hung at the edge of night for travelers who had lost their questions, not their way, and that it brightens whenever someone wonders aloud. On quiet evenings, you can still see it leaning closer to the dark.\"\n}\n```"
+}

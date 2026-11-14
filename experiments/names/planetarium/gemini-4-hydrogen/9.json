@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 9,
+  "date": "2026-11-14T19:48:24.444Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Paper Moth",
+  "statement": "Folded from a forgotten star-chart that caught the midnight wind, this quiet creature flutters endlessly between distant suns. Wherever its wings brush the dark, stray sparks drift together into patterns waiting to be read.",
+  "usage": {
+    "in": 330,
+    "out": 1196
+  },
+  "cost": 0.009465,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Paper Moth\",\n  \"statement\": \"Folded from a forgotten star-chart that caught the midnight wind, this quiet creature flutters endlessly between distant suns. Wherever its wings brush the dark, stray sparks drift together into patterns waiting to be read.\"\n}\n```"
+}

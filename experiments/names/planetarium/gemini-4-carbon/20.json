@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 20,
+  "date": "2026-11-14T19:58:41.879Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Sent aloft by an ancient scholar who feared the dark was too vast to comprehend, this tireless moth flies from star to lonely star, spinning silver threads of kinship between them. Legend holds that the markings on its open wings softly rearrange each night, turning scattered sparks into stories for the curious.",
+  "usage": {
+    "in": 330,
+    "out": 3417
+  },
+  "cost": 0.03483,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 54,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Sent aloft by an ancient scholar who feared the dark was too vast to comprehend, this tireless moth flies from star to lonely star, spinning silver threads of kinship between them. Legend holds that the markings on its open wings softly rearrange each night, turning scattered sparks into stories for the curious.\"\n}\n```"
+}

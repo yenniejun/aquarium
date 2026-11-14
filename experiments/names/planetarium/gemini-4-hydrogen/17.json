@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 17,
+  "date": "2026-11-14T19:56:42.902Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Mapmaker's Moth",
+  "statement": "Drawn to lonely sparks in the deepest dark, the Mapmaker's Moth flies from star to star, trailing a fine silver thread that binds scattered lights into charts for lost dreamers. On clear nights, its luminous wings flicker briefly awake, reminding wanderers that even the farthest points belong to a single, unfolding pattern.",
+  "usage": {
+    "in": 330,
+    "out": 1035
+  },
+  "cost": 0.0082575,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Mapmaker's Moth\",\n  \"statement\": \"Drawn to lonely sparks in the deepest dark, the Mapmaker's Moth flies from star to star, trailing a fine silver thread that binds scattered lights into charts for lost dreamers. On clear nights, its luminous wings flicker briefly awake, reminding wanderers that even the farthest points belong to a single, unfolding pattern.\"\n}\n```"
+}

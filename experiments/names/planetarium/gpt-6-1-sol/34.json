@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 34,
+  "date": "2026-11-14T19:58:18.054Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "Nine stars mark the handle and crooked frame of a lantern whose maker left one side unfinished, so no wandering light would ever be shut out. They say that when a traveler asks a question no one has asked before, a faint star slips through the gap, and for a moment the lantern casts the shadow of something not yet invented.",
+  "usage": {
+    "in": 292,
+    "out": 281
+  },
+  "cost": 0.003394,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"Nine stars mark the handle and crooked frame of a lantern whose maker left one side unfinished, so no wandering light would ever be shut out. They say that when a traveler asks a question no one has asked before, a faint star slips through the gap, and for a moment the lantern casts the shadow of something not yet invented.\"\n}\n```"
+}

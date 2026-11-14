@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 10,
+  "date": "2026-11-14T19:49:08.735Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cupped Whisper",
+  "statement": "When the first word was spoken into the empty dark, these two hands caught it before it could scatter, and have held it ever since—the small bright star between their fingers is the whisper itself, still warm after all these ages.",
+  "usage": {
+    "in": 320,
+    "out": 1282
+  },
+  "cost": 0.016664,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Cupped Whisper\",\n  \"statement\": \"When the first word was spoken into the empty dark, these two hands caught it before it could scatter, and have held it ever since—the small bright star between their fingers is the whisper itself, still warm after all these ages.\"\n}\n```"
+}

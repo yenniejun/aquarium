@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 28,
+  "date": "2026-11-14T20:05:19.670Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Comet Gardener",
+  "statement": "The Comet Gardener gathers stray wishes and plants them along the dark, where they bloom into new stars. One bright seed is always left unplanted, saved for someone still learning how to hope.",
+  "usage": {
+    "in": 369,
+    "out": 455
+  },
+  "cost": 0.0048272,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Comet Gardener\",\n  \"statement\": \"The Comet Gardener gathers stray wishes and plants them along the dark, where they bloom into new stars. One bright seed is always left unplanted, saved for someone still learning how to hope.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 14,
+  "date": "2026-11-14T19:56:31.390Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox once walked beside any traveler lost in the dark, and its lantern burned brighter with every question asked, not every answer given. When the gods set it among the stars, they left its final star unlit, for there is always one more thing worth wondering about.",
+  "usage": {
+    "in": 391,
+    "out": 498
+  },
+  "cost": 0.011524,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox once walked beside any traveler lost in the dark, and its lantern burned brighter with every question asked, not every answer given. When the gods set it among the stars, they left its final star unlit, for there is always one more thing worth wondering about.\"\n}\n```"
+}

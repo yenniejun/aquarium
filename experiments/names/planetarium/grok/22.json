@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 22,
+  "date": "2026-11-14T19:57:17.047Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Patient Lantern",
+  "statement": "A traveler once set a lantern on the dark so a question could finish speaking; the flame remained, and those stars kindle only for whoever waits one breath past certainty.",
+  "usage": {
+    "in": 1528,
+    "out": 593
+  },
+  "cost": 0.004502,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Patient Lantern\",\n  \"statement\": \"A traveler once set a lantern on the dark so a question could finish speaking; the flame remained, and those stars kindle only for whoever waits one breath past certainty.\"\n}\n```"
+}

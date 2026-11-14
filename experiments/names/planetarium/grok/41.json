@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 41,
+  "date": "2026-11-14T19:58:50.806Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Ember Keeper",
+  "statement": "When the first fires of the world went out, a small figure gathered the last sparks in a bowl of night and set them back among the stars, promising each one a name if it would only keep burning.",
+  "usage": {
+    "in": 1528,
+    "out": 654
+  },
+  "cost": 0.004868,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Ember Keeper\",\n  \"statement\": \"When the first fires of the world went out, a small figure gathered the last sparks in a bowl of night and set them back among the stars, promising each one a name if it would only keep burning.\"\n}\n```"
+}

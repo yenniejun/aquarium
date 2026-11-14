@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 41,
+  "date": "2026-11-14T20:03:58.286Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Keeper's Fox",
+  "statement": "They say the first fox to steal fire carried it carefully across the winter sky, and when she grew tired she set the ember down among the stars to rest — and stayed, keeping one small light lit at the edge of the dark so travelers would never find the night entirely empty.",
+  "usage": {
+    "in": 302,
+    "out": 80
+  },
+  "cost": 0.00097616,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Keeper's Fox\",\n  \"statement\": \"They say the first fox to steal fire carried it carefully across the winter sky, and when she grew tired she set the ember down among the stars to rest — and stayed, keeping one small light lit at the edge of the dark so travelers would never find the night entirely empty.\"\n}\n```"
+}

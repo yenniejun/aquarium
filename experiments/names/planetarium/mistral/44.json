@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 44,
+  "date": "2026-11-14T20:57:20.406Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Cat",
+  "statement": "Long ago a cat walked across the dark, and everywhere her paws touched, a star lit up — the constellation is the map of her prowl, redrawn each night as she paces the rim of the sky. She still sits at the edge of the window, tail curled into a question nobody has thought to ask yet.",
+  "usage": {
+    "in": 310,
+    "out": 2122
+  },
+  "cost": 0.00451192,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 32,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Cat\",\n  \"statement\": \"Long ago a cat walked across the dark, and everywhere her paws touched, a star lit up — the constellation is the map of her prowl, redrawn each night as she paces the rim of the sky. She still sits at the edge of the window, tail curled into a question nobody has thought to ask yet.\"\n}\n```"
+}

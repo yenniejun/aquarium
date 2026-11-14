@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 36,
+  "date": "2026-11-14T19:56:52.528Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Moth",
+  "statement": "The stars form a moth carrying a silver thread, which it uses to stitch paths between faraway lights. It appears whenever someone wonders aloud, then leaves the sky a little easier to cross.",
+  "usage": {
+    "in": 292,
+    "out": 328
+  },
+  "cost": 0.00019319999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Question Moth\",\n  \"statement\": \"The stars form a moth carrying a silver thread, which it uses to stitch paths between faraway lights. It appears whenever someone wonders aloud, then leaves the sky a little easier to cross.\"\n}\n```"
+}

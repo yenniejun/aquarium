@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 14,
+  "date": "2026-11-14T20:19:47.390Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Mender's Needle",
+  "statement": "When the dark first tore, the Mender sat up all night stitching it closed with starlight; her needle still hangs overhead, trailing a long silver thread across the sky.",
+  "usage": {
+    "in": 310,
+    "out": 4301
+  },
+  "cost": 0.00908782,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 75,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Needle\",\n  \"statement\": \"When the dark first tore, the Mender sat up all night stitching it closed with starlight; her needle still hangs overhead, trailing a long silver thread across the sky.\"\n}\n```"
+}

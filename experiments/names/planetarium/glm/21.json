@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 21,
+  "date": "2026-11-14T19:56:28.133Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cartographer of Drift",
+  "statement": "A wanderer who mapped every sky but her own, she was set among the stars mid-annotation — her left hand still trailing an unfinished line. Sailors say that on the night the final star in that line finally flickers on, all lost maps find their way home.",
+  "usage": {
+    "in": 302,
+    "out": 85
+  },
+  "cost": 0.00102016,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer of Drift\",\n  \"statement\": \"A wanderer who mapped every sky but her own, she was set among the stars mid-annotation — her left hand still trailing an unfinished line. Sailors say that on the night the final star in that line finally flickers on, all lost maps find their way home.\"\n}\n```"
+}

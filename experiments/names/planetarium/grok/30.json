@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 30,
+  "date": "2026-11-14T19:58:06.163Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Open Question",
+  "statement": "A traveler once paused under an unfinished sky and asked what the darkness was for; delighted to be wondered at, the stars bent into the shape of the asking and have never quite closed.",
+  "usage": {
+    "in": 1528,
+    "out": 690
+  },
+  "cost": 0.005084,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Open Question\",\n  \"statement\": \"A traveler once paused under an unfinished sky and asked what the darkness was for; delighted to be wondered at, the stars bent into the shape of the asking and have never quite closed.\"\n}\n```"
+}

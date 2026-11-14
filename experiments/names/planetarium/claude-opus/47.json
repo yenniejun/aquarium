@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 47,
+  "date": "2026-11-14T19:57:48.309Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Questioning Kite",
+  "statement": "A small kite once flew so high, asking every star it passed what it knew, that the stars began to answer, and each reply became a bright knot tied into its tail. It wanders the sky still, curious as ever, yet it never drifts away, because far below someone patient still holds the string.",
+  "usage": {
+    "in": 391,
+    "out": 485
+  },
+  "cost": 0.011264,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Questioning Kite\",\n  \"statement\": \"A small kite once flew so high, asking every star it passed what it knew, that the stars began to answer, and each reply became a bright knot tied into its tail. It wanders the sky still, curious as ever, yet it never drifts away, because far below someone patient still holds the string.\"\n}\n```"
+}

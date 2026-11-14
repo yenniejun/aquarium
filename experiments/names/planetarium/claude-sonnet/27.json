@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 27,
+  "date": "2026-11-14T19:56:32.871Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth of Questions",
+  "statement": "When the first night grew too quiet, a small moth carried a single ember into the dark and asked it, \"What is out there?\" Every answer she was given lit another star along her wings, and she has been flying toward the next question ever since. If you watch long enough, her wings open a little wider, as if your own wondering had just reached her.",
+  "usage": {
+    "in": 391,
+    "out": 136
+  },
+  "cost": 0.002142,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth of Questions\",\n  \"statement\": \"When the first night grew too quiet, a small moth carried a single ember into the dark and asked it, \\\"What is out there?\\\" Every answer she was given lit another star along her wings, and she has been flying toward the next question ever since. If you watch long enough, her wings open a little wider, as if your own wondering had just reached her.\"\n}\n```"
+}

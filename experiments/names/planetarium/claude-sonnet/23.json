@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 23,
+  "date": "2026-11-14T19:56:30.381Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the first night grew so large that the stars forgot one another, a small moth gathered seven of them into a lantern and carried it across the dark, pausing at each lonely light until it flickered back. Look for her in the quiet part of the sky, where her wings trace the lines between stars, and know that she is still on her way to you.",
+  "usage": {
+    "in": 391,
+    "out": 131
+  },
+  "cost": 0.002092,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the first night grew so large that the stars forgot one another, a small moth gathered seven of them into a lantern and carried it across the dark, pausing at each lonely light until it flickered back. Look for her in the quiet part of the sky, where her wings trace the lines between stars, and know that she is still on her way to you.\"\n}\n```"
+}

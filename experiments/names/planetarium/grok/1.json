@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 1,
+  "date": "2026-11-14T19:48:13.745Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Mended Net",
+  "statement": "A fisher of fallen wishes once tore the sky trying to catch every one; these stars are the knots where the night was sewn closed again, and anything small enough to slip still finds a soft place to land.",
+  "usage": {
+    "in": 1528,
+    "out": 624
+  },
+  "cost": 0.004688,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Mended Net\",\n  \"statement\": \"A fisher of fallen wishes once tore the sky trying to catch every one; these stars are the knots where the night was sewn closed again, and anything small enough to slip still finds a soft place to land.\"\n}\n```"
+}

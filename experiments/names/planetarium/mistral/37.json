@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 37,
+  "date": "2026-11-14T20:48:19.694Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Patient Cartographer",
+  "statement": "She was a mapmaker who loved the dark more than the day. When she was gone, the stars she had quietly charted rose into the sky to finish her work — connecting, one faint line at a time, only the lights that seemed to be looking for each other.",
+  "usage": {
+    "in": 310,
+    "out": 7210
+  },
+  "cost": 0.01519672,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 97,
+  "reply": "```json\n{\n  \"title\": \"The Patient Cartographer\",\n  \"statement\": \"She was a mapmaker who loved the dark more than the day. When she was gone, the stars she had quietly charted rose into the sky to finish her work — connecting, one faint line at a time, only the lights that seemed to be looking for each other.\"\n}\n```"
+}

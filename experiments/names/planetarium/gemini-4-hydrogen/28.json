@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 28,
+  "date": "2026-11-14T19:57:19.035Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Wanderer's Lantern",
+  "statement": "Hung from a crooked staff by a curious traveler who stopped to ask every star its name, its quiet beacon still drifts across the dark. Star charts say it flares brightest whenever distant, solitary lights discover an unseen thread connecting them.",
+  "usage": {
+    "in": 330,
+    "out": 1779
+  },
+  "cost": 0.0138375,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Wanderer's Lantern\",\n  \"statement\": \"Hung from a crooked staff by a curious traveler who stopped to ask every star its name, its quiet beacon still drifts across the dark. Star charts say it flares brightest whenever distant, solitary lights discover an unseen thread connecting them.\"\n}\n```"
+}

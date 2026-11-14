@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 45,
+  "date": "2026-11-14T20:03:11.198Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Paper Skiff",
+  "statement": "Folded from a scholar’s unfinished map by a restless wind, this slender vessel of seven stars drifts along the quietest currents of the Milky Way. Legend says it gathers stray questions lost in the dark and ferries them back to dreamers as sudden sparks of morning clarity.",
+  "usage": {
+    "in": 330,
+    "out": 2707
+  },
+  "cost": 0.02773,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 45,
+  "reply": "```json\n{\n  \"title\": \"The Paper Skiff\",\n  \"statement\": \"Folded from a scholar’s unfinished map by a restless wind, this slender vessel of seven stars drifts along the quietest currents of the Milky Way. Legend says it gathers stray questions lost in the dark and ferries them back to dreamers as sudden sparks of morning clarity.\"\n}\n```"
+}

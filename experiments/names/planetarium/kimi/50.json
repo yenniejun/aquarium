@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 50,
+  "date": "2026-11-14T20:10:02.827Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "When the night grew too vast for the first wanderer, a little lantern leaned down and listened until her silence became a path. It still bends toward every unasked question, keeping one star unlit so there is always room for wonder.",
+  "usage": {
+    "in": 369,
+    "out": 279
+  },
+  "cost": 0.0030672,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"When the night grew too vast for the first wanderer, a little lantern leaned down and listened until her silence became a path. It still bends toward every unasked question, keeping one star unlit so there is always room for wonder.\"\n}\n```"
+}

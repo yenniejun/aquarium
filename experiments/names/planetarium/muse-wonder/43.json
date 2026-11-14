@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 43,
+  "date": "2026-11-14T20:08:36.466Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Listening Loom",
+  "statement": "Once a mortal weaver who listened so well to travelers' tales that the gods set her loom among the stars. Still she threads lost stories and stray wishes together, so every wanderer can find a pattern — and a way home — in the dark.",
+  "usage": {
+    "in": 292,
+    "out": 1149
+  },
+  "cost": 0.023274,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Listening Loom\",\n  \"statement\": \"Once a mortal weaver who listened so well to travelers' tales that the gods set her loom among the stars. Still she threads lost stories and stray wishes together, so every wanderer can find a pattern — and a way home — in the dark.\"\n}\n```"
+}

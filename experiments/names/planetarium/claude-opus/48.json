@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 48,
+  "date": "2026-11-14T19:57:49.287Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Patient Lamplighter",
+  "statement": "Long ago a lamplighter climbed the dark with a ladder and a single wick, and lit a new star only when someone below asked her a question worth wondering about, never pretending to see farther than her flame reached. Look just above her raised hand: one star has not yet been lit, kept for a question no one has thought to ask.",
+  "usage": {
+    "in": 391,
+    "out": 514
+  },
+  "cost": 0.011844,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Patient Lamplighter\",\n  \"statement\": \"Long ago a lamplighter climbed the dark with a ladder and a single wick, and lit a new star only when someone below asked her a question worth wondering about, never pretending to see farther than her flame reached. Look just above her raised hand: one star has not yet been lit, kept for a question no one has thought to ask.\"\n}\n```"
+}

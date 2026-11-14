@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 36,
+  "date": "2026-11-14T20:03:47.027Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox who stole a spark from the first campfire and carried it up to the sky so no one would ever have to spend a night completely in the dark. Its lantern-star still flickers — a warm gold point that flares briefly brighter every few seconds, as if the fox is checking that you're finding your way home.",
+  "usage": {
+    "in": 302,
+    "out": 89
+  },
+  "cost": 0.00105536,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox who stole a spark from the first campfire and carried it up to the sky so no one would ever have to spend a night completely in the dark. Its lantern-star still flickers — a warm gold point that flares briefly brighter every few seconds, as if the fox is checking that you're finding your way home.\"\n}\n```"
+}

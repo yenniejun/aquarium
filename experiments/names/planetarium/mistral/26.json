@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 26,
+  "date": "2026-11-14T20:34:31.206Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Cat",
+  "statement": "A cat who walked the ridgelines of the world at night, batting at stray sparks until they fell into a line. Her constellation is the map she left behind for anyone who ever felt lost.",
+  "usage": {
+    "in": 310,
+    "out": 942
+  },
+  "cost": 0.00203392,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Cat\",\n  \"statement\": \"A cat who walked the ridgelines of the world at night, batting at stray sparks until they fell into a line. Her constellation is the map she left behind for anyone who ever felt lost.\"\n}\n```"
+}

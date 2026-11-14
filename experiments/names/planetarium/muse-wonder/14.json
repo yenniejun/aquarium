@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 14,
+  "date": "2026-11-14T19:56:42.859Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Starlight Stitcher",
+  "statement": "She mends the torn night with thread borrowed from comets, sewing lonely lights into shapes that can keep each other company. Every seam she finishes leaves one loose end, so the next dreamer has somewhere to begin.",
+  "usage": {
+    "in": 292,
+    "out": 1494
+  },
+  "cost": 0.031048,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Starlight Stitcher\",\n  \"statement\": \"She mends the torn night with thread borrowed from comets, sewing lonely lights into shapes that can keep each other company. Every seam she finishes leaves one loose end, so the next dreamer has somewhere to begin.\"\n}\n```"
+}

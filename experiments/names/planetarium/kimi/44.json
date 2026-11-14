@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 44,
+  "date": "2026-11-14T19:57:32.881Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Fox",
+  "statement": "Born in the hush between a question and its answer, the Listening Fox gathers lost voices in the silver sweep of its tail. Whenever two strangers speak with wonder rather than certainty, its stars kindle, stitching their words into a path across the dark.",
+  "usage": {
+    "in": 369,
+    "out": 313
+  },
+  "cost": 0.0034072,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Listening Fox\",\n  \"statement\": \"Born in the hush between a question and its answer, the Listening Fox gathers lost voices in the silver sweep of its tail. Whenever two strangers speak with wonder rather than certainty, its stars kindle, stitching their words into a path across the dark.\"\n}\n```"
+}

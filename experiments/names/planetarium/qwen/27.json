@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 27,
+  "date": "2026-11-14T20:05:53.245Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mending Needle",
+  "statement": "When the sky first frayed at its edges, a small figure took up a needle of light and began stitching the torn places shut, star to star. The work is never finished, and the figure is glad of this, for each new tear is only another reason to keep looking up.",
+  "usage": {
+    "in": 320,
+    "out": 1075
+  },
+  "cost": 0.01418,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Mending Needle\",\n  \"statement\": \"When the sky first frayed at its edges, a small figure took up a needle of light and began stitching the torn places shut, star to star. The work is never finished, and the figure is glad of this, for each new tear is only another reason to keep looking up.\"\n}\n```"
+}

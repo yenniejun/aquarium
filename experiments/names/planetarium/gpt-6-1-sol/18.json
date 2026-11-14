@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 18,
+  "date": "2026-11-14T19:57:07.880Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "Seven stars outline the lantern of a sky-mender who left one side open, so that anything lost in the dark could climb inside. On the clearest nights, a faint eighth light appears within it, rests a while, and leaves by a different path.",
+  "usage": {
+    "in": 292,
+    "out": 434
+  },
+  "cost": 0.004924,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"Seven stars outline the lantern of a sky-mender who left one side open, so that anything lost in the dark could climb inside. On the clearest nights, a faint eighth light appears within it, rests a while, and leaves by a different path.\"\n}\n```"
+}

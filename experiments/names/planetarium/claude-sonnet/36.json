@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 36,
+  "date": "2026-11-14T19:56:40.018Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth of Questions",
+  "statement": "A moth of nine pale stars, its wings drawn open around one amber star that never stops flickering. It was said to have mistaken the first unanswered question for a flame and followed it so far into the dark that it became a light itself. On clear nights it flutters once for every question a visitor leaves behind, and then settles, glowing, to wait.",
+  "usage": {
+    "in": 391,
+    "out": 141
+  },
+  "cost": 0.002192,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth of Questions\",\n  \"statement\": \"A moth of nine pale stars, its wings drawn open around one amber star that never stops flickering. It was said to have mistaken the first unanswered question for a flame and followed it so far into the dark that it became a light itself. On clear nights it flutters once for every question a visitor leaves behind, and then settles, glowing, to wait.\"\n}\n```"
+}

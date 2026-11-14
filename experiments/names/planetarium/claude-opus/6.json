@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 6,
+  "date": "2026-11-14T19:48:15.544Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox once walked beside lost travelers with a borrowed lantern. She never claimed to know the way, but asked such kind and curious questions that each wanderer found their own road home. The night was so charmed that it lifted her into the sky, where her lantern-star still sways a little whenever someone looks up wondering.",
+  "usage": {
+    "in": 391,
+    "out": 569
+  },
+  "cost": 0.012944,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox once walked beside lost travelers with a borrowed lantern. She never claimed to know the way, but asked such kind and curious questions that each wanderer found their own road home. The night was so charmed that it lifted her into the sky, where her lantern-star still sways a little whenever someone looks up wondering.\"\n}\n```"
+}

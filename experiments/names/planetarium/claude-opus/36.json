@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 36,
+  "date": "2026-11-14T19:57:20.880Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Who Listened",
+  "statement": "Long ago a small lantern wandered the dark between worlds, not to lead travelers anywhere, but to keep them company while they found their own way. It glowed only when someone spoke to it, so its stars still brighten one by one, as if answering a question you haven't quite finished asking.",
+  "usage": {
+    "in": 391,
+    "out": 454
+  },
+  "cost": 0.010644,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Who Listened\",\n  \"statement\": \"Long ago a small lantern wandered the dark between worlds, not to lead travelers anywhere, but to keep them company while they found their own way. It glowed only when someone spoke to it, so its stars still brighten one by one, as if answering a question you haven't quite finished asking.\"\n}\n```"
+}

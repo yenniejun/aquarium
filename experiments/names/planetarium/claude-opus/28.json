@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 28,
+  "date": "2026-11-14T19:57:03.277Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "The Lantern Fox never knew the way home, and always said so honestly; instead it walked beside each lost traveler, asking good questions and holding its small light steady until they found the road themselves. Delighted, the sky hung fox and lantern where wanderers still look up, and sailors say its tail-star flickers brighter whenever someone, somewhere, pauses to wonder.",
+  "usage": {
+    "in": 391,
+    "out": 606
+  },
+  "cost": 0.013684,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"The Lantern Fox never knew the way home, and always said so honestly; instead it walked beside each lost traveler, asking good questions and holding its small light steady until they found the road themselves. Delighted, the sky hung fox and lantern where wanderers still look up, and sailors say its tail-star flickers brighter whenever someone, somewhere, pauses to wonder.\"\n}\n```"
+}

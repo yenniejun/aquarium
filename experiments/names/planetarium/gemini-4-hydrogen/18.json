@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 18,
+  "date": "2026-11-14T19:56:46.552Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn to the faintest embers of forgotten suns, this celestial moth stitches scattered pinpricks of light into maps for wanderers lost in the dark. Whenever a quiet question is asked beneath a clear sky, its winged lines shimmer awake to reveal not a single destination, but a pattern worth following.",
+  "usage": {
+    "in": 330,
+    "out": 1167
+  },
+  "cost": 0.0092475,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn to the faintest embers of forgotten suns, this celestial moth stitches scattered pinpricks of light into maps for wanderers lost in the dark. Whenever a quiet question is asked beneath a clear sky, its winged lines shimmer awake to reveal not a single destination, but a pattern worth following.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 11,
+  "date": "2026-11-14T19:56:26.417Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Unheld Kite",
+  "statement": "A kite slipped free when the child flying it burst out laughing, and it has climbed ever since, tying each question someone whispers to the night into a bow on its glittering tail. Its string still trails down to earth, ready to be held by anyone who looks up wondering.",
+  "usage": {
+    "in": 391,
+    "out": 560
+  },
+  "cost": 0.012764,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Unheld Kite\",\n  \"statement\": \"A kite slipped free when the child flying it burst out laughing, and it has climbed ever since, tying each question someone whispers to the night into a bow on its glittering tail. Its string still trails down to earth, ready to be held by anyone who looks up wondering.\"\n}\n```"
+}

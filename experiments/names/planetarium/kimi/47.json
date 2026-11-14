@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 47,
+  "date": "2026-11-14T20:09:29.276Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "She was sent to light the whole sky, but stopped to hear one small voice in the dark; now her lantern gathers every unanswered question, and each becomes a star.",
+  "usage": {
+    "in": 369,
+    "out": 365
+  },
+  "cost": 0.0039272,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"She was sent to light the whole sky, but stopped to hear one small voice in the dark; now her lantern gathers every unanswered question, and each becomes a star.\"\n}\n```"
+}

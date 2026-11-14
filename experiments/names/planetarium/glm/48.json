@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 48,
+  "date": "2026-11-14T20:04:14.658Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "They say when the first winter grew too dark for travelers to find their way home, a small fox stole a single ember from the moon's own hearth and ran the night roads carrying it in her mouth. The gods, moved by her mischief and her kindness, set her mid-stride among the stars — tail high, ember blazing at her nose — so that anyone lost beneath a black sky can look up and find her light still running ahead of them.",
+  "usage": {
+    "in": 302,
+    "out": 115
+  },
+  "cost": 0.00128416,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"They say when the first winter grew too dark for travelers to find their way home, a small fox stole a single ember from the moon's own hearth and ran the night roads carrying it in her mouth. The gods, moved by her mischief and her kindness, set her mid-stride among the stars — tail high, ember blazing at her nose — so that anyone lost beneath a black sky can look up and find her light still running ahead of them.\"\n}\n```"
+}

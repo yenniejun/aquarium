@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 15,
+  "date": "2026-11-14T19:56:50.079Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Wren",
+  "statement": "When the sky tore, a small wren stitched it shut with a thread of stolen dawnlight. The stars still mark each careful stitch, and on clear nights the bird is said to pause among them, listening, in case someone below is lost.",
+  "usage": {
+    "in": 1528,
+    "out": 700
+  },
+  "cost": 0.007256,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Wren\",\n  \"statement\": \"When the sky tore, a small wren stitched it shut with a thread of stolen dawnlight. The stars still mark each careful stitch, and on clear nights the bird is said to pause among them, listening, in case someone below is lost.\"\n}\n```"
+}

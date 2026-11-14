@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 19,
+  "date": "2026-11-14T19:58:09.880Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Mapmaker's Kite",
+  "statement": "Sent aloft by a curious mortal to sound the currents of the upper dark, its tilted diamond of blue-white stars still tugs against a trailing tail of amber sparks. Star-lore holds that anyone who traces its slender tether across the night will suddenly see how their most distant roads and scattered thoughts connect.",
+  "usage": {
+    "in": 330,
+    "out": 2345
+  },
+  "cost": 0.02411,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 37,
+  "reply": "```json\n{\n  \"title\": \"The Mapmaker's Kite\",\n  \"statement\": \"Sent aloft by a curious mortal to sound the currents of the upper dark, its tilted diamond of blue-white stars still tugs against a trailing tail of amber sparks. Star-lore holds that anyone who traces its slender tether across the night will suddenly see how their most distant roads and scattered thoughts connect.\"\n}\n```"
+}

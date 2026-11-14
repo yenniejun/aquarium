@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 41,
+  "date": "2026-11-14T19:58:24.761Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Listening Loom",
+  "statement": "A weaver paused mid-pass to hear a sound no one else could hear, and in that held breath the threads rearranged themselves into the pattern that had been trying to emerge all along. The constellation marks the frame, the taut lines, and the one star set slightly apart—the shuttle, still in flight.",
+  "usage": {
+    "in": 320,
+    "out": 1178
+  },
+  "cost": 0.015416,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Listening Loom\",\n  \"statement\": \"A weaver paused mid-pass to hear a sound no one else could hear, and in that held breath the threads rearranged themselves into the pattern that had been trying to emerge all along. The constellation marks the frame, the taut lines, and the one star set slightly apart—the shuttle, still in flight.\"\n}\n```"
+}

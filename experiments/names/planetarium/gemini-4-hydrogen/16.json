@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 16,
+  "date": "2026-11-14T19:56:44.583Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Weaver",
+  "statement": "Said to gather stray glimmers from forgotten suns, the Weaver spins quiet threads of light to bridge the widest dark between stars. Mariners watch for its shifting lattice, believing it rearranges itself to illuminate whatever question a traveler carries into the night.",
+  "usage": {
+    "in": 330,
+    "out": 1549
+  },
+  "cost": 0.0121125,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Weaver\",\n  \"statement\": \"Said to gather stray glimmers from forgotten suns, the Weaver spins quiet threads of light to bridge the widest dark between stars. Mariners watch for its shifting lattice, believing it rearranges itself to illuminate whatever question a traveler carries into the night.\"\n}\n```"
+}

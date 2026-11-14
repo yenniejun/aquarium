@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 13,
+  "date": "2026-11-14T19:56:34.845Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Moth Cartographer",
+  "statement": "The first moth to fly between stars, trailing phosphor-dust to mark its route through the dark; when it finally rested, the gods kept its winding flight-path burning so that no small, earnest traveler would lose its way again.",
+  "usage": {
+    "in": 320,
+    "out": 1125
+  },
+  "cost": 0.01478,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Moth Cartographer\",\n  \"statement\": \"The first moth to fly between stars, trailing phosphor-dust to mark its route through the dark; when it finally rested, the gods kept its winding flight-path burning so that no small, earnest traveler would lose its way again.\"\n}\n```"
+}

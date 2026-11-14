@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 4,
+  "date": "2026-11-14T19:48:03.281Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Fox of Questions",
+  "statement": "A small fox once carried a lantern into the dark to ask the night every question nobody else had thought to ask, and the night, delighted, answered each one with a star. Her nine stars wake slowly, tracing her curious tilted ear, her lifted paw, and the swinging lantern, which flickers brightest whenever a stargazer below wonders something aloud.",
+  "usage": {
+    "in": 391,
+    "out": 149
+  },
+  "cost": 0.002272,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox of Questions\",\n  \"statement\": \"A small fox once carried a lantern into the dark to ask the night every question nobody else had thought to ask, and the night, delighted, answered each one with a star. Her nine stars wake slowly, tracing her curious tilted ear, her lifted paw, and the swinging lantern, which flickers brightest whenever a stargazer below wonders something aloud.\"\n}\n```"
+}

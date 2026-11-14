@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 7,
+  "date": "2026-11-14T19:48:40.294Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Lantern",
+  "statement": "Seven stars trace a crooked lantern, its door left open for a small, wandering comet. The skykeepers say it belonged to a mapmaker who could never bear to call anything lost, and so left a light burning at the edge of every chart.",
+  "usage": {
+    "in": 292,
+    "out": 379
+  },
+  "cost": 0.004374,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Lantern\",\n  \"statement\": \"Seven stars trace a crooked lantern, its door left open for a small, wandering comet. The skykeepers say it belonged to a mapmaker who could never bear to call anything lost, and so left a light burning at the edge of every chart.\"\n}\n```"
+}

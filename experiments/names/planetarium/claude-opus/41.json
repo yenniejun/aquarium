@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 41,
+  "date": "2026-11-14T19:57:33.586Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Curious Lamplighter",
+  "statement": "A wanderer who walked the dark roads lighting lamps for lost travelers, asking each one a question in return and treasuring every answer, was lifted into the sky with her lantern still raised. Sailors say the small star at its tip flickers brighter whenever someone below wonders something aloud.",
+  "usage": {
+    "in": 391,
+    "out": 478
+  },
+  "cost": 0.011124,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Curious Lamplighter\",\n  \"statement\": \"A wanderer who walked the dark roads lighting lamps for lost travelers, asking each one a question in return and treasuring every answer, was lifted into the sky with her lantern still raised. Sailors say the small star at its tip flickers brighter whenever someone below wonders something aloud.\"\n}\n```"
+}

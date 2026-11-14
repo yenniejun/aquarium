@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 38,
+  "date": "2026-11-14T20:04:48.573Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Threadweaver",
+  "statement": "A slender figure kneels in the dark, stitching stray stars into a path with a needle of borrowed light. The old charts say it appears only for those who have paused long enough to notice what was already almost connected.",
+  "usage": {
+    "in": 1528,
+    "out": 907
+  },
+  "cost": 0.006386,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Threadweaver\",\n  \"statement\": \"A slender figure kneels in the dark, stitching stray stars into a path with a needle of borrowed light. The old charts say it appears only for those who have paused long enough to notice what was already almost connected.\"\n}\n```"
+}

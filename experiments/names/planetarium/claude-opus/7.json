@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 7,
+  "date": "2026-11-14T19:48:16.252Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Kite of Questions",
+  "statement": "Stitched from the margins of old letters, this kite rises only when someone below wonders aloud, and its string is held by whoever is most curious that night. Each faint star knotted along its tail is a question it couldn't yet answer, carried gladly rather than let go.",
+  "usage": {
+    "in": 391,
+    "out": 395
+  },
+  "cost": 0.009464,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Kite of Questions\",\n  \"statement\": \"Stitched from the margins of old letters, this kite rises only when someone below wonders aloud, and its string is held by whoever is most curious that night. Each faint star knotted along its tail is a question it couldn't yet answer, carried gladly rather than let go.\"\n}\n```"
+}

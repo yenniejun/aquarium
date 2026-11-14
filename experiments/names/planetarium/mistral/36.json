@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 36,
+  "date": "2026-11-14T20:46:42.402Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Star-Stitcher",
+  "statement": "It rises low and late, only when the dome falls quiet: first a thread of light draws itself from star to star, then each knot warms in turn, as if something far away had just been recognized. The old legend says a patient hand ties the gaps between far-apart stars with light, so that they remember they belong to the same sky.",
+  "usage": {
+    "in": 310,
+    "out": 4453
+  },
+  "cost": 0.00940702,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 74,
+  "reply": "```json\n{\n  \"title\": \"The Star-Stitcher\",\n  \"statement\": \"It rises low and late, only when the dome falls quiet: first a thread of light draws itself from star to star, then each knot warms in turn, as if something far away had just been recognized. The old legend says a patient hand ties the gaps between far-apart stars with light, so that they remember they belong to the same sky.\"\n}\n```"
+}

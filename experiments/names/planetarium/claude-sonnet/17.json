@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 17,
+  "date": "2026-11-14T19:56:26.053Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, when the sky was only dark and nobody had yet thought to look up, a small moth mistook the first star for a lamp left on for her and flew toward it for a thousand years. She never arrived, but the dust from her wings settled into six more lights behind her, so that every wanderer who followed would have a path to follow and a reason to be curious. On clear nights she still trembles, wings opening and closing, and a visitor who watches long enough may see her turn toward them.",
+  "usage": {
+    "in": 391,
+    "out": 180
+  },
+  "cost": 0.002582,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, when the sky was only dark and nobody had yet thought to look up, a small moth mistook the first star for a lamp left on for her and flew toward it for a thousand years. She never arrived, but the dust from her wings settled into six more lights behind her, so that every wanderer who followed would have a path to follow and a reason to be curious. On clear nights she still trembles, wings opening and closing, and a visitor who watches long enough may see her turn toward them.\"\n}\n```"
+}

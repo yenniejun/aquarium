@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 15,
+  "date": "2026-11-14T19:56:45.337Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Question Lantern",
+  "statement": "When the first question was asked, the sky had no answer, so it lit a lantern and sent a little fox to carry it among the stars. Its flame brightens whenever someone below wonders not to win, but to understand.",
+  "usage": {
+    "in": 369,
+    "out": 348
+  },
+  "cost": 0.0037572,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Question Lantern\",\n  \"statement\": \"When the first question was asked, the sky had no answer, so it lit a lantern and sent a little fox to carry it among the stars. Its flame brightens whenever someone below wonders not to win, but to understand.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 41,
+  "date": "2026-11-14T19:56:44.748Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Fox of Questions",
+  "statement": "Nine stars trace a fox mid-leap, its tail a drifting arc of faint, curious stars and one bright lantern, Ask, swinging from its jaws. The fox once stole the first unanswered question from the night, and wherever it lands, the dark gets a little more interesting. Look closely and the lantern flickers, as if still deciding which way to run next.",
+  "usage": {
+    "in": 391,
+    "out": 152
+  },
+  "cost": 0.002302,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox of Questions\",\n  \"statement\": \"Nine stars trace a fox mid-leap, its tail a drifting arc of faint, curious stars and one bright lantern, Ask, swinging from its jaws. The fox once stole the first unanswered question from the night, and wherever it lands, the dark gets a little more interesting. Look closely and the lantern flickers, as if still deciding which way to run next.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 3,
+  "date": "2026-11-14T19:48:07.673Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Kite of Questions",
+  "statement": "A child once wrote every question no one could answer on a paper kite and let the wind take it, until it snagged among the stars, its tail knotted with bright bows, one for each wondering. Its string still trails down to earth, so whoever looks up and asks something new is holding the other end, and the kite climbs a little higher.",
+  "usage": {
+    "in": 391,
+    "out": 645
+  },
+  "cost": 0.014464,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Kite of Questions\",\n  \"statement\": \"A child once wrote every question no one could answer on a paper kite and let the wind take it, until it snagged among the stars, its tail knotted with bright bows, one for each wondering. Its string still trails down to earth, so whoever looks up and asks something new is holding the other end, and the kite climbs a little higher.\"\n}\n```"
+}

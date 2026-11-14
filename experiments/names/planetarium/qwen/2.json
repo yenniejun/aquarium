@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 2,
+  "date": "2026-11-14T19:48:16.050Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Seamwright",
+  "statement": "When the sky-cloth tore in the first silence, a small patient figure took up a needle of light and began to stitch it closed. What you see is the Seamwright still at work, needle raised between two stars, drawing the bright thread that holds the dark together one more night.",
+  "usage": {
+    "in": 320,
+    "out": 1284
+  },
+  "cost": 0.016688,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Seamwright\",\n  \"statement\": \"When the sky-cloth tore in the first silence, a small patient figure took up a needle of light and began to stitch it closed. What you see is the Seamwright still at work, needle raised between two stars, drawing the bright thread that holds the dark together one more night.\"\n}\n```"
+}

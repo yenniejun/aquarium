@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 48,
+  "date": "2026-11-14T20:09:54.630Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Midnight Beekeeper",
+  "statement": "He tends the wild stars as bees, gathering their light into honey to sweeten the dreams of those below. On the darkest nights, he opens a hive and lets a golden swarm spill out to guide the lost home.",
+  "usage": {
+    "in": 292,
+    "out": 1189
+  },
+  "cost": 0.024074,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Midnight Beekeeper\",\n  \"statement\": \"He tends the wild stars as bees, gathering their light into honey to sweeten the dreams of those below. On the darkest nights, he opens a hive and lets a golden swarm spill out to guide the lost home.\"\n}\n```"
+}

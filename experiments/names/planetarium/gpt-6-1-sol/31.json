@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 31,
+  "date": "2026-11-14T19:58:06.549Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Moth Cartographer",
+  "statement": "With wings of blue-white stars and a wandering amber heart, the Moth Cartographer maps the night by visiting every light it does not understand. The old charts leave a gap in its left wing: a place it keeps for a stranger who might know another way.",
+  "usage": {
+    "in": 292,
+    "out": 380
+  },
+  "cost": 0.004384,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Moth Cartographer\",\n  \"statement\": \"With wings of blue-white stars and a wandering amber heart, the Moth Cartographer maps the night by visiting every light it does not understand. The old charts leave a gap in its left wing: a place it keeps for a stranger who might know another way.\"\n}\n```"
+}

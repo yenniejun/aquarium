@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 40,
+  "date": "2026-11-14T20:07:58.583Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Kite That Stayed",
+  "statement": "A runaway kite chased the wind so high that the night, charmed, fastened her diamond tail with stars to keep her. On the clearest evenings she still tugs at her invisible string, hoping the child who lost her is looking up.",
+  "usage": {
+    "in": 292,
+    "out": 1134
+  },
+  "cost": 0.022974,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Kite That Stayed\",\n  \"statement\": \"A runaway kite chased the wind so high that the night, charmed, fastened her diamond tail with stars to keep her. On the clearest evenings she still tugs at her invisible string, hoping the child who lost her is looking up.\"\n}\n```"
+}

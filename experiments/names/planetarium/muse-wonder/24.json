@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 24,
+  "date": "2026-11-14T20:04:02.173Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Counting Hedgehog",
+  "statement": "He climbed the same hill every night to count the stars aloud, lest any feel forgotten, until the sky — touched — fixed them gently upon his spines. Now he wanders forever mid-count, and to wish on him is to be counted, too.",
+  "usage": {
+    "in": 292,
+    "out": 1171
+  },
+  "cost": 0.024588,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Counting Hedgehog\",\n  \"statement\": \"He climbed the same hill every night to count the stars aloud, lest any feel forgotten, until the sky — touched — fixed them gently upon his spines. Now he wanders forever mid-count, and to wish on him is to be counted, too.\"\n}\n```"
+}

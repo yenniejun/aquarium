@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 12,
+  "date": "2026-11-14T19:56:22.304Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer Moth",
+  "statement": "Seven stars shape a moth whose wings are stitched with tiny, wandering paths; it follows unanswered questions rather than lamps. Travelers who glimpse it find scattered stars briefly joining into a way forward, then shining on in their own pattern.",
+  "usage": {
+    "in": 292,
+    "out": 246
+  },
+  "cost": 0.00015219999999999999,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer Moth\",\n  \"statement\": \"Seven stars shape a moth whose wings are stitched with tiny, wandering paths; it follows unanswered questions rather than lamps. Travelers who glimpse it find scattered stars briefly joining into a way forward, then shining on in their own pattern.\"\n}\n```"
+}

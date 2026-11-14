@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 21,
+  "date": "2026-11-14T19:56:35.880Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Hushwing Key",
+  "statement": "Seven stars shape a moth with a key for a tail, said to wake whenever someone asks a question in the dark. It stitches a silver path between far-apart lights, and for one breath the sky remembers it can be a door.",
+  "usage": {
+    "in": 292,
+    "out": 386
+  },
+  "cost": 0.00022219999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"The Hushwing Key\",\n  \"statement\": \"Seven stars shape a moth with a key for a tail, said to wake whenever someone asks a question in the dark. It stitches a silver path between far-apart lights, and for one breath the sky remembers it can be a door.\"\n}\n```"
+}

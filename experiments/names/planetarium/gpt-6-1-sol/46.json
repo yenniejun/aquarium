@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 46,
+  "date": "2026-11-14T19:59:32.432Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Mender",
+  "statement": "Eleven silver stars trace a small, bent figure sewing a lantern, with one amber star caught on the tip of its needle. They say the Mender gathers lights that have lost their way and stitches them a home, but always leaves one seam open for something no one has imagined yet.",
+  "usage": {
+    "in": 292,
+    "out": 405
+  },
+  "cost": 0.004634,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Mender\",\n  \"statement\": \"Eleven silver stars trace a small, bent figure sewing a lantern, with one amber star caught on the tip of its needle. They say the Mender gathers lights that have lost their way and stitches them a home, but always leaves one seam open for something no one has imagined yet.\"\n}\n```"
+}

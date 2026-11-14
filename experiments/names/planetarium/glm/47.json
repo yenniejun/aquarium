@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 47,
+  "date": "2026-11-14T20:04:12.295Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Keeper's Fox",
+  "statement": "They say a fox stole a lantern from the first astronomer and fled into the dark, spilling starlight from its jaws with every step; the constellation traces her mid-leap, lantern still aglow at her chest, so that those lost at night might follow the only light in the sky that moves.",
+  "usage": {
+    "in": 302,
+    "out": 93
+  },
+  "cost": 0.00109056,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Keeper's Fox\",\n  \"statement\": \"They say a fox stole a lantern from the first astronomer and fled into the dark, spilling starlight from its jaws with every step; the constellation traces her mid-leap, lantern still aglow at her chest, so that those lost at night might follow the only light in the sky that moves.\"\n}\n```"
+}

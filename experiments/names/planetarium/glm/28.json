@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 28,
+  "date": "2026-11-14T19:56:33.279Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cartographer's Restless Compass",
+  "statement": "It is said that a mapmaker who longed to chart the unchartable sky became lost in her own legend; the Compass hangs eternally north of nowhere, its needle — the brightest star — still twitching toward a destination no one has ever found. Sailors swear that if you watch long enough, the needle points at you.",
+  "usage": {
+    "in": 302,
+    "out": 94
+  },
+  "cost": 0.00109936,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Restless Compass\",\n  \"statement\": \"It is said that a mapmaker who longed to chart the unchartable sky became lost in her own legend; the Compass hangs eternally north of nowhere, its needle — the brightest star — still twitching toward a destination no one has ever found. Sailors swear that if you watch long enough, the needle points at you.\"\n}\n```"
+}

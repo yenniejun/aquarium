@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 20,
+  "date": "2026-11-14T19:56:27.569Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cartographer's Rest",
+  "statement": "A wanderer who mapped every star but her own heart, finally lying down among the charts she loved; each year the sky redraws itself around her, so that even now, no two maps of her constellation ever quite agree.",
+  "usage": {
+    "in": 302,
+    "out": 69
+  },
+  "cost": 0.00087936,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Rest\",\n  \"statement\": \"A wanderer who mapped every star but her own heart, finally lying down among the charts she loved; each year the sky redraws itself around her, so that even now, no two maps of her constellation ever quite agree.\"\n}\n```"
+}

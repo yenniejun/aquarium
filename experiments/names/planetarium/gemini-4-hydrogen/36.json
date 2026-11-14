@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 36,
+  "date": "2026-11-14T19:57:40.366Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Born from the silver dust of an ancient star-map, this quiet moth drifts between the dimmest suns, knitting lonely points of light into secret bridges across the dark. Travelers say that whenever two distant minds arrive at the same sudden wonder, its wings have just traced a line between them.",
+  "usage": {
+    "in": 330,
+    "out": 926
+  },
+  "cost": 0.00744,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Born from the silver dust of an ancient star-map, this quiet moth drifts between the dimmest suns, knitting lonely points of light into secret bridges across the dark. Travelers say that whenever two distant minds arrive at the same sudden wonder, its wings have just traced a line between them.\"\n}\n```"
+}

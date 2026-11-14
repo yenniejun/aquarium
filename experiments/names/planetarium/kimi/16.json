@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 16,
+  "date": "2026-11-14T19:56:45.357Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "When the sky grew too vast to cross, a small fox gathered fallen questions into a lantern and hung it among the stars. Travelers who follow its light never find the shortest way home, but always find the way that was waiting for them.",
+  "usage": {
+    "in": 369,
+    "out": 297
+  },
+  "cost": 0.0032472,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"When the sky grew too vast to cross, a small fox gathered fallen questions into a lantern and hung it among the stars. Travelers who follow its light never find the shortest way home, but always find the way that was waiting for them.\"\n}\n```"
+}

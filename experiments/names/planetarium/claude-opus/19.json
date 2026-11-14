@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 19,
+  "date": "2026-11-14T19:56:41.139Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Wondering Heron",
+  "statement": "Once a heron waded the river of night, asking every passing star where it was bound, and it listened so gladly to each answer that the stars began to steer by it. Now it stands one-legged in the dark, head tilted like a question, its long beak pointing lost travelers toward home.",
+  "usage": {
+    "in": 391,
+    "out": 476
+  },
+  "cost": 0.011084,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Wondering Heron\",\n  \"statement\": \"Once a heron waded the river of night, asking every passing star where it was bound, and it listened so gladly to each answer that the stars began to steer by it. Now it stands one-legged in the dark, head tilted like a question, its long beak pointing lost travelers toward home.\"\n}\n```"
+}

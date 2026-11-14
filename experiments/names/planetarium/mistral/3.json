@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 3,
+  "date": "2026-11-14T20:07:13.632Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Mender's Seam",
+  "statement": "When the night first tore, a small patient figure climbed the dark with a needle of moonlight and sewed the rip closed, stitch by stitch, with thread of starlight. On clear nights the seam still glows — a fine wandering line of a hundred tiny stitches, no two alike — revealing itself slowly, as though the mending is still happening; and those who find it say it feels a little like being listened to.",
+  "usage": {
+    "in": 310,
+    "out": 2884
+  },
+  "cost": 0.00611212,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 48,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Seam\",\n  \"statement\": \"When the night first tore, a small patient figure climbed the dark with a needle of moonlight and sewed the rip closed, stitch by stitch, with thread of starlight. On clear nights the seam still glows — a fine wandering line of a hundred tiny stitches, no two alike — revealing itself slowly, as though the mending is still happening; and those who find it say it feels a little like being listened to.\"\n}\n```"
+}

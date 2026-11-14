@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 25,
+  "date": "2026-11-14T20:04:22.014Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Starlight Librarian",
+  "statement": "Entrusted with every story ever told beneath the stars, she still leaves one shelf empty and one lamp lit for the tale no one has thought to tell yet.",
+  "usage": {
+    "in": 292,
+    "out": 1334
+  },
+  "cost": 0.026974,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Starlight Librarian\",\n  \"statement\": \"Entrusted with every story ever told beneath the stars, she still leaves one shelf empty and one lamp lit for the tale no one has thought to tell yet.\"\n}\n```"
+}

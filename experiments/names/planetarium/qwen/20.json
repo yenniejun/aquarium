@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 20,
+  "date": "2026-11-14T20:04:12.279Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Unfinished Letter",
+  "statement": "They say it is a letter begun in starlight to a reader not yet arrived: a few bright lines of script near the top of the page, then a long silence of empty sky, and at the bottom a single small star—the pen, still lifted, still thinking. The myth keeps that the final word cannot be written until someone looks up and finishes the sentence with their looking.",
+  "usage": {
+    "in": 320,
+    "out": 1640
+  },
+  "cost": 0.02096,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Letter\",\n  \"statement\": \"They say it is a letter begun in starlight to a reader not yet arrived: a few bright lines of script near the top of the page, then a long silence of empty sky, and at the bottom a single small star—the pen, still lifted, still thinking. The myth keeps that the final word cannot be written until someone looks up and finishes the sentence with their looking.\"\n}\n```"
+}

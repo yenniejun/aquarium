@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 37,
+  "date": "2026-11-14T20:07:05.809Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Curious Lantern-Bearer",
+  "statement": "A gentle keeper who could make no light of her own, she walks the dark borrowing a spark from every star and leaving a story in its place. Follow her wandering trail when you are lost — she never leads home, but always somewhere more wonderful.",
+  "usage": {
+    "in": 292,
+    "out": 1341
+  },
+  "cost": 0.027114,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Curious Lantern-Bearer\",\n  \"statement\": \"A gentle keeper who could make no light of her own, she walks the dark borrowing a spark from every star and leaving a story in its place. Follow her wandering trail when you are lost — she never leads home, but always somewhere more wonderful.\"\n}\n```"
+}

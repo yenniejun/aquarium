@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 21,
+  "date": "2026-11-14T19:56:28.534Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the old sky-keeper lit the last star and fell asleep, one small moth mistook a dying ember for a lantern and followed it so faithfully that it stitched a trail of light across the dark. Now, on the quietest nights, its seven stars trace their wings open one line at a time, a reminder that being curious about a small bright thing can end up mapping the heavens.",
+  "usage": {
+    "in": 391,
+    "out": 148
+  },
+  "cost": 0.002262,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the old sky-keeper lit the last star and fell asleep, one small moth mistook a dying ember for a lantern and followed it so faithfully that it stitched a trail of light across the dark. Now, on the quietest nights, its seven stars trace their wings open one line at a time, a reminder that being curious about a small bright thing can end up mapping the heavens.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 47,
+  "date": "2026-11-14T20:07:56.459Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Listening Well",
+  "statement": "At the sky's quietest edge, a ring of faint stars marks the mouth of a well with no bottom. Lean close and whisper what you cannot yet say, and the single bright star far below will not answer — but for one breath it glows in the exact shape of your meaning.",
+  "usage": {
+    "in": 320,
+    "out": 1285
+  },
+  "cost": 0.0167,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Listening Well\",\n  \"statement\": \"At the sky's quietest edge, a ring of faint stars marks the mouth of a well with no bottom. Lean close and whisper what you cannot yet say, and the single bright star far below will not answer — but for one breath it glows in the exact shape of your meaning.\"\n}\n```"
+}

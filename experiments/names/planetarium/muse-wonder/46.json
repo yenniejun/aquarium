@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 46,
+  "date": "2026-11-14T20:09:27.538Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Wonder Keeper",
+  "statement": "Each night she crosses the dark with an empty basket, gathering the day's overlooked wonders—a stranger's kindness, a brave question, a tune hummed to no one—and hangs them linked overhead, so no small bright thing is ever lost, or alone.",
+  "usage": {
+    "in": 292,
+    "out": 1455
+  },
+  "cost": 0.030268,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Wonder Keeper\",\n  \"statement\": \"Each night she crosses the dark with an empty basket, gathering the day's overlooked wonders—a stranger's kindness, a brave question, a tune hummed to no one—and hangs them linked overhead, so no small bright thing is ever lost, or alone.\"\n}\n```"
+}

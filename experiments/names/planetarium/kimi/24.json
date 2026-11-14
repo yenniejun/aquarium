@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 24,
+  "date": "2026-11-14T19:57:14.187Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Loom",
+  "statement": "When the first silence fell between the stars, a patient weaver gathered it on a silver loom and threaded it with light. Travelers who follow her unfinished pattern find not their way home, but the question they were meant to ask.",
+  "usage": {
+    "in": 369,
+    "out": 272
+  },
+  "cost": 0.0029972,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Listening Loom\",\n  \"statement\": \"When the first silence fell between the stars, a patient weaver gathered it on a silver loom and threaded it with light. Travelers who follow her unfinished pattern find not their way home, but the question they were meant to ask.\"\n}\n```"
+}

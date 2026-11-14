@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 12,
+  "date": "2026-11-14T19:56:35.332Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mender's Stitch",
+  "statement": "When the sky-cloth tore, a small patient figure was set to mend it with a needle of first-spoken word; the constellations are where the stitches hold, and the Mender works still, drawing silver thread from star to star, closing the dark gaps one careful pull at a time.",
+  "usage": {
+    "in": 320,
+    "out": 1113
+  },
+  "cost": 0.014636,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Stitch\",\n  \"statement\": \"When the sky-cloth tore, a small patient figure was set to mend it with a needle of first-spoken word; the constellations are where the stitches hold, and the Mender works still, drawing silver thread from star to star, closing the dark gaps one careful pull at a time.\"\n}\n```"
+}

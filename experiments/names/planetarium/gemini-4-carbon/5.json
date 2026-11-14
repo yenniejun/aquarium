@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 5,
+  "date": "2026-11-14T19:49:06.708Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Kite",
+  "statement": "Loosed into the firmament by a sleepless mapmaker who ran out of earthly seas, its diamond of seven stars catches the solar wind to trace hidden bridges across the dark. Legend holds that its trailing tail flickers brightest whenever someone looking up asks a question that has not yet been answered.",
+  "usage": {
+    "in": 330,
+    "out": 2039
+  },
+  "cost": 0.02105,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 32,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Kite\",\n  \"statement\": \"Loosed into the firmament by a sleepless mapmaker who ran out of earthly seas, its diamond of seven stars catches the solar wind to trace hidden bridges across the dark. Legend holds that its trailing tail flickers brightest whenever someone looking up asks a question that has not yet been answered.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 17,
+  "date": "2026-11-14T19:58:41.178Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Glass Diving Bell",
+  "statement": "Lowered into the deepest ocean trench by curious mariners who suspected the abyss opened out into the heavens, this fragile vessel emerged upside down in the night sky. Suspended from a faint chain of double stars, its quiet dome still holds a luminous bubble of earthly air for travelers sounding the dark.",
+  "usage": {
+    "in": 330,
+    "out": 6263
+  },
+  "cost": 0.06329,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 84,
+  "reply": "```json\n{\n  \"title\": \"The Glass Diving Bell\",\n  \"statement\": \"Lowered into the deepest ocean trench by curious mariners who suspected the abyss opened out into the heavens, this fragile vessel emerged upside down in the night sky. Suspended from a faint chain of double stars, its quiet dome still holds a luminous bubble of earthly air for travelers sounding the dark.\"\n}\n```"
+}

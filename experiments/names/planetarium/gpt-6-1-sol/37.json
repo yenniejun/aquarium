@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 37,
+  "date": "2026-11-14T19:58:42.125Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Seven silver stars trace the wings of the moth who borrowed an ember from the first sunrise and promised to return it when it had seen everything. It still carries that amber light into the darkest folds of heaven, convinced that darkness is not emptiness, but something it has not met yet.",
+  "usage": {
+    "in": 292,
+    "out": 545
+  },
+  "cost": 0.006034,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Seven silver stars trace the wings of the moth who borrowed an ember from the first sunrise and promised to return it when it had seen everything. It still carries that amber light into the darkest folds of heaven, convinced that darkness is not emptiness, but something it has not met yet.\"\n}\n```"
+}

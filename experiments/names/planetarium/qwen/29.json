@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 29,
+  "date": "2026-11-14T20:06:24.016Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Moth Cartographer",
+  "statement": "Before any name was given to the stars, a small moth flew the whole night touching each one in turn to memorize its warmth. When at last it folded its wings to rest, the pattern of its journey remained—not a map of where the lights are, but of where one small creature went, alone and delighted, to meet them.",
+  "usage": {
+    "in": 320,
+    "out": 1214
+  },
+  "cost": 0.015848,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Moth Cartographer\",\n  \"statement\": \"Before any name was given to the stars, a small moth flew the whole night touching each one in turn to memorize its warmth. When at last it folded its wings to rest, the pattern of its journey remained—not a map of where the lights are, but of where one small creature went, alone and delighted, to meet them.\"\n}\n```"
+}

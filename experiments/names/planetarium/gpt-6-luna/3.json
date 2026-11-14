@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 3,
+  "date": "2026-11-14T19:48:03.091Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Star-Mending Moth",
+  "statement": "Seven small stars sketch a moth with a bright thread trailing from its wings. The old chart says it gathers stray questions from the dark and stitches them into tiny paths home.",
+  "usage": {
+    "in": 292,
+    "out": 259
+  },
+  "cost": 0.00015869999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mending Moth\",\n  \"statement\": \"Seven small stars sketch a moth with a bright thread trailing from its wings. The old chart says it gathers stray questions from the dark and stitches them into tiny paths home.\"\n}\n```"
+}

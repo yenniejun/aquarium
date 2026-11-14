@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 45,
+  "date": "2026-11-14T20:09:09.080Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Lantern Librarian",
+  "statement": "She walks the aisles of night shelving every lost story as a star, keeping them lit until their readers find them. Whisper the tale you have forgotten, and she will leave that shelf glowing brighter until morning.",
+  "usage": {
+    "in": 292,
+    "out": 1262
+  },
+  "cost": 0.025534,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Librarian\",\n  \"statement\": \"She walks the aisles of night shelving every lost story as a star, keeping them lit until their readers find them. Whisper the tale you have forgotten, and she will leave that shelf glowing brighter until morning.\"\n}\n```"
+}

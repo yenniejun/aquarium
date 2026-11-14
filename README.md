@@ -64,6 +64,10 @@ npm run generate -- --exhibit nightmare --reasoning medium --max-tokens 64000 --
 - The script saves the full reply to `raw.md`, the HTML to `piece.html`, and the title, statement and a generation record (date, API and host, prompt version, settings, attempts) to `meta.json`. A reply without a page goes to `raw.failed.md` (ignored) and leaves the entry as it was.
 - An entry only shows on the page once it's in the gallery's `lineup`. Run `npm run check:blind` afterwards.
 
+## The names experiment
+
+How much do models repeat themselves? `npm run names -- --exhibit planetarium --runs 50` sends each model a gallery's brief with the building part taken out, so it only imagines its piece and sends back a name and description, many times over, at its default temperature and with the same settings as its gallery piece. Answers land in `experiments/names/<exhibit>/`, and `experiments/names/analysis.ipynb` (pandas only) loads, cleans and summarizes them: repeats within and across models, the words everyone reaches for, and whether more answers keep turning up new names.
+
 ## Deploying and counting
 
 - Cloudflare Pages builds `main` to https://galleries.artfish.ai on every push (DNS: CNAMEs at GoDaddy). Every gallery lives at `/<folder>/`; `/` forwards to the aquarium, and any other address gets the 404 page.

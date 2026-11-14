@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 8,
+  "date": "2026-11-14T19:48:24.841Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Star-Mender's Needle",
+  "statement": "Legend tells of a quiet tailor who stitched wandering sparks together with silver thread so lost travelers might read the dark as a map. Whenever two distant stars seem suddenly to answer one another, it is said the needle has just passed between them.",
+  "usage": {
+    "in": 330,
+    "out": 1258
+  },
+  "cost": 0.00993,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mender's Needle\",\n  \"statement\": \"Legend tells of a quiet tailor who stitched wandering sparks together with silver thread so lost travelers might read the dark as a map. Whenever two distant stars seem suddenly to answer one another, it is said the needle has just passed between them.\"\n}\n```"
+}

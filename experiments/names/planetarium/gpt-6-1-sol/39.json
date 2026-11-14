@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 39,
+  "date": "2026-11-14T19:58:48.167Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Thimble Fox",
+  "statement": "Nine silver stars mark the fox who stole a needle from the dawn and stitched paths between stars that thought themselves alone. At the tip of his tail, one golden stitch is always coming loose: he leaves it so the next lost traveler can pull a little light down into their hands.",
+  "usage": {
+    "in": 292,
+    "out": 428
+  },
+  "cost": 0.004864,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Thimble Fox\",\n  \"statement\": \"Nine silver stars mark the fox who stole a needle from the dawn and stitched paths between stars that thought themselves alone. At the tip of his tail, one golden stitch is always coming loose: he leaves it so the next lost traveler can pull a little light down into their hands.\"\n}\n```"
+}

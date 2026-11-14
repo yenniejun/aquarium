@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 12,
+  "date": "2026-11-14T19:56:35.962Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the old charts went dark, a small moth turned from the single flame and carried stray sparks of almost-remembered questions across the sky, stitching a soft path for anyone still looking.",
+  "usage": {
+    "in": 1528,
+    "out": 833
+  },
+  "cost": 0.005942,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the old charts went dark, a small moth turned from the single flame and carried stray sparks of almost-remembered questions across the sky, stitching a soft path for anyone still looking.\"\n}\n```"
+}

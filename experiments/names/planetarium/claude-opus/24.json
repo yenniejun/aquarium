@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 24,
+  "date": "2026-11-14T19:56:52.704Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Moth Who Asked",
+  "statement": "When the first fire was lit, one moth flew to it not to burn but to ask why it glowed, and the flame, delighted to be wondered at rather than worshipped, gave her a spark for every question. She carries them across the sky still, and the brightest star in her wing is saved for the question she hasn't thought of yet.",
+  "usage": {
+    "in": 391,
+    "out": 489
+  },
+  "cost": 0.011344,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Moth Who Asked\",\n  \"statement\": \"When the first fire was lit, one moth flew to it not to burn but to ask why it glowed, and the flame, delighted to be wondered at rather than worshipped, gave her a spark for every question. She carries them across the sky still, and the brightest star in her wing is saved for the question she hasn't thought of yet.\"\n}\n```"
+}

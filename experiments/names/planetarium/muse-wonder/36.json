@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 36,
+  "date": "2026-11-14T20:06:54.154Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Moon's Apprentice",
+  "statement": "Night after night he follows the Moon with an unlit lantern, learning not how to shine, but how to make darkness feel less lonely for those looking up.",
+  "usage": {
+    "in": 292,
+    "out": 1188
+  },
+  "cost": 0.024054,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Moon's Apprentice\",\n  \"statement\": \"Night after night he follows the Moon with an unlit lantern, learning not how to shine, but how to make darkness feel less lonely for those looking up.\"\n}\n```"
+}

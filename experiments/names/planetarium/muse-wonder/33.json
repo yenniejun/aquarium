@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 33,
+  "date": "2026-11-14T20:05:59.985Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Question Keeper",
+  "statement": "She was set among the stars for refusing to give the gods a final answer, instead hanging every unasked question in the dark to light the way. Travelers steer by her not to find where they are, but to remember what they still might wonder.",
+  "usage": {
+    "in": 292,
+    "out": 1230
+  },
+  "cost": 0.024894,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Question Keeper\",\n  \"statement\": \"She was set among the stars for refusing to give the gods a final answer, instead hanging every unasked question in the dark to light the way. Travelers steer by her not to find where they are, but to remember what they still might wonder.\"\n}\n```"
+}

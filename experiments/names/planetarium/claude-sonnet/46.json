@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 46,
+  "date": "2026-11-14T19:56:47.579Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Fox of Questions",
+  "statement": "A small fox of eleven stars carries a lantern at the tip of her tail, and she was set in the sky for answering every riddle the night asked with another, better riddle. Each dusk she trots once around the window's rim, and where her light passes a hidden star blinks awake, as if the sky itself had just thought of something.",
+  "usage": {
+    "in": 391,
+    "out": 135
+  },
+  "cost": 0.002132,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox of Questions\",\n  \"statement\": \"A small fox of eleven stars carries a lantern at the tip of her tail, and she was set in the sky for answering every riddle the night asked with another, better riddle. Each dusk she trots once around the window's rim, and where her light passes a hidden star blinks awake, as if the sky itself had just thought of something.\"\n}\n```"
+}

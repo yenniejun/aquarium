@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 40,
+  "date": "2026-11-14T19:58:59.391Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Nine pale stars make a moth with an amber lantern caught between its wings; the oldest charts say it once mistook a lost traveler’s question for a flame. Ever since, it has carried that question through the dark, and wherever it pauses, another small star wakes.",
+  "usage": {
+    "in": 292,
+    "out": 420
+  },
+  "cost": 0.004784,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Nine pale stars make a moth with an amber lantern caught between its wings; the oldest charts say it once mistook a lost traveler’s question for a flame. Ever since, it has carried that question through the dark, and wherever it pauses, another small star wakes.\"\n}\n```"
+}

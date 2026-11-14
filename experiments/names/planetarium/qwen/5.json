@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 5,
+  "date": "2026-11-14T19:48:34.469Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Tending Moth",
+  "statement": "Where the oldest stars gutter low, the Tending Moth circles slow, breathing its small warmth back into their fading wicks. It asks no thanks—only that the dark stay patient a little longer.",
+  "usage": {
+    "in": 320,
+    "out": 1204
+  },
+  "cost": 0.015728,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Tending Moth\",\n  \"statement\": \"Where the oldest stars gutter low, the Tending Moth circles slow, breathing its small warmth back into their fading wicks. It asks no thanks—only that the dark stay patient a little longer.\"\n}\n```"
+}

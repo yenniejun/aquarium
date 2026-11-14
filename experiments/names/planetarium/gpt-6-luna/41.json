@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 41,
+  "date": "2026-11-14T19:56:58.984Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Question Kite",
+  "statement": "The Question Kite was stitched from the first curious thought the night wind couldn’t carry away. Its silver tail loops between the stars, making a new path whenever a traveler asks what lies beyond the last one.",
+  "usage": {
+    "in": 292,
+    "out": 247
+  },
+  "cost": 0.0001527,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Question Kite\",\n  \"statement\": \"The Question Kite was stitched from the first curious thought the night wind couldn’t carry away. Its silver tail loops between the stars, making a new path whenever a traveler asks what lies beyond the last one.\"\n}\n```"
+}

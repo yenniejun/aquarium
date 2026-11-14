@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 23,
+  "date": "2026-11-14T20:04:44.658Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Threadkeeper",
+  "statement": "When the first stars were scattered and had not yet learned their patterns, a small figure carried a thread of light between the two loneliest of them, so that neither would forget the other. The thread stretched thin across the dark but never broke, and became the faint line of stars we trace tonight.",
+  "usage": {
+    "in": 320,
+    "out": 1410
+  },
+  "cost": 0.0182,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Threadkeeper\",\n  \"statement\": \"When the first stars were scattered and had not yet learned their patterns, a small figure carried a thread of light between the two loneliest of them, so that neither would forget the other. The thread stretched thin across the dark but never broke, and became the faint line of stars we trace tonight.\"\n}\n```"
+}

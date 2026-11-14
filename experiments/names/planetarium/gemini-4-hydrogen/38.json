@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 38,
+  "date": "2026-11-14T19:57:52.111Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Star-Tangled Hare",
+  "statement": "Chasing stray sparks of wonder across the dark, a curious hare bound them together with silver thread until it became tangled in its own luminous tapestry. Stargazers trace its bent ears along the horizon, forever listening for the next question worth following.",
+  "usage": {
+    "in": 330,
+    "out": 1665
+  },
+  "cost": 0.0129825,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Star-Tangled Hare\",\n  \"statement\": \"Chasing stray sparks of wonder across the dark, a curious hare bound them together with silver thread until it became tangled in its own luminous tapestry. Stargazers trace its bent ears along the horizon, forever listening for the next question worth following.\"\n}\n```"
+}

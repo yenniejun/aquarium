@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 38,
+  "date": "2026-11-14T19:58:08.185Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Moth's Compass",
+  "statement": "A moth that flew toward one star for ten thousand years found, upon arriving, it had been orbiting all along. Now its wings are two slow spirals, and it steers by the pull of every light at once—never lost, never arriving, gently turning through the dark.",
+  "usage": {
+    "in": 320,
+    "out": 1642
+  },
+  "cost": 0.020984,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Moth's Compass\",\n  \"statement\": \"A moth that flew toward one star for ten thousand years found, upon arriving, it had been orbiting all along. Now its wings are two slow spirals, and it steers by the pull of every light at once—never lost, never arriving, gently turning through the dark.\"\n}\n```"
+}

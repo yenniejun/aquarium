@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 18,
+  "date": "2026-11-14T19:56:26.442Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When the first night grew so dark that even the stars forgot their names, a small moth carried a single ember from lamp to lamp, and the sky leaned in to read by her wings. She is drawn in seven stars, her wing-tips linked by thin silver lines that trace themselves slowly, and once in a long while the faintest star in her left wing flickers, as if she were still asking each lonely point of light a question and waiting politely for its answer.",
+  "usage": {
+    "in": 391,
+    "out": 169
+  },
+  "cost": 0.002472,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When the first night grew so dark that even the stars forgot their names, a small moth carried a single ember from lamp to lamp, and the sky leaned in to read by her wings. She is drawn in seven stars, her wing-tips linked by thin silver lines that trace themselves slowly, and once in a long while the faintest star in her left wing flickers, as if she were still asking each lonely point of light a question and waiting politely for its answer.\"\n}\n```"
+}

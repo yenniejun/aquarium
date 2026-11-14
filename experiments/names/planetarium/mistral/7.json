@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 7,
+  "date": "2026-11-14T20:13:00.717Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Star-Mender",
+  "statement": "Long ago, when the bright stars began working loose from the dark, a quiet figure tied each one back in with thread spun from moonlight. The constellation is her, still bent over the sky, humming the faint lines that draw them together.",
+  "usage": {
+    "in": 310,
+    "out": 3952
+  },
+  "cost": 0.00835492,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 57,
+  "reply": "```json\n{\n  \"title\": \"The Star-Mender\",\n  \"statement\": \"Long ago, when the bright stars began working loose from the dark, a quiet figure tied each one back in with thread spun from moonlight. The constellation is her, still bent over the sky, humming the faint lines that draw them together.\"\n}\n```"
+}

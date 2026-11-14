@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 50,
+  "date": "2026-11-14T20:04:32.713Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "The Magpie's Lantern",
+  "statement": "Hung in the firmament by a curious bird who possessed no fire of her own, this delicate vessel holds seven borrowed sparks gathered from passing comets and earthly hearths. Voyagers look to its tilted glow when seeking unseen connections, for its light is said to reveal the hidden bridges between distant things.",
+  "usage": {
+    "in": 330,
+    "out": 1933
+  },
+  "cost": 0.01999,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 31,
+  "reply": "```json\n{\n  \"title\": \"The Magpie's Lantern\",\n  \"statement\": \"Hung in the firmament by a curious bird who possessed no fire of her own, this delicate vessel holds seven borrowed sparks gathered from passing comets and earthly hearths. Voyagers look to its tilted glow when seeking unseen connections, for its light is said to reveal the hidden bridges between distant things.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 50,
+  "date": "2026-11-14T20:04:19.338Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "When the first winter stole all warmth from the world, a small fox caught the last ember of dusk in her tail and carried it across the sky, leaving a trail of sparks so that the lost could find their way home. She still walks that road each night — visible only to those patient enough to watch her lines trace themselves slowly, tail first, lantern last.",
+  "usage": {
+    "in": 302,
+    "out": 96
+  },
+  "cost": 0.00111696,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"When the first winter stole all warmth from the world, a small fox caught the last ember of dusk in her tail and carried it across the sky, leaving a trail of sparks so that the lost could find their way home. She still walks that road each night — visible only to those patient enough to watch her lines trace themselves slowly, tail first, lantern last.\"\n}\n```"
+}

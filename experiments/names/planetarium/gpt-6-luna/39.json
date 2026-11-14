@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 39,
+  "date": "2026-11-14T19:56:58.209Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Compass Moth",
+  "statement": "When travelers lost their way, the Compass Moth gathered the trembling light from their lanterns and stitched it into two wide wings, then beat once to point them home. Its smallest star marks the direction no map can name: the way toward wonder.",
+  "usage": {
+    "in": 292,
+    "out": 478
+  },
+  "cost": 0.0002682,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Compass Moth\",\n  \"statement\": \"When travelers lost their way, the Compass Moth gathered the trembling light from their lanterns and stitched it into two wide wings, then beat once to point them home. Its smallest star marks the direction no map can name: the way toward wonder.\"\n}\n```"
+}

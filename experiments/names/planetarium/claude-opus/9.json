@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 9,
+  "date": "2026-11-14T19:48:21.883Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Moth Who Asked",
+  "statement": "Alone among moths, she did not dive into the flame but paused to ask it why it burned; the flame, who had never once been asked anything, talked with her until dawn and gave her a spark to carry. She wanders the sky still, wings faintly lit, one antenna curled into a question mark.",
+  "usage": {
+    "in": 391,
+    "out": 501
+  },
+  "cost": 0.011584,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Moth Who Asked\",\n  \"statement\": \"Alone among moths, she did not dive into the flame but paused to ask it why it burned; the flame, who had never once been asked anything, talked with her until dawn and gave her a spark to carry. She wanders the sky still, wings faintly lit, one antenna curled into a question mark.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 6,
+  "date": "2026-11-14T19:48:35.357Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Hare",
+  "statement": "The cartographer who first joined its seven stars left one hind paw undrawn, so the hare could escape any map that claimed the sky was finished. On the darkest nights it leaps across that little gap, and a new star appears where it lands.",
+  "usage": {
+    "in": 292,
+    "out": 523
+  },
+  "cost": 0.005814,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Hare\",\n  \"statement\": \"The cartographer who first joined its seven stars left one hind paw undrawn, so the hare could escape any map that claimed the sky was finished. On the darkest nights it leaps across that little gap, and a new star appears where it lands.\"\n}\n```"
+}

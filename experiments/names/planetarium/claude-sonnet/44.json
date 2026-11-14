@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 44,
+  "date": "2026-11-14T19:56:46.776Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago the night sky had no hours, only dark, until a small moth mistook the first star for a flame and followed it so faithfully that her wings caught the light of every star she passed. She is still crossing, and when you look at her long enough, her seven-star wings seem to open and close, as if she is still trying to find out whether a flame can also be a friend.",
+  "usage": {
+    "in": 391,
+    "out": 141
+  },
+  "cost": 0.002192,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago the night sky had no hours, only dark, until a small moth mistook the first star for a flame and followed it so faithfully that her wings caught the light of every star she passed. She is still crossing, and when you look at her long enough, her seven-star wings seem to open and close, as if she is still trying to find out whether a flame can also be a friend.\"\n}\n```"
+}

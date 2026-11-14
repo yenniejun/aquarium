@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 22,
+  "date": "2026-11-14T19:56:28.699Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, when the night was still unlit, a small moth mistook the first star for a lamp and flew toward it for a thousand years, only to find it was a question. She stayed to keep it company, and now her seven-starred wings trace themselves slowly across the dark, each beat of light asking the same question back to anyone curious enough to look up.",
+  "usage": {
+    "in": 391,
+    "out": 138
+  },
+  "cost": 0.002162,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, when the night was still unlit, a small moth mistook the first star for a lamp and flew toward it for a thousand years, only to find it was a question. She stayed to keep it company, and now her seven-starred wings trace themselves slowly across the dark, each beat of light asking the same question back to anyone curious enough to look up.\"\n}\n```"
+}

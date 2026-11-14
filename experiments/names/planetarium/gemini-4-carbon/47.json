@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 47,
+  "date": "2026-11-14T20:04:14.026Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "The Paper Skiff",
+  "statement": "Folded from an unfinished letter by a curious wind, this fragile vessel was swept into the heavens before its ink could dry. Night after night it sails the dark currents between distant stars, ferrying stray questions, borrowed sparks, and stories in search of a shore.",
+  "usage": {
+    "in": 330,
+    "out": 2033
+  },
+  "cost": 0.02099,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 41,
+  "reply": "```json\n{\n  \"title\": \"The Paper Skiff\",\n  \"statement\": \"Folded from an unfinished letter by a curious wind, this fragile vessel was swept into the heavens before its ink could dry. Night after night it sails the dark currents between distant stars, ferrying stray questions, borrowed sparks, and stories in search of a shore.\"\n}\n```"
+}

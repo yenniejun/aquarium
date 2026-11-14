@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 12,
+  "date": "2026-11-14T19:56:20.889Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Once, a mapmaker drew the night sky so faithfully that a moth mistook her lantern for a star and flew into the chart, forever pinned between the constellations — wings spread in gold dust, still navigating home along lines no one else can see.",
+  "usage": {
+    "in": 302,
+    "out": 76
+  },
+  "cost": 0.0015144,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Once, a mapmaker drew the night sky so faithfully that a moth mistook her lantern for a star and flew into the chart, forever pinned between the constellations — wings spread in gold dust, still navigating home along lines no one else can see.\"\n}\n```"
+}

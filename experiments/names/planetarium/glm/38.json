@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 38,
+  "date": "2026-11-14T20:03:51.501Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Kite",
+  "statement": "A paper kite that slipped its string and drifted past the last rooftop, carrying the last lantern of someone who stayed up too late wondering; it still climbs, trailing a tail of small lights, so that anyone lost in the dark might follow it home.",
+  "usage": {
+    "in": 302,
+    "out": 72
+  },
+  "cost": 0.00090576,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Kite\",\n  \"statement\": \"A paper kite that slipped its string and drifted past the last rooftop, carrying the last lantern of someone who stayed up too late wondering; it still climbs, trailing a tail of small lights, so that anyone lost in the dark might follow it home.\"\n}\n```"
+}

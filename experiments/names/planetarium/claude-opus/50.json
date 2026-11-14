@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 50,
+  "date": "2026-11-14T19:57:54.575Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Listening Fox",
+  "statement": "A small fox once sat so long at the edge of the world, ear tilted toward every traveler's question, that the night took her up whole and stitched her into the sky. Sailors say the bright star at the tip of her tail flickers each time someone, somewhere, wonders aloud about something no one has ever asked before.",
+  "usage": {
+    "in": 391,
+    "out": 470
+  },
+  "cost": 0.010964,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Listening Fox\",\n  \"statement\": \"A small fox once sat so long at the edge of the world, ear tilted toward every traveler's question, that the night took her up whole and stitched her into the sky. Sailors say the bright star at the tip of her tail flickers each time someone, somewhere, wonders aloud about something no one has ever asked before.\"\n}\n```"
+}

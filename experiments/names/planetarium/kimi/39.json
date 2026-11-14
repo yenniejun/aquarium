@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 39,
+  "date": "2026-11-14T19:57:21.691Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "They say the first lantern was hung in the sky not to show the way, but to give the darkness somewhere to speak. Each unanswered question becomes a new star in its flame, and the lantern glows a little brighter whenever someone listens.",
+  "usage": {
+    "in": 369,
+    "out": 298
+  },
+  "cost": 0.0032572,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"They say the first lantern was hung in the sky not to show the way, but to give the darkness somewhere to speak. Each unanswered question becomes a new star in its flame, and the lantern glows a little brighter whenever someone listens.\"\n}\n```"
+}

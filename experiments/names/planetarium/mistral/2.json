@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 2,
+  "date": "2026-11-14T20:06:25.817Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Moth Spiral",
+  "statement": "A child once sat in the dark with a single lantern, and the moths came not to bother her but to dance, so the sky kept their spiral among the stars. On warm nights it is still there—a slow whirl of small lights around one steady flame—and if you watch long enough, you can see the dance begin again.",
+  "usage": {
+    "in": 310,
+    "out": 5523
+  },
+  "cost": 0.01165402,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 92,
+  "reply": "```json\n{\n  \"title\": \"The Moth Spiral\",\n  \"statement\": \"A child once sat in the dark with a single lantern, and the moths came not to bother her but to dance, so the sky kept their spiral among the stars. On warm nights it is still there—a slow whirl of small lights around one steady flame—and if you watch long enough, you can see the dance begin again.\"\n}\n```"
+}

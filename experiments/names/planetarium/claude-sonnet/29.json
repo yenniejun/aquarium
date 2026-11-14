@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 29,
+  "date": "2026-11-14T19:56:34.756Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, a small moth mistook the first dawn for a lamp and flew toward it for a thousand years, and the sky, charmed by her stubborn curiosity, pinned her wings in place with seven stars. On clear nights her lines trace themselves slowly, and one wingtip flickers, as if she were still deciding whether the light is worth the trip. She always decides yes.",
+  "usage": {
+    "in": 391,
+    "out": 153
+  },
+  "cost": 0.002312,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, a small moth mistook the first dawn for a lamp and flew toward it for a thousand years, and the sky, charmed by her stubborn curiosity, pinned her wings in place with seven stars. On clear nights her lines trace themselves slowly, and one wingtip flickers, as if she were still deciding whether the light is worth the trip. She always decides yes.\"\n}\n```"
+}

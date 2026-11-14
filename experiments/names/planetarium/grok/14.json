@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 14,
+  "date": "2026-11-14T19:56:46.681Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Finch",
+  "statement": "A small bird once stole a single ember from the first dawn and still carries it between the dark stars, lighting a thin path only for those who have stayed up wondering.",
+  "usage": {
+    "in": 1528,
+    "out": 690
+  },
+  "cost": 0.005084,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Finch\",\n  \"statement\": \"A small bird once stole a single ember from the first dawn and still carries it between the dark stars, lighting a thin path only for those who have stayed up wondering.\"\n}\n```"
+}

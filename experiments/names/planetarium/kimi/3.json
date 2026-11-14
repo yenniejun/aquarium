@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 3,
+  "date": "2026-11-14T19:48:11.818Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Lantern Listener",
+  "statement": "Born in the silence after the first question, the Lantern Listener wanders the dark gathering every question left unanswered. Each becomes a small light in its tail, left burning for travelers still finding their way.",
+  "usage": {
+    "in": 369,
+    "out": 270
+  },
+  "cost": 0.003438,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Listener\",\n  \"statement\": \"Born in the silence after the first question, the Lantern Listener wanders the dark gathering every question left unanswered. Each becomes a small light in its tail, left burning for travelers still finding their way.\"\n}\n```"
+}

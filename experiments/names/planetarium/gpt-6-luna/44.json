@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 44,
+  "date": "2026-11-14T19:57:00.940Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Listening Loom",
+  "statement": "Seven quiet stars form a little loom, weaving a silver thread between every question and the answer it has not found yet. The old sky says it was built by a patient moth, who learned that even darkness can be made of connections.",
+  "usage": {
+    "in": 292,
+    "out": 111
+  },
+  "cost": 0.0000847,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Listening Loom\",\n  \"statement\": \"Seven quiet stars form a little loom, weaving a silver thread between every question and the answer it has not found yet. The old sky says it was built by a patient moth, who learned that even darkness can be made of connections.\"\n}\n```"
+}

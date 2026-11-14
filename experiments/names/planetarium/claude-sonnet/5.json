@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 5,
+  "date": "2026-11-14T19:48:03.525Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth of Questions",
+  "statement": "A moth of nine pale stars, its wings drawn in slow silver lines, once mistook the whole dark for a window left ajar and flew in asking. Each time a wonder goes unanswered, the faint lantern in its belly brightens, so on clear nights it glows for a moment, then folds its wings and drifts toward the next unsolved thing.",
+  "usage": {
+    "in": 391,
+    "out": 147
+  },
+  "cost": 0.002252,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth of Questions\",\n  \"statement\": \"A moth of nine pale stars, its wings drawn in slow silver lines, once mistook the whole dark for a window left ajar and flew in asking. Each time a wonder goes unanswered, the faint lantern in its belly brightens, so on clear nights it glows for a moment, then folds its wings and drifts toward the next unsolved thing.\"\n}\n```"
+}

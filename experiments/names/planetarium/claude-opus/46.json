@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 46,
+  "date": "2026-11-14T19:57:43.553Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Moth Who Asked",
+  "statement": "Every moth flew into the flame but one, who paused at its edge and asked it why it burned; the flame, never once asked before, talked until dawn, then lifted the moth into the sky so their conversation would never have to end. On clear nights you can still see her wings tilted toward the brightest star, listening.",
+  "usage": {
+    "in": 391,
+    "out": 488
+  },
+  "cost": 0.011324,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Moth Who Asked\",\n  \"statement\": \"Every moth flew into the flame but one, who paused at its edge and asked it why it burned; the flame, never once asked before, talked until dawn, then lifted the moth into the sky so their conversation would never have to end. On clear nights you can still see her wings tilted toward the brightest star, listening.\"\n}\n```"
+}

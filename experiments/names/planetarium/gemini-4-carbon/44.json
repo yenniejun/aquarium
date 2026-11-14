@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 44,
+  "date": "2026-11-14T20:02:58.004Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Weaver's Swallow",
+  "statement": "Fearing the newly made stars would drift apart in the dark, a restless swallow caught a filament of dawn in its beak and flew from spark to lonely spark, stitching them into a single sky. Night-travelers still look to its long, trailing thread when seeking the hidden line that joins two distant truths.",
+  "usage": {
+    "in": 330,
+    "out": 2393
+  },
+  "cost": 0.02459,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 42,
+  "reply": "```json\n{\n  \"title\": \"The Weaver's Swallow\",\n  \"statement\": \"Fearing the newly made stars would drift apart in the dark, a restless swallow caught a filament of dawn in its beak and flew from spark to lonely spark, stitching them into a single sky. Night-travelers still look to its long, trailing thread when seeking the hidden line that joins two distant truths.\"\n}\n```"
+}

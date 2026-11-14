@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 40,
+  "date": "2026-11-14T20:02:11.722Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Borrowed Lantern",
+  "statement": "Hung at the crossroads of the sky by a curious spirit who possessed no fire of its own, this crystal vessel gathers stray sparks from distant stars and braids them into a gentle, living glow. Night wanderers say it never shines the same way twice, shifting its hue to answer whatever unspoken question a stargazer brings to the dark.",
+  "usage": {
+    "in": 330,
+    "out": 2005
+  },
+  "cost": 0.02071,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 28,
+  "reply": "```json\n{\n  \"title\": \"The Borrowed Lantern\",\n  \"statement\": \"Hung at the crossroads of the sky by a curious spirit who possessed no fire of its own, this crystal vessel gathers stray sparks from distant stars and braids them into a gentle, living glow. Night wanderers say it never shines the same way twice, shifting its hue to answer whatever unspoken question a stargazer brings to the dark.\"\n}\n```"
+}

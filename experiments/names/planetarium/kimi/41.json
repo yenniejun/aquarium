@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 41,
+  "date": "2026-11-14T20:08:26.644Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "They say the Lantern gathers questions too small for anyone else to notice, keeping each one glowing until an answer finds it. On moonless nights, it opens its little door and releases a newly answered star to guide some wandering thought home.",
+  "usage": {
+    "in": 369,
+    "out": 276
+  },
+  "cost": 0.0030372,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"They say the Lantern gathers questions too small for anyone else to notice, keeping each one glowing until an answer finds it. On moonless nights, it opens its little door and releases a newly answered star to guide some wandering thought home.\"\n}\n```"
+}

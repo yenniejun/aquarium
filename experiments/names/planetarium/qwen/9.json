@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 9,
+  "date": "2026-11-14T19:48:56.973Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Kite-Mender",
+  "statement": "Each night she kneels where the sky frays, stitching its torn kite with thread of faint stars so it might fly once more before dawn unravels it. She does not mourn the tearing — the mending is the joy.",
+  "usage": {
+    "in": 320,
+    "out": 1334
+  },
+  "cost": 0.017288,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Kite-Mender\",\n  \"statement\": \"Each night she kneels where the sky frays, stitching its torn kite with thread of faint stars so it might fly once more before dawn unravels it. She does not mourn the tearing — the mending is the joy.\"\n}\n```"
+}

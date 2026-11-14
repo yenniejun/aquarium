@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 43,
+  "date": "2026-11-14T20:02:35.740Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Legend tells of a curious moth that refused to circle a single flame, fluttering instead across the vault of night to gather a spark from every lonely star. The heavens preserved the intricate geometry of its flight in silver thread, offering a guide to travelers who delight in finding hidden bridges between distant wonders.",
+  "usage": {
+    "in": 330,
+    "out": 1663
+  },
+  "cost": 0.01729,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Legend tells of a curious moth that refused to circle a single flame, fluttering instead across the vault of night to gather a spark from every lonely star. The heavens preserved the intricate geometry of its flight in silver thread, offering a guide to travelers who delight in finding hidden bridges between distant wonders.\"\n}\n```"
+}

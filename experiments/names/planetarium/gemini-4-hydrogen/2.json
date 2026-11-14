@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 2,
+  "date": "2026-11-14T19:48:05.786Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Weaver",
+  "statement": "Legend says a quiet spirit once gathered the stray sparks of unanswered questions and wove them into a glowing net across the dark. Whenever a traveler pauses in wonder, its silver threads briefly ignite, tracing a path between distant truths.",
+  "usage": {
+    "in": 330,
+    "out": 1219
+  },
+  "cost": 0.0096375,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Weaver\",\n  \"statement\": \"Legend says a quiet spirit once gathered the stray sparks of unanswered questions and wove them into a glowing net across the dark. Whenever a traveler pauses in wonder, its silver threads briefly ignite, tracing a path between distant truths.\"\n}\n```"
+}

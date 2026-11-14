@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 15,
+  "date": "2026-11-14T19:56:25.752Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Listening Kite",
+  "statement": "The Kite was stitched from stars that had drifted too far apart to make a story alone; its long, looping tail gathers each one without pulling it from its place. On quiet nights it turns toward the smallest unanswered question, and glows until someone notices.",
+  "usage": {
+    "in": 292,
+    "out": 237
+  },
+  "cost": 0.00014769999999999999,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Listening Kite\",\n  \"statement\": \"The Kite was stitched from stars that had drifted too far apart to make a story alone; its long, looping tail gathers each one without pulling it from its place. On quiet nights it turns toward the smallest unanswered question, and glows until someone notices.\"\n}\n```"
+}

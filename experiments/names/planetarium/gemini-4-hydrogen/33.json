@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 33,
+  "date": "2026-11-14T19:57:42.042Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Born from stray sparks that drifted too high from a storyteller's hearth, this winged wanderer traces delicate lines between lonely stars in search of gentle light. Stargazers say its wings flicker into view whenever a curious mind lingers on a quiet question in the dark.",
+  "usage": {
+    "in": 330,
+    "out": 2179
+  },
+  "cost": 0.0168375,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Born from stray sparks that drifted too high from a storyteller's hearth, this winged wanderer traces delicate lines between lonely stars in search of gentle light. Stargazers say its wings flicker into view whenever a curious mind lingers on a quiet question in the dark.\"\n}\n```"
+}

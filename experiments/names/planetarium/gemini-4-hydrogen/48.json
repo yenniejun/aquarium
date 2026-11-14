@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 48,
+  "date": "2026-11-14T19:58:20.665Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Weaver",
+  "statement": "Legend tells of a quiet figure who gathers stray sparks from the edge of the void, braiding them into glowing lanterns for wandering travelers. Whenever faint stars seem to trace a sudden bridge across the dark, it is said the Weaver is tying two distant stories together.",
+  "usage": {
+    "in": 330,
+    "out": 1207
+  },
+  "cost": 0.0095475,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Weaver\",\n  \"statement\": \"Legend tells of a quiet figure who gathers stray sparks from the edge of the void, braiding them into glowing lanterns for wandering travelers. Whenever faint stars seem to trace a sudden bridge across the dark, it is said the Weaver is tying two distant stories together.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 30,
+  "date": "2026-11-14T19:57:20.320Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Listening Well",
+  "statement": "They say it was dug by the first question ever asked aloud into the dark, and it has been filling with whispers ever since. It does not answer. But if you speak truly at its rim, the faint stars at the bottom shift a little closer, the way a friend leans in.",
+  "usage": {
+    "in": 320,
+    "out": 1020
+  },
+  "cost": 0.01352,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Listening Well\",\n  \"statement\": \"They say it was dug by the first question ever asked aloud into the dark, and it has been filling with whispers ever since. It does not answer. But if you speak truly at its rim, the faint stars at the bottom shift a little closer, the way a friend leans in.\"\n}\n```"
+}

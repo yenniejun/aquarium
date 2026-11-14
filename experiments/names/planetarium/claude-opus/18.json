@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 18,
+  "date": "2026-11-14T19:56:39.921Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lamplighter's Question",
+  "statement": "A wandering lamplighter once walked the dark roads between villages, and for every traveler's question she lit a star so they could find their way home. She is drawn mid-stride with her pole raised toward one last unlit star, kept dark on purpose, because what she loved most were the questions no one had answered yet.",
+  "usage": {
+    "in": 391,
+    "out": 469
+  },
+  "cost": 0.010944,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Lamplighter's Question\",\n  \"statement\": \"A wandering lamplighter once walked the dark roads between villages, and for every traveler's question she lit a star so they could find their way home. She is drawn mid-stride with her pole raised toward one last unlit star, kept dark on purpose, because what she loved most were the questions no one had answered yet.\"\n}\n```"
+}

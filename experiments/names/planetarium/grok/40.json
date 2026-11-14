@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 40,
+  "date": "2026-11-14T19:58:40.002Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Inkhorn Crane",
+  "statement": "A crane once stole a drop of dawn and kept it in a horn of ink; wherever it paused to consider the dark, a star fell from its beak, and the sky still follows the bright path of its hesitation.",
+  "usage": {
+    "in": 1528,
+    "out": 653
+  },
+  "cost": 0.004862,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"The Inkhorn Crane\",\n  \"statement\": \"A crane once stole a drop of dawn and kept it in a horn of ink; wherever it paused to consider the dark, a star fell from its beak, and the sky still follows the bright path of its hesitation.\"\n}\n```"
+}

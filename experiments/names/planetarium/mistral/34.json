@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 34,
+  "date": "2026-11-14T20:44:17.967Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Night Mapmaker's Cat",
+  "statement": "Once, while charting the heavens, the night mapmaker's ink-pot tipped and spilled across the sky. Where the stars splashed, they drew a cat curled around the moon — proof that even the grandest map needs one small, warm, living thing.",
+  "usage": {
+    "in": 310,
+    "out": 5488
+  },
+  "cost": 0.01158052,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 74,
+  "reply": "```json\n{\n  \"title\": \"The Night Mapmaker's Cat\",\n  \"statement\": \"Once, while charting the heavens, the night mapmaker's ink-pot tipped and spilled across the sky. Where the stars splashed, they drew a cat curled around the moon — proof that even the grandest map needs one small, warm, living thing.\"\n}\n```"
+}

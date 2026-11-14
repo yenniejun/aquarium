@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 35,
+  "date": "2026-11-14T20:07:03.630Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Listening Lantern",
+  "statement": "The Lantern crossed the heavens gathering questions too small to be spoken aloud, kindling a star for each one. Its light never promised answers; it only made the dark a place where wondering felt welcome.",
+  "usage": {
+    "in": 369,
+    "out": 322
+  },
+  "cost": 0.0034972,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Listening Lantern\",\n  \"statement\": \"The Lantern crossed the heavens gathering questions too small to be spoken aloud, kindling a star for each one. Its light never promised answers; it only made the dark a place where wondering felt welcome.\"\n}\n```"
+}

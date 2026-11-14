@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 1,
+  "date": "2026-11-14T20:04:53.392Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Midnight Librarian",
+  "statement": "A robed figure of seven stars shelves the bright ones high and tucks the faint, shy ones into the back. Each night she catalogues the dark into stories for those who know to look closely.",
+  "usage": {
+    "in": 310,
+    "out": 5092
+  },
+  "cost": 0.01074892,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 81,
+  "reply": "```json\n{\n  \"title\": \"The Midnight Librarian\",\n  \"statement\": \"A robed figure of seven stars shelves the bright ones high and tucks the faint, shy ones into the back. Each night she catalogues the dark into stories for those who know to look closely.\"\n}\n```"
+}

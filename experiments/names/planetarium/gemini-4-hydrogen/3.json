@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 3,
+  "date": "2026-11-14T19:48:06.415Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Paper Moth",
+  "statement": "Folded from a wanderer's unsent letter and lifted into the firmament by a midnight sigh, it flits from star to star in search of lit windows and unfinished stories. Stargazers say that whenever its pale wings trace the dark, a quiet spark of curiosity is about to change someone's course.",
+  "usage": {
+    "in": 330,
+    "out": 1143
+  },
+  "cost": 0.0090675,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Paper Moth\",\n  \"statement\": \"Folded from a wanderer's unsent letter and lifted into the firmament by a midnight sigh, it flits from star to star in search of lit windows and unfinished stories. Stargazers say that whenever its pale wings trace the dark, a quiet spark of curiosity is about to change someone's course.\"\n}\n```"
+}

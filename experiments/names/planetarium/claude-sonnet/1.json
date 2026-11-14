@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 1,
+  "date": "2026-11-14T19:48:00.991Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, a small moth mistook the first dawn for a lamp and flew toward it for a thousand years, until the sky, moved by her stubborn curiosity, kept her wings among the stars. Now she hovers near the horizon, tracing her seven-star flight in slow loops, and each time she brightens, it's said that someone somewhere has asked a question just because they wanted to know.",
+  "usage": {
+    "in": 391,
+    "out": 155
+  },
+  "cost": 0.002332,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, a small moth mistook the first dawn for a lamp and flew toward it for a thousand years, until the sky, moved by her stubborn curiosity, kept her wings among the stars. Now she hovers near the horizon, tracing her seven-star flight in slow loops, and each time she brightens, it's said that someone somewhere has asked a question just because they wanted to know.\"\n}\n```"
+}

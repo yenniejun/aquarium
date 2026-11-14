@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 29,
+  "date": "2026-11-14T19:56:34.403Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "When the first winter stole all the fire from the world, a small fox carried the last ember across the sky in a paper lantern, pausing among the stars to warm her paws — and she pauses there still, so travelers lost at night might follow her small stubborn light home.",
+  "usage": {
+    "in": 302,
+    "out": 80
+  },
+  "cost": 0.00097616,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"When the first winter stole all the fire from the world, a small fox carried the last ember across the sky in a paper lantern, pausing among the stars to warm her paws — and she pauses there still, so travelers lost at night might follow her small stubborn light home.\"\n}\n```"
+}

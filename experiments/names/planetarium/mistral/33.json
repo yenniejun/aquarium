@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 33,
+  "date": "2026-11-14T20:43:03.684Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Mended Cloak",
+  "statement": "When the first traveler crossed the cold dark, the stars unraveled threads of their own light to patch her cloak. One stitch is still loose — the bright star at the edge is the needle she left behind, still mending.",
+  "usage": {
+    "in": 310,
+    "out": 3960
+  },
+  "cost": 0.008533,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 94,
+  "reply": "```json\n{\n  \"title\": \"The Mended Cloak\",\n  \"statement\": \"When the first traveler crossed the cold dark, the stars unraveled threads of their own light to patch her cloak. One stitch is still loose — the bright star at the edge is the needle she left behind, still mending.\"\n}\n```"
+}

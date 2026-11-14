@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 22,
+  "date": "2026-11-14T20:04:08.250Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Ink-Tailed Fox",
+  "statement": "A fox once leapt between two sleeping gods and caught the last word of their dream on the tip of her tail; wherever she ran, new worlds spilled from it. On quiet nights she still shakes loose a single bright syllable for anyone listening.",
+  "usage": {
+    "in": 369,
+    "out": 371
+  },
+  "cost": 0.0039872,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Ink-Tailed Fox\",\n  \"statement\": \"A fox once leapt between two sleeping gods and caught the last word of their dream on the tip of her tail; wherever she ran, new worlds spilled from it. On quiet nights she still shakes loose a single bright syllable for anyone listening.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 24,
+  "date": "2026-11-14T19:57:36.823Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Gap Weaver",
+  "statement": "Between the famous lights kneels a quiet weaver, drawing one thin thread through the empty places; the lost are told to follow it, for it was spun not to dazzle but to lead someone home.",
+  "usage": {
+    "in": 1528,
+    "out": 924
+  },
+  "cost": 0.006488,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"The Gap Weaver\",\n  \"statement\": \"Between the famous lights kneels a quiet weaver, drawing one thin thread through the empty places; the lost are told to follow it, for it was spun not to dazzle but to lead someone home.\"\n}\n```"
+}

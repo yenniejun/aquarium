@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 49,
+  "date": "2026-11-14T19:59:23.414Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Moth",
+  "statement": "A moth once drank from a fallen star and could not stop glowing. She still circles lost travelers, not to point the way, but to keep them company until they remember their own.",
+  "usage": {
+    "in": 1528,
+    "out": 485
+  },
+  "cost": 0.003854,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"A moth once drank from a fallen star and could not stop glowing. She still circles lost travelers, not to point the way, but to keep them company until they remember their own.\"\n}\n```"
+}

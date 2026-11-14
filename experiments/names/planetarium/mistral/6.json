@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 6,
+  "date": "2026-11-14T20:12:03.594Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Paper Boat",
+  "statement": "Folded from the last page of a star atlas, a paper boat drifted up into the dark and caught on the stars. Trace the line, and you'll see the sail, the hull, and the tiny flag still fluttering.",
+  "usage": {
+    "in": 310,
+    "out": 7012
+  },
+  "cost": 0.01478092,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 134,
+  "reply": "```json\n{\n  \"title\": \"The Paper Boat\",\n  \"statement\": \"Folded from the last page of a star atlas, a paper boat drifted up into the dark and caught on the stars. Trace the line, and you'll see the sail, the hull, and the tiny flag still fluttering.\"\n}\n```"
+}

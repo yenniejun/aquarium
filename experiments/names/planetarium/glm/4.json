@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 4,
+  "date": "2026-11-14T19:48:02.889Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Bearing Fox",
+  "statement": "They say a small fox stole a single ember from the first campfire ever lit, and fled into the dark carrying it in her mouth — so that anything lost in the night could look up and find, among the cold stars, one warm point moving home.",
+  "usage": {
+    "in": 302,
+    "out": 75
+  },
+  "cost": 0.00093216,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Bearing Fox\",\n  \"statement\": \"They say a small fox stole a single ember from the first campfire ever lit, and fled into the dark carrying it in her mouth — so that anything lost in the night could look up and find, among the cold stars, one warm point moving home.\"\n}\n```"
+}

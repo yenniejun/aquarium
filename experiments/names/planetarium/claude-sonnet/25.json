@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 25,
+  "date": "2026-11-14T19:56:30.927Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, when the sky was newly hung and still dark in every corner, a small moth mistook the first star for a flame and flew toward it for a thousand years. She never arrived, but the dust from her wings gathered into seven stars, and she has been tracing the same loop around the one she loved ever since. On clear nights she turns her head toward whoever is looking up and, for a moment, lights her own wings.",
+  "usage": {
+    "in": 391,
+    "out": 159
+  },
+  "cost": 0.002372,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, when the sky was newly hung and still dark in every corner, a small moth mistook the first star for a flame and flew toward it for a thousand years. She never arrived, but the dust from her wings gathered into seven stars, and she has been tracing the same loop around the one she loved ever since. On clear nights she turns her head toward whoever is looking up and, for a moment, lights her own wings.\"\n}\n```"
+}

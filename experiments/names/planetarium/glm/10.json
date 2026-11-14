@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 10,
+  "date": "2026-11-14T19:48:07.593Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Kite That Escaped",
+  "statement": "Once, a child's kite slipped its string and climbed past the last cloud, and the gods—fond of anything that refuses to come down—pinned it there among the stars, still leaning into the wind. Sailors say when its tail-star flickers, the kite has found a new current, and somewhere below, a string is tugging back.",
+  "usage": {
+    "in": 302,
+    "out": 96
+  },
+  "cost": 0.00111696,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Kite That Escaped\",\n  \"statement\": \"Once, a child's kite slipped its string and climbed past the last cloud, and the gods—fond of anything that refuses to come down—pinned it there among the stars, still leaning into the wind. Sailors say when its tail-star flickers, the kite has found a new current, and somewhere below, a string is tugging back.\"\n}\n```"
+}

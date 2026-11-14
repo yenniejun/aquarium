@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 9,
+  "date": "2026-11-14T19:48:41.039Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Lantern Librarian",
+  "statement": "She kept her library open after dark for lonely travellers, reading aloud until even the constellations gathered round to listen. When her lamp finally burned out, the sky lit another for her — and she has been turning pages ever since.",
+  "usage": {
+    "in": 292,
+    "out": 875
+  },
+  "cost": 0.017794,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Librarian\",\n  \"statement\": \"She kept her library open after dark for lonely travellers, reading aloud until even the constellations gathered round to listen. When her lamp finally burned out, the sky lit another for her — and she has been turning pages ever since.\"\n}\n```"
+}

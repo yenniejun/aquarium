@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 8,
+  "date": "2026-11-14T19:48:34.812Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Star-Gatherer's Cat",
+  "statement": "She pads across the dark with a basket, gathering every fallen star and carrying it home to the one who wished upon it. Look closely on clear nights and you may catch her paw nudging a stray light back into place.",
+  "usage": {
+    "in": 292,
+    "out": 1136
+  },
+  "cost": 0.023014,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Star-Gatherer's Cat\",\n  \"statement\": \"She pads across the dark with a basket, gathering every fallen star and carrying it home to the one who wished upon it. Look closely on clear nights and you may catch her paw nudging a stray light back into place.\"\n}\n```"
+}

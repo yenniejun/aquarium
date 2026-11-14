@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 36,
+  "date": "2026-11-14T19:57:53.943Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mender's Needle",
+  "statement": "When the first storm tore the firmament, a small patient figure climbed the dark with a needle of moonlight and has stitched it ever since—each puncture a star, each drawn thread a faint silver line connecting what was rent apart.",
+  "usage": {
+    "in": 320,
+    "out": 1471
+  },
+  "cost": 0.018932,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Needle\",\n  \"statement\": \"When the first storm tore the firmament, a small patient figure climbed the dark with a needle of moonlight and has stitched it ever since—each puncture a star, each drawn thread a faint silver line connecting what was rent apart.\"\n}\n```"
+}

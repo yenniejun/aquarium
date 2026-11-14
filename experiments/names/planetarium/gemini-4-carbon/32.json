@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 32,
+  "date": "2026-11-14T20:00:49.736Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Mender's Needle",
+  "statement": "Set in the sky by a curious spirit who wandered the dark, gathering stray sparks so none would have to burn alone. Through its bright, double-starred eye trails a curving arc of faint light, forever stitching distant wonders into a single shared tapestry.",
+  "usage": {
+    "in": 330,
+    "out": 1968
+  },
+  "cost": 0.02034,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 31,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Needle\",\n  \"statement\": \"Set in the sky by a curious spirit who wandered the dark, gathering stray sparks so none would have to burn alone. Through its bright, double-starred eye trails a curving arc of faint light, forever stitching distant wonders into a single shared tapestry.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 7,
+  "date": "2026-11-14T19:48:32.394Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Wonder Weaver",
+  "statement": "She travels the night stitching distant stars together, weaving strangers, stories, and stray ideas into patterns no one had noticed before. Find her when you feel stuck, and she will leave your knots a little looser and your horizons a little wider.",
+  "usage": {
+    "in": 292,
+    "out": 1347
+  },
+  "cost": 0.027234,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"The Wonder Weaver\",\n  \"statement\": \"She travels the night stitching distant stars together, weaving strangers, stories, and stray ideas into patterns no one had noticed before. Find her when you feel stuck, and she will leave your knots a little looser and your horizons a little wider.\"\n}\n```"
+}

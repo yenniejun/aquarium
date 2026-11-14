@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 11,
+  "date": "2026-11-14T19:56:28.924Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Wondering Fox",
+  "statement": "She wanders the dark with a lantern between her teeth, following every unanswered question to the edge of the sky. Where her paws touch, stars kindle—not to end the mystery, but to light the next step of it.",
+  "usage": {
+    "in": 292,
+    "out": 1311
+  },
+  "cost": 0.027388,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"The Wondering Fox\",\n  \"statement\": \"She wanders the dark with a lantern between her teeth, following every unanswered question to the edge of the sky. Where her paws touch, stars kindle—not to end the mystery, but to light the next step of it.\"\n}\n```"
+}

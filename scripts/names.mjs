@@ -11,7 +11,7 @@
 // whole reply. Answers already saved are skipped, so a run can be stopped and resumed, or topped
 // up later with a higher --runs. An answer with no name goes to <n>.failed.json and is asked again
 // next time.
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { ask, block, dropped, parseCard } from './lib/models.mjs';
 
@@ -146,6 +146,8 @@ async function askOnce(slug, meta, reasoning, n) {
     reply: reply.text,
   };
   writeFileSync(join(out, slug, `${n}${title ? '' : '.failed'}.json`), JSON.stringify(answer, null, 2) + '\n');
+  // A good answer replaces an earlier failed try at the same run.
+  if (title) rmSync(join(out, slug, `${n}.failed.json`), { force: true });
   console.log(
     `${title ? '✓' : '✗'} ${slug} #${n}: ${title ? `"${title}"` : 'no name in the reply'}, ` +
       `${reply.usage.out} out tokens, ${answer.seconds}s${cost != null ? `, $${cost.toFixed(4)}` : ''}`,

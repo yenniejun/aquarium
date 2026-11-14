@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 11,
+  "date": "2026-11-14T19:56:37.820Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Ink Fox",
+  "statement": "The first creature to learn to read the stars, the Ink Fox traces their stories across the dark each night with its luminous tail; by morning the words have faded, and it begins again, delighted.",
+  "usage": {
+    "in": 320,
+    "out": 1437
+  },
+  "cost": 0.018524,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Ink Fox\",\n  \"statement\": \"The first creature to learn to read the stars, the Ink Fox traces their stories across the dark each night with its luminous tail; by morning the words have faded, and it begins again, delighted.\"\n}\n```"
+}

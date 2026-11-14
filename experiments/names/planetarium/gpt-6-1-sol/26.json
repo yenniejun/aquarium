@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 26,
+  "date": "2026-11-14T19:57:43.108Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Unfinished Fox",
+  "statement": "Nine amber stars mark the fox who stole a question from the moon and has been chasing its answer ever since. Its tail remains unjoined: whenever a traveler admits “I don’t know,” the fox turns, delighted, and makes room for one more star.",
+  "usage": {
+    "in": 292,
+    "out": 485
+  },
+  "cost": 0.005434,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Fox\",\n  \"statement\": \"Nine amber stars mark the fox who stole a question from the moon and has been chasing its answer ever since. Its tail remains unjoined: whenever a traveler admits “I don’t know,” the fox turns, delighted, and makes room for one more star.\"\n}\n```"
+}

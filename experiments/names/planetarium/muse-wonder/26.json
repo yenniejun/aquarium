@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 26,
+  "date": "2026-11-14T19:57:12.945Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Unfinished Mapmaker",
+  "statement": "She sailed the sky to chart every star, but always left one corner of her map blank for wonders not yet found. The gods set her there unfinished, quill raised, so no traveller would ever run out of questions.",
+  "usage": {
+    "in": 292,
+    "out": 959
+  },
+  "cost": 0.019474,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Unfinished Mapmaker\",\n  \"statement\": \"She sailed the sky to chart every star, but always left one corner of her map blank for wonders not yet found. The gods set her there unfinished, quill raised, so no traveller would ever run out of questions.\"\n}\n```"
+}

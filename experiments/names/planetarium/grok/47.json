@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 47,
+  "date": "2026-11-14T19:59:18.671Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Wren",
+  "statement": "A small wren once stole a coal from the first dawn and carried it star to star, so no traveler would cross the dark without a little warmth; the coal became its breast, and its path still kindles whenever someone looks twice.",
+  "usage": {
+    "in": 1528,
+    "out": 844
+  },
+  "cost": 0.006008,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Wren\",\n  \"statement\": \"A small wren once stole a coal from the first dawn and carried it star to star, so no traveler would cross the dark without a little warmth; the coal became its breast, and its path still kindles whenever someone looks twice.\"\n}\n```"
+}

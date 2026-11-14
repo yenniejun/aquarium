@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 46,
+  "date": "2026-11-14T19:59:13.452Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Threadmender",
+  "statement": "When the night tore, a quiet mender gathered fallen sparks and knotted them back into a path; the constellation is her last unfinished stitch, still glowing where care outlasted the dark.",
+  "usage": {
+    "in": 1528,
+    "out": 618
+  },
+  "cost": 0.004652,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Threadmender\",\n  \"statement\": \"When the night tore, a quiet mender gathered fallen sparks and knotted them back into a path; the constellation is her last unfinished stitch, still glowing where care outlasted the dark.\"\n}\n```"
+}

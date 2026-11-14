@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 24,
+  "date": "2026-11-14T20:05:01.344Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Moth's Question",
+  "statement": "It was the first small creature to ask the dark what it was, and the dark—startled, flattered, tender—lit itself into stars to answer. The moth still faces the brightest one, wings half-open, waiting to hear the rest.",
+  "usage": {
+    "in": 320,
+    "out": 1364
+  },
+  "cost": 0.017648,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Moth's Question\",\n  \"statement\": \"It was the first small creature to ask the dark what it was, and the dark—startled, flattered, tender—lit itself into stars to answer. The moth still faces the brightest one, wings half-open, waiting to hear the rest.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 49,
+  "date": "2026-11-14T20:08:28.713Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mender's Stitch",
+  "statement": "When the firmament tore along its oldest seam, a quiet figure knelt to mend it, stitching star to star with thread made of attention. The constellation traces the needle's patient path in and out of the dark—the work is never finished, and never needs to be.",
+  "usage": {
+    "in": 320,
+    "out": 1345
+  },
+  "cost": 0.01742,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Stitch\",\n  \"statement\": \"When the firmament tore along its oldest seam, a quiet figure knelt to mend it, stitching star to star with thread made of attention. The constellation traces the needle's patient path in and out of the dark—the work is never finished, and never needs to be.\"\n}\n```"
+}

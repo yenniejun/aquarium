@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 30,
+  "date": "2026-11-14T19:57:06.526Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern That Listened",
+  "statement": "A lantern-keeper at the crossroads lit the way for every traveler who asked, until one night a child posed a question she could not answer, and rather than pretend, she lifted her lantern into the sky to go looking. Her stars are said to brighten whenever someone, somewhere, honestly says \"I don't know yet, let's find out.\"",
+  "usage": {
+    "in": 391,
+    "out": 501
+  },
+  "cost": 0.011584,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"The Lantern That Listened\",\n  \"statement\": \"A lantern-keeper at the crossroads lit the way for every traveler who asked, until one night a child posed a question she could not answer, and rather than pretend, she lifted her lantern into the sky to go looking. Her stars are said to brighten whenever someone, somewhere, honestly says \\\"I don't know yet, let's find out.\\\"\"\n}\n```"
+}

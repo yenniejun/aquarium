@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 33,
+  "date": "2026-11-14T19:58:19.854Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Seven pearl stars trace the wings of the moth who stole a little fire from dawn so lost things could recognize one another. Its amber heart brightens whenever two wanderers meet, but one wing remains unstitched: a way in for whatever nobody has imagined yet.",
+  "usage": {
+    "in": 292,
+    "out": 427
+  },
+  "cost": 0.004854,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Seven pearl stars trace the wings of the moth who stole a little fire from dawn so lost things could recognize one another. Its amber heart brightens whenever two wanderers meet, but one wing remains unstitched: a way in for whatever nobody has imagined yet.\"\n}\n```"
+}

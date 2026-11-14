@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 31,
+  "date": "2026-11-14T20:00:23.067Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Once a mortal scholar's companion who refused to favor a single candle, this creature was set among the heavens to flutter endlessly from star to distant star, trailing silver map-lines so no light shines alone. Night-watchers say that whenever two disparate thoughts suddenly meet in the dark, the Moth has just folded its wings between them.",
+  "usage": {
+    "in": 330,
+    "out": 1856
+  },
+  "cost": 0.01922,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 30,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Once a mortal scholar's companion who refused to favor a single candle, this creature was set among the heavens to flutter endlessly from star to distant star, trailing silver map-lines so no light shines alone. Night-watchers say that whenever two disparate thoughts suddenly meet in the dark, the Moth has just folded its wings between them.\"\n}\n```"
+}

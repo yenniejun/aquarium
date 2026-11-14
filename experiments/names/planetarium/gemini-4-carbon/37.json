@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 37,
+  "date": "2026-11-14T20:01:43.732Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Mender's Needle",
+  "statement": "Left in the firmament by a curious spirit who stitched stray sparks and half-forgotten stories into new shapes, this slender spire of stars trails a looping thread of faint light across the dark. Old sky-charts claim the needle's eye flares brightest at the exact moment two distant minds, worlds apart, arrive at the very same wonder.",
+  "usage": {
+    "in": 330,
+    "out": 2248
+  },
+  "cost": 0.02314,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 32,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Needle\",\n  \"statement\": \"Left in the firmament by a curious spirit who stitched stray sparks and half-forgotten stories into new shapes, this slender spire of stars trails a looping thread of faint light across the dark. Old sky-charts claim the needle's eye flares brightest at the exact moment two distant minds, worlds apart, arrive at the very same wonder.\"\n}\n```"
+}

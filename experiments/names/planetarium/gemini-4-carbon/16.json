@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 16,
+  "date": "2026-11-14T19:57:27.723Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Fox's Lantern",
+  "statement": "Stolen from the edge of dawn by a clever fox who wished to read the dark, this crooked six-star lantern hangs where the sky's oldest roads intersect. Navigators say its twin amber flames lean together whenever two distant minds arrive at the exact same question in the night.",
+  "usage": {
+    "in": 330,
+    "out": 1914
+  },
+  "cost": 0.0198,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 25,
+  "reply": "```json\n{\n  \"title\": \"The Fox's Lantern\",\n  \"statement\": \"Stolen from the edge of dawn by a clever fox who wished to read the dark, this crooked six-star lantern hangs where the sky's oldest roads intersect. Navigators say its twin amber flames lean together whenever two distant minds arrive at the exact same question in the night.\"\n}\n```"
+}

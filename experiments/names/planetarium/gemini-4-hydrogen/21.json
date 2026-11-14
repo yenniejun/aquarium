@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 21,
+  "date": "2026-11-14T19:56:53.060Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Cartographer's Moth",
+  "statement": "Drawn to the faintest embers of the void, this luminous moth brushes forgotten stars with silver wing-powder so wanderers might see the hidden paths between them. Star-charts say its wings only unfurl in full when someone looks up holding an unanswered question.",
+  "usage": {
+    "in": 330,
+    "out": 934
+  },
+  "cost": 0.0075,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Moth\",\n  \"statement\": \"Drawn to the faintest embers of the void, this luminous moth brushes forgotten stars with silver wing-powder so wanderers might see the hidden paths between them. Star-charts say its wings only unfurl in full when someone looks up holding an unanswered question.\"\n}\n```"
+}

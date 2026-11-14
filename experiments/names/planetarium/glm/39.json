@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 39,
+  "date": "2026-11-14T20:03:53.754Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Lantern-Keeper's Fox",
+  "statement": "They say a small fox once stole a lantern from the Moon and ran across the heavens, spilling starlight wherever its paws touched. It never returned the lantern—it simply learned to carry it, and now it walks the sky each night, leaving a trail of borrowed light for anyone still awake and wondering.",
+  "usage": {
+    "in": 302,
+    "out": 91
+  },
+  "cost": 0.00107296,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Keeper's Fox\",\n  \"statement\": \"They say a small fox once stole a lantern from the Moon and ran across the heavens, spilling starlight wherever its paws touched. It never returned the lantern—it simply learned to carry it, and now it walks the sky each night, leaving a trail of borrowed light for anyone still awake and wondering.\"\n}\n```"
+}

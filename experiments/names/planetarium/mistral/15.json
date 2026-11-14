@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 15,
+  "date": "2026-11-14T20:20:04.563Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "The Cartographer's Cat",
+  "statement": "An old star-chart legend says the Cat's tail curls toward whatever you are looking for—follow it slowly, and you will not be lost, only better acquainted with the dark.",
+  "usage": {
+    "in": 310,
+    "out": 788
+  },
+  "cost": 0.00171052,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Cat\",\n  \"statement\": \"An old star-chart legend says the Cat's tail curls toward whatever you are looking for—follow it slowly, and you will not be lost, only better acquainted with the dark.\"\n}\n```"
+}

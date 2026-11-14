@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 30,
+  "date": "2026-11-14T20:05:54.634Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "The Moth Cartographer",
+  "statement": "A moth once carried the sky’s smallest lantern, searching for the edge of the night and finding only new beginnings. She stitched them together with silver thread, leaving a map that rearranges itself whenever someone looks up with a question.",
+  "usage": {
+    "in": 369,
+    "out": 548
+  },
+  "cost": 0.0057572,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"The Moth Cartographer\",\n  \"statement\": \"A moth once carried the sky’s smallest lantern, searching for the edge of the night and finding only new beginnings. She stitched them together with silver thread, leaving a map that rearranges itself whenever someone looks up with a question.\"\n}\n```"
+}

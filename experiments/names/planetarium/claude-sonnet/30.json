@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 30,
+  "date": "2026-11-14T19:56:35.085Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "Long ago, when the sky was still unlit, a small moth mistook the first star for a flame and flew toward it for a thousand years, and where she finally landed, six stars bloomed along her wings, one for every question she'd been too curious to leave unanswered. On clear nights her wings open slowly and her antennae trace the lines to the stars she has yet to visit.",
+  "usage": {
+    "in": 391,
+    "out": 147
+  },
+  "cost": 0.002252,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"Long ago, when the sky was still unlit, a small moth mistook the first star for a flame and flew toward it for a thousand years, and where she finally landed, six stars bloomed along her wings, one for every question she'd been too curious to leave unanswered. On clear nights her wings open slowly and her antennae trace the lines to the stars she has yet to visit.\"\n}\n```"
+}

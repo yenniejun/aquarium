@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 34,
+  "date": "2026-11-14T19:58:23.955Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Archivist",
+  "statement": "A quiet keeper once lifted nearly-lost stories into the dark and hung them as lamps; travelers still follow that arch of light when the night feels too wide to cross alone.",
+  "usage": {
+    "in": 1528,
+    "out": 549
+  },
+  "cost": 0.004238,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Archivist\",\n  \"statement\": \"A quiet keeper once lifted nearly-lost stories into the dark and hung them as lamps; travelers still follow that arch of light when the night feels too wide to cross alone.\"\n}\n```"
+}

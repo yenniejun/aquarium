@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 35,
+  "date": "2026-11-14T19:58:31.622Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Margin Weaver",
+  "statement": "Eight stars trace the spider who spun a silver bridge between two stories that believed they had nothing in common. She left the final thread untied; on clear nights, you can see her lift it toward each wandering light, offering another way across.",
+  "usage": {
+    "in": 292,
+    "out": 462
+  },
+  "cost": 0.005204,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Margin Weaver\",\n  \"statement\": \"Eight stars trace the spider who spun a silver bridge between two stories that believed they had nothing in common. She left the final thread untied; on clear nights, you can see her lift it toward each wandering light, offering another way across.\"\n}\n```"
+}

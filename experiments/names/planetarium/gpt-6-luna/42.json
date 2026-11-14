@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 42,
+  "date": "2026-11-14T19:57:01.052Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "When travelers ask the dark a question, the Lantern Moth rises from the quiet between stars, its wings stitched from scattered lights and its tail tracing a way home. It carries no answers—only the little glow that helps a question find its next star.",
+  "usage": {
+    "in": 292,
+    "out": 299
+  },
+  "cost": 0.00017869999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"When travelers ask the dark a question, the Lantern Moth rises from the quiet between stars, its wings stitched from scattered lights and its tail tracing a way home. It carries no answers—only the little glow that helps a question find its next star.\"\n}\n```"
+}

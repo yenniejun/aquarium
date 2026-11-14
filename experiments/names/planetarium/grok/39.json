@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 39,
+  "date": "2026-11-14T19:58:38.633Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Amber Needle",
+  "statement": "A quiet mender once stitched the first dawn into the dark with a needle of amber light, and the sky still keeps that glowing seam so night remembers how to let morning through.",
+  "usage": {
+    "in": 1528,
+    "out": 716
+  },
+  "cost": 0.00524,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Amber Needle\",\n  \"statement\": \"A quiet mender once stitched the first dawn into the dark with a needle of amber light, and the sky still keeps that glowing seam so night remembers how to let morning through.\"\n}\n```"
+}

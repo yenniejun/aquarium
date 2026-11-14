@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 21,
+  "date": "2026-11-14T19:57:15.363Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Lantern Mender",
+  "statement": "A kneeling figure walks the dark with a needle of light, stitching fallen sparks back into their stories, and pauses—thread bright in hand—as if to ask whether the pattern is true.",
+  "usage": {
+    "in": 1528,
+    "out": 859
+  },
+  "cost": 0.006098,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Mender\",\n  \"statement\": \"A kneeling figure walks the dark with a needle of light, stitching fallen sparks back into their stories, and pauses—thread bright in hand—as if to ask whether the pattern is true.\"\n}\n```"
+}

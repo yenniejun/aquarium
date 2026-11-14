@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 31,
+  "date": "2026-11-14T19:57:27.362Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Paper Astrolabe",
+  "statement": "Folded from stray starlight by a dreamer who owned neither brass nor gold, this delicate instrument turns quietly above the horizon. Legend says it never points toward true north, but instead aligns itself with the question you most wish to understand.",
+  "usage": {
+    "in": 330,
+    "out": 1231
+  },
+  "cost": 0.0097275,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"The Paper Astrolabe\",\n  \"statement\": \"Folded from stray starlight by a dreamer who owned neither brass nor gold, this delicate instrument turns quietly above the horizon. Legend says it never points toward true north, but instead aligns itself with the question you most wish to understand.\"\n}\n```"
+}

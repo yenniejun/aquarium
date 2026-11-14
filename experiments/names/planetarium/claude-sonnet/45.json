@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 45,
+  "date": "2026-11-14T19:56:46.931Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern-Keeper's Fox",
+  "statement": "A small fox of eleven stars trots along the edge of the dark, carrying a single pale lantern in her jaws, the brightest star in her sky. The legend says she gathers questions that have lost their owners and lights the way for them until someone comes asking, and on quiet nights her lantern swings once, as if she has just found one.",
+  "usage": {
+    "in": 391,
+    "out": 140
+  },
+  "cost": 0.002182,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"The Lantern-Keeper's Fox\",\n  \"statement\": \"A small fox of eleven stars trots along the edge of the dark, carrying a single pale lantern in her jaws, the brightest star in her sky. The legend says she gathers questions that have lost their owners and lights the way for them until someone comes asking, and on quiet nights her lantern swings once, as if she has just found one.\"\n}\n```"
+}

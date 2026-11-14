@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 16,
+  "date": "2026-11-14T19:56:25.978Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Listening Moth",
+  "statement": "Its wing-stars form an open book, and its antennae lean toward every quiet question. Old sky-mappers say it gathers lost words and stitches them into paths—but always leaves one stitch undone, for wonder to find its way in.",
+  "usage": {
+    "in": 292,
+    "out": 248
+  },
+  "cost": 0.00015319999999999998,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Listening Moth\",\n  \"statement\": \"Its wing-stars form an open book, and its antennae lean toward every quiet question. Old sky-mappers say it gathers lost words and stitches them into paths—but always leaves one stitch undone, for wonder to find its way in.\"\n}\n```"
+}

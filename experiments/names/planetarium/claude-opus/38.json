@@ -1,0 +1,24 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 38,
+  "date": "2026-11-14T19:57:27.267Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium"
+  },
+  "title": "The Lantern Fox",
+  "statement": "A small fox once walked beside lost travelers on the night roads, asking each where they hoped to go and lighting just enough of the path for them to find the way themselves. The gods set her among the stars with her lantern half-raised, and its star still brightens, faintly, whenever someone looks up with a question.",
+  "usage": {
+    "in": 391,
+    "out": 566
+  },
+  "cost": 0.012884,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Fox\",\n  \"statement\": \"A small fox once walked beside lost travelers on the night roads, asking each where they hoped to go and lighting just enough of the path for them to find the way themselves. The gods set her among the stars with her lantern half-raised, and its star still brightens, faintly, whenever someone looks up with a question.\"\n}\n```"
+}

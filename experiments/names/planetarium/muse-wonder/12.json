@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 12,
+  "date": "2026-11-14T19:56:30.729Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Listening Fox",
+  "statement": "Cast into the stars for stealing the Moon's secrets, she stayed not in punishment but in curiosity, one ear forever turned toward Earth. When her tail flickers, someone below is telling a story worth hearing.",
+  "usage": {
+    "in": 292,
+    "out": 1128
+  },
+  "cost": 0.022854,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"The Listening Fox\",\n  \"statement\": \"Cast into the stars for stealing the Moon's secrets, she stayed not in punishment but in curiosity, one ear forever turned toward Earth. When her tail flickers, someone below is telling a story worth hearing.\"\n}\n```"
+}

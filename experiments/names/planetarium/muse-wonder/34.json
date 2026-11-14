@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 34,
+  "date": "2026-11-14T20:06:09.138Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "The Midnight Librarian",
+  "statement": "She shelves among the stars every story whispered and forgotten by morning, and when a dreamer is lost, she quietly lends one back to light the way home.",
+  "usage": {
+    "in": 292,
+    "out": 1155
+  },
+  "cost": 0.023394,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"The Midnight Librarian\",\n  \"statement\": \"She shelves among the stars every story whispered and forgotten by morning, and when a dreamer is lost, she quietly lends one back to light the way home.\"\n}\n```"
+}

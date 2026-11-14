@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 28,
+  "date": "2026-11-14T20:06:07.219Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Mender's Needle",
+  "statement": "They say the sky was sewn, not born, and where it frays at the edges, a small needle still works the dark, pulling gold thread through the thinning weave. No one sees the mender—only the stitch.",
+  "usage": {
+    "in": 320,
+    "out": 1216
+  },
+  "cost": 0.015872,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"The Mender's Needle\",\n  \"statement\": \"They say the sky was sewn, not born, and where it frays at the edges, a small needle still works the dark, pulling gold thread through the thinning weave. No one sees the mender—only the stitch.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 48,
+  "date": "2026-11-14T19:56:49.683Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Lantern Moth",
+  "statement": "A moth of nine pale stars, born the night the first astronomer fell asleep at her telescope and left the lamp burning; it flew up to see what was so interesting about the dark, and found it was a great many other lamps, all lit by someone who also couldn't stop looking. It traces its own wings slowly, then flutters once toward the faintest star in the sky, because curiosity, the legend says, is just wanting to get closer to the light.",
+  "usage": {
+    "in": 391,
+    "out": 169
+  },
+  "cost": 0.002472,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Lantern Moth\",\n  \"statement\": \"A moth of nine pale stars, born the night the first astronomer fell asleep at her telescope and left the lamp burning; it flew up to see what was so interesting about the dark, and found it was a great many other lamps, all lit by someone who also couldn't stop looking. It traces its own wings slowly, then flutters once toward the faintest star in the sky, because curiosity, the legend says, is just wanting to get closer to the light.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 29,
+  "date": "2026-11-14T19:57:18.755Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Folded Crane",
+  "statement": "Legend says a sleepless scribe folded a scrap of twilight into wings to gather every scattered, unspoken question from the earth below. Whenever distant stars seem to lean into sudden clarity, travelers say the Crane is gliding overhead, stitching a luminous bridge between forgotten thoughts.",
+  "usage": {
+    "in": 330,
+    "out": 1507
+  },
+  "cost": 0.0117975,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"The Folded Crane\",\n  \"statement\": \"Legend says a sleepless scribe folded a scrap of twilight into wings to gather every scattered, unspoken question from the earth below. Whenever distant stars seem to lean into sudden clarity, travelers say the Crane is gliding overhead, stitching a luminous bridge between forgotten thoughts.\"\n}\n```"
+}

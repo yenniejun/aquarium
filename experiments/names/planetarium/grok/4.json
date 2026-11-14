@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 4,
+  "date": "2026-11-14T19:48:32.705Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "The Threadmender",
+  "statement": "When the old lines of the sky fray, a small mender walks the dark with a needle of light, restitching stray stars into a figure that looks, if you are patient, like someone leaning in to listen.",
+  "usage": {
+    "in": 1528,
+    "out": 788
+  },
+  "cost": 0.005672,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"The Threadmender\",\n  \"statement\": \"When the old lines of the sky fray, a small mender walks the dark with a needle of light, restitching stray stars into a figure that looks, if you are patient, like someone leaning in to listen.\"\n}\n```"
+}

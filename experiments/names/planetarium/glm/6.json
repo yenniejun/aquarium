@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 6,
+  "date": "2026-11-14T19:48:04.037Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Cartographer's Lantern",
+  "statement": "They say a mapmaker once tried to chart every star in the heavens, and grew old before the sky was half-finished — so the stars, moved by her stubborn devotion, gathered themselves into a lantern and hung it above the unfinished corner of her map, lighting the way for whoever dares to continue. Sailors call it the Patience Light: it appears dimmest to those in a hurry, and burns brightest for anyone still willing to get delightfully lost.",
+  "usage": {
+    "in": 302,
+    "out": 124
+  },
+  "cost": 0.00136336,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"The Cartographer's Lantern\",\n  \"statement\": \"They say a mapmaker once tried to chart every star in the heavens, and grew old before the sky was half-finished — so the stars, moved by her stubborn devotion, gathered themselves into a lantern and hung it above the unfinished corner of her map, lighting the way for whoever dares to continue. Sailors call it the Patience Light: it appears dimmest to those in a hurry, and burns brightest for anyone still willing to get delightfully lost.\"\n}\n```"
+}

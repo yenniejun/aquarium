@@ -1,0 +1,26 @@
+{
+  "exhibit": "planetarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 35,
+  "date": "2026-11-14T19:57:48.105Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Fox's Question",
+  "statement": "A small fox sat at the edge of the sky and asked the dark a single question; it is still waiting, ears pricked, nose lifted toward the answer, and the star at its snout flickers each time the silence almost speaks.",
+  "usage": {
+    "in": 320,
+    "out": 1306
+  },
+  "cost": 0.016952,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Fox's Question\",\n  \"statement\": \"A small fox sat at the edge of the sky and asked the dark a single question; it is still waiting, ears pricked, nose lifted toward the answer, and the star at its snout flickers each time the silence almost speaks.\"\n}\n```"
+}

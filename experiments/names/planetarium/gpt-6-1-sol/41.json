@@ -1,0 +1,23 @@
+{
+  "exhibit": "planetarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 41,
+  "date": "2026-11-14T19:59:06.498Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 32000
+  },
+  "title": "The Thimble Dragon",
+  "statement": "The smallest dragon had no gold to guard, so it curled its seven blue stars around a faint amber light that the grander constellations had overlooked. Each night it unfolds one delicate wing, and for a moment you can see that its shelter has room for another star.",
+  "usage": {
+    "in": 292,
+    "out": 503
+  },
+  "cost": 0.005614,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"The Thimble Dragon\",\n  \"statement\": \"The smallest dragon had no gold to guard, so it curled its seven blue stars around a faint amber light that the grander constellations had overlooked. Each night it unfolds one delicate wing, and for a moment you can see that its shelter has room for another star.\"\n}\n```"
+}
