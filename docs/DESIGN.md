@@ -16,7 +16,7 @@ A museum where every exhibit gives several AI models the same brief, and every p
 
 ## Principles
 
-1. **Everything is code.** Pieces, frames, rooms, plaques and the favicon are all HTML/CSS/SVG/JS. The site contains no image files.
+1. **Everything is code.** Pieces, frames, rooms, plaques and the favicon are all HTML/CSS/SVG/JS. The shared header also uses the original Artfish logo (`public/artfish-logo.png`), linked to artfish.ai.
 2. **Exhibits are data, skins are code.** A new exhibit is a folder of JSON + HTML. A new *look* is a Room component, which usually comes with its own Frame. Pieces never know which skin they're in.
 3. **Pieces are untrusted.** Model output is never inlined into our pages; each piece runs in its own sandboxed iframe.
 4. **Same brief, recorded honestly.** The prompt lives in the repo, verbatim. Each entry records how it was generated, and any human edits.

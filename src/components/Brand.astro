@@ -1,0 +1,56 @@
+---
+import { href } from '../lib/url';
+
+interface Props {
+  light?: boolean;
+}
+
+const { light = false } = Astro.props;
+
+// Original publication logo from artfish.ai, saved locally to avoid a third-party image request.
+// https://substack-post-media.s3.amazonaws.com/public/images/4c6d96a8-9e6c-421e-b411-211798d04fe4_256x256.png
+---
+
+<a
+  class:list={['brand', { light }]}
+  href="https://artfish.ai"
+  target="_blank"
+  rel="noopener noreferrer"
+  title="Created by Art Fish Intelligence"
+  aria-label="Created by Art Fish Intelligence (opens in a new tab)"
+>
+  <img src={href('/artfish-logo.png')} width="256" height="256" alt="" decoding="async" />
+</a>
+
+<style>
+  .brand {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+    border-radius: 12px;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: invert(1);
+  }
+
+  .light img {
+    filter: none;
+  }
+
+  .brand:hover {
+    opacity: 0.75;
+  }
+
+  .brand:focus-visible {
+    outline: 2px solid var(--accent, #6fd6f5);
+    outline-offset: 4px;
+  }
+</style>

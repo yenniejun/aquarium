@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import SideNav from '../components/SideNav.astro';
+import Brand from '../components/Brand.astro';
 import { fontsUrl } from '../lib/fonts';
 import { site } from '../site';
 
@@ -40,6 +41,7 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
   <body data-skin={skin}>
     <div data-gallery-page={gallery} data-skin={skin} data-title={title ?? site.name} data-description={description}>
       <header class="site-header">
+        <Brand light={skin === 'page' || variant === 'niche' || variant === 'terrarium'} />
         <div class="header-tools">
           <slot name="header" />
           <SideNav />
