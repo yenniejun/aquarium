@@ -37,6 +37,15 @@ main {
   flex: 1;
 }
 
+/* Cached pages stay connected, so retained iframes keep their drawing state. */
+body > div[data-skin] {
+  display: contents;
+}
+
+[data-gallery-page][hidden] {
+  display: none !important;
+}
+
 /* Leave room for the fixed menu on the left edge (see SideNav.astro). */
 @media (min-width: 1000px) {
   main {

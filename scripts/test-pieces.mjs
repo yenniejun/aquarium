@@ -14,6 +14,7 @@ class Events {
     } : callback;
     if (!this.listeners.has(type)) this.listeners.set(type, new Set());
     this.listeners.get(type).add(listener);
+    options?.signal?.addEventListener('abort', () => this.removeEventListener(type, listener), { once: true });
   }
   removeEventListener(type, callback) { this.listeners.get(type)?.delete(callback); }
   emit(type, event = {}) { for (const cb of [...(this.listeners.get(type) ?? [])]) cb(event); }
@@ -76,16 +77,19 @@ function runtime({ capped = false, embedded = true } = {}) {
 function gallery(positions = [[0, 0], [0, 100], [0, 200]], viewer = false) {
   const time = clock(), window = new Events(), document = new Events();
   const observers = [], mutations = [], starts = [];
+  const exports = {};
   const frames = positions.map(([top, left], i) => {
     const frame = new Events();
     frame.dataset = viewer && i === positions.length - 1 ? {} : { src: `/piece-${i}.html` };
     frame.parentElement = { dataset: {} };
     frame.position = { top, left };
+    frame.attributes = new Set();
     frame.getBoundingClientRect = () => frame.position;
     frame.closest = () => frame;
-    frame.hasAttribute = (name) => name === 'data-src' && 'src' in frame.dataset;
+    frame.hasAttribute = (name) => name === 'data-src' ? 'src' in frame.dataset : frame.attributes.has(name);
+    frame.removeAttribute = (name) => frame.attributes.delete(name);
     frame.contentWindow = { messages: [], postMessage(message) { this.messages.push(message); } };
-    Object.defineProperty(frame, 'src', { set(value) { starts.push({ i, at: time.now(), value }); } });
+    Object.defineProperty(frame, 'src', { set(value) { frame.attributes.add('src'); starts.push({ i, at: time.now(), value }); } });
     return frame;
   });
   document.hidden = false;
@@ -93,16 +97,18 @@ function gallery(positions = [[0, 0], [0, 100], [0, 200]], viewer = false) {
   document.querySelectorAll = (selector) => selector === 'dialog' ? [{}] : frames;
   document.querySelector = () => document.modal;
   vm.runInNewContext(loaderSource, {
-    window, document, exports: {}, performance: { now: time.now },
+    window, document, exports, AbortController, performance: { now: time.now },
     setTimeout: time.setTimeout, clearTimeout: time.clearTimeout,
     IntersectionObserver: class {
       constructor(cb, options) { this.cb = cb; this.options = options; observers.push(this); }
       observe() {}
+      disconnect() {}
     },
-    MutationObserver: class { constructor(cb) { mutations.push(cb); } observe() {} },
+    MutationObserver: class { constructor(cb) { mutations.push(cb); } observe() {} disconnect() {} },
   });
+  const controller = exports.initPieces(document);
   return {
-    frames, starts, time, window, document,
+    frames, starts, time, window, document, controller,
     near(indices, isIntersecting = true) {
       observers[0].cb(indices.map((i) => ({ target: frames[i], isIntersecting })));
     },
@@ -110,6 +116,8 @@ function gallery(positions = [[0, 0], [0, 100], [0, 200]], viewer = false) {
       observers[1].cb(indices.map((i) => ({ target: frames[i], isIntersecting })));
     },
     signal(i, type = 'museum:piece-ready') {
+      frames[i].attributes.add('src'); // Represents an actual artwork document sending a message.
+      delete frames[i].dataset.src;
       window.emit('message', { source: frames[i].contentWindow, data: { type } });
     },
     modal(value) { document.modal = value; mutations.forEach((cb) => cb()); },
@@ -132,6 +140,40 @@ test('offscreen pieces draw one warmup frame, then stop; returning resumes witho
   r.step(48);
   assert.equal(draws, 2);
   assert.ok(!r.attributes.has('data-museum-paused'));
+});
+
+test('suspending retains at most three painted visible pieces, and releases every other document', () => {
+  const g = gallery(Array.from({ length: 6 }, (_, i) => [0, i * 100]));
+  g.visible([0, 1, 2, 3, 4, 5]);
+  for (let i = 0; i < 6; i++) g.signal(i);
+  assert.equal(g.controller.suspend(), 3);
+  assert.deepEqual(g.frames.map((frame) => frame.hasAttribute('src')), [true, true, true, false, false, false]);
+  assert.ok(g.frames.every((frame) => frame.contentWindow.messages.at(-1).active === false));
+  assert.ok(g.frames.slice(3).every((frame) => frame.dataset.src));
+  g.time.advance(5000);
+  assert.equal(g.starts.length, 0);
+  g.controller.resume();
+  g.visible([0, 1, 2, 3]);
+  g.near([0, 1, 2, 3]);
+  assert.equal(g.starts.length, 1);
+  assert.equal(g.starts[0].i, 3);
+  assert.ok(g.frames.slice(0, 3).every((frame) => frame.contentWindow.messages.at(-1).active));
+});
+
+test('low-memory retention keeps one; disposal releases frames and all global listeners', () => {
+  const g = gallery();
+  g.visible([0, 1, 2]);
+  g.frames.forEach((_, i) => g.signal(i));
+  assert.equal(g.controller.suspend(1), 1);
+  assert.equal(g.frames.filter((frame) => frame.hasAttribute('src')).length, 1);
+  g.controller.dispose();
+  assert.ok(g.frames.every((frame) => !frame.hasAttribute('src')));
+  assert.ok([...g.window.listeners.values()].every((listeners) => listeners.size === 0));
+  assert.ok([...g.document.listeners.values()].every((listeners) => listeners.size === 0));
+  g.controller.resume();
+  g.near([0, 1, 2]);
+  g.time.advance(5000);
+  assert.equal(g.starts.length, 0);
 });
 
 test('only reviewed pieces get the 30 fps cap; standalone pieces still animate', () => {

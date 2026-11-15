@@ -16,10 +16,12 @@ import { track } from './analytics';
 
 type Reveal = Record<string, { title: string; artist: string; provider: string; medium: string | null }>;
 
-const root = document.querySelector<HTMLElement>('[data-exhibit]');
-if (root?.dataset.state === 'voting') init(root);
+export function initVoting(page: HTMLElement, signal: AbortSignal) {
+  const root = page.querySelector<HTMLElement>('[data-exhibit]');
+  if (root?.dataset.state === 'voting') init(root, signal);
+}
 
-function init(root: HTMLElement) {
+function init(root: HTMLElement, signal: AbortSignal) {
   const key = `museum:vote:${root.dataset.exhibit}`;
   const pieces = [...root.querySelectorAll<HTMLElement>('[data-piece]')];
   const ids = new Set(pieces.map((p) => p.dataset.piece));
@@ -29,7 +31,7 @@ function init(root: HTMLElement) {
   if (picked && !ids.has(picked)) picked = null;
 
   if (picked) {
-    reveal(root, pieces, picked);
+    reveal(root, pieces, picked, signal);
     return;
   }
 
@@ -47,7 +49,7 @@ function init(root: HTMLElement) {
     if (picked) return;
     picked = id;
     store(key, id);
-    const data = await reveal(root, pieces, id);
+    const data = await reveal(root, pieces, id, signal);
     const info = data?.[id];
     // The maker is in the event's name so Umami's Events list reads as a leaderboard.
     const maker = info?.artist ?? 'unknown';
@@ -56,7 +58,7 @@ function init(root: HTMLElement) {
 
   for (const piece of ready) {
     for (const el of piece.querySelectorAll('[data-vote]')) {
-      el.addEventListener('click', () => castVote(piece.dataset.piece!));
+      el.addEventListener('click', () => castVote(piece.dataset.piece!), { signal });
     }
   }
 
@@ -64,18 +66,20 @@ function init(root: HTMLElement) {
   // the iframe. (Iframes are tabindex="-1", so keyboard focus can't trigger this.)
   addEventListener('blur', () =>
     setTimeout(() => {
+      if (signal.aborted || root.closest<HTMLElement>('[data-gallery-page]')?.hidden) return;
       const el = document.activeElement;
       const piece = el instanceof HTMLIFrameElement ? el.closest<HTMLElement>('[data-piece]') : null;
       if (piece && ready.includes(piece)) castVote(piece.dataset.piece!);
     }),
+    { signal },
   );
 }
 
-async function reveal(root: HTMLElement, pieces: HTMLElement[], picked: string): Promise<Reveal | null> {
+async function reveal(root: HTMLElement, pieces: HTMLElement[], picked: string, signal: AbortSignal): Promise<Reveal | null> {
   pieces.find((p) => p.dataset.piece === picked)?.setAttribute('data-picked', '');
   let data: Reveal | null = null;
   try {
-    data = await fetch(root.dataset.revealUrl!).then((r) => r.json());
+    data = await fetch(root.dataset.revealUrl!, { signal }).then((r) => r.json());
     for (const piece of pieces) {
       const info = data![piece.dataset.piece!];
       if (!info) continue;
@@ -85,10 +89,11 @@ async function reveal(root: HTMLElement, pieces: HTMLElement[], picked: string):
       });
     }
   } catch (err) {
+    if (signal.aborted) return null;
     console.error('Could not load who made what', err);
   }
   root.dataset.state = 'revealed';
-  const hint = document.querySelector<HTMLElement>('[data-vote-hint]');
+  const hint = root.querySelector<HTMLElement>('[data-vote-hint]');
   if (hint?.dataset.done) hint.textContent = hint.dataset.done;
   return data;
 }

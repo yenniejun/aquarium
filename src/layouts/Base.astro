@@ -10,9 +10,10 @@ interface Props {
   variant?: string;
   title?: string;
   description?: string;
+  gallery?: string;
 }
 
-const { skin, variant, title, description = site.blurb } = Astro.props;
+const { skin, variant, title, description = site.blurb, gallery } = Astro.props;
 const favicon = `data:image/svg+xml,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0b2a4a"/><path d="M5 16c4-6 12-6 16 0-4 6-12 6-16 0zm16 0 6-5v10z" fill="#ffb347"/><circle cx="10" cy="15" r="1.5" fill="#0b2a4a"/></svg>`,
 )}`;
@@ -37,19 +38,21 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
     <link rel="stylesheet" href={fontsUrl(skin, variant)} />
   </head>
   <body data-skin={skin}>
-    <header class="site-header">
-      <div class="header-tools">
-        <slot name="header" />
-        <SideNav />
-      </div>
-    </header>
-    <main>
-      <slot />
-    </main>
-    <footer class="site-footer">
-      <a class="credit" href="https://artfish.ai" target="_blank" rel="noopener">
-        created by <b><span class="ai">A</span>rt fish <span class="ai">I</span>ntelligence</b> <em>♥</em>
-      </a>
-    </footer>
+    <div data-gallery-page={gallery} data-skin={skin} data-title={title ?? site.name} data-description={description}>
+      <header class="site-header">
+        <div class="header-tools">
+          <slot name="header" />
+          <SideNav />
+        </div>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <a class="credit" href="https://artfish.ai" target="_blank" rel="noopener">
+          created by <b><span class="ai">A</span>rt fish <span class="ai">I</span>ntelligence</b> <em>♥</em>
+        </a>
+      </footer>
+    </div>
   </body>
 </html>

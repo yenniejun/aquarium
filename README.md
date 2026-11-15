@@ -8,6 +8,7 @@ npm run dev          # http://localhost:4321
 npm run build        # static site in dist/
 npm run check        # type check
 npm run test:pieces  # loading, row reveal, and offscreen animation scheduling
+npm run test:navigation # bounded gallery cache, navigation, and history
 npm run check:blind  # flag model names hiding in piece code, titles or statements
 ```
 
@@ -36,6 +37,7 @@ Each gallery is a folder in `exhibits/` with `exhibit.json` (title, skin, status
 - **Blind mode:** pieces are shuffled and unlabeled until you vote. `?reset` in the URL forgets your vote (and shows the aquarium's welcome again); on the dev server there's also a "Reset vote" button.
 - **"Info" and "?":** hovering (or tapping) "?" shows a small bubble with what the models were told. "Info" opens two tabs: **Models** (open-weight and closed, each linking to its maker's page, from `src/lib/modelLinks.ts`) and **Prompt** (the exact prompt).
 - **Fonts:** each page loads only the Google Fonts it uses (`src/lib/fonts.ts`); add a family there when a gallery starts using one.
+- **Switching galleries:** normal gallery links switch within the page. The previous gallery keeps at most three painted, visible artworks paused (one on touch devices or devices reporting ≤4 GB RAM); its other artworks unload. A third gallery evicts the older page, and hiding the tab releases the extra cached page. Browser back/forward, direct URLs, and modified clicks still work; network failures fall back to normal navigation. The limit bounds retained artwork count, not exact browser memory.
 
 ### Adding a gallery
 

@@ -18,7 +18,7 @@ const blind = exhibit.mode === 'blind';
 ---
 
 
-<Base skin={exhibit.skin} variant={exhibit.variant} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
+<Base gallery={exhibit.slug} skin={exhibit.skin} variant={exhibit.variant} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
   <Fragment slot="header">
     <ResetVote exhibit={exhibit} />
     {/* Every exhibit gets "Info" and "?". (A skin's Welcome, like the aquarium's goldfish, could greet
@@ -36,8 +36,8 @@ const blind = exhibit.mode === 'blind';
 </Base>
 
 <script>
-  import '../scripts/pieces';
-  import '../scripts/voting';
+  import { initNavigation } from '../scripts/navigation';
+  initNavigation();
 </script>
 
 <style>

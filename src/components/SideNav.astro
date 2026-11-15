@@ -16,7 +16,7 @@ const exhibits = getListedExhibits();
     exhibits.map((ex) => {
       const url = href(exhibitPath(ex));
       return (
-        <a href={url} aria-current={(url === href('/') ? here === url : here.startsWith(url)) ? 'page' : undefined}>
+        <a data-gallery-link href={url} aria-current={(url === href('/') ? here === url : here.startsWith(url)) ? 'page' : undefined}>
           <ExhibitTitle title={ex.title} />
         </a>
       );
@@ -31,14 +31,6 @@ const exhibits = getListedExhibits();
     ))
   }
 </nav>
-
-<script>
-  // On narrow screens the menu is a popover; close it once a link is chosen.
-  const nav = document.getElementById('site-nav');
-  nav?.addEventListener('click', (e) => {
-    if ((e.target as Element).closest('a') && nav.matches(':popover-open')) nav.hidePopover();
-  });
-</script>
 
 <style>
   .side-nav,

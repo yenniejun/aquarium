@@ -23,14 +23,6 @@ const { exhibit } = Astro.props;
       >
         Reset vote
       </button>
-      <script is:inline>
-        document.currentScript.previousElementSibling.addEventListener('click', (e) => {
-          try {
-            localStorage.removeItem(e.currentTarget.dataset.key);
-          } catch {}
-          location.reload();
-        });
-      </script>
     </>
   )
 }

@@ -9,6 +9,7 @@
     "check:blind": "node scripts/check-blind.mjs",
     "check": "astro check",
     "test:pieces": "node --test scripts/test-pieces.mjs",
+    "test:navigation": "node --test scripts/test-navigation.mjs",
     "generate": "node --env-file-if-exists=.env scripts/generate.mjs",
     "names": "node --env-file-if-exists=.env scripts/names.mjs"
   },

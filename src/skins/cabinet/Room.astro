@@ -86,23 +86,6 @@ const brightStars = [0, 1, 2].map(() =>
   </section>
 </div>
 
-<script>
-  import { daylight, moonArc, sunArc, timeOfDay } from './day';
-
-  // Terrarium: the sky follows the shared day, the same clock every piece is told to use.
-  const room = document.querySelector<HTMLElement>('.room[data-variant="terrarium"]');
-  if (room) {
-    const tick = () => {
-      const t = timeOfDay();
-      room.style.setProperty('--light', daylight(t).toFixed(3));
-      room.style.setProperty('--sun', sunArc(t).toFixed(4));
-      room.style.setProperty('--moon', moonArc(t).toFixed(4));
-      requestAnimationFrame(tick);
-    };
-    tick();
-  }
-</script>
-
 <style>
   :global(body[data-skin='cabinet']) {
     --title-font: 'Gluten', system-ui, sans-serif;
@@ -145,7 +128,7 @@ const brightStars = [0, 1, 2].map(() =>
   }
 
   /* Light walls get a darker credit at the bottom of the page. */
-  :global(body:has(.room:is([data-variant='niche'], [data-variant='terrarium']))) {
+  :global(body:has([data-gallery-page]:not([hidden]) .room:is([data-variant='niche'], [data-variant='terrarium']))) {
     --footer-ink: rgba(30, 24, 16, 0.72);
     --footer-ai: #0a78a8;
   }
