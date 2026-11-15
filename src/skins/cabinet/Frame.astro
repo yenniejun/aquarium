@@ -33,12 +33,12 @@ const empty = piece.status === 'pending';
   <div class="vessel">
     <div class="glass">
       <iframe
+        data-piece-frame
         data-src={piece.src}
         title={piece.title}
         sandbox="allow-scripts"
         tabindex="-1"
-        referrerpolicy="no-referrer"
-        onload="if (this.src) this.parentElement.dataset.loaded = ''"></iframe>
+        referrerpolicy="no-referrer"></iframe>
     </div>
     {
       variant === 'specimen' && (
@@ -111,11 +111,17 @@ const empty = piece.status === 'pending';
     height: 100%;
     border: 0;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.45s ease-out;
   }
 
   .glass[data-loaded] iframe {
     opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    iframe {
+      transition: none;
+    }
   }
 
   /* Overlays (glare, crossbars) never block the pointer. */

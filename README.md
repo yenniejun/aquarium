@@ -7,6 +7,7 @@ npm install
 npm run dev          # http://localhost:4321
 npm run build        # static site in dist/
 npm run check        # type check
+npm run test:pieces  # loading, row reveal, and offscreen animation scheduling
 npm run check:blind  # flag model names hiding in piece code, titles or statements
 ```
 

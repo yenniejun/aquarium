@@ -13,9 +13,9 @@
     <div class="hood" aria-hidden="true"></div>
     <div class="glass">
       <iframe
+        data-piece-frame
         sandbox="allow-scripts"
-        referrerpolicy="no-referrer"
-        onload="this.src !== 'about:blank' && (this.parentElement.dataset.loaded = '')"></iframe>
+        referrerpolicy="no-referrer"></iframe>
     </div>
     <figcaption>
       <span class="plaque">
@@ -189,6 +189,10 @@
   @media (prefers-reduced-motion: reduce) {
     .viewer[open] {
       animation: none;
+    }
+
+    iframe {
+      transition: none;
     }
   }
 </style>

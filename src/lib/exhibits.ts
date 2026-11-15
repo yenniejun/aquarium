@@ -46,7 +46,7 @@ const EntrySchema = z.object({
   /** On OpenRouter: the one host allowed to serve the request (no fallbacks), e.g. "deepseek" */
   host: z.string().optional(),
   openWeights: z.boolean().default(false),
-  /** Draw this piece at most 30 times a second (src/lib/frame-cap.js). Set only after checking the
+  /** Draw this piece at most 30 times a second (src/lib/piece-runtime.js). Set only after checking the
    * piece looks the same capped; regenerating a piece rewrites its meta, which clears it. */
   frameCap: z.boolean().default(false),
   /** dummy = hand-written stand-in, final = real model output. ("pending" = no piece.html) */

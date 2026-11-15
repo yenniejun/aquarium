@@ -16,12 +16,12 @@ const empty = piece.status === 'pending';
   <div class="glass">
     <span class="loading" aria-hidden="true"><i></i><i></i><i></i></span>
     <iframe
+      data-piece-frame
       data-src={piece.src}
       title={piece.title}
       sandbox="allow-scripts"
       tabindex="-1"
-      referrerpolicy="no-referrer"
-      onload="if (this.src) this.parentElement.dataset.loaded = ''"></iframe>
+      referrerpolicy="no-referrer"></iframe>
     <a
       class="open"
       href={piece.src}
@@ -123,7 +123,7 @@ const empty = piece.status === 'pending';
     border: 0;
     display: block;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.45s ease-out;
   }
 
   .glass[data-loaded] iframe {
@@ -454,7 +454,8 @@ const empty = piece.status === 'pending';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .badge {
+    .badge,
+    .glass iframe {
       transition: none;
     }
 

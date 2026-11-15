@@ -8,10 +8,10 @@
  *    "everything is code" rule: no network, no external images, scripts only from
  *    the CDN allowlist.
  *
- * Those are the only changes made to a piece's HTML, plus, for pieces checked to look the same
- * with it, a small script that draws them at most 30 times a second (./frame-cap.js).
+ * A gallery-owned runtime pauses offscreen drawing and reports when the first frame is ready.
+ * Only pieces checked to look the same at 30 fps also get the optional frame cap.
  */
-import frameCapScript from './frame-cap.js?raw';
+import pieceRuntime from './piece-runtime.js?raw';
 export const PIECE_CDNS = ['https://cdn.jsdelivr.net', 'https://cdnjs.cloudflare.com', 'https://unpkg.com'];
 
 export const PIECE_CSP = [
@@ -28,7 +28,7 @@ export const PIECE_CSP = [
 const META = `<meta http-equiv="Content-Security-Policy" content="${PIECE_CSP}">`;
 
 export function sandboxHtml(html: string, { frameCap = false } = {}): string {
-  const inject = META + (frameCap ? `<script>${frameCapScript}</script>` : '');
+  const inject = META + `<script${frameCap ? ' data-frame-cap' : ''}>${pieceRuntime}</script>`;
   const head = html.match(/<head[^>]*>/i);
   if (head) return html.replace(head[0], `${head[0]}${inject}`);
   // Never put anything before <!doctype>, it would flip the page into quirks mode.
