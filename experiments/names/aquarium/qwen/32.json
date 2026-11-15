@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 32,
+  "date": "2026-11-14T21:17:10.735Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Scribbling Snailfish",
+  "statement": "A small, soft, translucent-pink snailfish that drifts low over pale sand, trailing faint bioluminescent lines from its fin-tips like a pen that can't stop drafting. The glowing marks linger a moment, then dissolve into the dark water, and it begins the next line, unhurried and never quite finished.",
+  "usage": {
+    "in": 359,
+    "out": 1300
+  },
+  "cost": 0.017036,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Snailfish\",\n  \"statement\": \"A small, soft, translucent-pink snailfish that drifts low over pale sand, trailing faint bioluminescent lines from its fin-tips like a pen that can't stop drafting. The glowing marks linger a moment, then dissolve into the dark water, and it begins the next line, unhurried and never quite finished.\"\n}\n```"
+}

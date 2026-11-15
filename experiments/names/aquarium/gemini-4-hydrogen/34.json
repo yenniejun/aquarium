@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 34,
+  "date": "2026-11-14T21:11:40.982Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Scribbling Sand Squid",
+  "statement": "Bathed in warm amber and deep indigo light, this tiny, iridescent squid spends its hours hovering over pale quartz sand, sketching delicate diagrams and shifting constellations with the tip of one curious tentacle. Whenever its seafloor chalkboard fills up among the sunken brass astrolabes, swaying celadon kelp, and tumbled sea glass, it gently puffs the slate clean and happily begins again.",
+  "usage": {
+    "in": 365,
+    "out": 2339
+  },
+  "cost": 0.01809,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Sand Squid\",\n  \"statement\": \"Bathed in warm amber and deep indigo light, this tiny, iridescent squid spends its hours hovering over pale quartz sand, sketching delicate diagrams and shifting constellations with the tip of one curious tentacle. Whenever its seafloor chalkboard fills up among the sunken brass astrolabes, swaying celadon kelp, and tumbled sea glass, it gently puffs the slate clean and happily begins again.\"\n}\n```"
+}

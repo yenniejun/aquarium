@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 48,
+  "date": "2026-11-14T21:11:02.962Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Glimmering Gloamfish",
+  "statement": "This thumb-sized fish has ink-blue scales and a constellation of warm, pinprick lights; it drifts through a miniature dusk of moss and smooth moonstone, pausing to investigate each bubble. Its glow brightens when it’s curious, like a small thought finding its way home.",
+  "usage": {
+    "in": 330,
+    "out": 511
+  },
+  "cost": 0.0002885,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Glimmering Gloamfish\",\n  \"statement\": \"This thumb-sized fish has ink-blue scales and a constellation of warm, pinprick lights; it drifts through a miniature dusk of moss and smooth moonstone, pausing to investigate each bubble. Its glow brightens when it’s curious, like a small thought finding its way home.\"\n}\n```"
+}

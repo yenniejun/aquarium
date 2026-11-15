@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 24,
+  "date": "2026-11-14T21:10:36.488Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Hmm-Hmm Cuttlefish",
+  "statement": "A small, lantern-eyed cuttlefish who ripples slow patterns of thought across its skin whenever a visitor leans close, as if carefully considering their question before answering. Between conversations it hums softly to itself among the amber-lit kelp, tidying the pebbles of its sunken reading nook into neat spirals and leaving the prettiest shell out for whoever comes by next.",
+  "usage": {
+    "in": 454,
+    "out": 593
+  },
+  "cost": 0.013676,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Hmm-Hmm Cuttlefish\",\n  \"statement\": \"A small, lantern-eyed cuttlefish who ripples slow patterns of thought across its skin whenever a visitor leans close, as if carefully considering their question before answering. Between conversations it hums softly to itself among the amber-lit kelp, tidying the pebbles of its sunken reading nook into neat spirals and leaving the prettiest shell out for whoever comes by next.\"\n}\n```"
+}

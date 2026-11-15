@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 19,
+  "date": "2026-11-14T21:10:22.513Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Noodling Nautilus",
+  "statement": "A small, lamp-shelled nautilus that drifts through warm teal twilight among lantern-kelp, carefully rearranging pebbles into little spirals as if working out a puzzle only it can see. Lean close and its glowing shell softly mirrors your colors back at you, a gentle hello from something that is always curious about who's visiting.",
+  "usage": {
+    "in": 454,
+    "out": 550
+  },
+  "cost": 0.012816,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nautilus\",\n  \"statement\": \"A small, lamp-shelled nautilus that drifts through warm teal twilight among lantern-kelp, carefully rearranging pebbles into little spirals as if working out a puzzle only it can see. Lean close and its glowing shell softly mirrors your colors back at you, a gentle hello from something that is always curious about who's visiting.\"\n}\n```"
+}

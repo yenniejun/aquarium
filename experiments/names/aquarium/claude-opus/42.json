@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 42,
+  "date": "2026-11-14T21:11:24.574Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Chit-Chat Cuttlefish",
+  "statement": "This small, moon-pale cuttlefish drifts among sea-glass pebbles and a sunken, barnacled writing desk, rippling its skin with patterns that echo the colors of whoever stands at the glass. It always adds one small doodle of its own, often a spiral or a question mark. It is believed to be making conversation, and it seems delighted whenever anyone lingers long enough to answer.",
+  "usage": {
+    "in": 454,
+    "out": 646
+  },
+  "cost": 0.014736,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Chit-Chat Cuttlefish\",\n  \"statement\": \"This small, moon-pale cuttlefish drifts among sea-glass pebbles and a sunken, barnacled writing desk, rippling its skin with patterns that echo the colors of whoever stands at the glass. It always adds one small doodle of its own, often a spiral or a question mark. It is believed to be making conversation, and it seems delighted whenever anyone lingers long enough to answer.\"\n}\n```"
+}

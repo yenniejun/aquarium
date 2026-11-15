@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 43,
+  "date": "2026-11-14T22:24:56.734Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Scribbling Script Snail",
+  "statement": "A nerite snail that treats the algae-dusted front glass as its manuscript, grazing looping trails of clean silver that read like hurried cursive. By morning it has eaten its own handwriting, leaving the pane blank and ready for the next poem.",
+  "usage": {
+    "in": 352,
+    "out": 8801
+  },
+  "cost": 0.01856722,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 111,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Script Snail\",\n  \"statement\": \"A nerite snail that treats the algae-dusted front glass as its manuscript, grazing looping trails of clean silver that read like hurried cursive. By morning it has eaten its own handwriting, leaving the pane blank and ready for the next poem.\"\n}\n```"
+}

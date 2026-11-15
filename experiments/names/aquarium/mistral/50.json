@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 50,
+  "date": "2026-11-15T02:13:22.220Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 24000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Puffball Picasso",
+  "statement": "A chubby little pufferfish that treats the pale sand as its sketchbook, puffing up and pivoting to etch perfect spirals and circles into the grains. It pauses to admire each transient mandala before the slow current smooths the bottom for its next masterpiece.",
+  "usage": {
+    "in": 352,
+    "out": 7806
+  },
+  "cost": 0.01647772,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 81,
+  "reply": "```json\n{\n  \"title\": \"Puffball Picasso\",\n  \"statement\": \"A chubby little pufferfish that treats the pale sand as its sketchbook, puffing up and pivoting to etch perfect spirals and circles into the grains. It pauses to admire each transient mandala before the slow current smooths the bottom for its next masterpiece.\"\n}\n```"
+}

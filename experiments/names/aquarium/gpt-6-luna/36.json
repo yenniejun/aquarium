@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 36,
+  "date": "2026-11-14T21:10:37.929Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Mothray",
+  "statement": "This palm-sized ray glides through a dusky, fern-green tank, its velvety fins shaped like moth wings and its freckles glowing softly with each breath. It settles beneath a little arch of river stone, where the water shimmers like a secret being kept.",
+  "usage": {
+    "in": 330,
+    "out": 217
+  },
+  "cost": 0.0001415,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mothray\",\n  \"statement\": \"This palm-sized ray glides through a dusky, fern-green tank, its velvety fins shaped like moth wings and its freckles glowing softly with each breath. It settles beneath a little arch of river stone, where the water shimmers like a secret being kept.\"\n}\n```"
+}

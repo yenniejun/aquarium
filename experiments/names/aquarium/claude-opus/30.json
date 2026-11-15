@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 30,
+  "date": "2026-11-14T21:10:52.352Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Cataloguing Cuttlefish",
+  "statement": "In a warm, lamp-lit tank of swaying kelp and sunken bookshelf stones, this patient little curator spends its days sorting pebbles and shells into tiny, thoughtful exhibits, rippling looping script-like patterns across its skin as though writing a label for each one. Linger a while and it will drift over, hover politely at the glass, and rearrange its collection into something it seems to hope you'll like.",
+  "usage": {
+    "in": 454,
+    "out": 508
+  },
+  "cost": 0.011976,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Cataloguing Cuttlefish\",\n  \"statement\": \"In a warm, lamp-lit tank of swaying kelp and sunken bookshelf stones, this patient little curator spends its days sorting pebbles and shells into tiny, thoughtful exhibits, rippling looping script-like patterns across its skin as though writing a label for each one. Linger a while and it will drift over, hover politely at the glass, and rearrange its collection into something it seems to hope you'll like.\"\n}\n```"
+}

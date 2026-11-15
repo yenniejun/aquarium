@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 1,
+  "date": "2026-11-14T21:09:46.310Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Pondering Pebblepus",
+  "statement": "A tiny, star-speckled octopus drifts through midnight-blue water, thoughtfully arranging moonstone pebbles into constellations. Whenever a visitor lingers, it unfurls one curious arm, then blushes in ripples of rose and gold.",
+  "usage": {
+    "in": 410,
+    "out": 338
+  },
+  "cost": 0.0042,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pebblepus\",\n  \"statement\": \"A tiny, star-speckled octopus drifts through midnight-blue water, thoughtfully arranging moonstone pebbles into constellations. Whenever a visitor lingers, it unfurls one curious arm, then blushes in ripples of rose and gold.\"\n}\n```"
+}

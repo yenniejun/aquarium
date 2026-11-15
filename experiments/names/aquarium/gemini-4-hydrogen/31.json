@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 31,
+  "date": "2026-11-14T21:11:27.225Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pufferfish",
+  "statement": "In a cozy twilight tank lit by glowing sea moss and sunken brass astrolabes, this round little perfectionist spends its days sorting sea glass by color and sweeping geometric spirals into the midnight sand. Whenever it finishes a pattern, it puffs into a buoyant, polka-dotted orb to admire its handiwork before gently whisking the slate clean to begin anew.",
+  "usage": {
+    "in": 365,
+    "out": 2414
+  },
+  "cost": 0.0186525,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pufferfish\",\n  \"statement\": \"In a cozy twilight tank lit by glowing sea moss and sunken brass astrolabes, this round little perfectionist spends its days sorting sea glass by color and sweeping geometric spirals into the midnight sand. Whenever it finishes a pattern, it puffs into a buoyant, polka-dotted orb to admire its handiwork before gently whisking the slate clean to begin anew.\"\n}\n```"
+}

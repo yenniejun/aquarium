@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 8,
+  "date": "2026-11-14T21:09:47.323Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonmoth",
+  "statement": "This tiny nudibranch glides through the water on soft, moon-pale frills, murmuring bubbles whenever it finds a favorite pebble. A quiet pool of blue light and swaying seagrass makes its solitary midnight wanderings feel like a dream.",
+  "usage": {
+    "in": 330,
+    "out": 516
+  },
+  "cost": 0.000291,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmoth\",\n  \"statement\": \"This tiny nudibranch glides through the water on soft, moon-pale frills, murmuring bubbles whenever it finds a favorite pebble. A quiet pool of blue light and swaying seagrass makes its solitary midnight wanderings feel like a dream.\"\n}\n```"
+}

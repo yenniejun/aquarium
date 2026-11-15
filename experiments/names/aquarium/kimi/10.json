@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 10,
+  "date": "2026-11-14T21:12:44.824Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Blooping Bubble Snail",
+  "statement": "A tiny opalescent sea snail that blows one perfect bubble at a time, nudging them into slowly drifting constellations. It inspects each arrangement with great solemnity, then cheerfully bloops it apart and begins again.",
+  "usage": {
+    "in": 410,
+    "out": 449
+  },
+  "cost": 0.0048492,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bubble Snail\",\n  \"statement\": \"A tiny opalescent sea snail that blows one perfect bubble at a time, nudging them into slowly drifting constellations. It inspects each arrangement with great solemnity, then cheerfully bloops it apart and begins again.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 31,
+  "date": "2026-11-14T21:20:08.431Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Musing Mandarinfish",
+  "statement": "A small, jewel-bright fish drifts through still green water, pausing often as if turning a thought over, then flicking onward in a brief, exact shimmer.",
+  "usage": {
+    "in": 1569,
+    "out": 580
+  },
+  "cost": 0.00489,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Musing Mandarinfish\",\n  \"statement\": \"A small, jewel-bright fish drifts through still green water, pausing often as if turning a thought over, then flicking onward in a brief, exact shimmer.\"\n}\n```"
+}

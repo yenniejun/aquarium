@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 41,
+  "date": "2026-11-14T21:11:25.536Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Moorfrog Nudibranch",
+  "statement": "A soft, lavender sea-slug that hums gentle bubbles as it drifts, its frilly mantles glowing faintly when it's content. It sleeps curled around a single polished stone, which it has decided—firmly and forever—is its best friend.",
+  "usage": {
+    "in": 342,
+    "out": 81
+  },
+  "cost": 0.00109696,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moorfrog Nudibranch\",\n  \"statement\": \"A soft, lavender sea-slug that hums gentle bubbles as it drifts, its frilly mantles glowing faintly when it's content. It sleeps curled around a single polished stone, which it has decided—firmly and forever—is its best friend.\"\n}\n```"
+}

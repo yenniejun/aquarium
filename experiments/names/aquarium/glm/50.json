@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 50,
+  "date": "2026-11-14T21:12:06.168Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Wandering Wispfin",
+  "statement": "A shy, lantern-pale fish that drifts through its tank's shadowy green glow like a slow thought, fins rippling with silver static that flickers brighter whenever it pauses to stare at its own reflection in the glass.",
+  "usage": {
+    "in": 342,
+    "out": 69
+  },
+  "cost": 0.00099136,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Wandering Wispfin\",\n  \"statement\": \"A shy, lantern-pale fish that drifts through its tank's shadowy green glow like a slow thought, fins rippling with silver static that flickers brighter whenever it pauses to stare at its own reflection in the glass.\"\n}\n```"
+}

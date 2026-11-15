@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 25,
+  "date": "2026-11-14T21:18:04.486Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Glimmering Glassfish",
+  "statement": "A translucent glassfish hangs in a shaft of warm light, its faint silver bones like a sentence half-read, turning only when a bubble drifts by as if that small bright thing were worth following.",
+  "usage": {
+    "in": 1569,
+    "out": 1111
+  },
+  "cost": 0.0075,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 23,
+  "reply": "```json\n{\n  \"title\": \"Glimmering Glassfish\",\n  \"statement\": \"A translucent glassfish hangs in a shaft of warm light, its faint silver bones like a sentence half-read, turning only when a bubble drifts by as if that small bright thing were worth following.\"\n}\n```"
+}

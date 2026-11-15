@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 49,
+  "date": "2026-11-14T21:13:00.442Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pitter-Patter Pebblepus",
+  "statement": "A pearl-sized octopus with translucent, freckled arms, the Pebblepus putters through blue-green water, tapping each stone before choosing where it belongs. In its tank of pale sand and honey-colored glass arches, it is forever building a little staircase toward a sunbeam—and forever interrupting construction to slide down.",
+  "usage": {
+    "in": 330,
+    "out": 301
+  },
+  "cost": 0.00367,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Pitter-Patter Pebblepus\",\n  \"statement\": \"A pearl-sized octopus with translucent, freckled arms, the Pebblepus putters through blue-green water, tapping each stone before choosing where it belongs. In its tank of pale sand and honey-colored glass arches, it is forever building a little staircase toward a sunbeam—and forever interrupting construction to slide down.\"\n}\n```"
+}

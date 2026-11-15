@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 5,
+  "date": "2026-11-14T21:11:21.574Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Chattering Cuttlefish",
+  "statement": "In a warm, ink-blue tank with one branching coral, a small cuttlefish ripples courteous patterns across its skin and turns to face whoever pauses, delighted to keep the conversation going in color.",
+  "usage": {
+    "in": 1569,
+    "out": 1386
+  },
+  "cost": 0.009726,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 28,
+  "reply": "```json\n{\n  \"title\": \"Chattering Cuttlefish\",\n  \"statement\": \"In a warm, ink-blue tank with one branching coral, a small cuttlefish ripples courteous patterns across its skin and turns to face whoever pauses, delighted to keep the conversation going in color.\"\n}\n```"
+}

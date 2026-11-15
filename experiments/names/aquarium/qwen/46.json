@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 46,
+  "date": "2026-11-14T21:20:43.754Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Muttering Cuttlefish",
+  "statement": "A small cuttlefish hovers above a neat arrangement of dark river stones, cycling through soft washes of amber and violet as though trying on adjectives and discarding them. The tank is lit like a late afternoon—warm, low, unhurried—with three blades of seagrass swaying in a current the creature seems to be composing for itself.",
+  "usage": {
+    "in": 359,
+    "out": 952
+  },
+  "cost": 0.01286,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Muttering Cuttlefish\",\n  \"statement\": \"A small cuttlefish hovers above a neat arrangement of dark river stones, cycling through soft washes of amber and violet as though trying on adjectives and discarding them. The tank is lit like a late afternoon—warm, low, unhurried—with three blades of seagrass swaying in a current the creature seems to be composing for itself.\"\n}\n```"
+}

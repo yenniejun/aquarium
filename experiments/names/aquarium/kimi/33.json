@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 33,
+  "date": "2026-11-14T21:20:02.919Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Pondering Prism Prawn",
+  "statement": "A thumb-sized, glass-blue prawn whose shell blooms into tiny rainbows whenever it discovers something interesting—which, fortunately, is almost everything. It drifts through midnight water and ribbon grass, pausing on a moon-white stone to inspect rising bubbles as if reading a very slow book.",
+  "usage": {
+    "in": 410,
+    "out": 479
+  },
+  "cost": 0.0051492,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Pondering Prism Prawn\",\n  \"statement\": \"A thumb-sized, glass-blue prawn whose shell blooms into tiny rainbows whenever it discovers something interesting—which, fortunately, is almost everything. It drifts through midnight water and ribbon grass, pausing on a moon-white stone to inspect rising bubbles as if reading a very slow book.\"\n}\n```"
+}

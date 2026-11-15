@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 27,
+  "date": "2026-11-14T21:18:48.867Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Murmuring Mandarinfish",
+  "statement": "In water the color of late-afternoon tea, a citrus-and-ink mandarinfish drifts in slow cursive, pausing over each pebble as if the seafloor were a letter it intends to answer kindly.",
+  "usage": {
+    "in": 1569,
+    "out": 1488
+  },
+  "cost": 0.009762,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 31,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mandarinfish\",\n  \"statement\": \"In water the color of late-afternoon tea, a citrus-and-ink mandarinfish drifts in slow cursive, pausing over each pebble as if the seafloor were a letter it intends to answer kindly.\"\n}\n```"
+}

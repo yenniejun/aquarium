@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 38,
+  "date": "2026-11-14T21:11:14.208Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "A small, ear-finned octopus drifts through soft lantern-lit water. It spends its days patiently drawing spirals and branching diagrams in the sand, then glows a faint gold whenever a pattern finally comes out just right. Curious to a fault, it pauses mid-doodle to study each visitor's face, as if their question might be the start of its next drawing.",
+  "usage": {
+    "in": 454,
+    "out": 568
+  },
+  "cost": 0.013176,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"A small, ear-finned octopus drifts through soft lantern-lit water. It spends its days patiently drawing spirals and branching diagrams in the sand, then glows a faint gold whenever a pattern finally comes out just right. Curious to a fault, it pauses mid-doodle to study each visitor's face, as if their question might be the start of its next drawing.\"\n}\n```"
+}

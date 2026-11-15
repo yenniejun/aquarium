@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 10,
+  "date": "2026-11-14T21:09:59.058Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Curious Cursive Cuttlefish",
+  "statement": "This small, bright-eyed cuttlefish drifts through a lamplit kelp garden, its skin rippling with looping patterns that look almost like handwriting, as though it were taking notes on everything it sees. When visitors lean close to the glass, it hovers nearby and quietly rearranges the nearest pebbles into tidy little spirals, apparently pleased to have company.",
+  "usage": {
+    "in": 454,
+    "out": 472
+  },
+  "cost": 0.011256,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Curious Cursive Cuttlefish\",\n  \"statement\": \"This small, bright-eyed cuttlefish drifts through a lamplit kelp garden, its skin rippling with looping patterns that look almost like handwriting, as though it were taking notes on everything it sees. When visitors lean close to the glass, it hovers nearby and quietly rearranges the nearest pebbles into tidy little spirals, apparently pleased to have company.\"\n}\n```"
+}

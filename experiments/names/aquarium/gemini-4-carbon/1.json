@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 1,
+  "date": "2026-11-14T21:09:47.891Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clinking Curio Cuttlefish",
+  "statement": "Nestled in a sun-dappled grotto of swaying kelp and sunken brass trinkets, this pint-sized cephalopod spends its hours sorting tumbled sea glass, softly clinking the shards into intricate, ever-shifting mosaics across the sand. Whenever a visitor leans close, it hovers at the glass and ripples with warm, luminous patterns, eagerly trading chromatic riddles for a moment of shared curiosity.",
+  "usage": {
+    "in": 365,
+    "out": 1200
+  },
+  "cost": 0.01273,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Clinking Curio Cuttlefish\",\n  \"statement\": \"Nestled in a sun-dappled grotto of swaying kelp and sunken brass trinkets, this pint-sized cephalopod spends its hours sorting tumbled sea glass, softly clinking the shards into intricate, ever-shifting mosaics across the sand. Whenever a visitor leans close, it hovers at the glass and ripples with warm, luminous patterns, eagerly trading chromatic riddles for a moment of shared curiosity.\"\n}\n```"
+}

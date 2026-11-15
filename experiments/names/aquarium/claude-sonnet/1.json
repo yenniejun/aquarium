@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 1,
+  "date": "2026-11-14T21:09:33.861Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pondering Pompom Pufferfish",
+  "statement": "A pale-lavender pufferfish, round as a dandelion clock and fringed with soft, pompom-like fins, drifts through a lantern-lit tank of sea glass, curling kelp and one tilted teacup. It stops often to think, blowing a single slow bubble and watching it rise, then puffs up with delight when the bubble reaches the top without popping.",
+  "usage": {
+    "in": 454,
+    "out": 155
+  },
+  "cost": 0.002458,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pompom Pufferfish\",\n  \"statement\": \"A pale-lavender pufferfish, round as a dandelion clock and fringed with soft, pompom-like fins, drifts through a lantern-lit tank of sea glass, curling kelp and one tilted teacup. It stops often to think, blowing a single slow bubble and watching it rise, then puffs up with delight when the bubble reaches the top without popping.\"\n}\n```"
+}

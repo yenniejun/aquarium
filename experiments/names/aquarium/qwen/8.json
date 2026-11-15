@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 8,
+  "date": "2026-11-14T21:11:31.893Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Sputtering Scribblefish",
+  "statement": "A small, round cuttlefish that endlessly drafts and erases luminous patterns across its skin, as though composing a sentence it can never quite finish, occasionally sputtering a tiny puff of sepia ink when it changes its mind mid-thought.",
+  "usage": {
+    "in": 359,
+    "out": 1000
+  },
+  "cost": 0.013436,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Sputtering Scribblefish\",\n  \"statement\": \"A small, round cuttlefish that endlessly drafts and erases luminous patterns across its skin, as though composing a sentence it can never quite finish, occasionally sputtering a tiny puff of sepia ink when it changes its mind mid-thought.\"\n}\n```"
+}

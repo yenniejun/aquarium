@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 33,
+  "date": "2026-11-14T21:10:59.459Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "In a lantern-lit twilight of deep blue water, this small, ear-finned octopus drifts between shelves of carefully sorted shells, pausing to trace slow, looping patterns in the white sand with the tip of one curious arm. It blushes a soft peach glow whenever someone lingers at the glass, and no two of its doodles have ever been the same.",
+  "usage": {
+    "in": 454,
+    "out": 450
+  },
+  "cost": 0.010816,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"In a lantern-lit twilight of deep blue water, this small, ear-finned octopus drifts between shelves of carefully sorted shells, pausing to trace slow, looping patterns in the white sand with the tip of one curious arm. It blushes a soft peach glow whenever someone lingers at the glass, and no two of its doodles have ever been the same.\"\n}\n```"
+}

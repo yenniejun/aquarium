@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 43,
+  "date": "2026-11-14T21:12:37.075Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble Cuttlefish",
+  "statement": "A plum-sized cuttlefish with translucent fins and a flickering punctuation-patterned coat lives above black sand, moon-white pebbles, and one crooked arch of blue glass, all lit like a library after dark. It spends its afternoons arranging the pebbles into elaborate spirals, then deliberately nudges one out of place and hovers over the resulting problem in a blush of delighted gold.",
+  "usage": {
+    "in": 330,
+    "out": 428
+  },
+  "cost": 0.00494,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble Cuttlefish\",\n  \"statement\": \"A plum-sized cuttlefish with translucent fins and a flickering punctuation-patterned coat lives above black sand, moon-white pebbles, and one crooked arch of blue glass, all lit like a library after dark. It spends its afternoons arranging the pebbles into elaborate spirals, then deliberately nudges one out of place and hovers over the resulting problem in a blush of delighted gold.\"\n}\n```"
+}

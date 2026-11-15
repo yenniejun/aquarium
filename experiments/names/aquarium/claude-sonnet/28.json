@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 28,
+  "date": "2026-11-14T21:09:55.405Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Waltzer",
+  "statement": "A pearl-shelled sea snail the size of a teacup, she glides in slow spirals across a moonlit tank of indigo water, trailing a ribbon of tiny glowing bubbles that hum faintly whenever she passes the kelp. She has arranged her sea-glass garden, drifting lanterns, and a sunken music box with great care, and she will happily dance for anyone who watches quietly.",
+  "usage": {
+    "in": 454,
+    "out": 167
+  },
+  "cost": 0.002578,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Waltzer\",\n  \"statement\": \"A pearl-shelled sea snail the size of a teacup, she glides in slow spirals across a moonlit tank of indigo water, trailing a ribbon of tiny glowing bubbles that hum faintly whenever she passes the kelp. She has arranged her sea-glass garden, drifting lanterns, and a sunken music box with great care, and she will happily dance for anyone who watches quietly.\"\n}\n```"
+}

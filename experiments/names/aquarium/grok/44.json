@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 44,
+  "date": "2026-11-14T21:24:27.254Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Puttering Pipefish",
+  "statement": "In a warm, quiet tank of fine sand and one sprig of seagrass, a slender pipefish spends its days rearranging smooth pebbles into small, careful patterns, pausing now and then as if the next stone might be the one that makes the whole arrangement click.",
+  "usage": {
+    "in": 1569,
+    "out": 691
+  },
+  "cost": 0.00498,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pipefish\",\n  \"statement\": \"In a warm, quiet tank of fine sand and one sprig of seagrass, a slender pipefish spends its days rearranging smooth pebbles into small, careful patterns, pausing now and then as if the next stone might be the one that makes the whole arrangement click.\"\n}\n```"
+}

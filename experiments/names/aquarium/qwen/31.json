@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 31,
+  "date": "2026-11-14T21:16:53.840Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Blubbing Beacon",
+  "statement": "A small, round, translucent creature no bigger than a tangerine, sitting among mossy stones in dim amber water. It pulses with a slow, warm glow from within—as if thinking—and every few moments releases a single soft bubble from its crown with a barely audible blub, like a tiny lantern clearing its throat.",
+  "usage": {
+    "in": 359,
+    "out": 1323
+  },
+  "cost": 0.017312,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Blubbing Beacon\",\n  \"statement\": \"A small, round, translucent creature no bigger than a tangerine, sitting among mossy stones in dim amber water. It pulses with a slow, warm glow from within—as if thinking—and every few moments releases a single soft bubble from its crown with a barely audible blub, like a tiny lantern clearing its throat.\"\n}\n```"
+}

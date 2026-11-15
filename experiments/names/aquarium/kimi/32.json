@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 32,
+  "date": "2026-11-14T21:19:42.310Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonjelly",
+  "statement": "A palm-sized moon jelly pulses through midnight-blue water above a single ribbon of eelgrass, its pale rings glowing softly with every unhurried beat. It gathers drifting motes into tiny constellations, holds them for a moment, then lets them scatter—a small meditation on thoughts arriving and passing.",
+  "usage": {
+    "in": 410,
+    "out": 440
+  },
+  "cost": 0.0047592,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonjelly\",\n  \"statement\": \"A palm-sized moon jelly pulses through midnight-blue water above a single ribbon of eelgrass, its pale rings glowing softly with every unhurried beat. It gathers drifting motes into tiny constellations, holds them for a moment, then lets them scatter—a small meditation on thoughts arriving and passing.\"\n}\n```"
+}

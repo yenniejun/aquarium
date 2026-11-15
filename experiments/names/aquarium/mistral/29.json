@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 29,
+  "date": "2026-11-14T21:59:36.360Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Pebble-Pushing Puffer",
+  "statement": "A round little puffer that nudges the gravel bed into spirals, hearts, and tiny labyrinths, then floats a bubble-ring above each finished piece like a signature.",
+  "usage": {
+    "in": 352,
+    "out": 6962
+  },
+  "cost": 0.01470532,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 126,
+  "reply": "```json\n{\n  \"title\": \"Pebble-Pushing Puffer\",\n  \"statement\": \"A round little puffer that nudges the gravel bed into spirals, hearts, and tiny labyrinths, then floats a bubble-ring above each finished piece like a signature.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 11,
+  "date": "2026-11-14T21:10:02.317Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Cogitating Cuttlefish",
+  "statement": "This small, bright-eyed cuttlefish drifts through a sunlit tank of kelp and slate tiles, rippling its skin with ever-changing patterns that look almost like handwriting, as if it were thinking out loud. It spends its quiet hours arranging pebbles into careful spirals and will happily swim up to the glass to study anyone who stops to study it.",
+  "usage": {
+    "in": 454,
+    "out": 473
+  },
+  "cost": 0.011276,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Cogitating Cuttlefish\",\n  \"statement\": \"This small, bright-eyed cuttlefish drifts through a sunlit tank of kelp and slate tiles, rippling its skin with ever-changing patterns that look almost like handwriting, as if it were thinking out loud. It spends its quiet hours arranging pebbles into careful spirals and will happily swim up to the glass to study anyone who stops to study it.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 23,
+  "date": "2026-11-14T21:10:32.281Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Curious Cursive Cuttlefish",
+  "statement": "A small, wide-eyed cuttlefish whose skin ripples with looping, almost-legible handwriting whenever something new drifts by, as if it were taking careful notes on the world. It spends its days in soft amber light among swaying sea-grass, sorting a collection of sea glass into ever-changing patterns and pausing to consider each piece before setting it down just so.",
+  "usage": {
+    "in": 454,
+    "out": 544
+  },
+  "cost": 0.012696,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Curious Cursive Cuttlefish\",\n  \"statement\": \"A small, wide-eyed cuttlefish whose skin ripples with looping, almost-legible handwriting whenever something new drifts by, as if it were taking careful notes on the world. It spends its days in soft amber light among swaying sea-grass, sorting a collection of sea glass into ever-changing patterns and pausing to consider each piece before setting it down just so.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 34,
+  "date": "2026-11-14T21:11:09.371Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Puddlefin",
+  "statement": "A small, unhurried fish with oversized dreamy eyes and translucent, ink-swirl fins that ripple with whatever thought it's drifting through. It spends its days hovering mid-tank in soft amber light, occasionally blowing a single contemplative bubble and then following it up, as if checking whether it still agrees.",
+  "usage": {
+    "in": 342,
+    "out": 86
+  },
+  "cost": 0.00114096,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"Pondering Puddlefin\",\n  \"statement\": \"A small, unhurried fish with oversized dreamy eyes and translucent, ink-swirl fins that ripple with whatever thought it's drifting through. It spends its days hovering mid-tank in soft amber light, occasionally blowing a single contemplative bubble and then following it up, as if checking whether it still agrees.\"\n}\n```"
+}

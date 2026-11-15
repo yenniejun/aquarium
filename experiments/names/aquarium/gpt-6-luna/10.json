@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 10,
+  "date": "2026-11-14T21:09:52.542Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Mothfish",
+  "statement": "This solitary, palm-sized fish hovers among eelgrass, its gauzy fins opening and closing like a moth’s wings. At dusk, it traces slow circles through the blue-lit water, stirring tiny bubbles into a brief, private constellation.",
+  "usage": {
+    "in": 330,
+    "out": 444
+  },
+  "cost": 0.000255,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mothfish\",\n  \"statement\": \"This solitary, palm-sized fish hovers among eelgrass, its gauzy fins opening and closing like a moth’s wings. At dusk, it traces slow circles through the blue-lit water, stirring tiny bubbles into a brief, private constellation.\"\n}\n```"
+}

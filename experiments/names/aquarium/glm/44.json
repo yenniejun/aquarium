@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 44,
+  "date": "2026-11-14T21:11:32.620Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Waltzing Wonkfish",
+  "statement": "A small, iridescent fish with crooked fins and a permanent squint, the Waltzing Wonkfish spends its days doing a lopsided, spiraling dance around a single glowing pebble it is convinced is the moon. It occasionally stops mid-spin to stare at visitors, as if it pities them for not dancing.",
+  "usage": {
+    "in": 342,
+    "out": 92
+  },
+  "cost": 0.00119376,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Waltzing Wonkfish\",\n  \"statement\": \"A small, iridescent fish with crooked fins and a permanent squint, the Waltzing Wonkfish spends its days doing a lopsided, spiraling dance around a single glowing pebble it is convinced is the moon. It occasionally stops mid-spin to stare at visitors, as if it pities them for not dancing.\"\n}\n```"
+}

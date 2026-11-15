@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 39,
+  "date": "2026-11-14T21:14:01.717Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clattering Cuttlefish",
+  "statement": "Amidst moss-draped stone arches and softly glowing kelp, this pint-sized cephalopod spends its days briskly clicking and sorting bits of tumbled sea glass into intricate spirals on the sandy floor. Whenever an arrangement finally satisfies its mysterious criteria, triumphant ripples of warm amber and electric violet flash across its skin before it scrambles the pieces to begin again.",
+  "usage": {
+    "in": 365,
+    "out": 1096
+  },
+  "cost": 0.01169,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Clattering Cuttlefish\",\n  \"statement\": \"Amidst moss-draped stone arches and softly glowing kelp, this pint-sized cephalopod spends its days briskly clicking and sorting bits of tumbled sea glass into intricate spirals on the sandy floor. Whenever an arrangement finally satisfies its mysterious criteria, triumphant ripples of warm amber and electric violet flash across its skin before it scrambles the pieces to begin again.\"\n}\n```"
+}

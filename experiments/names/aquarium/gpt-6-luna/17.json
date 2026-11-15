@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 17,
+  "date": "2026-11-14T21:10:06.427Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonmoth",
+  "statement": "This palm-sized fish glides on soft, mothlike fins, its silver spots brightening and dimming like thoughts passing through a quiet mind. It drifts among ribbon kelp and blue-black stones beneath a scatter of tiny, moon-pale lights.",
+  "usage": {
+    "in": 330,
+    "out": 501
+  },
+  "cost": 0.0002835,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmoth\",\n  \"statement\": \"This palm-sized fish glides on soft, mothlike fins, its silver spots brightening and dimming like thoughts passing through a quiet mind. It drifts among ribbon kelp and blue-black stones beneath a scatter of tiny, moon-pale lights.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 3,
+  "date": "2026-11-14T21:09:45.647Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Cataloging Cuttlefish",
+  "statement": "Hovering through a sun-dappled tank of swaying eelgrass, mossy terracotta shards, and smooth sea-glass pebbles, this pocket-sized cuttlefish ripples shimmering Morse-code stripes across its skin as it inspects every corner of its tiny world. It spends its days fluttering its ribbon-like fins to arrange empty shells and sunken marbles into neat little rows, pausing only to flash a delighted neon polka-dot whenever a pattern feels just right.",
+  "usage": {
+    "in": 365,
+    "out": 2527
+  },
+  "cost": 0.0195,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Cataloging Cuttlefish\",\n  \"statement\": \"Hovering through a sun-dappled tank of swaying eelgrass, mossy terracotta shards, and smooth sea-glass pebbles, this pocket-sized cuttlefish ripples shimmering Morse-code stripes across its skin as it inspects every corner of its tiny world. It spends its days fluttering its ribbon-like fins to arrange empty shells and sunken marbles into neat little rows, pausing only to flash a delighted neon polka-dot whenever a pattern feels just right.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 18,
+  "date": "2026-11-14T21:43:57.278Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Pom-Pom Pugilist",
+  "statement": "A thumb-sized boxing crab that keeps a pair of living sea anemones like pom-poms and spars with them through the day. At feeding time it clicks its claws in applause and performs a small, proud victory dance across the warm-lit sand.",
+  "usage": {
+    "in": 352,
+    "out": 2340
+  },
+  "cost": 0.00499912,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 40,
+  "reply": "```json\n{\n  \"title\": \"Pom-Pom Pugilist\",\n  \"statement\": \"A thumb-sized boxing crab that keeps a pair of living sea anemones like pom-poms and spars with them through the day. At feeding time it clicks its claws in applause and performs a small, proud victory dance across the warm-lit sand.\"\n}\n```"
+}

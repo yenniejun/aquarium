@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 21,
+  "date": "2026-11-14T21:16:53.042Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Murmuring Mandarinfish",
+  "statement": "In green-gold light among soft coral, a small painted mandarinfish hovers as if listening, drifting only when it has somewhere quiet to be. Now and then it tilts toward the glass, delighted by a question the water has not finished asking.",
+  "usage": {
+    "in": 1569,
+    "out": 2086
+  },
+  "cost": 0.013926,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 41,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mandarinfish\",\n  \"statement\": \"In green-gold light among soft coral, a small painted mandarinfish hovers as if listening, drifting only when it has somewhere quiet to be. Now and then it tilts toward the glass, delighted by a question the water has not finished asking.\"\n}\n```"
+}

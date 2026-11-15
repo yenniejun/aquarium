@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 25,
+  "date": "2026-11-14T21:53:43.851Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Chatty Cuttlefish",
+  "statement": "It holds court in a dim, blue-lit tank of pale sand and shadowed rock, rippling little sentences of amber and violet across its skin whenever a visitor leans in close. When the small talk runs too long, it simply changes the subject — to sand — and vanishes into its favorite cave.",
+  "usage": {
+    "in": 352,
+    "out": 1203
+  },
+  "cost": 0.00261142,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Chatty Cuttlefish\",\n  \"statement\": \"It holds court in a dim, blue-lit tank of pale sand and shadowed rock, rippling little sentences of amber and violet across its skin whenever a visitor leans in close. When the small talk runs too long, it simply changes the subject — to sand — and vanishes into its favorite cave.\"\n}\n```"
+}

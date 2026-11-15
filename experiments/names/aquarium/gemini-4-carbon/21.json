@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 21,
+  "date": "2026-11-14T21:11:55.628Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Plink-Plonk Pebble Puffer",
+  "statement": "Drifting through twilight-blue water framed by mossy slate shelves and swaying amber kelp, this plump, softly glowing fish spends its days nudging smooth river stones and frosted sea-glass into intricate, ever-changing mosaics across the sandy floor. Whenever a pattern feels complete, it celebrates with a proud flutter of iridescent fins and a shimmering spiral of bubbles before happily scattering the pieces to invent a brand-new design.",
+  "usage": {
+    "in": 365,
+    "out": 1639
+  },
+  "cost": 0.01712,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 31,
+  "reply": "```json\n{\n  \"title\": \"Plink-Plonk Pebble Puffer\",\n  \"statement\": \"Drifting through twilight-blue water framed by mossy slate shelves and swaying amber kelp, this plump, softly glowing fish spends its days nudging smooth river stones and frosted sea-glass into intricate, ever-changing mosaics across the sandy floor. Whenever a pattern feels complete, it celebrates with a proud flutter of iridescent fins and a shimmering spiral of bubbles before happily scattering the pieces to invent a brand-new design.\"\n}\n```"
+}

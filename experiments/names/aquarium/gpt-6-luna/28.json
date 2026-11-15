@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 28,
+  "date": "2026-11-14T21:10:26.798Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Purring Pebblefish",
+  "statement": "A thumb-sized, opal-speckled fish hovers over dark river stones, its clear fins stirring tiny halos in the water. It gathers bubbles on its nose and lets them go one by one, as if thinking out loud.",
+  "usage": {
+    "in": 330,
+    "out": 398
+  },
+  "cost": 0.000232,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Purring Pebblefish\",\n  \"statement\": \"A thumb-sized, opal-speckled fish hovers over dark river stones, its clear fins stirring tiny halos in the water. It gathers bubbles on its nose and lets them go one by one, as if thinking out loud.\"\n}\n```"
+}

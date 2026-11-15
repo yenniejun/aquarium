@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 19,
+  "date": "2026-11-14T21:45:10.944Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Snap Crackle Pop Shrimp",
+  "statement": "A thumbnail-sized shrimp with one outsized claw that snaps shut with a crack like a tiny firecracker, sending out a jet of water and a brief flash of light. In the quiet hours it stacks pebbles into careful little towers at the mouth of its burrow, as if fortifying a tiny castle.",
+  "usage": {
+    "in": 352,
+    "out": 4607
+  },
+  "cost": 0.0099211,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 74,
+  "reply": "```json\n{\n  \"title\": \"Snap Crackle Pop Shrimp\",\n  \"statement\": \"A thumbnail-sized shrimp with one outsized claw that snaps shut with a crack like a tiny firecracker, sending out a jet of water and a brief flash of light. In the quiet hours it stacks pebbles into careful little towers at the mouth of its burrow, as if fortifying a tiny castle.\"\n}\n```"
+}

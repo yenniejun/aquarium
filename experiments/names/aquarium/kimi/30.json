@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 30,
+  "date": "2026-11-14T21:19:06.486Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Nebula Nudibranch",
+  "statement": "A thumb-sized sea slug, velvet-dark and dusted with constellations, glides through a midnight-blue tank of ribbon grass and pale stones. It investigates every bubble with two inquisitive rhinophores, leaving a brief silver shimmer behind—as if thinking very slowly, and in light.",
+  "usage": {
+    "in": 410,
+    "out": 579
+  },
+  "cost": 0.0061492,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 26,
+  "reply": "```json\n{\n  \"title\": \"Nebula Nudibranch\",\n  \"statement\": \"A thumb-sized sea slug, velvet-dark and dusted with constellations, glides through a midnight-blue tank of ribbon grass and pale stones. It investigates every bubble with two inquisitive rhinophores, leaving a brief silver shimmer behind—as if thinking very slowly, and in light.\"\n}\n```"
+}

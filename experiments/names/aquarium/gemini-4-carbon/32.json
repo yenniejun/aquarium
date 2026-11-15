@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 32,
+  "date": "2026-11-14T21:13:21.860Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Blinking Bauble Bobtail",
+  "statement": "Nestled in a twilight cove of smooth basalt columns and swaying golden kelp, this plump, thumb-sized squid spends its days meticulously sorting shards of sunken sea-glass into intricate, ever-changing spirals. Whenever a visitor leans close to the tank, its velvety mantle ripples with shifting constellations of bioluminescent light, flashing a warm and curious greeting.",
+  "usage": {
+    "in": 365,
+    "out": 1251
+  },
+  "cost": 0.01324,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Blinking Bauble Bobtail\",\n  \"statement\": \"Nestled in a twilight cove of smooth basalt columns and swaying golden kelp, this plump, thumb-sized squid spends its days meticulously sorting shards of sunken sea-glass into intricate, ever-changing spirals. Whenever a visitor leans close to the tank, its velvety mantle ripples with shifting constellations of bioluminescent light, flashing a warm and curious greeting.\"\n}\n```"
+}

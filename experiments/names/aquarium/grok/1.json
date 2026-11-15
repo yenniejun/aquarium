@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 1,
+  "date": "2026-11-14T21:09:42.289Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "A slender pipefish hangs in green-gold light among quiet stones, pausing mid-current as if the water had just asked a careful question.",
+  "usage": {
+    "in": 1569,
+    "out": 650
+  },
+  "cost": 0.00531,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"A slender pipefish hangs in green-gold light among quiet stones, pausing mid-current as if the water had just asked a careful question.\"\n}\n```"
+}

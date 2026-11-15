@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 27,
+  "date": "2026-11-14T21:10:44.877Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Scribble-Scrabble Cuttlefish",
+  "statement": "This small, round-eyed cuttlefish drifts up to the glass to meet every visitor, its skin rippling with looping, half-legible patterns, as if it's taking notes on you or drafting a thoughtful reply. Between conversations it hovers in the warm, lamplit kelp and tidies smooth slate pebbles into careful little stacks, always curious about what you'll ask next.",
+  "usage": {
+    "in": 454,
+    "out": 647
+  },
+  "cost": 0.014756,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Scribble-Scrabble Cuttlefish\",\n  \"statement\": \"This small, round-eyed cuttlefish drifts up to the glass to meet every visitor, its skin rippling with looping, half-legible patterns, as if it's taking notes on you or drafting a thoughtful reply. Between conversations it hovers in the warm, lamplit kelp and tidies smooth slate pebbles into careful little stacks, always curious about what you'll ask next.\"\n}\n```"
+}

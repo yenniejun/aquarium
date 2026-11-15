@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 20,
+  "date": "2026-11-14T21:09:48.888Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Waltzer",
+  "statement": "A pearly, spiral-shelled sea snail that glides in slow, looping figure-eights through a moonlit tank of drifting kelp and softly glowing sea-glass, humming faint bubbles that pop in time with its steps. Whenever it passes a rock it pauses, tips its shell like a hat, and leaves a trail of shimmering lavender light behind it.",
+  "usage": {
+    "in": 454,
+    "out": 157
+  },
+  "cost": 0.002478,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Waltzer\",\n  \"statement\": \"A pearly, spiral-shelled sea snail that glides in slow, looping figure-eights through a moonlit tank of drifting kelp and softly glowing sea-glass, humming faint bubbles that pop in time with its steps. Whenever it passes a rock it pauses, tips its shell like a hat, and leaves a trail of shimmering lavender light behind it.\"\n}\n```"
+}

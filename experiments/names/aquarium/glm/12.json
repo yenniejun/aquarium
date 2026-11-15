@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 12,
+  "date": "2026-11-14T21:09:58.402Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Ponderous Pondering Prawn",
+  "statement": "A translucent, slow-drifting shrimp with a lantern-glow head and a single enormous eye that gazes at visitors as if it finds *them* fascinating. Its tank is a dim, amber-lit grotto of stacked river stones and swaying moss, where the water moves like honey and time is optional.",
+  "usage": {
+    "in": 342,
+    "out": 90
+  },
+  "cost": 0.00117616,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Ponderous Pondering Prawn\",\n  \"statement\": \"A translucent, slow-drifting shrimp with a lantern-glow head and a single enormous eye that gazes at visitors as if it finds *them* fascinating. Its tank is a dim, amber-lit grotto of stacked river stones and swaying moss, where the water moves like honey and time is optional.\"\n}\n```"
+}

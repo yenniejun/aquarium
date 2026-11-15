@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 47,
+  "date": "2026-11-14T21:12:16.694Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pondering Pebble Puffer",
+  "statement": "Hovering calmly beneath warm amber sunbeams and swaying ribbon-kelp, this diminutive pufferfish spends its days puffing delicate jets of water to sort smooth sea glass and dark slate pebbles into tidy spirals. Whenever a drifting bubble disturbs its geometry, it pauses with wide, luminous eyes before cheerfully beginning the arrangement anew.",
+  "usage": {
+    "in": 365,
+    "out": 1790
+  },
+  "cost": 0.0139725,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pebble Puffer\",\n  \"statement\": \"Hovering calmly beneath warm amber sunbeams and swaying ribbon-kelp, this diminutive pufferfish spends its days puffing delicate jets of water to sort smooth sea glass and dark slate pebbles into tidy spirals. Whenever a drifting bubble disturbs its geometry, it pauses with wide, luminous eyes before cheerfully beginning the arrangement anew.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 29,
+  "date": "2026-11-14T21:18:40.934Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Puttering Pygmy Squid",
+  "statement": "In a hushed indigo tank of pearl pebbles and swaying eelgrass, a thumb-sized pygmy squid putters among moonlit shells, rearranging them into tiny constellations and punctuating each discovery with a delighted, silvery puff of ink.",
+  "usage": {
+    "in": 410,
+    "out": 516
+  },
+  "cost": 0.0055192,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pygmy Squid\",\n  \"statement\": \"In a hushed indigo tank of pearl pebbles and swaying eelgrass, a thumb-sized pygmy squid putters among moonlit shells, rearranging them into tiny constellations and punctuating each discovery with a delighted, silvery puff of ink.\"\n}\n```"
+}

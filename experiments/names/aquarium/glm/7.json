@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 7,
+  "date": "2026-11-14T21:09:47.025Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Moontail",
+  "statement": "A shy, eel-like creature with a translucent tail that glows softly like moonlight through fog, the Moontail hums quiet, rippling songs to itself as it drifts among pale stones and swaying silvergrass. When startled, it dims instantly—leaving only a trail of tiny bubbles and the faint memory of its tune.",
+  "usage": {
+    "in": 342,
+    "out": 94
+  },
+  "cost": 0.00121136,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moontail\",\n  \"statement\": \"A shy, eel-like creature with a translucent tail that glows softly like moonlight through fog, the Moontail hums quiet, rippling songs to itself as it drifts among pale stones and swaying silvergrass. When startled, it dims instantly—leaving only a trail of tiny bubbles and the faint memory of its tune.\"\n}\n```"
+}

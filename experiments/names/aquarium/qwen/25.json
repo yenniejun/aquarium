@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 25,
+  "date": "2026-11-14T21:15:26.222Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Mumbling Mottle",
+  "statement": "A small cuttlefish that hovers mid-water, cycling through soft washes of amber and slate as though turning over a thought it can never quite finish. It watches visitors with its W-shaped pupils and occasionally ripples its fins in what can only be described as a polite, puzzled shrug.",
+  "usage": {
+    "in": 359,
+    "out": 1109
+  },
+  "cost": 0.014744,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Mumbling Mottle\",\n  \"statement\": \"A small cuttlefish that hovers mid-water, cycling through soft washes of amber and slate as though turning over a thought it can never quite finish. It watches visitors with its W-shaped pupils and occasionally ripples its fins in what can only be described as a polite, puzzled shrug.\"\n}\n```"
+}

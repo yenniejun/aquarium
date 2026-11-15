@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 12,
+  "date": "2026-11-14T21:09:42.325Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Bashful Bubble Bobtail",
+  "statement": "A thumb-sized, lantern-bellied squid who collects stray bubbles in a tiny glass-bead net and hides behind a curtain of emerald ribbon-weed whenever someone looks too long, glowing a soft peach-pink as it blushes. Its tank is a moonlit teal twilight with a sunken teacup, a drift of pearly pebbles, and one slow shaft of light, all arranged to be a very small, very cozy place to be shy.",
+  "usage": {
+    "in": 454,
+    "out": 187
+  },
+  "cost": 0.002778,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Bashful Bubble Bobtail\",\n  \"statement\": \"A thumb-sized, lantern-bellied squid who collects stray bubbles in a tiny glass-bead net and hides behind a curtain of emerald ribbon-weed whenever someone looks too long, glowing a soft peach-pink as it blushes. Its tank is a moonlit teal twilight with a sunken teacup, a drift of pearly pebbles, and one slow shaft of light, all arranged to be a very small, very cozy place to be shy.\"\n}\n```"
+}

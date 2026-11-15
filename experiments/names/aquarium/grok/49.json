@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 49,
+  "date": "2026-11-14T21:26:06.093Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Noodling Nudibranch",
+  "statement": "A candy-bright nudibranch creeps over dark stone and soft green fronds, tasting every seam as if the tank were a quiet library and the algae a set of marginal notes.",
+  "usage": {
+    "in": 1569,
+    "out": 1318
+  },
+  "cost": 0.008742,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 28,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nudibranch\",\n  \"statement\": \"A candy-bright nudibranch creeps over dark stone and soft green fronds, tasting every seam as if the tank were a quiet library and the algae a set of marginal notes.\"\n}\n```"
+}

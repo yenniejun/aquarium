@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 12,
+  "date": "2026-11-14T21:10:19.234Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Prism Prawn",
+  "statement": "A translucent prawn with cobalt-blue knees putters through a tank of pale sand, ribbonlike plants, and wave-worn sea glass, carrying one tiny colored chip at a time into a sunbeam. When its arrangement casts a sufficiently magnificent mosaic, it fans its tail and scatters everything—then follows the tumbling colors down to begin again.",
+  "usage": {
+    "in": 330,
+    "out": 338
+  },
+  "cost": 0.00404,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Puttering Prism Prawn\",\n  \"statement\": \"A translucent prawn with cobalt-blue knees putters through a tank of pale sand, ribbonlike plants, and wave-worn sea glass, carrying one tiny colored chip at a time into a sunbeam. When its arrangement casts a sufficiently magnificent mosaic, it fans its tail and scatters everything—then follows the tumbling colors down to begin again.\"\n}\n```"
+}

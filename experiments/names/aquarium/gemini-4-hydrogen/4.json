@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 4,
+  "date": "2026-11-14T21:09:50.684Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Scribbling Squid",
+  "statement": "In a quiet, amber-lit tank of swaying fern-kelp and neatly stacked slate cairns, this miniature bioluminescent squid traces glowing, fast-fading loops of ink through the water as if composing tiny underwater poems. Whenever someone peers through the glass, it hovers attentively, shifts its skin to a polite shimmer of warm teal, and curls a curious tentacle in greeting.",
+  "usage": {
+    "in": 365,
+    "out": 1274
+  },
+  "cost": 0.0101025,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squid\",\n  \"statement\": \"In a quiet, amber-lit tank of swaying fern-kelp and neatly stacked slate cairns, this miniature bioluminescent squid traces glowing, fast-fading loops of ink through the water as if composing tiny underwater poems. Whenever someone peers through the glass, it hovers attentively, shifts its skin to a polite shimmer of warm teal, and curls a curious tentacle in greeting.\"\n}\n```"
+}

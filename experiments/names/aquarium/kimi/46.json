@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 46,
+  "date": "2026-11-14T21:24:21.955Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Pondering Pebblepus",
+  "statement": "A thumb-sized, opalescent octopus tends a midnight-blue tank, patiently arranging moon-white pebbles into constellations only it understands. Whenever a better idea occurs, it blushes gold, sweeps the sky apart, and delightedly begins again.",
+  "usage": {
+    "in": 410,
+    "out": 340
+  },
+  "cost": 0.0037592,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pebblepus\",\n  \"statement\": \"A thumb-sized, opalescent octopus tends a midnight-blue tank, patiently arranging moon-white pebbles into constellations only it understands. Whenever a better idea occurs, it blushes gold, sweeps the sky apart, and delightedly begins again.\"\n}\n```"
+}

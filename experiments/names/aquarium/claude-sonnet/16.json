@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 16,
+  "date": "2026-11-14T21:09:45.873Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonlight Mollusk",
+  "statement": "A pearly, translucent nautilus-snail that hums in low bubbly notes as it drifts through a tank of deep indigo water, each murmur lighting the glowing spiral of its shell a little brighter. It spends its evenings gathering tiny lanterns of bioluminescent algae from a tangle of silver kelp and stacking them, very carefully, on a mossy teacup-shaped rock, where it hopes someone will come for tea.",
+  "usage": {
+    "in": 454,
+    "out": 182
+  },
+  "cost": 0.002728,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonlight Mollusk\",\n  \"statement\": \"A pearly, translucent nautilus-snail that hums in low bubbly notes as it drifts through a tank of deep indigo water, each murmur lighting the glowing spiral of its shell a little brighter. It spends its evenings gathering tiny lanterns of bioluminescent algae from a tangle of silver kelp and stacking them, very carefully, on a mossy teacup-shaped rock, where it hopes someone will come for tea.\"\n}\n```"
+}

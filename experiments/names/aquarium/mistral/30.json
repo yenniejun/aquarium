@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 30,
+  "date": "2026-11-14T22:01:00.083Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Doodling Dot Doris",
+  "statement": "A soft-bodied sea slug the color of tangerine sherbet and dotted with tiny pearls, who spends each morning gliding across the front glass and leaving a thin silver trail that curls like a doodle in a notebook. When the lights dim, she tucks her frilled edges into a neat little flower and appears to sigh.",
+  "usage": {
+    "in": 352,
+    "out": 3094
+  },
+  "cost": 0.00658252,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 84,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dot Doris\",\n  \"statement\": \"A soft-bodied sea slug the color of tangerine sherbet and dotted with tiny pearls, who spends each morning gliding across the front glass and leaving a thin silver trail that curls like a doodle in a notebook. When the lights dim, she tucks her frilled edges into a neat little flower and appears to sigh.\"\n}\n```"
+}

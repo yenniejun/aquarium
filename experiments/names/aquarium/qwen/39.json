@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 39,
+  "date": "2026-11-14T21:18:51.268Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Puttering Puffglob",
+  "statement": "A small, translucent, faintly amber-glowing blob that putters along the sandy floor of a dim, candle-lit tank, nudging tiny shell fragments into neat little spirals and occasionally pausing to puff out a single iridescent bubble for no discernible reason. It seems mildly pleased with everything.",
+  "usage": {
+    "in": 359,
+    "out": 1162
+  },
+  "cost": 0.01538,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Puttering Puffglob\",\n  \"statement\": \"A small, translucent, faintly amber-glowing blob that putters along the sandy floor of a dim, candle-lit tank, nudging tiny shell fragments into neat little spirals and occasionally pausing to puff out a single iridescent bubble for no discernible reason. It seems mildly pleased with everything.\"\n}\n```"
+}

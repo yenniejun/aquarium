@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 44,
+  "date": "2026-11-14T21:12:39.242Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepuss",
+  "statement": "A palm-sized, apricot-colored octopus with ink-blue freckles tends a garden of smooth stones beneath a single shaft of honey-colored light, its glass home otherwise all deep teal water and rippled white sand. It builds increasingly improbable little arches, pauses to admire them, then steals a stone from the bottom to find out what happens.",
+  "usage": {
+    "in": 330,
+    "out": 308
+  },
+  "cost": 0.00374,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepuss\",\n  \"statement\": \"A palm-sized, apricot-colored octopus with ink-blue freckles tends a garden of smooth stones beneath a single shaft of honey-colored light, its glass home otherwise all deep teal water and rippled white sand. It builds increasingly improbable little arches, pauses to admire them, then steals a stone from the bottom to find out what happens.\"\n}\n```"
+}

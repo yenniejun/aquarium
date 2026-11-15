@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 3,
+  "date": "2026-11-14T21:10:16.651Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "The Pondering Puffglow",
+  "statement": "A small, round bioluminescent drifter that pulses with warm amber light and hovers for long moments as if mid-thought, trailing faint golden sparks from its soft translucent fins. It keeps to the smooth dark stones at the bottom of its warm, dim tank, nudging a single sprig of seagrass gently back and forth like a worry bead.",
+  "usage": {
+    "in": 359,
+    "out": 1398
+  },
+  "cost": 0.018212,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"The Pondering Puffglow\",\n  \"statement\": \"A small, round bioluminescent drifter that pulses with warm amber light and hovers for long moments as if mid-thought, trailing faint golden sparks from its soft translucent fins. It keeps to the smooth dark stones at the bottom of its warm, dim tank, nudging a single sprig of seagrass gently back and forth like a worry bead.\"\n}\n```"
+}

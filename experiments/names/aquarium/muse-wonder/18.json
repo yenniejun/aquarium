@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 18,
+  "date": "2026-11-14T21:12:38.527Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Dumpling Octopus",
+  "statement": "This thumb-sized dumpling octopus spends its days doodling stories in the sand of its cozy kelp-library tank, holding its page with one arm and blooping softly whenever it invents a particularly good ending.",
+  "usage": {
+    "in": 334,
+    "out": 1084
+  },
+  "cost": 0.022142,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumpling Octopus\",\n  \"statement\": \"This thumb-sized dumpling octopus spends its days doodling stories in the sand of its cozy kelp-library tank, holding its page with one arm and blooping softly whenever it invents a particularly good ending.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 49,
+  "date": "2026-11-14T21:11:41.707Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Curious Cursive Cuttlefish",
+  "statement": "In a lamplit tank of swaying kelp and smooth river pebbles, this small cuttlefish ripples looping, half-finished sentences of soft blue light across its skin, as though thinking out loud. Between thoughts it rearranges the pebbles into tidy little spirals, then drifts to the glass and tilts its head at you, as if it has a question it's been saving just for you.",
+  "usage": {
+    "in": 454,
+    "out": 572
+  },
+  "cost": 0.013256,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Curious Cursive Cuttlefish\",\n  \"statement\": \"In a lamplit tank of swaying kelp and smooth river pebbles, this small cuttlefish ripples looping, half-finished sentences of soft blue light across its skin, as though thinking out loud. Between thoughts it rearranges the pebbles into tidy little spirals, then drifts to the glass and tilts its head at you, as if it has a question it's been saving just for you.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 13,
+  "date": "2026-11-14T21:10:00.534Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pensive Pufferfish",
+  "statement": "A small, dreamy pufferfish who hovers mid-tank, slowly inflating and deflating like it's breathing with the whole room. It drifts through softly glowing water past smooth river stones and swaying moss, occasionally spinning in a slow, thoughtful circle as if remembering something it can't quite place.",
+  "usage": {
+    "in": 342,
+    "out": 87
+  },
+  "cost": 0.00114976,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Pensive Pufferfish\",\n  \"statement\": \"A small, dreamy pufferfish who hovers mid-tank, slowly inflating and deflating like it's breathing with the whole room. It drifts through softly glowing water past smooth river stones and swaying moss, occasionally spinning in a slow, thoughtful circle as if remembering something it can't quite place.\"\n}\n```"
+}

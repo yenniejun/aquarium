@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 1,
+  "date": "2026-11-14T21:09:45.877Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clickety Cuttlefish",
+  "statement": "Amidst softly swaying emerald kelp and warm, amber-lit driftwood, this thumb-sized cephalopod ripples with pastel light patterns while tidily arranging tumbled sea glass into neat spirals. If you linger quietly by the glass, you can hear a faint, rhythmic click-clack as it taps each pebble to test for the perfect fit.",
+  "usage": {
+    "in": 365,
+    "out": 3101
+  },
+  "cost": 0.023805,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Clickety Cuttlefish\",\n  \"statement\": \"Amidst softly swaying emerald kelp and warm, amber-lit driftwood, this thumb-sized cephalopod ripples with pastel light patterns while tidily arranging tumbled sea glass into neat spirals. If you linger quietly by the glass, you can hear a faint, rhythmic click-clack as it taps each pebble to test for the perfect fit.\"\n}\n```"
+}

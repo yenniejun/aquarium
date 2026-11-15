@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 34,
+  "date": "2026-11-14T21:15:09.034Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Daydream Octopus",
+  "statement": "This gentle octopus paints fleeting stories in shimmering ink and rearranges its pebbles into new constellations every night. Leave it a question in bubbles, and by morning it will have dreamed up a wonderfully impractical answer.",
+  "usage": {
+    "in": 334,
+    "out": 762
+  },
+  "cost": 0.015702,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Doodling Daydream Octopus\",\n  \"statement\": \"This gentle octopus paints fleeting stories in shimmering ink and rearranges its pebbles into new constellations every night. Leave it a question in bubbles, and by morning it will have dreamed up a wonderfully impractical answer.\"\n}\n```"
+}

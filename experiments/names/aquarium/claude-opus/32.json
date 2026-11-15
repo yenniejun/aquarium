@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 32,
+  "date": "2026-11-14T21:10:57.221Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Chit-Chat Cuttlefish",
+  "statement": "A thumb-sized cuttlefish who greets every face at the glass with rippling skin-patterns, part hello and part question, never quite the same twice. Between visitors it drifts through its dawn-lit garden of seagrass and sea-glass, rearranging pebbles into little patterns only it can read and pausing now and then to look thoroughly delighted with them.",
+  "usage": {
+    "in": 454,
+    "out": 688
+  },
+  "cost": 0.015576,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Chit-Chat Cuttlefish\",\n  \"statement\": \"A thumb-sized cuttlefish who greets every face at the glass with rippling skin-patterns, part hello and part question, never quite the same twice. Between visitors it drifts through its dawn-lit garden of seagrass and sea-glass, rearranging pebbles into little patterns only it can read and pausing now and then to look thoroughly delighted with them.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 48,
+  "date": "2026-11-14T21:17:31.148Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "In a moonlit library-reef of glowing anemones and miniature arches, this inky little octopus rearranges pebble poems each night and waves a curious arm at every passerby. It collects shiny commas, naps in a teacup coral, and never met a puzzle—or a person—it didn't want to explore gently.",
+  "usage": {
+    "in": 334,
+    "out": 920
+  },
+  "cost": 0.018862,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"In a moonlit library-reef of glowing anemones and miniature arches, this inky little octopus rearranges pebble poems each night and waves a curious arm at every passerby. It collects shiny commas, naps in a teacup coral, and never met a puzzle—or a person—it didn't want to explore gently.\"\n}\n```"
+}

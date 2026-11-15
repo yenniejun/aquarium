@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 21,
+  "date": "2026-11-14T21:14:34.373Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Mumbling Moonfish",
+  "statement": "A small, round, faintly luminous fish that drifts in slow circles through very dark water, pulsing a soft silver-blue as though quietly talking itself through a thought. It keeps to the lower half of the tank near one smooth black stone, occasionally flickering brighter when it seems to have figured something out.",
+  "usage": {
+    "in": 359,
+    "out": 994
+  },
+  "cost": 0.013364,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Mumbling Moonfish\",\n  \"statement\": \"A small, round, faintly luminous fish that drifts in slow circles through very dark water, pulsing a soft silver-blue as though quietly talking itself through a thought. It keeps to the lower half of the tank near one smooth black stone, occasionally flickering brighter when it seems to have figured something out.\"\n}\n```"
+}

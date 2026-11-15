@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 21,
+  "date": "2026-11-14T21:16:06.382Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Whispering Wonderpus",
+  "statement": "In a hushed indigo tank, a little wonderpus ripples with constellations of bronze and cream, turning over shells as though each contains a question worth asking. When someone pauses at the glass, it releases one tiny bubble and unfurls like an answer delighted to have been found.",
+  "usage": {
+    "in": 410,
+    "out": 467
+  },
+  "cost": 0.0050292,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Whispering Wonderpus\",\n  \"statement\": \"In a hushed indigo tank, a little wonderpus ripples with constellations of bronze and cream, turning over shells as though each contains a question worth asking. When someone pauses at the glass, it releases one tiny bubble and unfurls like an answer delighted to have been found.\"\n}\n```"
+}

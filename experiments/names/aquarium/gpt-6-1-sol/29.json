@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 29,
+  "date": "2026-11-14T21:11:41.144Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Doodling Dumpling Cuttlefish",
+  "statement": "A thumb-sized, dumpling-round cuttlefish with ink-blue freckles draws wandering lines in pearl-white sand, then hovers over them flashing little apricot-colored squares. Its tank is a quiet turquoise grotto with one amber-lit stone arch; whenever a drawing reaches perfection, a flutter of its skirt erases everything so it can try something sillier.",
+  "usage": {
+    "in": 330,
+    "out": 394
+  },
+  "cost": 0.0046,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumpling Cuttlefish\",\n  \"statement\": \"A thumb-sized, dumpling-round cuttlefish with ink-blue freckles draws wandering lines in pearl-white sand, then hovers over them flashing little apricot-colored squares. Its tank is a quiet turquoise grotto with one amber-lit stone arch; whenever a drawing reaches perfection, a flutter of its skirt erases everything so it can try something sillier.\"\n}\n```"
+}

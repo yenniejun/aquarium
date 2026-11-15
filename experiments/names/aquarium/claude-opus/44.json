@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 44,
+  "date": "2026-11-14T21:11:29.139Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Scribbling Squiggle Cuttlefish",
+  "statement": "A small, curious cuttlefish whose skin ripples with ever-changing squiggles, like handwriting in a language still being invented, that brighten whenever someone leans close to the glass. Between visitors, it patiently arranges the pebbles of its moonlit kelp garden into spirals, then rearranges them, just to see what else they might become.",
+  "usage": {
+    "in": 454,
+    "out": 695
+  },
+  "cost": 0.015716,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squiggle Cuttlefish\",\n  \"statement\": \"A small, curious cuttlefish whose skin ripples with ever-changing squiggles, like handwriting in a language still being invented, that brighten whenever someone leans close to the glass. Between visitors, it patiently arranges the pebbles of its moonlit kelp garden into spirals, then rearranges them, just to see what else they might become.\"\n}\n```"
+}

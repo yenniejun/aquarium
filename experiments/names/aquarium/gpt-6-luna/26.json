@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 26,
+  "date": "2026-11-14T21:10:22.108Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Bloopberry Blenny",
+  "statement": "This tiny blenny wears a berry-blue shimmer and paddles in quick, curious bursts, pausing now and then to release a perfect little bubble. It keeps watch over a quiet garden of smooth stones and soft green fronds, lit like a pool of moonlight.",
+  "usage": {
+    "in": 330,
+    "out": 427
+  },
+  "cost": 0.0002465,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Bloopberry Blenny\",\n  \"statement\": \"This tiny blenny wears a berry-blue shimmer and paddles in quick, curious bursts, pausing now and then to release a perfect little bubble. It keeps watch over a quiet garden of smooth stones and soft green fronds, lit like a pool of moonlight.\"\n}\n```"
+}

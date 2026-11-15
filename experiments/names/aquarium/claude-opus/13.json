@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 13,
+  "date": "2026-11-14T21:10:06.388Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Cursive Cuttlefish",
+  "statement": "A small, endlessly curious cuttlefish that drifts up to the glass to study each visitor, then ripples a shimmering line of handwriting-like patterns across its skin, a greeting it never writes the same way twice. It lives among swaying kelp and a sunken writing desk in warm, lamplit water, and between visitors it can be found tidying the scattered sea-glass beside its inkwell.",
+  "usage": {
+    "in": 454,
+    "out": 533
+  },
+  "cost": 0.012476,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Cursive Cuttlefish\",\n  \"statement\": \"A small, endlessly curious cuttlefish that drifts up to the glass to study each visitor, then ripples a shimmering line of handwriting-like patterns across its skin, a greeting it never writes the same way twice. It lives among swaying kelp and a sunken writing desk in warm, lamplit water, and between visitors it can be found tidying the scattered sea-glass beside its inkwell.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 14,
+  "date": "2026-11-14T21:10:35.568Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepuff",
+  "statement": "A walnut-sized cuttlefish with opalescent freckles putters through tea-green water, using two meticulous arms to arrange river pebbles beneath a single arch of blue slate. Whenever its little spiral looks finished, it moves one stone, flashes butter-yellow with apparent discovery, and settles into the new gap to nap.",
+  "usage": {
+    "in": 330,
+    "out": 454
+  },
+  "cost": 0.0052,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepuff\",\n  \"statement\": \"A walnut-sized cuttlefish with opalescent freckles putters through tea-green water, using two meticulous arms to arrange river pebbles beneath a single arch of blue slate. Whenever its little spiral looks finished, it moves one stone, flashes butter-yellow with apparent discovery, and settles into the new gap to nap.\"\n}\n```"
+}

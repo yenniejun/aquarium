@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 26,
+  "date": "2026-11-14T21:10:30.903Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Ponderous Puddlefin",
+  "statement": "A slow, round little fish with oversized droopy fins, the Puddlefin drifts through its amber-lit tank like it's perpetually mid-sigh, occasionally mustering one enormous, dramatic flap that sends it gliding backwards into a cushion of soft moss.",
+  "usage": {
+    "in": 342,
+    "out": 78
+  },
+  "cost": 0.00107056,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Ponderous Puddlefin\",\n  \"statement\": \"A slow, round little fish with oversized droopy fins, the Puddlefin drifts through its amber-lit tank like it's perpetually mid-sigh, occasionally mustering one enormous, dramatic flap that sends it gliding backwards into a cushion of soft moss.\"\n}\n```"
+}

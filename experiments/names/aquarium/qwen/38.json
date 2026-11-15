@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 38,
+  "date": "2026-11-14T21:18:36.868Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pottering Octopus",
+  "statement": "A small, pale octopus tends a modest arrangement of smooth pebbles and one shard of sea glass, nudging each piece a fraction of an inch, then reconsidering, then nudging it back—forever on the verge of a composition it will never quite finish.",
+  "usage": {
+    "in": 359,
+    "out": 1684
+  },
+  "cost": 0.021644,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Pottering Octopus\",\n  \"statement\": \"A small, pale octopus tends a modest arrangement of smooth pebbles and one shard of sea glass, nudging each piece a fraction of an inch, then reconsidering, then nudging it back—forever on the verge of a composition it will never quite finish.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 11,
+  "date": "2026-11-14T21:29:09.590Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Glimmering Gumdrop Goby",
+  "statement": "Sucked onto the front glass like a jelly candy, the Glimmering Gumdrop Goby pulses with a soft bioluminescent glow, blinking slowly as it watches the world drift by with big, round, curious eyes.",
+  "usage": {
+    "in": 352,
+    "out": 6316
+  },
+  "cost": 0.01334872,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 101,
+  "reply": "```json\n{\n  \"title\": \"Glimmering Gumdrop Goby\",\n  \"statement\": \"Sucked onto the front glass like a jelly candy, the Glimmering Gumdrop Goby pulses with a soft bioluminescent glow, blinking slowly as it watches the world drift by with big, round, curious eyes.\"\n}\n```"
+}

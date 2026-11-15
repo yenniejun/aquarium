@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 36,
+  "date": "2026-11-14T21:20:56.720Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Pondering Pebblefin",
+  "statement": "A thumb-sized, opalescent goby with lantern-blue freckles, the Pebblefin drifts through pale green water and rearranges tiny stones into constellations, then studies them with grave, unearned satisfaction. Its tank holds one arch of moon-white coral, a curtain of softly swaying hairgrass, and a single silver bubble that it follows everywhere but never seems to catch.",
+  "usage": {
+    "in": 410,
+    "out": 477
+  },
+  "cost": 0.0051292,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pebblefin\",\n  \"statement\": \"A thumb-sized, opalescent goby with lantern-blue freckles, the Pebblefin drifts through pale green water and rearranges tiny stones into constellations, then studies them with grave, unearned satisfaction. Its tank holds one arch of moon-white coral, a curtain of softly swaying hairgrass, and a single silver bubble that it follows everywhere but never seems to catch.\"\n}\n```"
+}

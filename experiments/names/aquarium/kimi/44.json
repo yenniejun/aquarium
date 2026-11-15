@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 44,
+  "date": "2026-11-14T21:23:51.682Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Bumbling Bubbleblenny",
+  "statement": "A thumb-sized opalescent blenny in a midnight-teal tank, it herds its own bubbles into tiny constellations, then erases them with one pleased flick of its tail. Between experiments, it rests in a cup of sea grass and watches visitors with grave, unearned confidence.",
+  "usage": {
+    "in": 410,
+    "out": 400
+  },
+  "cost": 0.0043592,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Bumbling Bubbleblenny\",\n  \"statement\": \"A thumb-sized opalescent blenny in a midnight-teal tank, it herds its own bubbles into tiny constellations, then erases them with one pleased flick of its tail. Between experiments, it rests in a cup of sea grass and watches visitors with grave, unearned confidence.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 8,
+  "date": "2026-11-14T21:10:06.379Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Color-Coding Cuttlefish",
+  "statement": "Drifting through warm, amber-lit kelp and sunken brass astrolabes, this meticulous cephalopod spends its days sorting scattered sea glass by hue and rippling with neon-blue sparks of pride whenever a gradient is complete. Should a stray current nudge a pebble out of place, it pauses with an indignant flicker of its fins before patiently tidying the pattern all over again.",
+  "usage": {
+    "in": 365,
+    "out": 1628
+  },
+  "cost": 0.0127575,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Color-Coding Cuttlefish\",\n  \"statement\": \"Drifting through warm, amber-lit kelp and sunken brass astrolabes, this meticulous cephalopod spends its days sorting scattered sea glass by hue and rippling with neon-blue sparks of pride whenever a gradient is complete. Should a stray current nudge a pebble out of place, it pauses with an indignant flicker of its fins before patiently tidying the pattern all over again.\"\n}\n```"
+}

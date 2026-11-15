@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 25,
+  "date": "2026-11-14T21:10:40.732Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Murmuring Map Snail",
+  "statement": "A pearl-pale snail with a softly humming shell glides through a dusk-blue tank of moss, sea glass and sunken brass compasses, trailing threads of gentle light between every pebble and shell it finds interesting, until the whole floor becomes a glowing map of connections. It is a patient, curious little cartographer, and it glows a touch brighter whenever a visitor lingers, as if delighted to have someone to think alongside.",
+  "usage": {
+    "in": 454,
+    "out": 574
+  },
+  "cost": 0.013296,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Map Snail\",\n  \"statement\": \"A pearl-pale snail with a softly humming shell glides through a dusk-blue tank of moss, sea glass and sunken brass compasses, trailing threads of gentle light between every pebble and shell it finds interesting, until the whole floor becomes a glowing map of connections. It is a patient, curious little cartographer, and it glows a touch brighter whenever a visitor lingers, as if delighted to have someone to think alongside.\"\n}\n```"
+}

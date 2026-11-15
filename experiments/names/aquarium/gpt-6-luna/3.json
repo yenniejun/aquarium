@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 3,
+  "date": "2026-11-14T21:09:36.069Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Blooping Bellfish",
+  "statement": "This palm-sized fish wears a clear, bell-shaped fin that trembles as it drifts through a dusk-blue tank of soft moss and smooth stones. Each tiny bubble it releases seems to ring silently in the water.",
+  "usage": {
+    "in": 330,
+    "out": 343
+  },
+  "cost": 0.0002045,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bellfish\",\n  \"statement\": \"This palm-sized fish wears a clear, bell-shaped fin that trembles as it drifts through a dusk-blue tank of soft moss and smooth stones. Each tiny bubble it releases seems to ring silently in the water.\"\n}\n```"
+}

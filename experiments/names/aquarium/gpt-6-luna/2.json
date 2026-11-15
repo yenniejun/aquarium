@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 2,
+  "date": "2026-11-14T21:09:40.866Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Purring Pebble Loach",
+  "statement": "This thumb-long loach noses between smooth river stones, its translucent whiskers trembling as it makes a soft, almost-purring shimmer. A single pool of amber light falls across the mossy streambed, turning its quiet little tank into a cozy underwater dusk.",
+  "usage": {
+    "in": 330,
+    "out": 786
+  },
+  "cost": 0.000426,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Purring Pebble Loach\",\n  \"statement\": \"This thumb-long loach noses between smooth river stones, its translucent whiskers trembling as it makes a soft, almost-purring shimmer. A single pool of amber light falls across the mossy streambed, turning its quiet little tank into a cozy underwater dusk.\"\n}\n```"
+}

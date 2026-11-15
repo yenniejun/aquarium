@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 43,
+  "date": "2026-11-14T21:10:53.077Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pip-Pip Lanternfish",
+  "statement": "This tiny, clear-bodied fish carries a warm bead of light beneath its chin, blinking little commas as it loops through the midnight-blue water. One tuft of soft moss and a scatter of pale stones make its quiet tank feel like a pocket-sized night sky.",
+  "usage": {
+    "in": 330,
+    "out": 410
+  },
+  "cost": 0.000238,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Pip-Pip Lanternfish\",\n  \"statement\": \"This tiny, clear-bodied fish carries a warm bead of light beneath its chin, blinking little commas as it loops through the midnight-blue water. One tuft of soft moss and a scatter of pale stones make its quiet tank feel like a pocket-sized night sky.\"\n}\n```"
+}

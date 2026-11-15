@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 24,
+  "date": "2026-11-14T21:15:11.990Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Muttering Mottle",
+  "statement": "A small flamboyant cuttlefish that strolls along the sandy floor rather than swimming, endlessly rewriting its skin in ripples of rust, cream, and violet like someone thinking aloud in a language just below hearing. It pauses often, tilts a watchful eye toward the glass, and seems to be searching for exactly the right shade to say next.",
+  "usage": {
+    "in": 359,
+    "out": 1074
+  },
+  "cost": 0.014324,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Muttering Mottle\",\n  \"statement\": \"A small flamboyant cuttlefish that strolls along the sandy floor rather than swimming, endlessly rewriting its skin in ripples of rust, cream, and violet like someone thinking aloud in a language just below hearing. It pauses often, tilts a watchful eye toward the glass, and seems to be searching for exactly the right shade to say next.\"\n}\n```"
+}

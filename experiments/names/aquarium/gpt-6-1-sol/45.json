@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 45,
+  "date": "2026-11-14T21:12:42.579Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble Ray",
+  "statement": "A palm-sized, midnight-blue ray with translucent, apricot-edged fins putters through a spacious tank of white sand, basalt arches, and wavering amber light, blowing little jets of water to arrange bright pebbles into constellations. Whenever a pattern becomes too tidy, it burrows underneath and erupts in a small, apparently satisfying sandstorm.",
+  "usage": {
+    "in": 330,
+    "out": 394
+  },
+  "cost": 0.0046,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble Ray\",\n  \"statement\": \"A palm-sized, midnight-blue ray with translucent, apricot-edged fins putters through a spacious tank of white sand, basalt arches, and wavering amber light, blowing little jets of water to arrange bright pebbles into constellations. Whenever a pattern becomes too tidy, it burrows underneath and erupts in a small, apparently satisfying sandstorm.\"\n}\n```"
+}

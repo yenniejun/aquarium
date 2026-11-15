@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 20,
+  "date": "2026-11-14T21:12:59.130Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Bobbling Bookish Octopus",
+  "statement": "This bobbling little octopus lives in a cozy reef-library, juggling glowing thought-bubbles with all eight arms and rearranging them into constellations whenever a new wonder drifts by. It never rushes — it just wobbles, ponders, and happily shares its sparkliest ideas with anyone watching.",
+  "usage": {
+    "in": 334,
+    "out": 1493
+  },
+  "cost": 0.030322,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Bobbling Bookish Octopus\",\n  \"statement\": \"This bobbling little octopus lives in a cozy reef-library, juggling glowing thought-bubbles with all eight arms and rearranging them into constellations whenever a new wonder drifts by. It never rushes — it just wobbles, ponders, and happily shares its sparkliest ideas with anyone watching.\"\n}\n```"
+}

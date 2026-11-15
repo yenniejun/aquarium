@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 11,
+  "date": "2026-11-14T21:12:17.402Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pottering Pebble-Pup",
+  "statement": "A small, dumpling-shaped octopus the color of warm cream, who sits among a hoard of smooth flat stones and spent hours arranging tiny shells and sea-glass into quiet little patterns, tilting its head, then gently knocking them over to begin again. It puffs slightly when a piece rolls the wrong way, then settles, and continues.",
+  "usage": {
+    "in": 359,
+    "out": 1519
+  },
+  "cost": 0.019664,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Pottering Pebble-Pup\",\n  \"statement\": \"A small, dumpling-shaped octopus the color of warm cream, who sits among a hoard of smooth flat stones and spent hours arranging tiny shells and sea-glass into quiet little patterns, tilting its head, then gently knocking them over to begin again. It puffs slightly when a piece rolls the wrong way, then settles, and continues.\"\n}\n```"
+}

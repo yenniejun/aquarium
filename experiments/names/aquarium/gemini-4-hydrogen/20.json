@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 20,
+  "date": "2026-11-14T21:10:52.487Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "Suspended in cool twilight water lit by softly glowing anemones, this pint-sized octopod flaps its ear-like fins while meticulously arranging iridescent sea-glass into neat spirals on the sandy floor. Whenever inspiration strikes, it traces fleeting constellations in the silt with a single tentacle tip before hovering back to admire its work.",
+  "usage": {
+    "in": 365,
+    "out": 3277
+  },
+  "cost": 0.025125,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"Suspended in cool twilight water lit by softly glowing anemones, this pint-sized octopod flaps its ear-like fins while meticulously arranging iridescent sea-glass into neat spirals on the sandy floor. Whenever inspiration strikes, it traces fleeting constellations in the silt with a single tentacle tip before hovering back to admire its work.\"\n}\n```"
+}

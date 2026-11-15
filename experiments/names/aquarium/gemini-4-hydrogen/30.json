@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 30,
+  "date": "2026-11-14T21:11:18.058Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Curating Cuttlefish",
+  "statement": "Basking in dappled teal light among sunken slate arches and swaying ribbons of sea-lettuce, this wide-eyed miniature cephalopod spends its days sorting sea-glass and tiny shells into neat color gradients. Whenever it completes a particularly pleasing arrangement, its skin ripples with soft bioluminescent waves like a quiet round of applause.",
+  "usage": {
+    "in": 365,
+    "out": 1623
+  },
+  "cost": 0.01272,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Curating Cuttlefish\",\n  \"statement\": \"Basking in dappled teal light among sunken slate arches and swaying ribbons of sea-lettuce, this wide-eyed miniature cephalopod spends its days sorting sea-glass and tiny shells into neat color gradients. Whenever it completes a particularly pleasing arrangement, its skin ripples with soft bioluminescent waves like a quiet round of applause.\"\n}\n```"
+}

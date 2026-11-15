@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 2,
+  "date": "2026-11-14T21:09:35.596Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pouting Pufferfish",
+  "statement": "A small lime-green pufferfish who inflates into a sulky, polka-dotted balloon whenever anyone taps the glass — then slowly deflates with an offended little wobble once the room goes quiet. She spends her days rearranging a single shiny pebble among the coral, never quite satisfied with where it ends up.",
+  "usage": {
+    "in": 342,
+    "out": 89
+  },
+  "cost": 0.00116736,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Pouting Pufferfish\",\n  \"statement\": \"A small lime-green pufferfish who inflates into a sulky, polka-dotted balloon whenever anyone taps the glass — then slowly deflates with an offended little wobble once the room goes quiet. She spends her days rearranging a single shiny pebble among the coral, never quite satisfied with where it ends up.\"\n}\n```"
+}

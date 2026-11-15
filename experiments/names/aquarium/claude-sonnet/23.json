@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 23,
+  "date": "2026-11-14T21:09:51.370Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Wizard",
+  "statement": "A pearly, spiral-shelled sea snail who hums softly as he drifts through a tank of moonlit teal water, drawing slow glowing runes in the sand with his foot while tiny bioluminescent plankton gather to watch. He keeps his tower of stacked pebbles and a lantern-shaped anemone at the center of the glass, and every so often he pauses, tips his shell toward the visitors, and releases a single wobbling bubble that holds a secret.",
+  "usage": {
+    "in": 454,
+    "out": 187
+  },
+  "cost": 0.002778,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Wizard\",\n  \"statement\": \"A pearly, spiral-shelled sea snail who hums softly as he drifts through a tank of moonlit teal water, drawing slow glowing runes in the sand with his foot while tiny bioluminescent plankton gather to watch. He keeps his tower of stacked pebbles and a lantern-shaped anemone at the center of the glass, and every so often he pauses, tips his shell toward the visitors, and releases a single wobbling bubble that holds a secret.\"\n}\n```"
+}

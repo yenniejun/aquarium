@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 32,
+  "date": "2026-11-14T21:10:44.728Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Purring Paddlefin",
+  "statement": "A small, round-bodied fish with oversized, gently rippling fins that hums a low, contented purr as it drifts through its softly lit tank of mossy stones and swaying greenery — less a swimmer than a slow, happy sigh made visible.",
+  "usage": {
+    "in": 342,
+    "out": 78
+  },
+  "cost": 0.00107056,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Purring Paddlefin\",\n  \"statement\": \"A small, round-bodied fish with oversized, gently rippling fins that hums a low, contented purr as it drifts through its softly lit tank of mossy stones and swaying greenery — less a swimmer than a slow, happy sigh made visible.\"\n}\n```"
+}

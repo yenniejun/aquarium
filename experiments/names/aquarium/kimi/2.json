@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 2,
+  "date": "2026-11-14T21:10:04.210Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonsnail",
+  "statement": "A palm-sized, opalescent sea snail glides through midnight-blue water, humming in soft ripples and leaving a fleeting trail of silver light. It patiently tends a garden of translucent anemones, nudging stray bubbles into constellations above its shell.",
+  "usage": {
+    "in": 410,
+    "out": 415
+  },
+  "cost": 0.0045092,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonsnail\",\n  \"statement\": \"A palm-sized, opalescent sea snail glides through midnight-blue water, humming in soft ripples and leaving a fleeting trail of silver light. It patiently tends a garden of translucent anemones, nudging stray bubbles into constellations above its shell.\"\n}\n```"
+}

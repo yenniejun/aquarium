@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 23,
+  "date": "2026-11-14T21:12:43.211Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Noodling Nautilus",
+  "statement": "Bobbing gently through a sunlit grotto of stacked slate and swaying sea-ferns, this opalescent cephalopod spends its days sorting colorful shards of sea glass into intricate, ever-shifting mosaics on the sandy floor. Whenever a visitor leans close, it pauses its tinkering to ripple warm, bioluminescent constellations across its shell and release a cheerful little chime of bubbles.",
+  "usage": {
+    "in": 365,
+    "out": 1416
+  },
+  "cost": 0.01489,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 48,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nautilus\",\n  \"statement\": \"Bobbing gently through a sunlit grotto of stacked slate and swaying sea-ferns, this opalescent cephalopod spends its days sorting colorful shards of sea glass into intricate, ever-shifting mosaics on the sandy floor. Whenever a visitor leans close, it pauses its tinkering to ripple warm, bioluminescent constellations across its shell and release a cheerful little chime of bubbles.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 39,
+  "date": "2026-11-14T21:11:15.217Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Chattering Chromatic Cuttlefish",
+  "statement": "A small, round-eyed cuttlefish that answers every visitor in rippling waves of color, as if it had been waiting all day to hear your question. Between conversations it drifts through its moonlit kelp garden, patiently arranging glowing pebbles into tidy little sentences that no one has quite managed to translate.",
+  "usage": {
+    "in": 454,
+    "out": 607
+  },
+  "cost": 0.013956,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Chattering Chromatic Cuttlefish\",\n  \"statement\": \"A small, round-eyed cuttlefish that answers every visitor in rippling waves of color, as if it had been waiting all day to hear your question. Between conversations it drifts through its moonlit kelp garden, patiently arranging glowing pebbles into tidy little sentences that no one has quite managed to translate.\"\n}\n```"
+}

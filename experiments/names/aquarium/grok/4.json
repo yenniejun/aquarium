@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 4,
+  "date": "2026-11-14T21:10:53.814Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "A needle-slim pipefish hangs upright in amber light, reading the sway of eelgrass as if it were a long sentence it fully intends to finish later.",
+  "usage": {
+    "in": 1569,
+    "out": 1005
+  },
+  "cost": 0.006864,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"A needle-slim pipefish hangs upright in amber light, reading the sway of eelgrass as if it were a long sentence it fully intends to finish later.\"\n}\n```"
+}

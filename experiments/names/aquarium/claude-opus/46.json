@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 46,
+  "date": "2026-11-14T21:11:33.242Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "This small, ear-finned octopus drifts through warm amber twilight, endlessly curious and gently earnest, arranging pebbles and shell fragments on the sandy floor into spirals, constellations, and occasional question marks. It always pauses to glance up at whoever is watching, as if to ask what you think, then happily tidies everything away to begin a new idea.",
+  "usage": {
+    "in": 454,
+    "out": 418
+  },
+  "cost": 0.010176,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"This small, ear-finned octopus drifts through warm amber twilight, endlessly curious and gently earnest, arranging pebbles and shell fragments on the sandy floor into spirals, constellations, and occasional question marks. It always pauses to glance up at whoever is watching, as if to ask what you think, then happily tidies everything away to begin a new idea.\"\n}\n```"
+}

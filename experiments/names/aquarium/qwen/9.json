@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 9,
+  "date": "2026-11-14T21:11:45.373Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Whispering Wobblegill",
+  "statement": "A small, round, faintly translucent fish that drifts through warm amber light, its soft oversized gills wobbling gently as it pauses to examine every stone and trailing moss-thread with unhurried, wide-eyed curiosity, leaving behind a fading glow like a thought not quite finished.",
+  "usage": {
+    "in": 359,
+    "out": 1218
+  },
+  "cost": 0.016052,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Whispering Wobblegill\",\n  \"statement\": \"A small, round, faintly translucent fish that drifts through warm amber light, its soft oversized gills wobbling gently as it pauses to examine every stone and trailing moss-thread with unhurried, wide-eyed curiosity, leaving behind a fading glow like a thought not quite finished.\"\n}\n```"
+}

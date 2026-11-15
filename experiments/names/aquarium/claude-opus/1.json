@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 1,
+  "date": "2026-11-14T21:09:39.260Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Noodling Nudibranch",
+  "statement": "A small, frilly sea slug whose rippling cerata glow from dusky violet to warm lantern-gold whenever it's mulling something over, which is nearly always. It spends its days in a twilight-blue tank of swaying seagrass, patiently arranging pebbles into thoughtful little spirals, and it pauses to regard each visitor with curiosity, as though you've just asked it a question worth taking seriously.",
+  "usage": {
+    "in": 454,
+    "out": 595
+  },
+  "cost": 0.013716,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nudibranch\",\n  \"statement\": \"A small, frilly sea slug whose rippling cerata glow from dusky violet to warm lantern-gold whenever it's mulling something over, which is nearly always. It spends its days in a twilight-blue tank of swaying seagrass, patiently arranging pebbles into thoughtful little spirals, and it pauses to regard each visitor with curiosity, as though you've just asked it a question worth taking seriously.\"\n}\n```"
+}

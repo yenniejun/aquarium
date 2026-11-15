@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 17,
+  "date": "2026-11-14T21:10:47.869Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble Cuttlefish",
+  "statement": "A palm-sized cuttlefish with pearly freckles putters through a moon-blue tank of porcelain arches and apricot sand, rearranging smooth pebbles with its smallest arms. Whenever a new arrangement pleases it, a ripple of gold parentheses travels across its skin—then it notices another possibility.",
+  "usage": {
+    "in": 330,
+    "out": 379
+  },
+  "cost": 0.00445,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble Cuttlefish\",\n  \"statement\": \"A palm-sized cuttlefish with pearly freckles putters through a moon-blue tank of porcelain arches and apricot sand, rearranging smooth pebbles with its smallest arms. Whenever a new arrangement pleases it, a ripple of gold parentheses travels across its skin—then it notices another possibility.\"\n}\n```"
+}

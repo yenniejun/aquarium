@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 29,
+  "date": "2026-11-14T21:13:03.356Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clattering Cuttlefish",
+  "statement": "Dwelling in a twilight grotto of sunken prisms and swaying copper kelp, this diminutive cephalopod spends its days tirelessly sorting smooth bits of sea-glass into intricate geometric mosaics. Whenever a pleasing new pattern comes together, it clatters two pebbles in quiet triumph and ripples from mantle to tentacle with warm, bioluminescent constellations.",
+  "usage": {
+    "in": 365,
+    "out": 1158
+  },
+  "cost": 0.01231,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 23,
+  "reply": "```json\n{\n  \"title\": \"Clattering Cuttlefish\",\n  \"statement\": \"Dwelling in a twilight grotto of sunken prisms and swaying copper kelp, this diminutive cephalopod spends its days tirelessly sorting smooth bits of sea-glass into intricate geometric mosaics. Whenever a pleasing new pattern comes together, it clatters two pebbles in quiet triumph and ripples from mantle to tentacle with warm, bioluminescent constellations.\"\n}\n```"
+}

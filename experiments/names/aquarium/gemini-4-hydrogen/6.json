@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 6,
+  "date": "2026-11-14T21:09:59.631Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble-Puffer",
+  "statement": "Beneath the warm amber glow of a sunken glass lantern and drifting emerald kelp, this round, wide-eyed puffer spends its days nudging bits of sea-glass and slate pebbles into intricate mandalas across the silver sand. Whenever a stray current scatters its latest design, it simply blinks, blows a cheerful little bubble ring of its own, and starts weaving a brand-new pattern.",
+  "usage": {
+    "in": 365,
+    "out": 2590
+  },
+  "cost": 0.0199725,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble-Puffer\",\n  \"statement\": \"Beneath the warm amber glow of a sunken glass lantern and drifting emerald kelp, this round, wide-eyed puffer spends its days nudging bits of sea-glass and slate pebbles into intricate mandalas across the silver sand. Whenever a stray current scatters its latest design, it simply blinks, blows a cheerful little bubble ring of its own, and starts weaving a brand-new pattern.\"\n}\n```"
+}

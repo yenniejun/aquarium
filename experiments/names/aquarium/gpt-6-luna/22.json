@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 22,
+  "date": "2026-11-14T21:10:16.462Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonmanta",
+  "statement": "A palm-sized, velvet-blue ray drifts through the water, its translucent fins humming softly as it traces figure-eights around a crescent of mossy stone. In the ink-dark tank, tiny pinpricks of light catch on its silver freckles like a private constellation.",
+  "usage": {
+    "in": 330,
+    "out": 349
+  },
+  "cost": 0.0002075,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmanta\",\n  \"statement\": \"A palm-sized, velvet-blue ray drifts through the water, its translucent fins humming softly as it traces figure-eights around a crescent of mossy stone. In the ink-dark tank, tiny pinpricks of light catch on its silver freckles like a private constellation.\"\n}\n```"
+}

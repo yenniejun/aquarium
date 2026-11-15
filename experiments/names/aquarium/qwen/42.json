@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 42,
+  "date": "2026-11-14T21:19:38.488Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Plonking Prism",
+  "statement": "A palm-sized comb jelly drifts through ink-dark water, its eight rows of tiny cilia catching the faintest light and scattering it into slow, wandering rainbows. It bumps gently against a single smooth black stone, rebounds without urgency, and continues its quiet, colorless-to-colorful pulse, as though it is thinking in wavelengths it forgot to keep secret.",
+  "usage": {
+    "in": 359,
+    "out": 1454
+  },
+  "cost": 0.018884,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Plonking Prism\",\n  \"statement\": \"A palm-sized comb jelly drifts through ink-dark water, its eight rows of tiny cilia catching the faintest light and scattering it into slow, wandering rainbows. It bumps gently against a single smooth black stone, rebounds without urgency, and continues its quiet, colorless-to-colorful pulse, as though it is thinking in wavelengths it forgot to keep secret.\"\n}\n```"
+}

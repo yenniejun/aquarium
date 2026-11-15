@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 10,
+  "date": "2026-11-14T21:10:08.948Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Shimmering Scribble Squid",
+  "statement": "Residing in a twilight tank of swaying silver kelp and smooth sea-glass pebbles, this curious little cephalopod ripples with bioluminescent curls and squiggles whenever a new thought strikes. Between carefully arranging sunken curiosities into neat constellations on the sand, it drifts up to the glass to flash tiny, glowing question marks at anyone peering in.",
+  "usage": {
+    "in": 365,
+    "out": 1577
+  },
+  "cost": 0.012375,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Shimmering Scribble Squid\",\n  \"statement\": \"Residing in a twilight tank of swaying silver kelp and smooth sea-glass pebbles, this curious little cephalopod ripples with bioluminescent curls and squiggles whenever a new thought strikes. Between carefully arranging sunken curiosities into neat constellations on the sand, it drifts up to the glass to flash tiny, glowing question marks at anyone peering in.\"\n}\n```"
+}

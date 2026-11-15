@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 23,
+  "date": "2026-11-14T21:50:22.174Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Blip Bloop Jelly",
+  "statement": "No bigger than a shirt button, it opens and shuts like a tiny umbrella. It drifts up and down on a slow schedule it keeps only for itself.",
+  "usage": {
+    "in": 352,
+    "out": 1388
+  },
+  "cost": 0.00299992,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 23,
+  "reply": "```json\n{\n  \"title\": \"Blip Bloop Jelly\",\n  \"statement\": \"No bigger than a shirt button, it opens and shuts like a tiny umbrella. It drifts up and down on a slow schedule it keeps only for itself.\"\n}\n```"
+}

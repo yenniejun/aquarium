@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 42,
+  "date": "2026-11-14T21:12:28.273Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Curious Concertina Cuttlefish",
+  "statement": "A palm-sized cuttlefish with accordion-pleated fins drifts through an arch of blue slate, trying on the colors of everything it encounters—including, occasionally, its own shadow. Beneath a warm coin of light, it blows little craters in the white sand, inspects each one with grave attention, then gently erases it and begins again.",
+  "usage": {
+    "in": 330,
+    "out": 371
+  },
+  "cost": 0.00437,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Curious Concertina Cuttlefish\",\n  \"statement\": \"A palm-sized cuttlefish with accordion-pleated fins drifts through an arch of blue slate, trying on the colors of everything it encounters—including, occasionally, its own shadow. Beneath a warm coin of light, it blows little craters in the white sand, inspects each one with grave attention, then gently erases it and begins again.\"\n}\n```"
+}

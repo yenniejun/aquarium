@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 9,
+  "date": "2026-11-14T21:12:46.946Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "A slender pipefish drifts along the glass as if rereading the seams, pausing whenever a fleck of light seems to pose a better question.",
+  "usage": {
+    "in": 1569,
+    "out": 964
+  },
+  "cost": 0.006618,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"A slender pipefish drifts along the glass as if rereading the seams, pausing whenever a fleck of light seems to pose a better question.\"\n}\n```"
+}

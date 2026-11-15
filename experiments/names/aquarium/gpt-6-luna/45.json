@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 45,
+  "date": "2026-11-14T21:10:57.480Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Purring Pebblefish",
+  "statement": "This round, velvet-finned fish settles among smooth stones and sends a soft ripple through the water whenever it purrs. Moonlit moss and a few drifting bubbles make its quiet little world feel like a held breath.",
+  "usage": {
+    "in": 330,
+    "out": 357
+  },
+  "cost": 0.0002115,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Purring Pebblefish\",\n  \"statement\": \"This round, velvet-finned fish settles among smooth stones and sends a soft ripple through the water whenever it purrs. Moonlit moss and a few drifting bubbles make its quiet little world feel like a held breath.\"\n}\n```"
+}

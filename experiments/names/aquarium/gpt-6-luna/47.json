@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 47,
+  "date": "2026-11-14T21:11:02.341Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Purring Pebblefish",
+  "statement": "This small, round fish wears the colors of river stones and gives a soft purr when the water is still. It rests alone among smooth pebbles and swaying moss, a pocket-sized lullaby in green light.",
+  "usage": {
+    "in": 330,
+    "out": 576
+  },
+  "cost": 0.000321,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Purring Pebblefish\",\n  \"statement\": \"This small, round fish wears the colors of river stones and gives a soft purr when the water is still. It rests alone among smooth pebbles and swaying moss, a pocket-sized lullaby in green light.\"\n}\n```"
+}

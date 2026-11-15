@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 14,
+  "date": "2026-11-14T21:11:54.953Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Daydreaming Doodlepus",
+  "statement": "A thumb-sized lavender octopus, it doodles spirals in the sand, rearranges shells into tiny constellations, and naps curled around a glowing pearl in its sunlit coral studio. Every morning it redecorates, convinced the tank is almost — but never quite — finished.",
+  "usage": {
+    "in": 334,
+    "out": 1417
+  },
+  "cost": 0.029676,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Daydreaming Doodlepus\",\n  \"statement\": \"A thumb-sized lavender octopus, it doodles spirals in the sand, rearranges shells into tiny constellations, and naps curled around a glowing pearl in its sunlit coral studio. Every morning it redecorates, convinced the tank is almost — but never quite — finished.\"\n}\n```"
+}

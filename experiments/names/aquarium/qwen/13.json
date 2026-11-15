@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 13,
+  "date": "2026-11-14T21:12:47.810Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Moonjelly",
+  "statement": "A small, translucent moon jelly drifts in near-still indigo water, its bell pulsing in slow, unhurried rhythms while faint bioluminescent ripples cross its surface like half-formed thoughts. It murmurs to no one in particular, perfectly content to be overheard.",
+  "usage": {
+    "in": 359,
+    "out": 1132
+  },
+  "cost": 0.01502,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonjelly\",\n  \"statement\": \"A small, translucent moon jelly drifts in near-still indigo water, its bell pulsing in slow, unhurried rhythms while faint bioluminescent ripples cross its surface like half-formed thoughts. It murmurs to no one in particular, perfectly content to be overheard.\"\n}\n```"
+}

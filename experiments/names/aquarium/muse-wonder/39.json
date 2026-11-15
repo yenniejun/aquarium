@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 39,
+  "date": "2026-11-14T21:15:55.249Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Wobbling Wonder Wrasse",
+  "statement": "This rainbow wrasse spends its days rearranging pebbles into tiny, ever-changing mosaics and shimmering to match whatever it imagines next. Pause a moment — it is probably including you in its latest masterpiece.",
+  "usage": {
+    "in": 334,
+    "out": 952
+  },
+  "cost": 0.019502,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Wobbling Wonder Wrasse\",\n  \"statement\": \"This rainbow wrasse spends its days rearranging pebbles into tiny, ever-changing mosaics and shimmering to match whatever it imagines next. Pause a moment — it is probably including you in its latest masterpiece.\"\n}\n```"
+}

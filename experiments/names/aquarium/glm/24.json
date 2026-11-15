@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 24,
+  "date": "2026-11-14T21:10:26.270Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Ponderous Puffling Perch",
+  "statement": "A round, unhurried little fish who drifts sideways through a dim amber tank of drifting kelp ribbons, thinking very slow thoughts and occasionally puffing out a single, perfectly spherical bubble as if finally arriving at a conclusion.",
+  "usage": {
+    "in": 342,
+    "out": 72
+  },
+  "cost": 0.00101776,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Ponderous Puffling Perch\",\n  \"statement\": \"A round, unhurried little fish who drifts sideways through a dim amber tank of drifting kelp ribbons, thinking very slow thoughts and occasionally puffing out a single, perfectly spherical bubble as if finally arriving at a conclusion.\"\n}\n```"
+}

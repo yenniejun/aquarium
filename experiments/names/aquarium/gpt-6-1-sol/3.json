@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 3,
+  "date": "2026-11-14T21:09:45.721Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepuff",
+  "statement": "A pear-shaped, translucent fish with apricot cheeks and six fluttering fins, the Pebblepuff spends its days blowing careful water-jets at pebbles, arranging them into spirals and doorways it is slightly too round to enter. Its tank is a blue-hour garden of slate arches and pale sand, with one warm shaft of light where it brings each especially interesting stone for a second look.",
+  "usage": {
+    "in": 330,
+    "out": 407
+  },
+  "cost": 0.00473,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepuff\",\n  \"statement\": \"A pear-shaped, translucent fish with apricot cheeks and six fluttering fins, the Pebblepuff spends its days blowing careful water-jets at pebbles, arranging them into spirals and doorways it is slightly too round to enter. Its tank is a blue-hour garden of slate arches and pale sand, with one warm shaft of light where it brings each especially interesting stone for a second look.\"\n}\n```"
+}

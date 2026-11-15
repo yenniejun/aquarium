@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 15,
+  "date": "2026-11-14T21:10:29.843Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pondering Pebble-Puffer",
+  "statement": "A plump, star-freckled pufferfish with wide, inquisitive eyes that drifts gently through clear teal water, puffing soft currents to sort smooth pebbles and tumbled sea-glass into tidy, shifting constellations. Its quiet sanctuary is dappled with warm amber sunbeams filtering through swaying ribbon-kelp and mossy slate ledges, inviting the calm wonder of an afternoon spent browsing a sunlit library.",
+  "usage": {
+    "in": 365,
+    "out": 2187
+  },
+  "cost": 0.01695,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pebble-Puffer\",\n  \"statement\": \"A plump, star-freckled pufferfish with wide, inquisitive eyes that drifts gently through clear teal water, puffing soft currents to sort smooth pebbles and tumbled sea-glass into tidy, shifting constellations. Its quiet sanctuary is dappled with warm amber sunbeams filtering through swaying ribbon-kelp and mossy slate ledges, inviting the calm wonder of an afternoon spent browsing a sunlit library.\"\n}\n```"
+}

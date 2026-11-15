@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 39,
+  "date": "2026-11-14T22:16:52.925Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Bubble Boat",
+  "statement": "A tiny ramshorn snail that seals itself to the surface film with a silvery bubble of air, floating upside-down like a miniature dirigible until it lets go with a soft 'plip'.",
+  "usage": {
+    "in": 352,
+    "out": 8087
+  },
+  "cost": 0.01706782,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 146,
+  "reply": "```json\n{\n  \"title\": \"Bubble Boat\",\n  \"statement\": \"A tiny ramshorn snail that seals itself to the surface film with a silvery bubble of air, floating upside-down like a miniature dirigible until it lets go with a soft 'plip'.\"\n}\n```"
+}

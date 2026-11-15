@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 34,
+  "date": "2026-11-14T21:21:01.530Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "A slender, ink-brass pipefish hangs upright among quiet eelgrass, turning toward every small brightness as if it were a thought worth finishing. It never hurries; it only notices.",
+  "usage": {
+    "in": 1569,
+    "out": 1006
+  },
+  "cost": 0.00687,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"A slender, ink-brass pipefish hangs upright among quiet eelgrass, turning toward every small brightness as if it were a thought worth finishing. It never hurries; it only notices.\"\n}\n```"
+}

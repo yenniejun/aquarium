@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 32,
+  "date": "2026-11-14T21:11:26.717Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Scribbling Squid",
+  "statement": "Drifting through a tranquil grove of swaying kelp and tumbled sea glass, this pocket-sized cephalopod uses puffs of shimmering ink to sketch fleeting constellations in the current. Endlessly curious, it arranges polished pebbles into neat spirals on the sandy floor and flashes warm, rhythmic patterns whenever a visitor pauses to look inside.",
+  "usage": {
+    "in": 365,
+    "out": 1681
+  },
+  "cost": 0.013155,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squid\",\n  \"statement\": \"Drifting through a tranquil grove of swaying kelp and tumbled sea glass, this pocket-sized cephalopod uses puffs of shimmering ink to sketch fleeting constellations in the current. Endlessly curious, it arranges polished pebbles into neat spirals on the sandy floor and flashes warm, rhythmic patterns whenever a visitor pauses to look inside.\"\n}\n```"
+}

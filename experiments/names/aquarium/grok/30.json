@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 30,
+  "date": "2026-11-14T21:19:56.803Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Peeping Pygmy Blenny",
+  "statement": "A thumb-sized blenny keeps a patient watch from a nub of live rock, flicking out to inspect each bubble as if it might be a note. The tank is spare and sunlit, planted in soft greens, so the small curious face is always the brightest thing in the water.",
+  "usage": {
+    "in": 1569,
+    "out": 1096
+  },
+  "cost": 0.00741,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Peeping Pygmy Blenny\",\n  \"statement\": \"A thumb-sized blenny keeps a patient watch from a nub of live rock, flicking out to inspect each bubble as if it might be a note. The tank is spare and sunlit, planted in soft greens, so the small curious face is always the brightest thing in the water.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 34,
+  "date": "2026-11-14T21:17:36.994Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Gurgling Glimmergob",
+  "statement": "A small, round, faintly translucent cephalopod no bigger than a plum, which sits motionless among smooth black basalt stones and pulses with slow, layered rings of soft blue-green light from somewhere deep inside its body, as though it is quietly thinking in color. The tank around it is dark and still—just those worn stones, a single pale anemone swaying in a barely-there current, and water the blue-black of a sky just after the last star appears.",
+  "usage": {
+    "in": 359,
+    "out": 941
+  },
+  "cost": 0.012728,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Gurgling Glimmergob\",\n  \"statement\": \"A small, round, faintly translucent cephalopod no bigger than a plum, which sits motionless among smooth black basalt stones and pulses with slow, layered rings of soft blue-green light from somewhere deep inside its body, as though it is quietly thinking in color. The tank around it is dark and still—just those worn stones, a single pale anemone swaying in a barely-there current, and water the blue-black of a sky just after the last star appears.\"\n}\n```"
+}

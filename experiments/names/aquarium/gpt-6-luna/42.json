@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 42,
+  "date": "2026-11-14T21:10:52.505Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonmoth",
+  "statement": "A palm-sized opaline fish with soft, moth-wing fins drifts through the tank, whispering tiny bubble-rings whenever moonlight catches its scales. It lives among deep-teal water, velvet moss, and one pale stone crescent, turning each slow lap into a quiet little orbit.",
+  "usage": {
+    "in": 330,
+    "out": 474
+  },
+  "cost": 0.00027,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmoth\",\n  \"statement\": \"A palm-sized opaline fish with soft, moth-wing fins drifts through the tank, whispering tiny bubble-rings whenever moonlight catches its scales. It lives among deep-teal water, velvet moss, and one pale stone crescent, turning each slow lap into a quiet little orbit.\"\n}\n```"
+}

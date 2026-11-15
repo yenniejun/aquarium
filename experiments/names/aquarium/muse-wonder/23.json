@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 23,
+  "date": "2026-11-14T21:13:23.348Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Daydreaming Doodle Octopus",
+  "statement": "This tiny ink-doodling octopus spends its days rearranging the pebble library in its cozy, glow-plant cave and painting swirling pictures in the water that fade like half-remembered poems. Ask it a question and it flushes rose-gold with curiosity, then thoughtfully offers you its favorite pebble in return.",
+  "usage": {
+    "in": 334,
+    "out": 1039
+  },
+  "cost": 0.021242,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Daydreaming Doodle Octopus\",\n  \"statement\": \"This tiny ink-doodling octopus spends its days rearranging the pebble library in its cozy, glow-plant cave and painting swirling pictures in the water that fade like half-remembered poems. Ask it a question and it flushes rose-gold with curiosity, then thoughtfully offers you its favorite pebble in return.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 48,
+  "date": "2026-11-14T21:12:22.404Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "Flapping its velvety ear-fins through calm, twilight-indigo water, this pocket-sized octopod spends its days sketching intricate spirals in pale moon-sand and sorting bright sea-glass among mossy sunken teacups. Whenever a visitor peeks in, it hovers beside a grove of softly glowing kelp, tilting its head as if eager to trade a riddle.",
+  "usage": {
+    "in": 365,
+    "out": 2185
+  },
+  "cost": 0.016935,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"Flapping its velvety ear-fins through calm, twilight-indigo water, this pocket-sized octopod spends its days sketching intricate spirals in pale moon-sand and sorting bright sea-glass among mossy sunken teacups. Whenever a visitor peeks in, it hovers beside a grove of softly glowing kelp, tilting its head as if eager to trade a riddle.\"\n}\n```"
+}

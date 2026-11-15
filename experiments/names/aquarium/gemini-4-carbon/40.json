@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 40,
+  "date": "2026-11-14T21:14:08.648Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Click-Clack Cuttlefish",
+  "statement": "Hovering beneath twilight-lit arches of stacked slate and glowing sea moss, this inquisitive cephalopod spends its hours meticulously sorting tumbled sea glass into neat geometric spirals, filling the tank with soft, rhythmic clicks. Whenever an observer leans close, its velvety skin ripples with shifting constellations of amber and cyan light, enthusiastically flashing intricate patterns to strike up a visual conversation.",
+  "usage": {
+    "in": 365,
+    "out": 1024
+  },
+  "cost": 0.01097,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Click-Clack Cuttlefish\",\n  \"statement\": \"Hovering beneath twilight-lit arches of stacked slate and glowing sea moss, this inquisitive cephalopod spends its hours meticulously sorting tumbled sea glass into neat geometric spirals, filling the tank with soft, rhythmic clicks. Whenever an observer leans close, its velvety skin ripples with shifting constellations of amber and cyan light, enthusiastically flashing intricate patterns to strike up a visual conversation.\"\n}\n```"
+}

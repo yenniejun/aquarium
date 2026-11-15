@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 46,
+  "date": "2026-11-14T22:30:30.492Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Glugging Glass Catfish",
+  "statement": "With a body so transparent that its beating heart is visible through the glass, this catfish drifts in mid-water like a living ghost. It surfaces now and then with a soft 'glug' to gulp a bubble of air, then sinks back into the shadows.",
+  "usage": {
+    "in": 352,
+    "out": 9267
+  },
+  "cost": 0.01954582,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 139,
+  "reply": "```json\n{\n  \"title\": \"Glugging Glass Catfish\",\n  \"statement\": \"With a body so transparent that its beating heart is visible through the glass, this catfish drifts in mid-water like a living ghost. It surfaces now and then with a soft 'glug' to gulp a bubble of air, then sinks back into the shadows.\"\n}\n```"
+}

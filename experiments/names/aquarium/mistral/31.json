@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 31,
+  "date": "2026-11-14T22:02:54.844Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Blubbering Bubble Betta",
+  "statement": "A platinum betta with pouty lips that spends its days inflating oversized, glassy bubbles and letting them drift sideways on the gentle current. Each one ends with a soft, audible 'blub' when the fish pops it with its nose—a one-fish percussion solo that turns the surface into a shimmering drum.",
+  "usage": {
+    "in": 352,
+    "out": 7272
+  },
+  "cost": 0.0155176,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 115,
+  "reply": "```json\n{\n  \"title\": \"Blubbering Bubble Betta\",\n  \"statement\": \"A platinum betta with pouty lips that spends its days inflating oversized, glassy bubbles and letting them drift sideways on the gentle current. Each one ends with a soft, audible 'blub' when the fish pops it with its nose—a one-fish percussion solo that turns the surface into a shimmering drum.\"\n}\n```"
+}

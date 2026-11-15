@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 8,
+  "date": "2026-11-14T21:10:23.013Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Squiggling Scribble Squid",
+  "statement": "Rippling with shifting, calligraphic bands of bioluminescent color, this curious little cephalopod spends its hours sorting shards of frosted sea glass and smooth pebbles into neat, spiraling constellations on the sandy floor. Whenever a visitor pauses near the tank, it hovers amid swaying golden kelp to greet them with warm, punctuation-like bursts of amber light.",
+  "usage": {
+    "in": 365,
+    "out": 962
+  },
+  "cost": 0.01035,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Squiggling Scribble Squid\",\n  \"statement\": \"Rippling with shifting, calligraphic bands of bioluminescent color, this curious little cephalopod spends its hours sorting shards of frosted sea glass and smooth pebbles into neat, spiraling constellations on the sandy floor. Whenever a visitor pauses near the tank, it hovers amid swaying golden kelp to greet them with warm, punctuation-like bursts of amber light.\"\n}\n```"
+}

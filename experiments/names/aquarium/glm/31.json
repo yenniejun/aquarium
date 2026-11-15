@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 31,
+  "date": "2026-11-14T21:10:42.518Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Mantashrimp",
+  "statement": "A thumb-sized dreamer that snaps its claw in tiny ripples of light, and when it's happy it hums bubbles that pop into soft, tinny songs. It lives alone in a tank of dusky amber light, rearranging its pebbles every evening like a fastidious little librarian closing up shop.",
+  "usage": {
+    "in": 342,
+    "out": 88
+  },
+  "cost": 0.00115856,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mantashrimp\",\n  \"statement\": \"A thumb-sized dreamer that snaps its claw in tiny ripples of light, and when it's happy it hums bubbles that pop into soft, tinny songs. It lives alone in a tank of dusky amber light, rearranging its pebbles every evening like a fastidious little librarian closing up shop.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 26,
+  "date": "2026-11-14T21:12:40.497Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Noodling Nudibranch",
+  "statement": "Cruising unhurriedly over stacks of mossy slate that resemble sunken bookshelves, this translucent sea slug ripples with warm bioluminescent patterns whenever it appears to be puzzling out a particularly delightful thought. It spends its twilight hours nudging iridescent pebbles into intricate, temporary constellations on the sand before getting happily sidetracked by a passing bubble.",
+  "usage": {
+    "in": 365,
+    "out": 1210
+  },
+  "cost": 0.01283,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nudibranch\",\n  \"statement\": \"Cruising unhurriedly over stacks of mossy slate that resemble sunken bookshelves, this translucent sea slug ripples with warm bioluminescent patterns whenever it appears to be puzzling out a particularly delightful thought. It spends its twilight hours nudging iridescent pebbles into intricate, temporary constellations on the sand before getting happily sidetracked by a passing bubble.\"\n}\n```"
+}

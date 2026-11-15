@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 1,
+  "date": "2026-11-14T21:09:43.094Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pitter-Patter Pleatfin",
+  "statement": "This palm-sized cuttlefish putters through tea-gold water on translucent, accordion-pleated fins, flashing little blue commas across its skin whenever something surprises it. Beneath a single arch of milky quartz, it patiently arranges bright pebbles into spirals on the charcoal sand—then steals one from the middle and spends the afternoon investigating the gap.",
+  "usage": {
+    "in": 330,
+    "out": 342
+  },
+  "cost": 0.00408,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Pitter-Patter Pleatfin\",\n  \"statement\": \"This palm-sized cuttlefish putters through tea-gold water on translucent, accordion-pleated fins, flashing little blue commas across its skin whenever something surprises it. Beneath a single arch of milky quartz, it patiently arranges bright pebbles into spirals on the charcoal sand—then steals one from the middle and spends the afternoon investigating the gap.\"\n}\n```"
+}

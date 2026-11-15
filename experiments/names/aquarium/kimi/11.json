@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 11,
+  "date": "2026-11-14T21:13:08.602Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonshrimp",
+  "statement": "A thumb-sized, opal-shelled shrimp potters through a midnight-blue garden, polishing glass pebbles and arranging rising bubbles into tiny constellations. When the lights dim, it glows faintly and murmurs in soft clicks, as though thinking aloud.",
+  "usage": {
+    "in": 410,
+    "out": 567
+  },
+  "cost": 0.0060292,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonshrimp\",\n  \"statement\": \"A thumb-sized, opal-shelled shrimp potters through a midnight-blue garden, polishing glass pebbles and arranging rising bubbles into tiny constellations. When the lights dim, it glows faintly and murmurs in soft clicks, as though thinking aloud.\"\n}\n```"
+}

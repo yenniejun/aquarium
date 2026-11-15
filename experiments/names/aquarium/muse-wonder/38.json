@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 38,
+  "date": "2026-11-14T21:15:47.662Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Daydream Octopus",
+  "statement": "This little octopus doodles swirling patterns in the sand, changes colour with every new curiosity, and collects shiny pebbles to build tiny constellations on the tank floor. Watch long enough, and she'll shyly rearrange them into a picture just for you.",
+  "usage": {
+    "in": 334,
+    "out": 935
+  },
+  "cost": 0.019162,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Doodling Daydream Octopus\",\n  \"statement\": \"This little octopus doodles swirling patterns in the sand, changes colour with every new curiosity, and collects shiny pebbles to build tiny constellations on the tank floor. Watch long enough, and she'll shyly rearrange them into a picture just for you.\"\n}\n```"
+}

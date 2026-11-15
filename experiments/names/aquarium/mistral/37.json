@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 37,
+  "date": "2026-11-14T22:14:01.508Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Dithering Dazzling Cuttlefish",
+  "statement": "A dwarf cuttlefish whose skin ripples through waves of amber, violet, and pearl with every shift of mood. It hovers like a living opal, its W-shaped pupils fixed on visitors with ancient, unblinking curiosity.",
+  "usage": {
+    "in": 352,
+    "out": 11000
+  },
+  "cost": 0.02318512,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 153,
+  "reply": "```json\n{\n  \"title\": \"Dithering Dazzling Cuttlefish\",\n  \"statement\": \"A dwarf cuttlefish whose skin ripples through waves of amber, violet, and pearl with every shift of mood. It hovers like a living opal, its W-shaped pupils fixed on visitors with ancient, unblinking curiosity.\"\n}\n```"
+}

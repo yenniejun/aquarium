@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 50,
+  "date": "2026-11-14T21:15:18.529Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Plinking Pebble Puffer",
+  "statement": "Beneath a twilight canopy of swaying bioluminescent kelp, this rotund, starry-speckled fish spends its days sculpting intricate mandalas in the pale sand. Whenever inspiration strikes, its cheeks glow warm amber as it putters through stacked slate arches to gather luminous pebbles and tumbled sea glass, gently plinking each piece into ever-shifting constellations.",
+  "usage": {
+    "in": 365,
+    "out": 1941
+  },
+  "cost": 0.02014,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 32,
+  "reply": "```json\n{\n  \"title\": \"Plinking Pebble Puffer\",\n  \"statement\": \"Beneath a twilight canopy of swaying bioluminescent kelp, this rotund, starry-speckled fish spends its days sculpting intricate mandalas in the pale sand. Whenever inspiration strikes, its cheeks glow warm amber as it putters through stacked slate arches to gather luminous pebbles and tumbled sea glass, gently plinking each piece into ever-shifting constellations.\"\n}\n```"
+}

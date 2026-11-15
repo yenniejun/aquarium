@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 41,
+  "date": "2026-11-14T21:10:49.210Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Doodling Dragonet",
+  "statement": "This solitary dragonet combs the pale sand with its ribbon tail, leaving looping trails that vanish with each fin flick. Its quiet tank of slate, soft eelgrass, and one amber light is made for watching a small thought take shape.",
+  "usage": {
+    "in": 330,
+    "out": 517
+  },
+  "cost": 0.0002915,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dragonet\",\n  \"statement\": \"This solitary dragonet combs the pale sand with its ribbon tail, leaving looping trails that vanish with each fin flick. Its quiet tank of slate, soft eelgrass, and one amber light is made for watching a small thought take shape.\"\n}\n```"
+}

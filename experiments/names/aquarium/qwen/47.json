@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 47,
+  "date": "2026-11-14T21:20:56.064Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Mumbling Mollusk",
+  "statement": "A small, ink-blue octopus no bigger than a teacup, perpetually rearranging a collection of smooth river pebbles into tiny cairns, toppling them, and beginning again while releasing soft little streams of bubbles, as though narrating its work to no one in particular. The tank is lit in low amber from behind, warm and dim as a study at dusk, with nothing in it but sand, worn stones, and the quiet industry of a creature that finds the whole world in a single pebble turned over three times.",
+  "usage": {
+    "in": 359,
+    "out": 1093
+  },
+  "cost": 0.014552,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Mumbling Mollusk\",\n  \"statement\": \"A small, ink-blue octopus no bigger than a teacup, perpetually rearranging a collection of smooth river pebbles into tiny cairns, toppling them, and beginning again while releasing soft little streams of bubbles, as though narrating its work to no one in particular. The tank is lit in low amber from behind, warm and dim as a study at dusk, with nothing in it but sand, worn stones, and the quiet industry of a creature that finds the whole world in a single pebble turned over three times.\"\n}\n```"
+}

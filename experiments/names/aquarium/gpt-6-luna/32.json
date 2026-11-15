@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 32,
+  "date": "2026-11-14T21:10:31.530Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonmoth",
+  "statement": "This little silver fish glides through a dusk-blue tank, its broad, moth-soft fins folding and opening like a whispered thought. It pauses among pale reeds and smooth stones, stirring tiny rings of light wherever its tail passes.",
+  "usage": {
+    "in": 330,
+    "out": 321
+  },
+  "cost": 0.0001935,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmoth\",\n  \"statement\": \"This little silver fish glides through a dusk-blue tank, its broad, moth-soft fins folding and opening like a whispered thought. It pauses among pale reeds and smooth stones, stirring tiny rings of light wherever its tail passes.\"\n}\n```"
+}

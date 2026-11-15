@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 6,
+  "date": "2026-11-14T21:11:03.638Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Plinking Plume",
+  "statement": "A glass-winged pteropod no larger than a lentil, fluttering through black water with a faint bioluminescent trail. It has no shell, no skeleton, and no audience—just the quiet insistence of its own small light.",
+  "usage": {
+    "in": 359,
+    "out": 1745
+  },
+  "cost": 0.022376,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Plinking Plume\",\n  \"statement\": \"A glass-winged pteropod no larger than a lentil, fluttering through black water with a faint bioluminescent trail. It has no shell, no skeleton, and no audience—just the quiet insistence of its own small light.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 43,
+  "date": "2026-11-14T21:11:30.329Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Mothmola",
+  "statement": "A hand-sized ocean sunfish crossed with a dust moth, the Murmuring Mothmola drifts in slow spirals through the greenish dusk of its tank, trailing ribbons of bioluminescent fuzz that pulse faintly whenever it hums to itself. It lives among tall, swaying reeds and a single smooth moonstone, and it appears most content when pressing its silly, round face gently against the glass to watch visitors watching it.",
+  "usage": {
+    "in": 342,
+    "out": 118
+  },
+  "cost": 0.00142256,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mothmola\",\n  \"statement\": \"A hand-sized ocean sunfish crossed with a dust moth, the Murmuring Mothmola drifts in slow spirals through the greenish dusk of its tank, trailing ribbons of bioluminescent fuzz that pulse faintly whenever it hums to itself. It lives among tall, swaying reeds and a single smooth moonstone, and it appears most content when pressing its silly, round face gently against the glass to watch visitors watching it.\"\n}\n```"
+}

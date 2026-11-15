@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 18,
+  "date": "2026-11-14T21:10:50.074Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble Cuttlefish",
+  "statement": "A palm-sized cuttlefish with an ink-blue mantle and flickering gold freckles putters through a twilight tank of ribbon grass, smooth porcelain pebbles, and one enormous frosted-glass arch. It spends its afternoons arranging pebbles into elaborate spirals, then gently moves the middle pebble somewhere surprising and hovers back to reconsider.",
+  "usage": {
+    "in": 330,
+    "out": 385
+  },
+  "cost": 0.00451,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble Cuttlefish\",\n  \"statement\": \"A palm-sized cuttlefish with an ink-blue mantle and flickering gold freckles putters through a twilight tank of ribbon grass, smooth porcelain pebbles, and one enormous frosted-glass arch. It spends its afternoons arranging pebbles into elaborate spirals, then gently moves the middle pebble somewhere surprising and hovers back to reconsider.\"\n}\n```"
+}

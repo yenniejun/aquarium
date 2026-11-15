@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 12,
+  "date": "2026-11-14T21:13:45.881Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Murmuring Mandarinfish",
+  "statement": "A palm-sized mandarinfish drifts through warm, dim water, its embroidered colors catching the light in little private asides, as if the reef were a conversation it prefers to keep gentle.",
+  "usage": {
+    "in": 1569,
+    "out": 787
+  },
+  "cost": 0.005556,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mandarinfish\",\n  \"statement\": \"A palm-sized mandarinfish drifts through warm, dim water, its embroidered colors catching the light in little private asides, as if the reef were a conversation it prefers to keep gentle.\"\n}\n```"
+}

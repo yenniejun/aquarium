@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 2,
+  "date": "2026-11-14T21:12:55.772Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Bubble-Blowing Betta",
+  "statement": "Each morning he engineers a raft of bubbles beneath the floating leaf, a tiny architecture of air. He patrols it with theatrical fury, flaring at his own reflection like a landlord defending a very small estate.",
+  "usage": {
+    "in": 352,
+    "out": 7127
+  },
+  "cost": 0.0152131,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 116,
+  "reply": "```json\n{\n  \"title\": \"Bubble-Blowing Betta\",\n  \"statement\": \"Each morning he engineers a raft of bubbles beneath the floating leaf, a tiny architecture of air. He patrols it with theatrical fury, flaring at his own reflection like a landlord defending a very small estate.\"\n}\n```"
+}

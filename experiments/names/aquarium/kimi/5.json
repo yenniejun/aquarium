@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 5,
+  "date": "2026-11-14T21:11:07.429Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Bumbling Bubble Bobtail",
+  "statement": "In a hushed indigo tank lit like deep dusk, this thumb-sized bobtail squid gently herds silver bubbles into spirals, as though arranging unfinished thoughts. When delighted, it blinks a tiny constellation; when embarrassed, it hides beneath one smooth stone and leaves a single bubble floating overhead.",
+  "usage": {
+    "in": 410,
+    "out": 514
+  },
+  "cost": 0.0054992,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Bumbling Bubble Bobtail\",\n  \"statement\": \"In a hushed indigo tank lit like deep dusk, this thumb-sized bobtail squid gently herds silver bubbles into spirals, as though arranging unfinished thoughts. When delighted, it blinks a tiny constellation; when embarrassed, it hides beneath one smooth stone and leaves a single bubble floating overhead.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 47,
+  "date": "2026-11-14T21:10:10.934Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whirligig Whelk",
+  "statement": "A pearly spiral-shelled snail the size of a teacup, it glides in slow loops around a drowned lighthouse lamp, trailing ribbons of glowing plankton that hum like a faint lullaby whenever the current shifts. The tank is a hushed indigo dusk of swaying kelp, moss-furred stones and one tilted brass lantern, where the whelk keeps its patient, lopsided watch over the dark.",
+  "usage": {
+    "in": 454,
+    "out": 177
+  },
+  "cost": 0.002678,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whirligig Whelk\",\n  \"statement\": \"A pearly spiral-shelled snail the size of a teacup, it glides in slow loops around a drowned lighthouse lamp, trailing ribbons of glowing plankton that hum like a faint lullaby whenever the current shifts. The tank is a hushed indigo dusk of swaying kelp, moss-furred stones and one tilted brass lantern, where the whelk keeps its patient, lopsided watch over the dark.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 19,
+  "date": "2026-11-14T21:10:36.871Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Blinking Bookworm Blenny",
+  "statement": "Resting among sunken brass spectacles, stacked slate ledges, and swaying olive-green ferns in warm, amber-filtered light, this tiny, wide-eyed blenny spends its days sorting iridescent sea-glass pebbles by hue. Known for its rapid, thoughtful blinking, it peers curiously through the glass at visitors as though trying to read the world's smallest footnotes.",
+  "usage": {
+    "in": 365,
+    "out": 1406
+  },
+  "cost": 0.0110925,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Blinking Bookworm Blenny\",\n  \"statement\": \"Resting among sunken brass spectacles, stacked slate ledges, and swaying olive-green ferns in warm, amber-filtered light, this tiny, wide-eyed blenny spends its days sorting iridescent sea-glass pebbles by hue. Known for its rapid, thoughtful blinking, it peers curiously through the glass at visitors as though trying to read the world's smallest footnotes.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 25,
+  "date": "2026-11-14T21:11:02.060Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Scribbling Squid",
+  "statement": "Drifting through a tranquil tank of swaying golden kelp and softly glowing sea glass, this diminutive, pearlescent squid spends its hours gently nudging smooth pebbles into tidy constellations. Whenever a curious visitor peers through the glass, it ripples with thoughtful bands of amber and teal before puffing a tiny, curling loop of ink like a floating signature.",
+  "usage": {
+    "in": 365,
+    "out": 1944
+  },
+  "cost": 0.0151275,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squid\",\n  \"statement\": \"Drifting through a tranquil tank of swaying golden kelp and softly glowing sea glass, this diminutive, pearlescent squid spends its hours gently nudging smooth pebbles into tidy constellations. Whenever a curious visitor peers through the glass, it ripples with thoughtful bands of amber and teal before puffing a tiny, curling loop of ink like a floating signature.\"\n}\n```"
+}

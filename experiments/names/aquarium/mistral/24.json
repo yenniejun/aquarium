@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 24,
+  "date": "2026-11-15T02:10:03.057Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 24000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Puffing Pea Puffer",
+  "statement": "A palm-sized puffer that inflates into a perfect green pea when startled, then deflates to hunt snails with enormous, unblinking eyes. In a dim tank of moss and smooth river stones it drifts like a tiny, grumpy submarine.",
+  "usage": {
+    "in": 352,
+    "out": 3617
+  },
+  "cost": 0.0078421,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 47,
+  "reply": "```json\n{\n  \"title\": \"Puffing Pea Puffer\",\n  \"statement\": \"A palm-sized puffer that inflates into a perfect green pea when startled, then deflates to hunt snails with enormous, unblinking eyes. In a dim tank of moss and smooth river stones it drifts like a tiny, grumpy submarine.\"\n}\n```"
+}

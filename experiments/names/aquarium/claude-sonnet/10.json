@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 10,
+  "date": "2026-11-14T21:09:40.569Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Wizard",
+  "statement": "A pearly spiral-shelled snail in a moss-green tank lit like late afternoon, who slowly draws glowing constellations in the sand with one patient tentacle, then hums them awake in soft bubbles. Among sunken teacups, a crooked driftwood tower, and drifting motes of light, he is in no hurry, and neither are the stars.",
+  "usage": {
+    "in": 454,
+    "out": 150
+  },
+  "cost": 0.002408,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Wizard\",\n  \"statement\": \"A pearly spiral-shelled snail in a moss-green tank lit like late afternoon, who slowly draws glowing constellations in the sand with one patient tentacle, then hums them awake in soft bubbles. Among sunken teacups, a crooked driftwood tower, and drifting motes of light, he is in no hurry, and neither are the stars.\"\n}\n```"
+}

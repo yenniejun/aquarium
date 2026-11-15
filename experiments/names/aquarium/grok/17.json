@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 17,
+  "date": "2026-11-14T21:15:20.963Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Musing Mandarinfish",
+  "statement": "In a dusk-blue tank of soft coral and warm pebbles, a small mandarinfish drifts from color to color, pausing longest where the light is quietest, as if rereading a sentence it already loves.",
+  "usage": {
+    "in": 1569,
+    "out": 1300
+  },
+  "cost": 0.008634,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 25,
+  "reply": "```json\n{\n  \"title\": \"Musing Mandarinfish\",\n  \"statement\": \"In a dusk-blue tank of soft coral and warm pebbles, a small mandarinfish drifts from color to color, pausing longest where the light is quietest, as if rereading a sentence it already loves.\"\n}\n```"
+}

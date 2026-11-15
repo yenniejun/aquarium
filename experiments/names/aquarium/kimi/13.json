@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 13,
+  "date": "2026-11-14T21:13:43.542Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Mooncuttle",
+  "statement": "A palm-sized cuttlefish with opalescent skin and softly murmuring fins, the Mooncuttle drifts through midnight-blue water, tracing half-finished constellations across its back. Between naps beneath a ribbon of eelgrass, it investigates every new bubble as though it were a question worth keeping.",
+  "usage": {
+    "in": 410,
+    "out": 514
+  },
+  "cost": 0.0054992,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mooncuttle\",\n  \"statement\": \"A palm-sized cuttlefish with opalescent skin and softly murmuring fins, the Mooncuttle drifts through midnight-blue water, tracing half-finished constellations across its back. Between naps beneath a ribbon of eelgrass, it investigates every new bubble as though it were a question worth keeping.\"\n}\n```"
+}

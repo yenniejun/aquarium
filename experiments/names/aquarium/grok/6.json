@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 6,
+  "date": "2026-11-14T21:11:42.813Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Purring Pipefish",
+  "statement": "In a narrow forest of green blades and warm gold light, a slender pipefish hovers like a held note, tipping its snout toward anyone who pauses as if quietly pleased they stopped to look.",
+  "usage": {
+    "in": 1569,
+    "out": 1140
+  },
+  "cost": 0.007674,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Purring Pipefish\",\n  \"statement\": \"In a narrow forest of green blades and warm gold light, a slender pipefish hovers like a held note, tipping its snout toward anyone who pauses as if quietly pleased they stopped to look.\"\n}\n```"
+}

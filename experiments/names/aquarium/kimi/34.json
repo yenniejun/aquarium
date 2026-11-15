@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 34,
+  "date": "2026-11-14T21:20:20.127Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonminnow",
+  "statement": "A thumb-sized, opalescent minnow that trails whisper-thin silver bubbles and nudges them into tiny, fleeting constellations. It drifts through midnight-blue water and gently swaying eelgrass, pausing often to inspect its own reflection with grave, delighted curiosity.",
+  "usage": {
+    "in": 410,
+    "out": 419
+  },
+  "cost": 0.0045492,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonminnow\",\n  \"statement\": \"A thumb-sized, opalescent minnow that trails whisper-thin silver bubbles and nudges them into tiny, fleeting constellations. It drifts through midnight-blue water and gently swaying eelgrass, pausing often to inspect its own reflection with grave, delighted curiosity.\"\n}\n```"
+}

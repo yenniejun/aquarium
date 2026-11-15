@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 36,
+  "date": "2026-11-14T21:12:05.425Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepus",
+  "statement": "A palm-sized, opalescent octopus with ink-blue freckles lives in a twilight tank of white sand, tumbled glass, and one crooked ceramic arch. It spends its evenings arranging pebbles into elaborate spirals, then gently dismantles the center to see whether a different beginning changes everything.",
+  "usage": {
+    "in": 330,
+    "out": 274
+  },
+  "cost": 0.0034,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepus\",\n  \"statement\": \"A palm-sized, opalescent octopus with ink-blue freckles lives in a twilight tank of white sand, tumbled glass, and one crooked ceramic arch. It spends its evenings arranging pebbles into elaborate spirals, then gently dismantles the center to see whether a different beginning changes everything.\"\n}\n```"
+}

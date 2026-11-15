@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 50,
+  "date": "2026-11-14T21:17:59.281Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Wiggle-Wondering Wrasse",
+  "statement": "A thumb-sized, rainbow-shimmering wrasse who lives in a lantern-lit grotto of shells, seaweed bookmarks, and smooth pebbles, blowing a delighted 'blip!' of bubbles at every new sparkle. By day it rearranges its pebbles into tiny poems; by night it drifts to sleep curled in a teacup-sized conch, dreaming of undiscovered corners of its tank.",
+  "usage": {
+    "in": 334,
+    "out": 1375
+  },
+  "cost": 0.027962,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Wiggle-Wondering Wrasse\",\n  \"statement\": \"A thumb-sized, rainbow-shimmering wrasse who lives in a lantern-lit grotto of shells, seaweed bookmarks, and smooth pebbles, blowing a delighted 'blip!' of bubbles at every new sparkle. By day it rearranges its pebbles into tiny poems; by night it drifts to sleep curled in a teacup-sized conch, dreaming of undiscovered corners of its tank.\"\n}\n```"
+}

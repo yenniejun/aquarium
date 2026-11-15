@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 29,
+  "date": "2026-11-14T21:19:35.394Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Murmuring Mandarinfish",
+  "statement": "In a lantern-lit thicket of soft coral, this small, shy fish drifts from crevice to crevice as if reading the reef, pausing to mouth at invisible specks and leaving a trail of color like a sentence half-whispered.",
+  "usage": {
+    "in": 1569,
+    "out": 1361
+  },
+  "cost": 0.009,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 30,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mandarinfish\",\n  \"statement\": \"In a lantern-lit thicket of soft coral, this small, shy fish drifts from crevice to crevice as if reading the reef, pausing to mouth at invisible specks and leaving a trail of color like a sentence half-whispered.\"\n}\n```"
+}

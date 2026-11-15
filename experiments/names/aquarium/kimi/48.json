@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 48,
+  "date": "2026-11-14T21:24:56.611Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Puttering Pajama Squid",
+  "statement": "A tiny striped squid putters through a moonlit world of pale sand and swaying seagrass, investigating bubbles with solemn curiosity and rearranging shells into careful little constellations. Unhurried and easily delighted, it treats every small discovery as the evening’s great adventure.",
+  "usage": {
+    "in": 410,
+    "out": 452
+  },
+  "cost": 0.0048792,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pajama Squid\",\n  \"statement\": \"A tiny striped squid putters through a moonlit world of pale sand and swaying seagrass, investigating bubbles with solemn curiosity and rearranging shells into careful little constellations. Unhurried and easily delighted, it treats every small discovery as the evening’s great adventure.\"\n}\n```"
+}

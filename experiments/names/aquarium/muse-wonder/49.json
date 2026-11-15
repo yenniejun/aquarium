@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 49,
+  "date": "2026-11-14T21:17:45.344Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Scribbling Starlight Squid",
+  "statement": "A pocket-sized, opalescent squid that inks tiny, glowing constellations whenever a new idea startles it, then pokes them into new shapes until they almost answer something. It dozes in a miniature library-cave in dusk-blue water, among kelp bookmarks and sand forever doodled with question marks.",
+  "usage": {
+    "in": 334,
+    "out": 1310
+  },
+  "cost": 0.026662,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Starlight Squid\",\n  \"statement\": \"A pocket-sized, opalescent squid that inks tiny, glowing constellations whenever a new idea startles it, then pokes them into new shapes until they almost answer something. It dozes in a miniature library-cave in dusk-blue water, among kelp bookmarks and sand forever doodled with question marks.\"\n}\n```"
+}

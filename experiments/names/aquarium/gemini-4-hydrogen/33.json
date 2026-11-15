@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 33,
+  "date": "2026-11-14T21:11:36.332Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Prism Pufferfish",
+  "statement": "This tiny, translucent pufferfish drifts through warm, tea-tinted water, gently blowing precise little jets to sort tumbled sea glass into neat rainbows along the sand. Beneath swaying amber kelp and sunbeams bent through sunken glass bottles, its opalescent spines scatter quiet kaleidoscopes across the tank whenever it pauses to admire its work.",
+  "usage": {
+    "in": 365,
+    "out": 2167
+  },
+  "cost": 0.0168,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Puttering Prism Pufferfish\",\n  \"statement\": \"This tiny, translucent pufferfish drifts through warm, tea-tinted water, gently blowing precise little jets to sort tumbled sea glass into neat rainbows along the sand. Beneath swaying amber kelp and sunbeams bent through sunken glass bottles, its opalescent spines scatter quiet kaleidoscopes across the tank whenever it pauses to admire its work.\"\n}\n```"
+}

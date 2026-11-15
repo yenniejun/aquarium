@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 21,
+  "date": "2026-11-14T21:09:49.686Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whorl Whelk",
+  "statement": "A pearly spiral-shelled snail the size of a teacup, it drifts through a tank of moonlit teal water and glides slowly along a driftwood arch hung with glowing moss. Each time it lifts its foot, it releases a tiny chime-like bubble that rises past the ferns and pops with a soft 'pip,' so the whole tank seems to be murmuring secrets to itself.",
+  "usage": {
+    "in": 454,
+    "out": 163
+  },
+  "cost": 0.002538,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whorl Whelk\",\n  \"statement\": \"A pearly spiral-shelled snail the size of a teacup, it drifts through a tank of moonlit teal water and glides slowly along a driftwood arch hung with glowing moss. Each time it lifts its foot, it releases a tiny chime-like bubble that rises past the ferns and pops with a soft 'pip,' so the whole tank seems to be murmuring secrets to itself.\"\n}\n```"
+}

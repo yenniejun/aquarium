@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 28,
+  "date": "2026-11-14T21:11:33.620Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepus",
+  "statement": "A palm-sized, ink-blue octopus with flickering amber freckles putters through a twilight tank of porcelain arches, patiently arranging frosted-glass pebbles into constellations. Whenever a constellation seems finished, it moves one pebble, changes color, and settles beneath an arch to consider the new possibilities.",
+  "usage": {
+    "in": 330,
+    "out": 367
+  },
+  "cost": 0.00433,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepus\",\n  \"statement\": \"A palm-sized, ink-blue octopus with flickering amber freckles putters through a twilight tank of porcelain arches, patiently arranging frosted-glass pebbles into constellations. Whenever a constellation seems finished, it moves one pebble, changes color, and settles beneath an arch to consider the new possibilities.\"\n}\n```"
+}

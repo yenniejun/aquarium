@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 46,
+  "date": "2026-11-14T21:25:01.559Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "In water the color of late afternoon, a slender pipefish hangs nearly still among ribbon weed, turning its long face toward every drifting mote as if waiting for a sentence to finish.",
+  "usage": {
+    "in": 1569,
+    "out": 679
+  },
+  "cost": 0.004908,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"In water the color of late afternoon, a slender pipefish hangs nearly still among ribbon weed, turning its long face toward every drifting mote as if waiting for a sentence to finish.\"\n}\n```"
+}

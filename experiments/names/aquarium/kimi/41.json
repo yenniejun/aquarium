@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 41,
+  "date": "2026-11-14T21:22:50.829Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moon Minnow",
+  "statement": "A thumb-sized silver minnow drifts through deep teal water, trailing tiny bubbles that briefly gather into constellations before it nudges them apart. In a spare garden of eelgrass and moon-white pebbles, it spends its days investigating shadows, rearranging light, and never quite finishing either.",
+  "usage": {
+    "in": 410,
+    "out": 518
+  },
+  "cost": 0.0055392,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 23,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moon Minnow\",\n  \"statement\": \"A thumb-sized silver minnow drifts through deep teal water, trailing tiny bubbles that briefly gather into constellations before it nudges them apart. In a spare garden of eelgrass and moon-white pebbles, it spends its days investigating shadows, rearranging light, and never quite finishing either.\"\n}\n```"
+}

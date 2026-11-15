@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 30,
+  "date": "2026-11-14T21:14:31.948Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Dazzle-Doodling Cuttlefish",
+  "statement": "This palm-sized cuttlefish paints its skin with shifting doodles — stars, spirals, and polka dots — as it explores a sun-dappled reef of purple kelp, tinkling shells, and cozy hidey-holes. Incurably curious, it will drift to the glass to invent a brand-new pattern just for you.",
+  "usage": {
+    "in": 334,
+    "out": 1410
+  },
+  "cost": 0.028662,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Dazzle-Doodling Cuttlefish\",\n  \"statement\": \"This palm-sized cuttlefish paints its skin with shifting doodles — stars, spirals, and polka dots — as it explores a sun-dappled reef of purple kelp, tinkling shells, and cozy hidey-holes. Incurably curious, it will drift to the glass to invent a brand-new pattern just for you.\"\n}\n```"
+}

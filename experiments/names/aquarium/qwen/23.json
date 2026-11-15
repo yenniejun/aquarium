@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 23,
+  "date": "2026-11-14T21:14:59.951Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Medusa",
+  "statement": "A small, translucent jellyfish that pulses with soft blue-green bioluminescence, its bell contracting in slow, irregular rhythms as though quietly rehearsing a sentence it hasn't quite decided to say. Its trailing filaments drift like half-formed thoughts, glowing faintly brighter just before they fade.",
+  "usage": {
+    "in": 359,
+    "out": 1060
+  },
+  "cost": 0.014156,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Medusa\",\n  \"statement\": \"A small, translucent jellyfish that pulses with soft blue-green bioluminescence, its bell contracting in slow, irregular rhythms as though quietly rehearsing a sentence it hasn't quite decided to say. Its trailing filaments drift like half-formed thoughts, glowing faintly brighter just before they fade.\"\n}\n```"
+}

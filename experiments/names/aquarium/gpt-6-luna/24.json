@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 24,
+  "date": "2026-11-14T21:10:19.562Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Blooping Bellslug",
+  "statement": "This solitary, opalescent sea slug pulses through its little dusk-blue tank, its bell-shaped mantle flashing like a thought just remembered. It grazes on velvet moss and leaves the water trembling with silent rings of light.",
+  "usage": {
+    "in": 330,
+    "out": 376
+  },
+  "cost": 0.000221,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bellslug\",\n  \"statement\": \"This solitary, opalescent sea slug pulses through its little dusk-blue tank, its bell-shaped mantle flashing like a thought just remembered. It grazes on velvet moss and leaves the water trembling with silent rings of light.\"\n}\n```"
+}

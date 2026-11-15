@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 7,
+  "date": "2026-11-14T21:12:04.136Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Glimmering Ghost Shrimp",
+  "statement": "A nearly transparent shrimp paces a ribbon of warm light, pausing to turn each pebble as if a second look were a kind of courtesy. Its tank is a small evening of amber water, one smooth stone, and plants that lean in rather than crowd.",
+  "usage": {
+    "in": 1569,
+    "out": 1095
+  },
+  "cost": 0.007404,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Glimmering Ghost Shrimp\",\n  \"statement\": \"A nearly transparent shrimp paces a ribbon of warm light, pausing to turn each pebble as if a second look were a kind of courtesy. Its tank is a small evening of amber water, one smooth stone, and plants that lean in rather than crowd.\"\n}\n```"
+}

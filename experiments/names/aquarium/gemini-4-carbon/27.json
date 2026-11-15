@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 27,
+  "date": "2026-11-14T21:12:37.949Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Shimmering Scribble-Squid",
+  "statement": "Dwelling among arches of frosted sea-glass and swaying kelp, this curious little cephalopod thinks out loud by trailing fleeting loops of iridescent, vanishing ink in the gentle current. Whenever a visitor pauses near the tank, its translucent mantle ripples with warm constellations of amber light as it eagerly rearranges its collection of smooth pebbles into tidy new patterns.",
+  "usage": {
+    "in": 365,
+    "out": 973
+  },
+  "cost": 0.01046,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Shimmering Scribble-Squid\",\n  \"statement\": \"Dwelling among arches of frosted sea-glass and swaying kelp, this curious little cephalopod thinks out loud by trailing fleeting loops of iridescent, vanishing ink in the gentle current. Whenever a visitor pauses near the tank, its translucent mantle ripples with warm constellations of amber light as it eagerly rearranges its collection of smooth pebbles into tidy new patterns.\"\n}\n```"
+}

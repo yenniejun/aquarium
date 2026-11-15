@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 19,
+  "date": "2026-11-14T21:10:09.526Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Puffer",
+  "statement": "A thumb-sized puffer with a lantern-clear belly and moss-green freckles, it drifts through a miniature dusk garden and releases one neat bubble-comma whenever it pauses to think. Rounded stones and soft aquatic leaves glow in the last blue light of evening.",
+  "usage": {
+    "in": 330,
+    "out": 369
+  },
+  "cost": 0.0002175,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Puttering Puffer\",\n  \"statement\": \"A thumb-sized puffer with a lantern-clear belly and moss-green freckles, it drifts through a miniature dusk garden and releases one neat bubble-comma whenever it pauses to think. Rounded stones and soft aquatic leaves glow in the last blue light of evening.\"\n}\n```"
+}

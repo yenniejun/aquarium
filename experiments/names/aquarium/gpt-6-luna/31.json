@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 31,
+  "date": "2026-11-14T21:10:33.445Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Glimmering Gloamgoby",
+  "statement": "This solitary, thumb-sized goby explores its pebble cave by night, its soft blue freckles lighting up one by one like a tiny, curious constellation. In the dusk-blue tank, fine eelgrass sways above pale sand, and each glow makes the quiet feel newly full of possibility.",
+  "usage": {
+    "in": 330,
+    "out": 557
+  },
+  "cost": 0.0003115,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Glimmering Gloamgoby\",\n  \"statement\": \"This solitary, thumb-sized goby explores its pebble cave by night, its soft blue freckles lighting up one by one like a tiny, curious constellation. In the dusk-blue tank, fine eelgrass sways above pale sand, and each glow makes the quiet feel newly full of possibility.\"\n}\n```"
+}

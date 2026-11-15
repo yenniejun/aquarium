@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 5,
+  "date": "2026-11-14T21:09:42.419Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Wandering Wobblefin",
+  "statement": "A small, pearlescent fish that never swims in straight lines — it drifts, doubles back, and circles the same shell for hours out of pure curiosity. Its fins ripple like slow laughter, and it appears to be quietly delighted by everything, including its own reflection.",
+  "usage": {
+    "in": 342,
+    "out": 78
+  },
+  "cost": 0.00107056,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Wandering Wobblefin\",\n  \"statement\": \"A small, pearlescent fish that never swims in straight lines — it drifts, doubles back, and circles the same shell for hours out of pure curiosity. Its fins ripple like slow laughter, and it appears to be quietly delighted by everything, including its own reflection.\"\n}\n```"
+}

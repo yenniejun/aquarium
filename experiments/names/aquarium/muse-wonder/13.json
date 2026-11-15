@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 13,
+  "date": "2026-11-14T21:11:39.722Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Daydreaming Doodle Octopus",
+  "statement": "A thumb-sized, opalescent octopus who spends her days rearranging pebbles into tiny constellations and tracing spirals in the sand, pausing only to blow perfect bubble rings at anything new. Her moonlit tank of swaying anemones and smooth stones is made for lingering, wondering, and looking closer.",
+  "usage": {
+    "in": 334,
+    "out": 821
+  },
+  "cost": 0.016882,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Daydreaming Doodle Octopus\",\n  \"statement\": \"A thumb-sized, opalescent octopus who spends her days rearranging pebbles into tiny constellations and tracing spirals in the sand, pausing only to blow perfect bubble rings at anything new. Her moonlit tank of swaying anemones and smooth stones is made for lingering, wondering, and looking closer.\"\n}\n```"
+}

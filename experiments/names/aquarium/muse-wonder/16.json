@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 16,
+  "date": "2026-11-14T21:12:21.499Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Wobbly Wonder Wrasse",
+  "statement": "A thumb-sized, opalescent wrasse that endlessly rearranges pearl pebbles into spirals and almost-sentences in its tea-green, lamplit tank, pausing head-tilted to admire each one. Now and then it blows a single perfect bubble, watches it rise like a new idea, and dashes after it in pure delight.",
+  "usage": {
+    "in": 334,
+    "out": 1141
+  },
+  "cost": 0.023282,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Wobbly Wonder Wrasse\",\n  \"statement\": \"A thumb-sized, opalescent wrasse that endlessly rearranges pearl pebbles into spirals and almost-sentences in its tea-green, lamplit tank, pausing head-tilted to admire each one. Now and then it blows a single perfect bubble, watches it rise like a new idea, and dashes after it in pure delight.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 9,
+  "date": "2026-11-14T21:10:35.981Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clinking Curio-Cuttle",
+  "statement": "Nestled among sunken slate shelves and swaying kelp, this pint-sized cephalopod spends its days softly tapping shards of colorful sea glass into intricate, ever-changing mosaics on the sandy floor. Whenever a visitor leans close, it pauses its work and ripples with bright, conversational constellations of light, as if eagerly sharing a brand-new hypothesis.",
+  "usage": {
+    "in": 365,
+    "out": 1022
+  },
+  "cost": 0.01095,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 26,
+  "reply": "```json\n{\n  \"title\": \"Clinking Curio-Cuttle\",\n  \"statement\": \"Nestled among sunken slate shelves and swaying kelp, this pint-sized cephalopod spends its days softly tapping shards of colorful sea glass into intricate, ever-changing mosaics on the sandy floor. Whenever a visitor leans close, it pauses its work and ripples with bright, conversational constellations of light, as if eagerly sharing a brand-new hypothesis.\"\n}\n```"
+}

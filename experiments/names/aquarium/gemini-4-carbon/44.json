@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 44,
+  "date": "2026-11-14T21:14:32.942Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Squiggly Scribble Squid",
+  "statement": "Hovering among mossy stone arches and drifts of frosted sea-glass, this teacup-sized cephalopod ripples with shifting, hypnotic constellations whenever a curious visitor leans close. In bursts of sudden delight, it darts through the twilight water trailing luminous loops of golden ink that curl like cursive before gently dissolving.",
+  "usage": {
+    "in": 365,
+    "out": 1171
+  },
+  "cost": 0.01244,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Squiggly Scribble Squid\",\n  \"statement\": \"Hovering among mossy stone arches and drifts of frosted sea-glass, this teacup-sized cephalopod ripples with shifting, hypnotic constellations whenever a curious visitor leans close. In bursts of sudden delight, it darts through the twilight water trailing luminous loops of golden ink that curl like cursive before gently dissolving.\"\n}\n```"
+}

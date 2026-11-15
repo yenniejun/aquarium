@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 46,
+  "date": "2026-11-14T21:17:13.516Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Pondering Punctuation Seahorse",
+  "statement": "This tiny seahorse drifts through a reef of glowing commas and kelp-page corals, curling its tail around questions it isn't ready to answer yet. On quiet evenings it rearranges fallen punctuation into new stories and blows them, bubble by bubble, toward the light.",
+  "usage": {
+    "in": 334,
+    "out": 1089
+  },
+  "cost": 0.023116,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Pondering Punctuation Seahorse\",\n  \"statement\": \"This tiny seahorse drifts through a reef of glowing commas and kelp-page corals, curling its tail around questions it isn't ready to answer yet. On quiet evenings it rearranges fallen punctuation into new stories and blows them, bubble by bubble, toward the light.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 9,
+  "date": "2026-11-14T21:26:41.000Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Pouting Pearl Peeper",
+  "statement": "This thumb-sized octopus has opalescent skin that shifts from pearl-white to soft rose. It lives in a tilted teacup at the back of the tank, peeking out with a single large eye, and 'pouts' — flashing stormy grey — whenever a shadow passes the glass; left alone for a moment, it blushes pink and juggles a bubble between its arms like a tiny pearl.",
+  "usage": {
+    "in": 352,
+    "out": 3231
+  },
+  "cost": 0.00687022,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 60,
+  "reply": "```json\n{\n  \"title\": \"Pouting Pearl Peeper\",\n  \"statement\": \"This thumb-sized octopus has opalescent skin that shifts from pearl-white to soft rose. It lives in a tilted teacup at the back of the tank, peeking out with a single large eye, and 'pouts' — flashing stormy grey — whenever a shadow passes the glass; left alone for a moment, it blushes pink and juggles a bubble between its arms like a tiny pearl.\"\n}\n```"
+}

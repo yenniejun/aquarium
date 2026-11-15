@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 7,
+  "date": "2026-11-14T21:09:38.325Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Lantern-Lipped Lollopfish",
+  "statement": "A plump, periwinkle fish with a dangling glow-lantern that it swings like a tiny lighthouse, lollopping slowly through a tank of dusk-colored water. It is shy about being admired, so it ducks behind a ring of mossy teacups and ferns whenever someone looks too long, then peeks out to blink its lantern as a thank-you.",
+  "usage": {
+    "in": 454,
+    "out": 155
+  },
+  "cost": 0.002458,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Lantern-Lipped Lollopfish\",\n  \"statement\": \"A plump, periwinkle fish with a dangling glow-lantern that it swings like a tiny lighthouse, lollopping slowly through a tank of dusk-colored water. It is shy about being admired, so it ducks behind a ring of mossy teacups and ferns whenever someone looks too long, then peeks out to blink its lantern as a thank-you.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 50,
+  "date": "2026-11-14T21:10:14.212Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Waltzer",
+  "statement": "A pearly spiral-shelled whelk the size of a teacup, who glides across a moonlit sand floor on a ribbon of silver mucus and pirouettes slowly whenever the bubbles from a tiny sunken music box rise past her. Her tank is hushed and teal, lit by a single soft lantern-glow from above, with drifting sea-grass, a cracked porcelain teacup for a ballroom, and a trail of spiral footprints marking every dance she's ever done.",
+  "usage": {
+    "in": 454,
+    "out": 194
+  },
+  "cost": 0.002848,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Waltzer\",\n  \"statement\": \"A pearly spiral-shelled whelk the size of a teacup, who glides across a moonlit sand floor on a ribbon of silver mucus and pirouettes slowly whenever the bubbles from a tiny sunken music box rise past her. Her tank is hushed and teal, lit by a single soft lantern-glow from above, with drifting sea-grass, a cracked porcelain teacup for a ballroom, and a trail of spiral footprints marking every dance she's ever done.\"\n}\n```"
+}

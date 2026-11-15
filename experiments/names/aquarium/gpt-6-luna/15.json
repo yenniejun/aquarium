@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 15,
+  "date": "2026-11-14T21:10:03.782Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Purling Puddlefish",
+  "statement": "This pearl-sized fish traces slow figure-eights through tea-blue water, its translucent fins catching the light like handwritten commas. Smooth river stones and a mossy arch frame its route, as if the whole tank were one small thought being finished.",
+  "usage": {
+    "in": 330,
+    "out": 444
+  },
+  "cost": 0.000255,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Purling Puddlefish\",\n  \"statement\": \"This pearl-sized fish traces slow figure-eights through tea-blue water, its translucent fins catching the light like handwritten commas. Smooth river stones and a mossy arch frame its route, as if the whole tank were one small thought being finished.\"\n}\n```"
+}

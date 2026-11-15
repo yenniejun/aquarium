@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 50,
+  "date": "2026-11-14T21:25:30.437Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonfin",
+  "statement": "A small opalescent fish drifts through a midnight-blue tank like a comma searching for its sentence, trailing silver fins and softly chiming bubbles. It tends a garden of luminous anemones, rearranging one pearl each night according to a logic known only to itself.",
+  "usage": {
+    "in": 410,
+    "out": 415
+  },
+  "cost": 0.0045092,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonfin\",\n  \"statement\": \"A small opalescent fish drifts through a midnight-blue tank like a comma searching for its sentence, trailing silver fins and softly chiming bubbles. It tends a garden of luminous anemones, rearranging one pearl each night according to a logic known only to itself.\"\n}\n```"
+}

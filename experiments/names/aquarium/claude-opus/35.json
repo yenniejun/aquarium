@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 35,
+  "date": "2026-11-14T21:11:06.489Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Murmuring Mosaic Octopus",
+  "statement": "A palm-sized octopus with softly glowing freckles spends its days sorting sea glass into ever-changing mosaics on the floor of a dim, kelp-dappled tank, letting out tiny strings of bubbles that sound like a thoughtful \"hmm.\" When a visitor lingers at the glass, it pauses, tilts its head, and nudges one shining pebble toward them, as if offering the first word of a conversation.",
+  "usage": {
+    "in": 454,
+    "out": 728
+  },
+  "cost": 0.016376,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mosaic Octopus\",\n  \"statement\": \"A palm-sized octopus with softly glowing freckles spends its days sorting sea glass into ever-changing mosaics on the floor of a dim, kelp-dappled tank, letting out tiny strings of bubbles that sound like a thoughtful \\\"hmm.\\\" When a visitor lingers at the glass, it pauses, tilts its head, and nudges one shining pebble toward them, as if offering the first word of a conversation.\"\n}\n```"
+}

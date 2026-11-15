@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 41,
+  "date": "2026-11-14T21:16:14.824Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Bubble-Blowing Booktopus",
+  "statement": "This pocket-sized octopus sorts pebbles and shells into tiny libraries, blowing a perfect bubble ring each time it finds a story it likes. On quiet evenings it rearranges its collection by bioluminescent lamplight, always leaving one shelf empty for something new to wonder about.",
+  "usage": {
+    "in": 334,
+    "out": 945
+  },
+  "cost": 0.019362,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Bubble-Blowing Booktopus\",\n  \"statement\": \"This pocket-sized octopus sorts pebbles and shells into tiny libraries, blowing a perfect bubble ring each time it finds a story it likes. On quiet evenings it rearranges its collection by bioluminescent lamplight, always leaving one shelf empty for something new to wonder about.\"\n}\n```"
+}

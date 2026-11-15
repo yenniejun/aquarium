@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 25,
+  "date": "2026-11-14T21:11:21.535Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Puzzlepuff",
+  "statement": "A thumb-sized puffer with an apricot belly and midnight-blue freckles putters through tea-green water, steering with fins like tiny transparent fans. Beneath a single amber light, its tank holds smooth slate arches, ribbonlike plants, and white pebbles it patiently arranges into spirals—though whenever a spiral is finished, it steals one stone to start something else.",
+  "usage": {
+    "in": 330,
+    "out": 348
+  },
+  "cost": 0.00414,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Puttering Puzzlepuff\",\n  \"statement\": \"A thumb-sized puffer with an apricot belly and midnight-blue freckles putters through tea-green water, steering with fins like tiny transparent fans. Beneath a single amber light, its tank holds smooth slate arches, ribbonlike plants, and white pebbles it patiently arranges into spirals—though whenever a spiral is finished, it steals one stone to start something else.\"\n}\n```"
+}

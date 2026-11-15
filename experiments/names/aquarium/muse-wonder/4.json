@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 4,
+  "date": "2026-11-14T21:10:07.991Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Blooping Bookish Octopus",
+  "statement": "This tiny ink-cloud philosopher bloop-bloops between teacups in her sunlit library-reef, rearranging pebble-poems and flashing sunrise colours whenever she learns something new. Linger with a question, and she'll press a curious tentacle to the glass to ponder it with you.",
+  "usage": {
+    "in": 334,
+    "out": 889
+  },
+  "cost": 0.018242,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bookish Octopus\",\n  \"statement\": \"This tiny ink-cloud philosopher bloop-bloops between teacups in her sunlit library-reef, rearranging pebble-poems and flashing sunrise colours whenever she learns something new. Linger with a question, and she'll press a curious tentacle to the glass to ponder it with you.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 17,
+  "date": "2026-11-14T21:43:17.601Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Snapping Pistol Shrimp",
+  "statement": "The Snapping Pistol Shrimp guards a smooth ceramic cave set in a bed of pale, moonlit sand. With a sudden snap of its oversized claw, it fires a cavitation bubble that pops with a sound like a tiny firecracker—a small, percussive heartbeat in the still water.",
+  "usage": {
+    "in": 352,
+    "out": 11570
+  },
+  "cost": 0.02438212,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 200,
+  "reply": "```json\n{\n  \"title\": \"Snapping Pistol Shrimp\",\n  \"statement\": \"The Snapping Pistol Shrimp guards a smooth ceramic cave set in a bed of pale, moonlit sand. With a sudden snap of its oversized claw, it fires a cavitation bubble that pops with a sound like a tiny firecracker—a small, percussive heartbeat in the still water.\"\n}\n```"
+}

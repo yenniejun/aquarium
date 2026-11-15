@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 1,
+  "date": "2026-11-14T21:09:33.223Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Moray Moppet",
+  "statement": "A shy, ribbon-like eel who lives in a teapot-shaped ceramic cave, peeking out to hum tiny bubbles that pop into soft, fizzing melodies. Its tank is a dim amber twilight of driftwood arches and slow swaying vallisneria, where the only light comes from a single warm bulb above — the eel prefers it that way, and so do you.",
+  "usage": {
+    "in": 342,
+    "out": 105
+  },
+  "cost": 0.0018816,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moray Moppet\",\n  \"statement\": \"A shy, ribbon-like eel who lives in a teapot-shaped ceramic cave, peeking out to hum tiny bubbles that pop into soft, fizzing melodies. Its tank is a dim amber twilight of driftwood arches and slow swaying vallisneria, where the only light comes from a single warm bulb above — the eel prefers it that way, and so do you.\"\n}\n```"
+}

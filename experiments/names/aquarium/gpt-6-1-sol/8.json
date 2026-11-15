@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 8,
+  "date": "2026-11-14T21:10:07.931Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pleatfin",
+  "statement": "A palm-sized cuttlefish with accordion-frilled fins and ink-blue freckles, the Puttering Pleatfin patiently props sea-glass rings upright in the sand, then squeezes through doorways considerably smaller than its head. Its tank is a quiet grotto of midnight-blue stone and honey-colored light, with a broad white sand bed where every tidy arrangement eventually becomes an obstacle course.",
+  "usage": {
+    "in": 330,
+    "out": 458
+  },
+  "cost": 0.00524,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pleatfin\",\n  \"statement\": \"A palm-sized cuttlefish with accordion-frilled fins and ink-blue freckles, the Puttering Pleatfin patiently props sea-glass rings upright in the sand, then squeezes through doorways considerably smaller than its head. Its tank is a quiet grotto of midnight-blue stone and honey-colored light, with a broad white sand bed where every tidy arrangement eventually becomes an obstacle course.\"\n}\n```"
+}

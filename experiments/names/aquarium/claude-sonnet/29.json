@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 29,
+  "date": "2026-11-14T21:09:56.396Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whorl-Whelk",
+  "statement": "A pearly sea snail with a spiral shell like a tiny lighthouse, it glides in slow loops through a tank of moonlit teal water, leaving a trail of drifting glow-motes. Whenever it passes a certain mossy stone arch, it pauses and hums a soft, bubbling hush, as if telling the plants a secret.",
+  "usage": {
+    "in": 454,
+    "out": 147
+  },
+  "cost": 0.002378,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whorl-Whelk\",\n  \"statement\": \"A pearly sea snail with a spiral shell like a tiny lighthouse, it glides in slow loops through a tank of moonlit teal water, leaving a trail of drifting glow-motes. Whenever it passes a certain mossy stone arch, it pauses and hums a soft, bubbling hush, as if telling the plants a secret.\"\n}\n```"
+}

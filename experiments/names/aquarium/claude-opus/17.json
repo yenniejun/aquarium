@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 17,
+  "date": "2026-11-14T21:10:17.228Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "In a twilight-blue tank strewn with sea glass and drifting kelp, this small, ear-finned octopus spends its days arranging pebbles into spirals and half-finished patterns, pausing to trace faintly glowing loops in the water with the tip of one curious arm. When a visitor leans close, it drifts over to the glass, tilts its head as if mulling over a question, and then goes back to rearranging everything, just slightly better than before.",
+  "usage": {
+    "in": 454,
+    "out": 565
+  },
+  "cost": 0.013116,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"In a twilight-blue tank strewn with sea glass and drifting kelp, this small, ear-finned octopus spends its days arranging pebbles into spirals and half-finished patterns, pausing to trace faintly glowing loops in the water with the tip of one curious arm. When a visitor leans close, it drifts over to the glass, tilts its head as if mulling over a question, and then goes back to rearranging everything, just slightly better than before.\"\n}\n```"
+}

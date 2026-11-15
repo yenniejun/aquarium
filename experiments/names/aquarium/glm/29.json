@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 29,
+  "date": "2026-11-14T21:10:37.524Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Pufflefin",
+  "statement": "A small, round creature with oversized droopy eyes and translucent fins that ripple like slow thoughts, the Pufflefin drifts in lazy spirals around its tank, pausing to inspect each bubble as if it might contain an answer. It lives among smooth river stones and swaying green moss-balls in softly dappled amber light, and it has never once been in a hurry.",
+  "usage": {
+    "in": 342,
+    "out": 102
+  },
+  "cost": 0.00128176,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pufflefin\",\n  \"statement\": \"A small, round creature with oversized droopy eyes and translucent fins that ripple like slow thoughts, the Pufflefin drifts in lazy spirals around its tank, pausing to inspect each bubble as if it might contain an answer. It lives among smooth river stones and swaying green moss-balls in softly dappled amber light, and it has never once been in a hurry.\"\n}\n```"
+}

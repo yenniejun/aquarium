@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 6,
+  "date": "2026-11-14T21:09:46.961Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Bumbling Bubble Blenny",
+  "statement": "A tiny blenny perches on a smooth blue stone, bobbing after the slow bubbles that drift past its curious eyes. Soft seagrass and a moonlit wash of turquoise make its little tidepool feel like a quiet underwater daydream.",
+  "usage": {
+    "in": 330,
+    "out": 467
+  },
+  "cost": 0.0002665,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Bumbling Bubble Blenny\",\n  \"statement\": \"A tiny blenny perches on a smooth blue stone, bobbing after the slow bubbles that drift past its curious eyes. Soft seagrass and a moonlit wash of turquoise make its little tidepool feel like a quiet underwater daydream.\"\n}\n```"
+}

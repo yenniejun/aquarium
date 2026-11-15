@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 42,
+  "date": "2026-11-15T02:12:01.508Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 24000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Doodling Doris",
+  "statement": "A velvet-soft sea slug the size of a thumbnail, Doodling Doris spends her slow days etching shimmering mucus maps onto the front glass — harbors, weather fronts, the occasional tiny heart. Then, without ceremony, she glides back over every line and erases her own diary.",
+  "usage": {
+    "in": 352,
+    "out": 3217
+  },
+  "cost": 0.00684082,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 50,
+  "reply": "```json\n{\n  \"title\": \"Doodling Doris\",\n  \"statement\": \"A velvet-soft sea slug the size of a thumbnail, Doodling Doris spends her slow days etching shimmering mucus maps onto the front glass — harbors, weather fronts, the occasional tiny heart. Then, without ceremony, she glides back over every line and erases her own diary.\"\n}\n```"
+}

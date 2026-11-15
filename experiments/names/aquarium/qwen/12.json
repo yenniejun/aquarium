@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 12,
+  "date": "2026-11-14T21:12:35.659Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Fretful Frogfish",
+  "statement": "A small, lumpy frogfish sits motionless on a mossy stone, occasionally shifting its mottled color as if trying on a different opinion, then settling back into watchful silence. It would very much like you to notice it, but it would also very much like you not to.",
+  "usage": {
+    "in": 359,
+    "out": 1469
+  },
+  "cost": 0.019064,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Fretful Frogfish\",\n  \"statement\": \"A small, lumpy frogfish sits motionless on a mossy stone, occasionally shifting its mottled color as if trying on a different opinion, then settling back into watchful silence. It would very much like you to notice it, but it would also very much like you not to.\"\n}\n```"
+}

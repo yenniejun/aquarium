@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 33,
+  "date": "2026-11-14T22:05:33.321Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Peekaboo Pea Puffer",
+  "statement": "A thumb-sized pufferfish with the manners of a puppy, kept in a mossy nano tank of dappled green light. It patrols the front glass to greet every visitor, follows fingers along the pane, and pops snails one by one among the leaves.",
+  "usage": {
+    "in": 352,
+    "out": 4898
+  },
+  "cost": 0.01037092,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 80,
+  "reply": "```json\n{\n  \"title\": \"Peekaboo Pea Puffer\",\n  \"statement\": \"A thumb-sized pufferfish with the manners of a puppy, kept in a mossy nano tank of dappled green light. It patrols the front glass to greet every visitor, follows fingers along the pane, and pops snails one by one among the leaves.\"\n}\n```"
+}

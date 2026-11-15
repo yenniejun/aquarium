@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 50,
+  "date": "2026-11-14T21:21:50.627Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Mollusk",
+  "statement": "A small, round cuttlefish hovers in deep teal water, turning a single smooth pebble over and over with two careful tentacles while its skin ripples through soft, slow colours like half-finished sentences. It rarely moves from its chosen spot, but if you watch long enough, you'll see it pause mid-turn, one large eye fixed on nothing in particular, as though it has just thought of something it needs to reconsider.",
+  "usage": {
+    "in": 359,
+    "out": 1851
+  },
+  "cost": 0.023648,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mollusk\",\n  \"statement\": \"A small, round cuttlefish hovers in deep teal water, turning a single smooth pebble over and over with two careful tentacles while its skin ripples through soft, slow colours like half-finished sentences. It rarely moves from its chosen spot, but if you watch long enough, you'll see it pause mid-turn, one large eye fixed on nothing in particular, as though it has just thought of something it needs to reconsider.\"\n}\n```"
+}

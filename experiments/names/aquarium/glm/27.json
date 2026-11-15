@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 27,
+  "date": "2026-11-14T21:10:33.141Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Wandering Wispfin",
+  "statement": "A translucent, ribbon-bodied fish that drifts sideways as often as forward, tracing slow loops around a single moonstone in a tank of dusk-blue water, faintly glowing brighter whenever it passes through the beam of the overhead lamp—seemingly just to see itself shimmer.",
+  "usage": {
+    "in": 342,
+    "out": 78
+  },
+  "cost": 0.00107056,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Wandering Wispfin\",\n  \"statement\": \"A translucent, ribbon-bodied fish that drifts sideways as often as forward, tracing slow loops around a single moonstone in a tank of dusk-blue water, faintly glowing brighter whenever it passes through the beam of the overhead lamp—seemingly just to see itself shimmer.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 41,
+  "date": "2026-11-14T21:14:16.517Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clacking Cuttlefish",
+  "statement": "Dwelling in a twilight grotto of frosted sea glass and swaying fern-kelp, this curious cephalopod spends its days meticulously sorting colorful pebbles into intricate, ever-changing mosaics with a soft, rhythmic clack. Whenever it solves a pattern to its liking, constellations of warm bioluminescent ripples dance across its skin like sudden sparks of thought.",
+  "usage": {
+    "in": 365,
+    "out": 904
+  },
+  "cost": 0.00977,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Clacking Cuttlefish\",\n  \"statement\": \"Dwelling in a twilight grotto of frosted sea glass and swaying fern-kelp, this curious cephalopod spends its days meticulously sorting colorful pebbles into intricate, ever-changing mosaics with a soft, rhythmic clack. Whenever it solves a pattern to its liking, constellations of warm bioluminescent ripples dance across its skin like sudden sparks of thought.\"\n}\n```"
+}

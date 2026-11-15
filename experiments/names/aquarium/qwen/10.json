@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 10,
+  "date": "2026-11-14T21:11:59.305Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Puttering Pebble-Puff",
+  "statement": "A small, round, softly glowing bottom-dweller that spends its days nudging and rearranging smooth pebbles into tidy little rows, pausing now and then to pulse a warm amber light as if quietly pleased with its work. It never finishes. It does not seem to mind.",
+  "usage": {
+    "in": 359,
+    "out": 1062
+  },
+  "cost": 0.01418,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble-Puff\",\n  \"statement\": \"A small, round, softly glowing bottom-dweller that spends its days nudging and rearranging smooth pebbles into tidy little rows, pausing now and then to pulse a warm amber light as if quietly pleased with its work. It never finishes. It does not seem to mind.\"\n}\n```"
+}

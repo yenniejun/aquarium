@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 43,
+  "date": "2026-11-14T21:14:25.646Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Click-Clack Cuttlefish",
+  "statement": "Nestled in indigo water among sunken brass astrolabes and velvety emerald moss, this pint-sized cephalopod spends its days meticulously sorting colorful sea-glass into intricate, ever-changing mosaics. Whenever a curious visitor leans close, its translucent skin ripples with warm golden constellations as it cheerfully taps its two favorite pebbles together.",
+  "usage": {
+    "in": 365,
+    "out": 1189
+  },
+  "cost": 0.01262,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Click-Clack Cuttlefish\",\n  \"statement\": \"Nestled in indigo water among sunken brass astrolabes and velvety emerald moss, this pint-sized cephalopod spends its days meticulously sorting colorful sea-glass into intricate, ever-changing mosaics. Whenever a curious visitor leans close, its translucent skin ripples with warm golden constellations as it cheerfully taps its two favorite pebbles together.\"\n}\n```"
+}

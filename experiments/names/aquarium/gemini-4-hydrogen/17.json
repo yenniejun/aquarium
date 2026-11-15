@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 17,
+  "date": "2026-11-14T21:10:36.954Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Scribbling Squid",
+  "statement": "Drifting among amber-lit kelp and smooth slate arches, this pocket-sized cephalopod puffs fleeting, bioluminescent ink-doodles into the midnight-blue water before gently fanning them clear to begin again. Between sketches, it hovers near the bottom to tidy up sunken flecks of frosted sea glass by color.",
+  "usage": {
+    "in": 365,
+    "out": 1854
+  },
+  "cost": 0.0144525,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squid\",\n  \"statement\": \"Drifting among amber-lit kelp and smooth slate arches, this pocket-sized cephalopod puffs fleeting, bioluminescent ink-doodles into the midnight-blue water before gently fanning them clear to begin again. Between sketches, it hovers near the bottom to tidy up sunken flecks of frosted sea glass by color.\"\n}\n```"
+}

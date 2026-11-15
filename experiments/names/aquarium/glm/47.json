@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 47,
+  "date": "2026-11-14T21:11:59.475Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pensive Puffing Periwinkle",
+  "statement": "A small, sapphire-shelled snail that drifts up to the brightest corner of the tank each morning, releasing one thoughtful bubble at a time—each pops with a faint chime, as if it were composing a very slow symphony. Visitors who wait long enough may notice it turns to face them, then politely pretends it didn't.",
+  "usage": {
+    "in": 342,
+    "out": 97
+  },
+  "cost": 0.00123776,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"Pensive Puffing Periwinkle\",\n  \"statement\": \"A small, sapphire-shelled snail that drifts up to the brightest corner of the tank each morning, releasing one thoughtful bubble at a time—each pops with a faint chime, as if it were composing a very slow symphony. Visitors who wait long enough may notice it turns to face them, then politely pretends it didn't.\"\n}\n```"
+}

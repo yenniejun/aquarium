@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 30,
+  "date": "2026-11-14T21:13:07.644Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Puzzle Puffer",
+  "statement": "Beneath a canopy of luminous indigo kelp, this plump little architect spends its days nudging shards of sea glass into neat symmetries and blowing gentle jets of water to carve ever-shifting labyrinths into the silver sand. Whenever a visitor leans close, it pauses its meticulous tinkering to hover at eye level, fluttering its translucent fins while rippling with warm, golden bioluminescence.",
+  "usage": {
+    "in": 365,
+    "out": 1167
+  },
+  "cost": 0.0124,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"Puttering Puzzle Puffer\",\n  \"statement\": \"Beneath a canopy of luminous indigo kelp, this plump little architect spends its days nudging shards of sea glass into neat symmetries and blowing gentle jets of water to carve ever-shifting labyrinths into the silver sand. Whenever a visitor leans close, it pauses its meticulous tinkering to hover at eye level, fluttering its translucent fins while rippling with warm, golden bioluminescence.\"\n}\n```"
+}

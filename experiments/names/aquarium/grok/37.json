@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 37,
+  "date": "2026-11-14T21:22:24.440Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Polite Peppermint Shrimp",
+  "statement": "A small banded shrimp drifts from leaf to leaf, straightening fronds and pausing as if to ask permission before it pinches a speck of algae. Its tank is a quiet green room of soft light, smooth pebbles, and one ceramic teacup it treats as a private library.",
+  "usage": {
+    "in": 1569,
+    "out": 913
+  },
+  "cost": 0.006312,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Polite Peppermint Shrimp\",\n  \"statement\": \"A small banded shrimp drifts from leaf to leaf, straightening fronds and pausing as if to ask permission before it pinches a speck of algae. Its tank is a quiet green room of soft light, smooth pebbles, and one ceramic teacup it treats as a private library.\"\n}\n```"
+}

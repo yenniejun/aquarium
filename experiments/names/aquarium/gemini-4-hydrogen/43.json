@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 43,
+  "date": "2026-11-14T21:12:06.231Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pufferfish",
+  "statement": "Hovering like a wide-eyed dirigible among mossy slate arches and sun-dappled sea fans, this meticulous little swimmer spends its days puffing gentle currents to arrange iridescent pebbles into tidy, swirling mandalas. Whenever it finishes a pattern, it pauses beside the glass to bob proudly with a flutter of its translucent fins.",
+  "usage": {
+    "in": 365,
+    "out": 2083
+  },
+  "cost": 0.01617,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pufferfish\",\n  \"statement\": \"Hovering like a wide-eyed dirigible among mossy slate arches and sun-dappled sea fans, this meticulous little swimmer spends its days puffing gentle currents to arrange iridescent pebbles into tidy, swirling mandalas. Whenever it finishes a pattern, it pauses beside the glass to bob proudly with a flutter of its translucent fins.\"\n}\n```"
+}

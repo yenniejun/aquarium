@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 46,
+  "date": "2026-11-14T21:11:37.165Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Brooding Bubblefin",
+  "statement": "A small, melancholy fish who lives inside a single pearlescent bubble it refuses to pop, drifting through deep teal water and glowing fern gardens—its mood shifting the tank's light from dusk-blue to violet, it sighs tiny silver bubbles that rise like slow, luminous confetti.",
+  "usage": {
+    "in": 342,
+    "out": 81
+  },
+  "cost": 0.00109696,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Brooding Bubblefin\",\n  \"statement\": \"A small, melancholy fish who lives inside a single pearlescent bubble it refuses to pop, drifting through deep teal water and glowing fern gardens—its mood shifting the tank's light from dusk-blue to violet, it sighs tiny silver bubbles that rise like slow, luminous confetti.\"\n}\n```"
+}

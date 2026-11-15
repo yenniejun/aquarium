@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 23,
+  "date": "2026-11-14T21:17:24.288Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Blipping Blenny",
+  "statement": "From a thumb-sized burrow in pale rock, a small blenny leans out, blinks once at the drifting light, and blips back in, as if the tank were a conversation it fully intends to finish later.",
+  "usage": {
+    "in": 1569,
+    "out": 1073
+  },
+  "cost": 0.007272,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Blipping Blenny\",\n  \"statement\": \"From a thumb-sized burrow in pale rock, a small blenny leans out, blinks once at the drifting light, and blips back in, as if the tank were a conversation it fully intends to finish later.\"\n}\n```"
+}

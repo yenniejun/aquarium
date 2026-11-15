@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 49,
+  "date": "2026-11-14T21:10:13.238Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Tinkering Teacup Tetra",
+  "statement": "A pinprick-sized fish with a translucent porcelain body, painted with a delicate blue floral pattern, that spends its days rearranging a tiny sunken tea set on the sand and nudging each cup into a more perfect spot with a soft *clink*. When it is satisfied, it glows a warm amber, and a slow stream of bubbles rises from the spout of the teapot like steam, through lamplit water the color of weak jasmine tea.",
+  "usage": {
+    "in": 454,
+    "out": 181
+  },
+  "cost": 0.002718,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Tinkering Teacup Tetra\",\n  \"statement\": \"A pinprick-sized fish with a translucent porcelain body, painted with a delicate blue floral pattern, that spends its days rearranging a tiny sunken tea set on the sand and nudging each cup into a more perfect spot with a soft *clink*. When it is satisfied, it glows a warm amber, and a slow stream of bubbles rises from the spout of the teapot like steam, through lamplit water the color of weak jasmine tea.\"\n}\n```"
+}

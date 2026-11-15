@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 37,
+  "date": "2026-11-14T21:10:41.336Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pattering Pebblefish",
+  "statement": "This solitary, translucent fish sweeps pale sand into careful little rings, then delights in breaking one just to watch the pattern change. In its still teal tank, moss and smooth stones frame each quiet experiment.",
+  "usage": {
+    "in": 330,
+    "out": 485
+  },
+  "cost": 0.0002755,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Pattering Pebblefish\",\n  \"statement\": \"This solitary, translucent fish sweeps pale sand into careful little rings, then delights in breaking one just to watch the pattern change. In its still teal tank, moss and smooth stones frame each quiet experiment.\"\n}\n```"
+}

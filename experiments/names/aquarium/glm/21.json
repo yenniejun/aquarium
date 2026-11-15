@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 21,
+  "date": "2026-11-14T21:10:19.178Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Pufferpuff",
+  "statement": "A slow, thoughtful pufferfish who drifts mid-tank wearing an expression of permanent mild concern, occasionally inflating into a perfect wistful balloon when an idea strikes — then deflating, unhurried, back to its philosophizing. The tank around it is a hushed twilight world of deep blue-green water, swaying moss, and a single smooth stone it has clearly been staring at for years.",
+  "usage": {
+    "in": 342,
+    "out": 109
+  },
+  "cost": 0.00134336,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pufferpuff\",\n  \"statement\": \"A slow, thoughtful pufferfish who drifts mid-tank wearing an expression of permanent mild concern, occasionally inflating into a perfect wistful balloon when an idea strikes — then deflating, unhurried, back to its philosophizing. The tank around it is a hushed twilight world of deep blue-green water, swaying moss, and a single smooth stone it has clearly been staring at for years.\"\n}\n```"
+}

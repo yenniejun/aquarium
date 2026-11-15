@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 18,
+  "date": "2026-11-14T21:15:37.410Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "A needle-slim pipefish hangs upright in green-gold light, as if turning over a small question, then stitches itself through the seagrass with sudden, exact delight.",
+  "usage": {
+    "in": 1569,
+    "out": 844
+  },
+  "cost": 0.005898,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"A needle-slim pipefish hangs upright in green-gold light, as if turning over a small question, then stitches itself through the seagrass with sudden, exact delight.\"\n}\n```"
+}

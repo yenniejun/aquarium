@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 9,
+  "date": "2026-11-14T21:10:07.953Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pleatfin",
+  "statement": "A palm-sized cuttlefish with apricot frills putters through blue-green water, rearranging white pebbles beneath a ceramic arch while little checkerboards ripple across its skin. Its tank is a quiet garden of ribbon grass and slanting amber light; each time it completes a perfect pebble circle, it nudges one stone out of place and hovers over the new possibility.",
+  "usage": {
+    "in": 330,
+    "out": 378
+  },
+  "cost": 0.00444,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pleatfin\",\n  \"statement\": \"A palm-sized cuttlefish with apricot frills putters through blue-green water, rearranging white pebbles beneath a ceramic arch while little checkerboards ripple across its skin. Its tank is a quiet garden of ribbon grass and slanting amber light; each time it completes a perfect pebble circle, it nudges one stone out of place and hovers over the new possibility.\"\n}\n```"
+}

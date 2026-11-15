@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 23,
+  "date": "2026-11-14T21:11:14.873Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepus",
+  "statement": "A palm-sized, opal-skinned octopus putters around a wide tank of blue dusk, pale sand, and smooth ceramic pebbles, turning apricot whenever it discovers something worth investigating. It spends its evenings arranging the pebbles into elaborate spirals, then moving just one—as though a lovely answer might still admit a better question.",
+  "usage": {
+    "in": 330,
+    "out": 348
+  },
+  "cost": 0.00414,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepus\",\n  \"statement\": \"A palm-sized, opal-skinned octopus putters around a wide tank of blue dusk, pale sand, and smooth ceramic pebbles, turning apricot whenever it discovers something worth investigating. It spends its evenings arranging the pebbles into elaborate spirals, then moving just one—as though a lovely answer might still admit a better question.\"\n}\n```"
+}

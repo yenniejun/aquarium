@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 44,
+  "date": "2026-11-14T21:12:04.798Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble-Puffer",
+  "statement": "Drifting through warm, amber-lit water and forests of feathery green eelgrass, this round little puffer spends every afternoon sorting smooth river pebbles and frosted sea glass into tiny, concentric spirals. Whenever a stray bubble scatters its careful work, it puffs its cheeks in mild surprise and happily begins arranging a brand-new pattern from scratch.",
+  "usage": {
+    "in": 365,
+    "out": 1544
+  },
+  "cost": 0.0121275,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble-Puffer\",\n  \"statement\": \"Drifting through warm, amber-lit water and forests of feathery green eelgrass, this round little puffer spends every afternoon sorting smooth river pebbles and frosted sea glass into tiny, concentric spirals. Whenever a stray bubble scatters its careful work, it puffs its cheeks in mild surprise and happily begins arranging a brand-new pattern from scratch.\"\n}\n```"
+}

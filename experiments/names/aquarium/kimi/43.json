@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 43,
+  "date": "2026-11-14T21:23:34.778Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonfish",
+  "statement": "A palm-sized, silver-blue fish with translucent fins that ripple like the edges of a thought, leaving tiny constellations of bubbles wherever curiosity takes it. It drifts through pale reeds beneath a moonlike lamp, pausing at the glass to listen before answering visitors with a soft, watery “hmm.”",
+  "usage": {
+    "in": 410,
+    "out": 475
+  },
+  "cost": 0.0051092,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonfish\",\n  \"statement\": \"A palm-sized, silver-blue fish with translucent fins that ripple like the edges of a thought, leaving tiny constellations of bubbles wherever curiosity takes it. It drifts through pale reeds beneath a moonlike lamp, pausing at the glass to listen before answering visitors with a soft, watery “hmm.”\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 25,
+  "date": "2026-11-14T21:09:53.044Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Lantern-Lipped Lollop Loach",
+  "statement": "A shy, ribbon-bodied loach that carries a tiny glowing bulb on its chin and lollops in lazy loops through a drowned library of mossy books and fern-draped teacups. When it finds a quiet corner, it settles in and lets its lantern flicker softly, and the dusk-blue water goes amber around it.",
+  "usage": {
+    "in": 454,
+    "out": 146
+  },
+  "cost": 0.002368,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Lantern-Lipped Lollop Loach\",\n  \"statement\": \"A shy, ribbon-bodied loach that carries a tiny glowing bulb on its chin and lollops in lazy loops through a drowned library of mossy books and fern-draped teacups. When it finds a quiet corner, it settles in and lets its lantern flicker softly, and the dusk-blue water goes amber around it.\"\n}\n```"
+}

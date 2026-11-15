@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 14,
+  "date": "2026-11-14T21:09:58.454Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Glimmering Gurglefish",
+  "statement": "This solitary little fish hums bubbles as it drifts through a midnight-blue tank, where silver reeds sway beneath a small, patient moon of light. When it turns, its glassy fins catch the glow like a thought just remembered.",
+  "usage": {
+    "in": 330,
+    "out": 255
+  },
+  "cost": 0.0001605,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Glimmering Gurglefish\",\n  \"statement\": \"This solitary little fish hums bubbles as it drifts through a midnight-blue tank, where silver reeds sway beneath a small, patient moon of light. When it turns, its glassy fins catch the glow like a thought just remembered.\"\n}\n```"
+}

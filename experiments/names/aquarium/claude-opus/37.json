@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 37,
+  "date": "2026-11-14T21:11:12.554Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Scribble-Skin Squidlet",
+  "statement": "A thumb-sized squid that ripples ever-changing doodles across its skin, part conversation with whoever leans close to the glass and part thinking out loud. Under the warm, lantern-amber glow of its kelp grove, it spends its quiet hours arranging pebbles into spirals, then gently revising them whenever it has a better idea.",
+  "usage": {
+    "in": 454,
+    "out": 580
+  },
+  "cost": 0.013416,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Scribble-Skin Squidlet\",\n  \"statement\": \"A thumb-sized squid that ripples ever-changing doodles across its skin, part conversation with whoever leans close to the glass and part thinking out loud. Under the warm, lantern-amber glow of its kelp grove, it spends its quiet hours arranging pebbles into spirals, then gently revising them whenever it has a better idea.\"\n}\n```"
+}

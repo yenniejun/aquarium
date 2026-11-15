@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 48,
+  "date": "2026-11-14T21:12:01.697Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Mirrorfish",
+  "statement": "A shy, chrome-bright creature covered in scales that reflect whatever swims past, so it's never quite seen as it truly is. It drifts near the tank's soft green glow, humming a low bubble-song, and only when you stop staring does it flicker its fins and briefly show itself.",
+  "usage": {
+    "in": 342,
+    "out": 84
+  },
+  "cost": 0.00112336,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mirrorfish\",\n  \"statement\": \"A shy, chrome-bright creature covered in scales that reflect whatever swims past, so it's never quite seen as it truly is. It drifts near the tank's soft green glow, humming a low bubble-song, and only when you stop staring does it flicker its fins and briefly show itself.\"\n}\n```"
+}

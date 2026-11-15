@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 7,
+  "date": "2026-11-14T21:09:56.789Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Shimmering Scribble-Squid",
+  "statement": "Surrounded by swaying amber kelp and tidy shelves of sorted sea glass, this curious little cephalopod composes swirling, bioluminescent ink-notes that hang like constellations in the quiet current before dissolving into mist. Whenever a visitor pauses outside its tank, it blinks thoughtfully, flashes a polite ripple of pastel dots, and returns to rearranging its pebble library.",
+  "usage": {
+    "in": 365,
+    "out": 1338
+  },
+  "cost": 0.0105825,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Shimmering Scribble-Squid\",\n  \"statement\": \"Surrounded by swaying amber kelp and tidy shelves of sorted sea glass, this curious little cephalopod composes swirling, bioluminescent ink-notes that hang like constellations in the quiet current before dissolving into mist. Whenever a visitor pauses outside its tank, it blinks thoughtfully, flashes a polite ripple of pastel dots, and returns to rearranging its pebble library.\"\n}\n```"
+}

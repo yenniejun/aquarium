@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 47,
+  "date": "2026-11-14T21:25:21.595Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Blinking Bumblebee Goby",
+  "statement": "A thumbnail of gold and ink hovers at the glass as if considering a reply, then darts to a pebble and starts the thought over, perfectly pleased.",
+  "usage": {
+    "in": 1569,
+    "out": 908
+  },
+  "cost": 0.006282,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Blinking Bumblebee Goby\",\n  \"statement\": \"A thumbnail of gold and ink hovers at the glass as if considering a reply, then darts to a pebble and starts the thought over, perfectly pleased.\"\n}\n```"
+}

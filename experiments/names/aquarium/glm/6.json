@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 6,
+  "date": "2026-11-14T21:09:44.750Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Waltzing Warthog Nudibranch",
+  "statement": "A soft, shimmering sea slug with violet ruffles that sways to its own internal rhythm, forever slow-dancing across the glass like it hears music the rest of the tank can't. It lives among pastel kelp and drifting gold motes of light, elegant, unhurried, and completely convinced it's the star of the show.",
+  "usage": {
+    "in": 342,
+    "out": 99
+  },
+  "cost": 0.00125536,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Waltzing Warthog Nudibranch\",\n  \"statement\": \"A soft, shimmering sea slug with violet ruffles that sways to its own internal rhythm, forever slow-dancing across the glass like it hears music the rest of the tank can't. It lives among pastel kelp and drifting gold motes of light, elegant, unhurried, and completely convinced it's the star of the show.\"\n}\n```"
+}

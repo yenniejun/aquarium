@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 22,
+  "date": "2026-11-14T21:09:50.482Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Mochi Medusa",
+  "statement": "A soft, round jellyfish the color of toasted marshmallow, she hums in slow pulses and trails ribbon tentacles that curl into question marks. She drifts through a lantern-lit tank of sleepy blue water, where pebble towers and feathery kelp lean in as if listening to her mutter small, fond secrets to the bubbles.",
+  "usage": {
+    "in": 454,
+    "out": 149
+  },
+  "cost": 0.002398,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mochi Medusa\",\n  \"statement\": \"A soft, round jellyfish the color of toasted marshmallow, she hums in slow pulses and trails ribbon tentacles that curl into question marks. She drifts through a lantern-lit tank of sleepy blue water, where pebble towers and feathery kelp lean in as if listening to her mutter small, fond secrets to the bubbles.\"\n}\n```"
+}

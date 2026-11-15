@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 47,
+  "date": "2026-11-14T21:14:45.609Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Plink-Plonk Pebble Puffer",
+  "statement": "Nestled among sun-dappled kelp and sunken basalt columns, this inquisitive little architect spends its days sorting translucent sea glass into intricate, ever-changing mosaics on the tank floor. Every so often, it drops a favored stone onto a hollow shell to test its chime, pulsing with soft bioluminescent ripples whenever a new pattern clicks into place.",
+  "usage": {
+    "in": 365,
+    "out": 749
+  },
+  "cost": 0.00822,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Plink-Plonk Pebble Puffer\",\n  \"statement\": \"Nestled among sun-dappled kelp and sunken basalt columns, this inquisitive little architect spends its days sorting translucent sea glass into intricate, ever-changing mosaics on the tank floor. Every so often, it drops a favored stone onto a hollow shell to test its chime, pulsing with soft bioluminescent ripples whenever a new pattern clicks into place.\"\n}\n```"
+}

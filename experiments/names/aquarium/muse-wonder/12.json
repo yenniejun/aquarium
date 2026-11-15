@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 12,
+  "date": "2026-11-14T21:11:32.469Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Blooping Bubble Betta",
+  "statement": "A round, rose-gold betta who composes tiny bubble haiku all day, releasing them in soft bloop-bloop verses that pop gently at the surface. Its tank is a twilight poetry corner of indigo water, glowing lily lamps, and smooth perching stones for waiting on inspiration.",
+  "usage": {
+    "in": 334,
+    "out": 1375
+  },
+  "cost": 0.027962,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bubble Betta\",\n  \"statement\": \"A round, rose-gold betta who composes tiny bubble haiku all day, releasing them in soft bloop-bloop verses that pop gently at the surface. Its tank is a twilight poetry corner of indigo water, glowing lily lamps, and smooth perching stones for waiting on inspiration.\"\n}\n```"
+}

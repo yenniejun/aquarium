@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 50,
+  "date": "2026-11-14T21:26:24.845Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Humming Hermit",
+  "statement": "A small hermit crab in a paper-pale shell hums a soft bubble-song while sorting pebbles into careful little constellations, as if the tank were a thought still being arranged.",
+  "usage": {
+    "in": 1569,
+    "out": 886
+  },
+  "cost": 0.00615,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Humming Hermit\",\n  \"statement\": \"A small hermit crab in a paper-pale shell hums a soft bubble-song while sorting pebbles into careful little constellations, as if the tank were a thought still being arranged.\"\n}\n```"
+}

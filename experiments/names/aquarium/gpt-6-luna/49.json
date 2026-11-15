@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 49,
+  "date": "2026-11-14T21:11:05.320Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moon Cuttle",
+  "statement": "This small, pearly cuttle drifts through a quiet garden of seagrass, changing color in slow, thoughtful ripples. At dusk, it gathers the tank’s soft blue light into a little traveling moon.",
+  "usage": {
+    "in": 330,
+    "out": 462
+  },
+  "cost": 0.000264,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moon Cuttle\",\n  \"statement\": \"This small, pearly cuttle drifts through a quiet garden of seagrass, changing color in slow, thoughtful ripples. At dusk, it gathers the tank’s soft blue light into a little traveling moon.\"\n}\n```"
+}

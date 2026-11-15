@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 21,
+  "date": "2026-11-14T21:10:50.772Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Cataloging Cuttlefish",
+  "statement": "This inquisitive miniature cephalopod drifts through sunlit kelp groves, meticulously arranging bits of sea glass, smooth pebbles, and tiny sunken trinkets into color-coded mosaics on the sand. As it ponders where each piece belongs, iridescent ripples of teal and gold shimmer across its skin like living thought bubbles.",
+  "usage": {
+    "in": 365,
+    "out": 2779
+  },
+  "cost": 0.02139,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Cataloging Cuttlefish\",\n  \"statement\": \"This inquisitive miniature cephalopod drifts through sunlit kelp groves, meticulously arranging bits of sea glass, smooth pebbles, and tiny sunken trinkets into color-coded mosaics on the sand. As it ponders where each piece belongs, iridescent ripples of teal and gold shimmer across its skin like living thought bubbles.\"\n}\n```"
+}

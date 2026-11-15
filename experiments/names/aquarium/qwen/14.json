@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 14,
+  "date": "2026-11-14T21:13:03.748Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Scribbling Seahorse",
+  "statement": "A small, pale seahorse that drifts with great deliberation through dim water, trailing faint ribbons of bioluminescence from its curled tail as though composing slow, luminous sentences no one will ever finish reading. It pauses often, hovering beside a piece of dark driftwood, apparently mid-thought.",
+  "usage": {
+    "in": 359,
+    "out": 1320
+  },
+  "cost": 0.017276,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Seahorse\",\n  \"statement\": \"A small, pale seahorse that drifts with great deliberation through dim water, trailing faint ribbons of bioluminescence from its curled tail as though composing slow, luminous sentences no one will ever finish reading. It pauses often, hovering beside a piece of dark driftwood, apparently mid-thought.\"\n}\n```"
+}

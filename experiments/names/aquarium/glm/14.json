@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 14,
+  "date": "2026-11-14T21:10:02.875Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Ponderous Puddle-Puffer",
+  "statement": "A slow, round creature that drifts through amber-green water like a thought still being decided, inflating slightly whenever it is curious—which is often, though never urgently. It lives among mossy stones and lazy light shafts, and its tank hums with the patient joy of taking one's time.",
+  "usage": {
+    "in": 342,
+    "out": 86
+  },
+  "cost": 0.00114096,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Ponderous Puddle-Puffer\",\n  \"statement\": \"A slow, round creature that drifts through amber-green water like a thought still being decided, inflating slightly whenever it is curious—which is often, though never urgently. It lives among mossy stones and lazy light shafts, and its tank hums with the patient joy of taking one's time.\"\n}\n```"
+}

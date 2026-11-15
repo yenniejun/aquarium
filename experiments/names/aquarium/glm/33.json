@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 33,
+  "date": "2026-11-14T21:10:47.052Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Pufferpuff",
+  "statement": "A slow, spherical soul who inflates with contentment when it notices you looking, the Pufferpuff drifts through a tank of dappled amber light and gently swaying anemones, thinking deep thoughts it will never explain. Its favorite ornament is a small ceramic moon, which it regards for hours.",
+  "usage": {
+    "in": 342,
+    "out": 89
+  },
+  "cost": 0.00116736,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pufferpuff\",\n  \"statement\": \"A slow, spherical soul who inflates with contentment when it notices you looking, the Pufferpuff drifts through a tank of dappled amber light and gently swaying anemones, thinking deep thoughts it will never explain. Its favorite ornament is a small ceramic moon, which it regards for hours.\"\n}\n```"
+}

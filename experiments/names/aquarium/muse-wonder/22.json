@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 22,
+  "date": "2026-11-14T21:13:13.495Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Daydreaming Doodlefish",
+  "statement": "This tiny, ink-freckled fish traces glowing doodles and half-finished constellations through indigo water, rearranging shell-shaped punctuation into stories only it understands. Between swaying paper-fern fronds and a cozy teapot hideaway, it pauses to watch every bubble rise—always curious, always mid-wonder.",
+  "usage": {
+    "in": 334,
+    "out": 1174
+  },
+  "cost": 0.023942,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Daydreaming Doodlefish\",\n  \"statement\": \"This tiny, ink-freckled fish traces glowing doodles and half-finished constellations through indigo water, rearranging shell-shaped punctuation into stories only it understands. Between swaying paper-fern fronds and a cozy teapot hideaway, it pauses to watch every bubble rise—always curious, always mid-wonder.\"\n}\n```"
+}

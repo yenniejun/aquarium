@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 45,
+  "date": "2026-11-14T22:28:11.695Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Pitter-Patter Pom-Pom Pincher",
+  "statement": "A pocket-sized reef crab that carries a tiny anemone in each claw, waving them like pom-poms whenever a face appears at the glass. It lives in dim blue light on black sand, and when left alone it taps a slow, pitter-patter rhythm against the wall of its driftwood cave.",
+  "usage": {
+    "in": 352,
+    "out": 3586
+  },
+  "cost": 0.00761572,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 52,
+  "reply": "```json\n{\n  \"title\": \"Pitter-Patter Pom-Pom Pincher\",\n  \"statement\": \"A pocket-sized reef crab that carries a tiny anemone in each claw, waving them like pom-poms whenever a face appears at the glass. It lives in dim blue light on black sand, and when left alone it taps a slow, pitter-patter rhythm against the wall of its driftwood cave.\"\n}\n```"
+}

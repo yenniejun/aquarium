@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 43,
+  "date": "2026-11-14T21:24:13.342Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Click-Clack Courtesy Shrimp",
+  "statement": "A small banded shrimp patrols the glass like a careful host, pausing to polish a pebble or greet a passing fin, its antennae writing tiny questions in the current.",
+  "usage": {
+    "in": 1569,
+    "out": 995
+  },
+  "cost": 0.006804,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Click-Clack Courtesy Shrimp\",\n  \"statement\": \"A small banded shrimp patrols the glass like a careful host, pausing to polish a pebble or greet a passing fin, its antennae writing tiny questions in the current.\"\n}\n```"
+}

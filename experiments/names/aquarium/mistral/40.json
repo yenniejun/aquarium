@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 40,
+  "date": "2026-11-14T22:18:58.344Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Boxing Pom-Pom Crab",
+  "statement": "No bigger than a walnut, it carries a tiny sea anemone in each claw like a pair of pom-poms and waves them in a slow, cheerful sparring match from a doorway of stacked shells and purple rock. It never actually lands a punch — the pom-poms are just for waving hello.",
+  "usage": {
+    "in": 352,
+    "out": 10350
+  },
+  "cost": 0.02182012,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 125,
+  "reply": "```json\n{\n  \"title\": \"Boxing Pom-Pom Crab\",\n  \"statement\": \"No bigger than a walnut, it carries a tiny sea anemone in each claw like a pair of pom-poms and waves them in a slow, cheerful sparring match from a doorway of stacked shells and purple rock. It never actually lands a punch — the pom-poms are just for waving hello.\"\n}\n```"
+}

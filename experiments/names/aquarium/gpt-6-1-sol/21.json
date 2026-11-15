@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 21,
+  "date": "2026-11-14T21:11:04.934Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepus",
+  "statement": "A palm-sized, apricot octopus with ink-blue freckles putters through a tank of rippled cream sand, sea-glass pebbles, and one crooked ceramic arch, beneath light that shimmers like sun through a kitchen window. It spends its afternoons arranging pebbles into elaborate spirals, then moves the innermost stone somewhere ridiculous and settles under the arch to contemplate the improvement.",
+  "usage": {
+    "in": 330,
+    "out": 478
+  },
+  "cost": 0.00544,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepus\",\n  \"statement\": \"A palm-sized, apricot octopus with ink-blue freckles putters through a tank of rippled cream sand, sea-glass pebbles, and one crooked ceramic arch, beneath light that shimmers like sun through a kitchen window. It spends its afternoons arranging pebbles into elaborate spirals, then moves the innermost stone somewhere ridiculous and settles under the arch to contemplate the improvement.\"\n}\n```"
+}

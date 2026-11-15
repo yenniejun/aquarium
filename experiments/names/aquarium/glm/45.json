@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 45,
+  "date": "2026-11-14T21:11:34.863Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Ponderous Puddlefin",
+  "statement": "A slow, round little fish who drifts through amber dusk-light as if thinking very hard about something it has forgotten. Its fins ripple like drowsy curtains, and when it finally decides on a direction, it takes its time getting there, gloriously.",
+  "usage": {
+    "in": 342,
+    "out": 76
+  },
+  "cost": 0.00105296,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Ponderous Puddlefin\",\n  \"statement\": \"A slow, round little fish who drifts through amber dusk-light as if thinking very hard about something it has forgotten. Its fins ripple like drowsy curtains, and when it finally decides on a direction, it takes its time getting there, gloriously.\"\n}\n```"
+}

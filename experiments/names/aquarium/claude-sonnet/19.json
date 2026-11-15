@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 19,
+  "date": "2026-11-14T21:09:48.158Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Lantern-Lipped Lollopfish",
+  "statement": "A round, velvety fish the color of toasted marshmallow, the Lollopfish drifts through a tank of tea-brown water and sunken teacups, tipping slowly from side to side as it swims. A soft lantern dangles from its lower lip, and it dims the light whenever a visitor comes near, as if politely lowering its voice.",
+  "usage": {
+    "in": 454,
+    "out": 147
+  },
+  "cost": 0.002378,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Lantern-Lipped Lollopfish\",\n  \"statement\": \"A round, velvety fish the color of toasted marshmallow, the Lollopfish drifts through a tank of tea-brown water and sunken teacups, tipping slowly from side to side as it swims. A soft lantern dangles from its lower lip, and it dims the light whenever a visitor comes near, as if politely lowering its voice.\"\n}\n```"
+}

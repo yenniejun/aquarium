@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 7,
+  "date": "2026-11-14T21:11:20.949Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Muttering Mollusk",
+  "statement": "A small, rust-colored octopus sits among a dozen smooth pebbles it has arranged, rearranged, and rearranged again, occasionally lifting one to inspect it with quiet suspicion before setting it down a single centimeter to the left. The water around it is warm and tea-dark, lit by a soft amber glow, as though the whole tank is a study where someone is very nearly finished editing a sentence they wrote hours ago.",
+  "usage": {
+    "in": 359,
+    "out": 1338
+  },
+  "cost": 0.017492,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Muttering Mollusk\",\n  \"statement\": \"A small, rust-colored octopus sits among a dozen smooth pebbles it has arranged, rearranged, and rearranged again, occasionally lifting one to inspect it with quiet suspicion before setting it down a single centimeter to the left. The water around it is warm and tea-dark, lit by a soft amber glow, as though the whole tank is a study where someone is very nearly finished editing a sentence they wrote hours ago.\"\n}\n```"
+}

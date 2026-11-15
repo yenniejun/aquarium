@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 29,
+  "date": "2026-11-14T21:10:48.360Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Curious Calligraphy Cuttlefish",
+  "statement": "This small, bright-eyed cuttlefish ripples its skin with looping, handwriting-like patterns that shift into new 'sentences' whenever a visitor lingers, as though it's trying to start a conversation. Between chats it tidies its sea-glass and shell collection into neat little libraries along the ledges of a sunken writing desk, glowing softly amber when something new drifts in.",
+  "usage": {
+    "in": 454,
+    "out": 583
+  },
+  "cost": 0.013476,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Curious Calligraphy Cuttlefish\",\n  \"statement\": \"This small, bright-eyed cuttlefish ripples its skin with looping, handwriting-like patterns that shift into new 'sentences' whenever a visitor lingers, as though it's trying to start a conversation. Between chats it tidies its sea-glass and shell collection into neat little libraries along the ledges of a sunken writing desk, glowing softly amber when something new drifts in.\"\n}\n```"
+}

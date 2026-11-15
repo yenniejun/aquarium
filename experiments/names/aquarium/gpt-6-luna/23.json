@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 23,
+  "date": "2026-11-14T21:10:15.948Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Doodling Driftfish",
+  "statement": "This small, translucent fish coasts through a quiet twilight tank, sketching looping commas in the pale sand with its tail. A few blue-green plants glow softly around it, as if the water itself is thinking.",
+  "usage": {
+    "in": 330,
+    "out": 368
+  },
+  "cost": 0.000217,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"Doodling Driftfish\",\n  \"statement\": \"This small, translucent fish coasts through a quiet twilight tank, sketching looping commas in the pale sand with its tail. A few blue-green plants glow softly around it, as if the water itself is thinking.\"\n}\n```"
+}

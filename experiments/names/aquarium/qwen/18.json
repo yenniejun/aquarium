@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 18,
+  "date": "2026-11-14T21:13:58.683Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Cogitating Cuttlefish",
+  "statement": "A small cuttlefish hovers mid-water above a neat arrangement of smooth pale stones, its fins rippling like a slow, deliberate breath. Patterns of amber, cream, and rust ripple across its skin in no hurry to resolve, as though it is turning over a thought it finds too interesting to finish.",
+  "usage": {
+    "in": 359,
+    "out": 1629
+  },
+  "cost": 0.020984,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Cogitating Cuttlefish\",\n  \"statement\": \"A small cuttlefish hovers mid-water above a neat arrangement of smooth pale stones, its fins rippling like a slow, deliberate breath. Patterns of amber, cream, and rust ripple across its skin in no hurry to resolve, as though it is turning over a thought it finds too interesting to finish.\"\n}\n```"
+}

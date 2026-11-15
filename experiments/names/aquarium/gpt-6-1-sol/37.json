@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 37,
+  "date": "2026-11-14T21:12:10.670Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepuss",
+  "statement": "A thumb-sized, apricot-colored octopus inhabits a tank of blue shadows, cream sand, and smooth sea glass, beneath light that ripples like sunshine through a kitchen window. It spends its afternoons arranging glass into elaborate doorways, squeezing through them, then widening them slightly—as though expecting a guest.",
+  "usage": {
+    "in": 330,
+    "out": 341
+  },
+  "cost": 0.00407,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepuss\",\n  \"statement\": \"A thumb-sized, apricot-colored octopus inhabits a tank of blue shadows, cream sand, and smooth sea glass, beneath light that ripples like sunshine through a kitchen window. It spends its afternoons arranging glass into elaborate doorways, squeezing through them, then widening them slightly—as though expecting a guest.\"\n}\n```"
+}

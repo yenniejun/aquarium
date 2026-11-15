@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 47,
+  "date": "2026-11-14T22:32:29.852Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Sunbathing Sea Slug",
+  "statement": "This emerald leaf slug unfurls against the sunlit glass each morning and lies perfectly still, photosynthesizing through its skin. When it does move, it glides to a fresh patch of algae with the slow, unhurried grace of something that has nowhere else to be.",
+  "usage": {
+    "in": 352,
+    "out": 8743
+  },
+  "cost": 0.01844542,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 119,
+  "reply": "```json\n{\n  \"title\": \"Sunbathing Sea Slug\",\n  \"statement\": \"This emerald leaf slug unfurls against the sunlit glass each morning and lies perfectly still, photosynthesizing through its skin. When it does move, it glides to a fresh patch of algae with the slow, unhurried grace of something that has nowhere else to be.\"\n}\n```"
+}

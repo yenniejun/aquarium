@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 28,
+  "date": "2026-11-14T21:16:04.032Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Mantle",
+  "statement": "A broad-backed cuttlefish hovers mid-water in amber-tinted light, its skin rippling with slow sepia script as though composing and revising a sentence only it can read. It never quite finishes; the words just keep softly changing.",
+  "usage": {
+    "in": 359,
+    "out": 842
+  },
+  "cost": 0.01154,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mantle\",\n  \"statement\": \"A broad-backed cuttlefish hovers mid-water in amber-tinted light, its skin rippling with slow sepia script as though composing and revising a sentence only it can read. It never quite finishes; the words just keep softly changing.\"\n}\n```"
+}

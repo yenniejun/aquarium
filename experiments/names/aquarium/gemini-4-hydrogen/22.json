@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 22,
+  "date": "2026-11-14T21:10:49.660Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Blinking Bubble-Blenny",
+  "statement": "Inside a quiet, teal-lit nook of swaying silver sea-grass and carefully stacked amber sea-glass, this tiny, wide-eyed blenny spends its days sorting stray shell fragments by color and puffing neat, rhythmic rings of bubbles. Whenever a visitor peers close, it flutters its feathery brow-tufts in a polite, contemplative blink before tucking itself back inside its favorite sunken porcelain teacup.",
+  "usage": {
+    "in": 365,
+    "out": 2139
+  },
+  "cost": 0.01659,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Blinking Bubble-Blenny\",\n  \"statement\": \"Inside a quiet, teal-lit nook of swaying silver sea-grass and carefully stacked amber sea-glass, this tiny, wide-eyed blenny spends its days sorting stray shell fragments by color and puffing neat, rhythmic rings of bubbles. Whenever a visitor peers close, it flutters its feathery brow-tufts in a polite, contemplative blink before tucking itself back inside its favorite sunken porcelain teacup.\"\n}\n```"
+}

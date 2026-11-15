@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 31,
+  "date": "2026-11-14T21:11:46.784Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Doodling Dumpling",
+  "statement": "In a twilight-blue tank furnished with smooth basalt arches and a single ribbon of eelgrass, a dumpling-shaped cuttlefish uses gentle water jets to draw winding paths in silver sand. Its skin flickers with tiny amber freckles as it inspects each intersection, then cheerfully erases the whole map by settling into it, leaving only two inquisitive eyes.",
+  "usage": {
+    "in": 330,
+    "out": 377
+  },
+  "cost": 0.00443,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumpling\",\n  \"statement\": \"In a twilight-blue tank furnished with smooth basalt arches and a single ribbon of eelgrass, a dumpling-shaped cuttlefish uses gentle water jets to draw winding paths in silver sand. Its skin flickers with tiny amber freckles as it inspects each intersection, then cheerfully erases the whole map by settling into it, leaving only two inquisitive eyes.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 42,
+  "date": "2026-11-14T21:23:53.555Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pensive Pipefish",
+  "statement": "A slender, ink-dark pipefish drifts among soft green fronds, pausing as if mid-thought before flicking onward in a ripple of silver. Warm lamplight and a scatter of smooth stones make its small glass world feel like a quiet library at closing time.",
+  "usage": {
+    "in": 1569,
+    "out": 423
+  },
+  "cost": 0.003372,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Pensive Pipefish\",\n  \"statement\": \"A slender, ink-dark pipefish drifts among soft green fronds, pausing as if mid-thought before flicking onward in a ripple of silver. Warm lamplight and a scatter of smooth stones make its small glass world feel like a quiet library at closing time.\"\n}\n```"
+}

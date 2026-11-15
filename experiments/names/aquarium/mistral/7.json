@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 7,
+  "date": "2026-11-14T21:23:47.005Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Pebble Picasso Puffer",
+  "statement": "A round, big-eyed fish that treats the pale sand at the bottom of its tank as a sketchbook, nudging pebbles into spirals and mandalas each morning in the soft blue light. Come close to the glass and it will puff up to the size of a dumpling, as if bowing to its audience.",
+  "usage": {
+    "in": 352,
+    "out": 5000
+  },
+  "cost": 0.0107464,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 95,
+  "reply": "```json\n{\n  \"title\": \"Pebble Picasso Puffer\",\n  \"statement\": \"A round, big-eyed fish that treats the pale sand at the bottom of its tank as a sketchbook, nudging pebbles into spirals and mandalas each morning in the soft blue light. Come close to the glass and it will puff up to the size of a dumpling, as if bowing to its audience.\"\n}\n```"
+}

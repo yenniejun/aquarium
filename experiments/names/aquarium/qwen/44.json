@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 44,
+  "date": "2026-11-14T21:20:11.602Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pottering Pygmy Squid",
+  "statement": "A small, round bobtail squid that spends its evenings fussing over a tiny grove of bioluminescent algae, rearranging grains of sand with its arms in quiet, fussy devotion—as though the whole dim tank were a gentle puzzle it is slowly, contentedly solving. It glows faintly amber from within, and if you watch long enough, you'll notice it has organized every pebble by size.",
+  "usage": {
+    "in": 359,
+    "out": 1129
+  },
+  "cost": 0.014984,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Pottering Pygmy Squid\",\n  \"statement\": \"A small, round bobtail squid that spends its evenings fussing over a tiny grove of bioluminescent algae, rearranging grains of sand with its arms in quiet, fussy devotion—as though the whole dim tank were a gentle puzzle it is slowly, contentedly solving. It glows faintly amber from within, and if you watch long enough, you'll notice it has organized every pebble by size.\"\n}\n```"
+}

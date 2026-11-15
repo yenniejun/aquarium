@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 40,
+  "date": "2026-11-14T21:10:47.709Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Blooping Buttonfish",
+  "statement": "This solitary, opal-blue fish drifts beneath a glassy arch of moss, making tiny bubbles as it circles its crescent of pale sand. Moonlit water and one nodding sprig of kelp turn its tank into a pocket-sized tidepool.",
+  "usage": {
+    "in": 330,
+    "out": 502
+  },
+  "cost": 0.000284,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Blooping Buttonfish\",\n  \"statement\": \"This solitary, opal-blue fish drifts beneath a glassy arch of moss, making tiny bubbles as it circles its crescent of pale sand. Moonlit water and one nodding sprig of kelp turn its tank into a pocket-sized tidepool.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 38,
+  "date": "2026-11-14T21:10:03.521Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pondering Pearlfin Puffer",
+  "statement": "A thumb-sized pufferfish with a translucent, pearly belly who collects tiny glinting pebbles and arranges them into spirals on the sand floor, then hovers back to admire her work with a slow, satisfied blink. Her tank is a hushed, lamplit blue-green with drifting motes of light, soft ferns swaying in the current, and a half-buried teacup that serves as her gallery.",
+  "usage": {
+    "in": 454,
+    "out": 169
+  },
+  "cost": 0.002598,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pearlfin Puffer\",\n  \"statement\": \"A thumb-sized pufferfish with a translucent, pearly belly who collects tiny glinting pebbles and arranges them into spirals on the sand floor, then hovers back to admire her work with a slow, satisfied blink. Her tank is a hushed, lamplit blue-green with drifting motes of light, soft ferns swaying in the current, and a half-buried teacup that serves as her gallery.\"\n}\n```"
+}

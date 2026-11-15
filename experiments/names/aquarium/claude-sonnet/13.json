@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 13,
+  "date": "2026-11-14T21:09:43.539Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Lantern-Lipped Lollop Loach",
+  "statement": "A shy, spaghetti-long loach who carries a single glowing bead on her lower lip and uses it to read tiny glowing messages left in the sand. She drifts in lazy loops through a drowned library of mossy teacups and barnacled books, pausing at every page to hum in soft, bubbly 'blip-blip-bloop's. The tank is lit like late-evening window light, warm amber above and deep teal below, and she is a creature who would rather linger than arrive.",
+  "usage": {
+    "in": 454,
+    "out": 192
+  },
+  "cost": 0.002828,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Lantern-Lipped Lollop Loach\",\n  \"statement\": \"A shy, spaghetti-long loach who carries a single glowing bead on her lower lip and uses it to read tiny glowing messages left in the sand. She drifts in lazy loops through a drowned library of mossy teacups and barnacled books, pausing at every page to hum in soft, bubbly 'blip-blip-bloop's. The tank is lit like late-evening window light, warm amber above and deep teal below, and she is a creature who would rather linger than arrive.\"\n}\n```"
+}

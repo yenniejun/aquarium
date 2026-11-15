@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 33,
+  "date": "2026-11-14T21:17:26.924Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Puzzling Puffer",
+  "statement": "A small, round, golden pufferfish that hovers in warm amber light, examining each smooth river stone as though encountering it for the very first time. It puffs up slightly when startled by its own reflection, then slowly, with great dignity, deflates and pretends nothing happened.",
+  "usage": {
+    "in": 359,
+    "out": 1430
+  },
+  "cost": 0.018596,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Puzzling Puffer\",\n  \"statement\": \"A small, round, golden pufferfish that hovers in warm amber light, examining each smooth river stone as though encountering it for the very first time. It puffs up slightly when startled by its own reflection, then slowly, with great dignity, deflates and pretends nothing happened.\"\n}\n```"
+}

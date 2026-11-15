@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 48,
+  "date": "2026-11-14T22:32:52.460Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Purring Pebble Puffer",
+  "statement": "A thumb-sized puffer that rounds into a soft pom-pom not with alarm but with delight, whenever it finds the perfect pebble. It hums a low, vibrating purr while polishing its treasure with its fins, arranging a tidy mosaic of gleaming stones along the glass like a tiny hoard of captured starlight.",
+  "usage": {
+    "in": 352,
+    "out": 1383
+  },
+  "cost": 0.00298942,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 23,
+  "reply": "```json\n{\n  \"title\": \"Purring Pebble Puffer\",\n  \"statement\": \"A thumb-sized puffer that rounds into a soft pom-pom not with alarm but with delight, whenever it finds the perfect pebble. It hums a low, vibrating purr while polishing its treasure with its fins, arranging a tidy mosaic of gleaming stones along the glass like a tiny hoard of captured starlight.\"\n}\n```"
+}

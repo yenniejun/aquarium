@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 13,
+  "date": "2026-11-14T21:10:31.596Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Puzzlefish",
+  "statement": "A thumb-sized cuttlefish with accordion fins and flickering apricot freckles, the Puttering Puzzlefish spends its afternoons arranging smooth blue pebbles into spirals, then backing up to reconsider. Its tank is a little twilight courtyard of white sand and slate arches, with one warm shaft of light where it carries its favorite pebble to think.",
+  "usage": {
+    "in": 330,
+    "out": 319
+  },
+  "cost": 0.00385,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Puttering Puzzlefish\",\n  \"statement\": \"A thumb-sized cuttlefish with accordion fins and flickering apricot freckles, the Puttering Puzzlefish spends its afternoons arranging smooth blue pebbles into spirals, then backing up to reconsider. Its tank is a little twilight courtyard of white sand and slate arches, with one warm shaft of light where it carries its favorite pebble to think.\"\n}\n```"
+}

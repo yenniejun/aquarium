@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 37,
+  "date": "2026-11-14T21:15:37.645Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Daydream Cuttlefish",
+  "statement": "This thumb-sized cuttlefish drifts through a dusky violet reef like a living sketchbook, doodling stripes, spirals, and almost-letters across its skin whenever curiosity strikes. By night it arranges pale pebbles into tiny constellations beneath its moonlamp, then hovers above them, softly pulsing, as if reading them back to itself.",
+  "usage": {
+    "in": 334,
+    "out": 1248
+  },
+  "cost": 0.026296,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Doodling Daydream Cuttlefish\",\n  \"statement\": \"This thumb-sized cuttlefish drifts through a dusky violet reef like a living sketchbook, doodling stripes, spirals, and almost-letters across its skin whenever curiosity strikes. By night it arranges pale pebbles into tiny constellations beneath its moonlamp, then hovers above them, softly pulsing, as if reading them back to itself.\"\n}\n```"
+}

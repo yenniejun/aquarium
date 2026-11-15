@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 29,
+  "date": "2026-11-14T21:11:23.633Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble-Puffer",
+  "statement": "Drifting through warm teal water lit by dappled sunbeams and towering ribbons of translucent kelp, this round, starry-eyed pufferfish hovers with quiet curiosity above pale quartz sand. Between gentle puffs of silver bubbles, it spends its days sorting iridescent pebbles into neat, glowing constellations around a sunken brass astrolabe.",
+  "usage": {
+    "in": 365,
+    "out": 2120
+  },
+  "cost": 0.0164475,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble-Puffer\",\n  \"statement\": \"Drifting through warm teal water lit by dappled sunbeams and towering ribbons of translucent kelp, this round, starry-eyed pufferfish hovers with quiet curiosity above pale quartz sand. Between gentle puffs of silver bubbles, it spends its days sorting iridescent pebbles into neat, glowing constellations around a sunken brass astrolabe.\"\n}\n```"
+}

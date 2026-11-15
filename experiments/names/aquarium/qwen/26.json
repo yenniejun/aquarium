@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 26,
+  "date": "2026-11-14T21:15:39.803Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Pufferfish",
+  "statement": "A small, round pufferfish drifts motionless above a single smooth stone, staring at it with tremendous concentration, occasionally inflating just slightly as though a thought has become too large to hold. The tank is lit in warm amber, with soft moss on one piece of driftwood and nothing else—just enough world for one quiet mind to turn over a pebble and find it inexhaustible.",
+  "usage": {
+    "in": 359,
+    "out": 1218
+  },
+  "cost": 0.016052,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pufferfish\",\n  \"statement\": \"A small, round pufferfish drifts motionless above a single smooth stone, staring at it with tremendous concentration, occasionally inflating just slightly as though a thought has become too large to hold. The tank is lit in warm amber, with soft moss on one piece of driftwood and nothing else—just enough world for one quiet mind to turn over a pebble and find it inexhaustible.\"\n}\n```"
+}

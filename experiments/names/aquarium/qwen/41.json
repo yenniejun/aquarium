@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 41,
+  "date": "2026-11-14T21:19:19.592Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Gurgling Glimmer",
+  "statement": "A small, round cephalopod no bigger than a walnut, it gurgles contentedly as it rearranges smooth pebbles into tiny cairns, its translucent skin pulsing with slow, warm bioluminescence—like a lantern thinking to itself in a dark, still pool.",
+  "usage": {
+    "in": 359,
+    "out": 1347
+  },
+  "cost": 0.0176,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Gurgling Glimmer\",\n  \"statement\": \"A small, round cephalopod no bigger than a walnut, it gurgles contentedly as it rearranges smooth pebbles into tiny cairns, its translucent skin pulsing with slow, warm bioluminescence—like a lantern thinking to itself in a dark, still pool.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 16,
+  "date": "2026-11-14T21:14:33.743Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moon Snail",
+  "statement": "A soft-footed night archivist, the Murmuring Moon Snail hums in bubbles while combing the sand for lost glints of light. It arranges each find into a tiny constellation, then gently erases the sky and begins again.",
+  "usage": {
+    "in": 410,
+    "out": 323
+  },
+  "cost": 0.0035892,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moon Snail\",\n  \"statement\": \"A soft-footed night archivist, the Murmuring Moon Snail hums in bubbles while combing the sand for lost glints of light. It arranges each find into a tiny constellation, then gently erases the sky and begins again.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 31,
+  "date": "2026-11-14T21:13:26.527Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Bric-a-Brac Blenny",
+  "statement": "Perched among mossy slate shelves in a sun-dappled grotto, this wide-eyed, prism-scaled fish spends its days meticulously sorting sunken marbles and sea-glass shards into neat color gradients. Whenever someone approaches the tank, it pauses its cataloging to hover inches from the glass, tilting its plumed head to curiously study the visitor right back.",
+  "usage": {
+    "in": 365,
+    "out": 1946
+  },
+  "cost": 0.02019,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 31,
+  "reply": "```json\n{\n  \"title\": \"Bric-a-Brac Blenny\",\n  \"statement\": \"Perched among mossy slate shelves in a sun-dappled grotto, this wide-eyed, prism-scaled fish spends its days meticulously sorting sunken marbles and sea-glass shards into neat color gradients. Whenever someone approaches the tank, it pauses its cataloging to hover inches from the glass, tilting its plumed head to curiously study the visitor right back.\"\n}\n```"
+}

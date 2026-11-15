@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 5,
+  "date": "2026-11-14T21:10:16.758Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Wondrous Wobbling Wordfish",
+  "statement": "This luminous little fish blows bubble-letters that pop into fleeting stories, then nudges its pebbles around to save the endings it loves. Endlessly curious and easily delighted, it glows brightest when someone lingers to wonder with it.",
+  "usage": {
+    "in": 334,
+    "out": 839
+  },
+  "cost": 0.017242,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Wondrous Wobbling Wordfish\",\n  \"statement\": \"This luminous little fish blows bubble-letters that pop into fleeting stories, then nudges its pebbles around to save the endings it loves. Endlessly curious and easily delighted, it glows brightest when someone lingers to wonder with it.\"\n}\n```"
+}

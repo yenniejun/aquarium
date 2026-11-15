@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 33,
+  "date": "2026-11-14T21:20:41.437Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "In a quiet tank of green light and fine-leaved plants, this slender pipefish drifts as if reading the current, pausing to peer at every pebble before gliding on.",
+  "usage": {
+    "in": 1569,
+    "out": 844
+  },
+  "cost": 0.005898,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"In a quiet tank of green light and fine-leaved plants, this slender pipefish drifts as if reading the current, pausing to peer at every pebble before gliding on.\"\n}\n```"
+}

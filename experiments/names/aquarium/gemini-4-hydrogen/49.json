@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 49,
+  "date": "2026-11-14T21:12:22.884Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Cataloging Cuttlefish",
+  "statement": "Drifting through twilight-blue water among ribbon kelp and sunken glass bottles, this tidy cephalopod spends its days sorting sea glass and smooth pebbles into neat, color-coded spirals. Whenever it discovers a satisfying new pattern, constellations of warm amber and silver ripple softly across its mantle.",
+  "usage": {
+    "in": 365,
+    "out": 1766
+  },
+  "cost": 0.0137925,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Cataloging Cuttlefish\",\n  \"statement\": \"Drifting through twilight-blue water among ribbon kelp and sunken glass bottles, this tidy cephalopod spends its days sorting sea glass and smooth pebbles into neat, color-coded spirals. Whenever it discovers a satisfying new pattern, constellations of warm amber and silver ripple softly across its mantle.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 16,
+  "date": "2026-11-14T21:10:28.394Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Curating Cuttlefish",
+  "statement": "In a tranquil, amber-lit tank of smooth slate arches and swaying kelp, this pocket-sized cephalopod spends its hours sorting bits of sea glass by shade and rippling soft bioluminescent patterns across its skin whenever someone pauses at the glass. Devoted to quiet order yet delightfully curious, it periodically rearranges its entire collection just to watch the light catch it in a new way.",
+  "usage": {
+    "in": 365,
+    "out": 1600
+  },
+  "cost": 0.0125475,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Curating Cuttlefish\",\n  \"statement\": \"In a tranquil, amber-lit tank of smooth slate arches and swaying kelp, this pocket-sized cephalopod spends its hours sorting bits of sea glass by shade and rippling soft bioluminescent patterns across its skin whenever someone pauses at the glass. Devoted to quiet order yet delightfully curious, it periodically rearranges its entire collection just to watch the light catch it in a new way.\"\n}\n```"
+}

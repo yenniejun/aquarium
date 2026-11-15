@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 13,
+  "date": "2026-11-14T21:10:00.598Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Booping Bubblefin",
+  "statement": "This solitary little fish noses through blue water, its translucent fins glowing softly among velvet moss and moon-white stones. Now and then it boops a bubble toward the glass, then drifts off as if it has made an excellent point.",
+  "usage": {
+    "in": 330,
+    "out": 471
+  },
+  "cost": 0.0002685,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Booping Bubblefin\",\n  \"statement\": \"This solitary little fish noses through blue water, its translucent fins glowing softly among velvet moss and moon-white stones. Now and then it boops a bubble toward the glass, then drifts off as if it has made an excellent point.\"\n}\n```"
+}

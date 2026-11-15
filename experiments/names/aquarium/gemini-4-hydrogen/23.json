@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 23,
+  "date": "2026-11-14T21:11:00.121Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Curating Cuttlefish",
+  "statement": "Drifting through warm, tea-tinted water lit by shafts of dusty gold, this palm-sized cephalopod spends its days quietly arranging smooth river stones, frosted sea glass, and spiral shells into neat, color-graded collections along its mossy slate ledges. Whenever it finishes a particularly satisfying arrangement, soft pastel patterns ripple across its velvety skin like quiet thoughts.",
+  "usage": {
+    "in": 365,
+    "out": 2003
+  },
+  "cost": 0.01557,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Curating Cuttlefish\",\n  \"statement\": \"Drifting through warm, tea-tinted water lit by shafts of dusty gold, this palm-sized cephalopod spends its days quietly arranging smooth river stones, frosted sea glass, and spiral shells into neat, color-graded collections along its mossy slate ledges. Whenever it finishes a particularly satisfying arrangement, soft pastel patterns ripple across its velvety skin like quiet thoughts.\"\n}\n```"
+}

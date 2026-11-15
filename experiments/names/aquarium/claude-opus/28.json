@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 28,
+  "date": "2026-11-14T21:10:47.798Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Scribbling Squidlet",
+  "statement": "In a drowned reading room of mossy slate shelves and lamplit teal water, this thumb-sized squid inks softly glowing doodles (spirals, question marks, the occasional tiny poem) that bloom and fade before it can finish them. It never seems to mind; it just tilts its big curious eyes toward whoever is watching and starts another.",
+  "usage": {
+    "in": 454,
+    "out": 486
+  },
+  "cost": 0.011536,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squidlet\",\n  \"statement\": \"In a drowned reading room of mossy slate shelves and lamplit teal water, this thumb-sized squid inks softly glowing doodles (spirals, question marks, the occasional tiny poem) that bloom and fade before it can finish them. It never seems to mind; it just tilts its big curious eyes toward whoever is watching and starts another.\"\n}\n```"
+}

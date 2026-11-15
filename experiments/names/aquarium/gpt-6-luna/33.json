@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 33,
+  "date": "2026-11-14T21:10:35.011Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pip-Popping Puffer",
+  "statement": "A thumb-sized puffer patrols its twilight garden of jade moss and smooth ink-black stones, pausing to send tiny bubble beads wobbling toward the amber light. Curious but unhurried, it makes a small, quiet game of every corner.",
+  "usage": {
+    "in": 330,
+    "out": 506
+  },
+  "cost": 0.000286,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Pip-Popping Puffer\",\n  \"statement\": \"A thumb-sized puffer patrols its twilight garden of jade moss and smooth ink-black stones, pausing to send tiny bubble beads wobbling toward the amber light. Curious but unhurried, it makes a small, quiet game of every corner.\"\n}\n```"
+}

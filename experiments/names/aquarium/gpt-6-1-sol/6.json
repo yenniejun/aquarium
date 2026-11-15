@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 6,
+  "date": "2026-11-14T21:09:55.708Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Paperfin",
+  "statement": "A palm-sized cuttlefish with parchment-colored skin and pleated, translucent fins putters through a twilight-blue tank, flashing tiny amber freckles whenever it discovers something interesting. Beneath an arch of milky quartz, it patiently arranges smooth pebbles into spirals—then steals one from the middle and considers the problem anew.",
+  "usage": {
+    "in": 330,
+    "out": 303
+  },
+  "cost": 0.00369,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Puttering Paperfin\",\n  \"statement\": \"A palm-sized cuttlefish with parchment-colored skin and pleated, translucent fins putters through a twilight-blue tank, flashing tiny amber freckles whenever it discovers something interesting. Beneath an arch of milky quartz, it patiently arranges smooth pebbles into spirals—then steals one from the middle and considers the problem anew.\"\n}\n```"
+}

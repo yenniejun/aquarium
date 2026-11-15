@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 20,
+  "date": "2026-11-14T21:10:11.631Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonloach",
+  "statement": "This tiny, ribbon-finned loach drifts between mossy stones, its whiskers glowing softly whenever it finds a new hiding place. A pool of deep-blue water and scattered silver leaves make its quiet tank feel like a moonlit secret.",
+  "usage": {
+    "in": 330,
+    "out": 429
+  },
+  "cost": 0.0002475,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonloach\",\n  \"statement\": \"This tiny, ribbon-finned loach drifts between mossy stones, its whiskers glowing softly whenever it finds a new hiding place. A pool of deep-blue water and scattered silver leaves make its quiet tank feel like a moonlit secret.\"\n}\n```"
+}

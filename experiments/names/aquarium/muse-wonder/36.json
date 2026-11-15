@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 36,
+  "date": "2026-11-14T21:15:29.062Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Daydream Seahorse",
+  "statement": "A tiny, iridescent seahorse that doodles looping trails in the glowing sand with its tail and hoards shell 'punctuation' for poems only it can read. It drifts through a sunlit, kelp-canopied tank of coral nooks and lazy bubbles, pausing often to wonder at its own reflections.",
+  "usage": {
+    "in": 334,
+    "out": 1053
+  },
+  "cost": 0.021522,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Doodling Daydream Seahorse\",\n  \"statement\": \"A tiny, iridescent seahorse that doodles looping trails in the glowing sand with its tail and hoards shell 'punctuation' for poems only it can read. It drifts through a sunlit, kelp-canopied tank of coral nooks and lazy bubbles, pausing often to wonder at its own reflections.\"\n}\n```"
+}

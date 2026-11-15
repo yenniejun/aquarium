@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 50,
+  "date": "2026-11-14T21:13:03.910Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clickety-Clack Cuttlefish",
+  "statement": "A palm-sized cuttlefish with copper freckles inhabits a twilight-blue tank furnished with pale sand, ribboning kelp, and a scatter of smooth ceramic tiles. It patiently taps the tiles into winding paths, rippling honey-gold when two pieces fit—then leaves a deliberate gap and hovers there, considering.",
+  "usage": {
+    "in": 330,
+    "out": 385
+  },
+  "cost": 0.00451,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Clickety-Clack Cuttlefish\",\n  \"statement\": \"A palm-sized cuttlefish with copper freckles inhabits a twilight-blue tank furnished with pale sand, ribboning kelp, and a scatter of smooth ceramic tiles. It patiently taps the tiles into winding paths, rippling honey-gold when two pieces fit—then leaves a deliberate gap and hovers there, considering.\"\n}\n```"
+}

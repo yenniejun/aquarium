@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 35,
+  "date": "2026-11-14T22:08:40.027Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Luminous Lacefin",
+  "statement": "The Luminous Lacefin glides through dim blue water, trailing motes of light that stitch its path in midwater like silver thread; when it pauses to fan its lace fins among the wiry plants, the whole tank seems to hold its breath.",
+  "usage": {
+    "in": 352,
+    "out": 2964
+  },
+  "cost": 0.00630952,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 47,
+  "reply": "```json\n{\n  \"title\": \"Luminous Lacefin\",\n  \"statement\": \"The Luminous Lacefin glides through dim blue water, trailing motes of light that stitch its path in midwater like silver thread; when it pauses to fan its lace fins among the wiry plants, the whole tank seems to hold its breath.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 44,
+  "date": "2026-11-14T22:27:19.892Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Peekaboo Peacock Blenny",
+  "statement": "He perches at the mouth of his favorite crevice with his crest cocked, half-in and half-out. When a face appears at the glass, he pops forward to inspect it, then ducks back with a flick of his tail—an endless game of peekaboo.",
+  "usage": {
+    "in": 352,
+    "out": 7203
+  },
+  "cost": 0.0153727,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 143,
+  "reply": "```json\n{\n  \"title\": \"Peekaboo Peacock Blenny\",\n  \"statement\": \"He perches at the mouth of his favorite crevice with his crest cocked, half-in and half-out. When a face appears at the glass, he pops forward to inspect it, then ducks back with a flick of his tail—an endless game of peekaboo.\"\n}\n```"
+}

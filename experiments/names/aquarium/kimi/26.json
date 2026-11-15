@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 26,
+  "date": "2026-11-14T21:17:45.357Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Pondering Pufflet",
+  "statement": "A thumb-sized, lantern-bellied fish that thinks in bubbles, each small thought rising to pop in a faint ring of light. It drifts among silver anemones in midnight-blue water, solemnly rearranging a single moon-white pebble whenever the current seems lonely.",
+  "usage": {
+    "in": 410,
+    "out": 406
+  },
+  "cost": 0.0044192,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pufflet\",\n  \"statement\": \"A thumb-sized, lantern-bellied fish that thinks in bubbles, each small thought rising to pop in a faint ring of light. It drifts among silver anemones in midnight-blue water, solemnly rearranging a single moon-white pebble whenever the current seems lonely.\"\n}\n```"
+}

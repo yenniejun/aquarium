@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 36,
+  "date": "2026-11-14T21:11:13.994Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Ponderous Puffling-Puffer",
+  "statement": "A small, solemn puffer who drifts through the murk of a dim green tank, inflating and deflating in long, thoughtful sighs. It noses a single smooth stone along the sand each night, arranging and rearranging — a quiet philosopher who has decided the stone is important, and refuses to explain why.",
+  "usage": {
+    "in": 342,
+    "out": 91
+  },
+  "cost": 0.00118496,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Ponderous Puffling-Puffer\",\n  \"statement\": \"A small, solemn puffer who drifts through the murk of a dim green tank, inflating and deflating in long, thoughtful sighs. It noses a single smooth stone along the sand each night, arranging and rearranging — a quiet philosopher who has decided the stone is important, and refuses to explain why.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 41,
+  "date": "2026-11-14T22:20:36.518Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Snapping Starlight Shrimp",
+  "statement": "Barely longer than a thumbnail, it snaps its oversized claw shut, and the collapsing bubble flashes for a billionth of a second — a pocket-sized star struck from the dark. In its dim blue tank it performs only when it pleases.",
+  "usage": {
+    "in": 352,
+    "out": 7005
+  },
+  "cost": 0.01479562,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 98,
+  "reply": "```json\n{\n  \"title\": \"Snapping Starlight Shrimp\",\n  \"statement\": \"Barely longer than a thumbnail, it snaps its oversized claw shut, and the collapsing bubble flashes for a billionth of a second — a pocket-sized star struck from the dark. In its dim blue tank it performs only when it pleases.\"\n}\n```"
+}

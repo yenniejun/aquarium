@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 18,
+  "date": "2026-11-14T21:10:36.565Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clicking Constellation Cuttlefish",
+  "statement": "Flashing soft ripples of indigo and warm gold across its velvety mantle, this pocket-sized cephalopod arranges bioluminescent sand into miniature star charts amidst swaying sea ferns and sunken brass astrolabes. Listen closely and you may hear its quiet, rhythmic clicks as it hovers over its glowing constellations, endlessly revising its maps and peeking inquisitively at anyone watching through the glass.",
+  "usage": {
+    "in": 365,
+    "out": 1745
+  },
+  "cost": 0.013635,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Clicking Constellation Cuttlefish\",\n  \"statement\": \"Flashing soft ripples of indigo and warm gold across its velvety mantle, this pocket-sized cephalopod arranges bioluminescent sand into miniature star charts amidst swaying sea ferns and sunken brass astrolabes. Listen closely and you may hear its quiet, rhythmic clicks as it hovers over its glowing constellations, endlessly revising its maps and peeking inquisitively at anyone watching through the glass.\"\n}\n```"
+}

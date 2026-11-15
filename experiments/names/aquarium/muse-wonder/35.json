@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 35,
+  "date": "2026-11-14T21:15:18.918Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Tinkering Twirly Seahorse",
+  "statement": "This pocket-sized seahorse twirls through the kelp collecting lost buttons, shells, and sparkles, then tinkers them into tiny sculptures that are rearranged by morning. If you watch long enough, it will pause, tilt its head, and proudly present its newest masterpiece.",
+  "usage": {
+    "in": 334,
+    "out": 1203
+  },
+  "cost": 0.024522,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Tinkering Twirly Seahorse\",\n  \"statement\": \"This pocket-sized seahorse twirls through the kelp collecting lost buttons, shells, and sparkles, then tinkers them into tiny sculptures that are rearranged by morning. If you watch long enough, it will pause, tilt its head, and proudly present its newest masterpiece.\"\n}\n```"
+}

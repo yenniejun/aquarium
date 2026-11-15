@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 27,
+  "date": "2026-11-14T21:10:23.904Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Mothfin",
+  "statement": "This solitary little fish glides through a dusk-blue tank on translucent, mothlike fins, pausing to listen to the soft fizz of bubbles. Moon-pale stones and gently waving moss make its quiet world feel like a bedtime story underwater.",
+  "usage": {
+    "in": 330,
+    "out": 343
+  },
+  "cost": 0.0002045,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mothfin\",\n  \"statement\": \"This solitary little fish glides through a dusk-blue tank on translucent, mothlike fins, pausing to listen to the soft fizz of bubbles. Moon-pale stones and gently waving moss make its quiet world feel like a bedtime story underwater.\"\n}\n```"
+}

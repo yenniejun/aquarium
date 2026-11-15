@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 45,
+  "date": "2026-11-14T21:24:06.544Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Doodling Dumbo",
+  "statement": "In a hushed midnight-blue tank, a tiny dumbo octopus trails pearly light from its fingertips, doodling constellations above a single smooth stone. It studies each invention with great seriousness, then flaps it gently away—delighted by the question, not the answer.",
+  "usage": {
+    "in": 410,
+    "out": 368
+  },
+  "cost": 0.0040392,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo\",\n  \"statement\": \"In a hushed midnight-blue tank, a tiny dumbo octopus trails pearly light from its fingertips, doodling constellations above a single smooth stone. It studies each invention with great seriousness, then flaps it gently away—delighted by the question, not the answer.\"\n}\n```"
+}

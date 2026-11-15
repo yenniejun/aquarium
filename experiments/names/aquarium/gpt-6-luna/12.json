@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 12,
+  "date": "2026-11-14T21:09:57.854Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Glimmer Gurglefish",
+  "statement": "This solitary, moon-pale fish loops through a miniature dusk of moss and slate, its glassy throat blinking with each breath. Now and then it releases a chain of bubbles—an underwater melody that rises only as far as the tank allows.",
+  "usage": {
+    "in": 330,
+    "out": 434
+  },
+  "cost": 0.00025,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Glimmer Gurglefish\",\n  \"statement\": \"This solitary, moon-pale fish loops through a miniature dusk of moss and slate, its glassy throat blinking with each breath. Now and then it releases a chain of bubbles—an underwater melody that rises only as far as the tank allows.\"\n}\n```"
+}

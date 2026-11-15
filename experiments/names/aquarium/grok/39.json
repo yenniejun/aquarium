@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 39,
+  "date": "2026-11-14T21:23:01.823Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "A slender, slow-drifting pipefish hangs among soft green weeds, turning its small bright eye toward every flicker as if listening. The tank is quiet and clear, lit like late afternoon, with room enough for one long, unhurried thought.",
+  "usage": {
+    "in": 1569,
+    "out": 648
+  },
+  "cost": 0.004722,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"A slender, slow-drifting pipefish hangs among soft green weeds, turning its small bright eye toward every flicker as if listening. The tank is quiet and clear, lit like late afternoon, with room enough for one long, unhurried thought.\"\n}\n```"
+}

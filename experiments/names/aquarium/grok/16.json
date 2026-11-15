@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 16,
+  "date": "2026-11-14T21:14:55.623Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "A slender pipefish hovers in warm amber light among smooth river stones, pausing as if to read each small current. It keeps close to the glass, quiet and precise, delighted by details no one else has noticed yet.",
+  "usage": {
+    "in": 1569,
+    "out": 744
+  },
+  "cost": 0.005298,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"A slender pipefish hovers in warm amber light among smooth river stones, pausing as if to read each small current. It keeps close to the glass, quiet and precise, delighted by details no one else has noticed yet.\"\n}\n```"
+}

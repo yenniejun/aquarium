@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 15,
+  "date": "2026-11-14T21:38:24.866Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Bubbling Babel Blenny",
+  "statement": "A pocket-sized fish with a taste for language, blowing bubble-nests into drifting shapes and nudging pebbles into tiny sentences. It settles onto its favorite smooth stone to watch you back with one calm, unblinking eye.",
+  "usage": {
+    "in": 352,
+    "out": 3447
+  },
+  "cost": 0.00732382,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 64,
+  "reply": "```json\n{\n  \"title\": \"Bubbling Babel Blenny\",\n  \"statement\": \"A pocket-sized fish with a taste for language, blowing bubble-nests into drifting shapes and nudging pebbles into tiny sentences. It settles onto its favorite smooth stone to watch you back with one calm, unblinking eye.\"\n}\n```"
+}

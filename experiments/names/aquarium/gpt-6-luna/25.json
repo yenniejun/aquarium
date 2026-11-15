@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 25,
+  "date": "2026-11-14T21:10:22.565Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Bubbling Bellfish",
+  "statement": "This small freshwater fish drifts beneath a crooked driftwood arch, its translucent bell-shaped fins pulsing softly as silver bubbles gather along its whiskers. A dim, blue-green tank and a bed of pale sand make its slow, lantern-like gliding feel like a secret worth sitting still for.",
+  "usage": {
+    "in": 330,
+    "out": 546
+  },
+  "cost": 0.000306,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Bubbling Bellfish\",\n  \"statement\": \"This small freshwater fish drifts beneath a crooked driftwood arch, its translucent bell-shaped fins pulsing softly as silver bubbles gather along its whiskers. A dim, blue-green tank and a bed of pale sand make its slow, lantern-like gliding feel like a secret worth sitting still for.\"\n}\n```"
+}

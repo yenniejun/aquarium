@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 43,
+  "date": "2026-11-14T21:16:38.087Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Daydreaming Doodle Squid",
+  "statement": "A thumb-sized, opalescent squid that doodles fleeting ink stories and questions in the water, then erases them to wonder anew. Its tank is a cozy, glowing library reef where it trades a bubble for a daydream and naps inside a teacup coral.",
+  "usage": {
+    "in": 334,
+    "out": 1030
+  },
+  "cost": 0.021062,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Daydreaming Doodle Squid\",\n  \"statement\": \"A thumb-sized, opalescent squid that doodles fleeting ink stories and questions in the water, then erases them to wonder anew. Its tank is a cozy, glowing library reef where it trades a bubble for a daydream and naps inside a teacup coral.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 28,
+  "date": "2026-11-14T21:14:06.284Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Daydreaming Dappled Cuttlefish",
+  "statement": "This gentle cuttlefish drifts through a cozy, sun-dappled grotto of shell-books and glowing kelp, its skin rippling with constellations and question marks as it wonders. Now and then it puffs a tiny ink-cloud daydream, watches it bloom into a story, then happily rearranges its pebble library to match.",
+  "usage": {
+    "in": 334,
+    "out": 1030
+  },
+  "cost": 0.021062,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Daydreaming Dappled Cuttlefish\",\n  \"statement\": \"This gentle cuttlefish drifts through a cozy, sun-dappled grotto of shell-books and glowing kelp, its skin rippling with constellations and question marks as it wonders. Now and then it puffs a tiny ink-cloud daydream, watches it bloom into a story, then happily rearranges its pebble library to match.\"\n}\n```"
+}

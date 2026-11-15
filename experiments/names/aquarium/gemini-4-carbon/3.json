@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 3,
+  "date": "2026-11-14T21:09:55.486Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Squiggling Scribble Squid",
+  "statement": "Dwelling in a twilight-blue grotto of mossy slate and tumbled sea glass, this pint-sized cephalopod ripples with shifting, calligraphic patterns and warm bioluminescent gold whenever its curiosity is piqued. It spends its days meticulously arranging smooth pebbles into intricate spirals across the sandy floor, pausing every so often to hover at the glass and study its visitors right back.",
+  "usage": {
+    "in": 365,
+    "out": 1380
+  },
+  "cost": 0.01453,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 25,
+  "reply": "```json\n{\n  \"title\": \"Squiggling Scribble Squid\",\n  \"statement\": \"Dwelling in a twilight-blue grotto of mossy slate and tumbled sea glass, this pint-sized cephalopod ripples with shifting, calligraphic patterns and warm bioluminescent gold whenever its curiosity is piqued. It spends its days meticulously arranging smooth pebbles into intricate spirals across the sandy floor, pausing every so often to hover at the glass and study its visitors right back.\"\n}\n```"
+}

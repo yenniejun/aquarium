@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 49,
+  "date": "2026-11-14T21:21:28.800Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Bumbling Bobtail",
+  "statement": "A small, round bobtail squid that spends most of its time buried in warm sand with only its wide eyes peeking out, occasionally jetting up in a clumsy little arc before drifting back down in a soft blue glow—as if it just thought of something delightful and couldn't keep the light in.",
+  "usage": {
+    "in": 359,
+    "out": 1372
+  },
+  "cost": 0.0179,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Bumbling Bobtail\",\n  \"statement\": \"A small, round bobtail squid that spends most of its time buried in warm sand with only its wide eyes peeking out, occasionally jetting up in a clumsy little arc before drifting back down in a soft blue glow—as if it just thought of something delightful and couldn't keep the light in.\"\n}\n```"
+}

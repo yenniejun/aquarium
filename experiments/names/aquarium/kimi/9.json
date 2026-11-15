@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 9,
+  "date": "2026-11-14T21:12:23.809Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonjelly",
+  "statement": "A lantern-pale jellyfish that pulses in slow, thoughtful rhythms, scattering constellations of blue light through a midnight tank of silver kelp and smooth black stones. Between drifts, it gathers bubbles into tiny spirals, then lets them go—small questions with no need for answers.",
+  "usage": {
+    "in": 410,
+    "out": 413
+  },
+  "cost": 0.0044892,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonjelly\",\n  \"statement\": \"A lantern-pale jellyfish that pulses in slow, thoughtful rhythms, scattering constellations of blue light through a midnight tank of silver kelp and smooth black stones. Between drifts, it gathers bubbles into tiny spirals, then lets them go—small questions with no need for answers.\"\n}\n```"
+}

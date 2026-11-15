@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 50,
+  "date": "2026-11-14T21:11:07.268Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Mothfin",
+  "statement": "This palm-sized fish has velvety dusk-blue scales and broad, moth-wing pectoral fins; it hovers among pale stones, stirring tiny spirals of sand whenever it dreams. In its moonlit tank of soft moss and silver bubbles, every quiet turn feels like a thought.",
+  "usage": {
+    "in": 330,
+    "out": 412
+  },
+  "cost": 0.000239,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mothfin\",\n  \"statement\": \"This palm-sized fish has velvety dusk-blue scales and broad, moth-wing pectoral fins; it hovers among pale stones, stirring tiny spirals of sand whenever it dreams. In its moonlit tank of soft moss and silver bubbles, every quiet turn feels like a thought.\"\n}\n```"
+}

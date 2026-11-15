@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 10,
+  "date": "2026-11-14T21:09:53.928Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Moray Eel",
+  "statement": "The Murmuring Moray is a shy, silvery eel who lives in a woven hollow of driftwood and soft green kelp, peeking out only when the light dims to violet. It hums to itself in tiny bubbles—soft, bubbling murmurs that rise and pop at the surface like it's telling the tank a secret it will never quite share.",
+  "usage": {
+    "in": 342,
+    "out": 101
+  },
+  "cost": 0.00127296,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moray Eel\",\n  \"statement\": \"The Murmuring Moray is a shy, silvery eel who lives in a woven hollow of driftwood and soft green kelp, peeking out only when the light dims to violet. It hums to itself in tiny bubbles—soft, bubbling murmurs that rise and pop at the surface like it's telling the tank a secret it will never quite share.\"\n}\n```"
+}

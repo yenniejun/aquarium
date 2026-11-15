@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 23,
+  "date": "2026-11-14T21:16:45.788Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Bubbling Biblioblenny",
+  "statement": "A thumb-sized, opalescent blenny who files stray bubbles beneath a paper-white anemone, releasing each only after thinking of a better question. Its midnight-blue tank is a tiny reading room of moonlit coral, where every visitor is followed—very politely—by one bright golden eye.",
+  "usage": {
+    "in": 410,
+    "out": 400
+  },
+  "cost": 0.0043592,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Bubbling Biblioblenny\",\n  \"statement\": \"A thumb-sized, opalescent blenny who files stray bubbles beneath a paper-white anemone, releasing each only after thinking of a better question. Its midnight-blue tank is a tiny reading room of moonlit coral, where every visitor is followed—very politely—by one bright golden eye.\"\n}\n```"
+}

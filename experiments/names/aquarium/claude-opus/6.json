@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 6,
+  "date": "2026-11-14T21:09:48.490Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Curious Cartographer Cuttlefish",
+  "statement": "This gentle cuttlefish drifts through twilight-blue water among sea-glass pebbles and a half-buried brass compass, slowly sketching a glowing golden map of everything it has explored across its own shifting skin. Each evening it lets the map fade and begins again, just as delighted the second time, and it pauses at the glass to add each new visitor's face to the margins.",
+  "usage": {
+    "in": 454,
+    "out": 648
+  },
+  "cost": 0.014776,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Curious Cartographer Cuttlefish\",\n  \"statement\": \"This gentle cuttlefish drifts through twilight-blue water among sea-glass pebbles and a half-buried brass compass, slowly sketching a glowing golden map of everything it has explored across its own shifting skin. Each evening it lets the map fade and begins again, just as delighted the second time, and it pauses at the glass to add each new visitor's face to the margins.\"\n}\n```"
+}

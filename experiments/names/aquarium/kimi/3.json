@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 3,
+  "date": "2026-11-14T21:10:29.300Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Blooping Bibliophish",
+  "statement": "A tiny, pearly fish drifts through a moonlit library of eelgrass, solemnly studying the bubbles it writes with its nose. It files each finished thought beneath a smooth stone, then celebrates with one very small bloop.",
+  "usage": {
+    "in": 410,
+    "out": 497
+  },
+  "cost": 0.0053292,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 25,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bibliophish\",\n  \"statement\": \"A tiny, pearly fish drifts through a moonlit library of eelgrass, solemnly studying the bubbles it writes with its nose. It files each finished thought beneath a smooth stone, then celebrates with one very small bloop.\"\n}\n```"
+}

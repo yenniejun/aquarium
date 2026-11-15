@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 20,
+  "date": "2026-11-14T21:11:40.808Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Squiggling Scribble Squid",
+  "statement": "Darting curiously through a sunlit tangle of swaying glass-kelp and sunken brass astrolabes, this thumb-sized, translucent cephalopod ripples with shifting constellations and hasty, unreadable doodles across its skin. Whenever a visitor pauses at the tank, it hovers upside-down in greeting and puffs out a single, shimmering ring of golden ink that hangs in the water like a floating question mark.",
+  "usage": {
+    "in": 365,
+    "out": 1640
+  },
+  "cost": 0.01713,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 25,
+  "reply": "```json\n{\n  \"title\": \"Squiggling Scribble Squid\",\n  \"statement\": \"Darting curiously through a sunlit tangle of swaying glass-kelp and sunken brass astrolabes, this thumb-sized, translucent cephalopod ripples with shifting constellations and hasty, unreadable doodles across its skin. Whenever a visitor pauses at the tank, it hovers upside-down in greeting and puffs out a single, shimmering ring of golden ink that hangs in the water like a floating question mark.\"\n}\n```"
+}

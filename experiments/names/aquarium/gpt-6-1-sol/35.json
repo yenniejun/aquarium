@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 35,
+  "date": "2026-11-14T21:12:04.788Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pleatfin",
+  "statement": "A thumb-sized cuttlefish with accordion fins putters through a tank of midnight-blue water, pale sand, and basalt arches, flashing apricot whenever it discovers a new way through an old hole. It spends each evening arranging smooth pebbles into increasingly elaborate doorways, then squeezes delightedly through the gap it forgot to leave.",
+  "usage": {
+    "in": 330,
+    "out": 288
+  },
+  "cost": 0.00354,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pleatfin\",\n  \"statement\": \"A thumb-sized cuttlefish with accordion fins putters through a tank of midnight-blue water, pale sand, and basalt arches, flashing apricot whenever it discovers a new way through an old hole. It spends each evening arranging smooth pebbles into increasingly elaborate doorways, then squeezes delightedly through the gap it forgot to leave.\"\n}\n```"
+}

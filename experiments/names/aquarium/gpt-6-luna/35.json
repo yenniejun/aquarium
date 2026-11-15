@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 35,
+  "date": "2026-11-14T21:10:38.636Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pocket Octopus",
+  "statement": "This tiny octopus drifts through a blue-lit pebble garden, its pearly arms pulsing like quiet little lanterns. When it finds a shell, it turns it over and over, as if listening for a secret inside.",
+  "usage": {
+    "in": 330,
+    "out": 380
+  },
+  "cost": 0.000223,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pocket Octopus\",\n  \"statement\": \"This tiny octopus drifts through a blue-lit pebble garden, its pearly arms pulsing like quiet little lanterns. When it finds a shell, it turns it over and over, as if listening for a secret inside.\"\n}\n```"
+}

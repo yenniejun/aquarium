@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 27,
+  "date": "2026-11-14T21:09:54.331Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Wobbling Waffle Wrasse",
+  "statement": "A golden, grid-patterned wrasse that swims in lazy loops and pauses now and then to wobble, as if she has just remembered something delightful. She drifts through a tank of warm amber light, soft teal plants and a teacup-shaped coral cave, where she collects tiny bubbles in her dimples and releases them with a faint, happy 'bloop'.",
+  "usage": {
+    "in": 454,
+    "out": 155
+  },
+  "cost": 0.002458,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Wobbling Waffle Wrasse\",\n  \"statement\": \"A golden, grid-patterned wrasse that swims in lazy loops and pauses now and then to wobble, as if she has just remembered something delightful. She drifts through a tank of warm amber light, soft teal plants and a teacup-shaped coral cave, where she collects tiny bubbles in her dimples and releases them with a faint, happy 'bloop'.\"\n}\n```"
+}

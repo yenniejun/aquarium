@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 33,
+  "date": "2026-11-14T21:13:31.237Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Click-Clack Curio Cuttlefish",
+  "statement": "Nestled in a twilight-blue grotto of sunken brass astrolabes and softly glowing kelp, this pint-sized cephalopod spends its days briskly tapping bits of sea glass and smooth pebbles into intricate, ever-shifting mosaics. Whenever a visitor leans close, its skin ripples with warm amber constellations as it eagerly shuffles its collection into a brand-new riddle.",
+  "usage": {
+    "in": 365,
+    "out": 1666
+  },
+  "cost": 0.01739,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"Click-Clack Curio Cuttlefish\",\n  \"statement\": \"Nestled in a twilight-blue grotto of sunken brass astrolabes and softly glowing kelp, this pint-sized cephalopod spends its days briskly tapping bits of sea glass and smooth pebbles into intricate, ever-shifting mosaics. Whenever a visitor leans close, its skin ripples with warm amber constellations as it eagerly shuffles its collection into a brand-new riddle.\"\n}\n```"
+}

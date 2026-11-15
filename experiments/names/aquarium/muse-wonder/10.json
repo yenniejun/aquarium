@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 10,
+  "date": "2026-11-14T21:11:10.097Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Blooping Bookish Betta",
+  "statement": "This betta blows bubble nests shaped like punctuation marks and fans out, all ears, whenever a good story drifts by. It is happiest rearranging its pebble library and daydreaming in full, iridescent color.",
+  "usage": {
+    "in": 334,
+    "out": 1428
+  },
+  "cost": 0.029022,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bookish Betta\",\n  \"statement\": \"This betta blows bubble nests shaped like punctuation marks and fans out, all ears, whenever a good story drifts by. It is happiest rearranging its pebble library and daydreaming in full, iridescent color.\"\n}\n```"
+}

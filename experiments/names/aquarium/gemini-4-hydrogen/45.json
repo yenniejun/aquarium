@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 45,
+  "date": "2026-11-14T21:12:10.832Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Noodling Nautilus",
+  "statement": "Drifting through softly lit indigo water speckled with glowing sea-glass pebbles, this daydreaming cephalopod spends its quiet hours nudging shells and sunken trinkets into tidy spiral patterns along the sand. Whenever something unfamiliar floats past the glass, its dozens of tiny tentacles curl into neat question marks as it hovers, endlessly curious, in the gentle current.",
+  "usage": {
+    "in": 365,
+    "out": 2583
+  },
+  "cost": 0.01992,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nautilus\",\n  \"statement\": \"Drifting through softly lit indigo water speckled with glowing sea-glass pebbles, this daydreaming cephalopod spends its quiet hours nudging shells and sunken trinkets into tidy spiral patterns along the sand. Whenever something unfamiliar floats past the glass, its dozens of tiny tentacles curl into neat question marks as it hovers, endlessly curious, in the gentle current.\"\n}\n```"
+}

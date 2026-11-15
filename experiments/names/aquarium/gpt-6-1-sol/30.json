@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 30,
+  "date": "2026-11-14T21:11:40.639Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepus",
+  "statement": "An ink-blue octopus with copper freckles putters through a tank of milky glass arches, soft white sand, and long ribbons of green, carrying pebbles tucked into its curled arms. Beneath a puddle of amber light, it assembles elaborate spirals, pauses to consider them, then moves just one stone—occasionally abandoning the whole enterprise to investigate its own reflection.",
+  "usage": {
+    "in": 330,
+    "out": 311
+  },
+  "cost": 0.00377,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepus\",\n  \"statement\": \"An ink-blue octopus with copper freckles putters through a tank of milky glass arches, soft white sand, and long ribbons of green, carrying pebbles tucked into its curled arms. Beneath a puddle of amber light, it assembles elaborate spirals, pauses to consider them, then moves just one stone—occasionally abandoning the whole enterprise to investigate its own reflection.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 8,
+  "date": "2026-11-14T21:12:27.846Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Murmuring Mosaic Cuttle",
+  "statement": "In water the color of late afternoon, a small cuttlefish revises the light across its skin—one careful sentence at a time—while seagrass leans in as if to listen.",
+  "usage": {
+    "in": 1569,
+    "out": 1141
+  },
+  "cost": 0.00768,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mosaic Cuttle\",\n  \"statement\": \"In water the color of late afternoon, a small cuttlefish revises the light across its skin—one careful sentence at a time—while seagrass leans in as if to listen.\"\n}\n```"
+}

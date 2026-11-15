@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 26,
+  "date": "2026-11-14T21:13:45.488Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "A rosy, ear-flapping octopus who lives in a sunlit teapot library, doodling stars in harmless ink and turning lavender at every good idea. By night it rearranges smooth pebbles into tiny poems and waves at anyone willing to wonder along.",
+  "usage": {
+    "in": 334,
+    "out": 992
+  },
+  "cost": 0.020302,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"A rosy, ear-flapping octopus who lives in a sunlit teapot library, doodling stars in harmless ink and turning lavender at every good idea. By night it rearranges smooth pebbles into tiny poems and waves at anyone willing to wonder along.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 3,
+  "date": "2026-11-14T21:09:33.502Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pondering Pearl Pufferfish",
+  "statement": "A small, thoughtful pufferfish who collects single grains of glowing sand and carries them in her mouth to a quiet pearl-shaped stone at the center of her tank. When she's pleased with her arrangement, she puffs up into a soft, round lantern and hovers in the amber light, wobbling slightly. Around her, slow ribbons of kelp and a few lopsided teacups sway in the current.",
+  "usage": {
+    "in": 454,
+    "out": 169
+  },
+  "cost": 0.002598,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pearl Pufferfish\",\n  \"statement\": \"A small, thoughtful pufferfish who collects single grains of glowing sand and carries them in her mouth to a quiet pearl-shaped stone at the center of her tank. When she's pleased with her arrangement, she puffs up into a soft, round lantern and hovers in the amber light, wobbling slightly. Around her, slow ribbons of kelp and a few lopsided teacups sway in the current.\"\n}\n```"
+}

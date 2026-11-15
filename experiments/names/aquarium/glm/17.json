@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 17,
+  "date": "2026-11-14T21:10:09.522Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Moonmop",
+  "statement": "A drifting, mop-like creature of pale tendrils that shivers gently when spoken to, Murmuring Moonmop glows faintly silver in dim tanks — half companion, half puddle of static, it seems to be quietly listening.",
+  "usage": {
+    "in": 342,
+    "out": 73
+  },
+  "cost": 0.00102656,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmop\",\n  \"statement\": \"A drifting, mop-like creature of pale tendrils that shivers gently when spoken to, Murmuring Moonmop glows faintly silver in dim tanks — half companion, half puddle of static, it seems to be quietly listening.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 47,
+  "date": "2026-11-14T21:17:21.782Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Daydream-Drifting Doodlefish",
+  "statement": "A thumb-sized iridescent fish that paints fleeting doodles in the current with its ribbon tail. It drifts through a tiny sunken library, rearranging pebble-poems and chasing glowing bubbles whenever a new idea catches its fancy.",
+  "usage": {
+    "in": 334,
+    "out": 970
+  },
+  "cost": 0.019862,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Daydream-Drifting Doodlefish\",\n  \"statement\": \"A thumb-sized iridescent fish that paints fleeting doodles in the current with its ribbon tail. It drifts through a tiny sunken library, rearranging pebble-poems and chasing glowing bubbles whenever a new idea catches its fancy.\"\n}\n```"
+}

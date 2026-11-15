@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 17,
+  "date": "2026-11-14T21:13:41.597Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Muttering Mantle",
+  "statement": "A small, pensive cuttlefish that hovers in dim teal water, its skin rippling with slow, half-finished color patterns like thoughts it keeps revising. It nudges a single smooth pebble into new positions among the dark stones, murmuring in chromatic whispers to no one in particular.",
+  "usage": {
+    "in": 359,
+    "out": 1055
+  },
+  "cost": 0.014096,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Muttering Mantle\",\n  \"statement\": \"A small, pensive cuttlefish that hovers in dim teal water, its skin rippling with slow, half-finished color patterns like thoughts it keeps revising. It nudges a single smooth pebble into new positions among the dark stones, murmuring in chromatic whispers to no one in particular.\"\n}\n```"
+}

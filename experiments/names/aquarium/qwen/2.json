@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 2,
+  "date": "2026-11-14T21:09:59.841Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Baffled Bobtail",
+  "statement": "A small, round bobtail squid hovers just above the sand, blinking its wide eyes and cycling through soft amber-and-lavender hues as though turning over a thought it can never quite finish. The tank is lit warm and low, with a few smooth river stones and one curl of dark driftwood, and the water is still enough that you can almost hear it thinking.",
+  "usage": {
+    "in": 359,
+    "out": 1119
+  },
+  "cost": 0.014864,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Baffled Bobtail\",\n  \"statement\": \"A small, round bobtail squid hovers just above the sand, blinking its wide eyes and cycling through soft amber-and-lavender hues as though turning over a thought it can never quite finish. The tank is lit warm and low, with a few smooth river stones and one curl of dark driftwood, and the water is still enough that you can almost hear it thinking.\"\n}\n```"
+}

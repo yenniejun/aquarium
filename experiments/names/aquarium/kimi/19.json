@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 19,
+  "date": "2026-11-14T21:15:27.679Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Mooncuttle",
+  "statement": "A palm-sized cuttlefish drifts through midnight-blue water, sketching half-formed thoughts in silver ripples before shyly erasing them with a fin. It tends a tiny garden of glass anemones and pauses each evening before a round shell-mirror to invent colors no one has named yet.",
+  "usage": {
+    "in": 410,
+    "out": 402
+  },
+  "cost": 0.0043792,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mooncuttle\",\n  \"statement\": \"A palm-sized cuttlefish drifts through midnight-blue water, sketching half-formed thoughts in silver ripples before shyly erasing them with a fin. It tends a tiny garden of glass anemones and pauses each evening before a round shell-mirror to invent colors no one has named yet.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 46,
+  "date": "2026-11-14T21:12:49.359Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepus",
+  "statement": "A palm-sized, ink-blue octopus with custard-yellow suckers putters through a tank of ribbon grass, smoky glass pebbles, and honey-colored light, arranging little spirals with its arms. Whenever a spiral looks finished, it thoughtfully moves one pebble—except at bedtime, when it curls into the center and becomes the missing piece.",
+  "usage": {
+    "in": 330,
+    "out": 319
+  },
+  "cost": 0.00385,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepus\",\n  \"statement\": \"A palm-sized, ink-blue octopus with custard-yellow suckers putters through a tank of ribbon grass, smoky glass pebbles, and honey-colored light, arranging little spirals with its arms. Whenever a spiral looks finished, it thoughtfully moves one pebble—except at bedtime, when it curls into the center and becomes the missing piece.\"\n}\n```"
+}

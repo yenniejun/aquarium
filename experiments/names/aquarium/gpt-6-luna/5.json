@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 5,
+  "date": "2026-11-14T21:09:41.046Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonmoth",
+  "statement": "A small, silvery mothfish paddles through the water on soft, fringed fins, leaving a faint shimmer wherever it turns. In its dim, blue-green tank, mossy stones and a single swaying fern make a quiet little night sky beneath the surface.",
+  "usage": {
+    "in": 330,
+    "out": 261
+  },
+  "cost": 0.0001635,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmoth\",\n  \"statement\": \"A small, silvery mothfish paddles through the water on soft, fringed fins, leaving a faint shimmer wherever it turns. In its dim, blue-green tank, mossy stones and a single swaying fern make a quiet little night sky beneath the surface.\"\n}\n```"
+}

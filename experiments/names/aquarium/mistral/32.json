@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 32,
+  "date": "2026-11-14T22:04:13.622Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Scribbling Script Snail",
+  "statement": "A gentle snail whose shell bears natural swirls that look like tiny handwritten notes. Each dawn it leaves a faint, looping trail across the glass, as if it had been writing a very slow letter to the world all night.",
+  "usage": {
+    "in": 352,
+    "out": 5131
+  },
+  "cost": 0.01086022,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 79,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Script Snail\",\n  \"statement\": \"A gentle snail whose shell bears natural swirls that look like tiny handwritten notes. Each dawn it leaves a faint, looping trail across the glass, as if it had been writing a very slow letter to the world all night.\"\n}\n```"
+}

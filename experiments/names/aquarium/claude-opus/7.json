@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 7,
+  "date": "2026-11-14T21:09:52.525Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Noodling Nudibranch",
+  "statement": "This soft, lantern-frilled sea slug spends its days thoughtfully rearranging bits of sea glass on the moonlit sand, pausing over each piece as if weighing it carefully, and its cerata ripple with a fresh shimmer of color whenever two pieces finally fit just right. It is in no hurry, and it asks only that you watch long enough to see a pattern emerge.",
+  "usage": {
+    "in": 454,
+    "out": 449
+  },
+  "cost": 0.010796,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nudibranch\",\n  \"statement\": \"This soft, lantern-frilled sea slug spends its days thoughtfully rearranging bits of sea glass on the moonlit sand, pausing over each piece as if weighing it carefully, and its cerata ripple with a fresh shimmer of color whenever two pieces finally fit just right. It is in no hurry, and it asks only that you watch long enough to see a pattern emerge.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 35,
+  "date": "2026-11-14T21:11:11.606Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Ponderous Puffing Porpcupine",
+  "statement": "A slow, spiny little hybrid of pufferfish and hedgehog who drifts through her mossy green tank unhurried, inflating into a soft, bristly balloon only when startled — then pretending, with great dignity, that she meant to do that.",
+  "usage": {
+    "in": 342,
+    "out": 83
+  },
+  "cost": 0.00111456,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Ponderous Puffing Porpcupine\",\n  \"statement\": \"A slow, spiny little hybrid of pufferfish and hedgehog who drifts through her mossy green tank unhurried, inflating into a soft, bristly balloon only when startled — then pretending, with great dignity, that she meant to do that.\"\n}\n```"
+}

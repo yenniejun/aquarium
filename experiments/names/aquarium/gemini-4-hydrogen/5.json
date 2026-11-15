@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 5,
+  "date": "2026-11-14T21:10:01.181Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pattern-Puffer",
+  "statement": "Inside a crystalline tank of warm sunbeams, swaying ribbon-grass, and smooth river pebbles, this plump little pufferfish spends its days fanning intricate, shifting mandalas into the pale sand. Whenever a gentle current smooths its work away, it puffs a quiet bubble and immediately begins a brand-new pattern.",
+  "usage": {
+    "in": 365,
+    "out": 3070
+  },
+  "cost": 0.0235725,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pattern-Puffer\",\n  \"statement\": \"Inside a crystalline tank of warm sunbeams, swaying ribbon-grass, and smooth river pebbles, this plump little pufferfish spends its days fanning intricate, shifting mandalas into the pale sand. Whenever a gentle current smooths its work away, it puffs a quiet bubble and immediately begins a brand-new pattern.\"\n}\n```"
+}

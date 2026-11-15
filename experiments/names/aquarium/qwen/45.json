@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 45,
+  "date": "2026-11-14T21:20:30.772Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Scribbling Sepia",
+  "statement": "A small, round cuttlefish whose chromatophores ripple in slow, looping waves across its mantle, as though it is quietly composing sentences only it can read. It hovers above a bed of smooth terracotta pebbles in warm amber light, occasionally releasing a tiny curl of ink that drifts upward and dissolves like a half-formed thought.",
+  "usage": {
+    "in": 359,
+    "out": 1704
+  },
+  "cost": 0.021884,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Sepia\",\n  \"statement\": \"A small, round cuttlefish whose chromatophores ripple in slow, looping waves across its mantle, as though it is quietly composing sentences only it can read. It hovers above a bed of smooth terracotta pebbles in warm amber light, occasionally releasing a tiny curl of ink that drifts upward and dissolves like a half-formed thought.\"\n}\n```"
+}

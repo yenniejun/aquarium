@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 46,
+  "date": "2026-11-14T21:10:58.728Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Velvet Vortex Shrimp",
+  "statement": "This tiny, opalescent shrimp loops through moonlit water, its feathery antennae stirring slow spirals among mossy stones. At rest, it tucks itself into a pocket of velvet-dark basalt, like a secret folded into the deep.",
+  "usage": {
+    "in": 330,
+    "out": 434
+  },
+  "cost": 0.00025,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Velvet Vortex Shrimp\",\n  \"statement\": \"This tiny, opalescent shrimp loops through moonlit water, its feathery antennae stirring slow spirals among mossy stones. At rest, it tucks itself into a pocket of velvet-dark basalt, like a secret folded into the deep.\"\n}\n```"
+}

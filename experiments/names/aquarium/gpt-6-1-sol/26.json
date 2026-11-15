@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 26,
+  "date": "2026-11-14T21:11:27.586Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble Cuttlefish",
+  "statement": "A thumb-sized cuttlefish with opalescent skin putters through a midnight-blue tank, where a single amber light pools over ivory sand and smooth turquoise pebbles. It patiently stacks the pebbles into improbable little doorways, flashes butter-yellow when one stays upright, then squeezes through sideways to investigate its own handiwork.",
+  "usage": {
+    "in": 330,
+    "out": 393
+  },
+  "cost": 0.00459,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble Cuttlefish\",\n  \"statement\": \"A thumb-sized cuttlefish with opalescent skin putters through a midnight-blue tank, where a single amber light pools over ivory sand and smooth turquoise pebbles. It patiently stacks the pebbles into improbable little doorways, flashes butter-yellow when one stays upright, then squeezes through sideways to investigate its own handiwork.\"\n}\n```"
+}

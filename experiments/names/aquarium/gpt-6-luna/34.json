@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 34,
+  "date": "2026-11-14T21:10:35.252Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Lullaby Lantern Loach",
+  "statement": "This solitary loach drifts through a dusky garden of smooth blue stones, its translucent fins trailing like soft ribbons. Tiny lights along its sides glow brighter whenever it pauses, turning the quiet tank into a little underwater night sky.",
+  "usage": {
+    "in": 330,
+    "out": 270
+  },
+  "cost": 0.000168,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"Lullaby Lantern Loach\",\n  \"statement\": \"This solitary loach drifts through a dusky garden of smooth blue stones, its translucent fins trailing like soft ribbons. Tiny lights along its sides glow brighter whenever it pauses, turning the quiet tank into a little underwater night sky.\"\n}\n```"
+}

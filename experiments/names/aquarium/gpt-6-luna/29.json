@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 29,
+  "date": "2026-11-14T21:10:26.981Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Doodling Driftfin",
+  "statement": "This solitary, opalescent fish paddles through a dusky-blue garden, its long ribbon fins sketching delicate spirals in the sand. Each morning, the current gently erases its drawings—and it begins again.",
+  "usage": {
+    "in": 330,
+    "out": 327
+  },
+  "cost": 0.0001965,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"Doodling Driftfin\",\n  \"statement\": \"This solitary, opalescent fish paddles through a dusky-blue garden, its long ribbon fins sketching delicate spirals in the sand. Each morning, the current gently erases its drawings—and it begins again.\"\n}\n```"
+}

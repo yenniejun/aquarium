@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 43,
+  "date": "2026-11-14T21:11:27.268Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Curious Calligraphy Cuttlefish",
+  "statement": "A small, attentive cuttlefish that drifts through a lamplit grove of ribbon kelp and old slate tablets, rippling its skin into looping script that seems to answer whoever lingers at the glass. No one has fully translated it yet, but it always pauses thoughtfully between sentences, and it brightens noticeably when someone stays to read.",
+  "usage": {
+    "in": 454,
+    "out": 489
+  },
+  "cost": 0.011596,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Curious Calligraphy Cuttlefish\",\n  \"statement\": \"A small, attentive cuttlefish that drifts through a lamplit grove of ribbon kelp and old slate tablets, rippling its skin into looping script that seems to answer whoever lingers at the glass. No one has fully translated it yet, but it always pauses thoughtfully between sentences, and it brightens noticeably when someone stays to read.\"\n}\n```"
+}

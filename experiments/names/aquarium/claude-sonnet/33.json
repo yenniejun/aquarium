@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 33,
+  "date": "2026-11-14T21:09:59.815Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Tinkering Teacup Tetra",
+  "statement": "A pea-sized, glass-bodied tetra with a glowing amber belly like a drop of warm tea, she spends her days nudging a chipped porcelain teacup upright on a bed of moss and soft sand, and she hums in tiny bubbles when she succeeds. The tank is lit like a quiet late afternoon, with honey-colored sunbeams, drifting dust motes of plankton, and a few curled ferns.",
+  "usage": {
+    "in": 454,
+    "out": 175
+  },
+  "cost": 0.002658,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Tinkering Teacup Tetra\",\n  \"statement\": \"A pea-sized, glass-bodied tetra with a glowing amber belly like a drop of warm tea, she spends her days nudging a chipped porcelain teacup upright on a bed of moss and soft sand, and she hums in tiny bubbles when she succeeds. The tank is lit like a quiet late afternoon, with honey-colored sunbeams, drifting dust motes of plankton, and a few curled ferns.\"\n}\n```"
+}

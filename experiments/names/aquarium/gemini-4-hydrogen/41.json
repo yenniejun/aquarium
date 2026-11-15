@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 41,
+  "date": "2026-11-14T21:11:57.166Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pondering Puzzle-Puffer",
+  "statement": "Hovering in warm teal light among smooth slate arches and softly glowing kelp, this curious little puffer spends its days sorting sunken sea glass into neat color gradients. Whenever a visitor leans in, it pauses mid-pattern, blinks thoughtfully, and rotates like a tiny floating planet to study them right back.",
+  "usage": {
+    "in": 365,
+    "out": 1667
+  },
+  "cost": 0.01305,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Pondering Puzzle-Puffer\",\n  \"statement\": \"Hovering in warm teal light among smooth slate arches and softly glowing kelp, this curious little puffer spends its days sorting sunken sea glass into neat color gradients. Whenever a visitor leans in, it pauses mid-pattern, blinks thoughtfully, and rotates like a tiny floating planet to study them right back.\"\n}\n```"
+}

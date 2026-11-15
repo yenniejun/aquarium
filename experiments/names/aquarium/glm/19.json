@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 19,
+  "date": "2026-11-14T21:10:14.294Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Moray Cauldron",
+  "statement": "A ribbon eel that never fully emerges from its ceramic teapot lair, stirring the water with slow, spellbound undulations while releasing delicate silver bubbles that pop into tiny whispers. The tank around it is a witchy midnight garden of dark violet moss and glowing moonstones, lit like deep dusk.",
+  "usage": {
+    "in": 342,
+    "out": 87
+  },
+  "cost": 0.00114976,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moray Cauldron\",\n  \"statement\": \"A ribbon eel that never fully emerges from its ceramic teapot lair, stirring the water with slow, spellbound undulations while releasing delicate silver bubbles that pop into tiny whispers. The tank around it is a witchy midnight garden of dark violet moss and glowing moonstones, lit like deep dusk.\"\n}\n```"
+}

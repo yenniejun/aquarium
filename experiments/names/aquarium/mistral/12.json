@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 12,
+  "date": "2026-11-14T21:32:21.586Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Bumbling Bumblebee Goby",
+  "statement": "A bumblebee-striped fish that hovers in midwater like a tiny helicopter, then darts down to sift lazy mouthfuls of sand through its gills. It perches on its favorite rock all day, watching the room with the calm of a creature that has never once hurried.",
+  "usage": {
+    "in": 352,
+    "out": 8959
+  },
+  "cost": 0.01889902,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 192,
+  "reply": "```json\n{\n  \"title\": \"Bumbling Bumblebee Goby\",\n  \"statement\": \"A bumblebee-striped fish that hovers in midwater like a tiny helicopter, then darts down to sift lazy mouthfuls of sand through its gills. It perches on its favorite rock all day, watching the room with the calm of a creature that has never once hurried.\"\n}\n```"
+}

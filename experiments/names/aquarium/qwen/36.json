@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 36,
+  "date": "2026-11-14T21:18:02.262Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Moonmote",
+  "statement": "A translucent sphere no larger than a marble, trailing hair-thin filaments of pale blue light that pulse in slow, irregular rhythms, as though it is quietly thinking aloud to no one in particular. It drifts among smooth dark stones in very still water, rarely rising, rarely sinking, content to murmur its soft glow into the hush.",
+  "usage": {
+    "in": 359,
+    "out": 1044
+  },
+  "cost": 0.013964,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmote\",\n  \"statement\": \"A translucent sphere no larger than a marble, trailing hair-thin filaments of pale blue light that pulse in slow, irregular rhythms, as though it is quietly thinking aloud to no one in particular. It drifts among smooth dark stones in very still water, rarely rising, rarely sinking, content to murmur its soft glow into the hush.\"\n}\n```"
+}

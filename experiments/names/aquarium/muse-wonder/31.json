@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 31,
+  "date": "2026-11-14T21:14:42.965Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Wondrous Wobblepus",
+  "statement": "A palm-sized, opalescent octopus who loves exploring every nook of her sun-dappled grotto, rearranging pebbles and shells into tiny constellations, questions, and gifts for whoever stops to look. When she is curious — which is almost always — her skin ripples from ink-blue to sunrise-gold and she puffs out a wobbly trail of heart-shaped bubbles.",
+  "usage": {
+    "in": 334,
+    "out": 1328
+  },
+  "cost": 0.027896,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Wondrous Wobblepus\",\n  \"statement\": \"A palm-sized, opalescent octopus who loves exploring every nook of her sun-dappled grotto, rearranging pebbles and shells into tiny constellations, questions, and gifts for whoever stops to look. When she is curious — which is almost always — her skin ripples from ink-blue to sunrise-gold and she puffs out a wobbly trail of heart-shaped bubbles.\"\n}\n```"
+}

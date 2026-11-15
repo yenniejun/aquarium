@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 39,
+  "date": "2026-11-14T21:22:06.575Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Doodling Dumbo",
+  "statement": "In a hushed indigo tank lit like late afternoon, a palm-sized dumbo octopus drifts between silver eelgrass and a moon-white stone arch, sketching looping thoughts in the sand with one curious arm. It gathers bright pebbles into little constellations, admires them, then gleefully scatters the stars and begins again.",
+  "usage": {
+    "in": 410,
+    "out": 528
+  },
+  "cost": 0.0056392,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 21,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo\",\n  \"statement\": \"In a hushed indigo tank lit like late afternoon, a palm-sized dumbo octopus drifts between silver eelgrass and a moon-white stone arch, sketching looping thoughts in the sand with one curious arm. It gathers bright pebbles into little constellations, admires them, then gleefully scatters the stars and begins again.\"\n}\n```"
+}

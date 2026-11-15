@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 5,
+  "date": "2026-11-14T21:09:48.360Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Cartographer Cuttlefish",
+  "statement": "In a dusk-blue tank lit by drifting lantern-glow, this soft-eyed cuttlefish spends its days nudging pebbles and shells into careful little maps of its world, then ripples the finished pattern across its skin in pale gold and seafoam. Tilt your head and it will tilt back, as if politely asking what you'd add.",
+  "usage": {
+    "in": 454,
+    "out": 742
+  },
+  "cost": 0.016656,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Cartographer Cuttlefish\",\n  \"statement\": \"In a dusk-blue tank lit by drifting lantern-glow, this soft-eyed cuttlefish spends its days nudging pebbles and shells into careful little maps of its world, then ripples the finished pattern across its skin in pale gold and seafoam. Tilt your head and it will tilt back, as if politely asking what you'd add.\"\n}\n```"
+}

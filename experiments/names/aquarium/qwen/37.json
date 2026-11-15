@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 37,
+  "date": "2026-11-14T21:18:18.891Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Muttering Moonmollusk",
+  "statement": "A thumb-sized octopus of translucent indigo, perched in a hollow between smooth black basalt stones, pulsing with faint bioluminescent flickers as though talking quietly to itself. It spends its hours rearranging three small cowrie shells into configurations that satisfy no one but itself.",
+  "usage": {
+    "in": 359,
+    "out": 1349
+  },
+  "cost": 0.017624,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Muttering Moonmollusk\",\n  \"statement\": \"A thumb-sized octopus of translucent indigo, perched in a hollow between smooth black basalt stones, pulsing with faint bioluminescent flickers as though talking quietly to itself. It spends its hours rearranging three small cowrie shells into configurations that satisfy no one but itself.\"\n}\n```"
+}

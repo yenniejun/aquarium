@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 11,
+  "date": "2026-11-14T21:13:30.974Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Glimmering Glass Catfish",
+  "statement": "Nearly transparent, it hangs in a shaft of warm lamplight and reads the current with long whiskers, content to be almost unseen until the water tilts and it flashes like a thought you nearly kept.",
+  "usage": {
+    "in": 1569,
+    "out": 797
+  },
+  "cost": 0.005616,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Glimmering Glass Catfish\",\n  \"statement\": \"Nearly transparent, it hangs in a shaft of warm lamplight and reads the current with long whiskers, content to be almost unseen until the water tilts and it flashes like a thought you nearly kept.\"\n}\n```"
+}

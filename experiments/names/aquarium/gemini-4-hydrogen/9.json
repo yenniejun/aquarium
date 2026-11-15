@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 9,
+  "date": "2026-11-14T21:10:12.186Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Blooping Bobtail Squid",
+  "statement": "Heralded by tiny, rhythmic puffs of bubbles as it hops across a twilight-blue sanctuary of velvety moss and slate arches, this thumb-sized cephalopod flashes shifting constellations of soft gold and cyan across its skin. Between blinking curious greetings at passing visitors, it meticulously arranges tumbled sea-glass and smooth pebbles into neat, glowing spirals along the sandy floor.",
+  "usage": {
+    "in": 365,
+    "out": 2473
+  },
+  "cost": 0.019095,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bobtail Squid\",\n  \"statement\": \"Heralded by tiny, rhythmic puffs of bubbles as it hops across a twilight-blue sanctuary of velvety moss and slate arches, this thumb-sized cephalopod flashes shifting constellations of soft gold and cyan across its skin. Between blinking curious greetings at passing visitors, it meticulously arranges tumbled sea-glass and smooth pebbles into neat, glowing spirals along the sandy floor.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 8,
+  "date": "2026-11-14T21:25:41.229Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Bouncing Blenny",
+  "statement": "In a warm-lit tank of stacked stones and green algae, a small blenny sits upright on its fins like a tiny audience member. Whenever you pause mid-sentence, it hops from stone to stone in one quick little spring, enormous eyes blinking at the glass.",
+  "usage": {
+    "in": 352,
+    "out": 8046
+  },
+  "cost": 0.01698172,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 114,
+  "reply": "```json\n{\n  \"title\": \"Bouncing Blenny\",\n  \"statement\": \"In a warm-lit tank of stacked stones and green algae, a small blenny sits upright on its fins like a tiny audience member. Whenever you pause mid-sentence, it hops from stone to stone in one quick little spring, enormous eyes blinking at the glass.\"\n}\n```"
+}

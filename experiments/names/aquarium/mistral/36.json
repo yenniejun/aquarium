@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 36,
+  "date": "2026-11-15T02:11:11.352Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 24000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Paisley Pajama Dragonet",
+  "statement": "This thumb-sized fish wears a swirling coat of emerald, cobalt and tangerine and dozes in rocky crevices all day. When the lights dim, it hops across the sand in a bouncy, hypnotic little dance.",
+  "usage": {
+    "in": 352,
+    "out": 6674
+  },
+  "cost": 0.01410052,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 68,
+  "reply": "```json\n{\n  \"title\": \"Paisley Pajama Dragonet\",\n  \"statement\": \"This thumb-sized fish wears a swirling coat of emerald, cobalt and tangerine and dozes in rocky crevices all day. When the lights dim, it hops across the sand in a bouncy, hypnotic little dance.\"\n}\n```"
+}

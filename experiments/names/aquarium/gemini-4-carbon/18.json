@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 18,
+  "date": "2026-11-14T21:11:24.814Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clinking Curio Cuttlefish",
+  "statement": "Amid mossy sunken arches and twilight-blue water, this pint-sized cephalopod spends its days meticulously stacking tumbled sea glass and pearlescent shells into delicate, chiming towers. Whenever a visitor leans close, its velvet skin ripples with constellations of warm amber light as it proudly holds up its favorite shiny pebble for inspection.",
+  "usage": {
+    "in": 365,
+    "out": 1315
+  },
+  "cost": 0.01388,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Clinking Curio Cuttlefish\",\n  \"statement\": \"Amid mossy sunken arches and twilight-blue water, this pint-sized cephalopod spends its days meticulously stacking tumbled sea glass and pearlescent shells into delicate, chiming towers. Whenever a visitor leans close, its velvet skin ripples with constellations of warm amber light as it proudly holds up its favorite shiny pebble for inspection.\"\n}\n```"
+}

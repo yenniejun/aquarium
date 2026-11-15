@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 8,
+  "date": "2026-11-14T21:09:38.572Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Wizard",
+  "statement": "A pearly, spiral-shelled sea snail the size of a teacup, who tiptoes along a mossy driftwood arch and hums soft, bubbling spells to the glowing anemones below. Each hum releases a trail of tiny silver bubbles that drift upward like lanterns, while the water shifts from twilight teal to warm amber around its small, patient, slightly magical life.",
+  "usage": {
+    "in": 454,
+    "out": 160
+  },
+  "cost": 0.002508,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Wizard\",\n  \"statement\": \"A pearly, spiral-shelled sea snail the size of a teacup, who tiptoes along a mossy driftwood arch and hums soft, bubbling spells to the glowing anemones below. Each hum releases a trail of tiny silver bubbles that drift upward like lanterns, while the water shifts from twilight teal to warm amber around its small, patient, slightly magical life.\"\n}\n```"
+}

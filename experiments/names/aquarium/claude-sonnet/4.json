@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 4,
+  "date": "2026-11-14T21:09:36.053Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whorl Whelk",
+  "statement": "A pearly spiral-shelled snail the size of a teacup, it drifts through a tank of deep teal water and slow shafts of amber light, leaving a trail of tiny glowing bubbles that pop with a soft 'pff-pff.' It spends its days collecting smooth pebbles and stacking them in a crooked tower beside a curl of kelp, and every so often it stops to admire the tower, tipping its tentacles like a very small architect.",
+  "usage": {
+    "in": 454,
+    "out": 181
+  },
+  "cost": 0.002718,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whorl Whelk\",\n  \"statement\": \"A pearly spiral-shelled snail the size of a teacup, it drifts through a tank of deep teal water and slow shafts of amber light, leaving a trail of tiny glowing bubbles that pop with a soft 'pff-pff.' It spends its days collecting smooth pebbles and stacking them in a crooked tower beside a curl of kelp, and every so often it stops to admire the tower, tipping its tentacles like a very small architect.\"\n}\n```"
+}

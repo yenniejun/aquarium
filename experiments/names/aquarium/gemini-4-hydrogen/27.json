@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 27,
+  "date": "2026-11-14T21:11:15.791Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Noodling Neon Nudibranch",
+  "statement": "Drifting through a quiet twilight tank of velvety emerald moss and sunken brass lanterns, this daydreaming sea slug traces glowing, disappearing ink-ribbons through the water as it puzzles over the current. Whenever it spots a polished pebble or a rising bubble, its frilly cerata flare soft amber in delight before it wanders off to sketch another thought.",
+  "usage": {
+    "in": 365,
+    "out": 2488
+  },
+  "cost": 0.0192075,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Noodling Neon Nudibranch\",\n  \"statement\": \"Drifting through a quiet twilight tank of velvety emerald moss and sunken brass lanterns, this daydreaming sea slug traces glowing, disappearing ink-ribbons through the water as it puzzles over the current. Whenever it spots a polished pebble or a rising bubble, its frilly cerata flare soft amber in delight before it wanders off to sketch another thought.\"\n}\n```"
+}

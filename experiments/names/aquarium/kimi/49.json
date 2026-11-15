@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 49,
+  "date": "2026-11-14T21:25:15.287Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonmollusk",
+  "statement": "In a hushed indigo tank, this translucent little snail drifts among silver plants on a thread of bubbles, rearranging pearl-white pebbles into constellations. It investigates every shadow, collects stray flecks of light, and murmurs a soft chime whenever the current suggests a new idea.",
+  "usage": {
+    "in": 410,
+    "out": 433
+  },
+  "cost": 0.0046892,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmollusk\",\n  \"statement\": \"In a hushed indigo tank, this translucent little snail drifts among silver plants on a thread of bubbles, rearranging pearl-white pebbles into constellations. It investigates every shadow, collects stray flecks of light, and murmurs a soft chime whenever the current suggests a new idea.\"\n}\n```"
+}

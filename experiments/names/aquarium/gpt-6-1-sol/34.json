@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 34,
+  "date": "2026-11-14T21:11:58.274Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Puzzlepus",
+  "statement": "A palm-sized, ink-blue octopus with flickering amber freckles lives among ribboning eelgrass and smooth porcelain arches in a tank washed with late-afternoon light. It spends hours rearranging the arches into elaborate little passageways, then squeezes delightedly through the one gap nobody would have thought was a doorway.",
+  "usage": {
+    "in": 330,
+    "out": 371
+  },
+  "cost": 0.00437,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Puttering Puzzlepus\",\n  \"statement\": \"A palm-sized, ink-blue octopus with flickering amber freckles lives among ribboning eelgrass and smooth porcelain arches in a tank washed with late-afternoon light. It spends hours rearranging the arches into elaborate little passageways, then squeezes delightedly through the one gap nobody would have thought was a doorway.\"\n}\n```"
+}

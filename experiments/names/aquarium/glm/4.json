@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 4,
+  "date": "2026-11-14T21:09:40.331Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Wandering Wobblepuss",
+  "statement": "An eight-legged introvert draped in translucent lavender skin, the Waddlepuss drifts a slow lap around its tank each evening, trailing faint bioluminescent freckles that flicker brighter whenever it pauses to think — which is often, and at considerable length.",
+  "usage": {
+    "in": 342,
+    "out": 79
+  },
+  "cost": 0.00107936,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Wandering Wobblepuss\",\n  \"statement\": \"An eight-legged introvert draped in translucent lavender skin, the Waddlepuss drifts a slow lap around its tank each evening, trailing faint bioluminescent freckles that flicker brighter whenever it pauses to think — which is often, and at considerable length.\"\n}\n```"
+}

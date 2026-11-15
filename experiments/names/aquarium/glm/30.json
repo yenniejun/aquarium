@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 30,
+  "date": "2026-11-14T21:10:39.966Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Paddlefin",
+  "statement": "A slow, solemn little fish with enormous thoughtful eyes and broad, gentle fins it rows like oars, forever drifting mid-tank as if working through some private question. It pauses at the glass to consider visitors, then turns away with a small, polite ripple, returning to its deliberations among the soft green light.",
+  "usage": {
+    "in": 342,
+    "out": 87
+  },
+  "cost": 0.00114976,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Pondering Paddlefin\",\n  \"statement\": \"A slow, solemn little fish with enormous thoughtful eyes and broad, gentle fins it rows like oars, forever drifting mid-tank as if working through some private question. It pauses at the glass to consider visitors, then turns away with a small, polite ripple, returning to its deliberations among the soft green light.\"\n}\n```"
+}

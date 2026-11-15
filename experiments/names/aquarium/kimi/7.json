@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 7,
+  "date": "2026-11-14T21:11:49.287Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Lunar Loiterfish",
+  "statement": "A thumb-sized, opalescent fish with fins like folded paper, the Lunar Loiterfish drifts through midnight-blue water and treats every bubble as a question worth investigating. Beneath a single moonlike lamp, it naps in a coral cup and rearranges glimmering grains of sand into almost-constellations.",
+  "usage": {
+    "in": 410,
+    "out": 602
+  },
+  "cost": 0.0063792,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 26,
+  "reply": "```json\n{\n  \"title\": \"Lunar Loiterfish\",\n  \"statement\": \"A thumb-sized, opalescent fish with fins like folded paper, the Lunar Loiterfish drifts through midnight-blue water and treats every bubble as a question worth investigating. Beneath a single moonlike lamp, it naps in a coral cup and rearranges glimmering grains of sand into almost-constellations.\"\n}\n```"
+}

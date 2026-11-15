@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 15,
+  "date": "2026-11-14T21:12:14.084Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Blooping Bookish Betta",
+  "statement": "This jewel-blue betta lives in a cosy sunken library, building bubble nests between tiny stone bookshelves and flaring with delight at particularly good hiding spots. At lights-out, it curls up to sleep inside a speckled teacup, surrounded by swaying plant 'bookmarks'.",
+  "usage": {
+    "in": 334,
+    "out": 1907
+  },
+  "cost": 0.038602,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bookish Betta\",\n  \"statement\": \"This jewel-blue betta lives in a cosy sunken library, building bubble nests between tiny stone bookshelves and flaring with delight at particularly good hiding spots. At lights-out, it curls up to sleep inside a speckled teacup, surrounded by swaying plant 'bookmarks'.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 7,
+  "date": "2026-11-14T21:10:06.155Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepuff",
+  "statement": "A palm-sized, opalescent puffer with apricot fins putters through tea-blue water, puffing little jets at the ivory sand to arrange dark pebbles into increasingly ambitious spirals. Beneath a crooked porcelain arch, it keeps one particularly unsatisfactory pebble, which it periodically retrieves, contemplates, and enthusiastically puts somewhere worse.",
+  "usage": {
+    "in": 330,
+    "out": 401
+  },
+  "cost": 0.00467,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepuff\",\n  \"statement\": \"A palm-sized, opalescent puffer with apricot fins putters through tea-blue water, puffing little jets at the ivory sand to arrange dark pebbles into increasingly ambitious spirals. Beneath a crooked porcelain arch, it keeps one particularly unsatisfactory pebble, which it periodically retrieves, contemplates, and enthusiastically puts somewhere worse.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 5,
+  "date": "2026-11-14T21:09:52.234Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Prismfish",
+  "statement": "A thumb-sized, translucent fish with pleated rainbow fins putters through a dusk-blue tank, puffing little jets of water to arrange porcelain pebbles into spirals on the cream-colored sand. Beneath a single amber shaft of light, it leaves each pattern one pebble short, then hovers upside down in a basalt arch as though considering a better question.",
+  "usage": {
+    "in": 330,
+    "out": 262
+  },
+  "cost": 0.00328,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Puttering Prismfish\",\n  \"statement\": \"A thumb-sized, translucent fish with pleated rainbow fins putters through a dusk-blue tank, puffing little jets of water to arrange porcelain pebbles into spirals on the cream-colored sand. Beneath a single amber shaft of light, it leaves each pattern one pebble short, then hovers upside down in a basalt arch as though considering a better question.\"\n}\n```"
+}

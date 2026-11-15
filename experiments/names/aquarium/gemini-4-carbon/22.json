@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 22,
+  "date": "2026-11-14T21:11:58.378Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Shimmering Scribble-Squid",
+  "statement": "Hovering amid spires of frosted sea-glass and swaying ribbon kelp, this pint-sized cephalopod greets curious onlookers with swirling, calligraphic flashes of bioluminescence across its skin. When not meticulously arranging smooth river pebbles into intricate spirals on the sandy floor, it jets playfully through the twilight water, tracing fleeting constellations of glowing ink.",
+  "usage": {
+    "in": 365,
+    "out": 1057
+  },
+  "cost": 0.0113,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Shimmering Scribble-Squid\",\n  \"statement\": \"Hovering amid spires of frosted sea-glass and swaying ribbon kelp, this pint-sized cephalopod greets curious onlookers with swirling, calligraphic flashes of bioluminescence across its skin. When not meticulously arranging smooth river pebbles into intricate spirals on the sandy floor, it jets playfully through the twilight water, tracing fleeting constellations of glowing ink.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 35,
+  "date": "2026-11-14T21:11:37.196Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clicking Constellation Cuttlefish",
+  "statement": "Hovering amidst swaying ribbon kelp in warm, twilight-blue water, this pocket-sized cuttlefish carefully sorts bits of frosted sea glass and smooth pebbles into neat spirals along terraced slate shelves. Whenever it finishes a pleasing arrangement, it lets out a gentle, rhythmic clicking and ripples tiny star-map constellations across its velvety skin.",
+  "usage": {
+    "in": 365,
+    "out": 1667
+  },
+  "cost": 0.01305,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Clicking Constellation Cuttlefish\",\n  \"statement\": \"Hovering amidst swaying ribbon kelp in warm, twilight-blue water, this pocket-sized cuttlefish carefully sorts bits of frosted sea glass and smooth pebbles into neat spirals along terraced slate shelves. Whenever it finishes a pleasing arrangement, it lets out a gentle, rhythmic clicking and ripples tiny star-map constellations across its velvety skin.\"\n}\n```"
+}

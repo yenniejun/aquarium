@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 13,
+  "date": "2026-11-14T21:35:44.134Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Bubbling Betta",
+  "statement": "A labyrinth fish that constructs a shimmering crown of bubbles at the surface each dawn, building a floating palace of air just for the joy of it.",
+  "usage": {
+    "in": 352,
+    "out": 11544
+  },
+  "cost": 0.02432752,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 203,
+  "reply": "```json\n{\n  \"title\": \"Bubbling Betta\",\n  \"statement\": \"A labyrinth fish that constructs a shimmering crown of bubbles at the surface each dawn, building a floating palace of air just for the joy of it.\"\n}\n```"
+}

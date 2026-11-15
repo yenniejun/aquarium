@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 42,
+  "date": "2026-11-14T21:23:14.857Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Pondering Pocket Puffer",
+  "statement": "A palm-sized, tea-green puffer who inflates not in fear but in thought, drifting like a small moon while considering the tank’s single silver fern. When an idea pleases him, he squeaks out one luminous bubble and watches it rise with enormous satisfaction.",
+  "usage": {
+    "in": 410,
+    "out": 542
+  },
+  "cost": 0.0057792,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pocket Puffer\",\n  \"statement\": \"A palm-sized, tea-green puffer who inflates not in fear but in thought, drifting like a small moon while considering the tank’s single silver fern. When an idea pleases him, he squeaks out one luminous bubble and watches it rise with enormous satisfaction.\"\n}\n```"
+}

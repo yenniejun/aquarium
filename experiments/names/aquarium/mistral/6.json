@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 6,
+  "date": "2026-11-14T21:22:11.883Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Puffing Picasso Puffer",
+  "statement": "A white-spotted pufferfish that puffs into a spiky ball at the slightest shadow, yet spends its quiet hours sculpting a perfect rippled circle in the sand. It lines the ring with tiny shells and pebbles, then hovers above its work like a small, salty artist.",
+  "usage": {
+    "in": 352,
+    "out": 10966
+  },
+  "cost": 0.02311372,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 169,
+  "reply": "```json\n{\n  \"title\": \"Puffing Picasso Puffer\",\n  \"statement\": \"A white-spotted pufferfish that puffs into a spiky ball at the slightest shadow, yet spends its quiet hours sculpting a perfect rippled circle in the sand. It lines the ring with tiny shells and pebbles, then hovers above its work like a small, salty artist.\"\n}\n```"
+}

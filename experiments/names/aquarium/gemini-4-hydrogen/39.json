@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 39,
+  "date": "2026-11-14T21:11:50.995Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clickety Cuttlefish",
+  "statement": "In a warm, sunlit grove of swaying eelgrass and stacked slate arches, this inquisitive little cephalopod spends its days sorting tumbled sea glass by shade and rippling luminous patterns across its velvety skin. It greets visitors with a soft, rhythmic clicking and tilts its W-shaped pupils whenever something new catches its eye.",
+  "usage": {
+    "in": 365,
+    "out": 1149
+  },
+  "cost": 0.009165,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Clickety Cuttlefish\",\n  \"statement\": \"In a warm, sunlit grove of swaying eelgrass and stacked slate arches, this inquisitive little cephalopod spends its days sorting tumbled sea glass by shade and rippling luminous patterns across its velvety skin. It greets visitors with a soft, rhythmic clicking and tilts its W-shaped pupils whenever something new catches its eye.\"\n}\n```"
+}

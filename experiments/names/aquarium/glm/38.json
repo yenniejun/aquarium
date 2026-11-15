@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 38,
+  "date": "2026-11-14T21:11:18.664Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Ponderous Puddlefin",
+  "statement": "A small, round fish that moves in slow, deliberate glides and occasional unexpected bursts of joy. It lives in a dim, amber-lit tank among smooth river stones and driftwood, and spends most of its day gazing thoughtfully at the glass — or perhaps at whatever is beyond it.",
+  "usage": {
+    "in": 342,
+    "out": 84
+  },
+  "cost": 0.00112336,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Ponderous Puddlefin\",\n  \"statement\": \"A small, round fish that moves in slow, deliberate glides and occasional unexpected bursts of joy. It lives in a dim, amber-lit tank among smooth river stones and driftwood, and spends most of its day gazing thoughtfully at the glass — or perhaps at whatever is beyond it.\"\n}\n```"
+}

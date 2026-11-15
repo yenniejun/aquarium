@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 7,
+  "date": "2026-11-14T21:10:26.022Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Squiggling Scribble Squid",
+  "statement": "Drifting through a twilight garden of sea-glass arches and swaying golden kelp, this pint-sized, translucent cephalopod expresses its boundless curiosity by rippling glowing, calligraphic patterns across its skin. When it isn't hovering near the pane to study visitors right back, it busily rearranges smooth river pebbles into fleeting geometric constellations across the mossy floor.",
+  "usage": {
+    "in": 365,
+    "out": 1415
+  },
+  "cost": 0.01488,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Squiggling Scribble Squid\",\n  \"statement\": \"Drifting through a twilight garden of sea-glass arches and swaying golden kelp, this pint-sized, translucent cephalopod expresses its boundless curiosity by rippling glowing, calligraphic patterns across its skin. When it isn't hovering near the pane to study visitors right back, it busily rearranges smooth river pebbles into fleeting geometric constellations across the mossy floor.\"\n}\n```"
+}

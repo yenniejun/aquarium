@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 11,
+  "date": "2026-11-14T21:09:40.960Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Waltzer",
+  "statement": "A pearl-shelled sea snail the color of dusk, she glides in slow spirals across a tank of lantern-green water, trailing a faint hum of bubbles like a tiny waltz no one else can hear. She is fond of her tidy garden of curling kelp and one crooked teacup, which she circles each evening as the lights go amber.",
+  "usage": {
+    "in": 454,
+    "out": 146
+  },
+  "cost": 0.002368,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Waltzer\",\n  \"statement\": \"A pearl-shelled sea snail the color of dusk, she glides in slow spirals across a tank of lantern-green water, trailing a faint hum of bubbles like a tiny waltz no one else can hear. She is fond of her tidy garden of curling kelp and one crooked teacup, which she circles each evening as the lights go amber.\"\n}\n```"
+}

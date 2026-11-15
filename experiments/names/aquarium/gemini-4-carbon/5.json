@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 5,
+  "date": "2026-11-14T21:10:08.183Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clickety Curio Cuttlefish",
+  "statement": "Beneath shafts of twilight-blue water and swaying forests of translucent glass-kelp, this inquisitive cephalopod spends its days sorting luminous sea-pebbles into intricate geometric spirals across the sandy floor. Whenever a visitor leans close, its skin ripples with dazzling kaleidoscopic patterns as it excitedly clicks its favorite shiny treasures together like tiny castanets.",
+  "usage": {
+    "in": 365,
+    "out": 1201
+  },
+  "cost": 0.01274,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Clickety Curio Cuttlefish\",\n  \"statement\": \"Beneath shafts of twilight-blue water and swaying forests of translucent glass-kelp, this inquisitive cephalopod spends its days sorting luminous sea-pebbles into intricate geometric spirals across the sandy floor. Whenever a visitor leans close, its skin ripples with dazzling kaleidoscopic patterns as it excitedly clicks its favorite shiny treasures together like tiny castanets.\"\n}\n```"
+}

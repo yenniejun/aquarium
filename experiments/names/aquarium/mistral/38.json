@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 38,
+  "date": "2026-11-14T22:14:26.997Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Pulsing Picasso Cuttlefish",
+  "statement": "A soft-bodied daydreamer with ten arms and a flair for the dramatic, it drifts over pale sand flashing ripples of amber, violet, and ink across its skin whenever something catches its eye. No two performances are ever quite the same.",
+  "usage": {
+    "in": 352,
+    "out": 1717
+  },
+  "cost": 0.00369082,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 25,
+  "reply": "```json\n{\n  \"title\": \"Pulsing Picasso Cuttlefish\",\n  \"statement\": \"A soft-bodied daydreamer with ten arms and a flair for the dramatic, it drifts over pale sand flashing ripples of amber, violet, and ink across its skin whenever something catches its eye. No two performances are ever quite the same.\"\n}\n```"
+}

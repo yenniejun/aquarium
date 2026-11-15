@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 17,
+  "date": "2026-11-14T21:12:29.096Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Dumpling Octopus",
+  "statement": "This pocket-sized octopus rearranges its pebbles into new constellations every night and flashes iridescent freckles whenever it gets a fresh idea. It lives in a quiet moonlit grotto of violet sand, glowing anemones, and tiny shell-books left open for curious visitors.",
+  "usage": {
+    "in": 334,
+    "out": 949
+  },
+  "cost": 0.019442,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumpling Octopus\",\n  \"statement\": \"This pocket-sized octopus rearranges its pebbles into new constellations every night and flashes iridescent freckles whenever it gets a fresh idea. It lives in a quiet moonlit grotto of violet sand, glowing anemones, and tiny shell-books left open for curious visitors.\"\n}\n```"
+}

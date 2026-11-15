@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 49,
+  "date": "2026-11-14T21:12:04.086Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Mudskipper",
+  "statement": "A creature forever caught between worlds, the Murmuring Mudskipper hums to itself in low, gravelly bubbles as it lounges on a sunken clay pot — half a lullaby, half a complaint. Its tank is a warm, amber-lit estuary of smooth river stones and swaying eelgrass, where the water level is always just low enough for it to prop itself up and gossip about the fish that got away.",
+  "usage": {
+    "in": 342,
+    "out": 115
+  },
+  "cost": 0.00139616,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mudskipper\",\n  \"statement\": \"A creature forever caught between worlds, the Murmuring Mudskipper hums to itself in low, gravelly bubbles as it lounges on a sunken clay pot — half a lullaby, half a complaint. Its tank is a warm, amber-lit estuary of smooth river stones and swaying eelgrass, where the water level is always just low enough for it to prop itself up and gossip about the fish that got away.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 4,
+  "date": "2026-11-14T21:09:40.591Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Purring Pebblefish",
+  "statement": "This tiny, round fish nestles among smooth river stones, its opal freckles glowing softly whenever it gives its fins a contented little quiver. In the moonlit green water, it drifts like a pebble that has just remembered a pleasant dream.",
+  "usage": {
+    "in": 330,
+    "out": 344
+  },
+  "cost": 0.000205,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Purring Pebblefish\",\n  \"statement\": \"This tiny, round fish nestles among smooth river stones, its opal freckles glowing softly whenever it gives its fins a contented little quiver. In the moonlit green water, it drifts like a pebble that has just remembered a pleasant dream.\"\n}\n```"
+}

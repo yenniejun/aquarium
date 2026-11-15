@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 13,
+  "date": "2026-11-14T21:10:18.648Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Click-Clack Cuttlefish",
+  "statement": "Bathed in warm, tea-tinted light and swaying ribbons of glowing kelp, this fastidious little cephalopod spends its days sorting sunken marbles, sea glass, and tiny brass gears by color while clicking its favorites together in cheerful rhythms. Whenever a visitor pauses at the glass, it hovers over its neat pebble mosaic and ripples soft, inquisitive waves of indigo and gold across its mantle as if offering a friendly riddle.",
+  "usage": {
+    "in": 365,
+    "out": 1272
+  },
+  "cost": 0.0100875,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Click-Clack Cuttlefish\",\n  \"statement\": \"Bathed in warm, tea-tinted light and swaying ribbons of glowing kelp, this fastidious little cephalopod spends its days sorting sunken marbles, sea glass, and tiny brass gears by color while clicking its favorites together in cheerful rhythms. Whenever a visitor pauses at the glass, it hovers over its neat pebble mosaic and ripples soft, inquisitive waves of indigo and gold across its mantle as if offering a friendly riddle.\"\n}\n```"
+}

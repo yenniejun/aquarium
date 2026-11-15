@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 12,
+  "date": "2026-11-14T21:10:04.823Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Pondering Paper Nautilus",
+  "statement": "This gentle drifter carries a shell as thin and pale as a page, across which faint glowing script appears, wanders, and rewrites itself whenever it is thinking, which is always. It spends its twilight hours sorting pebbles into small, careful constellations, and turns to face anyone who lingers at the glass, as if it would very much like to hear your question.",
+  "usage": {
+    "in": 454,
+    "out": 568
+  },
+  "cost": 0.013176,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Pondering Paper Nautilus\",\n  \"statement\": \"This gentle drifter carries a shell as thin and pale as a page, across which faint glowing script appears, wanders, and rewrites itself whenever it is thinking, which is always. It spends its twilight hours sorting pebbles into small, careful constellations, and turns to face anyone who lingers at the glass, as if it would very much like to hear your question.\"\n}\n```"
+}

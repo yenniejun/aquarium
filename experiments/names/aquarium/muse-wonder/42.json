@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 42,
+  "date": "2026-11-14T21:16:28.575Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Pondering Plooping Pufferfish",
+  "statement": "A round, freckled pufferfish who blows perfect bubble-rings to think inside, then pops them with a delighted ploop when an idea arrives. He drifts through a dusky-violet tank of feathery kelp, softly glowing pebbles, and a tiny teapot library, rearranging his collected treasures by color every evening.",
+  "usage": {
+    "in": 334,
+    "out": 1402
+  },
+  "cost": 0.028502,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Pondering Plooping Pufferfish\",\n  \"statement\": \"A round, freckled pufferfish who blows perfect bubble-rings to think inside, then pops them with a delighted ploop when an idea arrives. He drifts through a dusky-violet tank of feathery kelp, softly glowing pebbles, and a tiny teapot library, rearranging his collected treasures by color every evening.\"\n}\n```"
+}

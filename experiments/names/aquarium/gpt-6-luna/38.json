@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 38,
+  "date": "2026-11-14T21:10:42.515Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pip-Pip Puffer",
+  "statement": "A pearly little puffer patrols its glassy grotto, pausing to inspect each pebble as if it might tell a joke. Fernlike green fronds sway beneath a soft moon-blue glow, and every so often the puffer gives a tiny, pleased blip.",
+  "usage": {
+    "in": 330,
+    "out": 324
+  },
+  "cost": 0.000195,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Pip-Pip Puffer\",\n  \"statement\": \"A pearly little puffer patrols its glassy grotto, pausing to inspect each pebble as if it might tell a joke. Fernlike green fronds sway beneath a soft moon-blue glow, and every so often the puffer gives a tiny, pleased blip.\"\n}\n```"
+}

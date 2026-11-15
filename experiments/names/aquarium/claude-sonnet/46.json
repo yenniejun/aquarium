@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 46,
+  "date": "2026-11-14T21:10:10.291Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Waltzer",
+  "statement": "A pearly spiral-shelled snail the size of a teacup, she glides in slow, looping waltzes across a moonlit tank of indigo water, pausing to hum soft bubbles into the glow of lantern-like sea moss. Her shell is a tiny spun-glass lighthouse that blinks gently whenever she's pleased, which is nearly always.",
+  "usage": {
+    "in": 454,
+    "out": 153
+  },
+  "cost": 0.002438,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Waltzer\",\n  \"statement\": \"A pearly spiral-shelled snail the size of a teacup, she glides in slow, looping waltzes across a moonlit tank of indigo water, pausing to hum soft bubbles into the glow of lantern-like sea moss. Her shell is a tiny spun-glass lighthouse that blinks gently whenever she's pleased, which is nearly always.\"\n}\n```"
+}

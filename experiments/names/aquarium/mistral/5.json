@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 5,
+  "date": "2026-11-14T21:19:23.098Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Blubbering Button Puffer",
+  "statement": "A round, button-sized puffer with strong opinions. It headbutts the glass at feeding time, inflates into a spiky balloon when a shadow startles it, then blubbers back down and rearranges the moss into a new little room.",
+  "usage": {
+    "in": 352,
+    "out": 3950
+  },
+  "cost": 0.00838012,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 79,
+  "reply": "```json\n{\n  \"title\": \"Blubbering Button Puffer\",\n  \"statement\": \"A round, button-sized puffer with strong opinions. It headbutts the glass at feeding time, inflates into a spiky balloon when a shadow startles it, then blubbers back down and rearranges the moss into a new little room.\"\n}\n```"
+}

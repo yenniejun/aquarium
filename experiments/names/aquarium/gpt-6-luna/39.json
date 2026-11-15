@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 39,
+  "date": "2026-11-14T21:10:46.384Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pip-Pop Puffer",
+  "statement": "A lemon-freckled puffer hovers among soft green kelp, inspecting each leaf as if it has a very important question. At dusk, its tiny bubble trails rise through the blue-lit tank like a string of quiet little pops.",
+  "usage": {
+    "in": 330,
+    "out": 592
+  },
+  "cost": 0.000329,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Pip-Pop Puffer\",\n  \"statement\": \"A lemon-freckled puffer hovers among soft green kelp, inspecting each leaf as if it has a very important question. At dusk, its tiny bubble trails rise through the blue-lit tank like a string of quiet little pops.\"\n}\n```"
+}

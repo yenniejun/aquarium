@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 45,
+  "date": "2026-11-14T21:17:04.646Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Blooping Bookish Betta",
+  "statement": "A jewel-bright betta who builds floating bubble-nests among the ruins of a tiny sunken library, rearranging pebble punctuation until each nest reads just right. He drifts in warm, tea-colored light between fern bookmarks and coral chapters, flashing teal with curiosity and coral at every good plot twist.",
+  "usage": {
+    "in": 334,
+    "out": 1255
+  },
+  "cost": 0.025562,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bookish Betta\",\n  \"statement\": \"A jewel-bright betta who builds floating bubble-nests among the ruins of a tiny sunken library, rearranging pebble punctuation until each nest reads just right. He drifts in warm, tea-colored light between fern bookmarks and coral chapters, flashing teal with curiosity and coral at every good plot twist.\"\n}\n```"
+}

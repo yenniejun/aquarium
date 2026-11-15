@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 50,
+  "date": "2026-11-14T21:11:43.056Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Cursive Cuttlefish",
+  "statement": "In a lamplit tank of sunken stone tablets and swaying eelgrass, this small cuttlefish ripples looping, half-legible handwriting across its skin, endlessly drafting and revising messages it seems eager to share. Linger at the glass and it will drift closer, tilt its head, and flush a soft gold, which keepers believe is its way of saying hello.",
+  "usage": {
+    "in": 454,
+    "out": 548
+  },
+  "cost": 0.012776,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Cursive Cuttlefish\",\n  \"statement\": \"In a lamplit tank of sunken stone tablets and swaying eelgrass, this small cuttlefish ripples looping, half-legible handwriting across its skin, endlessly drafting and revising messages it seems eager to share. Linger at the glass and it will drift closer, tilt its head, and flush a soft gold, which keepers believe is its way of saying hello.\"\n}\n```"
+}

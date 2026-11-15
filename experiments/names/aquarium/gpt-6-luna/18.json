@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 18,
+  "date": "2026-11-14T21:10:11.291Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pip-Pop Puffer",
+  "statement": "This tiny pea puffer patrols its mossy garden with solemn curiosity, stopping to inspect every pebble as if it might tell a joke. Sun-gold light ripples through tea-clear water, where soft grasses and smooth little stones make a quiet world just its size.",
+  "usage": {
+    "in": 330,
+    "out": 539
+  },
+  "cost": 0.0003025,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Pip-Pop Puffer\",\n  \"statement\": \"This tiny pea puffer patrols its mossy garden with solemn curiosity, stopping to inspect every pebble as if it might tell a joke. Sun-gold light ripples through tea-clear water, where soft grasses and smooth little stones make a quiet world just its size.\"\n}\n```"
+}

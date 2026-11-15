@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 3,
+  "date": "2026-11-14T21:10:35.513Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Humming Hermit Crab",
+  "statement": "In warm, tea-colored water, a small hermit crab tries on shells until one feels exactly right, then settles among smooth stones as if quietly pleased with the fit.",
+  "usage": {
+    "in": 1569,
+    "out": 952
+  },
+  "cost": 0.006546,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Humming Hermit Crab\",\n  \"statement\": \"In warm, tea-colored water, a small hermit crab tries on shells until one feels exactly right, then settles among smooth stones as if quietly pleased with the fit.\"\n}\n```"
+}

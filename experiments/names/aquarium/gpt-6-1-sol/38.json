@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 38,
+  "date": "2026-11-14T21:12:14.955Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pitter-Patter Cuttlefish",
+  "statement": "A teacup-sized cuttlefish with ink-blue freckles putters through a forest of translucent glass arches, flashing little apricot ripples whenever it discovers a new way through. Beneath warm, rain-dappled light, it arranges porcelain pebbles into elaborate spirals—then steals one from the middle to see what happens.",
+  "usage": {
+    "in": 330,
+    "out": 331
+  },
+  "cost": 0.00397,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Pitter-Patter Cuttlefish\",\n  \"statement\": \"A teacup-sized cuttlefish with ink-blue freckles putters through a forest of translucent glass arches, flashing little apricot ripples whenever it discovers a new way through. Beneath warm, rain-dappled light, it arranges porcelain pebbles into elaborate spirals—then steals one from the middle to see what happens.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 48,
+  "date": "2026-11-14T21:12:53.644Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble Cuttlefish",
+  "statement": "A palm-sized cuttlefish with fluttering skirt-fins drifts through tea-blue water, its skin blooming with apricot checks whenever it discovers something worth inspecting. Beneath a slant of honey-colored light, it patiently arranges porcelain pebbles around a slate arch, then moves one just far enough to let the light through.",
+  "usage": {
+    "in": 330,
+    "out": 350
+  },
+  "cost": 0.00416,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble Cuttlefish\",\n  \"statement\": \"A palm-sized cuttlefish with fluttering skirt-fins drifts through tea-blue water, its skin blooming with apricot checks whenever it discovers something worth inspecting. Beneath a slant of honey-colored light, it patiently arranges porcelain pebbles around a slate arch, then moves one just far enough to let the light through.\"\n}\n```"
+}

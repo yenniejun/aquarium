@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 34,
+  "date": "2026-11-14T21:09:59.963Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Waltz",
+  "statement": "A small, translucent whelk carries a lantern of soft amber light inside its spiral shell, and it spends its evenings slowly waltzing in circles around a stack of mossy teacups. Each time it completes a turn, it lets out a tiny 'shhhh' of bubbles, as if telling the sleepy ferns and the pebbles to hush and listen.",
+  "usage": {
+    "in": 454,
+    "out": 152
+  },
+  "cost": 0.002428,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Waltz\",\n  \"statement\": \"A small, translucent whelk carries a lantern of soft amber light inside its spiral shell, and it spends its evenings slowly waltzing in circles around a stack of mossy teacups. Each time it completes a turn, it lets out a tiny 'shhhh' of bubbles, as if telling the sleepy ferns and the pebbles to hush and listen.\"\n}\n```"
+}

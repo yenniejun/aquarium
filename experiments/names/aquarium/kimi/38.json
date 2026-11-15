@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 38,
+  "date": "2026-11-14T21:21:45.494Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Musing Moonmote",
+  "statement": "A palm-sized, moon-jelly-like drifter with a lantern-bright heart, the Musing Moonmote gathers specks of light and arranges them into constellations before absentmindedly eating one. Its deep-indigo tank holds only a pale stone arch and ribbons of glass-green eelgrass, so every soft pulse feels like a thought becoming visible.",
+  "usage": {
+    "in": 410,
+    "out": 554
+  },
+  "cost": 0.0058992,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"Musing Moonmote\",\n  \"statement\": \"A palm-sized, moon-jelly-like drifter with a lantern-bright heart, the Musing Moonmote gathers specks of light and arranges them into constellations before absentmindedly eating one. Its deep-indigo tank holds only a pale stone arch and ribbons of glass-green eelgrass, so every soft pulse feels like a thought becoming visible.\"\n}\n```"
+}

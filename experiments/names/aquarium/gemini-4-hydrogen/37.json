@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 37,
+  "date": "2026-11-14T21:11:47.155Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble Puffer",
+  "statement": "Drifting through a sun-dappled emerald tank of velvety moss and stacked slate, this round little fish uses gentle jets of water to arrange colorful sea-glass into tidy, glowing constellations. Easily delighted by passing bubbles, it pauses to inspect every new shimmer before happily returning to its quiet mosaic.",
+  "usage": {
+    "in": 365,
+    "out": 1996
+  },
+  "cost": 0.0155175,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble Puffer\",\n  \"statement\": \"Drifting through a sun-dappled emerald tank of velvety moss and stacked slate, this round little fish uses gentle jets of water to arrange colorful sea-glass into tidy, glowing constellations. Easily delighted by passing bubbles, it pauses to inspect every new shimmer before happily returning to its quiet mosaic.\"\n}\n```"
+}

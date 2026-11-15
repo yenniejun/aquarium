@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 42,
+  "date": "2026-11-14T21:14:19.660Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clicking Constellation Cuttlefish",
+  "statement": "Drifting beneath sunken basalt arches and glowing sea-ferns, this velvet-mantled cephalopod spends its days meticulously arranging smooth shards of tumbled sea-glass into intricate, ever-changing geometric patterns on the sandy floor. Whenever a visitor leans close, it hovers at the glass with a soft, rhythmic clicking, rippling golden, star-like speckles across its midnight-blue skin as if eagerly translating its thoughts into miniature galaxies.",
+  "usage": {
+    "in": 365,
+    "out": 896
+  },
+  "cost": 0.00969,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Clicking Constellation Cuttlefish\",\n  \"statement\": \"Drifting beneath sunken basalt arches and glowing sea-ferns, this velvet-mantled cephalopod spends its days meticulously arranging smooth shards of tumbled sea-glass into intricate, ever-changing geometric patterns on the sandy floor. Whenever a visitor leans close, it hovers at the glass with a soft, rhythmic clicking, rippling golden, star-like speckles across its midnight-blue skin as if eagerly translating its thoughts into miniature galaxies.\"\n}\n```"
+}

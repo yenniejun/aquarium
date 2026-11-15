@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 44,
+  "date": "2026-11-14T21:16:50.170Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Scribbling Seahorse",
+  "statement": "In a warm, amber-lit reef of tiny ruins, bookmark kelp, and neatly stacked shells, this inquisitive seahorse trails dissolving ribbons of ink, doodling loops and question marks in the water. Each evening it rearranges its pebble collection to answer them — then, delighted, wonders something new.",
+  "usage": {
+    "in": 334,
+    "out": 1163
+  },
+  "cost": 0.023722,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Seahorse\",\n  \"statement\": \"In a warm, amber-lit reef of tiny ruins, bookmark kelp, and neatly stacked shells, this inquisitive seahorse trails dissolving ribbons of ink, doodling loops and question marks in the water. Each evening it rearranges its pebble collection to answer them — then, delighted, wonders something new.\"\n}\n```"
+}

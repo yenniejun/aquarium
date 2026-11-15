@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 3,
+  "date": "2026-11-14T21:14:41.412Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Scribbling Stardust Squid",
+  "statement": "A palm-sized cephalopod that drifts through dim blue water like a living night-sky, its mantle rippling with bioluminescent constellations. It periodically releases ink in slow, deliberate swirls—ephemeral sketches that hang in the current before dissolving.",
+  "usage": {
+    "in": 352,
+    "out": 6848
+  },
+  "cost": 0.01446592,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 106,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Stardust Squid\",\n  \"statement\": \"A palm-sized cephalopod that drifts through dim blue water like a living night-sky, its mantle rippling with bioluminescent constellations. It periodically releases ink in slow, deliberate swirls—ephemeral sketches that hang in the current before dissolving.\"\n}\n```"
+}

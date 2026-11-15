@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 30,
+  "date": "2026-11-14T21:10:28.340Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Wobbling Wispfish",
+  "statement": "A small, translucent fish with soft, mothlike fins drifts through a dim green garden of moss and smooth stones, pausing to follow each slow swirl of current. Its faintly glowing freckles brighten when it turns, like a thought finding its way home.",
+  "usage": {
+    "in": 330,
+    "out": 367
+  },
+  "cost": 0.0002165,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 4,
+  "reply": "```json\n{\n  \"title\": \"Wobbling Wispfish\",\n  \"statement\": \"A small, translucent fish with soft, mothlike fins drifts through a dim green garden of moss and smooth stones, pausing to follow each slow swirl of current. Its faintly glowing freckles brighten when it turns, like a thought finding its way home.\"\n}\n```"
+}

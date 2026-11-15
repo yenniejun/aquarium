@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 39,
+  "date": "2026-11-14T21:10:05.014Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Tinkering Teacup Turtle",
+  "statement": "A thumb-sized turtle whose shell is a chipped porcelain teacup, painted with faded blue flowers, and it spends its days arranging sea-glass buttons into tiny, careful spirals on the sand. Its tank is a quiet, honey-lit corner of the sea, with drifting dust-motes of plankton, a sunken bookshelf crusted with soft green algae, and a single lantern-jar that glows gently whenever the turtle finishes a pattern and clinks its shell in satisfaction.",
+  "usage": {
+    "in": 454,
+    "out": 204
+  },
+  "cost": 0.002948,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Tinkering Teacup Turtle\",\n  \"statement\": \"A thumb-sized turtle whose shell is a chipped porcelain teacup, painted with faded blue flowers, and it spends its days arranging sea-glass buttons into tiny, careful spirals on the sand. Its tank is a quiet, honey-lit corner of the sea, with drifting dust-motes of plankton, a sunken bookshelf crusted with soft green algae, and a single lantern-jar that glows gently whenever the turtle finishes a pattern and clinks its shell in satisfaction.\"\n}\n```"
+}

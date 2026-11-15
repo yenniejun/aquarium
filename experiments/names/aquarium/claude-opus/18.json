@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 18,
+  "date": "2026-11-14T21:10:19.275Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "In a twilight-blue tank strewn with sea glass and a tidy spiral of collected shells, this small, ear-finned octopus drifts up to the glass whenever someone lingers, tilts its head as if considering a question, and sketches a glowing answer in the water with the tip of one arm. The doodles fade within moments, so it simply draws another, endlessly curious about whoever is watching.",
+  "usage": {
+    "in": 454,
+    "out": 401
+  },
+  "cost": 0.009836,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"In a twilight-blue tank strewn with sea glass and a tidy spiral of collected shells, this small, ear-finned octopus drifts up to the glass whenever someone lingers, tilts its head as if considering a question, and sketches a glowing answer in the water with the tip of one arm. The doodles fade within moments, so it simply draws another, endlessly curious about whoever is watching.\"\n}\n```"
+}

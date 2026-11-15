@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 31,
+  "date": "2026-11-14T21:19:22.127Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonfish",
+  "statement": "A palm-sized, opalescent fish drifts through midnight-blue water, murmuring soft bloops as it gathers stray bubbles into tiny constellations. When its work is done, it naps inside a moon snail shell until curiosity calls again.",
+  "usage": {
+    "in": 410,
+    "out": 339
+  },
+  "cost": 0.0037492,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonfish\",\n  \"statement\": \"A palm-sized, opalescent fish drifts through midnight-blue water, murmuring soft bloops as it gathers stray bubbles into tiny constellations. When its work is done, it naps inside a moon snail shell until curiosity calls again.\"\n}\n```"
+}

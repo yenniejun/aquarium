@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 3,
+  "date": "2026-11-14T21:09:39.327Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Hmm-Hmm Nautilus",
+  "statement": "A pearly, teacup-sized nautilus that drifts through warm, lamplit water humming softly to itself, pausing at every pebble and seagrass blade as if it might be the most interesting thing in the world. Each chamber of its spiral shell glows a new color whenever it figures something out, and it patiently arranges bits of sea glass into little spirals for any visitor who lingers.",
+  "usage": {
+    "in": 454,
+    "out": 667
+  },
+  "cost": 0.015156,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Hmm-Hmm Nautilus\",\n  \"statement\": \"A pearly, teacup-sized nautilus that drifts through warm, lamplit water humming softly to itself, pausing at every pebble and seagrass blade as if it might be the most interesting thing in the world. Each chamber of its spiral shell glows a new color whenever it figures something out, and it patiently arranges bits of sea glass into little spirals for any visitor who lingers.\"\n}\n```"
+}

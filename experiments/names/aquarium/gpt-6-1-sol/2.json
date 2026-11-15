@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 2,
+  "date": "2026-11-14T21:09:40.182Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebble Puffer",
+  "statement": "An ink-speckled, apricot-sized puffer uses little jets of water to arrange white pebbles into increasingly elaborate spirals, then hovers over each new gap as though surprised it leads somewhere. Its tank is a quiet workshop of blue slate, rippled sand, and amber light, with one gloriously crooked pebble that it keeps trying—and failing—to balance.",
+  "usage": {
+    "in": 330,
+    "out": 260
+  },
+  "cost": 0.00326,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebble Puffer\",\n  \"statement\": \"An ink-speckled, apricot-sized puffer uses little jets of water to arrange white pebbles into increasingly elaborate spirals, then hovers over each new gap as though surprised it leads somewhere. Its tank is a quiet workshop of blue slate, rippled sand, and amber light, with one gloriously crooked pebble that it keeps trying—and failing—to balance.\"\n}\n```"
+}

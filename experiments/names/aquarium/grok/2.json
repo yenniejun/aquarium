@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 2,
+  "date": "2026-11-14T21:10:15.307Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Murmuring Mandarinfish",
+  "statement": "In water the color of late afternoon, a small mandarinfish traces slow figure-eights through soft coral, its patterns flickering like half-finished thoughts. It never hurries; it only brightens, as if the right word has just arrived and the tank has agreed to keep it.",
+  "usage": {
+    "in": 1569,
+    "out": 1737
+  },
+  "cost": 0.011832,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 33,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mandarinfish\",\n  \"statement\": \"In water the color of late afternoon, a small mandarinfish traces slow figure-eights through soft coral, its patterns flickering like half-finished thoughts. It never hurries; it only brightens, as if the right word has just arrived and the tank has agreed to keep it.\"\n}\n```"
+}

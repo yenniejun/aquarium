@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 18,
+  "date": "2026-11-14T21:09:47.292Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonlight Mollusk",
+  "statement": "A pearl-shelled nautilus the size of a teacup, she hums in soft bubbles as she drifts through a tank of deep indigo water, trailing a faint glow like a lantern someone forgot to put out. She spends her evenings circling a small drowned library of mossy stones and swaying kelp, pausing at each spine-like fern as if reading it, and the tank brightens a little whenever she finds a page she likes.",
+  "usage": {
+    "in": 454,
+    "out": 175
+  },
+  "cost": 0.002658,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonlight Mollusk\",\n  \"statement\": \"A pearl-shelled nautilus the size of a teacup, she hums in soft bubbles as she drifts through a tank of deep indigo water, trailing a faint glow like a lantern someone forgot to put out. She spends her evenings circling a small drowned library of mossy stones and swaying kelp, pausing at each spine-like fern as if reading it, and the tank brightens a little whenever she finds a page she likes.\"\n}\n```"
+}

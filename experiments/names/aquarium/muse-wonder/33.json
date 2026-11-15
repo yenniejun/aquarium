@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 33,
+  "date": "2026-11-14T21:15:02.698Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Daydream Dumbo",
+  "statement": "A palm-sized dumbo octopus drifts through indigo water, flapping its ear-fins and sketching spirals in the sand with a tentacle tip, then pausing to admire them. Around it, softly glowing anemones and a tiny brass telescope turn its tank into a quiet observatory for slow, curious wonders.",
+  "usage": {
+    "in": 334,
+    "out": 1137
+  },
+  "cost": 0.023202,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Doodling Daydream Dumbo\",\n  \"statement\": \"A palm-sized dumbo octopus drifts through indigo water, flapping its ear-fins and sketching spirals in the sand with a tentacle tip, then pausing to admire them. Around it, softly glowing anemones and a tiny brass telescope turn its tank into a quiet observatory for slow, curious wonders.\"\n}\n```"
+}

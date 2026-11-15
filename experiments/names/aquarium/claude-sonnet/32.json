@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 32,
+  "date": "2026-11-14T21:09:58.931Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Waltzer",
+  "statement": "A pearly spiral-shelled snail who hums to herself and glides in slow pirouettes through a tank of moonlit teal water, trailing a ribbon of glowing plankton. Around her, a ring of mossy stones and swaying kelp make a small ballroom, and every few minutes she stops mid-twirl to listen, as though the water has just whispered something back.",
+  "usage": {
+    "in": 454,
+    "out": 155
+  },
+  "cost": 0.002458,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Waltzer\",\n  \"statement\": \"A pearly spiral-shelled snail who hums to herself and glides in slow pirouettes through a tank of moonlit teal water, trailing a ribbon of glowing plankton. Around her, a ring of mossy stones and swaying kelp make a small ballroom, and every few minutes she stops mid-twirl to listen, as though the water has just whispered something back.\"\n}\n```"
+}

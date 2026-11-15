@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 3,
+  "date": "2026-11-14T21:09:37.840Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Paddlefin",
+  "statement": "A slow, whiskered drifter shaped like a question mark, the Pondering Paddlefin propels itself with one great dreamy fin-stroke per minute, pausing between each to think it over. It keeps a single glowing pebble at the center of its tank and circles it endlessly, as if trying to remember why it put it there.",
+  "usage": {
+    "in": 342,
+    "out": 96
+  },
+  "cost": 0.00122896,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Pondering Paddlefin\",\n  \"statement\": \"A slow, whiskered drifter shaped like a question mark, the Pondering Paddlefin propels itself with one great dreamy fin-stroke per minute, pausing between each to think it over. It keeps a single glowing pebble at the center of its tank and circles it endlessly, as if trying to remember why it put it there.\"\n}\n```"
+}

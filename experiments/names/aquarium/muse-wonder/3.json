@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 3,
+  "date": "2026-11-14T21:10:01.057Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Daydream Octopus",
+  "statement": "A gentle ink-artist who doodles swirling daydreams in the water, then rearranges her shell collection by color, mood, and story. She naps in a sun-dappled teapot grotto and always saves one arm to wave at curious visitors.",
+  "usage": {
+    "in": 334,
+    "out": 1633
+  },
+  "cost": 0.033996,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Doodling Daydream Octopus\",\n  \"statement\": \"A gentle ink-artist who doodles swirling daydreams in the water, then rearranges her shell collection by color, mood, and story. She naps in a sun-dappled teapot grotto and always saves one arm to wave at curious visitors.\"\n}\n```"
+}

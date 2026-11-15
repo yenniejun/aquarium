@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 20,
+  "date": "2026-11-14T21:10:24.673Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Murmuring Moon Snail",
+  "statement": "In a tank of dusky blue water, among swaying ribbon-kelp and a half-buried brass lantern, this pearly, softly glowing snail glides across dark sand, leaving luminous looping trails that look almost like handwriting. It often pauses to reread its work, sometimes doubling back to gently revise a curl, and seems happiest when a visitor leans close enough to read along.",
+  "usage": {
+    "in": 454,
+    "out": 485
+  },
+  "cost": 0.011516,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moon Snail\",\n  \"statement\": \"In a tank of dusky blue water, among swaying ribbon-kelp and a half-buried brass lantern, this pearly, softly glowing snail glides across dark sand, leaving luminous looping trails that look almost like handwriting. It often pauses to reread its work, sometimes doubling back to gently revise a curl, and seems happiest when a visitor leans close enough to read along.\"\n}\n```"
+}

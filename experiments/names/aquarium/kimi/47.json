@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 47,
+  "date": "2026-11-14T21:24:37.565Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Musing Mooncuttle",
+  "statement": "A thumb-sized pearlescent cuttlefish drifts through midnight-blue water, trailing constellations across its skin above pale glass pebbles and swaying eelgrass. It inspects every new discovery with theatrical concentration, then celebrates by releasing a tiny ink question mark that curls into bubbles.",
+  "usage": {
+    "in": 410,
+    "out": 374
+  },
+  "cost": 0.0040992,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Musing Mooncuttle\",\n  \"statement\": \"A thumb-sized pearlescent cuttlefish drifts through midnight-blue water, trailing constellations across its skin above pale glass pebbles and swaying eelgrass. It inspects every new discovery with theatrical concentration, then celebrates by releasing a tiny ink question mark that curls into bubbles.\"\n}\n```"
+}

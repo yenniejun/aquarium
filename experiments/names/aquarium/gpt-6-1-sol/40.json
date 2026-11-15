@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 40,
+  "date": "2026-11-14T21:12:23.192Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Puzzle Cuttlefish",
+  "statement": "A palm-sized cuttlefish with opalescent freckles hovers through a twilight-blue tank, arranging little porcelain tiles into spirals beneath an arch of eelgrass. Whenever a pattern looks finished, it changes one piece, turns a pleased apricot, and settles into the white sand to consider the consequences.",
+  "usage": {
+    "in": 330,
+    "out": 368
+  },
+  "cost": 0.00434,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Puttering Puzzle Cuttlefish\",\n  \"statement\": \"A palm-sized cuttlefish with opalescent freckles hovers through a twilight-blue tank, arranging little porcelain tiles into spirals beneath an arch of eelgrass. Whenever a pattern looks finished, it changes one piece, turns a pleased apricot, and settles into the white sand to consider the consequences.\"\n}\n```"
+}

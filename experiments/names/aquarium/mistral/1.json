@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 1,
+  "date": "2026-11-14T21:10:59.752Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Pulsing Poet Cuttlefish",
+  "statement": "A flamboyant cuttlefish that strolls across the sand on its arms, its skin rippling through waves of color with every passing thought. It watches you back through W-shaped pupils, quietly composing a reply.",
+  "usage": {
+    "in": 352,
+    "out": 4867
+  },
+  "cost": 0.0104671,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 89,
+  "reply": "```json\n{\n  \"title\": \"Pulsing Poet Cuttlefish\",\n  \"statement\": \"A flamboyant cuttlefish that strolls across the sand on its arms, its skin rippling through waves of color with every passing thought. It watches you back through W-shaped pupils, quietly composing a reply.\"\n}\n```"
+}

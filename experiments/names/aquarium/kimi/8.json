@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 8,
+  "date": "2026-11-14T21:12:07.245Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Pondering Pebble Octopus",
+  "statement": "A palm-sized, ink-blue octopus with freckles like faint constellations, tending a spiral garden of sea glass and moon-white stones. It rearranges one pebble whenever the current shifts, then folds its tentacles and pauses—as if checking whether the universe noticed.",
+  "usage": {
+    "in": 410,
+    "out": 448
+  },
+  "cost": 0.0048392,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pebble Octopus\",\n  \"statement\": \"A palm-sized, ink-blue octopus with freckles like faint constellations, tending a spiral garden of sea glass and moon-white stones. It rearranges one pebble whenever the current shifts, then folds its tentacles and pauses—as if checking whether the universe noticed.\"\n}\n```"
+}

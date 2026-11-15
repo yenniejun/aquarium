@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 19,
+  "date": "2026-11-14T21:14:07.993Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Bumbling Brine-Bulb",
+  "statement": "A small, round, translucent creature no bigger than a plum, glowing faintly amber from within like a lantern left on in a quiet room. It sits among smooth black pebbles in deep indigo water, occasionally nudging one stone a millimeter to the left, then pausing for a long while as if considering whether that was the right decision.",
+  "usage": {
+    "in": 359,
+    "out": 870
+  },
+  "cost": 0.011876,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Bumbling Brine-Bulb\",\n  \"statement\": \"A small, round, translucent creature no bigger than a plum, glowing faintly amber from within like a lantern left on in a quiet room. It sits among smooth black pebbles in deep indigo water, occasionally nudging one stone a millimeter to the left, then pausing for a long while as if considering whether that was the right decision.\"\n}\n```"
+}

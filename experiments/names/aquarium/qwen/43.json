@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 43,
+  "date": "2026-11-14T21:19:58.742Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Puffglow",
+  "statement": "A thumb-sized, round-bellied cephalopod that rests among smooth dark stones and pulses gently with warm amber bioluminescence, as though turning over a single small thought it finds endlessly interesting.",
+  "usage": {
+    "in": 359,
+    "out": 1730
+  },
+  "cost": 0.022196,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Pondering Puffglow\",\n  \"statement\": \"A thumb-sized, round-bellied cephalopod that rests among smooth dark stones and pulses gently with warm amber bioluminescence, as though turning over a single small thought it finds endlessly interesting.\"\n}\n```"
+}

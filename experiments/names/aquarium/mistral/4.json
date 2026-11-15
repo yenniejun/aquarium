@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 4,
+  "date": "2026-11-14T21:18:03.679Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Scribbling Sighing Snail",
+  "statement": "A small algae-eating snail that scribbles fine silver spirals across the front glass as it grazes. It often pauses to sigh—a soft, contented sound—and seems to admire its own drawings before continuing.",
+  "usage": {
+    "in": 352,
+    "out": 8578
+  },
+  "cost": 0.01809892,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 202,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Sighing Snail\",\n  \"statement\": \"A small algae-eating snail that scribbles fine silver spirals across the front glass as it grazes. It often pauses to sigh—a soft, contented sound—and seems to admire its own drawings before continuing.\"\n}\n```"
+}

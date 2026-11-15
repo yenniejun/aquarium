@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 22,
+  "date": "2026-11-14T21:14:48.971Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Doodling Dumbo",
+  "statement": "A small, faintly translucent octopus with oversized ear-fins, who spends its evenings nudging smooth pebbles into loose spirals on the sand, then pauses to regard its arrangement with one large, thoughtful eye before dismantling the whole thing and starting again.",
+  "usage": {
+    "in": 359,
+    "out": 1207
+  },
+  "cost": 0.01592,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo\",\n  \"statement\": \"A small, faintly translucent octopus with oversized ear-fins, who spends its evenings nudging smooth pebbles into loose spirals on the sand, then pauses to regard its arrangement with one large, thoughtful eye before dismantling the whole thing and starting again.\"\n}\n```"
+}

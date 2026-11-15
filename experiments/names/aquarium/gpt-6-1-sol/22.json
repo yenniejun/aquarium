@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 22,
+  "date": "2026-11-14T21:11:09.510Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pebblepus",
+  "statement": "A palm-sized, translucent octopus with apricot freckles putters through a tank of blue dusk, white sand, and smooth black pebbles beneath a single amber shaft of light. It builds little pebble mazes, tests every passage with extravagant seriousness, then moves one stone so there will be something new to discover.",
+  "usage": {
+    "in": 330,
+    "out": 458
+  },
+  "cost": 0.00524,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pebblepus\",\n  \"statement\": \"A palm-sized, translucent octopus with apricot freckles putters through a tank of blue dusk, white sand, and smooth black pebbles beneath a single amber shaft of light. It builds little pebble mazes, tests every passage with extravagant seriousness, then moves one stone so there will be something new to discover.\"\n}\n```"
+}

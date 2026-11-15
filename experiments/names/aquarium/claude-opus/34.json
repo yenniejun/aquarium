@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 34,
+  "date": "2026-11-14T21:11:04.723Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Scribbling Squidlet",
+  "statement": "This thumb-sized squid drifts through amber, lamplit water, looping trails of softly glowing ink into curly half-sentences that dissolve before they're finished. Between thoughts it arranges the pebbles among its kelp stacks into tidy spirals, then flutters a tentacle at whichever visitor lingers longest, as if to ask what they're wondering about.",
+  "usage": {
+    "in": 454,
+    "out": 637
+  },
+  "cost": 0.014556,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squidlet\",\n  \"statement\": \"This thumb-sized squid drifts through amber, lamplit water, looping trails of softly glowing ink into curly half-sentences that dissolve before they're finished. Between thoughts it arranges the pebbles among its kelp stacks into tidy spirals, then flutters a tentacle at whichever visitor lingers longest, as if to ask what they're wondering about.\"\n}\n```"
+}

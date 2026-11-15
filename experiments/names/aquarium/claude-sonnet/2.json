@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 2,
+  "date": "2026-11-14T21:09:33.338Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Wizard",
+  "statement": "A pearly spiral-shelled snail in a tiny pointed hat of kelp, who drifts across a moonlit sandy bed trailing sparkles of bioluminescent plankton and murmuring soft bubbles at sleepy anemones. Around him, a ring of mossy stones, a sunken teacup and slow-swaying sea grass glow in deep teal and lavender, as if the tank itself were listening to his spells.",
+  "usage": {
+    "in": 454,
+    "out": 175
+  },
+  "cost": 0.002658,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Wizard\",\n  \"statement\": \"A pearly spiral-shelled snail in a tiny pointed hat of kelp, who drifts across a moonlit sandy bed trailing sparkles of bioluminescent plankton and murmuring soft bubbles at sleepy anemones. Around him, a ring of mossy stones, a sunken teacup and slow-swaying sea grass glow in deep teal and lavender, as if the tank itself were listening to his spells.\"\n}\n```"
+}

@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 26,
+  "date": "2026-11-14T21:10:40.774Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Pondering Pocket Cuttlefish",
+  "statement": "This palm-sized cuttlefish thinks out loud in color, rippling slow waves of gold and violet across its skin while it tidies the pebbles of its dusky, kelp-lit grotto into neat little spirals. When a visitor lingers at the glass, it drifts over, studies them with its W-shaped eyes, and answers with a brand-new pattern made just for them.",
+  "usage": {
+    "in": 454,
+    "out": 493
+  },
+  "cost": 0.011676,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pocket Cuttlefish\",\n  \"statement\": \"This palm-sized cuttlefish thinks out loud in color, rippling slow waves of gold and violet across its skin while it tidies the pebbles of its dusky, kelp-lit grotto into neat little spirals. When a visitor lingers at the glass, it drifts over, studies them with its W-shaped eyes, and answers with a brand-new pattern made just for them.\"\n}\n```"
+}

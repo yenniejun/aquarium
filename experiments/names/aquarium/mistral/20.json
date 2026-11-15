@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 20,
+  "date": "2026-11-14T21:45:57.842Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Waltzing Water Walnut",
+  "statement": "A transparent sea walnut whose eight comb-rows pulse with rainbow light as it drifts. In a gentle kreisel current it waltzes in slow circles, scattering tiny prisms across the glass.",
+  "usage": {
+    "in": 352,
+    "out": 3325
+  },
+  "cost": 0.00706762,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 47,
+  "reply": "```json\n{\n  \"title\": \"Waltzing Water Walnut\",\n  \"statement\": \"A transparent sea walnut whose eight comb-rows pulse with rainbow light as it drifts. In a gentle kreisel current it waltzes in slow circles, scattering tiny prisms across the glass.\"\n}\n```"
+}

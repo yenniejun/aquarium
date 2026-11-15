@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 16,
+  "date": "2026-11-14T21:39:57.617Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Chuckling Cuttlefish",
+  "statement": "A small, wide-eyed cephalopod whose skin ripples with shifting colors when amused, emitting a soft, bubbling chuckle that you can feel through the glass.",
+  "usage": {
+    "in": 352,
+    "out": 6839
+  },
+  "cost": 0.01444702,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 93,
+  "reply": "```json\n{\n  \"title\": \"Chuckling Cuttlefish\",\n  \"statement\": \"A small, wide-eyed cephalopod whose skin ripples with shifting colors when amused, emitting a soft, bubbling chuckle that you can feel through the glass.\"\n}\n```"
+}

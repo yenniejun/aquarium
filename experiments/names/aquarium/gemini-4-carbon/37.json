@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 37,
+  "date": "2026-11-14T21:13:54.965Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clickety Cuttlefish",
+  "statement": "Drifting through a twilight grotto of stacked slate ledges and softly glowing sea-ferns, this pint-sized cephalopod ripples with shifting constellations of amber and violet light whenever a visitor leans close to the glass. An endlessly curious curator, it spends its days gathering bits of tumbled sea-glass in its tentacles and rhythmically tapping them into intricate, ever-changing mosaics across the sandy floor.",
+  "usage": {
+    "in": 365,
+    "out": 1350
+  },
+  "cost": 0.01423,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Clickety Cuttlefish\",\n  \"statement\": \"Drifting through a twilight grotto of stacked slate ledges and softly glowing sea-ferns, this pint-sized cephalopod ripples with shifting constellations of amber and violet light whenever a visitor leans close to the glass. An endlessly curious curator, it spends its days gathering bits of tumbled sea-glass in its tentacles and rhythmically tapping them into intricate, ever-changing mosaics across the sandy floor.\"\n}\n```"
+}

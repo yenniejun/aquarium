@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 8,
+  "date": "2026-11-14T21:09:56.896Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Murmuring Mosaic Cuttle",
+  "statement": "A palm-sized cuttlefish that drifts up to the glass to study each visitor, its skin rippling in slow, warm colors that echo whatever it sees, as if it is trying to understand you before it answers. At night, beneath the soft amber glow of its sea-glass lanterns, it patiently rearranges the pebbles of its tank into small, careful patterns, never quite the same twice.",
+  "usage": {
+    "in": 454,
+    "out": 596
+  },
+  "cost": 0.013736,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mosaic Cuttle\",\n  \"statement\": \"A palm-sized cuttlefish that drifts up to the glass to study each visitor, its skin rippling in slow, warm colors that echo whatever it sees, as if it is trying to understand you before it answers. At night, beneath the soft amber glow of its sea-glass lanterns, it patiently rearranges the pebbles of its tank into small, careful patterns, never quite the same twice.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 1,
+  "date": "2026-11-14T21:09:47.547Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Puffgudge",
+  "statement": "A small, round, faintly translucent fish that sits for hours among smooth dark stones and soft moss, glowing a steady warm amber. Every so often, after what appears to be enormous deliberation, it nudges a single pebble one inch to the left, pulses a little brighter with quiet satisfaction, and resumes thinking.",
+  "usage": {
+    "in": 359,
+    "out": 1562
+  },
+  "cost": 0.02018,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Pondering Puffgudge\",\n  \"statement\": \"A small, round, faintly translucent fish that sits for hours among smooth dark stones and soft moss, glowing a steady warm amber. Every so often, after what appears to be enormous deliberation, it nudges a single pebble one inch to the left, pulses a little brighter with quiet satisfaction, and resumes thinking.\"\n}\n```"
+}

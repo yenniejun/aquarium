@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 26,
+  "date": "2026-11-14T21:11:09.755Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Cataloging Cuttlefish",
+  "statement": "Beneath dappled amber sunbeams and swaying ribbon-kelp, this inquisitive little cuttlefish spends its hours sorting smooth pebbles, sea glass, and sunken brass trinkets into neat, gleaming gradients. Whenever a new arrangement feels just right, its skin ripples with soft bioluminescent constellations before it drifts off in search of the next curiosity.",
+  "usage": {
+    "in": 365,
+    "out": 1933
+  },
+  "cost": 0.015045,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Cataloging Cuttlefish\",\n  \"statement\": \"Beneath dappled amber sunbeams and swaying ribbon-kelp, this inquisitive little cuttlefish spends its hours sorting smooth pebbles, sea glass, and sunken brass trinkets into neat, gleaming gradients. Whenever a new arrangement feels just right, its skin ripples with soft bioluminescent constellations before it drifts off in search of the next curiosity.\"\n}\n```"
+}

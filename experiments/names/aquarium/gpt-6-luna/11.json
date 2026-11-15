@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 11,
+  "date": "2026-11-14T21:09:54.683Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Murmuring Moonmoth",
+  "statement": "This tiny, pearl-gray nudibranch paddles through the water on soft, mothlike frills, leaving a trail of silver bubbles. It rests among curled moss and smooth stones beneath a moon-pale lamp, as if dreaming in a quiet underwater garden.",
+  "usage": {
+    "in": 330,
+    "out": 567
+  },
+  "cost": 0.0003165,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonmoth\",\n  \"statement\": \"This tiny, pearl-gray nudibranch paddles through the water on soft, mothlike frills, leaving a trail of silver bubbles. It rests among curled moss and smooth stones beneath a moon-pale lamp, as if dreaming in a quiet underwater garden.\"\n}\n```"
+}

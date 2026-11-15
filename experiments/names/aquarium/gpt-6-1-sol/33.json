@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 33,
+  "date": "2026-11-14T21:11:56.402Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Tinkering Teacup Octopus",
+  "statement": "A teacup-sized octopus with translucent lavender arms and freckles like amber ink spends its afternoons arranging smooth porcelain fragments into elaborate, slightly crooked constellations. Beneath a single honey-colored light, its tank is a quiet landscape of midnight sand and ceramic arches; whenever a passing shadow interrupts its work, it turns one curious eye upward, then makes room in the pattern.",
+  "usage": {
+    "in": 330,
+    "out": 470
+  },
+  "cost": 0.00536,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Tinkering Teacup Octopus\",\n  \"statement\": \"A teacup-sized octopus with translucent lavender arms and freckles like amber ink spends its afternoons arranging smooth porcelain fragments into elaborate, slightly crooked constellations. Beneath a single honey-colored light, its tank is a quiet landscape of midnight sand and ceramic arches; whenever a passing shadow interrupts its work, it turns one curious eye upward, then makes room in the pattern.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 6,
+  "date": "2026-11-14T21:11:23.370Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Pondering Pocket Puffer",
+  "statement": "In a hush of indigo water, this palm-sized puffer gathers curious bubbles and arranges moon-white pebbles into tiny, unsolvable puzzles. When delighted, it swells into a soft little moon, then sighs itself small again in a silvery fizz.",
+  "usage": {
+    "in": 410,
+    "out": 378
+  },
+  "cost": 0.0041392,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pocket Puffer\",\n  \"statement\": \"In a hush of indigo water, this palm-sized puffer gathers curious bubbles and arranges moon-white pebbles into tiny, unsolvable puzzles. When delighted, it swells into a soft little moon, then sighs itself small again in a silvery fizz.\"\n}\n```"
+}

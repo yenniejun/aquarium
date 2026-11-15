@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 2,
+  "date": "2026-11-14T21:09:40.012Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Curious Cursive Cuttlefish",
+  "statement": "This small, gold-flecked cuttlefish ripples looping, handwriting-like patterns across its skin whenever it notices something new, as though taking careful notes on the world. It drifts up to greet each visitor with a tilt of its head, then returns to its lamplit kelp garden to arrange glowing pebbles into tiny constellations, rearranging them now and then as if still working out the best way to say something.",
+  "usage": {
+    "in": 454,
+    "out": 697
+  },
+  "cost": 0.015756,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Curious Cursive Cuttlefish\",\n  \"statement\": \"This small, gold-flecked cuttlefish ripples looping, handwriting-like patterns across its skin whenever it notices something new, as though taking careful notes on the world. It drifts up to greet each visitor with a tilt of its head, then returns to its lamplit kelp garden to arrange glowing pebbles into tiny constellations, rearranging them now and then as if still working out the best way to say something.\"\n}\n```"
+}

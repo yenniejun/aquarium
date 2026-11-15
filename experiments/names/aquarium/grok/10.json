@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 10,
+  "date": "2026-11-14T21:13:14.578Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Tip-Tap Ghost Shrimp",
+  "statement": "Almost invisible except for its bright eyes and busy claws, it tip-taps through a mossy green quiet, rearranging tiny shells into little constellations and pausing at the glass whenever the light shifts.",
+  "usage": {
+    "in": 1569,
+    "out": 1389
+  },
+  "cost": 0.009168,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 28,
+  "reply": "```json\n{\n  \"title\": \"Tip-Tap Ghost Shrimp\",\n  \"statement\": \"Almost invisible except for its bright eyes and busy claws, it tip-taps through a mossy green quiet, rearranging tiny shells into little constellations and pausing at the glass whenever the light shifts.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 1,
+  "date": "2026-11-14T21:09:39.709Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Pondering Pocket Octopus",
+  "statement": "A walnut-sized octopus who thinks in colour, turning ink-blue for puzzles and rose-gold for jokes while rearranging her pebble garden into tiny constellations. She lives in a lamplit grotto of bookshelves, teacups, and drifting bubbles — always one arm curled around a new curiosity.",
+  "usage": {
+    "in": 334,
+    "out": 1039
+  },
+  "cost": 0.022116,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pocket Octopus\",\n  \"statement\": \"A walnut-sized octopus who thinks in colour, turning ink-blue for puzzles and rose-gold for jokes while rearranging her pebble garden into tiny constellations. She lives in a lamplit grotto of bookshelves, teacups, and drifting bubbles — always one arm curled around a new curiosity.\"\n}\n```"
+}

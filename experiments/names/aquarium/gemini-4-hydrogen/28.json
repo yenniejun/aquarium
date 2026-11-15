@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 28,
+  "date": "2026-11-14T21:11:09.935Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Scribbling Squid",
+  "statement": "Inhabiting a calm twilight tank of stacked slate arches and softly glowing moss, this miniature cephalopod puffs faint trails of bioluminescent ink to sketch fleeting diagrams in the water. Ever curious about visitors on the other side of the glass, it answers their gaze by flashing warm amber patterns across its mantle and tidily sorting smooth pebbles along the sand.",
+  "usage": {
+    "in": 365,
+    "out": 1688
+  },
+  "cost": 0.0132075,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squid\",\n  \"statement\": \"Inhabiting a calm twilight tank of stacked slate arches and softly glowing moss, this miniature cephalopod puffs faint trails of bioluminescent ink to sketch fleeting diagrams in the water. Ever curious about visitors on the other side of the glass, it answers their gaze by flashing warm amber patterns across its mantle and tidily sorting smooth pebbles along the sand.\"\n}\n```"
+}

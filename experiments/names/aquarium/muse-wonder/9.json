@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 9,
+  "date": "2026-11-14T21:10:57.036Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Scribbling Starry Squid",
+  "statement": "A thumb-sized squid who thinks in loops, trailing gentle ink doodles and rearranging pale pebbles into constellations across the sand. By night it curls in a shell-lined reading nook, glowing softly as it watches its own patterns drift and change.",
+  "usage": {
+    "in": 334,
+    "out": 819
+  },
+  "cost": 0.016842,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Starry Squid\",\n  \"statement\": \"A thumb-sized squid who thinks in loops, trailing gentle ink doodles and rearranging pale pebbles into constellations across the sand. By night it curls in a shell-lined reading nook, glowing softly as it watches its own patterns drift and change.\"\n}\n```"
+}

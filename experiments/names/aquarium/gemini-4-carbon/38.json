@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 38,
+  "date": "2026-11-14T21:13:59.563Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clinking Cuttlefish",
+  "statement": "Drifting between miniature basalt columns and tufts of glowing blue moss, this curious cephalopod spends its days arranging colorful bits of frosted sea glass into intricate spirals on the sandy floor. As it ponders its collection, shifting constellations of warm light ripple across its skin, accompanied by the gentle clink-clink of pebbles tapped together in quiet satisfaction.",
+  "usage": {
+    "in": 365,
+    "out": 921
+  },
+  "cost": 0.00994,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Clinking Cuttlefish\",\n  \"statement\": \"Drifting between miniature basalt columns and tufts of glowing blue moss, this curious cephalopod spends its days arranging colorful bits of frosted sea glass into intricate spirals on the sandy floor. As it ponders its collection, shifting constellations of warm light ripple across its skin, accompanied by the gentle clink-clink of pebbles tapped together in quiet satisfaction.\"\n}\n```"
+}

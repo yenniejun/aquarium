@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 48,
+  "date": "2026-11-14T21:14:53.970Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Babbling Bobtail Squid",
+  "statement": "Hovering in indigo twilight above a garden of frosted sea glass and book-like basalt slabs, this teacup-sized cephalopod greets visitors by rippling glowing, punctuation-shaped spots across its velvety skin. Endlessly curious, it spends its days meticulously rearranging shiny pebbles on the tank floor as if drafting and redrafting a very important underwater novel.",
+  "usage": {
+    "in": 365,
+    "out": 1207
+  },
+  "cost": 0.0128,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 20,
+  "reply": "```json\n{\n  \"title\": \"Babbling Bobtail Squid\",\n  \"statement\": \"Hovering in indigo twilight above a garden of frosted sea glass and book-like basalt slabs, this teacup-sized cephalopod greets visitors by rippling glowing, punctuation-shaped spots across its velvety skin. Endlessly curious, it spends its days meticulously rearranging shiny pebbles on the tank floor as if drafting and redrafting a very important underwater novel.\"\n}\n```"
+}

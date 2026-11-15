@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 41,
+  "date": "2026-11-14T21:10:05.940Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Dithering Dumbo Dabbler",
+  "statement": "A pocket-sized, pearly-pink octopus with enormous ear-like fins, it flaps through a tank of warm amber light and drifting dust-motes, forever distracted by its own curiosity. It pauses to pat each shell, pebble, and swaying frond in a small ceremony of approval, and when it gets overwhelmed by all the choices it blushes lavender and tucks itself inside a teacup.",
+  "usage": {
+    "in": 454,
+    "out": 171
+  },
+  "cost": 0.002618,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Dithering Dumbo Dabbler\",\n  \"statement\": \"A pocket-sized, pearly-pink octopus with enormous ear-like fins, it flaps through a tank of warm amber light and drifting dust-motes, forever distracted by its own curiosity. It pauses to pat each shell, pebble, and swaying frond in a small ceremony of approval, and when it gets overwhelmed by all the choices it blushes lavender and tucks itself inside a teacup.\"\n}\n```"
+}

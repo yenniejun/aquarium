@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 36,
+  "date": "2026-11-14T21:11:07.383Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Curious Kaleidoscope Cuttlefish",
+  "statement": "A thumb-sized cuttlefish drifts through a twilight-blue grotto of swaying kelp and a sunken writing desk, its skin rippling with soft patterns that echo whatever it's watching, as if quietly trying to understand you. Each night it arranges tiny shells on the desk into a new spiral, not quite an answer, but always a better question.",
+  "usage": {
+    "in": 454,
+    "out": 571
+  },
+  "cost": 0.013236,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Curious Kaleidoscope Cuttlefish\",\n  \"statement\": \"A thumb-sized cuttlefish drifts through a twilight-blue grotto of swaying kelp and a sunken writing desk, its skin rippling with soft patterns that echo whatever it's watching, as if quietly trying to understand you. Each night it arranges tiny shells on the desk into a new spiral, not quite an answer, but always a better question.\"\n}\n```"
+}

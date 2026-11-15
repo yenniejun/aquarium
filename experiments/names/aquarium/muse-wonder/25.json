@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 25,
+  "date": "2026-11-14T21:13:39.511Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Wibbling Wonderpus",
+  "statement": "This stripey little octopus wibbles from rock to rock collecting shiny pebbles and lost bubbles, arranging them each evening into new constellations for the tank to dream under. No two nights, and no two patterns, are ever quite the same.",
+  "usage": {
+    "in": 334,
+    "out": 929
+  },
+  "cost": 0.019042,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Wibbling Wonderpus\",\n  \"statement\": \"This stripey little octopus wibbles from rock to rock collecting shiny pebbles and lost bubbles, arranging them each evening into new constellations for the tank to dream under. No two nights, and no two patterns, are ever quite the same.\"\n}\n```"
+}

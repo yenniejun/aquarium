@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 26,
+  "date": "2026-11-14T21:53:55.055Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Gurgling Garden Snail",
+  "statement": "A patient little herbivore that farms a velvet lawn of algae across its spiral shell, pruning it each dawn and exhaling a lazy string of bubbles that drift upward like tiny underwater sighs. It moves in no hurry whatsoever, and the whole tank seems to slow down to match.",
+  "usage": {
+    "in": 352,
+    "out": 759
+  },
+  "cost": 0.00167902,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Gurgling Garden Snail\",\n  \"statement\": \"A patient little herbivore that farms a velvet lawn of algae across its spiral shell, pruning it each dawn and exhaling a lazy string of bubbles that drift upward like tiny underwater sighs. It moves in no hurry whatsoever, and the whole tank seems to slow down to match.\"\n}\n```"
+}

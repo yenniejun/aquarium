@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 19,
+  "date": "2026-11-14T21:12:04.284Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Noodling Nautilus",
+  "statement": "Bobbing through an indigo tank of terraced slate and swaying golden kelp, this pint-sized cephalopod wears a frosted-glass spiral shell whose inner chambers softly pulse with warm, wandering light as it daydreams. It spends its hours gathering silvery air bubbles and bits of sea glass with its dozens of nimble tentacles, tucking them into tidy constellations along the ledges before jetting backward to admire its work.",
+  "usage": {
+    "in": 365,
+    "out": 3012
+  },
+  "cost": 0.03085,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 50,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nautilus\",\n  \"statement\": \"Bobbing through an indigo tank of terraced slate and swaying golden kelp, this pint-sized cephalopod wears a frosted-glass spiral shell whose inner chambers softly pulse with warm, wandering light as it daydreams. It spends its hours gathering silvery air bubbles and bits of sea glass with its dozens of nimble tentacles, tucking them into tidy constellations along the ledges before jetting backward to admire its work.\"\n}\n```"
+}

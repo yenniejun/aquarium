@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 35,
+  "date": "2026-11-14T21:13:44.611Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clickety Kaleidoscope Cuttlefish",
+  "statement": "Peering out from a twilight garden of sunken brass astrolabes and swaying velvet kelp, this pint-sized cephalopod ripples with shifting, stained-glass patterns of warm amber and electric cyan. It spends its days emitting soft, rhythmic clicks of satisfaction while meticulously sorting colorful shards of sea glass into intricate spirals across the sand.",
+  "usage": {
+    "in": 365,
+    "out": 1083
+  },
+  "cost": 0.01156,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Clickety Kaleidoscope Cuttlefish\",\n  \"statement\": \"Peering out from a twilight garden of sunken brass astrolabes and swaying velvet kelp, this pint-sized cephalopod ripples with shifting, stained-glass patterns of warm amber and electric cyan. It spends its days emitting soft, rhythmic clicks of satisfaction while meticulously sorting colorful shards of sea glass into intricate spirals across the sand.\"\n}\n```"
+}

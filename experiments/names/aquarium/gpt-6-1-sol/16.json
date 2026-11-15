@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 16,
+  "date": "2026-11-14T21:10:42.022Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pitter-Patter Pebblepuss",
+  "statement": "A palm-sized, lavender octopus with copper freckles tiptoes through a midnight-blue tank, arranging porcelain pebbles into spirals beneath a single ribbon of amber light. Whenever a pattern seems finished, it steals one pebble from the middle and starts investigating the entirely new problem it has made.",
+  "usage": {
+    "in": 330,
+    "out": 331
+  },
+  "cost": 0.00397,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Pitter-Patter Pebblepuss\",\n  \"statement\": \"A palm-sized, lavender octopus with copper freckles tiptoes through a midnight-blue tank, arranging porcelain pebbles into spirals beneath a single ribbon of amber light. Whenever a pattern seems finished, it steals one pebble from the middle and starts investigating the entirely new problem it has made.\"\n}\n```"
+}

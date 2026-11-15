@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 44,
+  "date": "2026-11-14T21:10:55.001Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Blooping Bellfish",
+  "statement": "This velvet-blue fish drifts through a miniature meadow of eelgrass, its translucent bell-shaped fins wobbling with every turn. When curious, it releases one pearly bubble that rises like a tiny, wordless hello.",
+  "usage": {
+    "in": 330,
+    "out": 464
+  },
+  "cost": 0.000265,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bellfish\",\n  \"statement\": \"This velvet-blue fish drifts through a miniature meadow of eelgrass, its translucent bell-shaped fins wobbling with every turn. When curious, it releases one pearly bubble that rises like a tiny, wordless hello.\"\n}\n```"
+}

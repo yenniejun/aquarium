@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 28,
+  "date": "2026-11-14T21:10:35.182Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Puffling Pufferfish",
+  "statement": "A small, shy pufferfish who never actually inflates — instead it softly glows warmer whenever it's curious, drifting between moon-white stones and slow anemones like a lantern deciding whether to come closer.",
+  "usage": {
+    "in": 342,
+    "out": 66
+  },
+  "cost": 0.00096496,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Puffling Pufferfish\",\n  \"statement\": \"A small, shy pufferfish who never actually inflates — instead it softly glows warmer whenever it's curious, drifting between moon-white stones and slow anemones like a lantern deciding whether to come closer.\"\n}\n```"
+}

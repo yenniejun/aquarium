@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 20,
+  "date": "2026-11-14T21:10:16.752Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Wandering Wistful Whelk",
+  "statement": "A small, pearlescent sea snail who drifts a hair above the sand on a cushion of tiny bubbles, pausing at each rock as if reading it like a love letter. Its spiral shell catches the tank's low golden light and turns it slowly, softly blue — less a home than a held breath.",
+  "usage": {
+    "in": 342,
+    "out": 90
+  },
+  "cost": 0.00117616,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Wandering Wistful Whelk\",\n  \"statement\": \"A small, pearlescent sea snail who drifts a hair above the sand on a cushion of tiny bubbles, pausing at each rock as if reading it like a love letter. Its spiral shell catches the tank's low golden light and turns it slowly, softly blue — less a home than a held breath.\"\n}\n```"
+}

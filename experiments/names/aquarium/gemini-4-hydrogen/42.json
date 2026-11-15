@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 42,
+  "date": "2026-11-14T21:11:58.242Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Noodling Nautilus",
+  "statement": "Drifting through sun-dappled celadon water among mossy slate arches, this pearlescent cephalopod spends its hours carefully arranging luminous glass pebbles into intricate, glowing spirals. No sooner does it finish a tiny constellation than it lets out a cheerful puff of bubbles to scatter the pieces and puzzle out a new design.",
+  "usage": {
+    "in": 365,
+    "out": 1550
+  },
+  "cost": 0.0121725,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nautilus\",\n  \"statement\": \"Drifting through sun-dappled celadon water among mossy slate arches, this pearlescent cephalopod spends its hours carefully arranging luminous glass pebbles into intricate, glowing spirals. No sooner does it finish a tiny constellation than it lets out a cheerful puff of bubbles to scatter the pieces and puzzle out a new design.\"\n}\n```"
+}

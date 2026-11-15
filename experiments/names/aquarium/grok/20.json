@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 20,
+  "date": "2026-11-14T21:16:12.387Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Glimmering Glass Goby",
+  "statement": "A nearly transparent goby hovers in a shaft of warm light, its tiny fins ticking like a second thought. It watches the gravel as if the tank were a question it is in no hurry to finish answering.",
+  "usage": {
+    "in": 1569,
+    "out": 1025
+  },
+  "cost": 0.006984,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Glimmering Glass Goby\",\n  \"statement\": \"A nearly transparent goby hovers in a shaft of warm light, its tiny fins ticking like a second thought. It watches the gravel as if the tank were a question it is in no hurry to finish answering.\"\n}\n```"
+}

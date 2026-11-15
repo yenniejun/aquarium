@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 48,
+  "date": "2026-11-14T21:11:38.054Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Curious Cursive Cuttlefish",
+  "statement": "This small, lantern-eyed cuttlefish drifts close to the glass to study each visitor, then ripples its skin with shimmering looping patterns that look almost like handwriting, as if answering a question you didn't know you'd asked. Between conversations it tidies its warm, amber-lit kelp garden, arranging pebbles and shells into careful spirals and occasionally pausing over one, as though reconsidering.",
+  "usage": {
+    "in": 454,
+    "out": 455
+  },
+  "cost": 0.010916,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 6,
+  "reply": "```json\n{\n  \"title\": \"Curious Cursive Cuttlefish\",\n  \"statement\": \"This small, lantern-eyed cuttlefish drifts close to the glass to study each visitor, then ripples its skin with shimmering looping patterns that look almost like handwriting, as if answering a question you didn't know you'd asked. Between conversations it tidies its warm, amber-lit kelp garden, arranging pebbles and shells into careful spirals and occasionally pausing over one, as though reconsidering.\"\n}\n```"
+}

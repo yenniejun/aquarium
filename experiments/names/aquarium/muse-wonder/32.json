@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 32,
+  "date": "2026-11-14T21:14:50.841Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Scribbling Squiggle Squid",
+  "statement": "This palm-sized squid writes looping ink poems that dissolve before they can be read, then changes colour, delighted, and starts again. It lives among kelp bookshelves and glowing pebbles, blowing a perfect bubble ring every time it thinks of a good idea.",
+  "usage": {
+    "in": 334,
+    "out": 1058
+  },
+  "cost": 0.021622,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squiggle Squid\",\n  \"statement\": \"This palm-sized squid writes looping ink poems that dissolve before they can be read, then changes colour, delighted, and starts again. It lives among kelp bookshelves and glowing pebbles, blowing a perfect bubble ring every time it thinks of a good idea.\"\n}\n```"
+}

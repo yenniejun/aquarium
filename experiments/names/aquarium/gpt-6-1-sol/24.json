@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 24,
+  "date": "2026-11-14T21:11:15.367Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Prism Cuttlefish",
+  "statement": "A palm-sized cuttlefish with comma-curled arms putters through a twilight-blue tank of limestone arches and amber glass, its skin flickering with little checkerboards whenever something deserves investigation. Each evening it carefully relocates one polished pebble, then swims through every arch to see whether the world feels different.",
+  "usage": {
+    "in": 330,
+    "out": 295
+  },
+  "cost": 0.00361,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 10,
+  "reply": "```json\n{\n  \"title\": \"Puttering Prism Cuttlefish\",\n  \"statement\": \"A palm-sized cuttlefish with comma-curled arms putters through a twilight-blue tank of limestone arches and amber glass, its skin flickering with little checkerboards whenever something deserves investigation. Each evening it carefully relocates one polished pebble, then swims through every arch to see whether the world feels different.\"\n}\n```"
+}

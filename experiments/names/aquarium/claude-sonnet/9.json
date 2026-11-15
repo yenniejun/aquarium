@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 9,
+  "date": "2026-11-14T21:09:39.069Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Whispering Whelk Waltzer",
+  "statement": "A pearly spiral-shelled snail with a trailing ribbon of glowing mantle, she glides in slow figure-eights through a tank of sea-glass teal water, pausing now and then to hum a faint bubble-tune to the sleepy anemones. Her home is a moonlit garden of tilted teacups, lantern-bright kelp and a single cracked music box, which she circles each evening as if it were still playing.",
+  "usage": {
+    "in": 454,
+    "out": 172
+  },
+  "cost": 0.002628,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 3,
+  "reply": "```json\n{\n  \"title\": \"Whispering Whelk Waltzer\",\n  \"statement\": \"A pearly spiral-shelled snail with a trailing ribbon of glowing mantle, she glides in slow figure-eights through a tank of sea-glass teal water, pausing now and then to hum a faint bubble-tune to the sleepy anemones. Her home is a moonlit garden of tilted teacups, lantern-bright kelp and a single cracked music box, which she circles each evening as if it were still playing.\"\n}\n```"
+}

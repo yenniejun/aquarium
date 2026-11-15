@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 2,
+  "date": "2026-11-14T21:09:44.278Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Pattern Puffer",
+  "statement": "Suspended in warm, amber-lit kelp shadows, this wide-eyed pufferfish spends its days swooshing delicate spirals into the pale sand and nudging tumbled sea glass into neat little constellations. Whenever a stray current blurs a corner of its work, it pauses with a soft, philosophical puff, tilts its fins, and happily begins an even better design.",
+  "usage": {
+    "in": 365,
+    "out": 2222
+  },
+  "cost": 0.0172125,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Puttering Pattern Puffer\",\n  \"statement\": \"Suspended in warm, amber-lit kelp shadows, this wide-eyed pufferfish spends its days swooshing delicate spirals into the pale sand and nudging tumbled sea glass into neat little constellations. Whenever a stray current blurs a corner of its work, it pauses with a soft, philosophical puff, tilts its fins, and happily begins an even better design.\"\n}\n```"
+}

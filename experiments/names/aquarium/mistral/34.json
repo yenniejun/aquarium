@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 34,
+  "date": "2026-11-14T22:07:52.857Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Transparent Ticker",
+  "statement": "A glass catfish so see-through that its backbone and tiny beating heart are always on display. It hangs in the green half-light among the plants, whiskers twitching, ticking softly like a clockwork ghost.",
+  "usage": {
+    "in": 352,
+    "out": 7770
+  },
+  "cost": 0.01640212,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 140,
+  "reply": "```json\n{\n  \"title\": \"Transparent Ticker\",\n  \"statement\": \"A glass catfish so see-through that its backbone and tiny beating heart are always on display. It hangs in the green half-light among the plants, whiskers twitching, ticking softly like a clockwork ghost.\"\n}\n```"
+}

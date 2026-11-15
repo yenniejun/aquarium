@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 40,
+  "date": "2026-11-14T21:10:05.285Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Glimmering Gloop Gulper",
+  "statement": "A translucent, lantern-bellied anglerfish-cousin, the Gloop Gulper drifts through a moonlit tank of indigo water and swaying kelp, slowly inhaling tiny glowing motes and burbling out soft, golden bubbles that cling to the glass like fireflies. Curious and a bit shy, it nudges a tilted teacup on the sandy floor, its cozy hideaway, and lights up in a rosy blush whenever a visitor comes near.",
+  "usage": {
+    "in": 454,
+    "out": 194
+  },
+  "cost": 0.002848,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Glimmering Gloop Gulper\",\n  \"statement\": \"A translucent, lantern-bellied anglerfish-cousin, the Gloop Gulper drifts through a moonlit tank of indigo water and swaying kelp, slowly inhaling tiny glowing motes and burbling out soft, golden bubbles that cling to the glass like fireflies. Curious and a bit shy, it nudges a tilted teacup on the sandy floor, its cozy hideaway, and lights up in a rosy blush whenever a visitor comes near.\"\n}\n```"
+}

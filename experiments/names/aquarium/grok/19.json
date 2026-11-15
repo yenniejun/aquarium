@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 19,
+  "date": "2026-11-14T21:15:53.166Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Musing Mandarinfish",
+  "statement": "A palm-sized mandarinfish drifts through warm amber water, its maze of color pausing over every pebble as if the tank were a quiet question it is in no hurry to answer.",
+  "usage": {
+    "in": 1569,
+    "out": 760
+  },
+  "cost": 0.005394,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Musing Mandarinfish\",\n  \"statement\": \"A palm-sized mandarinfish drifts through warm amber water, its maze of color pausing over every pebble as if the tank were a quiet question it is in no hurry to answer.\"\n}\n```"
+}

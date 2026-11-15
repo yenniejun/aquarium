@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 21,
+  "date": "2026-11-14T21:10:14.636Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Mossy Mumblefish",
+  "statement": "This small, whiskered fish noses through a miniature forest of soft green moss, murmuring tiny bubbles as if the stones have told it a secret. A pool of cool jade light follows its slow loops around one smooth, moon-pale pebble.",
+  "usage": {
+    "in": 330,
+    "out": 382
+  },
+  "cost": 0.000224,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Mossy Mumblefish\",\n  \"statement\": \"This small, whiskered fish noses through a miniature forest of soft green moss, murmuring tiny bubbles as if the stones have told it a secret. A pool of cool jade light follows its slow loops around one smooth, moon-pale pebble.\"\n}\n```"
+}

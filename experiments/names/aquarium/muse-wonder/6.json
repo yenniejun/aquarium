@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 6,
+  "date": "2026-11-14T21:10:25.427Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Dumbo Octopus",
+  "statement": "A thumb-sized, ear-flapping octopus that inks curly doodles in the sand, rearranges pebbles into constellations, and blushes a new rainbow pattern every time it gets curious. It lives in a lamp-warm cove of kelp, glass bubbles, and tiny collected treasures, forever tinkering, exploring, and napping in a teacup.",
+  "usage": {
+    "in": 334,
+    "out": 1226
+  },
+  "cost": 0.024982,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dumbo Octopus\",\n  \"statement\": \"A thumb-sized, ear-flapping octopus that inks curly doodles in the sand, rearranges pebbles into constellations, and blushes a new rainbow pattern every time it gets curious. It lives in a lamp-warm cove of kelp, glass bubbles, and tiny collected treasures, forever tinkering, exploring, and napping in a teacup.\"\n}\n```"
+}

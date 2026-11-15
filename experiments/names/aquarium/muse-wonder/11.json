@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 11,
+  "date": "2026-11-14T21:11:21.760Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Blooping Bookworm Betta",
+  "statement": "In warm, honey-lit water, this jewel-bright betta blows bubble nests shaped like tiny letters and shuffles them into new stories among his teacup library and swaying crimson plants. Forever curious and a touch theatrical, he always drifts over when there's a tale — or a visitor — at the glass.",
+  "usage": {
+    "in": 334,
+    "out": 1509
+  },
+  "cost": 0.030642,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bookworm Betta\",\n  \"statement\": \"In warm, honey-lit water, this jewel-bright betta blows bubble nests shaped like tiny letters and shuffles them into new stories among his teacup library and swaying crimson plants. Forever curious and a touch theatrical, he always drifts over when there's a tale — or a visitor — at the glass.\"\n}\n```"
+}

@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 1,
+  "date": "2026-11-14T21:09:37.510Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Purring Pebblefish",
+  "statement": "This thumb-sized fish has a rounded, granite-gray body and opal fins; it nudges one smooth pebble into new places and purrs out a chain of bubbles whenever it settles. In its dim, fern-green tank, each bubble catches the light like a tiny held note.",
+  "usage": {
+    "in": 330,
+    "out": 506
+  },
+  "cost": 0.000286,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Purring Pebblefish\",\n  \"statement\": \"This thumb-sized fish has a rounded, granite-gray body and opal fins; it nudges one smooth pebble into new places and purrs out a chain of bubbles whenever it settles. In its dim, fern-green tank, each bubble catches the light like a tiny held note.\"\n}\n```"
+}

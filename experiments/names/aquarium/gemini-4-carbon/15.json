@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 15,
+  "date": "2026-11-14T21:11:05.154Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Doodling Dragonet",
+  "statement": "Hovering among frosted sea-glass arches and swaying twilight kelp, this tiny, tapestry-patterned fish uses its delicate fins to trace intricate geometric spirals into the dark volcanic sand. Whenever a visitor pauses near the tank, warm amber bioluminescence ripples across its scales in curious waves before it darts down to nudge a single pearlescent pebble into a brand-new symmetry.",
+  "usage": {
+    "in": 365,
+    "out": 1129
+  },
+  "cost": 0.01202,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 16,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dragonet\",\n  \"statement\": \"Hovering among frosted sea-glass arches and swaying twilight kelp, this tiny, tapestry-patterned fish uses its delicate fins to trace intricate geometric spirals into the dark volcanic sand. Whenever a visitor pauses near the tank, warm amber bioluminescence ripples across its scales in curious waves before it darts down to nudge a single pearlescent pebble into a brand-new symmetry.\"\n}\n```"
+}

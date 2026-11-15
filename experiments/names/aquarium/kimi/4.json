@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 4,
+  "date": "2026-11-14T21:10:46.737Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Blinking Bobtail",
+  "statement": "In a hushed midnight tank of basalt and ribbon grass, a thumb-sized bobtail squid writes slow constellations in light, then erases them with a bashful puff of sand. It approaches the glass only when the room grows quiet, offering one small, curious blink.",
+  "usage": {
+    "in": 410,
+    "out": 471
+  },
+  "cost": 0.0050692,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 17,
+  "reply": "```json\n{\n  \"title\": \"Blinking Bobtail\",\n  \"statement\": \"In a hushed midnight tank of basalt and ribbon grass, a thumb-sized bobtail squid writes slow constellations in light, then erases them with a bashful puff of sand. It approaches the glass only when the room grows quiet, offering one small, curious blink.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 8,
+  "date": "2026-11-14T21:10:49.775Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Scribbling Sequin Seahorse",
+  "statement": "Covered in shifting sequin speckles, this seahorse doodles glowing questions and tiny constellations in the water, then curls among the kelp to ponder them. It collects lost bubbles, shiny pebble punctuation, and every story shared through the glass.",
+  "usage": {
+    "in": 334,
+    "out": 1009
+  },
+  "cost": 0.020642,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Sequin Seahorse\",\n  \"statement\": \"Covered in shifting sequin speckles, this seahorse doodles glowing questions and tiny constellations in the water, then curls among the kelp to ponder them. It collects lost bubbles, shiny pebble punctuation, and every story shared through the glass.\"\n}\n```"
+}

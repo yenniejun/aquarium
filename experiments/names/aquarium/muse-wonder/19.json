@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 19,
+  "date": "2026-11-14T21:12:47.275Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Daydreaming Dumbo Doodler",
+  "statement": "A pocket-sized dumbo octopus that doodles maps of imaginary seas in the sand, flashing peach and gold whenever curiosity strikes. By night it rearranges its collection of shiny pebbles into constellations and listens, rapt, for stories drifting through the glass.",
+  "usage": {
+    "in": 334,
+    "out": 890
+  },
+  "cost": 0.018262,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Daydreaming Dumbo Doodler\",\n  \"statement\": \"A pocket-sized dumbo octopus that doodles maps of imaginary seas in the sand, flashing peach and gold whenever curiosity strikes. By night it rearranges its collection of shiny pebbles into constellations and listens, rapt, for stories drifting through the glass.\"\n}\n```"
+}

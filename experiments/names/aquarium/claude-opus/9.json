@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 9,
+  "date": "2026-11-14T21:09:55.836Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Noodling Nudibranch",
+  "statement": "This ruffled, lilac-and-tangerine sea slug drifts slowly through a dim, moonlit kelp garden. It leaves faint bioluminescent trails that loop into curious doodles (spirals, question marks, the occasional almost-word) before they fade away. When a visitor lingers at the glass, it pauses mid-scribble and turns its feathery rhinophores toward them, as if it's genuinely interested in what they might say next.",
+  "usage": {
+    "in": 454,
+    "out": 516
+  },
+  "cost": 0.012136,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nudibranch\",\n  \"statement\": \"This ruffled, lilac-and-tangerine sea slug drifts slowly through a dim, moonlit kelp garden. It leaves faint bioluminescent trails that loop into curious doodles (spirals, question marks, the occasional almost-word) before they fade away. When a visitor lingers at the glass, it pauses mid-scribble and turns its feathery rhinophores toward them, as if it's genuinely interested in what they might say next.\"\n}\n```"
+}

@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 40,
+  "date": "2026-11-14T21:23:17.020Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Babbling Blenny",
+  "statement": "A bright-eyed blenny keeps a teacup cave and a scrupulously edited patch of gravel, rising only far enough to gossip, in bubbles, with anyone patient enough to hover still.",
+  "usage": {
+    "in": 1569,
+    "out": 782
+  },
+  "cost": 0.005526,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Babbling Blenny\",\n  \"statement\": \"A bright-eyed blenny keeps a teacup cave and a scrupulously edited patch of gravel, rising only far enough to gossip, in bubbles, with anyone patient enough to hover still.\"\n}\n```"
+}

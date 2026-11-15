@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "qwen",
+  "model": "Qwen3.8 Max Prime",
+  "modelId": "qwen/qwen3.8-max-prime",
+  "run": 20,
+  "date": "2026-11-14T21:14:23.416Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Pondering Pufferfish",
+  "statement": "A small, perfectly round pufferfish drifts in slow loops through dim blue-green water, occasionally inflating a fraction as if startled by its own thoughts. It regards the smooth dark stones and swaying seagrass with the mild, wide-eyed suspicion of someone trying very hard to remember where it left something.",
+  "usage": {
+    "in": 359,
+    "out": 1269
+  },
+  "cost": 0.016664,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pufferfish\",\n  \"statement\": \"A small, perfectly round pufferfish drifts in slow loops through dim blue-green water, occasionally inflating a fraction as if startled by its own thoughts. It regards the smooth dark stones and swaying seagrass with the mild, wide-eyed suspicion of someone trying very hard to remember where it left something.\"\n}\n```"
+}

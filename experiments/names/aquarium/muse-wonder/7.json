@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 7,
+  "date": "2026-11-14T21:10:40.810Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Bubbling Bookish Betta",
+  "statement": "A solitary rainbow betta who builds bubble nests like tiny libraries and sorts every fallen leaf into careful, color-coded chapters. He will pause mid-patrol to listen at the glass, fins flared, as if waiting for you to finish the story.",
+  "usage": {
+    "in": 334,
+    "out": 1313
+  },
+  "cost": 0.027596,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 15,
+  "reply": "```json\n{\n  \"title\": \"Bubbling Bookish Betta\",\n  \"statement\": \"A solitary rainbow betta who builds bubble nests like tiny libraries and sorts every fallen leaf into careful, color-coded chapters. He will pause mid-patrol to listen at the glass, fins flared, as if waiting for you to finish the story.\"\n}\n```"
+}

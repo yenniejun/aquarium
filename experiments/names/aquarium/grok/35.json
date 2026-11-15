@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 35,
+  "date": "2026-11-14T21:21:29.175Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Clicking Cleaner Shrimp",
+  "statement": "A small banded shrimp patrols the coral with exaggerated courtesy, pausing to tidy a speck of algae or tap its claws in a bright little click, as if announcing that everything is, for the moment, in order.",
+  "usage": {
+    "in": 1569,
+    "out": 1318
+  },
+  "cost": 0.008742,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 28,
+  "reply": "```json\n{\n  \"title\": \"Clicking Cleaner Shrimp\",\n  \"statement\": \"A small banded shrimp patrols the coral with exaggerated courtesy, pausing to tidy a speck of algae or tap its claws in a bright little click, as if announcing that everything is, for the moment, in order.\"\n}\n```"
+}

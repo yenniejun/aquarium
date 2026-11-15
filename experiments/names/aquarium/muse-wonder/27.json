@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 27,
+  "date": "2026-11-14T21:13:56.638Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Doodling Dappled Cuttlefish",
+  "statement": "This little cuttlefish thinks in colour, flashing its skin with constellations and doodling brief, joyful clouds of ink whenever an idea delights it. It drifts through a twilight tank of book-like rocks, soft kelp curtains and glowing pebbles, endlessly rearranging its tiny treasures.",
+  "usage": {
+    "in": 334,
+    "out": 1267
+  },
+  "cost": 0.025802,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Doodling Dappled Cuttlefish\",\n  \"statement\": \"This little cuttlefish thinks in colour, flashing its skin with constellations and doodling brief, joyful clouds of ink whenever an idea delights it. It drifts through a twilight tank of book-like rocks, soft kelp curtains and glowing pebbles, endlessly rearranging its tiny treasures.\"\n}\n```"
+}

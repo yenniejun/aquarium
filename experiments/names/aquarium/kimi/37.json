@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 37,
+  "date": "2026-11-14T21:21:23.576Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Pondering Pebblepus",
+  "statement": "A thumb-sized, ink-blue octopus tends a moonlit garden of sea glass and ribbon grass, arranging smooth pebbles into constellations it never quite finishes. Whenever a bubble rises, it pauses to watch with solemn curiosity, as though considering an excellent question.",
+  "usage": {
+    "in": 410,
+    "out": 625
+  },
+  "cost": 0.0066092,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 27,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pebblepus\",\n  \"statement\": \"A thumb-sized, ink-blue octopus tends a moonlit garden of sea glass and ribbon grass, arranging smooth pebbles into constellations it never quite finishes. Whenever a bubble rises, it pauses to watch with solemn curiosity, as though considering an excellent question.\"\n}\n```"
+}

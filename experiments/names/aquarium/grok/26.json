@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 26,
+  "date": "2026-11-14T21:18:17.370Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Peering Pipefish",
+  "statement": "A slender, ink-blue pipefish drifts upright among soft green blades, pausing as if reading the light. When a bubble rises, it tilts after it with the careful delight of someone who has just noticed a small, perfect thing.",
+  "usage": {
+    "in": 1569,
+    "out": 614
+  },
+  "cost": 0.004518,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Peering Pipefish\",\n  \"statement\": \"A slender, ink-blue pipefish drifts upright among soft green blades, pausing as if reading the light. When a bubble rises, it tilts after it with the careful delight of someone who has just noticed a small, perfect thing.\"\n}\n```"
+}

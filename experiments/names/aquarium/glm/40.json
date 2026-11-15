@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 40,
+  "date": "2026-11-14T21:11:23.171Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Puffling Pebbleprow",
+  "statement": "A shy, round little creature who spends her days nudging smooth stones into careful spirals along the tank floor, then hovering above her work to admire it before knocking it all apart and starting over. She glows faintly amber when she thinks no one is watching.",
+  "usage": {
+    "in": 342,
+    "out": 78
+  },
+  "cost": 0.00107056,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Puffling Pebbleprow\",\n  \"statement\": \"A shy, round little creature who spends her days nudging smooth stones into careful spirals along the tank floor, then hovering above her work to admire it before knocking it all apart and starting over. She glows faintly amber when she thinks no one is watching.\"\n}\n```"
+}

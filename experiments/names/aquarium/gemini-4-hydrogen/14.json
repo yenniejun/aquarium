@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 14,
+  "date": "2026-11-14T21:10:26.290Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Noodling Nautilus",
+  "statement": "Drifting gently through a sun-dappled forest of swaying kelp and mossy slate, this thoughtful cephalopod spends its afternoons sorting bits of tumbled sea glass into neat little spirals on the sand. Whenever it finishes a pattern, it admires its work for a moment, lets out a contented puff of bubbles, and happily starts a brand-new design.",
+  "usage": {
+    "in": 365,
+    "out": 1817
+  },
+  "cost": 0.014175,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 9,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nautilus\",\n  \"statement\": \"Drifting gently through a sun-dappled forest of swaying kelp and mossy slate, this thoughtful cephalopod spends its afternoons sorting bits of tumbled sea glass into neat little spirals on the sand. Whenever it finishes a pattern, it admires its work for a moment, lets out a contented puff of bubbles, and happily starts a brand-new design.\"\n}\n```"
+}

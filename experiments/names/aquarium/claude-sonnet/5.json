@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 5,
+  "date": "2026-11-14T21:09:35.847Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Tinkering Tidepool Tinselfish",
+  "statement": "A thumb-sized fish with fins like spun brass thread, it spends its days collecting shed bits of sea glass and arranging them into small, shimmering mosaics on a mossy slate ledge. When the tank lights dim to evening amber, it hums a faint bubble-click lullaby and gently rearranges everything one last time, never quite satisfied.",
+  "usage": {
+    "in": 454,
+    "out": 154
+  },
+  "cost": 0.002448,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Tinkering Tidepool Tinselfish\",\n  \"statement\": \"A thumb-sized fish with fins like spun brass thread, it spends its days collecting shed bits of sea glass and arranging them into small, shimmering mosaics on a mossy slate ledge. When the tank lights dim to evening amber, it hums a faint bubble-click lullaby and gently rearranges everything one last time, never quite satisfied.\"\n}\n```"
+}

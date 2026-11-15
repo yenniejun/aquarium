@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 24,
+  "date": "2026-11-14T21:17:41.920Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "In water the color of late afternoon, a slender pipefish hangs among soft green weeds, pausing mid-drift as if a better question has just occurred to it. It considers the light, the leaves, and whatever small wonder just passed, then glides on—never in a hurry, always noticing.",
+  "usage": {
+    "in": 1569,
+    "out": 897
+  },
+  "cost": 0.006216,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"In water the color of late afternoon, a slender pipefish hangs among soft green weeds, pausing mid-drift as if a better question has just occurred to it. It considers the light, the leaves, and whatever small wonder just passed, then glides on—never in a hurry, always noticing.\"\n}\n```"
+}

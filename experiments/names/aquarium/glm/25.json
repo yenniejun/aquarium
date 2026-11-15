@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 25,
+  "date": "2026-11-14T21:10:28.689Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Wandering Whimsy Whelk",
+  "statement": "A spiral-shelled snail who has spent years perfecting the art of slow travel, leaving faint trails of glittering bioluminescent slime that spell out half-finished poems. Its tank is a twilight garden of swaying kelp and moonlit pebbles, because this whelk believes the best journeys happen just before dark.",
+  "usage": {
+    "in": 342,
+    "out": 95
+  },
+  "cost": 0.00122016,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Wandering Whimsy Whelk\",\n  \"statement\": \"A spiral-shelled snail who has spent years perfecting the art of slow travel, leaving faint trails of glittering bioluminescent slime that spell out half-finished poems. Its tank is a twilight garden of swaying kelp and moonlit pebbles, because this whelk believes the best journeys happen just before dark.\"\n}\n```"
+}

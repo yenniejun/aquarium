@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "kimi",
+  "model": "Kimi K3.1 Pro",
+  "modelId": "moonshotai/kimi-k3.1-pro",
+  "run": 12,
+  "date": "2026-11-14T21:13:21.272Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "moonshotai"
+  },
+  "title": "Murmuring Moonfish",
+  "statement": "A palm-sized, opalescent fish that trails soft rings of light instead of bubbles, lingering to inspect the tank’s smallest wonders. When it hums almost below hearing, the ripples overhead gather briefly into tiny constellations.",
+  "usage": {
+    "in": 410,
+    "out": 307
+  },
+  "cost": 0.0034292,
+  "costFrom": "OpenRouter",
+  "servedBy": "Moonshot AI",
+  "stop": "stop",
+  "seconds": 13,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Moonfish\",\n  \"statement\": \"A palm-sized, opalescent fish that trails soft rings of light instead of bubbles, lingering to inspect the tank’s smallest wonders. When it hums almost below hearing, the ripples overhead gather briefly into tiny constellations.\"\n}\n```"
+}

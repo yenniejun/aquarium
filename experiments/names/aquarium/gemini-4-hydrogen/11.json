@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 11,
+  "date": "2026-11-14T21:10:17.225Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Noodling Nautilus",
+  "statement": "Drifting through a twilight-indigo tank of swaying sea-ferns, sunken ceramic teacups, and softly glowing sea-glass, this daydreaming cephalopod spends its hours sorting smooth pebbles by color and spiral symmetry. Whenever a visitor pauses by the glass, it puffs a quiet ring of bubbles and nudges a bright shell forward as if inviting them to solve a puzzle together.",
+  "usage": {
+    "in": 365,
+    "out": 1780
+  },
+  "cost": 0.0138975,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Noodling Nautilus\",\n  \"statement\": \"Drifting through a twilight-indigo tank of swaying sea-ferns, sunken ceramic teacups, and softly glowing sea-glass, this daydreaming cephalopod spends its hours sorting smooth pebbles by color and spiral symmetry. Whenever a visitor pauses by the glass, it puffs a quiet ring of bubbles and nudges a bright shell forward as if inviting them to solve a puzzle together.\"\n}\n```"
+}

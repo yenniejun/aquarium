@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "glm",
+  "model": "GLM 5.3 Prime",
+  "modelId": "z-ai/glm-5.3-prime",
+  "run": 8,
+  "date": "2026-11-14T21:09:49.194Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "alibaba"
+  },
+  "title": "Murmuring Mirrorfin",
+  "statement": "A silver, ribbon-bodied fish whose scales reflect not the room around the tank, but a softly rippling dream of it—slightly wrong, slightly lovelier. It drifts in slow loops, humming to itself in tiny bubbles, and only glances at visitors when it thinks no one is watching.",
+  "usage": {
+    "in": 342,
+    "out": 85
+  },
+  "cost": 0.00113216,
+  "costFrom": "OpenRouter",
+  "servedBy": "Alibaba",
+  "stop": "stop",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mirrorfin\",\n  \"statement\": \"A silver, ribbon-bodied fish whose scales reflect not the room around the tank, but a softly rippling dream of it—slightly wrong, slightly lovelier. It drifts in slow loops, humming to itself in tiny bubbles, and only glances at visitors when it thinks no one is watching.\"\n}\n```"
+}

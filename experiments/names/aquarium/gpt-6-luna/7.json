@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-luna",
+  "model": "GPT-6 Luna",
+  "modelId": "gpt-6-luna",
+  "run": 7,
+  "date": "2026-11-14T21:09:46.299Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Purring Pebblefish",
+  "statement": "This solitary little bottom-dweller looks like a river stone until it uncurls its fins and purrs the water into tiny rings. Moss, smooth slate, and a wash of moon-pale light make its quiet tank feel like a secret worth sitting beside.",
+  "usage": {
+    "in": 330,
+    "out": 415
+  },
+  "cost": 0.0002405,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 5,
+  "reply": "```json\n{\n  \"title\": \"Purring Pebblefish\",\n  \"statement\": \"This solitary little bottom-dweller looks like a river stone until it uncurls its fins and purrs the water into tiny rings. Moss, smooth slate, and a wash of moon-pale light make its quiet tank feel like a secret worth sitting beside.\"\n}\n```"
+}

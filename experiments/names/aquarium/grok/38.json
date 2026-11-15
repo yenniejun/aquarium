@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 38,
+  "date": "2026-11-14T21:22:48.702Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Pipefish",
+  "statement": "In a narrow tank of still water and soft seagrass, a slender pipefish hangs upright in green-gold light, flicking its snout at drifting specks as if each one were a thought worth finishing.",
+  "usage": {
+    "in": 1569,
+    "out": 1214
+  },
+  "cost": 0.008118,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 24,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pipefish\",\n  \"statement\": \"In a narrow tank of still water and soft seagrass, a slender pipefish hangs upright in green-gold light, flicking its snout at drifting specks as if each one were a thought worth finishing.\"\n}\n```"
+}

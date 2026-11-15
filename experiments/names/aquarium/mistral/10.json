@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "mistral",
+  "model": "Mistral Large 4",
+  "modelId": "mistralai/mistral-large-4-0",
+  "run": 10,
+  "date": "2026-11-14T21:27:28.516Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "mistral"
+  },
+  "title": "Puffing Pattern Puffer",
+  "statement": "A rotund little pufferfish that treats the pale sand as a sketchbook, puffing soft jets of water to draw spirals, lattices, and half-formed letters across the glass floor — then sweeping them flat each dawn to begin again, an artist who never keeps the picture.",
+  "usage": {
+    "in": 352,
+    "out": 2652
+  },
+  "cost": 0.00565432,
+  "costFrom": "OpenRouter",
+  "servedBy": "Mistral",
+  "stop": "stop",
+  "seconds": 48,
+  "reply": "```json\n{\n  \"title\": \"Puffing Pattern Puffer\",\n  \"statement\": \"A rotund little pufferfish that treats the pale sand as a sketchbook, puffing soft jets of water to draw spirals, lattices, and half-formed letters across the glass floor — then sweeping them flat each dawn to begin again, an artist who never keeps the picture.\"\n}\n```"
+}

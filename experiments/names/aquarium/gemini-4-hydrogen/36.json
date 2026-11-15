@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-hydrogen",
+  "model": "Gemini 4 Hydrogen",
+  "modelId": "gemini-4-hydrogen",
+  "run": 36,
+  "date": "2026-11-14T21:11:43.505Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Cataloging Cuttlefish",
+  "statement": "Hovering serenely among sunken brass astrolabes and swaying emerald kelp, this curious cephalopod spends its days sorting sea-glass shards by hue and rippling intricate, bioluminescent patterns across its mantle. Watch closely as it pauses to inspect visitors through W-shaped pupils, quietly filing each passing face into its private archive.",
+  "usage": {
+    "in": 365,
+    "out": 1401
+  },
+  "cost": 0.011055,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 7,
+  "reply": "```json\n{\n  \"title\": \"Cataloging Cuttlefish\",\n  \"statement\": \"Hovering serenely among sunken brass astrolabes and swaying emerald kelp, this curious cephalopod spends its days sorting sea-glass shards by hue and rippling intricate, bioluminescent patterns across its mantle. Watch closely as it pauses to inspect visitors through W-shaped pupils, quietly filing each passing face into its private archive.\"\n}\n```"
+}

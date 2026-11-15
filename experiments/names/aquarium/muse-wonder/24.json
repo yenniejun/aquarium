@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 24,
+  "date": "2026-11-14T21:13:31.745Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Blooping Bibliophile Betta",
+  "statement": "This betta blows iridescent bubble-letters that drift upward and pop into tiny stories, spending its days rearranging its pebble library and leafy reading nook to catch the warmest light. It is happiest when there is something new to wonder at — and someone nearby to share the bloop with.",
+  "usage": {
+    "in": 334,
+    "out": 1221
+  },
+  "cost": 0.024882,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Blooping Bibliophile Betta\",\n  \"statement\": \"This betta blows iridescent bubble-letters that drift upward and pop into tiny stories, spending its days rearranging its pebble library and leafy reading nook to catch the warmest light. It is happiest when there is something new to wonder at — and someone nearby to share the bloop with.\"\n}\n```"
+}

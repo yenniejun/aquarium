@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 14,
+  "date": "2026-11-14T21:10:59.476Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clinking Cuttlefish",
+  "statement": "Nestled among miniature stone arches and velvety bioluminescent moss, this pint-sized cephalopod spends its days sorting colorful sea glass into neat geometric spirals, tapping its favorites together with a soft *clink*. Ripples of warm amber and electric teal dance across its skin whenever a visitor pauses at the glass, as if translating their presence into a brand-new pattern.",
+  "usage": {
+    "in": 365,
+    "out": 667
+  },
+  "cost": 0.0074,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 14,
+  "reply": "```json\n{\n  \"title\": \"Clinking Cuttlefish\",\n  \"statement\": \"Nestled among miniature stone arches and velvety bioluminescent moss, this pint-sized cephalopod spends its days sorting colorful sea glass into neat geometric spirals, tapping its favorites together with a soft *clink*. Ripples of warm amber and electric teal dance across its skin whenever a visitor pauses at the glass, as if translating their presence into a brand-new pattern.\"\n}\n```"
+}

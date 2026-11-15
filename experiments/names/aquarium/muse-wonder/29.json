@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 29,
+  "date": "2026-11-14T21:14:16.814Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Bubble-Babbling Booktopus",
+  "statement": "This pocket-sized octopus catalogues colourful shells by story rather than size, its tentacles always mid-chapter and its ink always ready for marginalia. Blow it a bubble and it will happily trade you a tiny, tentacle-written tale from its glowing reef library.",
+  "usage": {
+    "in": 334,
+    "out": 898
+  },
+  "cost": 0.018422,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 11,
+  "reply": "```json\n{\n  \"title\": \"Bubble-Babbling Booktopus\",\n  \"statement\": \"This pocket-sized octopus catalogues colourful shells by story rather than size, its tentacles always mid-chapter and its ink always ready for marginalia. Blow it a bubble and it will happily trade you a tiny, tentacle-written tale from its glowing reef library.\"\n}\n```"
+}

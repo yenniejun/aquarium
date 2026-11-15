@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "muse-wonder",
+  "model": "Muse Wonder",
+  "modelId": "meta/muse-wonder",
+  "run": 2,
+  "date": "2026-11-14T21:09:47.914Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "meta"
+  },
+  "title": "Scribbling Sequin Seahorse",
+  "statement": "This pocket-sized seahorse drifts through its lamplit kelp library, trailing tiny ink doodles and rearranging pebbles into ever-changing poems. When delighted — which is often — its sequined sides shimmer gold and it blows a perfect, wobbling bubble ring.",
+  "usage": {
+    "in": 334,
+    "out": 1083
+  },
+  "cost": 0.022122,
+  "costFrom": "OpenRouter",
+  "servedBy": "Meta",
+  "stop": "stop",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Sequin Seahorse\",\n  \"statement\": \"This pocket-sized seahorse drifts through its lamplit kelp library, trailing tiny ink doodles and rearranging pebbles into ever-changing poems. When delighted — which is often — its sequined sides shimmer gold and it blows a perfect, wobbling bubble ring.\"\n}\n```"
+}

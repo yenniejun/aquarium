@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 41,
+  "date": "2026-11-14T21:23:44.548Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Murmuring Mandarin",
+  "statement": "In a pocket of late-afternoon light, a small dragonet hovers over rubble and soft corals as if choosing the exact next color, then slips sideways in a flash of orange script.",
+  "usage": {
+    "in": 1569,
+    "out": 1297
+  },
+  "cost": 0.008616,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 28,
+  "reply": "```json\n{\n  \"title\": \"Murmuring Mandarin\",\n  \"statement\": \"In a pocket of late-afternoon light, a small dragonet hovers over rubble and soft corals as if choosing the exact next color, then slips sideways in a flash of orange script.\"\n}\n```"
+}

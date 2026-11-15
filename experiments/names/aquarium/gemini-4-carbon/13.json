@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 13,
+  "date": "2026-11-14T21:10:59.915Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clickety-Clack Cuttlefish",
+  "statement": "Nestled among sunlit stacks of slate and swaying ribbon-kelp, this pint-sized cephalopod spends its days clicking smooth pebbles of sea glass together like tiny abacus beads. Whenever it discovers a particularly pleasing pattern on the mossy floor, its pearlescent skin ripples with shifting constellations of copper and indigo.",
+  "usage": {
+    "in": 365,
+    "out": 1547
+  },
+  "cost": 0.0162,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 22,
+  "reply": "```json\n{\n  \"title\": \"Clickety-Clack Cuttlefish\",\n  \"statement\": \"Nestled among sunlit stacks of slate and swaying ribbon-kelp, this pint-sized cephalopod spends its days clicking smooth pebbles of sea glass together like tiny abacus beads. Whenever it discovers a particularly pleasing pattern on the mossy floor, its pearlescent skin ripples with shifting constellations of copper and indigo.\"\n}\n```"
+}

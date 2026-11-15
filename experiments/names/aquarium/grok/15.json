@@ -1,0 +1,26 @@
+{
+  "exhibit": "aquarium",
+  "entry": "grok",
+  "model": "Grok 4.7",
+  "modelId": "x-ai/grok-4.7",
+  "run": 15,
+  "date": "2026-11-14T21:14:41.392Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium",
+    "host": "xai"
+  },
+  "title": "Pondering Peppermint Shrimp",
+  "statement": "A small cleaner shrimp that patrols the rocks with careful cheer, pausing mid-stride whenever a bubble or a glint of light seems to deserve a second look.",
+  "usage": {
+    "in": 1569,
+    "out": 947
+  },
+  "cost": 0.006516,
+  "costFrom": "OpenRouter",
+  "servedBy": "xAI",
+  "stop": "stop",
+  "seconds": 18,
+  "reply": "```json\n{\n  \"title\": \"Pondering Peppermint Shrimp\",\n  \"statement\": \"A small cleaner shrimp that patrols the rocks with careful cheer, pausing mid-stride whenever a bubble or a glint of light seems to deserve a second look.\"\n}\n```"
+}

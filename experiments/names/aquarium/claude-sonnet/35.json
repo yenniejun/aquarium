@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-sonnet",
+  "model": "Claude Sonnet 5.5",
+  "modelId": "claude-sonnet-5-5",
+  "run": 35,
+  "date": "2026-11-14T21:10:01.171Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Pondering Pearlfin Puffer",
+  "statement": "A thumb-sized pufferfish with a faintly glowing pearl belly, it spends its days arranging tiny sea-glass treasures on a moss-covered stone shelf, then bobs back to admire its work with a soft little \"bloop.\" When something startles it, it doesn't puff up. It politely turns a shimmering shade of embarrassed pink and sinks behind a fern.",
+  "usage": {
+    "in": 454,
+    "out": 164
+  },
+  "cost": 0.002548,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 2,
+  "reply": "```json\n{\n  \"title\": \"Pondering Pearlfin Puffer\",\n  \"statement\": \"A thumb-sized pufferfish with a faintly glowing pearl belly, it spends its days arranging tiny sea-glass treasures on a moss-covered stone shelf, then bobs back to admire its work with a soft little \\\"bloop.\\\" When something startles it, it doesn't puff up. It politely turns a shimmering shade of embarrassed pink and sinks behind a fern.\"\n}\n```"
+}

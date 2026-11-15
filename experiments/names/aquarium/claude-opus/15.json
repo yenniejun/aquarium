@@ -1,0 +1,24 @@
+{
+  "exhibit": "aquarium",
+  "entry": "claude-opus",
+  "model": "Claude Opus 5.5",
+  "modelId": "claude-opus-5-5",
+  "run": 15,
+  "date": "2026-11-14T21:10:12.710Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000,
+    "reasoning": "medium"
+  },
+  "title": "Scribbling Squidlet",
+  "statement": "A thumb-sized squid whose translucent skin ripples with ever-changing patterns that look like looping handwriting, as if it is always halfway through a thought. It spends its days sorting sea glass into careful spirals beneath swaying kelp in dawn-blue water, and when a visitor lingers at the glass it drifts over, curious, and glows a little brighter.",
+  "usage": {
+    "in": 454,
+    "out": 531
+  },
+  "cost": 0.012436,
+  "costFrom": "list price",
+  "stop": "end_turn",
+  "seconds": 8,
+  "reply": "```json\n{\n  \"title\": \"Scribbling Squidlet\",\n  \"statement\": \"A thumb-sized squid whose translucent skin ripples with ever-changing patterns that look like looping handwriting, as if it is always halfway through a thought. It spends its days sorting sea glass into careful spirals beneath swaying kelp in dawn-blue water, and when a visitor lingers at the glass it drifts over, curious, and glows a little brighter.\"\n}\n```"
+}

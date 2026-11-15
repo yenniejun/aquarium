@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gpt-6-1-sol",
+  "model": "GPT-6.1 Sol",
+  "modelId": "gpt-6.1-sol",
+  "run": 4,
+  "date": "2026-11-14T21:09:52.088Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Puttering Puzzle Cuttlefish",
+  "statement": "A palm-sized cuttlefish in rippling lavender checks putters through a blue-hour garden of porcelain arches, carrying a single amber pebble from nook to nook. Whenever it seems to have found the perfect arrangement, it turns a thoughtful shade of apricot and tries somewhere slightly worse.",
+  "usage": {
+    "in": 330,
+    "out": 334
+  },
+  "cost": 0.004,
+  "costFrom": "list price",
+  "stop": "stop",
+  "seconds": 12,
+  "reply": "```json\n{\n  \"title\": \"Puttering Puzzle Cuttlefish\",\n  \"statement\": \"A palm-sized cuttlefish in rippling lavender checks putters through a blue-hour garden of porcelain arches, carrying a single amber pebble from nook to nook. Whenever it seems to have found the perfect arrangement, it turns a thoughtful shade of apricot and tries somewhere slightly worse.\"\n}\n```"
+}

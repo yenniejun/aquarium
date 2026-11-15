@@ -1,0 +1,23 @@
+{
+  "exhibit": "aquarium",
+  "entry": "gemini-4-carbon",
+  "model": "Gemini 4 Carbon",
+  "modelId": "gemini-4-carbon",
+  "run": 11,
+  "date": "2026-11-14T21:10:45.056Z",
+  "promptVersion": 3,
+  "params": {
+    "max_tokens": 12000
+  },
+  "title": "Clackety Curio Crab",
+  "statement": "Nestled in a sun-dappled kelp grotto strewn with tumbled sea glass, this bustling little decorator crab meticulously adorns its carapace with glowing pebbles, tiny brass gears, and spiral shells. Whenever a visitor peers into the tank, it taps a cheerful rhythm with its claws and rearranges its shimmering treasures into an entirely new constellation.",
+  "usage": {
+    "in": 365,
+    "out": 1375
+  },
+  "cost": 0.01448,
+  "costFrom": "list price",
+  "stop": "STOP",
+  "seconds": 19,
+  "reply": "```json\n{\n  \"title\": \"Clackety Curio Crab\",\n  \"statement\": \"Nestled in a sun-dappled kelp grotto strewn with tumbled sea glass, this bustling little decorator crab meticulously adorns its carapace with glowing pebbles, tiny brass gears, and spiral shells. Whenever a visitor peers into the tank, it taps a cheerful rhythm with its claws and rearranges its shimmering treasures into an entirely new constellation.\"\n}\n```"
+}
