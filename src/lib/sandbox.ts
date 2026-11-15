@@ -8,8 +8,10 @@
  *    "everything is code" rule: no network, no external images, scripts only from
  *    the CDN allowlist.
  *
- * This is the only change made to a piece's HTML.
+ * Those are the only changes made to a piece's HTML, plus, for pieces checked to look the same
+ * with it, a small script that draws them at most 30 times a second (./frame-cap.js).
  */
+import frameCapScript from './frame-cap.js?raw';
 export const PIECE_CDNS = ['https://cdn.jsdelivr.net', 'https://cdnjs.cloudflare.com', 'https://unpkg.com'];
 
 export const PIECE_CSP = [
@@ -25,11 +27,12 @@ export const PIECE_CSP = [
 
 const META = `<meta http-equiv="Content-Security-Policy" content="${PIECE_CSP}">`;
 
-export function sandboxHtml(html: string): string {
+export function sandboxHtml(html: string, { frameCap = false } = {}): string {
+  const inject = META + (frameCap ? `<script>${frameCapScript}</script>` : '');
   const head = html.match(/<head[^>]*>/i);
-  if (head) return html.replace(head[0], `${head[0]}${META}`);
+  if (head) return html.replace(head[0], `${head[0]}${inject}`);
   // Never put anything before <!doctype>, it would flip the page into quirks mode.
   const doctype = html.match(/<!doctype[^>]*>/i);
-  if (doctype) return html.replace(doctype[0], `${doctype[0]}${META}`);
-  return META + html;
+  if (doctype) return html.replace(doctype[0], `${doctype[0]}${inject}`);
+  return inject + html;
 }

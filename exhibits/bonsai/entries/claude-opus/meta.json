@@ -16,5 +16,6 @@
     },
     "attempts": 1,
     "edits": "none"
-  }
+  },
+  "frameCap": true
 }

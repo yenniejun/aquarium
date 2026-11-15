@@ -33,13 +33,12 @@ const empty = piece.status === 'pending';
   <div class="vessel">
     <div class="glass">
       <iframe
-        src={piece.src}
+        data-src={piece.src}
         title={piece.title}
         sandbox="allow-scripts"
         tabindex="-1"
-        loading={empty ? 'lazy' : 'eager'}
         referrerpolicy="no-referrer"
-        onload="this.parentElement.dataset.loaded = ''"></iframe>
+        onload="if (this.src) this.parentElement.dataset.loaded = ''"></iframe>
     </div>
     {
       variant === 'specimen' && (
