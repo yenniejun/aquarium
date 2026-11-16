@@ -16,16 +16,13 @@ const { light = false } = Astro.props;
   href="https://artfish.ai"
   target="_blank"
   rel="noopener noreferrer"
-  aria-label="Art Fish Intelligence (opens in a new tab)"
-  aria-describedby="artfish-credit"
+  aria-label="Created by Art Fish Intelligence (opens in a new tab)"
 >
   <img src={href('/artfish-logo.png')} width="256" height="256" alt="" decoding="async" />
-  <span class="tooltip" id="artfish-credit" role="tooltip">Created by Art Fish Intelligence</span>
 </a>
 
 <style>
   .brand {
-    position: relative;
     display: grid;
     flex: none;
     place-items: center;
@@ -49,41 +46,6 @@ const { light = false } = Astro.props;
 
   .brand:hover img {
     opacity: 0.75;
-  }
-
-  .tooltip {
-    position: absolute;
-    z-index: 20;
-    top: calc(100% + 8px);
-    left: 0;
-    width: max-content;
-    max-width: min(17rem, calc(100vw - 3rem));
-    padding: 0.6rem 0.75rem;
-    border: 1px solid rgba(158, 195, 220, 0.35);
-    border-radius: 8px;
-    background: #03101e;
-    color: #e6f5ff;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-    font: 400 0.7rem/1.5 'IBM Plex Mono', monospace;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  /* Keep the tooltip open while the pointer crosses the gap or rests on the text. */
-  .tooltip::before {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 0;
-    width: 100%;
-    height: 8px;
-  }
-
-  .brand:is(:hover, :focus-visible) .tooltip {
-    opacity: 1;
-    visibility: visible;
   }
 
   .brand:focus-visible {
