@@ -1,8 +1,9 @@
 ---
 /**
  * The header's "Info" and "?" buttons. Hovering "?" (or tapping it, or tabbing to it) shows a
- * small bubble with what the models were told and what to do. "Info" opens a modal with two tabs:
- * the models in this gallery (with links to their makers' pages) and the exact prompt they got.
+ * small bubble with what the models were told and what to do. "Info" opens a modal with three tabs:
+ * a plain-language About for visitors who don't know AI, the models in this gallery (with links to
+ * their makers' pages) and the exact prompt they got.
  * A skin can also pass a Welcome (the default slot): it opens by itself in its own modal on a
  * first visit (?reset shows it again).
  */
@@ -22,6 +23,9 @@ const prompt = getPrompt(exhibit);
 const piece = exhibit.pieceLabel.toLowerCase();
 const key = `museum:welcomed:${exhibit.slug}`;
 const welcome = Astro.slots.has('default');
+// What the models were asked to do, taken from the intro: "Each AI model is told to grow one bonsai
+// tree." -> "grow one bonsai tree." An intro that doesn't follow that pattern is simply left out.
+const task = exhibit.intro?.match(/^Each AI model is told to (.+)$/)?.[1];
 
 // The models, open weights first, then by maker and name. Never in lineup order: the pieces are in
 // lineup order in the page, so that would quietly pair each model with its piece.
@@ -49,7 +53,10 @@ const models = getPieces(exhibit)
 <dialog class="modal info-dialog" aria-label={`About ${exhibit.title}`} tabindex="-1">
   <div class="bar">
     <div class="tabs" role="tablist">
-      <button type="button" role="tab" id="info-tab-models" aria-controls="info-panel-models" aria-selected="true">
+      <button type="button" role="tab" id="info-tab-about" aria-controls="info-panel-about" aria-selected="true">
+        About
+      </button>
+      <button type="button" role="tab" id="info-tab-models" aria-controls="info-panel-models" aria-selected="false" tabindex="-1">
         Models
       </button>
       {
@@ -65,7 +72,21 @@ const models = getPieces(exhibit)
     </form>
   </div>
 
-  <div class="panel models" role="tabpanel" id="info-panel-models" aria-labelledby="info-tab-models">
+  {/* For someone who has never used AI: no jargon, and nothing that only holds for some galleries. */}
+  <div class="panel about" role="tabpanel" id="info-panel-about" aria-labelledby="info-tab-about">
+    <p class="lead">An art show where every piece was made by AI.</p>
+    <p>{models.length} different AI models were given the same instructions{task ? ` to ${task}` : '.'}</p>
+    <p>
+      Everything you see was made by the AI writing code.
+      {exhibit.mode === 'blind' && ` Pick your favorite ${piece} to find out which AI made each one.`}
+    </p>
+    <p class="more">
+      The <b>Models</b> tab lists every AI model in this gallery.
+      {prompt && <><br />The <b>Prompt</b> tab shows the exact instructions they got.</>}
+    </p>
+  </div>
+
+  <div class="panel models" role="tabpanel" id="info-panel-models" aria-labelledby="info-tab-models" hidden>
     <p class="intro">Every model got the same prompt, word for word.</p>
     <table>
       <thead>
@@ -320,6 +341,32 @@ const models = getPieces(exhibit)
   .tabs button[aria-selected='true'] {
     background: #03101e;
     color: #f7fafc;
+  }
+
+  /* The About tab: a few short paragraphs, a touch larger than the rest so they're easy to read. */
+  .panel.about {
+    padding: 14px 40px 18px;
+    font: 400 0.8rem/1.65 'IBM Plex Mono', monospace;
+  }
+
+  .about p {
+    margin: 0 0 0.85rem;
+  }
+
+  .about .lead {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .about .more {
+    margin-top: 1.1rem;
+    font-size: 0.72rem;
+    color: #6b8296;
+  }
+
+  .about b {
+    font-weight: 600;
+    color: #4a6378;
   }
 
   /* The Models tab: two short lists, each model linking to its maker's page. */
