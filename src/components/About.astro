@@ -1,9 +1,8 @@
 ---
 /**
- * The header's "Info" and "?" buttons. Hovering "?" (or tapping it, or tabbing to it) shows a
- * small bubble with what the models were told and what to do. "Info" opens a modal with three tabs:
- * a plain-language About for visitors who don't know AI, the models in this gallery (with links to
- * their makers' pages) and the exact prompt they got.
+ * The header's "Info" button. It opens a modal with three tabs: a plain-language About (what the
+ * models were told and what to do) for visitors who don't know AI, the models in this gallery (with
+ * links to their makers' pages) and the exact prompt they got.
  * A skin can also pass a Welcome (the default slot): it opens by itself in its own modal on a
  * first visit (?reset shows it again).
  */
@@ -40,15 +39,6 @@ const models = getPieces(exhibit)
 ---
 
 <button class="pill info-toggle" type="button" aria-haspopup="dialog">Info</button>
-<div class="help">
-  <button class="about-toggle" type="button" aria-label="About this gallery" aria-describedby="about-hint" aria-expanded="false">
-    ?
-  </button>
-  <div class="hint" id="about-hint" role="tooltip">
-    {exhibit.intro && <p>{exhibit.intro}</p>}
-    {exhibit.mode === 'blind' && <p>Select your favorite {piece} to reveal which AI created each one!</p>}
-  </div>
-</div>
 
 <dialog class="modal info-dialog" aria-label={`About ${exhibit.title}`} tabindex="-1">
   <div class="bar">
@@ -78,7 +68,7 @@ const models = getPieces(exhibit)
     <p>{models.length} different AI models were given the same instructions{task ? ` to ${task}` : '.'}</p>
     <p>
       Everything you see was made by the AI writing code.
-      {exhibit.mode === 'blind' && ` Pick your favorite ${piece} to find out which AI made each one.`}
+      {exhibit.mode === 'blind' && ` Select your favorite ${piece} to find out which AI made each one!`}
     </p>
     <p class="more">
       The <b>Models</b> tab lists every AI model in this gallery.
@@ -176,26 +166,12 @@ const models = getPieces(exhibit)
 
 
 <style>
-  .about-toggle,
   .pill {
     appearance: none;
     border: 1px solid rgba(255, 255, 255, 0.15);
     background: rgba(3, 12, 24, 0.85);
     color: #e6f5ff;
     cursor: pointer;
-  }
-
-  .about-toggle {
-    display: grid;
-    place-items: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    border-radius: 50%;
-    font: 500 0.9rem/1 'IBM Plex Mono', monospace;
-  }
-
-  .pill {
     height: 34px;
     padding: 0 14px;
     border-radius: 99px;
@@ -204,64 +180,11 @@ const models = getPieces(exhibit)
     text-transform: uppercase;
   }
 
-  .about-toggle:hover,
-  .about-toggle:focus-visible,
-  .help.open .about-toggle,
   .pill:hover,
   .pill:focus-visible {
     background: #e6f5ff;
     color: #03101e;
     outline: none;
-  }
-
-  /* The bubble under the "?", lined up with its right edge. */
-  .help {
-    position: relative;
-  }
-
-  .hint {
-    position: absolute;
-    z-index: 20;
-    top: calc(100% + 10px);
-    right: 0;
-    width: min(19rem, 100vw - 2rem);
-    padding: 0.9rem 1rem 0.3rem;
-    border-radius: 12px;
-    background: #f7fafc;
-    color: #10202e;
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    visibility: hidden;
-    translate: 0 -4px;
-    transition:
-      opacity 0.15s,
-      translate 0.15s,
-      visibility 0.15s;
-  }
-
-  /* A little pointer up to the "?". */
-  .hint::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-    right: 12px;
-    width: 12px;
-    height: 12px;
-    rotate: 45deg;
-    background: #f7fafc;
-  }
-
-  .help:hover .hint,
-  .help:focus-within .hint,
-  .help.open .hint {
-    opacity: 1;
-    visibility: visible;
-    translate: 0 0;
-  }
-
-  .hint p {
-    margin: 0 0 0.6rem;
-    font: 400 0.8rem/1.55 'IBM Plex Mono', monospace;
   }
 
   /* The prompt and the welcome open as modals. */
@@ -567,10 +490,6 @@ const models = getPieces(exhibit)
   @media (prefers-reduced-motion: reduce) {
     .modal[open] {
       animation: none;
-    }
-
-    .hint {
-      transition: none;
     }
   }
 </style>

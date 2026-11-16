@@ -1,17 +1,5 @@
 /** Initialize controls inside one cached gallery, without touching other galleries. */
-export function initAbout(page: HTMLElement, signal: AbortSignal) {
-  // The bubble shows on hover and keyboard focus (CSS); a tap or click pins it open until you
-  // tap elsewhere or press Escape, since phones can't hover.
-  const help = page.querySelector<HTMLElement>('.help')!;
-  const toggle = help.querySelector<HTMLButtonElement>('.about-toggle')!;
-  const pin = (open: boolean) => {
-    help.classList.toggle('open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-  };
-  toggle.addEventListener('click', () => pin(!help.classList.contains('open')));
-  document.addEventListener('click', (e) => !help.contains(e.target as Node) && pin(false), { signal });
-  document.addEventListener('keydown', (e) => e.key === 'Escape' && pin(false), { signal });
-
+export function initAbout(page: HTMLElement) {
   const info = page.querySelector<HTMLDialogElement>('dialog.info-dialog')!;
   const tabs = [...info.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
   const select = (tab: HTMLButtonElement) => {

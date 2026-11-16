@@ -6,8 +6,7 @@
  * For blind voting to work, a Room must render the hooks documented in src/scripts/voting.ts
  * ([data-pieces], [data-piece], [data-pending], [data-vote], [data-artist], [data-medium]).
  *
- * A skin can also bring a Welcome: what the About tab of the "?" modal (and the first-visit
- * welcome) shows instead of the plain title and intro.
+ * A skin can also bring a Welcome: a first-visit popup in its own modal (see About.astro).
  *
  * To add a skin: create src/skins/<name>/Room.astro (+ any parts it needs), add the name to
  * ./names.ts, and register it here.

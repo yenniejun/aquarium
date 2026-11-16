@@ -39,7 +39,7 @@ export function namespaceIds(page: HTMLElement) {
 export function initGallery(page: HTMLElement): Gallery {
   namespaceIds(page);
   const events = new AbortController();
-  initAbout(page, events.signal);
+  initAbout(page);
   initViewer(page, events.signal);
   initVoting(page, events.signal);
   const pieces = initPieces(page);

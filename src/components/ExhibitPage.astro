@@ -1,5 +1,5 @@
 ---
-/** One exhibit's page: the skin's Room inside the site layout, with the "?" modal and voting. */
+/** One exhibit's page: the skin's Room inside the site layout, with the Info modal and voting. */
 import Base from '../layouts/Base.astro';
 import About from './About.astro';
 import ResetVote from './ResetVote.astro';
@@ -21,7 +21,7 @@ const blind = exhibit.mode === 'blind';
 <Base gallery={exhibit.slug} skin={exhibit.skin} variant={exhibit.variant} title={exhibit.title} description={exhibit.intro ?? exhibit.tagline}>
   <Fragment slot="header">
     <ResetVote exhibit={exhibit} />
-    {/* Every exhibit gets "Info" and "?". (A skin's Welcome, like the aquarium's goldfish, could greet
+    {/* Every exhibit gets "Info". (A skin's Welcome, like the aquarium's goldfish, could greet
         first-time visitors by passing it in with autoOpen; for now nobody gets a popup.) */}
     <About exhibit={exhibit} />
   </Fragment>
