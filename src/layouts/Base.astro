@@ -3,6 +3,7 @@ import '../styles/global.css';
 import SideNav from '../components/SideNav.astro';
 import Brand from '../components/Brand.astro';
 import { fontsUrl } from '../lib/fonts';
+import { href } from '../lib/url';
 import { site } from '../site';
 
 interface Props {
@@ -51,9 +52,9 @@ const favicon = `data:image/svg+xml,${encodeURIComponent(
         <slot />
       </main>
       <footer class="site-footer">
-        <a class="credit" href="https://artfish.ai" target="_blank" rel="noopener">
-          created by <b><span class="ai">A</span>rt fish <span class="ai">I</span>ntelligence</b> <em>♥</em>
-        </a>
+        <p class="credit">
+          <span class="fish" aria-hidden="true" style={`--logo: url(${href('/artfish-logo.png')})`}></span>created by <a href="https://artfish.ai" target="_blank" rel="noopener"><b><span class="ai">A</span>rt fish <span class="ai">I</span>ntelligence</b></a> <em>♥</em>
+        </p>
       </footer>
     </div>
   </body>

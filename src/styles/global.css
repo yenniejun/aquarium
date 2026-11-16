@@ -84,6 +84,11 @@ body > div[data-skin] {
 }
 
 .credit {
+  margin: 0;
+}
+
+/* Only the name is the link. */
+.credit a {
   color: inherit;
   text-decoration: none;
 }
@@ -101,8 +106,21 @@ body > div[data-skin] {
   font-style: normal;
 }
 
-.credit:hover,
-.credit:focus-visible {
+/* A tiny Artfish logo before the credit, in the same blue as the heart at the other end. It's drawn
+   as a mask so it takes each room's --footer-ai. */
+.credit .fish {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  margin: -0.2em 0.65em 0 0;
+  vertical-align: middle;
+  background: var(--footer-ai, #6fd6f5);
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+}
+
+.credit a:hover,
+.credit a:focus-visible {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
