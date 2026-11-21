@@ -117,7 +117,7 @@ const brightStars = [0, 1, 2].map(() =>
   }
 
   .screen {
-    padding: 0.55rem clamp(1rem, 4vw, 3rem) 3.5rem;
+    padding: 1.5rem clamp(1rem, 4vw, 3rem) 3.5rem;
   }
 
   h1 {
@@ -191,6 +191,11 @@ const brightStars = [0, 1, 2].map(() =>
   @media (max-width: 699px) {
     .pieces {
       --cols: 2;
+    }
+
+    /* The header already sits above the title here, so no extra room on top. */
+    .screen {
+      padding-top: 0.55rem;
     }
 
     :global(body[data-skin='cabinet'] .site-header) {
